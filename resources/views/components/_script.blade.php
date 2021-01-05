@@ -22,6 +22,7 @@
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 {{-- add ons JS --}}
 @stack('js')

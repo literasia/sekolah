@@ -85,6 +85,12 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/referensi/bagian-pegawai', 'BagianPegawaiController@index')
                     ->name('referensi.bagian-pegawai');
+                Route::post('/admin/referensi/bagian-pegawai', 'BagianPegawaiController@store');
+                Route::get('/admin/referensi/bagian-pegawai/{id}', 'BagianPegawaiController@edit');
+                Route::post('/admin/referensi/bagian-pegawai/update', 'BagianPegawaiController@update')
+                    ->name('referensi.bagian-pegawai-update');
+                Route::get('/admin/referensi/bagian-pegawai/hapus/{id}', 'BagianPegawaiController@destroy');
+
                 Route::get('/admin/referensi/semester', 'SemesterController@index')
                     ->name('referensi.semester');
                 Route::get('/admin/referensi/status-guru', 'StatusGuruController@index')
