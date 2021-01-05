@@ -52,7 +52,7 @@ class BagianPegawaiController extends Controller
 
         return response()
             ->json([
-                'success' => 'Data Added.'
+                'success' => 'Data Added.',
             ]);
     }
 

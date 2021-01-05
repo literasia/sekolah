@@ -93,6 +93,12 @@ Route::namespace('Admin')
 
                 Route::get('/admin/referensi/semester', 'SemesterController@index')
                     ->name('referensi.semester');
+                Route::post('/admin/referensi/semester', 'SemesterController@store');
+                Route::get('/admin/referensi/semester/{id}', 'SemesterController@edit');
+                Route::post('/admin/referensi/semester/update', 'SemesterController@update')
+                    ->name('referensi.semester-update');
+                Route::get('/admin/referensi/semester/hapus/{id}', 'SemesterController@destroy');
+
                 Route::get('/admin/referensi/status-guru', 'StatusGuruController@index')
                     ->name('referensi.status-guru');
                 Route::get('/admin/referensi/jenjang-pegawai', 'JenjangPegawaiController@index')

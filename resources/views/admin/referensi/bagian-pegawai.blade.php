@@ -152,14 +152,13 @@
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        console.log(data.errors);
                         var html = '';
                         if (data.errors) {
                             // for (var count = 0; count <= data.errors.length; count++) {
                             html = data.errors[0];
                             // }
                             $('#pegawai').addClass('is-invalid');
-                            toastr.error('Kolom harus diisi');
+                            toastr.error(html);
                         }
 
                         if (data.success) {
@@ -168,7 +167,6 @@
                             $('#form-pegawai')[0].reset();
                             $('#order-table').DataTable().ajax.reload();
                         }
-
                         $('#form_result').html(html);
                     }
                 });
