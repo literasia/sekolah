@@ -23,19 +23,23 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
-                        <form action="">
+                        <form id="form-semester">
+                            @csrf
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <input type="text" name="semester" id="semester" class="form-control form-control-sm" placeholder="Semester">
+                                        <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
-                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <input type="hidden" name="hidden_id" id="hidden_id">
+                                    <input type="hidden" id="action" val="add">
+                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
+                                    <button type="reset" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -57,28 +61,28 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Ganjil</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Genap</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
@@ -90,6 +94,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -105,7 +110,102 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable();
+            $('#order-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.referensi.semester') }}",
+                },
+                columns: [
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+                ]
+            });
+
+            $('#form-semester').on('submit', function (event) {
+                event.preventDefault();
+
+                var url = '';
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('admin.referensi.semester') }}";
+                }
+
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('admin.referensi.semester-update') }}";
+                }
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        var html = ''
+                        if (data.errors) {
+                            html = data.errors[0];
+                            $('#semester').addClass('is-invalid');
+                            toastr.error(html);
+                        }
+
+                        if (data.success) {
+                            toastr.success('Sukses!');
+                            $('#semester').removeClass('is-invalid');
+                            $('#form-semester')[0].reset();
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/admin/referensi/semester/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#semester').val(data.semester.name);
+                        $('#hidden_id').val(data.semester.id);
+                        $('#action').val('edit');
+                        $('#btn')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Update');
+                    }
+                });
+            });
+
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
+            });
+
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: '/admin/referensi/semester/hapus/'+user_id,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, success: function (data) {
+                        setTimeout(function () {
+                            $('#confirmModal').modal('hide');
+                            $('#order-table').DataTable().ajax.reload();
+                            toastr.success('Data berhasil dihapus');
+                        }, 1000);
+                    }
+                });
+            });
         });
     </script>
 @endpush

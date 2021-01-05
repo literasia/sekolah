@@ -83,6 +83,7 @@ Route::namespace('Admin')
         // Referensi
         Route::namespace('Referensi')
             ->group(function () {
+                // Bagian Pegawai
                 Route::get('/admin/referensi/bagian-pegawai', 'BagianPegawaiController@index')
                     ->name('referensi.bagian-pegawai');
                 Route::post('/admin/referensi/bagian-pegawai', 'BagianPegawaiController@store');
@@ -91,10 +92,24 @@ Route::namespace('Admin')
                     ->name('referensi.bagian-pegawai-update');
                 Route::get('/admin/referensi/bagian-pegawai/hapus/{id}', 'BagianPegawaiController@destroy');
 
+                // Semester
                 Route::get('/admin/referensi/semester', 'SemesterController@index')
                     ->name('referensi.semester');
+                Route::post('/admin/referensi/semester', 'SemesterController@store');
+                Route::get('/admin/referensi/semester/{id}', 'SemesterController@edit');
+                Route::post('/admin/referensi/semester/update', 'SemesterController@update')
+                    ->name('referensi.semester-update');
+                Route::get('/admin/referensi/semester/hapus/{id}', 'SemesterController@destroy');
+
+                // Status Guru
                 Route::get('/admin/referensi/status-guru', 'StatusGuruController@index')
                     ->name('referensi.status-guru');
+                Route::post('/admin/referensi/status-guru', 'StatusGuruController@store');
+                Route::get('/admin/referensi/status-guru/{id}', 'StatusGuruController@edit');
+                Route::post('/admin/referensi/status-guru/update', 'StatusGuruController@update')
+                    ->name('referensi.status-guru-update');
+                Route::get('/admin/referensi/status-guru/hapus/{id}', 'StatusGuruController@destroy');
+
                 Route::get('/admin/referensi/jenjang-pegawai', 'JenjangPegawaiController@index')
                     ->name('referensi.jenjang-pegawai');
                 Route::get('/admin/referensi/pengaturan-hak-akses', 'PengaturanHakAksesController@index')
