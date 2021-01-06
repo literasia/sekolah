@@ -16,7 +16,7 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->hasRole('user')) {
+        if (Auth::user()->hasRole('siswa')) {
             return $next($request);
         }
 
