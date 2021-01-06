@@ -4,6 +4,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::namespace('Siswa')
+    ->name('siswa.')
+    ->group(function () {
+        Route::get('/siswa', 'SiswaController@index')
+            ->name('index');
+
+        Route::get('/siswa/e-voting', 'EVoting\EVotingController@index')
+            ->name('e-voting.e-voting');
+    });
+
 Route::namespace('Superadmin')
     ->name('superadmin.')
     ->middleware(['auth', 'auth.superadmin'])
