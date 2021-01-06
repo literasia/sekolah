@@ -161,6 +161,11 @@
                             toastr.success('Sukses!');
                             $('#semester').removeClass('is-invalid');
                             $('#form-semester')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .val('Simpan');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);

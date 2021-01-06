@@ -50,41 +50,41 @@
                         <div class="col-md-6">
                           <div class="form-group bmd-form-group">
                            <select class="form-control" aria-label="Default select example">
-                        <option selected>Provinsi</option>
-                        <option value="1">Sumatra Utara</option>
-                        <option value="2">Sumatra barat</option>
-                        <option value="3">Riau</option>
-                        <option value="4">Kepulauan Riau</option>
-                        <option value="5">Jambi</option>
-                        <option value="6">Bengkulu</option>
-                        <option value="7">Sumatra Selatan</option>
-                        <option value="8">Kepulauan Bangka Belitung</option>
-                        <option value="9">Lampung</option>
-                        <option value="10">Banten</option>
-                        <option value="11">DKI Jakarta</option>
-                        <option value="12">Jawa Barat</option>
-                        <option value="13">Jawa Tengah</option>
-                        <option value="14">Jawa Timur</option>
-                        <option value="15">DI Yogyakarta</option>
-                        <option value="16">Bali</option>
-                        <option value="17">Nusa Tenggara Barat</option>
-                        <option value="18">Nusa Tenggara Timur</option>
-                        <option value="19">Kalimantan Barat</option>
-                        <option value="20">Kalimantan Selatan</option>
-                        <option value="21">Kalimantan Tengah</option>
-                        <option value="22">Kalimantan Timur</option>
-                        <option value="23">Kalimantan Utara</option>
-                        <option value="24">Gorontalo</option>
-                        <option value="25">Sulawesi Barat</option>
-                        <option value="26">Sulawesi Selatan</option>
-                        <option value="27">Sulawesi Tenggara</option>
-                        <option value="28">Sulawesi Tengah</option>
-                        <option value="29">Sulawesi Utara</option>
-                        <option value="30">Maluku</option>
-                        <option value="31">Maluku Utara</option>
-                        <option value="32">Papua</option>
-                        <option value="33">Papua Barat</option>
-                        </select>
+                            <option selected>Provinsi</option>
+                            <option value="1">Sumatra Utara</option>
+                            <option value="2">Sumatra barat</option>
+                            <option value="3">Riau</option>
+                            <option value="4">Kepulauan Riau</option>
+                            <option value="5">Jambi</option>
+                            <option value="6">Bengkulu</option>
+                            <option value="7">Sumatra Selatan</option>
+                            <option value="8">Kepulauan Bangka Belitung</option>
+                            <option value="9">Lampung</option>
+                            <option value="10">Banten</option>
+                            <option value="11">DKI Jakarta</option>
+                            <option value="12">Jawa Barat</option>
+                            <option value="13">Jawa Tengah</option>
+                            <option value="14">Jawa Timur</option>
+                            <option value="15">DI Yogyakarta</option>
+                            <option value="16">Bali</option>
+                            <option value="17">Nusa Tenggara Barat</option>
+                            <option value="18">Nusa Tenggara Timur</option>
+                            <option value="19">Kalimantan Barat</option>
+                            <option value="20">Kalimantan Selatan</option>
+                            <option value="21">Kalimantan Tengah</option>
+                            <option value="22">Kalimantan Timur</option>
+                            <option value="23">Kalimantan Utara</option>
+                            <option value="24">Gorontalo</option>
+                            <option value="25">Sulawesi Barat</option>
+                            <option value="26">Sulawesi Selatan</option>
+                            <option value="27">Sulawesi Tenggara</option>
+                            <option value="28">Sulawesi Tengah</option>
+                            <option value="29">Sulawesi Utara</option>
+                            <option value="30">Maluku</option>
+                            <option value="31">Maluku Utara</option>
+                            <option value="32">Papua</option>
+                            <option value="33">Papua Barat</option>
+                            </select>
                           </div>
                         </div>
                       </div>  

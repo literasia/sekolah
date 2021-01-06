@@ -23,7 +23,7 @@ class RoleSeed extends Seeder
         ]);
 
         Role::create([
-            'name' => 'user',
+            'name' => 'siswa',
         ]);
     }
 }

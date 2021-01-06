@@ -1899,8 +1899,6 @@ module.exports = {
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -12785,7 +12783,6 @@ return jQuery;
 
 /***/ }),
 
->>>>>>> d096caf934f9dc767a6f74125cb4f05f6a90add6
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
@@ -30146,8 +30143,6 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/toastr/toastr.js":
 /*!***************************************!*\
   !*** ./node_modules/toastr/toastr.js ***!
@@ -30644,7 +30639,6 @@ module.exports = function() {
 
 /***/ }),
 
->>>>>>> d096caf934f9dc767a6f74125cb4f05f6a90add6
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -30728,10 +30722,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-<<<<<<< HEAD
-=======
 window.toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
->>>>>>> d096caf934f9dc767a6f74125cb4f05f6a90add6
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -30767,17 +30758,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! C:\xampp\htdocs\literasia-project\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\literasia-project\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
 /***/ "./resources/sass/toastr.scss":
 /*!************************************!*\
   !*** ./resources/sass/toastr.scss ***!
@@ -30799,7 +30779,6 @@ module.exports = __webpack_require__(/*! C:\xampp\htdocs\literasia-project\resou
 __webpack_require__(/*! /home/anggit/Laravel/literasia/literasia-project/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /home/anggit/Laravel/literasia/literasia-project/resources/sass/app.scss */"./resources/sass/app.scss");
 module.exports = __webpack_require__(/*! /home/anggit/Laravel/literasia/literasia-project/resources/sass/toastr.scss */"./resources/sass/toastr.scss");
->>>>>>> d096caf934f9dc767a6f74125cb4f05f6a90add6
 
 
 /***/ })

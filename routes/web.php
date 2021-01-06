@@ -110,12 +110,26 @@ Route::namespace('Admin')
                     ->name('referensi.status-guru-update');
                 Route::get('/admin/referensi/status-guru/hapus/{id}', 'StatusGuruController@destroy');
 
+                // Jenjang pegawai
                 Route::get('/admin/referensi/jenjang-pegawai', 'JenjangPegawaiController@index')
                     ->name('referensi.jenjang-pegawai');
+                Route::post('/admin/referensi/jenjang-pegawai', 'JenjangPegawaiController@store');
+                Route::get('/admin/referensi/jenjang-pegawai/{id}', 'JenjangPegawaiController@edit');
+                Route::post('/admin/referensi/jenjang-pegawai/update', 'JenjangPegawaiController@update')
+                    ->name('referensi.jenjang-pegawai-update');
+                Route::get('/admin/referensi/jenjang-pegawai/hapus/{id}', 'JenjangPegawaiController@destroy');
+
                 Route::get('/admin/referensi/pengaturan-hak-akses', 'PengaturanHakAksesController@index')
                     ->name('referensi.pengaturan-hak-akses');
+
+                // Tingkatan Kelas
                 Route::get('/admin/referensi/tingkatan-kelas', 'TingkatanKelasController@index')
                     ->name('referensi.tingkatan-kelas');
+                Route::post('/admin/referensi/tingkatan-kelas', 'TingkatanKelasController@store');
+                Route::get('/admin/referensi/tingkatan-kelas/{id}', 'TingkatanKelasController@edit');
+                Route::post('/admin/referensi/tingkatan-kelas/update', 'TingkatanKelasController@update')
+                    ->name('referensi.tingkatan-kelas-update');
+                Route::get('/admin/referensi/tingkatan-kelas/hapus/{id}', 'TingkatanKelasController@destroy');
             });
 
         // Kalender

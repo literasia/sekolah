@@ -19,6 +19,7 @@ class UserSeed extends Seeder
 
         $superadmin = Role::where('name', 'superadmin')->first();
         $admin = Role::where('name', 'admin')->first();
+        $siswa = Role::where('name', 'siswa')->first();
 
         $superadmins = User::create([
             'name'      => 'Superadmin',
@@ -32,7 +33,15 @@ class UserSeed extends Seeder
             'password'  => bcrypt('admin'),
         ]);
 
+        $siswas = User::create([
+            'name'      => 'Siswa',
+            'username'  => 'siswa',
+            'password'  => bcrypt('siswa'),
+        ]);
+
+
         $superadmins->roles()->attach($superadmin);
         $admins->roles()->attach($admin);
+        $siswas->roles()->attach($siswa);
     }
 }

@@ -165,6 +165,11 @@
                             toastr.success('Data sukses ditambahkan');
                             $('#pegawai').removeClass('is-invalid');
                             $('#form-pegawai')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .val('Simpan');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
