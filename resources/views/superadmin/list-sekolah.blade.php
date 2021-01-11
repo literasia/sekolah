@@ -72,8 +72,8 @@
     </div>
 </div>
 
-    {{-- Modal --}}
-    @include('superadmin.modals._tambah-sekolah')
+{{-- Modal --}}
+@include('superadmin.modals._tambah-sekolah')
 @endsection
 
 {{-- addons css --}}
