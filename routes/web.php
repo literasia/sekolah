@@ -22,6 +22,18 @@ Route::namespace('Superadmin')
             ->name('index');
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
+
+            // Referensi
+            Route::namespace('Referensi')
+                ->group(function () {
+                    Route::get('/superadmin/referensi/jenis-kelamin', 'JenisKelaminController@index')
+                        ->name('referensi.jenis-kelamin');
+                    Route::post('/superadmin/referensi/jenis-kelamin', 'JenisKelaminController@store');
+                    Route::get('/superadmin/referensi/jenis-kelamin/{id}', 'JenisKelaminController@edit');
+                    Route::post('/superadmin/referensi/jenis-kelamin/update', 'JenisKelaminController@update')
+                        ->name('referensi.jenis-kelamin-update');
+                    Route::get('/superadmin/referensi/jenis-kelamin/hapus/{id}', 'JenisKelaminController@destroy');
+                });
     });
 
 Route::namespace('Admin')
