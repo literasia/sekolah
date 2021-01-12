@@ -34,6 +34,14 @@ Route::namespace('Superadmin')
                         ->name('referensi.jenis-kelamin-update');
                     Route::get('/superadmin/referensi/jenis-kelamin/hapus/{id}', 'JenisKelaminController@destroy');
                 });
+
+            // Referensi
+            Route::namespace('Referensi')
+                ->group(function () {
+                    Route::get('/superadmin/referensi/agama', 'AgamaController@index')
+                        ->name('referensi.agama');
+                    Route::post('/superadmin/referensi/agama', 'AgamaController@store');
+                });
     });
 
 Route::namespace('Admin')

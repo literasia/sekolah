@@ -59,7 +59,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@if (request()->is('superadmin/referensi/jenis-kelamin')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('superadmin/referensi/jenis-kelamin') || request()->is('superadmin/referensi/agama')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="icon-list"></i>
@@ -73,7 +73,7 @@
                             </a>
                         </li>
                         <li class="{{ request()->is('superadmin/referensi/agama') ? 'active' : '' }}">
-                            <a href="#" class="waves-effect waves-dark">
+                            <a href="{{ route('superadmin.referensi.agama') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Agama</span>
                             </a>
                         </li>
