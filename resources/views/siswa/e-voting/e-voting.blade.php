@@ -6,7 +6,7 @@
 @section('title-3', 'E-Voting')
 
 @section('describ')
-    Ini adalah halaman E-Voting untuk admin
+    Ini adalah halaman E-Voting untuk siswa
 @endsection
 
 @section('icon-l', 'fa fa-vote-yea')
@@ -31,17 +31,36 @@
                                     <th>Pemilihan</th>
                                     <th>Tanggal</th>
                                     <th>Kandidat</th>
-                                    <th>Actions</th>
+                                    <th width= 15%>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
                                 <tr>
                                     <td>1</td>
+                                    <td>Position 1</td>
+                                    <td>11 Desember 2020</td>
+                                    <td>Test 1234</td>
+                                    <td>
+                                    <a>&nbsp</a><a>&nbsp</a>
+                                        <a href="" class="text-success"><i class="fa-2x icon-people"></i></a>
+
+                                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+
+                                        <a href="btn btn-info btn-sm shadow-sm"><i class="fa-2x icon-eye"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
                                     <td>Position 2</td>
                                     <td>12 Desember 2020</td>
                                     <td>Test 1234</td>
                                     <td>
-                                        <button class="btn btn-success btn-sm shadow-sm">Vote</button>
+                                    <a>&nbsp</a><a>&nbsp</a>
+                                        <a href="" class="text-success"><i class="fa-2x icon-people"></i></a>
+
+                                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+
+                                        <a href="btn btn-info btn-sm shadow-sm"><i class="fa-2x icon-eye"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

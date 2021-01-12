@@ -1,19 +1,19 @@
 @extends('layouts.siswa')
 
 {{-- config 1 --}}
-@section('title', 'Pengumuman | Pesan')
-@section('title-2', 'Pesan')
-@section('title-3', 'Pesan')
+@section('title', 'Leaderboard | Leaderboard Siswa')
+@section('title-2', 'Leaderboard Siswa')
+@section('title-3', 'Leaderboard Siswa')
 
 @section('describ')
-    Ini adalah halaman pesan untuk admin
+    Ini adalah halaman Leaderboard untuk siswa
 @endsection
 
 @section('icon-l', 'icon-bell')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pengumuman.pengumuman') }}
+    {{ route('siswa.leaderboard.leaderboard-siswa') }}
 @endsection
 
 {{-- main content --}}
@@ -22,23 +22,20 @@
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
+                                <thead class="text-center">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Set Waktu</th>
-                                        <th>Tanggal Upload</th>
-                                        <th>Tampil Pada</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th width= 25%>Tanggal</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                <tr>
+                                    <td>12 Desember 2020</td>
+                                    <td>Ujian Akhir Sekolah</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

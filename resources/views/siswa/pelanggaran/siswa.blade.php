@@ -1,19 +1,19 @@
 @extends('layouts.siswa')
 
 {{-- config 1 --}}
-@section('title', 'Pengumuman | Pesan')
-@section('title-2', 'Pesan')
-@section('title-3', 'Pesan')
+@section('title', 'Pelanggaran | Pelanggaran Siswa')
+@section('title-2', 'Pelanggaran Siswa')
+@section('title-3', 'Pelanggaran Siswa')
 
 @section('describ')
-    Ini adalah halaman pesan untuk admin
+    Ini adalah halaman pelanggaran siswa
 @endsection
 
-@section('icon-l', 'icon-bell')
+@section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pengumuman.pengumuman') }}
+    {{ route('admin.pesertadidik.siswa-pindahan') }}
 @endsection
 
 {{-- main content --}}
@@ -22,19 +22,17 @@
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                    <!-- <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button> -->
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Set Waktu</th>
-                                        <th>Tanggal Upload</th>
-                                        <th>Tampil Pada</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th width= 10%>No</th>
+                                        <th width= 40%>Pelanggaran</th>
+                                        <th>Tanggal</th>
+                                        <th>Point</th>
+                                        <th>Sanksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
@@ -49,7 +47,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.pengumuman.modals._pesan')
+    @include('admin.pelanggaran.modals._siswa')
 @endsection
 
 {{-- addons css --}}
@@ -77,15 +75,10 @@
             $('#order-table').DataTable();
 
             $('#add').on('click', function () {
-                $('#modal-pesan').modal('show');
+                $('#modal-siswa').modal('show');
             });
 
-            $('#start_date').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
-
-            $('#end_date').dateDropper({
+            $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
             });

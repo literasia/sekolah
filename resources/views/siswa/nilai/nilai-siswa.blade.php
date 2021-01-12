@@ -1,44 +1,41 @@
 @extends('layouts.siswa')
 
 {{-- config 1 --}}
-@section('title', 'Pengumuman | Pesan')
-@section('title-2', 'Pesan')
-@section('title-3', 'Pesan')
+@section('title', 'Nilai | Nilai Siswa')
+@section('title-2', 'Nilai Siswa')
+@section('title-3', 'Nilai Siswa')
 
 @section('describ')
-    Ini adalah halaman pesan untuk admin
+    Ini adalah halaman Nilai untuk siswa
 @endsection
 
 @section('icon-l', 'icon-bell')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pengumuman.pengumuman') }}
+    {{ route('siswa.nilai.nilai-siswa') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
+                                <thead class="text-center">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Set Waktu</th>
-                                        <th>Tanggal Upload</th>
-                                        <th>Tampil Pada</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th width= 25%>Tanggal</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                <tr>
+                                    <td>12 Desember 2020</td>
+                                    <td>Ujian Akhir Sekolah</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -46,7 +43,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     {{-- Modal --}}
     @include('admin.pengumuman.modals._pesan')
