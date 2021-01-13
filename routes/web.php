@@ -43,6 +43,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/agama/update', 'AgamaController@update')
                         ->name('referensi.agama-update');
                     Route::get('/superadmin/referensi/agama/hapus/{id}', 'AgamaController@destroy');
+
+                    // Status Nikah
+                    Route::get('/superadmin/referensi/status-nikah', 'StatusNikahController@index')
+                        ->name('referensi.status-nikah');
+                    Route::post('/superadmin/referensi/status-nikah', 'StatusNikahController@store');
+                    Route::get('/superadmin/referensi/status-nikah/{id}', 'StatusNikahController@edit');
+                    Route::post('/superadmin/referensi/status-nikah/update', 'StatusNikahController@update')
+                        ->name('referensi.status-nikah-update');
+                    Route::get('/superadmin/referensi/status-nikah/hapus/{id}', 'StatusNikahController@destroy');
                 });
     });
 
