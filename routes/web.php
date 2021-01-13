@@ -22,6 +22,7 @@ Route::namespace('Superadmin')
             ->name('index');
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
+        Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
 
             // Referensi
             Route::namespace('Referensi')
