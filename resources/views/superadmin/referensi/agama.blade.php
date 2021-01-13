@@ -144,7 +144,7 @@
                 }
                 
                 if ($('#action').val() == 'edit') {
-                    url = "";
+                    url = "{{ route('superadmin.referensi.agama-update') }}";
                 }
 
                 $.ajax({
@@ -181,11 +181,11 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/superadmin/referensi/jenis-kelamin/'+id,
+                    url: '/superadmin/referensi/agama/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#jenis_kelamin').val(data.jeniskelamin.name);
-                        $('#hidden_id').val(data.jeniskelamin.id);
+                        $('#agama').val(data.agama.name);
+                        $('#hidden_id').val(data.agama.id);
                         $('#action').val('edit');
                         $('#btn')
                             .removeClass('btn-outline-success')
@@ -204,7 +204,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/superadmin/referensi/jenis-kelamin/hapus/'+user_id,
+                    url: '/superadmin/referensi/agama/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {

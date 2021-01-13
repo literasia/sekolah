@@ -26,6 +26,7 @@ Route::namespace('Superadmin')
             // Referensi
             Route::namespace('Referensi')
                 ->group(function () {
+                    // Jenis Kelamin
                     Route::get('/superadmin/referensi/jenis-kelamin', 'JenisKelaminController@index')
                         ->name('referensi.jenis-kelamin');
                     Route::post('/superadmin/referensi/jenis-kelamin', 'JenisKelaminController@store');
@@ -33,14 +34,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/jenis-kelamin/update', 'JenisKelaminController@update')
                         ->name('referensi.jenis-kelamin-update');
                     Route::get('/superadmin/referensi/jenis-kelamin/hapus/{id}', 'JenisKelaminController@destroy');
-                });
 
-            // Referensi
-            Route::namespace('Referensi')
-                ->group(function () {
+                    // Agama
                     Route::get('/superadmin/referensi/agama', 'AgamaController@index')
                         ->name('referensi.agama');
                     Route::post('/superadmin/referensi/agama', 'AgamaController@store');
+                    Route::get('/superadmin/referensi/agama/{id}', 'AgamaController@edit');
+                    Route::post('/superadmin/referensi/agama/update', 'AgamaController@update')
+                        ->name('referensi.agama-update');
+                    Route::get('/superadmin/referensi/agama/hapus/{id}', 'AgamaController@destroy');
                 });
     });
 

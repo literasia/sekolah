@@ -55,4 +55,47 @@ class AgamaController extends Controller
                 'success' => 'Data berhasil ditambahkan.',
             ]);
     }
+
+    public function edit($id) {
+        $agama = Agama::find($id);
+
+        return response()
+            ->json([
+                'agama' => $agama
+            ]);
+    }
+
+    public function update(Request $request) {
+        // validasi
+        $rules = [
+           'agama'  => 'required|max:100',
+       ];
+
+       $message = [
+           'agama.required' => 'Kolom ini gaboleh kosong',
+       ];
+
+       $validator = Validator::make($request->all(), $rules, $message);
+
+       if ($validator->fails()) {
+           return response()
+               ->json([
+                   'errors' => $validator->errors()->all()
+               ]);
+       }
+
+       Agama::whereId($request->input('hidden_id'))->update([
+           'name'  => $request->input('agama'),
+       ]);
+
+       return response()
+           ->json([
+               'success' => 'Data berhasil diupdate.',
+           ]);
+    }
+
+    public function destroy($id) {
+        $agama = Agama::find($id);
+        $agama->delete();
+    }
 }
