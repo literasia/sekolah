@@ -61,6 +61,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/provinsi/update', 'ProvinsiController@update')
                         ->name('referensi.provinsi-update');
                     Route::get('/superadmin/referensi/provinsi/hapus/{id}', 'ProvinsiController@destroy');
+
+                    // Kabupaten/Kota
+                    Route::get('/superadmin/referensi/kabupaten-kota', 'KabupatenKotaController@index')
+                        ->name('referensi.kabupaten-kota');
+                    Route::post('/superadmin/referensi/kabupaten-kota', 'KabupatenKotaController@store');
+                    Route::get('/superadmin/referensi/kabupaten-kota/{id}', 'KabupatenKotaController@edit');
+                    Route::post('/superadmin/referensi/kabupaten-kota/update', 'KabupatenKotaController@update')
+                        ->name('referensi.kabupaten-kota-update');
+                    Route::get('/superadmin/referensi/kabupaten-kota/hapus/{id}', 'KabupatenKotaController@destroy');
                 });
     });
 
