@@ -52,6 +52,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/status-nikah/update', 'StatusNikahController@update')
                         ->name('referensi.status-nikah-update');
                     Route::get('/superadmin/referensi/status-nikah/hapus/{id}', 'StatusNikahController@destroy');
+
+                    // Provinsi
+                    Route::get('/superadmin/referensi/provinsi', 'ProvinsiController@index')
+                        ->name('referensi.provinsi');
+                    Route::post('/superadmin/referensi/provinsi', 'ProvinsiController@store');
+                    Route::get('/superadmin/referensi/provinsi/{id}', 'ProvinsiController@edit');
+                    Route::post('/superadmin/referensi/provinsi/update', 'ProvinsiController@update')
+                        ->name('referensi.provinsi-update');
+                    Route::get('/superadmin/referensi/provinsi/hapus/{id}', 'ProvinsiController@destroy');
                 });
     });
 
