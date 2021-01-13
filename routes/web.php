@@ -70,6 +70,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/kabupaten-kota/update', 'KabupatenKotaController@update')
                         ->name('referensi.kabupaten-kota-update');
                     Route::get('/superadmin/referensi/kabupaten-kota/hapus/{id}', 'KabupatenKotaController@destroy');
+
+                    // Kecamatan
+                    Route::get('/superadmin/referensi/kecamatan', 'KecamatanController@index')
+                        ->name('referensi.kecamatan');
+                    Route::post('/superadmin/referensi/kecamatan', 'KecamatanController@store');
+                    Route::get('/superadmin/referensi/kecamatan/{id}', 'KecamatanController@edit');
+                    Route::post('/superadmin/referensi/kecamatan/update', 'KecamatanController@update')
+                        ->name('referensi.kecamatan-update');
+                    Route::get('/superadmin/referensi/kecamatan/hapus/{id}', 'KecamatanController@destroy');
                 });
     });
 
