@@ -1,15 +1,15 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Referensi | Provinsi')
-@section('title-2', 'Provinsi')
-@section('title-3', 'Provinsi')
+@section('title', 'Referensi | Suku')
+@section('title-2', 'Suku')
+@section('title-3', 'Suku')
 @section('describ')
-    Ini adalah halaman provinsi untuk superadmin
+    Ini adalah halaman suku untuk superadmin
 @endsection
-@section('icon-l', 'icon-map')
+@section('icon-l', 'icon-globe-alt')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('superadmin.referensi.provinsi') }}
+    {{ route('superadmin.referensi.suku') }}
 @endsection
 
 @section('content')
@@ -18,13 +18,13 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="card-block">
-                    <form id="form-provinsi">
+                    <form id="form-suku">
                         @csrf
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="provinsi">Nama Provinsi:</label>
-                                    <input type="text" name="provinsi" id="provinsi" class="form-control form-control-sm" placeholder="Nama Provinsi">
+                                    <label for="suku">Nama Suku:</label>
+                                    <input type="text" name="suku" id="suku" class="form-control form-control-sm" placeholder="Nama Suku">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                             <thead class="text-left">
                                 <tr>
                                     <th>No</th>
-                                    <th>Provinsi</th>
+                                    <th>Suku</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -109,7 +109,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('superadmin.referensi.provinsi') }}",
+                    url: "{{ route('superadmin.referensi.suku') }}",
                 },
                 columns: [
                 {
@@ -127,16 +127,16 @@
                 ]
             });
 
-            $('#form-provinsi').on('submit', function (event) {
+            $('#form-suku').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
 
                 if ($('#action').val() == 'add') {
-                    url = "{{ route('superadmin.referensi.provinsi') }}";
+                    url = "{{ route('superadmin.referensi.suku') }}";
                 }
                 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('superadmin.referensi.provinsi-update') }}";
+                    url = "{{ route('superadmin.referensi.suku-update') }}";
                 }
 
                 $.ajax({
@@ -156,8 +156,8 @@
 
                         if (data.success) {
                             toastr.success(data.success);
-                            $('#provinsi').removeClass('is-invalid');
-                            $('#form-provinsi')[0].reset();
+                            $('#suku').removeClass('is-invalid');
+                            $('#form-suku')[0].reset();
                             $('#action').val('add');
                             $('#btn')
                                 .removeClass('btn-outline-info')
@@ -173,11 +173,11 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/superadmin/referensi/provinsi/'+id,
+                    url: '/superadmin/referensi/suku/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#provinsi').val(data.provinsi.name);
-                        $('#hidden_id').val(data.provinsi.id);
+                        $('#suku').val(data.suku.name);
+                        $('#hidden_id').val(data.suku.id);
                         $('#action').val('edit');
                         $('#btn')
                             .removeClass('btn-outline-success')
@@ -196,7 +196,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/superadmin/referensi/provinsi/hapus/'+user_id,
+                    url: '/superadmin/referensi/suku/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {

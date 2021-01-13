@@ -79,6 +79,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/kecamatan/update', 'KecamatanController@update')
                         ->name('referensi.kecamatan-update');
                     Route::get('/superadmin/referensi/kecamatan/hapus/{id}', 'KecamatanController@destroy');
+
+                    // Suku
+                    Route::get('/superadmin/referensi/suku', 'SukuController@index')
+                        ->name('referensi.suku');
+                    Route::post('/superadmin/referensi/suku', 'SukuController@store');
+                    Route::get('/superadmin/referensi/suku/{id}', 'SukuController@edit');
+                    Route::post('/superadmin/referensi/suku/update', 'SukuController@update')
+                        ->name('referensi.suku-update');
+                    Route::get('/superadmin/referensi/suku/hapus/{id}', 'SukuController@destroy');
                 });
     });
 
