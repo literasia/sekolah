@@ -8,7 +8,7 @@
                         <span class="pcoded-micon">
                             <i class="fa fa-home"></i>
                         </span>
-                        <span class="pcoded-mtext">Dashboard Siswa</span>
+                        <span class="pcoded-mtext">Dashboard</span>
                     </a>
                 <li class="{{ request()->is('siswa/pelanggaran') ? 'active' : '' }}">
                     <a href="{{ route('siswa.pelanggaran.pelanggaran') }}" class="waves-effect waves-dark">
@@ -40,7 +40,7 @@
                         <span class="pcoded-micon">
                             <i class="fa fa-bell"></i>
                         </span>
-                        <span class="pcoded-mtext">pengumuman</span>
+                        <span class="pcoded-mtext">Pengumuman</span>
                     </a>
                 </li>
                 <li class="{{ request()->is('siswa/perpustakaan') ? 'active' : '' }}">
@@ -62,7 +62,7 @@
                 <li class="{{ request()->is('siswa/elearning') ? 'active' : '' }}">
                     <a href="{{ route('siswa.elearning.elearning-siswa') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-vote-yea"></i>
+                            <i class="fa fa-desktop"></i>
                         </span>
                         <span class="pcoded-mtext">E-Learning</span>
                     </a>
@@ -70,17 +70,33 @@
                 <li class="{{ request()->is('siswa/leaderboard') ? 'active' : '' }}">
                     <a href="{{ route('siswa.leaderboard.leaderboard-siswa') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-trophy"></i>
+                            <i class="fa fa-crown"></i>
                         </span>
                         <span class="pcoded-mtext">Leaderboard</span>
                     </a>
                 </li>
                 <li class="{{ request()->is('siswa/nilai') ? 'active' : '' }}">
-                    <a href="{{ route('siswa.nilai.nilai-siswa') }}" class="waves-effect waves-dark">
+                     <a href="{{ route('siswa.nilai.nilai-siswa') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-medal"></i>
+                        </span>
+                        <span class="pcoded-mtext">Nilai</span>
+                    </a>
+                </li>
+                <li class="{{ request()->is('siswa/forum') ? 'active' : '' }}">
+                     <a href="{{ route('siswa.forum.forum-siswa') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-vote-yea"></i>
                         </span>
-                        <span class="pcoded-mtext">Nilai</span>
+                        <span class="pcoded-mtext">Forum</span>
+                    </a>
+                </li>
+                <li class="{{ request()->is('siswa/logout') ? 'active' : '' }}">
+                     <a href="{{ route('siswa.logout.logout-siswa') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-power-off"></i>
+                        </span>
+                        <span class="pcoded-mtext">Logout</span>
                     </a>
                 </li>
             </ul>

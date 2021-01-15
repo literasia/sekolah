@@ -27,40 +27,42 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No</th>
+                                    <th width= 2%>No</th>
                                     <th>Pemilihan</th>
-                                    <th>Tanggal</th>
+                                    <th width= 15>Tanggal</th>
                                     <th>Kandidat</th>
-                                    <th width= 15%>Actions</th>
+                                    <th width= 8%>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
                                 <tr>
                                     <td>1</td>
                                     <td>Position 1</td>
-                                    <td>11 Desember 2020</td>
+                                    <td>11/15/2020</td>
                                     <td>Test 1234</td>
                                     <td>
-                                    <a>&nbsp</a><a>&nbsp</a>
-                                        <a href="" class="text-success"><i class="fa-2x icon-people"></i></a>
+                                    <a>&nbsp</a>
+                                        <a href="" class="text-success"><i class="fa-18 px icon-people"></i></a>
 
-                                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+                                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+                                        
 
-                                        <a href="btn btn-info btn-sm shadow-sm"><i class="fa-2x icon-eye"></i></a>
+                                        <a href="btn btn-info btn-sm shadow-sm"><i class="fa-18 px icon-eye"></i></a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
                                     <td>Position 2</td>
-                                    <td>12 Desember 2020</td>
+                                    <td>12/03/2020</td>
                                     <td>Test 1234</td>
                                     <td>
-                                    <a>&nbsp</a><a>&nbsp</a>
-                                        <a href="" class="text-success"><i class="fa-2x icon-people"></i></a>
+                                    <a>&nbsp</a>
+                                        <a href="" class="text-success"><i class="fa-18 icon-people"></i></a>
 
                                         <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+                                        
 
-                                        <a href="btn btn-info btn-sm shadow-sm"><i class="fa-2x icon-eye"></i></a>
+                                        <a href="btn btn-info btn-sm shadow-sm"><i class="fa-18 icon-eye"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

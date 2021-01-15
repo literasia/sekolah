@@ -9,7 +9,7 @@
     Ini adalah halaman Leaderboard untuk siswa
 @endsection
 
-@section('icon-l', 'icon-bell')
+@section('icon-l', 'fa fa-crown')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -18,32 +18,84 @@
 
 {{-- main content --}}
 @section('content')
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th width= 25%>Tanggal</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                <tr>
-                                    <td>12 Desember 2020</td>
-                                    <td>Ujian Akhir Sekolah</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+<!-- {{-- testimonial and top selling start --}} -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card table-card">
+            <div class="card-header">
+                <h5>Leaderboard</h5>
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li class="first-opt"><i class="feather icon-chevron-left open-card-option"></i></li>
+                        <li><i class="feather icon-maximize full-card"></i></li>
+                        <li><i class="icon-minus minimize-card"></i></li>
+                        <li><i class="feather icon-refresh-cw reload-card"></i></li>
+                        <li><i class="icon-trash close-card"></i></li>
+                        <li><i class="feather icon-chevron-left open-card-option"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-block p-b-0">
+                <div class="table-responsive">
+                    <table class="table table-hover m-b-0">
+                        <thead>
+                            <tr>
+                                <th width= 15%>Minggu Ini</th>
+                                <th width= 15%>Minggu Lalu</th>
+                                <th width= 25%>Nama</th>
+                                <th width= 15%>E-Book</th>
+                                <th width= 15%>Audio Book</th>
+                                <th width= 15%>Video Book</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>SMA N 1 Medan</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ 60 }}</td>
+                                <td>{{ 60 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>SMA N 1 Brandan Barat</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ 60 }}</td>
+                                <td>{{ 60 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>SMA N 1 Babalan</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ 60 }}</td>
+                                <td>{{ 60 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>SMA N 1 Besitang</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ 20 }}</td>
+                                <td>{{ 60 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>SMK YPT Maju</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ 30 }}</td>
+                                <td>{{ 60 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     {{-- Modal --}}
     @include('admin.pengumuman.modals._pesan')

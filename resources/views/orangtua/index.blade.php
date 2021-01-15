@@ -1,10 +1,10 @@
-@extends('layouts.siswa')
+@extends('layouts.Orangtua')
 
 @section('title', 'Dashboard')
 @section('title-2', 'Dashboard')
 @section('title-3', 'Dashboard')
 @section('describ')
-    Ini adalah halaman dashboard awal untuk siswa
+    Ini adalah halaman dashboard awal untuk Orangtua
 @endsection
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')

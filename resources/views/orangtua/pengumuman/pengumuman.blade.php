@@ -1,4 +1,4 @@
-@extends('layouts.siswa')
+@extends('layouts.orangtua')
 
 {{-- config 1 --}}
 @section('title', 'Pengumuman | Pengumuman')
@@ -6,14 +6,14 @@
 @section('title-3', 'Pengumuman')
 
 @section('describ')
-    Ini adalah halaman Pengumuman untuk siswa
+    Ini adalah halaman Pengumuman untuk Orangtua
 @endsection
 
 @section('icon-l', 'icon-bell')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('siswa.pengumuman.pengumuman') }}
+    {{ route('orangtua.pengumuman.pengumuman') }}
 @endsection
 
 {{-- main content --}}

@@ -1,24 +1,24 @@
-@extends('layouts.siswa')
+@extends('layouts.orangtua')
 
 {{-- config 1 --}}
-@section('title', 'Elearning | Elearning Siswa')
-@section('title-2', 'Elearning Siswa')
-@section('title-3', 'Elearning Siswa')
+@section('title', 'Kalender | Kalender Akademik')
+@section('title-2', 'Kalender Akademik')
+@section('title-3', 'Kalender Akademik')
 
 @section('describ')
-    Ini adalah halaman Elearning untuk siswa
+    Ini adalah halaman kalender akademik untuk Orangtua
 @endsection
 
-@section('icon-l', 'fa fa-desktop')
+@section('icon-l', 'fa fa-calendar')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('siswa.elearning.elearning-siswa') }}
+    {{ route('orangtua.kalender.kalender-akademik') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 @endsection
 
 {{-- addons css --}}

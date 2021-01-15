@@ -6,10 +6,10 @@
 @section('title-3', 'Pelanggaran Siswa')
 
 @section('describ')
-    Ini adalah halaman pelanggaran siswa
+    Ini adalah halaman pelanggaran untuk siswa
 @endsection
 
-@section('icon-l', 'icon-people')
+@section('icon-l', 'fa fa-exclamation-triangle')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -22,17 +22,16 @@
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button> -->
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th width= 10%>No</th>
-                                        <th width= 40%>Pelanggaran</th>
-                                        <th>Tanggal</th>
-                                        <th>Point</th>
-                                        <th>Sanksi</th>
+                                        <th width= 2%>No</th>
+                                        <th width= 34%>Pelanggaran</th>
+                                        <th width= 15%>Tanggal</th>
+                                        <th width= 15%>Point</th>
+                                        <th width= 34%>Sanksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
