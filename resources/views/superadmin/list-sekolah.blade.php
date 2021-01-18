@@ -27,42 +27,16 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>ID Sekolah</th>
                                     <th>Nama Sekolah</th>
+                                    <th>Jenjang</th>
+                                    <th>T. A</th>
                                     <th>Alamat</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>SMA N 1 Brandan Barat</td>
-                                    <td>Jl. Medan - B. Aceh Km. 89</td>
-                                    <td>
-                                        <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                        &nbsp;&nbsp;
-                                        <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>MTs N 2 Langkat</td>
-                                    <td>Jl. Medan - B. Aceh Besitang</td>
-                                    <td>
-                                        <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                        &nbsp;&nbsp;
-                                        <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>SDN 054922 Bukit Pelita</td>
-                                    <td>Desa Bukit Selamat DUsun Bukit Pelita Besitang</td>
-                                    <td>
-                                        <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                        &nbsp;&nbsp;
-                                        <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -81,6 +55,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -94,13 +69,210 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable();
+            $('#order-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('superadmin.list-sekolah') }}",
+                },
+                columns: [
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'id_sekolah',
+                    name: 'id_sekolah'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'jenjang',
+                    name: 'jenjang'
+                },
+                {
+                    data: 'tahun_ajaran',
+                    name: 'tahun_ajaran'
+                },
+                {
+                    data: 'alamat',
+                    name: 'alamat'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+                ],
+                columnDefs: [
+                {
+                    render: function (data, type, full, meta) {
+                        return "<div class='text-wrap width-200'>" + data + "</div>";
+                    },
+                    targets: 5
+                }
+                ]
+            });
+
+            $('#rest').on('click', function () {
+                $('#form-sekolah')[0].reset();
+                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+            });
+
+            $('.close').on('click', function () {
+                $('#form-sekolah')[0].reset();
+                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+            });
 
             $('#add').on('click', function () {
                 $('#modal-sekolah').modal('show');
+                $('.modal-title').text('Tambahin Sekolah nya doong');
+                $('#action').val('add');
+                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+            });
+
+            $('#form-sekolah').on('submit', function (event) {
+                event.preventDefault();
+                var url = '';
+
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('superadmin.list-sekolah') }}";
+                }
+                
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('superadmin.list-sekolah-update') }}";
+                }
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        var html = '';
+                        if (data.errors) {
+                            for (var count = 0; count < data.errors.length; count++) {
+                                html = data.errors[count];
+                            }
+                            $('#sekolah').addClass('is-invalid');
+                            $('#id_sekolah').addClass('is-invalid');
+                            $('#name').addClass('is-invalid');
+                            $('#jenjang').addClass('is-invalid');
+                            $('#tahun_ajaran').addClass('is-invalid');
+                            $('#alamat').addClass('is-invalid');
+                            $('#username').addClass('is-invalid');
+                            $('#password').addClass('is-invalid');
+                            toastr.error(html);
+                        }
+
+                        if (data.success) {
+                            toastr.success(data.success);
+                            $('#modal-sekolah').modal('hide');
+                            $('#id_sekolah').removeClass('is-invalid');
+                            $('#name').removeClass('is-invalid');
+                            $('#jenjang').removeClass('is-invalid');
+                            $('#tahun_ajaran').removeClass('is-invalid');
+                            $('#alamat').removeClass('is-invalid');
+                            $('#username').removeClass('is-invalid');
+                            $('#password').removeClass('is-invalid');
+                            $('#form-sekolah')[0].reset();
+                            $('#action').val('add');
+                            $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/superadmin/list-sekolah/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#action').val('edit');
+                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#id_sekolah').val(data.sekolah.id_sekolah);
+                        $('#name').val(data.sekolah.name);
+                        $('#jenjang').val(data.sekolah.jenjang);
+                        $('#tahun_ajaran').val(data.sekolah.tahun_ajaran);
+                        $('#alamat').val(data.sekolah.alamat);
+                        $('#hidden_id').val(data.sekolah.id);
+                        $('#username').val(data.user[0].username).attr('readonly', true);
+                        $('#password').val(data.user[0].password).attr('readonly', true);
+                        $('#modal-sekolah').modal('show');
+                    }
+                });
+            });
+
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
+            });
+
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: '/superadmin/referensi/agama/hapus/'+user_id,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, success: function (data) {
+                        setTimeout(function () {
+                            $('#confirmModal').modal('hide');
+                            $('#order-table').DataTable().ajax.reload();
+                            toastr.success('Data berhasil dihapus');
+                        }, 1000);
+                    }
+                });
             });
         });
+
+        function deleteConfirmation(id) {
+            var number = id;
+            console.log(number);
+            Swal.fire({
+                icon: 'warning',
+                title: "Delete?",
+                text: "Please ensure and then confirm!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, Cancel it!",
+                reverseButtons: !0
+            }).then(function (event) {
+                if (event.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '/superadmin/list-sekolah/delete/'+number,
+                        type: 'POST',
+                        data: { _token: CSRF_TOKEN },
+                        dataType: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: "Success!",
+                                    text: "👍 Data Deleted Successfully.",
+                                });
+                                $('#form-sekolah')[0].reset();
+                                $('#order-table').DataTable().ajax.reload();
+                            } else {
+                                toastr.error('⚠ Failed!');
+                            }
+                        }
+                    });
+                } else {
+                    event.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            });
+        }
     </script>
 @endpush

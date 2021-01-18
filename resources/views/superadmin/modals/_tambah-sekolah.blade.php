@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form id="form-sekolah">
                     @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -21,16 +21,16 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="nama_sekolah">Nama Sekolah:</label>
-                                <input type="text" name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm" placeholder="Nama Sekolah">
+                                <label for="name">Nama Sekolah:</label>
+                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Nama Sekolah">
                             </div>
                         </div>
                     </div>  
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Alamat:</label>
-                                <textarea class="form-control form-control-sm" name="alamat_sekolah" id="alamat_sekolah" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
+                                <label for="alamat">Alamat Sekolah:</label>
+                                <textarea class="form-control form-control-sm" name="alamat" id="alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-right">
-                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>                          
+                                <input type="hidden" name="hidden_id" id="hidden_id">
+                                <input type="hidden" id="action">
+                                <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>                          
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@
 {{-- Style.css --}}
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/widget.css') }}">
-<link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 {{-- Add on CSS --}}
 @stack('css')

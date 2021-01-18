@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function hasRole($role) {
         return null !== $this->roles()->where('name', $role)->first();
     }
+
+    public function sekolah() {
+        return $this->belongsTo('App\Models\Sekolah');
+    }
 }
