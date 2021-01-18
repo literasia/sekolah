@@ -9,10 +9,62 @@ Route::namespace('Siswa')
     ->group(function () {
         Route::get('/siswa', 'SiswaController@index')
             ->name('index');
-
+        //evoting
         Route::get('/siswa/e-voting', 'EVoting\EVotingController@index')
             ->name('e-voting.e-voting');
-    });
+
+        Route::get('/siswa/kalender', 'Kalender\KalenderAkademikController@index')
+            ->name('kalender.kalender-akademik');
+
+        Route::get('/siswa/pengumuman', 'Pengumuman\PengumumanController@index')
+             ->name('pengumuman.pengumuman');
+
+        Route::get('/siswa/pelanggaran', 'Pelanggaran\SiswaController@index')
+             ->name('pelanggaran.pelanggaran');
+
+        Route::get('/siswa/perpustakaan', 'Perpustakaan\PerpustakaanController@index')
+             ->name('perpustakaan.perpustakaan');
+        
+        Route::get('/siswa/cbt', 'Cbt\CbtSiswaController@index')
+             ->name('cbt.cbt-siswa');
+        
+        Route::get('/siswa/elearning', 'Elearning\ElearningSiswaController@index')
+             ->name('elearning.elearning-siswa');
+
+        Route::get('/siswa/leaderboard', 'Leaderboard\LeaderboardSiswaController@index')
+             ->name('leaderboard.leaderboard-siswa');
+
+        Route::get('/siswa/nilai', 'Nilai\NilaiSiswaController@index')
+             ->name('nilai.nilai-siswa');
+
+        Route::get('/siswa/forum', 'Forum\ForumSiswaController@index')
+             ->name('forum.forum-siswa');
+
+        Route::get('/siswa/logout', 'Logout\LogoutSiswaController@index')
+             ->name('logout.logout-siswa');
+      
+});
+    
+Route::namespace('Orangtua')
+    ->name('orangtua.')
+    ->group(function () {
+        Route::get('/orangtua', 'OrangtuaController@index')
+            ->name('index');
+        
+        Route::get('/orangtua/pelanggaran', 'Pelanggaran\OrangtuaController@index')
+            ->name('pelanggaran.pelanggaran');
+        
+        Route::get('/orangtua/kalender', 'Kalender\KalenderAkademikController@index')
+            ->name('kalender.kalender-akademik');
+
+        Route::get('/orangtua/pengumuman', 'Pengumuman\PengumumanController@index')
+             ->name('pengumuman.pengumuman');
+
+        Route::get('/orangtua/nilai', 'Nilai\NilaiOrangtuaController@index')
+             ->name('nilai.nilai-orangtua');
+
+      
+});   
 
 Route::namespace('Superadmin')
     ->name('superadmin.')
