@@ -55,6 +55,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -68,6 +69,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -105,19 +107,32 @@
                     data: 'action',
                     name: 'action'
                 }
+                ],
+                columnDefs: [
+                {
+                    render: function (data, type, full, meta) {
+                        return "<div class='text-wrap width-200'>" + data + "</div>";
+                    },
+                    targets: 5
+                }
                 ]
+            });
+
+            $('#rest').on('click', function () {
+                $('#form-sekolah')[0].reset();
+                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
             });
 
             $('.close').on('click', function () {
                 $('#form-sekolah')[0].reset();
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').val('Simpan');
+                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
             });
 
             $('#add').on('click', function () {
                 $('#modal-sekolah').modal('show');
                 $('.modal-title').text('Tambahin Sekolah nya doong');
                 $('#action').val('add');
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').val('Simpan');
+                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
             });
 
             $('#form-sekolah').on('submit', function (event) {
@@ -129,7 +144,7 @@
                 }
                 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('superadmin.referensi.agama-update') }}";
+                    url = "{{ route('superadmin.list-sekolah-update') }}";
                 }
 
                 $.ajax({
@@ -144,6 +159,13 @@
                                 html = data.errors[count];
                             }
                             $('#sekolah').addClass('is-invalid');
+                            $('#id_sekolah').addClass('is-invalid');
+                            $('#name').addClass('is-invalid');
+                            $('#jenjang').addClass('is-invalid');
+                            $('#tahun_ajaran').addClass('is-invalid');
+                            $('#alamat').addClass('is-invalid');
+                            $('#username').addClass('is-invalid');
+                            $('#password').addClass('is-invalid');
                             toastr.error(html);
                         }
 
@@ -159,10 +181,7 @@
                             $('#password').removeClass('is-invalid');
                             $('#form-sekolah')[0].reset();
                             $('#action').val('add');
-                            $('#btn')
-                                .removeClass('btn-outline-info')
-                                .addClass('btn-outline-success')
-                                .val('Simpan');
+                            $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -173,16 +192,20 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/superadmin/referensi/agama/'+id,
+                    url: '/superadmin/list-sekolah/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#agama').val(data.agama.name);
-                        $('#hidden_id').val(data.agama.id);
                         $('#action').val('edit');
-                        $('#btn')
-                            .removeClass('btn-outline-success')
-                            .addClass('btn-outline-info')
-                            .val('Update');
+                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#id_sekolah').val(data.sekolah.id_sekolah);
+                        $('#name').val(data.sekolah.name);
+                        $('#jenjang').val(data.sekolah.jenjang);
+                        $('#tahun_ajaran').val(data.sekolah.tahun_ajaran);
+                        $('#alamat').val(data.sekolah.alamat);
+                        $('#hidden_id').val(data.sekolah.id);
+                        $('#username').val(data.user[0].username).attr('readonly', true);
+                        $('#password').val(data.user[0].password).attr('readonly', true);
+                        $('#modal-sekolah').modal('show');
                     }
                 });
             });
@@ -209,5 +232,47 @@
                 });
             });
         });
+
+        function deleteConfirmation(id) {
+            var number = id;
+            console.log(number);
+            Swal.fire({
+                icon: 'warning',
+                title: "Delete?",
+                text: "Please ensure and then confirm!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, Cancel it!",
+                reverseButtons: !0
+            }).then(function (event) {
+                if (event.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '/superadmin/list-sekolah/delete/'+number,
+                        type: 'POST',
+                        data: { _token: CSRF_TOKEN },
+                        dataType: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: "Success!",
+                                    text: "👍 Data Deleted Successfully.",
+                                });
+                                $('#form-sekolah')[0].reset();
+                                $('#order-table').DataTable().ajax.reload();
+                            } else {
+                                toastr.error('⚠ Failed!');
+                            }
+                        }
+                    });
+                } else {
+                    event.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            });
+        }
     </script>
 @endpush

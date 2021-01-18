@@ -77,8 +77,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-right">
-                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>                          
+                                <input type="hidden" name="hidden_id" id="hidden_id">
+                                <input type="hidden" id="action">
+                                <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>                          
                             </div>
                         </div>
                     </div>

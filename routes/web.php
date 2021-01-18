@@ -23,6 +23,9 @@ Route::namespace('Superadmin')
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
+        Route::get('/superadmin/list-sekolah/{id}', 'ListSekolahController@edit');
+        Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')
+            ->name('list-sekolah-update');
 
             // Referensi
             Route::namespace('Referensi')
@@ -89,6 +92,15 @@ Route::namespace('Superadmin')
                     Route::post('/superadmin/referensi/suku/update', 'SukuController@update')
                         ->name('referensi.suku-update');
                     Route::get('/superadmin/referensi/suku/hapus/{id}', 'SukuController@destroy');
+                });
+
+            // Library Setting
+            Route::namespace('Library')
+                ->group(function () {
+                    Route::get('/superadmin/library/setting', 'SettingController@index')
+                        ->name('library-setting');
+                    Route::post('/superadmin/library/setting/tipe', 'SettingController@tipeStore')
+                        ->name('library-tipe');
                 });
     });
 
