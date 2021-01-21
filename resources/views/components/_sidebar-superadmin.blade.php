@@ -19,7 +19,7 @@
                         <span class="pcoded-mtext">List Sekolah</span>
                     </a>
                 </li>
-                <li class="@if (request()->is('superadmin/library/setting')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('superadmin/library') || request()->is('superadmin/library/setting')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="icon-book-open"></i>
@@ -27,39 +27,14 @@
                         <span class="pcoded-mtext">Library</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="">
-                            <a href="#" class="waves-effect waves-dark">
+                        <li class="{{ request()->is('superadmin/library') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.library') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Tambah Baru</span>
                             </a>
                         </li>
                         <li class="{{ request()->is('superadmin/library/setting') ? 'active' : '' }}">
                             <a href="{{ route('superadmin.library-setting') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Setting</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Buku Audio</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Buku Video</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Buku Digital</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Kategori</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Tipe</span>
                             </a>
                         </li>
                     </ul>

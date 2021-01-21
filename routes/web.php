@@ -157,7 +157,10 @@ Route::namespace('Superadmin')
                     Route::put('/superadmin/library/setting/tipe/update', 'SettingController@updateTipe')
                         ->name('library-tipe-update');
                     Route::delete('/superadmin/library/tipe/delete/{id}', 'SettingController@deleteTipe')
-                        ->name('library-tipe-delete');;
+                        ->name('library-tipe-delete');
+
+                    Route::get('/superadmin/library', 'TambahController@index')
+                        ->name('library');
                 });
     });
 
