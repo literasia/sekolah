@@ -17,28 +17,62 @@ class SettingController extends Controller
 
     public function tipeStore(Request $request) {
         // validasi
-        $rules = [
+        $this->validate($request, [
             'tipe'    => 'required|max:100',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, [
+        ], [
             'tipe.required'  => 'kolom tidak boleh kososng'
         ]);
-
-        if ($validator->fails()) {
-            return response()
-                ->json([
-                    'errors' => $validator->errors()->all()
-                ]);
-        }
 
         Tipe::create([
             'name'   => $request->input('tipe'),
         ]);
 
+        $notification = [
+            'message' => '👍 '.$request->input('tipe').' berhasil ditambahkan', 
+            'alert-type' => 'success'
+        ];
+
+        return back()->with($notification);
+    }
+
+    public function editTipe($id) {
+        $tipe = Tipe::find($id);
+
         return response()
             ->json([
-                'success'   => '👍 '.$request->input('tipe').' berhasil ditambahkan',
+                'tipe'  => $tipe,
             ]);
+    }
+
+    public function updateTipe(Request $request) {
+        // validasi
+        $this->validate($request, [
+            'tipe'    => 'required|max:100',
+        ], [
+            'tipe.required'  => 'kolom tidak boleh kososng'
+        ]);
+
+        Tipe::whereId($request->input('hidden_id'))->update([
+            'name'   => $request->input('tipe'),
+        ]);
+
+        $notification = [
+            'message' => '👍 '.$request->input('tipe').' berhasil diupdate', 
+            'alert-type' => 'success'
+        ];
+
+        return back()->with($notification);
+    }
+
+    public function deleteTipe($id) {
+        $tipe = Tipe::find($id);
+        $tipe->delete();
+
+        $notification = [
+            'message' => '👍 berhasil dihapus', 
+            'alert-type' => 'success'
+        ];
+
+        return back()->with($notification);
     }
 }

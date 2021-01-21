@@ -1,15 +1,15 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Dashboard')
-@section('title-2', 'Dashboard')
-@section('title-3', 'Dashboard')
+@section('title', 'Library Setting')
+@section('title-2', 'Library Setting')
+@section('title-3', 'Library Setting')
 @section('describ')
-    Ini adalah halaman dashboard awal untuk superadmin
+    Ini adalah halaman library setting untuk superadmin
 @endsection
-@section('icon-l', 'icon-home')
+@section('icon-l', 'icon-settings')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('superadmin.index') }}
+    {{ route('superadmin.library-setting') }}
 @endsection
 
 @section('content')
@@ -68,6 +68,14 @@
         .btn i {
             margin-right: 0px;
         }
+
+        #tambah-div {
+            display: none;
+        }
+        
+        #update-div, #batal {
+            display: none;
+        }
     </style>
 @endpush
 
@@ -84,92 +92,68 @@
             $('#table-penulis-penerbit').DataTable();
             $('#table-tingkat').DataTable();
 
-            $('#form-tipe').on('submit', function (event) {
-                event.preventDefault();
-                var url = '';
-
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('superadmin.library-tipe') }}";
+            $('#tambah').on('click', function () {
+                $('#tambah-div').toggle(500);
+                if ($(this).text() == 'Tambah') {
+                    $(this).text('Batal').removeClass('btn-primary').addClass('btn-danger');
+                } else {
+                    $(this).text('Tambah').removeClass('btn-danger').addClass('btn-primary');
+                    $('#form-tipe')[0].reset();
                 }
-                
-                if ($('#action').val() == 'edit') {
-                    url = "";
-                }
+            });
 
+            $('#batal').on('click', function () {
+                $('#update-div').hide(500);
+                $('#tambah').show();
+                $('#batal').hide();
+                $('#form-tipe-update')[0].reset();
+                $('#form-tipe')[0].reset();
+            });
+
+            $(document).on('click', '#edit-tipe', function () {
+                var id = $(this).attr('data-id');
                 $.ajax({
-                    url: url,
-                    method: 'POST',
+                    url: '/superadmin/library/setting/tipe/'+id,
                     dataType: 'JSON',
-                    data: $(this).serialize(),
                     success: function (data) {
-                        var html = '';
-                        if (data.errors) {
-                            // for (var count = 0; count <= data.errors.length; count++) {
-                            html = data.errors[0];
-                            // }
-                            $('#tipe').addClass('is-invalid');
-                            toastr.error(html);
-                        }
-
-                        if (data.success) {
-                            $('#tipe').removeClass('is-invalid');
-                            $('#form-tipe')[0].reset();
-                            $('#action').val('add');
-                            $('#btn')
-                                .removeClass('btn-outline-info')
-                                .addClass('btn-outline-success')
-                                .val('Simpan');
-                            toastr.success(data.success);
-                        }
-                        $('#tipe_result').html(html);
+                        console.log(data.tipe.name);
+                        $('#tipe-update').val(data.tipe.name);
+                        $('#hidden_id').val(data.tipe.id);
+                        $('#update-div').show(500);
+                        $('#tambah-div').hide();
+                        $('#tambah').hide();
+                        $('#batal').show();
                     }
                 });
             });
 
-            // $(document).on('click', '.edit', function () {
-            //     var id = $(this).attr('id');
-            //     $.ajax({
-            //         url: '/superadmin/referensi/agama/'+id,
-            //         dataType: 'JSON',
-            //         success: function (data) {
-            //             $('#agama').val(data.agama.name);
-            //             $('#hidden_id').val(data.agama.id);
-            //             $('#action').val('edit');
-            //             $('#btn')
-            //                 .removeClass('btn-outline-success')
-            //                 .addClass('btn-outline-info')
-            //                 .val('Update');
-            //         }
-            //     });
-            // });
+            var user_id;
+            $(document).on('click', '#delete-tipe', function () {
+                user_id = $(this).attr('data-id');
+                $('#confirmModal').modal('show');
+                $('#hidden').val(user_id);
+            });
 
-            // var user_id;
-            // $(document).on('click', '.delete', function () {
-            //     user_id = $(this).attr('id');
-            //     $('#ok_button').text('Hapus');
-            //     $('#confirmModal').modal('show');
-            // });
+            @if (Session::has('message'))
+                var type = "{{ Session::get('alert-type', 'info') }}";
+                switch (type) {
+                    case 'info':
+                        toastr.info("{{ Session::get('message') }}");
+                        break;
+                    
+                    case 'warning':
+                        toastr.warning("{{ Session::get('message') }}");
+                        break;
 
-            // $('#ok_button').click(function () {
-            //     $.ajax({
-            //         url: '/superadmin/referensi/agama/hapus/'+user_id,
-            //         beforeSend: function () {
-            //             $('#ok_button').text('Menghapus...');
-            //         }, success: function (data) {
-            //             setTimeout(function () {
-            //                 $('#confirmModal').modal('hide');
-            //                 $('#order-table').DataTable().ajax.reload();
-            //                 toastr.success('Data berhasil dihapus');
-            //             }, 1000);
-            //         }
-            //     });
-            // });
+                    case 'success':
+                        toastr.success("{{ Session::get('message') }}");
+                        break;
+
+                    case 'error':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                }
+            @endif
         });
-        toastr.options.timeOut = 1000;
-        toastr.options.fadeOut = 1000;
-        toastr.options.onHidden = function () {
-            // this will be executed after fadeout, i.e. 2secs after notification has been show
-            window.location.reload();
-        };
     </script>
 @endpush

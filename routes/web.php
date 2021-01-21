@@ -153,6 +153,11 @@ Route::namespace('Superadmin')
                         ->name('library-setting');
                     Route::post('/superadmin/library/setting/tipe', 'SettingController@tipeStore')
                         ->name('library-tipe');
+                    Route::get('/superadmin/library/setting/tipe/{id}', 'SettingController@editTipe');
+                    Route::put('/superadmin/library/setting/tipe/update', 'SettingController@updateTipe')
+                        ->name('library-tipe-update');
+                    Route::delete('/superadmin/library/tipe/delete/{id}', 'SettingController@deleteTipe')
+                        ->name('library-tipe-delete');;
                 });
     });
 
