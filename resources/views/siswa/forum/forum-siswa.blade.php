@@ -9,7 +9,7 @@
     Ini adalah halaman Forum untuk siswa
 @endsection
 
-@section('icon-l', 'icon-bell')
+@section('icon-l', 'fa fa-clipboard')
 @section('icon-r', 'icon-home')
 
 @section('link')

@@ -34,6 +34,14 @@
                         <span class="pcoded-mtext">Pengumuman</span>
                     </a>
                 </li>
+                <li class="{{ request()->is('orangtua/absensi') ? 'active' : '' }}">
+                     <a href="{{ route('orangtua.absensi.absensi') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <span class="pcoded-mtext">Absensi</span>
+                    </a>
+                </li>
                 <li class="{{ request()->is('orangtua/nilai') ? 'active' : '' }}">
                      <a href="{{ route('orangtua.nilai.nilai-orangtua') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">

@@ -86,7 +86,7 @@
                 <li class="{{ request()->is('siswa/forum') ? 'active' : '' }}">
                      <a href="{{ route('siswa.forum.forum-siswa') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-vote-yea"></i>
+                            <i class="fa fa-clipboard"></i>
                         </span>
                         <span class="pcoded-mtext">Forum</span>
                     </a>

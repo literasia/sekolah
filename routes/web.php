@@ -60,11 +60,14 @@ Route::namespace('Orangtua')
         Route::get('/orangtua/pengumuman', 'Pengumuman\PengumumanController@index')
              ->name('pengumuman.pengumuman');
 
+        Route::get('/orangtua/absensi', 'Absensi\AbsensiController@index')
+             ->name('absensi.absensi');
+
         Route::get('/orangtua/nilai', 'Nilai\NilaiOrangtuaController@index')
              ->name('nilai.nilai-orangtua');
 
       
-});   
+});    
 
 Route::namespace('Superadmin')
     ->name('superadmin.')

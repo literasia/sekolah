@@ -1,50 +1,24 @@
-@extends('layouts.siswa')
+@extends('layouts.orangtua')
 
 {{-- config 1 --}}
-@section('title', 'Pengumuman | Pengumuman')
-@section('title-2', 'Pengumuman')
-@section('title-3', 'Pengumuman')
+@section('title', 'Absensi | Absensi')
+@section('title-2', 'Absensi')
+@section('title-3', 'Absensi')
 
 @section('describ')
-    Ini adalah halaman Pengumuman untuk siswa
+    Ini adalah halaman Absensi untuk Orangtua
 @endsection
 
-@section('icon-l', 'icon-bell')
+@section('icon-l', 'icon-check')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('siswa.pengumuman.pengumuman') }}
+    {{ route('orangtua.absensi.absensi') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <!-- <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button> -->
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th width= 15%>Tanggal</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                <tr>
-                                    <td>12/09/2020</td>
-                                    <td>Ujian Akhir Sekolah</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     {{-- Modal --}}
     @include('admin.pengumuman.modals._pesan')
