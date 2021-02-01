@@ -67,7 +67,7 @@ class ListSekolahController extends Controller
         $adminRole = Role::where('name', 'admin')->first();
 
         $user = User::create([
-            'sekolah_id'    => $sekolah_id,
+            'id_sekolah'    => $sekolah_id,
             'name'          => $request->input('name'),
             'username'      => $request->input('username'),
             'password'      => Hash::make($request->input('password')),
@@ -87,7 +87,7 @@ class ListSekolahController extends Controller
         return response()
             ->json([
                 'sekolah'   => $sekolah,
-                'user'      => User::where('sekolah_id', $sekolah->id)->get(),
+                'user'      => User::where('id_sekolah', $sekolah->id)->get(),
             ]);
     }
 
