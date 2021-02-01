@@ -48,6 +48,23 @@
 
 {{-- Modal --}}
 @include('superadmin.modals._tambah-sekolah')
+
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Konfirmasi</h4>
+            </div>
+            <div class="modal-body">
+                <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 {{-- addons css --}}
@@ -219,60 +236,60 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/superadmin/referensi/agama/hapus/'+user_id,
+                    url: '/superadmin/list-sekolah/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            toastr.success(data.success);
                         }, 1000);
                     }
                 });
             });
         });
 
-        function deleteConfirmation(id) {
-            var number = id;
-            console.log(number);
-            Swal.fire({
-                icon: 'warning',
-                title: "Delete?",
-                text: "Please ensure and then confirm!",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, Cancel it!",
-                reverseButtons: !0
-            }).then(function (event) {
-                if (event.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                    $.ajax({
-                        url: '/superadmin/list-sekolah/delete/'+number,
-                        type: 'POST',
-                        data: { _token: CSRF_TOKEN },
-                        dataType: 'JSON',
-                        success: function (results) {
-                            if (results.success === true) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: "Success!",
-                                    text: "👍 Data Deleted Successfully.",
-                                });
-                                $('#form-sekolah')[0].reset();
-                                $('#order-table').DataTable().ajax.reload();
-                            } else {
-                                toastr.error('⚠ Failed!');
-                            }
-                        }
-                    });
-                } else {
-                    event.dismiss;
-                }
-            }, function (dismiss) {
-                return false;
-            });
-        }
+        // function deleteConfirmation(id) {
+        //     var number = id;
+        //     console.log(number);
+        //     Swal.fire({
+        //         icon: 'warning',
+        //         title: "Delete?",
+        //         text: "Please ensure and then confirm!",
+        //         type: "warning",
+        //         showCancelButton: !0,
+        //         confirmButtonText: "Yes, delete it!",
+        //         cancelButtonText: "No, Cancel it!",
+        //         reverseButtons: !0
+        //     }).then(function (event) {
+        //         if (event.value === true) {
+        //             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        //             $.ajax({
+        //                 url: '/superadmin/list-sekolah/delete/'+number,
+        //                 type: 'POST',
+        //                 data: { _token: CSRF_TOKEN },
+        //                 dataType: 'JSON',
+        //                 success: function (results) {
+        //                     if (results.success === true) {
+        //                         Swal.fire({
+        //                             icon: 'success',
+        //                             title: "Success!",
+        //                             text: "👍 Data Deleted Successfully.",
+        //                         });
+        //                         $('#form-sekolah')[0].reset();
+        //                         $('#order-table').DataTable().ajax.reload();
+        //                     } else {
+        //                         toastr.error('⚠ Failed!');
+        //                     }
+        //                 }
+        //             });
+        //         } else {
+        //             event.dismiss;
+        //         }
+        //     }, function (dismiss) {
+        //         return false;
+        //     });
+        // }
     </script>
 @endpush

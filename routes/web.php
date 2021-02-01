@@ -81,6 +81,8 @@ Route::namespace('Superadmin')
         Route::get('/superadmin/list-sekolah/{id}', 'ListSekolahController@edit');
         Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')
             ->name('list-sekolah-update');
+        Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy');
+        
 
             // Referensi
             Route::namespace('Referensi')

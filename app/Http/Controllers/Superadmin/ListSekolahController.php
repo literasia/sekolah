@@ -21,7 +21,8 @@ class ListSekolahController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" onclick="deleteConfirmation('.$data->id.')" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+                    // $button .= '&nbsp;&nbsp;&nbsp;<button type="button" onclick="deleteConfirmation('.$data->id.')" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -124,26 +125,33 @@ class ListSekolahController extends Controller
 
        return response()
            ->json([
-               'success' => '👍 '.$request->input('name').' berhasil ditambahkan!',
+               'success' => '👍 '.$request->input('name').' berhasil diupdate!',
            ]);
     }
 
-    // public function delete($id) {
-    //     $user = DB::table('role_user')->where('user_id', $id)
-    //     // $data = Sekolah::where('id', $id)->first()->delete();
-    //     // // check data deleted or not
-    //     // if ($data == 1) {
-    //     //     $success = true;
-    //     //     $message = "Data deleted successfully";
-    //     // } else {
-    //     //     $success = true;
-    //     //     $message = "Data not found";
-    //     // }
-    //     // //  Return response
-    //     // return response()
-    //     //     ->json([
-    //     //         'success' => $success,
-    //     //         'message' => $message,
-    //     //     ]);
-    // }
+    public function destroy($id) {
+        $sekolah    = Sekolah::find($id);
+
+        $role = DB::delete('delete from role_user where user_id = ?', [$id]);
+        $user = User::where('id_sekolah', $id)->first()->delete();
+        $data = Sekolah::where('id', $id)->first()->delete();
+        // check data deleted or not
+        if ($data == 1) {
+            $success = true;
+            $message = "Berhasil Dihapus";
+        } else {
+            $success = true;
+            $message = "Data Tidak Ada";
+        }
+        //  Return response
+        // return response()
+        //     ->json([
+        //         'success' => $success,
+        //         'message' => $message,
+        //     ]);
+        return response()
+            ->json([
+                'success' => '👍 '.$sekolah->name.' berhasil dihapus!',
+            ]);
+    }
 }
