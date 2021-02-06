@@ -31,6 +31,12 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <div class="page-body">
+                                        
+                                        {{-- [ flash message ] --}}
+                                        @foreach ($errors->all() as $err)
+                                            <div class="alert alert-danger text-center">{{ $err }}</div>
+                                        @endforeach
+
                                         {{-- [ page content ] start --}}
                                         @yield('content')
                                     </div>

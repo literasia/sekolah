@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <form id="form-siswa" action="#!">
+        <!-- <form id="form-siswa" action="#!"> -->
             <h5>Data Keluarga</h5>
             <div class="row">
                 <div class="col">
@@ -63,8 +63,8 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="kewarganegaraan">Kewarganegaraan</label>
-                        <select name="kewarganegaraan" id="kewarganegaraan" class="form-control form-control-sm">
+                        <label for="kewarganegaraan_ayah">Kewarganegaraan</label>
+                        <select name="kewarganegaraan_ayah" id="kewarganegaraan_ayah" class="form-control form-control-sm">
                             <option value="">-- Kewarganegaraan --</option>
                             <option value="WNI">WNI</option>
                             <option value="WNA">WNA</option>
@@ -131,7 +131,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="agama_ibu">Agama Ibu</label>
-                        <select name="agama_ibu" id="agama_ibu" class="form-control form-control-sm">
+                        <select name="agama_ibu" id="agama_ibu" class="form-control form-control-sm"> 
                             <option value="">-- Agama Ibu --</option>
                             <option value="Islam">Islam</option>
                             <option value="Budha">Budha</option>
@@ -144,8 +144,8 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="kewarganegaraan">Kewarganegaraan</label>
-                        <select name="kewarganegaraan" id="kewarganegaraan" class="form-control form-control-sm">
+                        <label for="kewarganegaraan_ibu">Kewarganegaraan</label>
+                        <select name="kewarganegaraan_ibu" id="kewarganegaraan_ibu" class="form-control form-control-sm">
                             <option value="">-- Kewarganegaraan --</option>
                             <option value="WNI">WNI</option>
                             <option value="WNA">WNA</option>
@@ -208,6 +208,6 @@
                     </div>
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>

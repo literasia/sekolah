@@ -10,4 +10,14 @@ class Library extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function penulis()
+    {
+        return $this->belongsTo(Penulis::class);
+    }
+
+    public function penerbit()
+    {
+        return $this->belongsTo(Penerbit::class);
+    }
 }

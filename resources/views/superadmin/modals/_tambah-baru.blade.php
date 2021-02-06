@@ -10,13 +10,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-library">
+                <form id="form-library" method="POST" action="{{ route('superadmin.library.store') }}">
                     @csrf
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
-                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul">
+                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -45,8 +45,8 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="kategori">Kategori:</label>
-                                <select name="kategori" id="kategori" class="form-control form-control-sm">
+                                <label for="kategori_id">Kategori:</label>
+                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm">
                                     <option value="">-- Kategori --</option>
                                     @foreach ($tipes as $tipe)
                                         <option value="{{ $tipe->id }}">{{ $tipe->name }}</option>
@@ -59,7 +59,7 @@
                                 <label for="tahun_terbit">Tahun Terbit:</label>
                                 <select name="tahun_terbit" id="tahun_terbit" class="form-control form-control-sm">
                                     <option value="">-- Tahun Terbit --</option>
-                                    @for ($year = 1975; $year < date('Y'); $year++)
+                                    @for ($year = 1975; $year <= date('Y'); $year++)
                                         <option value="{{ $year }}" {{ date('Y') ? 'selected' : '' }}>{{ $year }}</option>
                                     @endfor
                                 </select>
@@ -124,21 +124,23 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="penulis">Penulis:</label>
-                                <select name="penulis" id="penulis" class="form-control form-control-sm">
+                                <label for="penulis_id">Penulis:</label>
+                                <select name="penulis_id" id="penulis_id" class="form-control form-control-sm">
                                     <option value="">-- Penulis --</option>
-                                    <option value="=">Penulis 1</option>
-                                    <option value="=">Penulis 2</option>
+                                    @foreach($penulises as $penulis)
+                                        <option value="{{ $penulis->id }}">{{ $penulis->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="penerbit">Penerbit:</label>
-                                <select name="penerbit" id="penerbit" class="form-control form-control-sm">
+                                <label for="penerbit_id">Penerbit:</label>
+                                <select name="penerbit_id" id="penerbit_id" class="form-control form-control-sm">
                                     <option value="">-- Penerbit --</option>
-                                    <option value="=">Penerbit 1</option>
-                                    <option value="=">Penerbit 2</option>
+                                    @foreach($penerbits as $penerbit)
+                                        <option value="{{ $penerbit->id }}">{{ $penerbit->penerbit }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

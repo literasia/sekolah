@@ -9,7 +9,7 @@
 @section('icon-l', 'icon-book-open')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('superadmin.library') }}
+    {{ route('superadmin.library.index') }}
 @endsection
 
 @section('content')
@@ -77,7 +77,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('superadmin.library') }}",
+                    url: "{{ route('superadmin.library.index') }}",
                 },
                 columns: [
                 {
