@@ -7,6 +7,12 @@ class CRUDResponse {
             'success' => "Berhasil menambah data $postfixMsg"
         ];
     }
+    
+    public static function successUpdate($postfixMsg) {
+        return [
+            'success' => "Berhasil update data $postfixMsg"
+        ];
+    }
 
     public static function successDelete($postfixMsg) {
         return [

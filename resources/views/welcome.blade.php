@@ -67,15 +67,18 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                    @php $roleId = auth()->user()->role_id ?? "" @endphp
+                    @if ($roleId == 1)
+                        <a href="{{ url('/superadmin') }}">Home</a>
+                    @elseif ($roleId == 2)
+                        <a href="{{ url('/admin') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif
-                    @endauth
+                    @endif
                 </div>
             @endif
 

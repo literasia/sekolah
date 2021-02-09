@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Siswa\SiswaController;
-
 Route::get('/', function () {
     return view('welcome');
 });

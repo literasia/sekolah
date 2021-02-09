@@ -23,14 +23,17 @@ class TambahController extends Controller
             foreach($data as $d) {
                 $penulis = Penulis::find($d['penulis_id']);
                 $penerbit = Penerbit::find($d['penerbit_id']);
-                $d['penulis'] = ($penulis ? $penulis['name'] : '');
-                $d['penerbit'] = ($penerbit ? $penerbit['penerbit'] : '');
+                $d['penulis'] = $penulis['name'] ?? '-';
+                $d['penerbit'] = $penerbit['penerbit'] ?? '-';
+                $d['deskripsi'] = $d['deskripsi'] ?? "-";
             }
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
+                    $deleteUrl = route('superadmin.library.destroy', $data['id']);
                     $button = '<button type="button" id="'.$data['id'].'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" onclick="deleteConfirmation('.$data['id'].')" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+                    $button .= "<button type='button' class='ml-2 delete btn btn-mini btn-danger shadow-sm' data-url='$deleteUrl' 
+                                    data-toggle='modal' data-target='#confirmDeleteModal'><i class='fa fa-trash'></i></button>";
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -57,7 +60,7 @@ class TambahController extends Controller
             'penerbit_id' => ['nullable', 'exists:penerbits,id']
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors()->all())->withInput();
+            return back()->withErrors($validator->errors()->all())->withInput();
         }
 
         Library::create([
@@ -74,6 +77,13 @@ class TambahController extends Controller
             'deskripsi' => $data['deskripsi'],
         ]);
 
-        return redirect()->back()->with(CRUDResponse::successCreate("perpustakaan"));
+        return back()->with(CRUDResponse::successCreate("perpustakaan " . $data['name']));
+    }
+    
+    public function destroy($id) {
+        $library = Library::findOrFail($id);
+        $library->delete();
+
+        return back()->with(CRUDResponse::successDelete("perpustakaan " . $library->name));
     }
 }

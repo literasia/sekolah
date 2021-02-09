@@ -10,7 +10,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-sekolah">
+                <form id="form-sekolah" action="" method="POST">
+                    @method("POST")
                     @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">

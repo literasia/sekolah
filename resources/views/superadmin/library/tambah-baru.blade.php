@@ -49,6 +49,7 @@
 
 {{-- Modal --}}
 @include('superadmin.modals._tambah-baru')
+@include('components.modals._confirm-delete-modal')
 @endsection
 
 {{-- addons css --}}
@@ -126,6 +127,12 @@
             $('#add').on('click', function () {
                 $('#modal-library').modal('show');
             });
+        });
+
+        $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
+            const url = $(e.relatedTarget).data('url');
+            const form = confirmDeleteModal.querySelector('#deleteForm');
+            form.action = url;
         });
     </script>
 @endpush

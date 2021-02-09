@@ -152,17 +152,18 @@
                 $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
             });
 
-            $('#form-sekolah').on('submit', function (event) {
-                event.preventDefault();
-                var url = '';
-
+            $('#form-sekolah').on('submit', function (e) {
                 if ($('#action').val() == 'add') {
-                    url = "{{ route('superadmin.list-sekolah') }}";
+                    this.action = "{{ route('superadmin.list-sekolah') }}";
+                    this.method = "POST";
+                    this.querySelector("input[name=_method]").value = "POST";
                 }
                 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('superadmin.list-sekolah-update') }}";
+                    this.action = "{{ route('superadmin.list-sekolah-update') }}";
+                    this.querySelector("input[name=_method]").value = "POST";
                 }
+                return;
 
                 $.ajax({
                     url: url,

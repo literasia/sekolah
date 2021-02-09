@@ -98,7 +98,6 @@
         };
 
         $(document).ready(function () {
-            $('#order-table').DataTable();
 
             $('#add').on('click', function () {
                 $('#modal-pegawai').modal('show');

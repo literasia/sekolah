@@ -53,6 +53,7 @@ class PegawaiController extends Controller
             DB::beginTransaction();
             try {
                 $userId = User::create([
+                    'role_id' => 4,
                     'id_sekolah' => $auth['id_sekolah'],
                     'name' => $data['nama_pegawai'],
                     'username' => $data['username'],

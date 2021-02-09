@@ -25,18 +25,21 @@ class UserSeed extends Seeder
             'name'      => 'Superadmin',
             'username'  => 'superadmin',
             'password'  => bcrypt('superadmin'),
+            'role_id'   => 1
         ]);
 
         $admins = User::create([
             'name'      => 'Admin',
             'username'  => 'admin',
             'password'  => bcrypt('admin'),
+            'role_id'   => 2
         ]);
 
         $siswas = User::create([
             'name'      => 'Siswa',
             'username'  => 'siswa',
             'password'  => bcrypt('siswa'),
+            'role_id'   => '3'
         ]);
 
 

@@ -167,6 +167,7 @@ class SiswaController extends Controller
                 ]);
 
                 User::create([
+                    'role_id' => 3,
                     'siswa_id' => $siswaId,
                     'id_sekolah' => $auth['id_sekolah'],
                     'name' => $data['nama_lengkap'],
