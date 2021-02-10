@@ -1,55 +1,65 @@
-<div class="modal fade modal-flex" id="modal-library" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Tambah Buku
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+@extends('layouts.superadmin')
+
+@section('title', 'Library')
+@section('title-2', 'Library')
+@section('title-3', 'Library')
+@section('describ')
+    Ini adalah halaman library untuk superadmin
+@endsection
+@section('icon-l', 'icon-book-open')
+@section('icon-r', 'icon-home')
+@section('link')
+    {{ route('superadmin.library.index') }}
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card shadow">
+            <div class="card-header">
+                <h5>Edit Library {{ $library->name }}</h5>
             </div>
-            <div class="modal-body">
-                <form id="form-library" method="POST" action="{{ route('superadmin.library.store') }}" enctype="multipart/form-data">
+            <div class="card-body">
+                <form id="form-library" method="POST" action="{{ route('superadmin.library.update', $library->id) }}" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
-                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
+                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" value="{{ $library->name }}" required>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="sekolah_id">Nama Sekolah:</label>
-                                <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">
+                                <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Nama Sekolah --</option>
                                     @foreach ($sekolahs as $sekolah)
-                                        <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>
+                                        <option value="{{ $sekolah->id }}" {{ $library->sekolah_id == $sekolah->id ? "selected" : "" }}>{{ $sekolah->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="tingkat">Tingakt:</label>
-                                <select name="tingkat" id="tingkat" class="form-control form-control-sm">
+                                <label for="tingkat">Tingkat:</label>
+                                <?php $tingkats = ['SD', 'SMP', 'SMA', 'SMK', 'Umum']; ?>
+                                <select name="tingkat" id="tingkat" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Tingkat --</option>
-                                    <option value="SD">SD</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
-                                    <option value="Umum">Umum</option>
+                                    @foreach($tingkats as $tingkat)
+                                        <option value="{{ $tingkat }}" {{ $library->tingkat == $tingkat ? "selected" : "" }}>{{ $tingkat }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="kategori_id">Kategori:</label>
-                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm">
+                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Kategori --</option>
                                     @foreach ($tipes as $tipe)
-                                        <option value="{{ $tipe->id }}">{{ $tipe->name }}</option>
+                                        <option value="{{ $tipe->id }}" {{ $library->kategori_id == $tipe->id ? "selected" : "" }}>{{ $tipe->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -57,10 +67,10 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="tahun_terbit">Tahun Terbit:</label>
-                                <select name="tahun_terbit" id="tahun_terbit" class="form-control form-control-sm">
+                                <select name="tahun_terbit" id="tahun_terbit" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Tahun Terbit --</option>
                                     @for ($year = 1975; $year <= date('Y'); $year++)
-                                        <option value="{{ $year }}" {{ date('Y') ? 'selected' : '' }}>{{ $year }}</option>
+                                        <option value="{{ $year }}" {{ $library->tahun_terbit == $year ? 'selected' : date('Y') }}>{{ $year }}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -68,7 +78,7 @@
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="deskripsi">Deskripsi:</label>
-                                <textarea name="deskripsi" id="deskripsi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Deskripsi"></textarea>
+                                <textarea name="deskripsi" id="deskripsi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Deskripsi">{{ $library->deskripsi }}</textarea>
                             </div>
                         </div>
                         <div class="col-xl-12">
@@ -77,6 +87,9 @@
                                     <div class="form-group">
                                         <label for="thumbnail" class="mt-1">
                                             Thumbnail:
+                                            <br>
+                                            <small class="text-muted">hanya jika update</small>
+                                            <br>
                                             <small class="text-muted">max. 3MB</small>
                                         </label>
                                     </div>
@@ -98,7 +111,7 @@
                                         <span class="input-group-prepend">
                                             <label class="input-group-text"><i class="ti-video-camera"></i></label>
                                         </span>
-                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_video" id="link_video">
+                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_video" id="link_video" value="{{ $library->link_video }}">
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +128,7 @@
                                         <span class="input-group-prepend">
                                             <label class="input-group-text"><i class="ti-volume"></i></label>
                                         </span>
-                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_audio" id="link_audio">
+                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_audio" id="link_audio" value="{{ $library->link_audio }}">
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +145,7 @@
                                         <span class="input-group-prepend">
                                             <label class="input-group-text"><i class="ti-book"></i></label>
                                         </span>
-                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_ebook" id="link_ebook">
+                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_ebook" id="link_ebook" value="{{ $library->link_ebook }}">
                                     </div>
                                 </div>
                             </div>
@@ -140,10 +153,10 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="penulis_id">Penulis:</label>
-                                <select name="penulis_id" id="penulis_id" class="form-control form-control-sm">
+                                <select name="penulis_id" id="penulis_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Penulis --</option>
                                     @foreach($penulises as $penulis)
-                                        <option value="{{ $penulis->id }}">{{ $penulis->name }}</option>
+                                        <option value="{{ $penulis->id }}"{{ $library->penulis_id == $penulis->id ? "selected" : "" }}>{{ $penulis->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -151,10 +164,10 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="penerbit_id">Penerbit:</label>
-                                <select name="penerbit_id" id="penerbit_id" class="form-control form-control-sm">
+                                <select name="penerbit_id" id="penerbit_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Penerbit --</option>
                                     @foreach($penerbits as $penerbit)
-                                        <option value="{{ $penerbit->id }}">{{ $penerbit->penerbit }}</option>
+                                        <option value="{{ $penerbit->id }}" {{ $library->penerbit_id == $penerbit->id ? "selected" : "" }}>{{ $penerbit->penerbit }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -163,10 +176,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-right">
-                                <input type="hidden" name="hidden_id" id="hidden_id">
-                                <input type="hidden" id="action">
-                                <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>                          
+                                <button type="submit" class="btn btn-sm btn-outline-success">Ubah</button>                          
                             </div>
                         </div>
                     </div>
@@ -175,3 +185,23 @@
         </div>
     </div>
 </div>
+@endsection
+
+{{-- addons css --}}
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <style>
+        .btn i {
+            margin-right: 0px;
+        }
+    </style>
+@endpush
+
+{{-- addons js --}}
+@push('js')
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+        });
+    </script>
+@endpush
