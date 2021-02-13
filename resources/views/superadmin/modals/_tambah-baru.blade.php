@@ -19,30 +19,30 @@
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label for="sekolah_id">Nama Sekolah:</label>
-                                <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">
-                                    <option value="">-- Nama Sekolah --</option>
-                                    @foreach ($sekolahs as $sekolah)
-                                        <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label for="tingkat">Tingakt:</label>
-                                <select name="tingkat" id="tingkat" class="form-control form-control-sm">
-                                    <option value="">-- Tingkat --</option>
-                                    <option value="SD">SD</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
-                                    <option value="Umum">Umum</option>
-                                </select>
-                            </div>
-                        </div>
+                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <label for="sekolah_id">Nama Sekolah:</label>-->
+                        <!--        <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">-->
+                        <!--            <option value="">-- Nama Sekolah --</option>-->
+                        <!--            @foreach ($sekolahs as $sekolah)-->
+                        <!--                <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>-->
+                        <!--            @endforeach-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <label for="tingkat">Tingakt:</label>-->
+                        <!--        <select name="tingkat" id="tingkat" class="form-control form-control-sm">-->
+                        <!--            <option value="">-- Tingkat --</option>-->
+                        <!--            <option value="SD">SD</option>-->
+                        <!--            <option value="SMP">SMP</option>-->
+                        <!--            <option value="SMA">SMA</option>-->
+                        <!--            <option value="SMK">SMK</option>-->
+                        <!--            <option value="Umum">Umum</option>-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="kategori_id">Kategori:</label>
@@ -98,7 +98,7 @@
                                         <span class="input-group-prepend">
                                             <label class="input-group-text"><i class="ti-video-camera"></i></label>
                                         </span>
-                                        <input type="text" class="form-control form-control-sm" placeholder="id video YT" name="link_video" id="link_video">
+                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_video" id="link_video">
                                     </div>
                                 </div>
                             </div>

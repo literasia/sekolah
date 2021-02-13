@@ -75,9 +75,7 @@ class TambahController extends Controller
         
         Library::create([
             'name' => $data['name'],
-            'sekolah_id' => $data['sekolah_id'],
             'kategori_id' => $data['kategori_id'],
-            'tingkat' => $data['tingkat'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],
@@ -118,9 +116,7 @@ class TambahController extends Controller
 
         Library::whereId($id)->update([
             'name' => $data['name'],
-            'sekolah_id' => $data['sekolah_id'],
             'kategori_id' => $data['kategori_id'],
-            'tingkat' => $data['tingkat'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],

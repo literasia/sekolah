@@ -74,6 +74,12 @@
                                 <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password">
                             </div>
                         </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="file">Pilih File:</label>
+                                <input type="file" name="file" id="password" class="form-control">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
