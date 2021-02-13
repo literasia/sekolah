@@ -118,6 +118,24 @@
                         </li>
                     </ul>
                 </li>
+                <li class="@if (request()->is('admin/pelajaran/mata-pelajaran') || request()->is('admin/pelajaran/jadwal-pelajaran')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-book"></i></span>
+                        <span class="pcoded-mtext">Pelajaran</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/pelajaran/mata-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelajaran.mata-pelajaran') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Mata Pelajaran</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/pelajaran/jadwal-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelajaran.jadwal-pelajaran') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Jadwal Pelajaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="@if (request()->is('admin/absensi/siswa') || request()->is('admin/absensi/rekap-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-clipboard-list"></i></span>

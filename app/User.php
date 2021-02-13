@@ -31,6 +31,8 @@ class User extends Authenticatable
             return route('admin.index');
         } else if ($this->hasRole('superadmin')) {
             return route('superadmin.index');
+        } else if ($this->hasRole('siswa')) {
+            return route('siswa.index');
         }  else {
             return route('home');
         }

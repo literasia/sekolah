@@ -273,6 +273,18 @@ Route::namespace('Admin')
                     ->name('fungsionaris.guru');
             });
 
+        // Pelajaran
+        Route::namespace('Pelajaran')
+            ->group(function () {
+                // Pelajaran
+                Route::get('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
+                    ->name('pelajaran.mata-pelajaran');
+
+                // Jadwal Pelajaran
+                Route::get('/admin/pelajaran/jadwal-pelajaran', 'RekapSiswaController@index')
+                    ->name('pelajaran.jadwal-pelajaran');
+            });
+
         // Absensi
         Route::namespace('Absensi')
             ->group(function () {
