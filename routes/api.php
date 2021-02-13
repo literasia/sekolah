@@ -23,4 +23,7 @@ Route::namespace('API')
         Route::get('test', 'AuthController@test');
         Route::post('login/student', 'AuthController@studentLogin');
         Route::post('login/school', 'AuthController@schoolLogin');
+
+        Route::get('home-information', 'HomeController@index');
+        Route::get('library', 'LibraryController@index');
     });
