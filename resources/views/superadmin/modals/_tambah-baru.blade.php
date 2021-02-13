@@ -98,7 +98,7 @@
                                         <span class="input-group-prepend">
                                             <label class="input-group-text"><i class="ti-video-camera"></i></label>
                                         </span>
-                                        <input type="text" class="form-control form-control-sm" placeholder="https://" name="link_video" id="link_video">
+                                        <input type="text" class="form-control form-control-sm" placeholder="id video YT" name="link_video" id="link_video">
                                     </div>
                                 </div>
                             </div>

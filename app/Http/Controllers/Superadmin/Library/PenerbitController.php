@@ -12,7 +12,6 @@ class PenerbitController extends Controller
 {
     private $validationRules = [
         'penerbit' => ['required', 'min:3'],
-        'tahun' => ['required', 'numeric']
     ];
 
     public function index()
@@ -27,8 +26,7 @@ class PenerbitController extends Controller
         }
 
         Penerbit::create([
-            'penerbit' => $data['penerbit'],
-            'tahun' => $data['tahun']
+            'penerbit' => $data['penerbit']
         ]);
 
         return back()->with(CRUDResponse::successCreateNotif("penerbit " . $data['penerbit']));
@@ -49,8 +47,7 @@ class PenerbitController extends Controller
         }
 
         Penerbit::whereId($id)->update([
-            'penerbit' => $data['penerbit'],
-            'tahun' => $data['tahun']
+            'penerbit' => $data['penerbit']
         ]);
 
         return back()->with(CRUDResponse::successUpdateNotif("penerbit " . $data['penerbit']));

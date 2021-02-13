@@ -9,7 +9,7 @@ class Kategori extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'thumbnail'];
     
     protected $guarded = [];
 }
