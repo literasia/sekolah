@@ -245,10 +245,22 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/pelanggaran/siswa', 'SiswaController@index')
                     ->name('pelanggaran.siswa');
+
                 Route::get('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')
                     ->name('pelanggaran.kategori-pelanggaran');
+                Route::post('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@store');
+                Route::get('/admin/pelanggaran/kategori-pelanggaran/{id}', 'KategoriPelanggaranController@edit');
+                Route::post('/admin/pelanggaran/kategori-pelanggaran/update', 'KategoriPelanggaranController@update')
+                    ->name('pelanggaran.kategori-pelanggaran-update');
+                Route::get('/admin/pelanggaran/kategori-pelanggaran/hapus/{id}', 'KategoriPelanggaranController@destroy');
+
                 Route::get('/admin/pelanggaran/sanksi', 'SanksiController@index')
                     ->name('pelanggaran.sanksi');
+                Route::post('/admin/pelanggaran/sanksi', 'SanksiController@store');
+                Route::get('/admin/pelanggaran/sanksi/{id}', 'SanksiController@edit');
+                Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')
+                    ->name('pelanggaran.sanksi-update');
+                Route::get('/admin/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
             });
 
         // E-Voting
