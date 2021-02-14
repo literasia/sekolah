@@ -27,4 +27,5 @@ Route::namespace('API')
 
         Route::get('home-information', 'HomeController@index');
         Route::get('library', 'LibraryController@index');
+        Route::get('category', 'CategoryController@index');
     });

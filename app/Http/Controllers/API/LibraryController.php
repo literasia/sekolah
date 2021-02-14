@@ -25,7 +25,8 @@ class LibraryController extends Controller
         
         $sekolahId = $req->query('sekolah_id');
         $libraries->when($sekolahId, function($query) use ($sekolahId) {
-            return $query->where('sekolah_id', $sekolahId);
+            return $query->where('sekolah_id', $sekolahId)
+                ->orWhereNull('sekolah_id');
         });
 
         $q = $req->query('q');
