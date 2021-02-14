@@ -27,7 +27,8 @@ class SiswaController extends Controller
         $siswas = Siswa::with('kelas')->get();
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
-            'kelases' => $kelases
+            'kelases' => $kelases,
+            'mySekolah' => User::sekolah()
         ]);
     }
 

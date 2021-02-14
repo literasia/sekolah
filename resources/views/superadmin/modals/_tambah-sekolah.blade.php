@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-sekolah" action="" method="POST">
+                <form id="form-sekolah" action="" method="POST" enctype="multipart/form-data">
                     @method("POST")
                     @csrf
                     <div class="row">
@@ -77,7 +77,7 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="file">Pilih File:</label>
-                                <input type="file" name="file" id="password" class="form-control">
+                                <input type="file" name="logo" id="logo" class="form-control">
                             </div>
                         </div>
                     </div>

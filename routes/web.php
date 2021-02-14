@@ -193,6 +193,7 @@ Route::namespace('Admin')
     ->middleware(['auth', 'auth.admin'])
     ->group(function () {
         Route::get('/', 'AdminController@index')->name('index');
+        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')->name('siswa.by.tahun');
 
         // Peserta Didik
         // Route -> Admin/PesertaDidik
@@ -270,6 +271,8 @@ Route::namespace('Admin')
                     ->name('e-voting.calon');
                 Route::get('/admin/e-voting/posisi', 'PosisiController@index')
                     ->name('e-voting.posisi');
+                Route::post('/admin/e-voting/posisi', 'PosisiController@update')
+                    ->name('e-voting.posisi-update');
                 Route::get('/admin/e-voting/pemilihan', 'PemilihanController@index')
                     ->name('e-voting.pemilihan');
                 Route::get('/admin/e-voting/vote', 'VoteController@index')
