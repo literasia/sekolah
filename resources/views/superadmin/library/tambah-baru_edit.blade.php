@@ -35,8 +35,8 @@
                                 <label for="kategori_id">Kategori:</label>
                                 <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($tipes as $tipe)
-                                        <option value="{{ $tipe->id }}" {{ $library->kategori_id == $tipe->id ? "selected" : "" }}>{{ $tipe->name }}</option>
+                                    @foreach ($kategoris as $kategori)
+                                        <option value="{{ $kategori->id }}" {{ $library->kategori_id == $kategori->id ? "selected" : "" }}>{{ $kategori->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
