@@ -112,11 +112,11 @@
 
 {{-- addons js --}}
 @push('js')
-    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <script>
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script>
         $(document).ready(function () {
             $('#order-table').DataTable({
                 processing: true,
@@ -192,6 +192,7 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#kategori').val(data.kategori.name);
+                        $('#poin').val(data.poin.poin);
                         $('#hidden_id').val(data.kategori.id);
                         $('#action').val('edit');
                         $('#btn')

@@ -48,8 +48,8 @@
                                 <label for="kategori">Kategori:</label>
                                 <select name="kategori" id="kategori" class="form-control form-control-sm">
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($tipes as $tipe)
-                                        <option value="{{ $tipe->id }}">{{ $tipe->name }}</option>
+                                    @foreach ($kategoris as $kategori)
+                                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

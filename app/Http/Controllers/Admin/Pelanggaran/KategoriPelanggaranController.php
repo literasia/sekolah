@@ -59,10 +59,12 @@ class KategoriPelanggaranController extends Controller
 
     public function edit($id) {
         $kategori = Pelanggaran::find($id);
+        $poin = Pelanggaran::find($id);
 
         return response()
             ->json([
-                'kategori'  => $kategori
+                'kategori'  => $kategori,
+                'poin'      => $poin
             ]);
     }
 

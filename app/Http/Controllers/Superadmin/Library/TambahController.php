@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Superadmin\Library;
 
 use Illuminate\Http\Request;
-use App\Models\Superadmin\Tipe;
+use App\Models\Superadmin\Kategori;
 use Yajra\DataTables\DataTables;
 use App\Models\Superadmin\Library;
 use App\Models\Superadmin\Sekolah;
@@ -27,7 +27,7 @@ class TambahController extends Controller
 
         return view('superadmin.library.tambah-baru', [
             'sekolahs'  => Sekolah::latest()->get(),
-            'tipes'     => Tipe::latest()->get(),
+            'kategoris'     => Kategori::latest()->get(),
         ]);
     }
 }

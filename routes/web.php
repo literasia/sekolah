@@ -198,6 +198,11 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/pelanggaran/siswa', 'SiswaController@index')
                     ->name('pelanggaran.siswa');
+                Route::post('/admin/pelanggaran/siswa', 'SiswaController@store');
+                Route::get('/admin/pelanggaran/siswa/{id}', 'SiswaController@edit');
+                Route::post('/admin/pelanggaran/siswa/update', 'SiswaController@update')
+                    ->name('pelanggaran.siswa-update');
+                Route::get('/admin/pelanggaran/siswa/hapus/{id}', 'SiswaController@destroy');
 
                 Route::get('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')
                     ->name('pelanggaran.kategori-pelanggaran');
@@ -221,12 +226,38 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/e-voting/calon', 'CalonController@index')
                     ->name('e-voting.calon');
+                Route::post('/admin/e-voting/calon', 'CalonController@store');
+                Route::get('/admin/e-voting/calon/{id}', 'CalonController@edit');
+                Route::post('/admin/e-voting/calon/update', 'CalonController@update')
+                    ->name('e-voting.calon-update');
+                Route::get('/admin/e-voting/calon/hapus/{id}', 'CalonController@destroy');
+
+
                 Route::get('/admin/e-voting/posisi', 'PosisiController@index')
-                    ->name('e-voting.posisi');
+                    ->name('e-voting.posisi');                
+                Route::post('/admin/e-voting/posisi', 'PosisiController@store');
+                Route::get('/admin/e-voting/posisi/{id}', 'PosisiController@edit');
+                Route::post('/admin/e-voting/posisi/update', 'PosisiController@update')
+                    ->name('e-voting.posisi-update');
+                Route::get('/admin/e-voting/posisi/hapus/{id}', 'PosisiController@destroy');
+
+
+
                 Route::get('/admin/e-voting/pemilihan', 'PemilihanController@index')
                     ->name('e-voting.pemilihan');
+                Route::post('/admin/e-voting/pemilihan', 'PemilihanController@store');
+                Route::get('/admin/e-voting/pemilihan/{id}', 'PemilihanController@edit');
+                Route::post('/admin/e-voting/pemilihan/update', 'PemilihanController@update')
+                    ->name('e-voting.pemilihan-update');
+                Route::get('/admin/e-voting/pemilihan/hapus/{id}', 'PemilihanController@destroy');
+
                 Route::get('/admin/e-voting/vote', 'VoteController@index')
                     ->name('e-voting.vote');
+                Route::post('/admin/e-voting/vote', 'VoteController@store');
+                Route::get('/admin/e-voting/vote/{id}', 'VoteController@edit');
+                Route::post('/admin/e-voting/vote/update', 'VoteController@update')
+                    ->name('e-voting.vote-update');
+                Route::get('/admin/e-voting/vote/hapus/{id}', 'VoteController@destroy');
             });
 
         // Fungsionaris

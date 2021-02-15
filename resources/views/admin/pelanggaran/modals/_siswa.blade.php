@@ -10,7 +10,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form id="form-pelanggaran-siswa" action="" method="">
+                    @csrf
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -28,18 +29,19 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="">Keterangan</label>
-                                <select name="keterangan" id="keterangan" class="form-control form-control-sm">
+                                <label for="">Pelanggaran</label>
+                                <select name="pelanggaran" onchange="setPoin(this)"  id="pelanggaran" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
-                                    <option value="merokok">Merokok</option>
-                                    <option value="gendul">Gendul</option>
+                                    @foreach($kategori as $k)
+                                    <option data-poin="{{$k-> poin}}">{{ $k->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="poin">Poin</label>
-                                <input type="text" name="poin" id="poin" class="form-control form-control-sm" placeholder="Poin">
+                                <input type="text" name="poin" id="poin" class="form-control form-control-sm" placeholder="Poin" readonly>
                             </div>
                         </div>
                     </div>
@@ -57,8 +59,9 @@
                                 <label for="sanksi">Sanksi</label>
                                 <select name="sanksi" id="sanksi" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
-                                    <option value="Pecat">Pecat</option>
-                                    <option value="Rajam">Rajam</option>
+                                    @foreach($sanksi as $s)
+                                    <option>{{ $s->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -77,12 +80,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="hidden_id" id="hidden_id">
+                        <input type="hidden" id="action" val="add">
+                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
-                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-            </div>
+            
         </div>
     </div>
 </div>
