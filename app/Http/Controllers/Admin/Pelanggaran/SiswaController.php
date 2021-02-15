@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Pelanggaran;
 
 use Validator;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Siswa;
@@ -88,6 +89,8 @@ class SiswaController extends Controller
                 'penanganan'  => $penanganan,
                 'keterangan'  => $keterangan
             ]);
+    public function index() {
+        return view('admin.pelanggaran.siswa', ['mySekolah' => User::sekolah()]);
     }
 
     public function update(Request $request) {

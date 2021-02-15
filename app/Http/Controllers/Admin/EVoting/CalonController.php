@@ -11,7 +11,7 @@ use App\Models\Admin\CalonKandidat;
 class CalonController extends Controller
 {
     public function index(Request $request) {
-    	if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = CalonKandidat::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {

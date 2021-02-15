@@ -9,7 +9,7 @@
 @section('icon-l', 'icon-book-open')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('superadmin.library') }}
+    {{ route('superadmin.library.index') }}
 @endsection
 
 @section('content')
@@ -49,6 +49,7 @@
 
 {{-- Modal --}}
 @include('superadmin.modals._tambah-baru')
+@include('components.modals._confirm-delete-modal')
 @endsection
 
 {{-- addons css --}}
@@ -77,7 +78,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('superadmin.library') }}",
+                    url: "{{ route('superadmin.library.index') }}",
                 },
                 columns: [
                 {
@@ -126,6 +127,12 @@
             $('#add').on('click', function () {
                 $('#modal-library').modal('show');
             });
+        });
+
+        $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
+            const url = $(e.relatedTarget).data('url');
+            const form = confirmDeleteModal.querySelector('#deleteForm');
+            form.action = url;
         });
     </script>
 @endpush

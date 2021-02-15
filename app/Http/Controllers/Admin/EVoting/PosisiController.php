@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Posisi;
+use App\User;
 
 class posisiController extends Controller
 {
@@ -23,7 +24,8 @@ class posisiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.e-voting.posisi');
+        
+        return view('admin.e-voting.posisi', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {

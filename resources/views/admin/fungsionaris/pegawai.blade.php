@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.fungsionaris.pegawai') }}
+    {{ route('admin.fungsionaris.pegawai.index') }}
 @endsection
 
 {{-- main content --}}
@@ -36,39 +36,25 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    <tr>
-                                        <td>-</td>
-                                        <td>Lestari Juwita</td>
-                                        <td>-</td>
-                                        <td>Jl. B.Z.Hamid KM 5 Gg. Amal No.1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>-</td>
-                                        <td>Surya Syahputra</td>
-                                        <td>-</td>
-                                        <td>Jl. Mangaan I No. 214 </td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>-</td>
-                                        <td>Yoga Sanjaya</td>
-                                        <td>-</td>
-                                        <td>Jl. Mesjid Tj. Rejo No. 5 Medan</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    @forelse($pegawais as $pegawai)
+                                        <tr>
+                                            <td>{{ $pegawai->nip }}</td>
+                                            <td>{{ $pegawai->name }}</td>
+                                            <td>{{ $pegawai->no_telepon }}</td>
+                                            <td>{{ $pegawai->alamat_tinggal }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-mini btn-danger shadow-sm" 
+                                                    data-url="{{ route('admin.fungsionaris.pegawai.destroy', $pegawai->id) }}" 
+                                                    data-toggle="modal" data-target="#confirmDeleteModal">
+                                                        <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -80,6 +66,7 @@
 
     {{-- Modal --}}
     @include('admin.fungsionaris.modals._pegawai')
+    @include('components.modals._confirm-delete-modal')
 @endsection
 
 {{-- addons css --}}
@@ -88,6 +75,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+
     <style>
         .btn i {
             margin-right: 0px;
@@ -103,22 +92,50 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
+        const dateOptions = {
+            theme: 'leaf',
+            format: 'd-m-Y'
+        };
+
         $(document).ready(function () {
-            $('#order-table').DataTable();
 
             $('#add').on('click', function () {
                 $('#modal-pegawai').modal('show');
             });
 
-            $('#tanggal_lahir').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            $('#tanggal_lahir').dateDropper(dateOptions);
+            $('#tanggal_mulai').dateDropper(dateOptions);
+        });
+        
+        $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
+            const url = $(e.relatedTarget).data('url');
+            const form = confirmDeleteModal.querySelector('#deleteForm');
+            form.action = url;
+        });
+        
+        const createForm = (e) => {
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("password_confirmation");
+            let errMsg;
 
-            $('#tanggal_mulai').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            if (password.value != confirmPassword.value) {
+                errMsg = 'Maaf, konfirmasi password belum sama pada data login pegawai';
+            } else if (password.value.length < 6) {
+                errMsg = 'Password min. 6 karakter';
+            }
+
+            if (errMsg) {
+                toastr.error(errMsg);
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        document.addEventListener('submit', (e) => {
+            const id = e.target.id;
+            switch(e.target.id) {
+                case "createForm": createForm(e); break;
+            }
         });
     </script>
 @endpush

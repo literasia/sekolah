@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Pelanggaran;
+use App\User;
 
 class KategoriPelanggaranController extends Controller
 {
@@ -24,7 +25,7 @@ class KategoriPelanggaranController extends Controller
                 ->make(true);
         }
         
-        return view('admin.pelanggaran.kategori-pelanggaran');
+        return view('admin.pelanggaran.kategori-pelanggaran', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {

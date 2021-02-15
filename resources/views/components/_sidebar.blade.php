@@ -1,6 +1,15 @@
 <nav class="pcoded-navbar">
     <div class="nav-list">
         <div class="pcoded-inner-navbar main-menu">
+            @if ($mySekolah->logo)
+                <a href="/admin" class="d-flex" style="justify-content: center;">
+                    <img class="img-fluid" src="{{ Storage::url($mySekolah->logo) }}" alt="logo sekolah" width="180" />
+                </a>
+            @endif
+            @if ($mySekolah->name)
+                <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah->name }}</h3>
+            @endif
+
             <div class="pcoded-navigation-label">Navigation</div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="{{ request()->is('admin') ? 'active' : '' }}">
@@ -18,7 +27,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/peserta-didik/siswa') ? 'active' : '' }}">
-                            <a href="{{ route('admin.pesertadidik.siswa') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('admin.pesertadidik.siswa.index') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Siswa</span>
                             </a>
                         </li>
@@ -107,7 +116,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/fungsionaris/pegawai') ? 'active' : '' }}">
-                            <a href="{{ route('admin.fungsionaris.pegawai') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('admin.fungsionaris.pegawai.index') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pegawai</span>
                             </a>
                         </li>

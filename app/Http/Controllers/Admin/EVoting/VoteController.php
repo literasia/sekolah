@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\EVoting;
 
 use Validator;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Voting;
@@ -14,6 +15,8 @@ class VoteController extends Controller
     	$names = Pemilihan::all();
     	$no = 1;
         return view('admin.e-voting.vote', ['names' => $names, 'no' => $no]);
+    public function index() {
+        return view('admin.e-voting.vote', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {

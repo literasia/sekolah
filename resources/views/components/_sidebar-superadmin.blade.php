@@ -28,7 +28,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('superadmin/library') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.library') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('superadmin.library.index') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Tambah Baru</span>
                             </a>
                         </li>

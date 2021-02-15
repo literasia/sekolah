@@ -175,6 +175,8 @@ Route::namespace('Admin')
     ->group(function () {
         Route::get('/admin', 'AdminController@index')
             ->name('index');
+        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')
+            ->name('siswa.by.tahun');
 
         // Peserta Didik
         Route::namespace('PesertaDidik')

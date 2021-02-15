@@ -13,7 +13,7 @@ use App\Models\Admin\Posisi;
 class PemilihanController extends Controller
 {
     public function index(Request $request) {
-    	if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = Pemilihan::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
@@ -65,17 +65,17 @@ class PemilihanController extends Controller
     }
 
     public function edit($id) {
-        $name 	= Pemilihan::find($id);
-        $posisi 		= Pemilihan::find($id);
-        $start_date 	= Pemilihan::find($id);
-        $end_date 		= Pemilihan::find($id);
+        $name   = Pemilihan::find($id);
+        $posisi         = Pemilihan::find($id);
+        $start_date     = Pemilihan::find($id);
+        $end_date       = Pemilihan::find($id);
 
         return response()
             ->json([
-                'name' 			=> $name,
-                'posisi'  		=> $posisi,
-                'start_date'  	=> $start_date,
-                'end_date'  	=> $end_date,
+                'name'          => $name,
+                'posisi'        => $posisi,
+                'start_date'    => $start_date,
+                'end_date'      => $end_date,
             ]);
     }
 
@@ -99,10 +99,10 @@ class PemilihanController extends Controller
         }
 
         $status = Pemilihan::whereId($request->input('hidden_id'))->update([
-            'name'  		=> $request->input('nama_calon'),
-            'posisi'  		=> $request->input('posisi'),
-            'start_date'  	=> $request->input('tanggal_mulai'),
-            'end_date'  	=> $request->input('tanggal_selesai'),
+            'name'          => $request->input('nama_calon'),
+            'posisi'        => $request->input('posisi'),
+            'start_date'    => $request->input('tanggal_mulai'),
+            'end_date'      => $request->input('tanggal_selesai'),
         ]);
 
         return response()
