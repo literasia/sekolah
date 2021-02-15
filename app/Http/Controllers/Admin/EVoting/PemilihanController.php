@@ -9,6 +9,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\CalonKandidat;
 use App\Models\Admin\Posisi;
+use App\User;
 
 class PemilihanController extends Controller
 {
@@ -27,7 +28,7 @@ class PemilihanController extends Controller
         }
         $ck = CalonKandidat::all();
         $ps = Posisi::all();
-        return view('admin.e-voting.pemilihan', ['ck' => $ck, 'ps' => $ps]);
+        return view('admin.e-voting.pemilihan', ['ck' => $ck, 'ps' => $ps, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {

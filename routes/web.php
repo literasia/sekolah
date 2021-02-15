@@ -169,6 +169,53 @@ Route::namespace('Superadmin')
                 });
     });
 
+Route::namespace('Superadmin')
+    ->name('superadmin.')
+    ->prefix('superadmin')
+    ->middleware(['auth', 'auth.superadmin'])
+    ->group(function() {
+        Route::get('/', 'SuperadminController@index')->name('index');
+
+        Route::resource('library', 'Library\TambahController');
+        Route::namespace('Library')
+            ->group(function() {
+                Route::resource('library-kategori', 'KategoriController');
+                Route::resource('library-penulis', 'PenulisController');
+                Route::resource('library-penerbit', 'PenerbitController');
+                Route::resource('library-tingkat', 'TingkatController');
+            });
+    });
+
+Route::namespace('Admin')
+    ->name('admin.')
+    ->prefix('admin')
+    ->middleware(['auth', 'auth.admin'])
+    ->group(function () {
+        Route::get('/', 'AdminController@index')->name('index');
+        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')->name('siswa.by.tahun');
+
+        // Peserta Didik
+        // Route -> Admin/PesertaDidik
+        // url /admin/peserta-didik
+        Route::namespace('PesertaDidik')
+            ->prefix('peserta-didik')
+            ->name('pesertadidik.')
+            ->group(function() {
+                Route::resource('siswa', 'SiswaController');  
+            });
+
+        // Fungsionaris
+        // Route -> Admin/Fungsionaris
+        // url /admin/fungsionaris
+        Route::namespace('Fungsionaris')
+            ->prefix('fungsionaris')
+            ->name('fungsionaris.')
+            ->group(function() {
+                Route::resource('pegawai', 'PegawaiController');
+            });
+        });
+    
+
 Route::namespace('Admin')
     ->name('admin.')
     ->middleware(['auth', 'auth.admin'])
@@ -181,8 +228,8 @@ Route::namespace('Admin')
         // Peserta Didik
         Route::namespace('PesertaDidik')
             ->group(function () {
-                Route::get('/admin/peserta-didik/siswa', 'SiswaController@index')
-                    ->name('pesertadidik.siswa');
+                // Route::get('/admin/peserta-didik/siswa', 'SiswaController@index')
+                //     ->name('pesertadidik.siswa');
                 Route::get('/admin/peserta-didik/alumni', 'AlumniController@index')
                     ->name('pesertadidik.alumni');
                 Route::get('/admin/peserta-didik/pindah-kelas', 'PindahKelasController@index')
@@ -265,8 +312,8 @@ Route::namespace('Admin')
         // Fungsionaris
         Route::namespace('Fungsionaris')
             ->group(function () {
-                Route::get('/admin/fungsionaris/pegawai', 'PegawaiController@index')
-                    ->name('fungsionaris.pegawai');
+                // Route::get('/admin/fungsionaris/pegawai', 'PegawaiController@index')
+                //     ->name('fungsionaris.pegawai');
                 Route::get('/admin/fungsionaris/guru', 'GuruController@index')
                     ->name('fungsionaris.guru');
             });

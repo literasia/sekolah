@@ -29,7 +29,7 @@ class SiswaController extends Controller
 
         $kategori = Pelanggaran::all();
     	$sanksi = Sanksi::all();
-        return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi]);
+        return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
@@ -89,9 +89,7 @@ class SiswaController extends Controller
                 'penanganan'  => $penanganan,
                 'keterangan'  => $keterangan
             ]);
-    public function index() {
-        return view('admin.pelanggaran.siswa', ['mySekolah' => User::sekolah()]);
-    }
+        }
 
     public function update(Request $request) {
         // validasi

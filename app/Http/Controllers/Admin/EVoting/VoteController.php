@@ -14,11 +14,9 @@ class VoteController extends Controller
     public function index(Request $request) {
     	$names = Pemilihan::all();
     	$no = 1;
-        return view('admin.e-voting.vote', ['names' => $names, 'no' => $no]);
-    public function index() {
-        return view('admin.e-voting.vote', ['mySekolah' => User::sekolah()]);
-    }
-
+        return view('admin.e-voting.vote', ['names' => $names, 'no' => $no, 'mySekolah' => User::sekolah()]);
+    } 
+     
     public function store(Request $request) {
         // validasi
         dd('ok');

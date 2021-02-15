@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\CalonKandidat;
+use App\User;
 
 class CalonController extends Controller
 {
@@ -23,7 +24,7 @@ class CalonController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.e-voting.calon');
+        return view('admin.e-voting.calon', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {

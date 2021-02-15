@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Superadmin\Library;
 
 use Illuminate\Http\Request;
-use App\Models\Superadmin\Kategori;
 use Yajra\DataTables\DataTables;
 use App\Models\Superadmin\Library;
 use App\Models\Superadmin\Sekolah;
