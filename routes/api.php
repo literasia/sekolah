@@ -21,6 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('API')
     ->group(function () {
         Route::get('test', 'AuthController@test');
+        Route::get('testing', 'AuthController@test');
         Route::post('login/student', 'AuthController@studentLogin');
         Route::post('login/school', 'AuthController@schoolLogin');
+
+        Route::get('home-information', 'HomeController@index');
+        Route::get('library', 'LibraryController@index');
+        Route::get('category', 'CategoryController@index');
     });

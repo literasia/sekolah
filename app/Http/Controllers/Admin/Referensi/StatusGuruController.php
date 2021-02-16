@@ -7,6 +7,7 @@ use App\Models\StatusGuru;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class StatusGuruController extends Controller
 {
@@ -24,7 +25,7 @@ class StatusGuruController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.status-guru');
+        return view('admin.referensi.status-guru', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
