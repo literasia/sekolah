@@ -62,6 +62,7 @@ class AuthController extends Controller
         $pegawai['nama_lengkap'] = $pegawai['name'];
         $pegawai['kelas'] = '-';
 
+        
         return response()->json(ApiResponse::success($pegawai));
     }
 }
