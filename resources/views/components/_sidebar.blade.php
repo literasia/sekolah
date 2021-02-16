@@ -107,7 +107,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/fungsionaris/pegawai') ? 'active' : '' }}">
-                            <a href="{{ route('admin.fungsionaris.pegawai') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('admin.fungsionaris.pegawai.index') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pegawai</span>
                             </a>
                         </li>
