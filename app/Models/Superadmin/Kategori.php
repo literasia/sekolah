@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Kategori extends Model
 {
     use SoftDeletes;
-
-    protected $fillable = ['name', 'thumbnail'];
     
     protected $guarded = [];
 }

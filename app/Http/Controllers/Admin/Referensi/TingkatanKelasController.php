@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\TingkatanKelas;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\User;
 
 class TingkatanKelasController extends Controller
 {
@@ -25,7 +24,7 @@ class TingkatanKelasController extends Controller
                 ->make(true);
         }
         
-        return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.tingkatan-kelas');
     }
 
     public function store(Request $request) {

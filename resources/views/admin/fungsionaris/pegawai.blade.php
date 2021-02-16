@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.fungsionaris.pegawai.index') }}
+    {{ route('admin.fungsionaris.pegawai') }}
 @endsection
 
 {{-- main content --}}
@@ -29,33 +29,12 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>NIP</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>No. HP</th>
+                                        <th>nama_pegawai</th>
+                                        <th>no_telepon</th>
                                         <th>Alamat</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-left">
-                                    @forelse($pegawais as $pegawai)
-                                        <tr>
-                                            <td>{{ $pegawai->nip }}</td>
-                                            <td>{{ $pegawai->name }}</td>
-                                            <td>{{ $pegawai->no_telepon }}</td>
-                                            <td>{{ $pegawai->alamat_tinggal }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                                &nbsp;&nbsp;
-                                                <button type="button" class="btn btn-mini btn-danger shadow-sm" 
-                                                    data-url="{{ route('admin.fungsionaris.pegawai.destroy', $pegawai->id) }}" 
-                                                    data-toggle="modal" data-target="#confirmDeleteModal">
-                                                        <i class="fa fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
-                                    @endforelse
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -66,7 +45,6 @@
 
     {{-- Modal --}}
     @include('admin.fungsionaris.modals._pegawai')
-    @include('components.modals._confirm-delete-modal')
 @endsection
 
 {{-- addons css --}}
@@ -75,8 +53,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
-
     <style>
         .btn i {
             margin-right: 0px;
@@ -91,51 +67,137 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
-        const dateOptions = {
-            theme: 'leaf',
-            format: 'd-m-Y'
-        };
-
         $(document).ready(function () {
-
-            $('#add').on('click', function () {
-                $('#modal-pegawai').modal('show');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
 
-            $('#tanggal_lahir').dateDropper(dateOptions);
-            $('#tanggal_mulai').dateDropper(dateOptions);
-        });
-        
-        $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
-            const url = $(e.relatedTarget).data('url');
-            const form = confirmDeleteModal.querySelector('#deleteForm');
-            form.action = url;
-        });
-        
-        const createForm = (e) => {
-            const password = document.getElementById("password");
-            const confirmPassword = document.getElementById("password_confirmation");
-            let errMsg;
+            var modal = $('#modal-pegawai');
 
-            if (password.value != confirmPassword.value) {
-                errMsg = 'Maaf, konfirmasi password belum sama pada data login pegawai';
-            } else if (password.value.length < 6) {
-                errMsg = 'Password min. 6 karakter';
-            }
+            var form = $("#form_pegawai");
 
-            if (errMsg) {
-                toastr.error(errMsg);
-                e.preventDefault();
-                return false;
-            }
-        }
+            var table = $('#order-table').DataTable({
+                processing:true,
+                serverSide: true,
+                ajax: "{{ route('admin.fungsionaris.pegawai') }}?req=table",
+                columns:[
+                    {data: 'nip'},
+                    {data: 'nama_pegawai'},
+                    {data: 'no_telepon'},
+                    {data: 'alamat_tinggal'},
+                    {data: 'id', render: (data) => {
+                        return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                            &nbsp;&nbsp;
+                        <button data-id="${data}" type="button" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>`;
+                    }},
+                ]
+            });
 
-        document.addEventListener('submit', (e) => {
-            const id = e.target.id;
-            switch(e.target.id) {
-                case "createForm": createForm(e); break;
-            }
+            $('#add').on('click', function () {
+                //$("#id").val('');
+                $("#form_pegawai").find('input').val('');
+                $("#form_pegawai").find('select').val('');
+                $("#form_pegawai").find('textarea').val('');
+                modal.modal('show');
+            });
+
+            $('#tanggal_lahir').dateDropper({
+                theme: 'leaf',
+                format: 'Y-m-d'
+            });
+
+            $('#tanggal_mulai').dateDropper({
+                theme: 'leaf',
+                format: 'Y-m-d'
+            });
+
+            $("#form_pegawai_submit").click(function(){
+                form.submit();
+            });
+
+            form.submit(ev => {
+                ev.preventDefault();
+                var formData = new FormData();
+                $.each($(this).find('input[type="file"]'), function (i, tag) {
+                    $.each($(tag)[0].files, function (i, file) {
+                        formData.append(tag.name, file);
+                    });
+                });
+                var params = $('#form_pegawai').serializeArray();
+                $.each(params, function (i, val) {
+                    formData.append(val.name, val.value);
+                });
+
+                $.ajax({
+                    url: "{{ route('admin.fungsionaris.pegawai.write') }}?req=write",
+                    cache: false,
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        Swal.fire("Berhasil", "Data berhasil disimpan", "success");
+                        modal.modal('hide');
+                        table.ajax.reload();
+                    },
+                    error: function(data) {
+                        if(typeof data.responseJSON.message == 'string')
+                            return Swal.fire('Error', data.responseJSON.message, 'error');
+                        else if(typeof data.responseJSON == 'string')
+                            return Swal.fire('Error', data.responseJSON, 'error');
+
+                    }
+                });
+
+            });
+            $("#order-table").on('click', '.btn-delete', function(ev, data) {
+                var id = ev.currentTarget.getAttribute('data-id');
+                Swal.fire({
+                    title: 'Konfirmasi Hapus',
+                    text: "Apa anda yakin untuk menghapus data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('admin.fungsionaris.pegawai.write') }}?req=delete&id=" + id,
+                            cache: false,
+                            method: "POST",
+                            processData: false,
+                            contentType: false,
+                            success: function (data) {
+                                Swal.fire("Berhasil", "Data berhasil dihapus", "success");
+                                table.ajax.reload();
+                            },
+                            error: function(data) {
+                                if(typeof data.responseJSON.message == 'string')
+                                    return Swal.fire('Error', data.responseJSON.message, 'error');
+                                else if(typeof data.responseJSON == 'string')
+                                    return Swal.fire('Error', data.responseJSON, 'error');
+                            }
+                        });
+                    }
+                    })
+            });
+
+            $("#order-table").on('click', '.btn-edit', function(ev, data) {
+                var id = ev.currentTarget.getAttribute('data-id');
+                $.get("{{route('admin.fungsionaris.pegawai')}}?req=single&id=" + id, function (data, status){
+                    for(key in data) {
+                        $(`#${key}`).val(data[key])
+                    }
+
+                    modal.modal('show');
+                });
+            })
+
         });
     </script>
 @endpush

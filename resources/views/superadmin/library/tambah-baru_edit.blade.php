@@ -32,11 +32,34 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
+                                <label for="sekolah_id">Nama Sekolah:</label>
+                                <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm" autocomplete="off">
+                                    <option value="">-- Nama Sekolah --</option>
+                                    @foreach ($sekolahs as $sekolah)
+                                        <option value="{{ $sekolah->id }}" {{ $library->sekolah_id == $sekolah->id ? "selected" : "" }}>{{ $sekolah->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="tingkat">Tingkat:</label>
+                                <?php $tingkats = ['SD', 'SMP', 'SMA', 'SMK', 'Umum']; ?>
+                                <select name="tingkat" id="tingkat" class="form-control form-control-sm" autocomplete="off">
+                                    <option value="">-- Tingkat --</option>
+                                    @foreach($tingkats as $tingkat)
+                                        <option value="{{ $tingkat }}" {{ $library->tingkat == $tingkat ? "selected" : "" }}>{{ $tingkat }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
                                 <label for="kategori_id">Kategori:</label>
                                 <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($kategoris as $kategori)
-                                        <option value="{{ $kategori->id }}" {{ $library->kategori_id == $kategori->id ? "selected" : "" }}>{{ $kategori->name }}</option>
+                                    @foreach ($tipes as $tipe)
+                                        <option value="{{ $tipe->id }}" {{ $library->kategori_id == $tipe->id ? "selected" : "" }}>{{ $tipe->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

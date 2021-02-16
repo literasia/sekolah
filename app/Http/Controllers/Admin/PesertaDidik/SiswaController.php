@@ -27,17 +27,18 @@ class SiswaController extends Controller
         $siswas = Siswa::with('kelas')->get();
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
-            'kelases' => $kelases,
-            'mySekolah' => User::sekolah()
+            'kelases' => $kelases
         ]);
     }
 
     public function store(Request $req) {
         $data = $req->all();
+
         $validator = Validator::make($data, [
             'kelas' => ['required', 'exists:tingkatan_kelas,id'],
             'jk' => ['nullable', 'in:Laki-Laki,Perempuan'],
             'agama' => ['nullable', 'in:' . SiswaController::AGAMA_RULE],
+            'is_siswa_pindahan' => ['nullable', 'boolean'],
             'suku' => ['nullable', 'in:Melayu,Aceh,Batak,Karo,Mandailing,Simalungun,Pak-Pak,Nias,Angkola,Jawa'],
             'golongan_darah' => ['nullable', 'in:A,B,AB,O'],
             'tanggal_lahir' => ['nullable', 'date'],
@@ -49,6 +50,7 @@ class SiswaController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();
         }
+
         $validator = Validator::make($data, [
             'anak_ke' =>  ['nullable', 'numeric'],
             'jumlah_saudara' =>  ['nullable', 'numeric'],
@@ -85,6 +87,7 @@ class SiswaController extends Controller
 
         $kelas = TingkatanKelas::find($data['kelas']);
         $kelasId = $kelas['id'];
+
         $exception = DB::transaction(function () use ($data, $kelasId) {
             $auth = auth()->user();
 
@@ -121,6 +124,7 @@ class SiswaController extends Controller
                     'no_telepon' => $data['no_telepon'],
                     'foto' => $data['foto']
                 ])->id;
+
                 $data['tanggal_lahir_ayah'] = Carbon::parse($data['tanggal_lahir_ayah'])->format('Y-m-d');
                 $data['tanggal_lahir_ibu'] = Carbon::parse($data['tanggal_lahir_ibu'])->format('Y-m-d');
                 SiswaOrangTua::create([
@@ -171,6 +175,7 @@ class SiswaController extends Controller
                     'nis' => $data['nis'],
                     'password' => Hash::make($data['password'])
                 ]);
+
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollback();

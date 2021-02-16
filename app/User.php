@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Models\Superadmin\Sekolah;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,6 +31,8 @@ class User extends Authenticatable
             return route('admin.index');
         } else if ($this->hasRole('superadmin')) {
             return route('superadmin.index');
+        } else if ($this->hasRole('siswa')) {
+            return route('siswa.index');
         }  else {
             return route('home');
         }
@@ -40,11 +41,5 @@ class User extends Authenticatable
     public function hasRole($role) {
         $authRole = Role::find(Auth::user()->role_id);
         return $authRole->name === $role;
-    }
-
-    public static function sekolah() {
-        return self::join('sekolahs', 'users.id_sekolah', 'sekolahs.id')
-            ->where('users.id', auth()->user()->id)
-            ->first('sekolahs.*');
     }
 }

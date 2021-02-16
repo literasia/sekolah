@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guru extends Model
 {
-    protected $fillable = ['nama', 'status_guru', 'is_aktif', 'foto', 'user_id'];
+    use SoftDeletes;
+
+    protected $guarded = [];
 }

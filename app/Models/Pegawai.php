@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pegawai extends Model
 {
     use SoftDeletes;
-    
     protected $guarded = [];
 }
