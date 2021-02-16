@@ -318,6 +318,18 @@ Route::namespace('Admin')
                     ->name('fungsionaris.guru');
             });
 
+        // Pelajaran
+        Route::namespace('Pelajaran')
+            ->group(function () {
+                // Pelajaran
+                Route::get('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
+                    ->name('pelajaran.mata-pelajaran');
+
+                // Jadwal Pelajaran
+                Route::get('/admin/pelajaran/jadwal-pelajaran', 'RekapSiswaController@index')
+                    ->name('pelajaran.jadwal-pelajaran');
+            });
+
         // Absensi
         Route::namespace('Absensi')
             ->group(function () {
@@ -325,6 +337,13 @@ Route::namespace('Admin')
                     ->name('absensi.siswa');
                 Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')
                     ->name('absensi.rekap-siswa');
+            });
+
+        // Daftar Nilai
+        Route::namespace('DaftarNilai')
+            ->group(function () {
+                Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
+                    ->name('daftar-nilai');
             });
 
         // Referensi
