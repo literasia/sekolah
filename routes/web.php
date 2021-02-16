@@ -294,6 +294,13 @@ Route::namespace('Admin')
                     ->name('absensi.rekap-siswa');
             });
 
+        // Daftar Nilai
+        Route::namespace('DaftarNilai')
+            ->group(function () {
+                Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
+                    ->name('daftar-nilai');
+            });
+
         // Referensi
         Route::namespace('Referensi')
             ->group(function () {

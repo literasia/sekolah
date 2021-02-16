@@ -9,7 +9,7 @@
     Ini adalah halaman mata pelajaran untuk admin
 @endsection
 
-@section('icon-l', 'fa fa-list-alt')
+@section('icon-l', 'fa fa-book')
 @section('icon-r', 'icon-home')
 
 @section('link')
