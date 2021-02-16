@@ -7,7 +7,6 @@ use App\Models\Semester;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\User;
 
 class SemesterController extends Controller
 {
@@ -25,7 +24,7 @@ class SemesterController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.semester', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.semester');
     }
 
     public function store(Request $request) {

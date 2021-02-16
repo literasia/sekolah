@@ -38,7 +38,6 @@ class AuthController extends Controller
         $siswa = Siswa::find($user->siswa_id);
         $kelas = TingkatanKelas::find($siswa->id_tingkatan_kelas);
         $siswa['kelas'] = $kelas->name;
-        $siswa['sekolah_id'] = $user->id_sekolah;
 
         return response()->json(ApiResponse::success($siswa));
     }
@@ -62,7 +61,6 @@ class AuthController extends Controller
         $pegawai = Pegawai::where('user_id', $user->id)->first();
         $pegawai['nama_lengkap'] = $pegawai['name'];
         $pegawai['kelas'] = '-';
-        $pegawa['sekolah_id'] = $user->id_sekolah;
 
         
         return response()->json(ApiResponse::success($pegawai));
