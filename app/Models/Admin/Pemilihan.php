@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pemilihan extends Model
 {
     use SoftDeletes;
+    
     protected $fillable = [
         'name', 'posisi', 'start_date', 'end_date'
     ];
