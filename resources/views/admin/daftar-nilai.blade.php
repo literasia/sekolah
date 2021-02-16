@@ -104,7 +104,7 @@
                                         <th style="vertical-align: middle">Nama Siswa</th>
                                         <th style="vertical-align: middle">Pelajaran</th>
                                         <th style="vertical-align: middle">Guru</th>
-                                        <th style="width: 15%">Nilai
+                                        <th style="width: 15%">UH 1
                                             <button id="add" class="btn btn-outline-primary btn-sm shadow-sm"><i class="fa fa-plus"></i></button>
                                         </th>
                                         <th style="vertical-align: middle">NR</th>
