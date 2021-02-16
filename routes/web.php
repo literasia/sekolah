@@ -24,10 +24,10 @@ Route::namespace('Siswa')
 
         Route::get('/siswa/perpustakaan', 'Perpustakaan\PerpustakaanController@index')
              ->name('perpustakaan.perpustakaan');
-        
+
         Route::get('/siswa/cbt', 'Cbt\CbtSiswaController@index')
              ->name('cbt.cbt-siswa');
-        
+
         Route::get('/siswa/elearning', 'Elearning\ElearningSiswaController@index')
              ->name('elearning.elearning-siswa');
 
@@ -42,18 +42,18 @@ Route::namespace('Siswa')
 
         Route::get('/siswa/logout', 'Logout\LogoutSiswaController@index')
              ->name('logout.logout-siswa');
-      
+
 });
-    
+
 Route::namespace('Orangtua')
     ->name('orangtua.')
     ->group(function () {
         Route::get('/orangtua', 'OrangtuaController@index')
             ->name('index');
-        
+
         Route::get('/orangtua/pelanggaran', 'Pelanggaran\OrangtuaController@index')
             ->name('pelanggaran.pelanggaran');
-        
+
         Route::get('/orangtua/kalender', 'Kalender\KalenderAkademikController@index')
             ->name('kalender.kalender-akademik');
 
@@ -66,8 +66,8 @@ Route::namespace('Orangtua')
         Route::get('/orangtua/nilai', 'Nilai\NilaiOrangtuaController@index')
              ->name('nilai.nilai-orangtua');
 
-      
-});    
+
+});
 
 Route::namespace('Superadmin')
     ->name('superadmin.')
@@ -82,7 +82,7 @@ Route::namespace('Superadmin')
         Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')
             ->name('list-sekolah-update');
         Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy');
-        
+
 
             // Referensi
             Route::namespace('Referensi')
@@ -164,10 +164,11 @@ Route::namespace('Superadmin')
                     Route::delete('/superadmin/library/tipe/delete/{id}', 'SettingController@deleteTipe')
                         ->name('library-tipe-delete');
 
-                    Route::get('/superadmin/library', 'TambahController@index')
-                        ->name('library');
+                    // Route::get('/superadmin/library', 'TambahController@index')
+                    //     ->name('library');
                 });
     });
+
 
 Route::namespace('Superadmin')
     ->name('superadmin.')
@@ -192,7 +193,6 @@ Route::namespace('Admin')
     ->middleware(['auth', 'auth.admin'])
     ->group(function () {
         Route::get('/', 'AdminController@index')->name('index');
-        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')->name('siswa.by.tahun');
 
         // Peserta Didik
         // Route -> Admin/PesertaDidik
@@ -201,7 +201,7 @@ Route::namespace('Admin')
             ->prefix('peserta-didik')
             ->name('pesertadidik.')
             ->group(function() {
-                Route::resource('siswa', 'SiswaController');  
+                Route::resource('siswa', 'SiswaController');
             });
 
         // Fungsionaris
@@ -214,20 +214,18 @@ Route::namespace('Admin')
                 Route::resource('pegawai', 'PegawaiController');
             });
         });
-    
 
 Route::namespace('Admin')
     ->name('admin.')
     ->middleware(['auth', 'auth.admin'])
     ->group(function () {
-        Route::get('/admin', 'AdminController@index')
-            ->name('index');
-        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')
-            ->name('siswa.by.tahun');
+        // Route::get('/admin', 'AdminController@index')
+        //     ->name('index');
 
         // Peserta Didik
         Route::namespace('PesertaDidik')
             ->group(function () {
+
                 // Route::get('/admin/peserta-didik/siswa', 'SiswaController@index')
                 //     ->name('pesertadidik.siswa');
                 Route::get('/admin/peserta-didik/alumni', 'AlumniController@index')
@@ -247,27 +245,10 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/pelanggaran/siswa', 'SiswaController@index')
                     ->name('pelanggaran.siswa');
-                Route::post('/admin/pelanggaran/siswa', 'SiswaController@store');
-                Route::get('/admin/pelanggaran/siswa/{id}', 'SiswaController@edit');
-                Route::post('/admin/pelanggaran/siswa/update', 'SiswaController@update')
-                    ->name('pelanggaran.siswa-update');
-                Route::get('/admin/pelanggaran/siswa/hapus/{id}', 'SiswaController@destroy');
-
                 Route::get('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')
                     ->name('pelanggaran.kategori-pelanggaran');
-                Route::post('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@store');
-                Route::get('/admin/pelanggaran/kategori-pelanggaran/{id}', 'KategoriPelanggaranController@edit');
-                Route::post('/admin/pelanggaran/kategori-pelanggaran/update', 'KategoriPelanggaranController@update')
-                    ->name('pelanggaran.kategori-pelanggaran-update');
-                Route::get('/admin/pelanggaran/kategori-pelanggaran/hapus/{id}', 'KategoriPelanggaranController@destroy');
-
                 Route::get('/admin/pelanggaran/sanksi', 'SanksiController@index')
                     ->name('pelanggaran.sanksi');
-                Route::post('/admin/pelanggaran/sanksi', 'SanksiController@store');
-                Route::get('/admin/pelanggaran/sanksi/{id}', 'SanksiController@edit');
-                Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')
-                    ->name('pelanggaran.sanksi-update');
-                Route::get('/admin/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
             });
 
         // E-Voting
@@ -275,38 +256,12 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/e-voting/calon', 'CalonController@index')
                     ->name('e-voting.calon');
-                Route::post('/admin/e-voting/calon', 'CalonController@store');
-                Route::get('/admin/e-voting/calon/{id}', 'CalonController@edit');
-                Route::post('/admin/e-voting/calon/update', 'CalonController@update')
-                    ->name('e-voting.calon-update');
-                Route::get('/admin/e-voting/calon/hapus/{id}', 'CalonController@destroy');
-
-
                 Route::get('/admin/e-voting/posisi', 'PosisiController@index')
-                    ->name('e-voting.posisi');                
-                Route::post('/admin/e-voting/posisi', 'PosisiController@store');
-                Route::get('/admin/e-voting/posisi/{id}', 'PosisiController@edit');
-                Route::post('/admin/e-voting/posisi/update', 'PosisiController@update')
-                    ->name('e-voting.posisi-update');
-                Route::get('/admin/e-voting/posisi/hapus/{id}', 'PosisiController@destroy');
-
-
-
+                    ->name('e-voting.posisi');
                 Route::get('/admin/e-voting/pemilihan', 'PemilihanController@index')
                     ->name('e-voting.pemilihan');
-                Route::post('/admin/e-voting/pemilihan', 'PemilihanController@store');
-                Route::get('/admin/e-voting/pemilihan/{id}', 'PemilihanController@edit');
-                Route::post('/admin/e-voting/pemilihan/update', 'PemilihanController@update')
-                    ->name('e-voting.pemilihan-update');
-                Route::get('/admin/e-voting/pemilihan/hapus/{id}', 'PemilihanController@destroy');
-
                 Route::get('/admin/e-voting/vote', 'VoteController@index')
                     ->name('e-voting.vote');
-                Route::post('/admin/e-voting/vote', 'VoteController@store');
-                Route::get('/admin/e-voting/vote/{id}', 'VoteController@edit');
-                Route::post('/admin/e-voting/vote/update', 'VoteController@update')
-                    ->name('e-voting.vote-update');
-                Route::get('/admin/e-voting/vote/hapus/{id}', 'VoteController@destroy');
             });
 
         // Fungsionaris
@@ -324,10 +279,14 @@ Route::namespace('Admin')
                 // Pelajaran
                 Route::get('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
                     ->name('pelajaran.mata-pelajaran');
+                Route::post('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@write')
+                    ->name('pelajaran.mata-pelajaran.write');
 
                 // Jadwal Pelajaran
-                Route::get('/admin/pelajaran/jadwal-pelajaran', 'RekapSiswaController@index')
+                Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
                     ->name('pelajaran.jadwal-pelajaran');
+                Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
+                    ->name('pelajaran.jadwal-pelajaran.write');
             });
 
         // Absensi

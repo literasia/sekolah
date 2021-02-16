@@ -19,7 +19,7 @@ class PegawaiController extends Controller
 
     public function index() {
         $pegawais = Pegawai::all();
-        return view('admin.fungsionaris.pegawai', ['pegawais' => $pegawais, 'mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.pegawai', ['pegawais' => $pegawais]);
     }
 
     public function store(Request $req) {
