@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Fungsionaris;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use App\Models\Guru;
 use DataTables;

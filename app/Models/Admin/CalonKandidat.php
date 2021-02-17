@@ -5,12 +5,12 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pemilihan extends Model
+class CalonKandidat extends Model
 {
     use SoftDeletes;
-    protected $fillable = [
-        'name', 'posisi', 'start_date', 'end_date'
+
+	protected $fillable = [
+        'name'
     ];
-    protected $table = "pemilihan_kandidats";
     protected $guarded = [];
 }

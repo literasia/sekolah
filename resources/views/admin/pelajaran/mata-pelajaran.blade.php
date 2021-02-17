@@ -46,14 +46,9 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-<!-- <<<<<<< HEAD
                                         <label for="guru">Guru Budang Studi/Pengajar</label>
-                                        <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran">
-                                        <select name="guru" id="guru" class="form-control form-control-sm">
-======= -->
-                                        <label for="guru_id">Guru Budang Studi/Pengajar</label>
                                         <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
-                                        <select name="guru_id" id="guru" class="form-control form-control-sm" required>
+                                        <select name="guru" id="guru" class="form-control form-control-sm">
                                             <option value="">-- Guru Budang Studi/Pengajar --</option>
                                             @foreach($guru as $obj)
                                             <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
@@ -84,16 +79,9 @@
                             <br>
                             <div class="row">
                                 <div class="col">
-<!-- <<<<<<< HEAD
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-danger">Batal</button>
-======= -->
                                     <input type="hidden" name="id" id="id">
                                     <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
                                     <button type="reset" class="btn btn-sm btn-danger" id="reset">Batal</button>
-<!-- >>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9 -->
                                 </div>
                             </div>
                         </form>

@@ -7,6 +7,7 @@ use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class BagianPegawaiController extends Controller
 {
@@ -24,7 +25,7 @@ class BagianPegawaiController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.bagian-pegawai');
+        return view('admin.referensi.bagian-pegawai', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
