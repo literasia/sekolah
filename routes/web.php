@@ -298,7 +298,7 @@ Route::namespace('Admin')
                 Route::get('/admin/e-voting/pemilihan/{id}', 'PemilihanController@edit');
                 Route::post('/admin/e-voting/pemilihan/update', 'PemilihanController@update')
                     ->name('e-voting.pemilihan-update');
-                Route::get('/admin/e-voting/pemilihan/hapus/{id}', 'PemilihanController@destroy');
+                Route::get('/admin/e-voting/pemilihan/hapus/{id}', 'PemilihanController@destroy')->name('e-voting.pemilihan-destroy');
 
                 Route::get('/admin/e-voting/vote', 'VoteController@index')
                     ->name('e-voting.vote');
