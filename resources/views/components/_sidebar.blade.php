@@ -1,7 +1,6 @@
 <nav class="pcoded-navbar">
     <div class="nav-list">
         <div class="pcoded-inner-navbar main-menu">
-<<<<<<< HEAD
             @if ($mySekolah ?? '')
                 @if ($mySekolah ?? ''->logo)
                     <a href="/admin" class="d-flex" style="justify-content: center;">
@@ -12,8 +11,6 @@
                     <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah ?? ''->name }}</h3>
                 @endif
             @endif
-=======
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
             <div class="pcoded-navigation-label">Navigation</div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="{{ request()->is('admin') ? 'active' : '' }}">
