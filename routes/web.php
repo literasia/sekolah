@@ -324,10 +324,14 @@ Route::namespace('Admin')
                 // Pelajaran
                 Route::get('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
                     ->name('pelajaran.mata-pelajaran');
+                Route::post('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@write')
+                    ->name('pelajaran.mata-pelajaran.write');
 
                 // Jadwal Pelajaran
-                Route::get('/admin/pelajaran/jadwal-pelajaran', 'RekapSiswaController@index')
+                Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
                     ->name('pelajaran.jadwal-pelajaran');
+                Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
+                    ->name('pelajaran.jadwal-pelajaran.write');
             });
 
         // Absensi
