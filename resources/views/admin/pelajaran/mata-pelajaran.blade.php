@@ -46,10 +46,11 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <label for="guru">Guru Budang Studi/Pengajar</label>
+                                        <label for="guru">Guru Bidang Studi/Pengajar</label>
                                         <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
                                         <select name="guru" id="guru" class="form-control form-control-sm">
-                                            <option value="">-- Guru Budang Studi/Pengajar --</option>
+                                            <option value="">-- Pilih --</option>
+                                            <option value="">Prof Dr Ir H Ramadhan Wal Iqram S. Kom, M. Kom</option>
                                         </select>
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
@@ -66,9 +67,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-xl-12">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" name="aktif" id="aktif" checked>
-                                        <label class="custom-control-label" for="aktif">Aktif</label>
+                                    <div class="form-group">
+                                        <label for="aktif">Status Aktif</label>
+                                        <select name="status" id="status" class="form-control form-control-sm">
+                                            <option value="">-- Status --</option>
+                                            @foreach($status as $st)
+                                            <option value="{{ $st->name }}">{{ $st->name }}</option>
+                                            @endforeach
+                                        </select>
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
