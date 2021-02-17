@@ -5442,8 +5442,6 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "maximebf/debugbar",
             "version": "v1.16.5",
             "source": {
@@ -5509,7 +5507,6 @@
             "time": "2020-12-07T11:07:24+00:00"
         },
         {
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
             "name": "mockery/mockery",
             "version": "1.4.2",
             "source": {

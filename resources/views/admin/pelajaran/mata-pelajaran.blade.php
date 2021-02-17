@@ -9,11 +9,7 @@
     Ini adalah halaman mata pelajaran untuk admin
 @endsection
 
-<<<<<<< HEAD
 @section('icon-l', 'fa fa-book')
-=======
-@section('icon-l', 'fa fa-list-alt')
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -50,15 +46,15 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
                                         <label for="guru">Guru Budang Studi/Pengajar</label>
-                                        <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
+                                        <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran">
                                         <select name="guru" id="guru" class="form-control form-control-sm">
-=======
+======= -->
                                         <label for="guru_id">Guru Budang Studi/Pengajar</label>
                                         <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
                                         <select name="guru_id" id="guru" class="form-control form-control-sm">
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
+<!-- >>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9 -->
                                             <option value="">-- Guru Budang Studi/Pengajar --</option>
                                         </select>
                                         <span id="form_result" class="text-danger"></span>
@@ -86,16 +82,16 @@
                             <br>
                             <div class="row">
                                 <div class="col">
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
                                     <input type="hidden" name="hidden_id" id="hidden_id">
                                     <input type="hidden" id="action" val="add">
                                     <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
                                     <button type="reset" class="btn btn-sm btn-danger">Batal</button>
-=======
+======= -->
                                     <input type="hidden" name="id" id="id">
                                     <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
                                     <button type="reset" class="btn btn-sm btn-danger" id="reset">Batal</button>
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
+<!-- >>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9 -->
                                 </div>
                             </div>
                         </form>
@@ -166,16 +162,6 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<<<<<<< HEAD
-    <script>
-        $(document).ready(function () {
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.pelajaran.mata-pelajaran') }}",
-                },
-=======
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
@@ -200,30 +186,13 @@
             var table = $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.pelajaran.mata-pelajaran') }}?req=table",                
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
+                ajax: "{{ route('admin.pelajaran.mata-pelajaran') }}?req=table",
                 columns: [
                 {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
                 {
-<<<<<<< HEAD
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'guru',
-                    name: 'guru'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-=======
                     data: 'nama_pelajaran',
                 },
                 {
@@ -243,58 +212,19 @@
                                     <i class="fa fa-trash"></i>
                                 </button>`;
                     }
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
                 }
                 ]
             });
 
             $('#form-pelajaran').on('submit', function (event) {
                 event.preventDefault();
-<<<<<<< HEAD
-                var url = '';
-
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.pelajaran.mata-pelajaran') }}";
-                    text = "Data sukses ditambahkan";
-                }
-                
-                if ($('#action').val() == 'edit') {
-                    url = "{{-- route('admin.pelajaran.mata-pelajaran-update') --}}";
-                    text = "Data sukses diupdate";
-                }
-
-=======
                 var url = "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=write";
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
                 $.ajax({
                     url: url,
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-<<<<<<< HEAD
-                        var html = '';
-                        if (data.errors) {
-                            // for (var count = 0; count <= data.errors.length; count++) {
-                            html = data.errors[0];
-                            // }
-                            $('#pelajaran').addClass('is-invalid');
-                            toastr.error(html);
-                        }
-
-                        if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
-                            $('#pelajaran').removeClass('is-invalid');
-                            $('#form-pelajaran')[0].reset();
-                            $('#action').val('add');
-                            $('#btn')
-                                .removeClass('btn-outline-info')
-                                .addClass('btn-outline-success')
-                                .val('Simpan');
-                            $('#order-table').DataTable().ajax.reload();
-                        }
-                        $('#form_result').html(html);
-=======
                         toastr.success('Data sukses ditambahkan');
                         resetForm();
                         table.ajax.reload();
@@ -304,52 +234,10 @@
                                     return Swal.fire('Error', data.responseJSON.message, 'error');
                                 else if(typeof data.responseJSON == 'string')
                                     return Swal.fire('Error', data.responseJSON, 'error');
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
                     }
                 });
             });
 
-<<<<<<< HEAD
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('id');
-                $.ajax({
-                    url: '/admin/referensi/mata-pelajaran/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        console.log(data.pelajaran);
-                        $('#pelajaran').val(data.pelajaran.name);
-                        $('#hidden_id').val(data.pelajaran.id);
-                        $('#action').val('edit');
-                        $('#btn')
-                            .removeClass('btn-outline-success')
-                            .addClass('btn-outline-info')
-                            .val('Update');
-                    }
-                });
-            });
-
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
-
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/referensi/mata-pelajaran/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
-                        }, 1000);
-                    }
-                });
-            });
-=======
             $('#order-table').on('click', '.btn-edit', function (ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 $.get("{{route('admin.pelajaran.mata-pelajaran')}}?req=single&id=" + id, function (data, status){
@@ -399,8 +287,6 @@
                     })
             });
 
-
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
         });
     </script>
 @endpush
