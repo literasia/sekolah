@@ -4,14 +4,6 @@ namespace App\Http\Controllers\Admin\Pelajaran;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-
-class MataPelajaranController extends Controller
-{
-
-    public function index() {
-        return view('admin.pelajaran.mata-pelajaran');
-=======
 use DataTables;
 use App\Models\Guru;
 use App\Models\MataPelajaran;
@@ -50,6 +42,5 @@ class MataPelajaranController extends Controller
         elseif($request->req == 'delete') {
             MataPelajaran::find($request->id)->delete();
         }
->>>>>>> d3e253c48f5c13cb64b572ebeb26a176538a51f9
     }
 }
