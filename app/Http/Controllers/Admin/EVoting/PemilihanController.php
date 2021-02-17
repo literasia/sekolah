@@ -31,7 +31,10 @@ class PemilihanController extends Controller
         return view('admin.e-voting.pemilihan', ['ck' => $ck, 'ps' => $ps, 'mySekolah' => User::sekolah()]);
     }
 
+
+
     public function store(Request $request) {
+        $data = $request->all();
         // validasi
         $rules = [
             'nama_calon'  => 'required|max:50',
@@ -41,7 +44,7 @@ class PemilihanController extends Controller
             'nama_calon.required' => 'Kolom ini tidak boleh kosong',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $message);
+        $validator = Validator::make($data, $rules, $message);
 
         if ($validator->fails()) {
             return response()
@@ -49,13 +52,19 @@ class PemilihanController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
+
+
         foreach ($request->input('nama_calon') as $nama_calon) {
-            $status = Pemilihan::create([
-            'name'          => $nama_calon,
-            'posisi'        => $request->input('posisi'),
-            'start_date'    => $request->input('tanggal_mulai'),
-            'end_date'      => $request->input('tanggal_selesai')
-        ]);
+            $tglMulai = explode("-", $data['tanggal_mulai']);
+            $tglSelesai = explode("-", $data['tanggal_selesai']);
+            $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
+            $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
+            Pemilihan::create([
+                'name'          => $nama_calon,
+                'posisi'        => $data['posisi'],
+                'start_date'    => $newTglMulai,
+                'end_date'      => $newTglSelesai
+            ]);
         }
         
 
@@ -66,21 +75,18 @@ class PemilihanController extends Controller
     }
 
     public function edit($id) {
-        $name   = Pemilihan::find($id);
-        $posisi         = Pemilihan::find($id);
-        $start_date     = Pemilihan::find($id);
-        $end_date       = Pemilihan::find($id);
-
+        $data = Pemilihan::find($id);
         return response()
             ->json([
-                'name'          => $name,
-                'posisi'        => $posisi,
-                'start_date'    => $start_date,
-                'end_date'      => $end_date,
+                'name'          => $data['name'],
+                'posisi'        => $data['posisi'],
+                'start_date'    => $data['start_date'] ?? "",
+                'end_date'      => $data['end_date'] ?? "",
             ]);
     }
 
     public function update(Request $request) {
+        $data = $request->all();
         // validasi
         $rules = [
             'nama_calon'  => 'required|max:50',
@@ -99,11 +105,16 @@ class PemilihanController extends Controller
                 ]);
         }
 
+        $tglMulai = explode("-", $data['tanggal_mulai']);
+        $tglSelesai = explode("-", $data['tanggal_selesai']);
+        $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
+        $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
+
         $status = Pemilihan::whereId($request->input('hidden_id'))->update([
             'name'          => $request->input('nama_calon'),
             'posisi'        => $request->input('posisi'),
-            'start_date'    => $request->input('tanggal_mulai'),
-            'end_date'      => $request->input('tanggal_selesai'),
+            'start_date'    => $newTglMulai,
+            'end_date'      => $newTglSelesai
         ]);
 
         return response()
