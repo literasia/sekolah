@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin\EVoting;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Pemilihan;
 use App\User;
+use App\Models\Admin\CalonKandidat;
 use Illuminate\Http\Request;
 
 class PemilihanController extends Controller
 {
     public function index() {
-        return view('admin.e-voting.pemilihan', ['mySekolah' => User::sekolah()]);
+        $ck = CalonKandidat::all();
+        $ps = Pemilihan::all();
+        return view('admin.e-voting.pemilihan', ['ps' => $ps, 'ck' => $ck, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
