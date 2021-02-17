@@ -29,7 +29,7 @@
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label for="nama_pelajaran">Nama Pelajaran</label>
-                                        <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran">
+                                        <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran" required>
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label for="kode_pelajaran">Kode Pelajaran</label>
-                                        <input type="text" name="kode_pelajaran" id="kode_pelajaran" class="form-control form-control-sm" placeholder="Kode Pelajaran">
+                                        <input type="text" name="kode_pelajaran" id="kode_pelajaran" class="form-control form-control-sm" placeholder="Kode Pelajaran" required>
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -48,8 +48,11 @@
                                     <div class="form-group">
                                         <label for="guru_id">Guru Budang Studi/Pengajar</label>
                                         <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
-                                        <select name="guru_id" id="guru" class="form-control form-control-sm">
+                                        <select name="guru_id" id="guru" class="form-control form-control-sm" required>
                                             <option value="">-- Guru Budang Studi/Pengajar --</option>
+                                            @foreach($guru as $obj)
+                                            <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
+                                            @endforeach
                                         </select>
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
@@ -183,11 +186,12 @@
                     data: 'nama_pelajaran',
                 },
                 {
-                    data: 'guru_id',
-                    name: 'guru_id'
+                    data: 'nama_guru',
+                    name: 'nama_guru'
                 },
                 {
-                    data: 'aktif',                    
+                    data: 'aktif',
+                    render: (data) =>  data == 1 ? 'Aktif' : 'Non Aktif'
                 },
                 {
                     data: 'id',

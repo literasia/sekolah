@@ -61,7 +61,7 @@ class SiswaController extends Controller
             'agama_ibu' => ['nullable', 'in:' . SiswaController::AGAMA_RULE],
             'kewarganegaraan_ibu' => ['nullable', 'in:' . SiswaController::KEWARGANEGARAAN_RULE],
             'pendidikan_ibu' => ['nullable', 'in:' . SiswaController::PENDIDIKAN_RULE],
-            'tanggal_lahir_ibu' => ['nullable', 'date']
+            'tanggal_lahir_ibu' => ['nullable', 'date']  
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();
@@ -163,7 +163,7 @@ class SiswaController extends Controller
                     'kewarganegaraan_wali' => $data['kewarganegaraan_wali'],
                     'pendidikan_wali' => $data['pendidikan_wali'],
                     'pekerjaan_wali' => $data['pekerjaan_wali'],
-                    'email_wali' => $data['email_wali']
+                    'email_wali' => $data['email_wali']                    
                 ]);
 
                 User::create([
