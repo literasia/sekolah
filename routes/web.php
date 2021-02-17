@@ -267,10 +267,14 @@ Route::namespace('Admin')
         // Fungsionaris
         Route::namespace('Fungsionaris')
             ->group(function () {
-                // Route::get('/admin/fungsionaris/pegawai', 'PegawaiController@index')
-                //     ->name('fungsionaris.pegawai');
-                Route::get('/admin/fungsionaris/guru', 'GuruController@index')
-                    ->name('fungsionaris.guru');
+            Route::get('/admin/fungsionaris/pegawai', 'PegawaiController@index')
+                ->name('fungsionaris.pegawai');
+                Route::post('/admin/fungsionaris/pegawai', 'PegawaiController@write')
+                    ->name('fungsionaris.pegawai.write');
+            Route::get('/admin/fungsionaris/guru', 'GuruController@index')
+                ->name('fungsionaris.guru');
+                Route::post('/admin/fungsionaris/guru', 'GuruController@write')
+                ->name('fungsionaris.guru.write');
             });
 
         // Pelajaran

@@ -26,4 +26,8 @@ Route::namespace('API')
 
         Route::get('matapelajaran', 'MataPelajaranController@read');
         Route::post('matapelajaran', 'MataPelajaranController@write');
+
+        Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
+
+
     });
