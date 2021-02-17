@@ -197,7 +197,7 @@ Route::namespace('Admin')
         // Peserta Didik
         // Route -> Admin/PesertaDidik
         // url /admin/peserta-didik
-        Route::namespace('PesertaDidik')
+         Route::namespace('PesertaDidik')
             ->prefix('peserta-didik')
             ->name('pesertadidik.')
             ->group(function() {
