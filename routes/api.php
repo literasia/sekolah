@@ -31,4 +31,7 @@ Route::namespace('API')
         Route::get('library', 'LibraryController@index');
         Route::get('category', 'CategoryController@index');
         Route::resource('voting', 'VotingController');
+        Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
+
+
     });

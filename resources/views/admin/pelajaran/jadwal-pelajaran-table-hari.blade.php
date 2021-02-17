@@ -18,7 +18,7 @@
             @foreach($data as $key => $obj)
                 <tr>
                      <td>{{$key + 1}}</td>
-                     <td>{{$obj->mata_pelajaran_id}}</td>
+                     <td>{{$obj->mataPelajaran->nama_pelajaran ?? ''}}</td>
                      <td>
                         <button data-id="{{$obj->id}}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
                             <i class="fa fa-trash"></i>

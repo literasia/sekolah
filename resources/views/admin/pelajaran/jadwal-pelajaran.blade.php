@@ -42,8 +42,9 @@
                                         <label for="pelajaran">Pelajaran</label>
                                         <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
                                             <option disabled="" value="">-- Pelajaran --</option>
-                                            <option value="Islam">PPKN | Nama Guru</option>
-                                            <option value="Budha">Penjas | Nama Guru</option>
+                                            @foreach($pelajaran as $obj)
+                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

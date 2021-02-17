@@ -12,7 +12,7 @@ class MataPelajaranController extends Controller
 
     public function index(Request $request) {
         if($request->req == 'table') {
-            return DataTables::of(MataPelajaran::get())->addIndexColumn()->toJson();
+            return DataTables::of(MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->select('mata_pelajarans.*', 'nama_guru')->get())->addIndexColumn()->toJson();
         }
         if($request->req == 'single') {
             return response()->json(MataPelajaran::findOrFail($request->id));
@@ -31,9 +31,9 @@ class MataPelajaranController extends Controller
 
             $obj->nama_pelajaran = $request->nama_pelajaran;
             $obj->kode_pelajaran = $request->kode_pelajaran;
-            $obj->guru_id = 1; //$request->guru_id;
+            $obj->guru_id = $request->guru_id;
             $obj->aktif = $request->aktif == 'on';
-            $obj->keterangan = $request->keterangan;
+            $obj->keterangan = $request->keterangan ?? '';
             $obj->save();
             return response()->json($obj);
             

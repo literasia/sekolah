@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.store') }}" method="POST">
+            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.write') }}" method="POST">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
@@ -18,7 +18,7 @@
                                 <label for="nama_pegawai">Nama Lengkap</label>
                                 <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control form-control-sm" placeholder="Nama Lengkap" required>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -260,7 +260,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <hr>
                     <h5>Data Login</h5>
                     <div class="row">

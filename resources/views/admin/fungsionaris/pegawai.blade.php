@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.fungsionaris.pegawai.index') }}
+    {{ route('admin.fungsionaris.pegawai') }}
 @endsection
 
 {{-- main content --}}
@@ -45,8 +45,8 @@
                                             <td>
                                                 <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
                                                 &nbsp;&nbsp;
-                                                <button type="button" class="btn btn-mini btn-danger shadow-sm" 
-                                                    data-url="{{ route('admin.fungsionaris.pegawai.destroy', $pegawai->id) }}" 
+                                                <button type="button" class="btn btn-mini btn-danger shadow-sm"
+                                                    data-url="{{ route('admin.fungsionaris.pegawai.destroy', $pegawai->id) }}"
                                                     data-toggle="modal" data-target="#confirmDeleteModal">
                                                         <i class="fa fa-trash"></i>
                                                 </button>
@@ -106,13 +106,13 @@
             $('#tanggal_lahir').dateDropper(dateOptions);
             $('#tanggal_mulai').dateDropper(dateOptions);
         });
-        
+
         $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
             const url = $(e.relatedTarget).data('url');
             const form = confirmDeleteModal.querySelector('#deleteForm');
             form.action = url;
         });
-        
+
         const createForm = (e) => {
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("password_confirmation");
