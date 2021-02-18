@@ -11,8 +11,8 @@ class JadwalPelajaranController extends Controller
 {
     public function read(Request $request) {
         if($request->req == 'table') {
-            $data = JadwalPelajaran::with('mataPelajaran')->where('tahun_ajaran', $request->tahun_ajaran)
-                                   ->where('kelas', $request->kelas)
+            $data = JadwalPelajaran::with('mataPelajaran', 'kelas')->where('tahun_ajaran', $request->tahun_ajaran)
+                                   ->where('kelas_id', $request->kelas_id)
                                    ->where('semester', $request->semester)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
