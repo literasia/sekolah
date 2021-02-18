@@ -13,6 +13,7 @@ Route::namespace('Siswa')
         Route::get('/siswa/e-voting', 'EVoting\EVotingController@index')
             ->name('e-voting.e-voting');
 
+             //bang adek
              Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@index')
              ->name('pelajaran.mata-pelajaran');
              // Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@write')
