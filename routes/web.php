@@ -5,15 +5,18 @@ Route::get('/', function () {
 });
 
 Route::get('/migrate', function () {
-    artisan::call('migrate');
+    Artisan::call('migrate');
+    return "Artisan success";
 });
 
 Route::get('/migrate-fresh', function () {
-    artisan::call('migrate:fresh');
+    Artisan::call('migrate:fresh');
+    return "Artisan success";
 });
 
 Route::get('/db:seed', function () {
-    artisan::call('db:seed');
+    Artisan::call('db:seed');
+    return "Artisan success";
 });
 
 Route::namespace('Siswa')
