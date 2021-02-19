@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\TingkatanKelas;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\User;
 
 class TingkatanKelasController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = TingkatanKelas::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
+            $data = TingkatanKelas::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -25,7 +24,6 @@ class TingkatanKelasController extends Controller
                 ->make(true);
         }
         
-        // , ['mySekolah' => User::sekolah()]
         return view('admin.referensi.tingkatan-kelas');
     }
 
@@ -49,7 +47,6 @@ class TingkatanKelasController extends Controller
         }
 
         $status = TingkatanKelas::create([
-            'sekolah_id' => auth()->user()->id_sekolah,
             'name'  => $request->input('tingkat'),
         ]);
 
@@ -86,12 +83,10 @@ class TingkatanKelasController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
-        $status = TingkatanKelas::where([
-                    ['id', $request->input('hidden_id')],
-                    ['sekolah_id', auth()->user()->id_sekolah]
-                ])->update([
-                    'name'  => $request->input('tingkat'),
-                ]);
+
+        $status = TingkatanKelas::whereId($request->input('hidden_id'))->update([
+            'name'  => $request->input('tingkat'),
+        ]);
 
         return response()
             ->json([
@@ -101,10 +96,6 @@ class TingkatanKelasController extends Controller
 
     public function destroy($id) {
         $tingkat = TingkatanKelas::find($id);
-        if ($tingkat->sekolah_id != auth()->user()->id_sekolah) {
-            return;
-        }
-
         $tingkat->delete();
     }
 }
