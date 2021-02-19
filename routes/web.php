@@ -20,7 +20,7 @@ Route::get('/db-seed', function () {
 });
 
 Route::get('/dbal', function () {
-    exec('composer require doctrine/dbal');
+    shell_exec('composer require doctrine/dbal');
     return "Composer success";
 });
 
