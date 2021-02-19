@@ -33,6 +33,7 @@
                                         <th>Kelas</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Alamat</th>
+                                        <th>Foto</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -43,9 +44,16 @@
                                             <td>{{ $siswa->nama_lengkap }}</td>
                                             <td>{{ $siswa->kelas->name }}</td>
                                             <td>{{ $siswa->jk }}</td>
-                                            <td>{{ $siswa->alamat }}</td>
+                                            <td>{{ $siswa->alamat_tinggal }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-mini btn-info shadow-sm">
+                                                @if ($siswa->foto)
+                                                    <a target="_blank" href="{{ Storage::url($siswa->foto) }}">Lihat</a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <button type="button" data-id="{{ $siswa->id }}" class="edit btn btn-mini btn-info shadow-sm">
                                                     <i class="fa fa-pencil-alt"></i>
                                                 </button>
                                                 &nbsp;&nbsp;
@@ -81,7 +89,7 @@
     <link href="{{ asset('assets/pages/jquery.filer/css/jquery.filer.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('assets/pages/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/switchery/css/switchery.min.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/switchery/css/switchery.min.css') }}">-->
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
@@ -98,8 +106,10 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/pages/file-upload/dropzone-amd-module.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <!--
     <script src="{{ asset('bower_components/switchery/js/switchery.min.js') }}"></script>
     <script src="{{ asset('assets/pages/advance-elements/swithces.js') }}"></script>
+    -->
     <script>
         const confirmDeleteModal = document.getElementById('confirmDeleteModal');
         const dateOptions = {
@@ -124,6 +134,10 @@
             $('#tanggal_lahir_wali').dateDropper(dateOptions);
 
             $('#add').on('click', function () {
+                clearDataSiswa(); clearDataOrtu(); clearDataWali();
+                $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
+                $('#btn-submit').text('Tambah');
+                $('#modal-siswa input[name=_method]').val("POST");
                 $('#modal-siswa').modal('show');
             });
         });
@@ -158,5 +172,162 @@
                 case "createForm": createForm(e); break;
             }
         });
+        
+        $(document).on('click', '.edit', function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/admin/peserta-didik/siswa/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#nis').val(data.nis);
+                        $('#nisn').val(data.nisn);
+                        $('input[name=tanggal_masuk').val(data.tanggal_masuk);
+                        $('#kelas').val(data.id_tingkatan_kelas);
+                        $('input[name=nama_lengkap]').val(data.nama_lengkap);
+                        $('#nama_panggilan').val(data.nama_panggilan);
+                        $('#jk').val(data.jk);
+                        $('#agama').val(data.agama);
+                        $('#suku').val(data.suku);
+                        $('#ktp').val(data.ktp);
+                        $('#tempat_lahir').val(data.tempat_lahir);
+                        $('#tanggal_lahir').val(data.tanggal_lahir);
+                        $('#berat_badan').val(data.berat_badan);
+                        $('#tinggi_badan').val(data.tinggi_badan);
+                        $('#hobi').val(data.hobi);
+                        $('#riwayat_penyakit').val(data.riwayat_penyakit);
+                        $('#moda_transportasi').val(data.moda_transportasi);
+                        $('#jarak_rumah_sekolah').val(data.jarak_rumah_sekolah);
+                        $('#is_siswa_pindahan').val(data.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
+                        $('#alamat_tinggal').val(data.alamat_tinggal);
+                        $('#provinsi').val(data.provinsi);
+                        $('#kabupaten').val(data.kabupaten);
+                        $('#kecamatan').val(data.kecamatan);
+                        $('#dusun').val(data.dusun);
+                        $('#rt').val(data.rt);
+                        $('#rw').val(data.rw);
+                        $('#kode_pos').val(data.kode_pos);
+                        $('#no_telepon').val(data.no_telepon);
+                        $('#no_telepon_rumah').val(data.no_telepon_rumah);
+                        
+                        if (data.siswa_orang_tua) {
+                            const orangTua = data.siswa_orang_tua;
+                            $('#status_anak').val(orangTua.status_anak);
+                            $('#anak_ke').val(orangTua.anak_ke);
+                            $('#jumlah_saudara').val(orangTua.jumlah_saudara);
+                            $('#nama_ayah').val(orangTua.nama_ayah);
+                            $('#tempat_lahir_ayah').val(orangTua.tempat_lahir_ayah);
+                            $('#tanggal_lahir_ayah').val(orangTua.tanggal_lahir_ayah);
+                            $('#agama_ayah').val(orangTua.agama_ayah);
+                            $('#kewarganegaraan_ayah').val(orangTua.kewarganegaraan_ayah);
+                            $('#pendidikan_ayah').val(orangTua.pendidikan_ayah);
+                            $('#pekerjaan_ayah').val(orangTua.pekerjaan_ayah);
+                            $('#email_ayah').val(orangTua.email_ayah);
+                            $('#nama_ibu').val(orangTua.nama_ibu);
+                            $('#tempat_lahir_ibu').val(orangTua.tempat_lahir_ibu);
+                            $('#tanggal_lahir_ibu').val(orangTua.tanggal_lahir_ibu);
+                            $('#agama_ibu').val(orangTua.agama_ibu);
+                            $('#kewarganegaraan_ibu').val(orangTua.kewarganegaraan_ibu);
+                            $('#pendidikan_ibu').val(orangTua.pendidikan_ibu);
+                            $('#pekerjaan_ibu').val(orangTua.pekerjaan_ibu);
+                            $('#email_ibu').val(orangTua.email_ibu);
+                            $('#alamat_ortu').val(orangTua.alamat_ortu);
+                            $('#no_telepon_ayah').val(orangTua.no_telepon_ayah);
+                            $('#no_telepon_ibu').val(orangTua.no_telepon_ibu);
+                        } else {
+                            clearDataOrtu();
+                        }
+
+                        if (data.siswa_wali) {
+                            const wali = data.siswa_wali;
+                            $('#nama_wali').val(wali.nama_wali);
+                            $('#tempat_lahir_wali').val(wali.tempat_lahir_wali);
+                            $('#tanggal_lahir_wali').val(wali.tanggal_lahir_wali);
+                            $('#agama_wali').val(wali.agama_wali);
+                            $('#kewarganegaraan_wali').val(wali.kewarganegaraan_wali);
+                            $('#pendidikan_wali').val(wali.pendidikan_wali);
+                            $('#pekerjaan_wali').val(wali.pekerjaan_wali);
+                            $('#email_wali').val(wali.email_wali);
+                        } else {
+                            clearDataWali();
+                        }
+
+                        $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}/${id}`);
+                        $('#btn-submit').text('Ubah');
+                        $('#modal-siswa input[name=_method]').val("PUT");
+                        $('#modal-siswa').modal('show');
+                    }
+                });
+            });
+
+            function clearDataSiswa() {
+                $('#nis').val("");
+                $('#nisn').val("");
+                $('input[name=tanggal_masuk').val("");
+                $('#kelas').val("");
+                $('input[name=nama_lengkap]').val("");
+                $('#nama_panggilan').val("");
+                $('#jk').val("");
+                $('#agama').val("");
+                $('#suku').val("");
+                $('#ktp').val("");
+                $('#tempat_lahir').val("");
+                $('#tanggal_lahir').val("");
+                $('#berat_badan').val("");
+                $('#tinggi_badan').val("");
+                $('#hobi').val("");
+                $('#riwayat_penyakit').val("");
+                $('#moda_transportasi').val("");
+                $('#jarak_rumah_sekolah').val("");
+                $('#is_siswa_pindahan').val("");
+                $('#alamat_tinggal').val("");
+                $('#provinsi').val("");
+                $('#kabupaten').val("");
+                $('#kecamatan').val("");
+                $('#dusun').val("");
+                $('#rt').val("");
+                $('#rw').val("");
+                $('#kode_pos').val("");
+                $('#no_telepon').val("");
+                $('#no_telepon_rumah').val("");
+                $('#username').val("");
+                $('#password').val("");
+                $('#password_confirmation').val("");
+            }
+
+            function clearDataOrtu() {
+                $('#status_anak').val("");
+                $('#anak_ke').val("");
+                $('#jumlah_saudara').val("");
+                $('#nama_ayah').val("");
+                $('#tempat_lahir_ayah').val("");
+                $('#tanggal_lahir_ayah').val("");
+                $('#agama_ayah').val("");
+                $('#kewarganegaraan_ayah').val("");
+                $('#pendidikan_ayah').val("");
+                $('#pekerjaan_ayah').val("");
+                $('#email_ayah').val("");
+                $('#nama_ibu').val("");
+                $('#tempat_lahir_ibu').val("");
+                $('#tanggal_lahir_ibu').val("");
+                $('#agama_ibu').val("");
+                $('#kewarganegaraan_ibu').val("");
+                $('#pendidikan_ibu').val("");
+                $('#pekerjaan_ibu').val("");
+                $('#email_ibu').val("");
+                $('#alamat_ortu').val("");
+                $('#no_telepon_ayah').val("");
+                $('#no_telepon_ibu').val("");
+            }
+
+            function clearDataWali() {
+                $('#nama_wali').val("");
+                $('#tempat_lahir_wali').val("");
+                $('#tanggal_lahir_wali').val("");
+                $('#agama_wali').val("");
+                $('#kewarganegaraan_wali').val("");
+                $('#pendidikan_wali').val("");
+                $('#pekerjaan_wali').val("");
+                $('#email_wali').val("");
+            }
     </script>
 @endpush

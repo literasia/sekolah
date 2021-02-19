@@ -13,7 +13,7 @@ class TingkatanKelasController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = TingkatanKelas::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
+            $data = TingkatanKelas::where('user_id', Auth::id() )->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -25,8 +25,7 @@ class TingkatanKelasController extends Controller
                 ->make(true);
         }
         
-        // , ['mySekolah' => User::sekolah()]
-        return view('admin.referensi.tingkatan-kelas');
+        return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
@@ -49,7 +48,7 @@ class TingkatanKelasController extends Controller
         }
 
         $status = TingkatanKelas::create([
-            'sekolah_id' => auth()->user()->id_sekolah,
+            'user_id' => Auth::id(),
             'name'  => $request->input('tingkat'),
         ]);
 

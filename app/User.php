@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Siswa;
 use App\Models\Superadmin\Sekolah;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -52,5 +53,9 @@ class User extends Authenticatable
         return self::join('sekolahs', 'users.id_sekolah', 'sekolahs.id')
             ->where('users.id', auth()->user()->id)
             ->first('sekolahs.*');
+    }
+    
+    public function siswa() {
+        return $this->hasOne(Siswa::class, 'id', 'siswa_id');
     }
 }
