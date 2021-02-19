@@ -15,4 +15,8 @@ class Siswa extends Model
     {
         return $this->belongsTo(TingkatanKelas::class, 'id_tingkatan_kelas', 'id');
     }
+
+    public function absensi() {
+        return $this->hasOne(Absensi::class);
+    }
 }

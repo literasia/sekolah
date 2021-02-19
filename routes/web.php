@@ -209,7 +209,7 @@ Route::namespace('Admin')
         // Peserta Didik
         // Route -> Admin/PesertaDidik
         // url /admin/peserta-didik
-        Route::namespace('PesertaDidik')
+         Route::namespace('PesertaDidik')
             ->prefix('peserta-didik')
             ->name('pesertadidik.')
             ->group(function() {
@@ -355,6 +355,8 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/absensi/siswa', 'SiswaController@index')
                     ->name('absensi.siswa');
+                Route::post('/admin/absensi/siswa', 'SiswaController@write')
+                    ->name('absensi.siswa.write');
                 Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')
                     ->name('absensi.rekap-siswa');
             });

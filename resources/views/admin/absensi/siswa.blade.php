@@ -24,24 +24,19 @@
                 <div class="card-body">
                     <div class="card-block">
                         <h6>Pilih Kelas</h6>
-                        <form action="">
+                        <form id="form-absensi" action="{{route('admin.absensi.siswa')}}" method="get">
+                            <input type="hidden" name="req" value="table">
                             <div class="row">
                                 <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <select name="pilih" id="pilih" class="form-control form-control-sm">
+                                    <select name="kelas_id" id="pilih" class="form-control form-control-sm" required>
                                         <option value="">-- Kelas --</option>
-                                        <option value="X TKJ">X TKJ</option>
-                                        <option value="X OTKP">X OTKP</option>
-                                        <option value="X MM">X MM</option>
-                                        <option value="XI TKJ">XI TKJ</option>
-                                        <option value="XI OTKP">XI OTKP</option>
-                                        <option value="XI MM">XI MM</option>
-                                        <option value="XII TKJ">XII TKJ</option>
-                                        <option value="XII OTKP">XII OTKP</option>
-                                        <option value="XII MM">XII MM</option>
+                                        @foreach($kelas as $obj)
+                                            <option value="{{$obj->id}}" {{ request()->kelas_id == $obj->id ? 'selected' : '' }}>{{$obj->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" placeholder="Tanggal" readonly>
+                                    <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" placeholder="Tanggal" readonly required value="{{request()->tanggal ?? ''}}">
                                 </div>
                                 <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
                                     <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
@@ -60,17 +55,39 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>Nama Lengkap</th>
-                                        <th>Kelas</th>
-                                        <th>H</th>
-                                        <th>A</th>
-                                        <th>S</th>
-                                        <th>I</th>
-                                        <th>Lainnya</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Kelas</th>
+                                        <th class="text-center">H</th>
+                                        <th class="text-center">A</th>
+                                        <th class="text-center">S</th>
+                                        <th class="text-center">I</th>
+                                        <th class="text-center">Lainnya</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                    @foreach($data as $obj)
+                                    <form class="form-absensi">
+                                        <input type="hidden" name="siswa_id" value="{{$obj->id}}">
+                                        <input type="hidden" name="kelas_id" value="{{ request()->kelas_id }}">
+                                        <input type="hidden" name="tanggal" value="{{ request()->tanggal }}">
+                                        <tr>
+                                            <td>{{ $obj->nama_lengkap}}</td>
+                                            <td class="text-center">{{ $obj->kelas->name ?? ''}}</td>
+                                            <td class="text-center"><input type="radio" name="status" value="H" required {{$obj->absensi && $obj->absensi->status == 'H' ? 'selected' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="A" required {{$obj->absensi && $obj->absensi->status == 'A' ? 'selected' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="S" required {{$obj->absensi && $obj->absensi->status == 'S' ? 'selected' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="I" required {{$obj->absensi && $obj->absensi->status == 'I' ? 'selected' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="L" required {{$obj->absensi && $obj->absensi->status == 'L' ? 'selected' : ''}}></td>
+                                            <td id="submit_{{$obj->id}}" class="text-center">
+                                                @if($obj->absensi)
+                                                APPROVE
+                                                @else
+                                                <input type="submit" class="btn btn-success" value="approve">
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </form>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -96,14 +113,44 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             $('#tanggal').dateDropper({
                 theme: 'leaf',
-                format: 'd-m-Y'
+                format: 'Y-m-d'
             });
+
+            $(".form-absensi").on('submit', function(ev){
+                ev.preventDefault();
+                var params = {};
+                $.each($(this).serializeArray(), function() {
+                    params[this.name] = this.value;
+                }); 
+                params = {
+                    ...params,
+                    req: 'write'
+                };
+
+                $.post("{{route('admin.absensi.siswa.write')}}", params).done(data => {
+                    toastr.success('Data berhasil disimpan');
+                    $(`#submit_${params.siswa_id}`).html("APPROVE");
+                }).fail((data) => {
+                    if(typeof data.responseJSON.message == 'string')
+                        return Swal.fire('Error', data.responseJSON.message, 'error');
+                    else if(typeof data.responseText == 'string')
+                        return Swal.fire('Error', data.responseText, 'error');
+                })
+
+                //console.log(`#submit_${data.siswa_id}`);
+            })
         });
     </script>
 @endpush
