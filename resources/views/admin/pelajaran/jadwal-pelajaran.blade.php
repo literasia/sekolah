@@ -166,10 +166,17 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="jk">Kelas</label>
+<<<<<<< HEAD
                                     <select name="kelas_id" id="jk" class="form-control form-control-sm" required>
                                         <option disabled>-- Kelas --</option>
                                         @foreach($kelas as $obj)
                                           <option value="{{$obj->id}}">{{$obj->name}}</option>
+=======
+                                    <select name="kelas" id="jk" class="form-control form-control-sm" required>
+                                        <option disabled>-- Kelas --</option>
+                                        @foreach($kelas as $obj)
+                                          <option value="{{$obj}}">{{$obj}}</option>
+>>>>>>> madan
                                         @endforeach
                                     </select>
                                 </div>

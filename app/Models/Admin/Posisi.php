@@ -10,7 +10,7 @@ class Posisi extends Model
     use SoftDeletes;
     protected $table = 'posisi_kandidats';
     protected $fillable = [
-        'name'
+        'name', 'sekolah_id'
     ];
     protected $guarded = [];
 }

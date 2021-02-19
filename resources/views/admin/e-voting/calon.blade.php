@@ -30,6 +30,7 @@
                                     <div class="form-group">
                                         <label for="nama_calon">Nama Calon</label>
                                         <input type="text" name="nama_calon" id="nama_calon" class="form-control form-control-sm" placeholder="Nama Calon">
+                                        <input type="hidden" name="user_id" id="user_id" class="form-control form-control-sm" value="{{ $tes = Auth::id() }}">
                                     </div>
                                 </div>
                             </div>

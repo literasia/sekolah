@@ -29,8 +29,8 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Calon</th>
-                                        <th>Posisi</th>
+                                        <th>Kandidat</th>
+                                        <th>Jenis Pemilihan</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Actions</th>

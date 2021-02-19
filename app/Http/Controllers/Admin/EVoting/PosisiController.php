@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Posisi;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class posisiController extends Controller
 {
@@ -24,8 +25,8 @@ class posisiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
-        return view('admin.e-voting.posisi', ['mySekolah' => User::sekolah()]);
+        $sekolahId = User::get('id_sekolah');
+        return view('admin.e-voting.posisi', ['sekolah_id' => $sekolahId ,'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
@@ -48,7 +49,8 @@ class posisiController extends Controller
         }
 
         $status = Posisi::create([
-            'name'  => $request->input('nama_posisi')
+            'name'  => $request->input('nama_posisi'),
+            'sekolah_id' => $request->input('sekolah_id')
         ]);
 
         return response()
@@ -58,11 +60,11 @@ class posisiController extends Controller
     }
 
     public function edit($id) {
-        $tingkat = Posisi::find($id);
+        $nama_posisi = Posisi::find($id);
 
         return response()
             ->json([
-                'nama_posisi'  => $tingkat
+                'nama_posisi'  => $nama_posisi
             ]);
     }
 

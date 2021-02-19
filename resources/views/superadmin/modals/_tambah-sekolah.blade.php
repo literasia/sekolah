@@ -38,6 +38,30 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
+                                <label for="provinsi">Provinsi:</label>
+                                <select name="provinsi" id="provinsi" class="form-control form-control-sm">
+                                    <option value="">-- Provinsi --</option>
+                                    @foreach($provinsis as $provinsi)
+                                    <option value="{{ $provinsi->name }}">{{ $provinsi->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="kabupaten">Kabupaten:</label>
+                                <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
+                                    <option value="">-- Kabupaten --</option>
+                                    @foreach($kabupaten as $kab)
+                                    <option value="{{ $kab->name }}">{{ $kab->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
                                 <label for="jenjang">Jenjang:</label>
                                 <select name="jenjang" id="jenjang" class="form-control form-control-sm">
                                     <option value="">-- Jenjang --</option>

@@ -9,8 +9,9 @@ class CalonKandidat extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'calon_kandidats';
 	protected $fillable = [
-        'name'
+        'name', 'user_id'
     ];
     protected $guarded = [];
 }

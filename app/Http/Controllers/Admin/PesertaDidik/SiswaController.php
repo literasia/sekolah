@@ -59,7 +59,7 @@ class SiswaController extends Controller
             'agama_ibu' => ['nullable', 'in:' . SiswaController::AGAMA_RULE],
             'kewarganegaraan_ibu' => ['nullable', 'in:' . SiswaController::KEWARGANEGARAAN_RULE],
             'pendidikan_ibu' => ['nullable', 'in:' . SiswaController::PENDIDIKAN_RULE],
-            'tanggal_lahir_ibu' => ['nullable', 'date']
+            'tanggal_lahir_ibu' => ['nullable', 'date']  
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();

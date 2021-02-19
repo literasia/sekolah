@@ -32,6 +32,8 @@
                                     <th>Jenjang</th>
                                     <th>T. A</th>
                                     <th>Alamat</th>
+                                    <th>Provinsi</th>
+                                    <th>Kabupaten</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -121,6 +123,14 @@
                     name: 'alamat'
                 },
                 {
+                    data: 'provinsi',
+                    name: 'provinsi'
+                },
+                {
+                    data: 'kabupaten',
+                    name: 'kabupaten'
+                },
+                {
                     data: 'action',
                     name: 'action'
                 }
@@ -182,6 +192,8 @@
                             $('#jenjang').addClass('is-invalid');
                             $('#tahun_ajaran').addClass('is-invalid');
                             $('#alamat').addClass('is-invalid');
+                            $('#provinsi').addClass('is-invalid');
+                            $('#kabupaten').addClass('is-invalid');
                             $('#username').addClass('is-invalid');
                             $('#password').addClass('is-invalid');
                             toastr.error(html);
@@ -195,6 +207,8 @@
                             $('#jenjang').removeClass('is-invalid');
                             $('#tahun_ajaran').removeClass('is-invalid');
                             $('#alamat').removeClass('is-invalid');
+                            $('#provinsi').removeClass('is-invalid');
+                            $('#kabupaten').removeClass('is-invalid');
                             $('#username').removeClass('is-invalid');
                             $('#password').removeClass('is-invalid');
                             $('#form-sekolah')[0].reset();
@@ -220,6 +234,8 @@
                         $('#jenjang').val(data.sekolah.jenjang);
                         $('#tahun_ajaran').val(data.sekolah.tahun_ajaran);
                         $('#alamat').val(data.sekolah.alamat);
+                        $('#provinsi').val(data.sekolah.provinsi);
+                        $('#kabupaten').val(data.sekolah.kabupaten);
                         $('#hidden_id').val(data.sekolah.id);
                         $('#username').val(data.user[0].username).attr('readonly', true);
                         $('#password').val(data.user[0].password).attr('readonly', true);
