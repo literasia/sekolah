@@ -14,9 +14,14 @@ Route::get('/migrate-fresh', function () {
     return "Artisan success";
 });
 
-Route::get('/db:seed', function () {
+Route::get('/db-seed', function () {
     Artisan::call('db:seed');
     return "Artisan success";
+});
+
+Route::get('/dbal', function () {
+    exec('composer require doctrine/dbal');
+    return "Composer success";
 });
 
 Route::namespace('Siswa')
