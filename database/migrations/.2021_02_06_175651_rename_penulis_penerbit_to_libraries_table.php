@@ -21,7 +21,7 @@ class RenamePenulisPenerbitToLibrariesTable extends Migration
             $table->string('link_video')->nullable()->change();
             $table->string('link_audio')->nullable()->change();
             $table->string('link_ebook')->nullable()->change();
-            
+
             $table->renameColumn('penulis', 'penulis_id');
             $table->renameColumn('penerbit', 'penerbit_id');
             $table->renameColumn('Deskripsi', 'deskripsi');

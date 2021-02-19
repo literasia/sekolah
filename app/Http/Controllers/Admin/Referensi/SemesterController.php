@@ -49,6 +49,7 @@ class SemesterController extends Controller
 
         $semester = Semester::create([
             'name'  => $request->input('semester'),
+            'user_id' => $request->input('user_id')
         ]);
 
         return response()

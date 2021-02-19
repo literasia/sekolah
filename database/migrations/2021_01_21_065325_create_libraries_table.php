@@ -24,8 +24,8 @@ class CreateLibrariesTable extends Migration
             $table->string('link_audio');
             $table->string('link_ebook');
             $table->longText('Deskripsi');
-            $table->unsignedBigInteger('penulis');
-            $table->unsignedBigInteger('penerbit');
+            $table->unsignedBigInteger('penulis_id');
+            $table->unsignedBigInteger('penerbit_id');
             $table->softDeletes();
             $table->timestamps();
         });

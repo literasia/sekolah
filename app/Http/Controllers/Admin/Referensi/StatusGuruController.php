@@ -49,6 +49,7 @@ class StatusGuruController extends Controller
 
         $status = StatusGuru::create([
             'name'  => $request->input('status_guru'),
+            'user_id' => $request->input('user_id')
         ]);
 
         return response()

@@ -30,6 +30,7 @@
                                     <div class="form-group">
                                         <label for="pegawai">Bagian Pegawai</label>
                                         <input type="text" name="pegawai" id="pegawai" class="form-control form-control-sm" placeholder="Bagian Pegawai">
+                                        <input type="hidden" name="user_id" id="user_id" value="{{ $tes = Auth::id() }}">
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -61,7 +62,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -140,7 +141,7 @@
                     url = "{{ route('admin.referensi.bagian-pegawai') }}";
                     text = "Data sukses ditambahkan";
                 }
-                
+
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.referensi.bagian-pegawai-update') }}";
                     text = "Data sukses diupdate";

@@ -24,7 +24,7 @@ class JenjangPegawaiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
+
         return view('admin.referensi.jenjang-pegawai', ['mySekolah' => User::sekolah()]);
     }
 
@@ -49,6 +49,7 @@ class JenjangPegawaiController extends Controller
 
         $status = JenjangPegawai::create([
             'name'  => $request->input('jenjang'),
+            'user_id' => Auth::id()
         ]);
 
         return response()
