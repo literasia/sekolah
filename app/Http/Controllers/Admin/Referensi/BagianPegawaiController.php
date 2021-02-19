@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class BagianPegawaiController extends Controller
 {
     public function index(Request $request) {
         $tes = User::get('id_sekolah');
         if ($request->ajax()) {
-            $data = BagianPegawai::latest()->get();
+            $data = BagianPegawai::where('user_id', Auth::id())->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -50,7 +51,7 @@ class BagianPegawaiController extends Controller
 
         $pegawai = BagianPegawai::create([
             'name'  => $request->input('pegawai'),
-            'user_id' => $request->input('user_id')
+            'user_id' => Auth::id()
         ]);
 
         return response()

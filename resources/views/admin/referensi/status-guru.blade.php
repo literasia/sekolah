@@ -30,7 +30,6 @@
                                     <div class="form-group">
                                         <label for="status_guru">Status Guru</label>
                                         <input type="text" name="status_guru" id="status_guru" class="form-control form-control-sm" placeholder="Status Guru">
-                                        <input type="hidden" name="user_id" id="user_id" value="{{ $tes = Auth::id() }}">
                                     </div>
                                 </div>
                             </div>

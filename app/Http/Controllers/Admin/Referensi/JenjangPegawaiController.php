@@ -8,6 +8,7 @@ use App\Models\JenjangPegawai;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class JenjangPegawaiController extends Controller
 {

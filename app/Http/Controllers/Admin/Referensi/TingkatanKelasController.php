@@ -14,7 +14,7 @@ class TingkatanKelasController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = TingkatanKelas::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
+            $data = TingkatanKelas::where('user_id', auth()->user()->id)->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -50,7 +50,7 @@ class TingkatanKelasController extends Controller
         }
 
         $status = TingkatanKelas::create([
-            'sekolah_id' => auth()->user()->id_sekolah,
+            'user_id' => auth()->user()->id,
             'name'  => $request->input('tingkat'),
         ]);
 
@@ -91,7 +91,7 @@ class TingkatanKelasController extends Controller
         }
         $status = TingkatanKelas::where([
             ['id', $request->input('hidden_id')],
-            ['sekolah_id', auth()->user()->id_sekolah]
+            ['user_id', auth()->user()->id]
         ])->update([
             'name'  => $request->input('tingkat'),
         ]);
@@ -105,7 +105,7 @@ class TingkatanKelasController extends Controller
     public function destroy($id)
     {
         $tingkat = TingkatanKelas::find($id);
-        if ($tingkat->sekolah_id != auth()->user()->id_sekolah) {
+        if ($tingkat->user_id != auth()->user()->id) {
             return;
         }
 

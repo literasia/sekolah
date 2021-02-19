@@ -30,7 +30,6 @@
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <input type="text" name="semester" id="semester" class="form-control form-control-sm" placeholder="Semester">
-                                        <input type="hidden" name="user_id" id="user_id" value="{{ $tes = Auth::id() }}">
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
