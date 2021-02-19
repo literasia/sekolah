@@ -22,6 +22,7 @@ class CreateSekolahsTable extends Migration
             $table->string('kabupaten');
             $table->string('jenjang');
             $table->string('tahun_ajaran');
+			$table->string('logo')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
