@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\JenjangPegawai;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\User;
 
 class JenjangPegawaiController extends Controller
 {
@@ -25,7 +24,7 @@ class JenjangPegawaiController extends Controller
                 ->make(true);
         }
         
-        return view('admin.referensi.jenjang-pegawai', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.jenjang-pegawai');
     }
 
     public function store(Request $request) {
@@ -35,7 +34,7 @@ class JenjangPegawaiController extends Controller
         ];
 
         $message = [
-            'jenjang.required' => 'Kolom ini tidak boleh kosong',
+            'jenjang.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);

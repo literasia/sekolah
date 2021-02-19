@@ -9,7 +9,7 @@
     Ini adalah halaman posisi untuk admin
 @endsection
 
-@section('icon-l', 'icon-people')
+@section('icon-l', 'fa fa-briefcase')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -23,21 +23,18 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
-                        <form id="form-posisi-kandidat">
-                            @csrf
+                        <form action="">
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <label for="nama_posisi">Nama posisi</label>
-                                        <input type="text" name="nama_posisi" id="nama_posisi" class="form-control form-control-sm" placeholder="Nama Posisi">
+                                        <label for="nama_posisi">Posisi</label>
+                                        <input type="text" name="nama_posisi" id="nama_posisi" class="form-control form-control-sm" placeholder="Posisi">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
                                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
                                 </div>
                             </div>
@@ -60,28 +57,28 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Posisi 1</td>
+                                        <td>
+                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                            &nbsp;&nbsp;
+                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Posisi 2</td>
+                                        <td>
+                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                            &nbsp;&nbsp;
+                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirmModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Konfirmasi</h4>
-                </div>
-                <div class="modal-body">
-                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
@@ -93,7 +90,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -109,108 +105,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.e-voting.posisi') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
-                ]
-            });
-
-            $('#form-posisi-kandidat').on('submit', function (event) {
-                event.preventDefault();
-
-                var url = '';
-                if ($('#nama_posisi').val() == 'add') {
-                    url = "{{ route('admin.e-voting.posisi') }}";
-                }
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.e-voting.posisi-update') }}";
-                }
-
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'JSON',
-                    data: $(this).serialize(),
-                    success: function (data) {
-                        var html = ''
-                        if (data.errors) {
-                            html = data.errors[0];
-                            $('#nama_posisi').addClass('is-invalid');
-                            toastr.error(html);
-                        }
-
-                        if (data.success) {
-                            toastr.success('Sukses!');
-                            $('#nama_posisi').removeClass('is-invalid');
-                            $('#form-posisi-kandidat')[0].reset();
-                            $('#action').val('add');
-                            $('#btn')
-                                .removeClass('btn-outline-info')
-                                .addClass('btn-outline-success')
-                                .val('Simpan');
-                            $('#order-table').DataTable().ajax.reload();
-                        }
-                        $('#form_result').html(html);
-                    }
-                });
-            });
-
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('id');
-                $.ajax({
-                    url: '/admin/e-voting/posisi/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        $('#nama_posisi').val(data.nama_posisi.name);
-                        $('#hidden_id').val(data.nama_posisi.id);
-                        $('#action').val('edit');
-                        $('#btn')
-                            .removeClass('btn-outline-success')
-                            .addClass('btn-outline-info')
-                            .val('Update');
-                    }
-                });
-            });
-
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
-
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/e-voting/posisi/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
-                        }, 1000);
-                    }
-                });
-            });
-
+            $('#order-table').DataTable();
         });
     </script>
 @endpush
