@@ -71,7 +71,7 @@ class SiswaController extends Controller
                     ['role_id', 3]
                 ])->whereNotNull('siswa_id')
                 ->get();
-                
+
         $siswas = [];
         foreach ($users as $user) {
             $siswa = $user->siswa;
@@ -118,7 +118,7 @@ class SiswaController extends Controller
         $kelasId = $kelas['id'];
         $exception = DB::transaction(function () use ($data, $kelasId, $req) {
             $auth = auth()->user();
-            
+
             DB::beginTransaction();
             try {
                 $data['tanggal_masuk'] = Carbon::parse($data['tanggal_masuk'])->format('Y-m-d');
@@ -205,7 +205,7 @@ class SiswaController extends Controller
                     'nis' => $data['nis'],
                     'password' => Hash::make($data['password'])
                 ]);
-                
+
                 if ($req->file('foto')) {
                     $foto = $req->file('foto')->store('students', 'public');
                     Siswa::whereId($siswaId)->update([
@@ -226,7 +226,7 @@ class SiswaController extends Controller
         return redirect()->back()->with(CRUDResponse::successCreate("siswa"));
     }
 
-    
+
     public function update($id, Request $req) {
         $siswa = Siswa::findOrFail($id);
         $data = $req->all();

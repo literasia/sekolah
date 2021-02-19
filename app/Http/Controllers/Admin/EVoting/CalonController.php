@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\CalonKandidat;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class CalonController extends Controller
 {
     public function index(Request $request) {
+        $tes = User::get('id_sekolah');
         if ($request->ajax()) {
             $data = CalonKandidat::latest()->get();
             return DataTables::of($data)
@@ -24,10 +26,12 @@ class CalonController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.e-voting.calon', ['mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.calon', ['tes' => $tes, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
+        $data = $request->all();
+
         // validasi
         $rules = [
             'nama_calon'  => 'required|max:50',
@@ -46,8 +50,10 @@ class CalonController extends Controller
                 ]);
         }
 
+
         $status = CalonKandidat::create([
-            'name'  => $request->input('nama_calon')
+            'name'  => $request->input('nama_calon'),
+            'user_id' => $request->input('user_id')
         ]);
 
         return response()
@@ -86,6 +92,7 @@ class CalonController extends Controller
 
         $status = CalonKandidat::whereId($request->input('hidden_id'))->update([
             'name'  => $request->input('nama_calon'),
+            'user_id' => $request->input('user_id')
         ]);
 
         return response()

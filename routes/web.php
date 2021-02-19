@@ -87,6 +87,10 @@ Route::namespace('Superadmin')
     ->group(function () {
         Route::get('/superadmin', 'SuperadminController@index')
             ->name('index');
+
+        Route::get('/superadmin/slider', 'SliderController@index')
+            ->name('slider');
+         
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
@@ -209,7 +213,7 @@ Route::namespace('Admin')
         // Peserta Didik
         // Route -> Admin/PesertaDidik
         // url /admin/peserta-didik
-         Route::namespace('PesertaDidik')
+        Route::namespace('PesertaDidik')
             ->prefix('peserta-didik')
             ->name('pesertadidik.')
             ->group(function() {

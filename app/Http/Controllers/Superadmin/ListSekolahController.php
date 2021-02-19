@@ -13,6 +13,8 @@ use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Superadmin\Provinsi;
+use App\Models\Superadmin\KabupatenKota;
 
 class ListSekolahController extends Controller
 {
@@ -31,7 +33,10 @@ class ListSekolahController extends Controller
                 ->make(true);
         }
 
-        return view('superadmin.list-sekolah');
+        $provinsis = Provinsi::all();
+        $kabupaten = KabupatenKota::all();
+
+        return view('superadmin.list-sekolah', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten]);
     }
 
     public function store(Request $req) {
@@ -40,11 +45,13 @@ class ListSekolahController extends Controller
             'id_sekolah'    => 'required|max:100',
             'name'          => 'required|max:100',
             'alamat'        => 'required',
+            'provinsi'        => 'required',
+            'kabupaten'        => 'required',
             'jenjang'       => 'required',
             'tahun_ajaran'  => 'required',
             'username'      => 'required|max:100|unique:users,username',
             'password'      => 'required',
-            'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
+            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
         ];
 
         $message = [
@@ -66,9 +73,11 @@ class ListSekolahController extends Controller
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
             'alamat'        => $data['alamat'],
+            'provinsi'        => $data['provinsi'],
+            'kabupaten'        => $data['kabupaten'],
             'jenjang'       => $data['jenjang'],
             'tahun_ajaran'  => $data['tahun_ajaran'],
-            'logo'          => $data['logo']
+            // 'logo'          => $data['logo']
         ])->id;
         $adminRole = Role::where('name', 'admin')->first();
 
@@ -102,6 +111,8 @@ class ListSekolahController extends Controller
            'id_sekolah'    => 'max:100',
            'name'          => 'required|max:100',
            'alamat'        => 'required',
+           'provinsi'        => 'required',
+           'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
            'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
@@ -132,9 +143,11 @@ class ListSekolahController extends Controller
            'id_sekolah'    => $data['id_sekolah'],
            'name'          => $data['name'],
            'alamat'        => $data['alamat'],
+           'provinsi'        => $data['provinsi'],
+           'kabupaten'        => $data['kabupaten'],
            'jenjang'       => $data['jenjang'],
            'tahun_ajaran'  => $data['tahun_ajaran'],
-           'logo'          => $data['logo']
+           // 'logo'          => $data['logo']
        ]);
 
        return back()->with(CRUDResponse::successUpdate("sekolah " . $data['name']));

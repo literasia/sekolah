@@ -205,6 +205,24 @@
                         </li>
                     </ul>
                 </li>
+                <li class="@if (request()->is('admin/absensi/siswa') || request()->is('admin/absensi/rekap-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-school"></i></span>
+                        <span class="pcoded-mtext">Sekolah</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/absensi/siswa') ? 'active' : '' }}">
+                            <a href="{{ route('admin.absensi.siswa') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Kelas</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/absensi/rekap-siswa') ? 'active' : '' }}">
+                            <a href="{{ route('admin.absensi.rekap-siswa') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Jurusan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="@if (request()->is('admin/kalender/kalender-akademik')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-calendar"></i></span>

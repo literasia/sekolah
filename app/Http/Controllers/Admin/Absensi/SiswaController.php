@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Absensi;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use App\Models\TingkatanKelas;
 use App\Models\Siswa;

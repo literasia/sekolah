@@ -54,8 +54,9 @@ class User extends Authenticatable
             ->where('users.id', auth()->user()->id)
             ->first('sekolahs.*');
     }
-    
-    public function siswa() {
+
+    public function siswa()
+    {
         return $this->hasOne(Siswa::class, 'id', 'siswa_id');
     }
 }
