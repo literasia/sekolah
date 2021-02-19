@@ -10,7 +10,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-sekolah">
+                <form id="form-sekolah" action="" method="POST" enctype="multipart/form-data">
+                    @method("POST")
                     @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -31,6 +32,30 @@
                             <div class="form-group">
                                 <label for="alamat">Alamat Sekolah:</label>
                                 <textarea class="form-control form-control-sm" name="alamat" id="alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="provinsi">Provinsi:</label>
+                                <select name="provinsi" id="provinsi" class="form-control form-control-sm">
+                                    <option value="">-- Provinsi --</option>
+                                    @foreach($provinsis as $provinsi)
+                                    <option value="{{ $provinsi->name }}">{{ $provinsi->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="kabupaten">Kabupaten:</label>
+                                <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
+                                    <option value="">-- Kabupaten --</option>
+                                    @foreach($kabupaten as $kab)
+                                    <option value="{{ $kab->name }}">{{ $kab->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -71,6 +96,12 @@
                             <div class="form-group">
                                 <label for="password">Password:</label>
                                 <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="file">Pilih File:</label>
+                                <input type="file" name="logo" id="logo" class="form-control">
                             </div>
                         </div>
                     </div>

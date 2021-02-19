@@ -40,8 +40,8 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="kewarganegaraan">Kewarganegaraan</label>
-                        <select name="kewarganegaraan" id="kewarganegaraan" class="form-control form-control-sm">
+                        <label for="kewarganegaraan_wali">Kewarganegaraan</label>
+                        <select name="kewarganegaraan_wali" id="kewarganegaraan_wali" class="form-control form-control-sm">
                             <option value="">-- Kewarganegaraan --</option>
                             <option value="WNI">WNI</option>
                             <option value="WNA">WNA</option>

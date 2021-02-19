@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <form id="form-siswa" action="#!">
+        <!-- <form id="form-siswa"> -->
             <h5>Data Akademik</h5>
             <div class="row">
                 <div class="col">
@@ -26,17 +26,11 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="kelas">Kelas</label>
-                        <select name="kelas" id="kelas" class="form-control form-control-sm">
+                        <select name="kelas" id="kelas" class="form-control form-control-sm" required>
                             <option value="">-- Kelas --</option>
-                            <option value="X TKJ">X TKJ</option>
-                            <option value="X OTKP">X OTKP</option>
-                            <option value="X MM">X MM</option>
-                            <option value="XI TKJ">XI TKJ</option>
-                            <option value="XI OTKP">XI OTKP</option>
-                            <option value="XI MM">XI MM</option>
-                            <option value="XII TKJ">XII TKJ</option>
-                            <option value="XII OTKP">XII OTKP</option>
-                            <option value="XII MM">XII MM</option>
+                            @foreach($kelases as $kelas)
+                                <option value="{{ $kelas->id }}">{{ $kelas->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -46,8 +40,8 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="nama">Nama Lengkap</label>
-                        <input type="text" name="nama" id="nama" class="form-control form-control-sm" placeholder="Nama Lengkap">
+                        <label for="nama_lengkap">Nama Lengkap</label>
+                        <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control form-control-sm" placeholder="Nama Lengkap">
                     </div>
                 </div>
             </div>
@@ -68,11 +62,11 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control form-control-sm">
+                        <label for="jk">Jenis Kelamin</label>
+                        <select name="jk" id="jk" class="form-control form-control-sm">
                             <option value="">-- Jenis Kelamin --</option>
-                            <option value="L">Laki-Laki</option>
-                            <option value="P">Perempuan</option>
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
                 </div>
@@ -197,8 +191,8 @@
             <div class="row">
                 <div class="col-xl-3">
                     <div class="form-group">
-                        <label for="siswa_pindahan">Siswa Pindahan?</label>
-                        <select name="siswa_pindahan" id="siswa_pindahan" class="form-control form-control-sm">
+                        <label for="is_siswa_pindahan">Siswa Pindahan?</label>
+                        <select name="is_siswa_pindahan" id="is_siswa_pindahan" class="form-control form-control-sm">
                             <option value="">-- Siswa Pindahan? --</option>
                             <option value="Ya">Ya</option>
                             <option value="Tidak">Tidak</option>
@@ -298,6 +292,6 @@
                     </div>
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 </div>

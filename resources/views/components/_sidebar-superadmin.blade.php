@@ -11,10 +11,18 @@
                         <span class="pcoded-mtext">Dashboard</span>
                     </a>
                 </li>
+                <li class="{{ request()->is('superadmin/slider') ? 'active' : '' }}">
+                    <a href="{{ route('superadmin.slider') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-list"></i>
+                        </span>
+                        <span class="pcoded-mtext">Slider</span>
+                    </a>
+                </li>
                 <li class="{{ request()->is('superadmin/list-sekolah') ? 'active' : '' }}">
                     <a href="{{ route('superadmin.list-sekolah') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-school"></i>
+                            <i class="icon-list"></i>
                         </span>
                         <span class="pcoded-mtext">List Sekolah</span>
                     </a>
@@ -28,7 +36,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('superadmin/library') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.library') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('superadmin.library.index') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Tambah Baru</span>
                             </a>
                         </li>

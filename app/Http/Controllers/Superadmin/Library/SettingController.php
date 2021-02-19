@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers\Superadmin\Library;
 
-use Validator;
 use Illuminate\Http\Request;
 use App\Models\Superadmin\Tipe;
 use App\Http\Controllers\Controller;
+use App\Models\Superadmin\Kategori;
+use App\Models\Superadmin\Penerbit;
+use App\Models\Superadmin\Penulis;
+use App\Models\Superadmin\Tingkat;
 
 class SettingController extends Controller
 {
     public function index() {
         return view('superadmin.library.setting', [
-            'tipes'     => Tipe::latest()->get(),
+            'tipes'     => Tipe::orderBy('name')->get(),
+            'kategoris' => Kategori::orderBy('name')->get(),
+            'penulises' => Penulis::orderBy('name')->get(),
+            'penerbits' => Penerbit::orderBy('penerbit')->get(),
+            'tingkats' => Tingkat::orderBy('name')->get()
         ]);
     }
 

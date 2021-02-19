@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pesertadidik.siswa') }}
+    {{ route('admin.pesertadidik.siswa.index') }}
 @endsection
 
 {{-- main content --}}
@@ -25,7 +25,7 @@
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                            <table id="siswa-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>NIS</th>
@@ -37,162 +37,28 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    <tr>
-                                        <td>692.18</td>
-                                        <td>Audiva Umbara</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Rantang Gg. Muslie No. 29 C</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>693.18</td>
-                                        <td>Chintya Khairina</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Bakti Luhur Gg. Tirto No. 109 B</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>694.18</td>
-                                        <td>Devita Sari</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Klambir Lima No. 58 A Medan</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>704.18</td>
-                                        <td>Nurul Aisyiah</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Ayahanda No. 55</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>703.18</td>
-                                        <td>Nisa Hariyanti</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Setia Budi Tj. Sari Psr I Gg. Sejahtera</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>702.18</td>
-                                        <td>Marliana Wati</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Merpati Gg. Gintara No. 2</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>701.18</td>
-                                        <td>Kinanti Adella</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Mega No. 4</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>700.18</td>
-                                        <td>Juliani</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Notes Gg. Pribadi No.15</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>699.18</td>
-                                        <td>Intan Permata Sari</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Sri Gunting Blok V No. 31 A</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>698.18</td>
-                                        <td>Hasbiyana Haudy Nst</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Sei Deli No. 121</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>697.18</td>
-                                        <td>Fitria Widyanti</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Binjai Km. 10,8 Jl. Sekolah No. 5</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>696.18</td>
-                                        <td>Dira Annisa Putri</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Danau Poso No. 25 A</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>695.18</td>
-                                        <td>Dina Nurdiana</td>
-                                        <td>X OTKP</td>
-                                        <td>Perempuan</td>
-                                        <td>Jl. Danau Singkarak Gg. Mesjid</td>
-                                        <td>
-                                            <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                                            <button type="button" class="btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    @forelse($siswas as $siswa)
+                                        <tr>
+                                            <td>{{ $siswa->nis }}</td>
+                                            <td>{{ $siswa->nama_lengkap }}</td>
+                                            <td>{{ $siswa->kelas->name }}</td>
+                                            <td>{{ $siswa->jk }}</td>
+                                            <td>{{ $siswa->alamat }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-mini btn-info shadow-sm">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </button>
+                                                &nbsp;&nbsp;
+                                                <button type="button" class="btn btn-mini btn-danger shadow-sm" 
+                                                    data-url="{{ route('admin.pesertadidik.siswa.destroy', $siswa->id) }}" 
+                                                    data-toggle="modal" data-target="#confirmDeleteModal">
+                                                        <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr><td colspan="6" class="text-center">Tidak ada data</td></tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -204,6 +70,7 @@
 
     {{-- Modal --}}
     @include('admin.pesertadidik.modals._siswa')
+    @include('components.modals._confirm-delete-modal')
 @endsection
 
 {{-- addons css --}}
@@ -215,6 +82,7 @@
     <link href="{{ asset('assets/pages/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/switchery/css/switchery.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -233,36 +101,62 @@
     <script src="{{ asset('bower_components/switchery/js/switchery.min.js') }}"></script>
     <script src="{{ asset('assets/pages/advance-elements/swithces.js') }}"></script>
     <script>
+        const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+        const dateOptions = {
+            theme: 'leaf',
+            format: 'd-m-Y'
+        };
+
         $(document).ready(function () {
-            $('#order-table').DataTable();
-            $('#dropper-default').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            try {
+                $('#siswa-table').DataTable();
+            } catch (error) {
+            }
 
-            $('#tanggal_lahir').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            $('#dropper-default').dateDropper(dateOptions);
 
-            $('#tanggal_lahir_ayah').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            $('#tanggal_lahir').dateDropper(dateOptions);
 
-            $('#tanggal_lahir_ibu').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            $('#tanggal_lahir_ayah').dateDropper(dateOptions);
 
-            $('#tanggal_lahir_wali').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
+            $('#tanggal_lahir_ibu').dateDropper(dateOptions);
+
+            $('#tanggal_lahir_wali').dateDropper(dateOptions);
 
             $('#add').on('click', function () {
                 $('#modal-siswa').modal('show');
             });
+        });
+        
+        $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
+            const url = $(e.relatedTarget).data('url');
+            const form = confirmDeleteModal.querySelector('#deleteForm');
+            form.action = url;
+        });
+
+        const createForm = (e) => {
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("password_confirmation");
+            let errMsg;
+
+            if (password.value != confirmPassword.value) {
+                errMsg = 'Maaf, konfirmasi password belum sama pada data login siswa';
+            } else if (password.value.length < 6) {
+                errMsg = 'Password min. 6 karakter';
+            }
+
+            if (errMsg) {
+                toastr.error(errMsg);
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        document.addEventListener('submit', (e) => {
+            const id = e.target.id;
+            switch(e.target.id) {
+                case "createForm": createForm(e); break;
+            }
         });
     </script>
 @endpush

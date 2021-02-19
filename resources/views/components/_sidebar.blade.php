@@ -1,6 +1,16 @@
 <nav class="pcoded-navbar">
     <div class="nav-list">
         <div class="pcoded-inner-navbar main-menu">
+            @if ($mySekolah ?? '')
+                @if ($mySekolah ?? ''->logo)
+                    <a href="/admin" class="d-flex" style="justify-content: center;">
+                        <img class="img-fluid" src="{{ Storage::url($mySekolah ?? ''->logo) }}" alt="logo sekolah" width="180" />
+                    </a>
+                @endif
+                @if ($mySekolah ?? ''->name)
+                    <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah ?? ''->name }}</h3>
+                @endif
+            @endif
             <div class="pcoded-navigation-label">Navigation</div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="{{ request()->is('admin') ? 'active' : '' }}">
@@ -18,7 +28,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/peserta-didik/siswa') ? 'active' : '' }}">
-                            <a href="{{ route('admin.pesertadidik.siswa') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('admin.pesertadidik.siswa.index') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Siswa</span>
                             </a>
                         </li>
@@ -93,11 +103,6 @@
                                 <span class="pcoded-mtext">Pemilihan</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/e-voting/vote') ? 'active' : '' }}">
-                            <a href="{{ route('admin.e-voting.vote') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Vote</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <li class="@if (request()->is('admin/fungsionaris/pegawai') || request()->is('admin/fungsionaris/guru')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
@@ -114,6 +119,24 @@
                         <li class="{{ request()->is('admin/fungsionaris/guru') ? 'active' : '' }}">
                             <a href="{{ route('admin.fungsionaris.guru') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Guru</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="@if (request()->is('admin/pelajaran/mata-pelajaran') || request()->is('admin/pelajaran/jadwal-pelajaran')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-book"></i></span>
+                        <span class="pcoded-mtext">Pelajaran</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/pelajaran/mata-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelajaran.mata-pelajaran') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Mata Pelajaran</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/pelajaran/jadwal-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelajaran.jadwal-pelajaran') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Jadwal Pelajaran</span>
                             </a>
                         </li>
                     </ul>
@@ -135,6 +158,14 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="{{ request()->is('admin/daftar-nilai') ? 'active' : '' }}">
+                     <a href="{{ route('admin.daftar-nilai') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-medal"></i>
+                        </span>
+                        <span class="pcoded-mtext">Daftar Nilai</span>
+                    </a>
                 </li>
                 <li class="@if (request()->is('admin/referensi/bagian-pegawai') || request()->is('admin/referensi/semester') || request()->is('admin/referensi/status-guru') || request()->is('admin/referensi/pengaturan-hak-akses') || request()->is('admin/referensi/jenjang-pegawai') || request()->is('admin/referensi/tingkatan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">

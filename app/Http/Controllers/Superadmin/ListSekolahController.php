@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Superadmin;
 
 use App\Role;
 use App\User;
-use Validator;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Superadmin\Provinsi;
+use App\Models\Superadmin\KabupatenKota;
 
 class ListSekolahController extends Controller
 {
@@ -29,61 +33,67 @@ class ListSekolahController extends Controller
                 ->make(true);
         }
 
-        return view('superadmin.list-sekolah');
+        $provinsis = Provinsi::all();
+        $kabupaten = KabupatenKota::all();
+
+        return view('superadmin.list-sekolah', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten]);
     }
 
-    public function store(Request $request) {
-         // validasi
-         $rules = [
+    public function store(Request $req) {
+        $data = $req->all();
+        $rules = [
             'id_sekolah'    => 'required|max:100',
             'name'          => 'required|max:100',
             'alamat'        => 'required',
+            'provinsi'        => 'required',
+            'kabupaten'        => 'required',
             'jenjang'       => 'required',
             'tahun_ajaran'  => 'required',
-            'username'      => 'required|max:100',
+            'username'      => 'required|max:100|unique:users,username',
             'password'      => 'required',
+            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
         ];
 
         $message = [
-            'id_sekolah.required' => 'Kolom ini gaboleh kosong',
+            'id_sekolah.required' => 'Kolom ini tidak boleh kosong',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $message);
+        $validator = Validator::make($data, $rules, $message);
 
         if ($validator->fails()) {
-            return response()
-                ->json([
-                    'errors' => $validator->errors()->all()
-                ]);
+            return back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        $sekolah = Sekolah::create([
-            'id_sekolah'    => $request->input('id_sekolah'),
-            'name'          => $request->input('name'),
-            'alamat'        => $request->input('alamat'),
-            'jenjang'       => $request->input('jenjang'),
-            'tahun_ajaran'  => $request->input('tahun_ajaran'),
-        ]);
-        $sekolah_id = DB::getPdo()->lastInsertId();
+        $data['logo'] = null;
+        if ($req->file('logo')) {
+            $data['logo'] = $req->file('logo')->store('schools', 'public');
+        }
+
+        $sekolahId = Sekolah::create([
+            'id_sekolah'    => $data['id_sekolah'],
+            'name'          => $data['name'],
+            'alamat'        => $data['alamat'],
+            'provinsi'        => $data['provinsi'],
+            'kabupaten'        => $data['kabupaten'],
+            'jenjang'       => $data['jenjang'],
+            'tahun_ajaran'  => $data['tahun_ajaran'],
+            // 'logo'          => $data['logo']
+        ])->id;
         $adminRole = Role::where('name', 'admin')->first();
 
-        $user = User::create([
-            'id_sekolah'    => $sekolah_id,
-            'name'          => $request->input('name'),
-            'username'      => $request->input('username'),
-            'password'      => Hash::make($request->input('password')),
+        User::create([
+            'id_sekolah'    => $sekolahId,
+            'role_id'       => $adminRole->id,
+            'name'          => $data['name'],
+            'username'      => $data['username'],
+            'password'      => Hash::make($data['password'])
         ]);
 
-        $user->roles()->attach($adminRole);
-
-        return response()
-            ->json([
-                'success' => '👍 '.$request->input('name').' berhasil ditambahkan!',
-            ]);
+        return back()->with(CRUDResponse::successCreate("sekolah " . $data['name']));
     }
 
     public function edit($id) {
-        $sekolah    = Sekolah::find($id);
+        $sekolah = Sekolah::find($id);
 
         return response()
             ->json([
@@ -92,41 +102,55 @@ class ListSekolahController extends Controller
             ]);
     }
 
-    public function update(Request $request) {
-        // validasi
+    public function update(Request $req) {
+        $data = $req->all();
+        $id = $data['hidden_id'];
+        $sekolah = Sekolah::findOrFail($id);
+
         $rules = [
-           'id_sekolah'    => 'required|max:100',
+           'id_sekolah'    => 'max:100',
            'name'          => 'required|max:100',
            'alamat'        => 'required',
+           'provinsi'        => 'required',
+           'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
+           'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
        ];
 
        $message = [
            'id_sekolah.required' => 'Kolom ini gaboleh kosong',
        ];
 
-       $validator = Validator::make($request->all(), $rules, $message);
+       $validator = Validator::make($data, $rules, $message);
 
        if ($validator->fails()) {
-           return response()
-               ->json([
-                   'errors' => $validator->errors()->all()
-               ]);
+            return back()->withErrors($validator->errors()->all())->withInput();
+       }
+       
+       $data['logo'] = null;
+       if ($req->file('logo')) {
+           $data['logo'] = $req->file('logo')->store('schools', 'public');
+       } else {
+           $data['logo'] = $sekolah->logo;
        }
 
-       Sekolah::whereId($request->input('hidden_id'))->update([
-           'id_sekolah'    => $request->input('id_sekolah'),
-           'name'          => $request->input('name'),
-           'alamat'        => $request->input('alamat'),
-           'jenjang'       => $request->input('jenjang'),
-           'tahun_ajaran'  => $request->input('tahun_ajaran'),
+       if ($req->file('logo') && Storage::disk('public')->exists($sekolah->logo)) {
+           Storage::disk('public')->delete($sekolah->logo);
+       }
+
+       Sekolah::whereId($id)->update([
+           'id_sekolah'    => $data['id_sekolah'],
+           'name'          => $data['name'],
+           'alamat'        => $data['alamat'],
+           'provinsi'        => $data['provinsi'],
+           'kabupaten'        => $data['kabupaten'],
+           'jenjang'       => $data['jenjang'],
+           'tahun_ajaran'  => $data['tahun_ajaran'],
+           // 'logo'          => $data['logo']
        ]);
 
-       return response()
-           ->json([
-               'success' => '👍 '.$request->input('name').' berhasil diupdate!',
-           ]);
+       return back()->with(CRUDResponse::successUpdate("sekolah " . $data['name']));
     }
 
     public function destroy($id) {
@@ -143,12 +167,7 @@ class ListSekolahController extends Controller
             $success = true;
             $message = "Data Tidak Ada";
         }
-        //  Return response
-        // return response()
-        //     ->json([
-        //         'success' => $success,
-        //         'message' => $message,
-        //     ]);
+        
         return response()
             ->json([
                 'success' => '👍 '.$sekolah->name.' berhasil dihapus!',
