@@ -4,6 +4,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/migrate', function () {
+    artisan::call('migrate');
+});
+
+Route::get('/migrate-fresh', function () {
+    artisan::call('migrate:fresh');
+});
+
+Route::get('/db:seed', function () {
+    artisan::call('db:seed');
+});
+
 Route::namespace('Siswa')
     ->name('siswa.')
     ->group(function () {
@@ -36,10 +48,10 @@ Route::namespace('Siswa')
 
         Route::get('/siswa/perpustakaan', 'Perpustakaan\PerpustakaanController@index')
              ->name('perpustakaan.perpustakaan');
-        
+
         Route::get('/siswa/cbt', 'Cbt\CbtSiswaController@index')
              ->name('cbt.cbt-siswa');
-        
+
         Route::get('/siswa/elearning', 'Elearning\ElearningSiswaController@index')
              ->name('elearning.elearning-siswa');
 
@@ -54,18 +66,18 @@ Route::namespace('Siswa')
 
         Route::get('/siswa/logout', 'Logout\LogoutSiswaController@index')
              ->name('logout.logout-siswa');
-      
+
 });
-    
+
 Route::namespace('Orangtua')
     ->name('orangtua.')
     ->group(function () {
         Route::get('/orangtua', 'OrangtuaController@index')
             ->name('index');
-        
+
         Route::get('/orangtua/pelanggaran', 'Pelanggaran\OrangtuaController@index')
             ->name('pelanggaran.pelanggaran');
-        
+
         Route::get('/orangtua/kalender', 'Kalender\KalenderAkademikController@index')
             ->name('kalender.kalender-akademik');
 
@@ -78,8 +90,8 @@ Route::namespace('Orangtua')
         Route::get('/orangtua/nilai', 'Nilai\NilaiOrangtuaController@index')
              ->name('nilai.nilai-orangtua');
 
-      
-});    
+
+});
 
 Route::namespace('Superadmin')
     ->name('superadmin.')
@@ -90,7 +102,7 @@ Route::namespace('Superadmin')
 
         Route::get('/superadmin/slider', 'SliderController@index')
             ->name('slider');
-         
+
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
@@ -98,7 +110,7 @@ Route::namespace('Superadmin')
         Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')
             ->name('list-sekolah-update');
         Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy');
-        
+
 
             // Referensi
             Route::namespace('Referensi')
@@ -217,7 +229,7 @@ Route::namespace('Admin')
             ->prefix('peserta-didik')
             ->name('pesertadidik.')
             ->group(function() {
-                Route::resource('siswa', 'SiswaController');  
+                Route::resource('siswa', 'SiswaController');
             });
 
         // Fungsionaris
@@ -230,7 +242,7 @@ Route::namespace('Admin')
                 Route::resource('pegawai', 'PegawaiController');
             });
         });
-    
+
 
 Route::namespace('Admin')
     ->name('admin.')
@@ -299,7 +311,7 @@ Route::namespace('Admin')
 
 
                 Route::get('/admin/e-voting/posisi', 'PosisiController@index')
-                    ->name('e-voting.posisi');                
+                    ->name('e-voting.posisi');
                 Route::post('/admin/e-voting/posisi', 'PosisiController@store');
                 Route::get('/admin/e-voting/posisi/{id}', 'PosisiController@edit');
                 Route::post('/admin/e-voting/posisi/update', 'PosisiController@update')
