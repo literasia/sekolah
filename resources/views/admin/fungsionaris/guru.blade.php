@@ -69,6 +69,22 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
+        var csrfToken = $('[name="csrf_token"]').attr('content');
+
+        setInterval(refreshToken, 3600000);
+
+        function refreshToken()
+        {
+            $.get('/route/untuk/refresh/token').done(function(data)
+            {
+                csrfToken = data;
+            });
+        }
+
+        setInterval(refreshToken, 3600000);
+</script>
+    </script>
+    <script>
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
