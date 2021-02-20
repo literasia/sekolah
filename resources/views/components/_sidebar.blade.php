@@ -1,14 +1,14 @@
 <nav class="pcoded-navbar">
     <div class="nav-list">
         <div class="pcoded-inner-navbar main-menu">
-            @if ($mySekolah ?? '')
-                @if ($mySekolah ?? ''->logo)
+            @if ($mySekolah)
+                @if ($mySekolah->logo)
                     <a href="/admin" class="d-flex" style="justify-content: center;">
-                        <img class="img-fluid" src="{{ Storage::url($mySekolah ?? ''->logo) }}" alt="logo sekolah" width="180" />
+                        <img class="img-fluid" src="{{ Storage::url($mySekolah->logo) }}" alt="logo sekolah" width="180" />
                     </a>
                 @endif
-                @if ($mySekolah ?? ''->name)
-                    <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah ?? ''->name }}</h3>
+                @if ($mySekolah->name)
+                    <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah->name }}</h3>
                 @endif
             @endif
             <div class="pcoded-navigation-label">Navigation</div>
