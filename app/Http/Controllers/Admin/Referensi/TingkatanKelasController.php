@@ -25,7 +25,6 @@ class TingkatanKelasController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-
         return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah()]);
     }
 

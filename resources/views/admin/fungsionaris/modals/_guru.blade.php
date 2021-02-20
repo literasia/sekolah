@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <form id="form_guru" action="/">
-                    {!! csrf_field() !!}
+                    @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="row">
                         <div class="col">

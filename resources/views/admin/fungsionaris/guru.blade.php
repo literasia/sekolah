@@ -68,7 +68,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-    <script>
+    {{-- <script>
         var csrfToken = $('[name="csrf_token"]').attr('content');
 
         setInterval(refreshToken, 3600000);
@@ -82,8 +82,7 @@
         }
 
         setInterval(refreshToken, 3600000);
-</script>
-    </script>
+    </script> --}}
     <script>
         $(document).ready(function () {
             $.ajaxSetup({

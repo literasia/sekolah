@@ -62,23 +62,22 @@ class SiswaController extends Controller
         'password' => ['required', 'confirmed', 'min:6']
     ];
 
-    public function index()
-    {
-        $sekolahId = auth()->user()->id_sekolah;
-        $kelases = TingkatanKelas::where('sekolah_id', $sekolahId)->get();
+    public function index() {
+        $sekolahId = auth()->user()->id;
+        $kelases = TingkatanKelas::where('user_id', $sekolahId)->get();
         $users = User::has('siswa')
-            ->where([
-                ['id_sekolah', $sekolahId],
-                ['role_id', 3]
-            ])->whereNotNull('siswa_id')
-            ->get();
+                ->where([
+                    ['id_sekolah', $sekolahId],
+                    ['role_id', 3]
+                ])->whereNotNull('siswa_id')
+                ->get();
 
         $siswas = [];
         foreach ($users as $user) {
             $siswa = $user->siswa;
             $siswa = $siswa::join('tingkatan_kelas AS kelas', 'siswas.id_tingkatan_kelas', 'kelas.id')
-                ->where('siswas.id', $siswa->id)
-                ->first(['siswas.*', 'kelas.name']);
+                        ->where('siswas.id', $siswa->id)
+                        ->first(['siswas.*', 'kelas.name']);
             $siswas[] = $siswa;
         }
 
@@ -89,14 +88,12 @@ class SiswaController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
+    public function show($id) {
         $siswa = Siswa::with(['siswaOrangTua', 'siswaWali'])->find($id);
         return response()->json($siswa);
     }
 
-    public function store(Request $req)
-    {
+    public function store(Request $req) {
         $data = $req->all();
         $validator = Validator::make($data, $this->siswaRules);
         if ($validator->fails()) {
@@ -230,8 +227,7 @@ class SiswaController extends Controller
     }
 
 
-    public function update($id, Request $req)
-    {
+    public function update($id, Request $req) {
         $siswa = Siswa::findOrFail($id);
         $data = $req->all();
         $validator = Validator::make($data, $this->siswaRules);
@@ -365,8 +361,7 @@ class SiswaController extends Controller
         return redirect()->back()->with(CRUDResponse::successUpdate("siswa"));
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $siswa = Siswa::findOrFail($id);
         $siswa->delete();
         return redirect()->back()->with(CRUDResponse::successDelete("siswa"));
