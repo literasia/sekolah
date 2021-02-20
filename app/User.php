@@ -40,10 +40,6 @@ class User extends Authenticatable
         }
     }
 
-    public function roles() {
-        return $this->belongsToMany('App\Role');
-    }
-
     public function hasRole($role) {
         $authRole = Role::find(Auth::user()->role_id);
         return $authRole->name === $role;

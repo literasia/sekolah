@@ -83,8 +83,7 @@ class SiswaController extends Controller
 
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
-            'kelases' => $kelases,
-            'mySekolah' => User::sekolah()
+            'kelases' => $kelases
         ]);
     }
 
@@ -155,6 +154,7 @@ class SiswaController extends Controller
                     'no_telepon' => $data['no_telepon'],
                     'foto' => $data['foto']
                 ])->id;
+
                 $data['tanggal_lahir_ayah'] = Carbon::parse($data['tanggal_lahir_ayah'])->format('Y-m-d');
                 $data['tanggal_lahir_ibu'] = Carbon::parse($data['tanggal_lahir_ibu'])->format('Y-m-d');
                 SiswaOrangTua::create([

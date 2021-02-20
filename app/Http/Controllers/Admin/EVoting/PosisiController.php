@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\EVoting;
 
-use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -10,7 +9,7 @@ use App\Models\Admin\Posisi;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-class posisiController extends Controller
+class PosisiController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {

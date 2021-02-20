@@ -26,7 +26,7 @@ class SemesterController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.semester', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.semester');
     }
 
     public function store(Request $request) {

@@ -26,7 +26,7 @@ class StatusGuruController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.status-guru', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.status-guru');
     }
 
     public function store(Request $request) {

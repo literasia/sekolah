@@ -36,7 +36,7 @@ class JenjangPegawaiController extends Controller
         ];
 
         $message = [
-            'jenjang.required' => 'Kolom ini tidak boleh kosong',
+            'jenjang.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
