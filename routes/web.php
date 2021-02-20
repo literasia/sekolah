@@ -329,6 +329,13 @@ Route::namespace('Admin')
                     ->name('pelajaran.jadwal-pelajaran.write');
             });
 
+        // Daftar Nilai
+        Route::namespace('DaftarNilai')
+            ->group(function () {
+                Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
+                    ->name('daftar-nilai');
+            });
+
         // Absensi
         Route::namespace('Absensi')
             ->group(function () {
