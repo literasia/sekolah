@@ -57,8 +57,8 @@
                                                     <i class="fa fa-pencil-alt"></i>
                                                 </button>
                                                 &nbsp;&nbsp;
-                                                <button type="button" class="btn btn-mini btn-danger shadow-sm" 
-                                                    data-url="{{ route('admin.pesertadidik.siswa.destroy', $siswa->id) }}" 
+                                                <button type="button" class="btn btn-mini btn-danger shadow-sm"
+                                                    data-url="{{ route('admin.pesertadidik.siswa.destroy', $siswa->id) }}"
                                                     data-toggle="modal" data-target="#confirmDeleteModal">
                                                         <i class="fa fa-trash"></i>
                                                 </button>
@@ -141,7 +141,7 @@
                 $('#modal-siswa').modal('show');
             });
         });
-        
+
         $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
             const url = $(e.relatedTarget).data('url');
             const form = confirmDeleteModal.querySelector('#deleteForm');
@@ -172,7 +172,7 @@
                 case "createForm": createForm(e); break;
             }
         });
-        
+
         $(document).on('click', '.edit', function () {
                 var id = $(this).data('id');
                 $.ajax({
@@ -208,7 +208,7 @@
                         $('#kode_pos').val(data.kode_pos);
                         $('#no_telepon').val(data.no_telepon);
                         $('#no_telepon_rumah').val(data.no_telepon_rumah);
-                        
+
                         if (data.siswa_orang_tua) {
                             const orangTua = data.siswa_orang_tua;
                             $('#status_anak').val(orangTua.status_anak);

@@ -63,8 +63,9 @@ class SiswaController extends Controller
     ];
 
     public function index() {
-        $sekolahId = auth()->user()->id;
-        $kelases = TingkatanKelas::where('user_id', $sekolahId)->get();
+        $sekolahId = auth()->user()->id_sekolah;
+        $userId = auth()->user()->id;
+        $kelases = TingkatanKelas::where('user_id', $userId)->get();
         $users = User::has('siswa')
                 ->where([
                     ['id_sekolah', $sekolahId],

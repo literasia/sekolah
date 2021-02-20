@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\TingkatanKelas;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class TingkatanKelasController extends Controller
 {
