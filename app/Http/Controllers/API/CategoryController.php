@@ -13,7 +13,6 @@ class CategoryController extends Controller
         $data = $req->all();
 
         $categories = Kategori::orderBy('name')->get();
-        
         return response()->json(ApiResponse::success($categories));
     }
 }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\JenjangPegawai;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class JenjangPegawaiController extends Controller
 {
@@ -23,8 +25,8 @@ class JenjangPegawaiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
-        return view('admin.referensi.jenjang-pegawai');
+
+        return view('admin.referensi.jenjang-pegawai', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
@@ -48,6 +50,7 @@ class JenjangPegawaiController extends Controller
 
         $status = JenjangPegawai::create([
             'name'  => $request->input('jenjang'),
+            'user_id' => Auth::id()
         ]);
 
         return response()

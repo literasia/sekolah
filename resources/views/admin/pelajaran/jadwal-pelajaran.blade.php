@@ -29,10 +29,10 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="kelas">Kelas</label>
-                                        <select name="kelas" id="kelas" class="form-control form-control-sm">
+                                        <select name="kelas_id" id="kelas" class="form-control form-control-sm">
                                             <option disabled="" value="">-- Kelas --</option>
                                             @foreach($kelas as $obj)
-                                            <option value="{{ $obj }}">{{ $obj }}</option>
+                                            <option value="{{ $obj->id }}">{{ $obj->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -42,8 +42,9 @@
                                         <label for="pelajaran">Pelajaran</label>
                                         <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
                                             <option disabled="" value="">-- Pelajaran --</option>
-                                            <option value="Islam">PPKN | Nama Guru</option>
-                                            <option value="Budha">Penjas | Nama Guru</option>
+                                            @foreach($pelajaran as $obj)
+                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -165,10 +166,17 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="jk">Kelas</label>
+<<<<<<< HEAD
+                                    <select name="kelas_id" id="jk" class="form-control form-control-sm" required>
+                                        <option disabled>-- Kelas --</option>
+                                        @foreach($kelas as $obj)
+                                          <option value="{{$obj->id}}">{{$obj->name}}</option>
+=======
                                     <select name="kelas" id="jk" class="form-control form-control-sm" required>
                                         <option disabled>-- Kelas --</option>
                                         @foreach($kelas as $obj)
                                           <option value="{{$obj}}">{{$obj}}</option>
+>>>>>>> madan
                                         @endforeach
                                     </select>
                                 </div>

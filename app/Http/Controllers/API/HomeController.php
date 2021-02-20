@@ -19,7 +19,6 @@ class HomeController extends Controller
         $libraries->when($sekolahId, function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)
                 ->orWhereNull('sekolah_id');
-                
         });
 
         $libraries = $libraries->orderByDesc('created_at')->limit(10)->get();

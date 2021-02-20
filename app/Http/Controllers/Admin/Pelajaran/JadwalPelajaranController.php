@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Pelajaran;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JadwalPelajaran;
+use App\Models\MataPelajaran;
+use App\Models\TingkatanKelas;
 
 class JadwalPelajaranController extends Controller
 {
@@ -13,13 +15,15 @@ class JadwalPelajaranController extends Controller
         $data = null;
 
         if($request->req == 'table') {
-            $data = JadwalPelajaran::where('tahun_ajaran', $request->tahun_ajaran)
-                                   ->where('kelas', $request->kelas)
+            $data = JadwalPelajaran::with('mataPelajaran')
+                                   ->where('tahun_ajaran', $request->tahun_ajaran)
+                                   ->where('kelas_id', $request->kelas_id)
                                    ->where('semester', $request->semester)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
             
                                    $data = $data->groupBy('hari');
+
         }
         
         elseif($request->req == 'single') {
@@ -43,11 +47,13 @@ class JadwalPelajaranController extends Controller
             ['id' => '9', 'label' => '(14:45 - 15:30)' ],
         ];
 
-        $kelas = ['X', 'XI', 'XII'];
+        $kelas = TingkatanKelas::all();
 
         $tahun_ajaran = ['2019/2020', '2020/2021'];
+
+        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
         
-        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data'));
+        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
     }
 
     public function write(Request $request) {
@@ -59,8 +65,8 @@ class JadwalPelajaranController extends Controller
                 $obj = new JadwalPelajaran();
             }
 
-            $obj->kelas = $request->kelas;
-            $obj->mata_pelajaran_id = 1; //$request->mata_pelajaran_id;
+            $obj->kelas_id = $request->kelas_id;
+            $obj->mata_pelajaran_id = $request->mata_pelajaran_id;
             $obj->hari = $request->hari;
             $obj->semester = $request->semester;
             $obj->tahun_ajaran = $request->tahun_ajaran;

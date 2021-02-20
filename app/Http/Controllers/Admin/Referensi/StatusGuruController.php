@@ -7,6 +7,8 @@ use App\Models\StatusGuru;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class StatusGuruController extends Controller
 {
@@ -48,6 +50,7 @@ class StatusGuruController extends Controller
 
         $status = StatusGuru::create([
             'name'  => $request->input('status_guru'),
+            'user_id' => Auth::id()
         ]);
 
         return response()

@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="no_ktp">No. KTP <small><em class="text-muted">(jika ada)</em></small></label>
-                        <input type="text" name="no_ktp" id="no_ktp" class="form-control form-control-sm" placeholder="Nama Panggilan">
+                        <input type="text" name="no_ktp" id="no_ktp" class="form-control form-control-sm" placeholder="Nomor KTP">
                     </div>
                 </div>
             </div>
@@ -288,7 +288,8 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="foto">Foto Siswa</label>
-                        <input type="file" name="foto" id="foto" class="form-control form-control-sm">
+                        <input type="file" name="foto" id="foto" class="form-control form-control-sm" accept="image/*">
+                        <small>max. 2MB (tidak wajib jika tidak ingin diupdate)</small>
                     </div>
                 </div>
             </div>

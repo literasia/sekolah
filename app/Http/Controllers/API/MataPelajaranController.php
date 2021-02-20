@@ -11,13 +11,16 @@ class MataPelajaranController extends Controller
 {
     public function read(Request $request) {
         if($request->req == 'table') {
-            $data = MataPelajaran::where(function($q) use($request){
-                $q->where('nama_pelajaran', 'like', "%$request->search%");
-            })->paginate($request->per_page);
+            $data = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
+                                 ->where(function($q) use($request){
+                                    $q->where('nama_pelajaran', 'like', "%$request->search%")
+                                      ->orWhere('nama_guru', 'like', "%$request->search%");;
+                                })->select('mata_pelajarans.*', 'nama_guru')
+                                 ->paginate($request->per_page);
             return ResponseFormatter::success($data);
         }
         if($request->req == 'single') {
-            $obj = MataPelajaran::find($request->id);
+            $obj = MataPelajaran::with('guru')->find($request->id);
             return $obj ? ResponseFormatter::success($obj) : ResponseFormatter::error(null, 'Data tidak ditemukan');
         }
 

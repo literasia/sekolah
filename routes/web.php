@@ -4,6 +4,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route:Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return "Artisan success";
+});
+
+Route::get('/migrate-fresh', function () {
+    Artisan::call('migrate:fresh');
+    return "Artisan success";
+});
+
+Route::get('/db-seed', function () {
+    Artisan::call('db:seed');
+    return "Artisan success";
+});
+
+Route::get('/dbal', function () {
+    shell_exec('composer require doctrine/dbal');
+    return "Composer success";
+});
+
 Route::namespace('Siswa')
     ->name('siswa.')
     ->group(function () {
@@ -12,6 +32,18 @@ Route::namespace('Siswa')
         //evoting
         Route::get('/siswa/e-voting', 'EVoting\EVotingController@index')
             ->name('e-voting.e-voting');
+
+            //bang adek
+            Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@index')
+            ->name('pelajaran.mata-pelajaran');
+            // Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@write')
+            // ->name('pelajaran.mata-pelajaran.write');
+
+            // Jadwal Pelajaran
+            Route::get('/siswa/pelajaran/jadwal-pelajaran', 'Pelajaran\JadwalPelajaranSiswaController@index')
+            ->name('pelajaran.jadwal-pelajaran');
+        Route::post('/siswa/pelajaran/jadwal-pelajaran', 'Pelajaran\JadwalPelajaranSiswaController@write')
+            ->name('pelajaran.jadwal-pelajaran.write');
 
         Route::get('/siswa/kalender', 'Kalender\KalenderAkademikController@index')
             ->name('kalender.kalender-akademik');
@@ -75,6 +107,10 @@ Route::namespace('Superadmin')
     ->group(function () {
         Route::get('/superadmin', 'SuperadminController@index')
             ->name('index');
+
+        Route::get('/superadmin/slider', 'SliderController@index')
+            ->name('slider');
+
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
@@ -164,11 +200,10 @@ Route::namespace('Superadmin')
                     Route::delete('/superadmin/library/tipe/delete/{id}', 'SettingController@deleteTipe')
                         ->name('library-tipe-delete');
 
-                    // Route::get('/superadmin/library', 'TambahController@index')
-                    //     ->name('library');
+                    Route::get('/superadmin/library', 'TambahController@index')
+                        ->name('library');
                 });
     });
-
 
 Route::namespace('Superadmin')
     ->name('superadmin.')
@@ -193,6 +228,7 @@ Route::namespace('Admin')
     ->middleware(['auth', 'auth.admin'])
     ->group(function () {
         Route::get('/', 'AdminController@index')->name('index');
+        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')->name('siswa.by.tahun');
 
         // Peserta Didik
         // Route -> Admin/PesertaDidik
@@ -215,17 +251,19 @@ Route::namespace('Admin')
             });
         });
 
+
 Route::namespace('Admin')
     ->name('admin.')
     ->middleware(['auth', 'auth.admin'])
     ->group(function () {
-        // Route::get('/admin', 'AdminController@index')
-        //     ->name('index');
+        Route::get('/admin', 'AdminController@index')
+            ->name('index');
+        Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')
+            ->name('siswa.by.tahun');
 
         // Peserta Didik
         Route::namespace('PesertaDidik')
             ->group(function () {
-
                 // Route::get('/admin/peserta-didik/siswa', 'SiswaController@index')
                 //     ->name('pesertadidik.siswa');
                 Route::get('/admin/peserta-didik/alumni', 'AlumniController@index')
@@ -245,10 +283,27 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/pelanggaran/siswa', 'SiswaController@index')
                     ->name('pelanggaran.siswa');
+                Route::post('/admin/pelanggaran/siswa', 'SiswaController@store');
+                Route::get('/admin/pelanggaran/siswa/{id}', 'SiswaController@edit');
+                Route::post('/admin/pelanggaran/siswa/update', 'SiswaController@update')
+                    ->name('pelanggaran.siswa-update');
+                Route::get('/admin/pelanggaran/siswa/hapus/{id}', 'SiswaController@destroy');
+
                 Route::get('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')
                     ->name('pelanggaran.kategori-pelanggaran');
+                Route::post('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@store');
+                Route::get('/admin/pelanggaran/kategori-pelanggaran/{id}', 'KategoriPelanggaranController@edit');
+                Route::post('/admin/pelanggaran/kategori-pelanggaran/update', 'KategoriPelanggaranController@update')
+                    ->name('pelanggaran.kategori-pelanggaran-update');
+                Route::get('/admin/pelanggaran/kategori-pelanggaran/hapus/{id}', 'KategoriPelanggaranController@destroy');
+
                 Route::get('/admin/pelanggaran/sanksi', 'SanksiController@index')
                     ->name('pelanggaran.sanksi');
+                Route::post('/admin/pelanggaran/sanksi', 'SanksiController@store');
+                Route::get('/admin/pelanggaran/sanksi/{id}', 'SanksiController@edit');
+                Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')
+                    ->name('pelanggaran.sanksi-update');
+                Route::get('/admin/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
             });
 
         // E-Voting
@@ -256,21 +311,51 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/e-voting/calon', 'CalonController@index')
                     ->name('e-voting.calon');
+                Route::post('/admin/e-voting/calon', 'CalonController@store');
+                Route::get('/admin/e-voting/calon/{id}', 'CalonController@edit');
+                Route::post('/admin/e-voting/calon/update', 'CalonController@update')
+                    ->name('e-voting.calon-update');
+                Route::get('/admin/e-voting/calon/hapus/{id}', 'CalonController@destroy');
+
+
                 Route::get('/admin/e-voting/posisi', 'PosisiController@index')
                     ->name('e-voting.posisi');
+                Route::post('/admin/e-voting/posisi', 'PosisiController@store');
+                Route::get('/admin/e-voting/posisi/{id}', 'PosisiController@edit');
+                Route::post('/admin/e-voting/posisi/update', 'PosisiController@update')
+                    ->name('e-voting.posisi-update');
+                Route::get('/admin/e-voting/posisi/hapus/{id}', 'PosisiController@destroy');
+
+
+
                 Route::get('/admin/e-voting/pemilihan', 'PemilihanController@index')
                     ->name('e-voting.pemilihan');
+                Route::post('/admin/e-voting/pemilihan', 'PemilihanController@store');
+                Route::get('/admin/e-voting/pemilihan/{id}', 'PemilihanController@edit');
+                Route::post('/admin/e-voting/pemilihan/update', 'PemilihanController@update')
+                    ->name('e-voting.pemilihan-update');
+                Route::get('/admin/e-voting/pemilihan/hapus/{id}', 'PemilihanController@destroy')->name('e-voting.pemilihan-destroy');
+
                 Route::get('/admin/e-voting/vote', 'VoteController@index')
                     ->name('e-voting.vote');
+                Route::post('/admin/e-voting/vote', 'VoteController@store');
+                Route::get('/admin/e-voting/vote/{id}', 'VoteController@edit');
+                Route::post('/admin/e-voting/vote/update', 'VoteController@update')
+                    ->name('e-voting.vote-update');
+                Route::get('/admin/e-voting/vote/hapus/{id}', 'VoteController@destroy');
             });
 
         // Fungsionaris
         Route::namespace('Fungsionaris')
             ->group(function () {
-                // Route::get('/admin/fungsionaris/pegawai', 'PegawaiController@index')
-                //     ->name('fungsionaris.pegawai');
-                Route::get('/admin/fungsionaris/guru', 'GuruController@index')
-                    ->name('fungsionaris.guru');
+            Route::get('/admin/fungsionaris/pegawai', 'PegawaiController@index')
+                ->name('fungsionaris.pegawai');
+                Route::post('/admin/fungsionaris/pegawai', 'PegawaiController@write')
+                    ->name('fungsionaris.pegawai.write');
+            Route::get('/admin/fungsionaris/guru', 'GuruController@index')
+                ->name('fungsionaris.guru');
+                Route::post('/admin/fungsionaris/guru', 'GuruController@write')
+                ->name('fungsionaris.guru.write');
             });
 
         // Pelajaran
@@ -289,20 +374,22 @@ Route::namespace('Admin')
                     ->name('pelajaran.jadwal-pelajaran.write');
             });
 
-        // Absensi
-        Route::namespace('Absensi')
-            ->group(function () {
-                Route::get('/admin/absensi/siswa', 'SiswaController@index')
-                    ->name('absensi.siswa');
-                Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')
-                    ->name('absensi.rekap-siswa');
-            });
-
         // Daftar Nilai
         Route::namespace('DaftarNilai')
             ->group(function () {
                 Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
                     ->name('daftar-nilai');
+            });
+
+        // Absensi
+        Route::namespace('Absensi')
+            ->group(function () {
+                Route::get('/admin/absensi/siswa', 'SiswaController@index')
+                    ->name('absensi.siswa');
+                Route::post('/admin/absensi/siswa', 'SiswaController@write')
+                    ->name('absensi.siswa.write');
+                Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')
+                    ->name('absensi.rekap-siswa');
             });
 
         // Referensi

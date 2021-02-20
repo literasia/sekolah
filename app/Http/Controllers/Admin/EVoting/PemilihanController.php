@@ -2,14 +2,36 @@
 
 namespace App\Http\Controllers\Admin\EVoting;
 
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Models\Admin\Pemilihan;
+use App\Models\Admin\CalonKandidat;
+use App\Models\Admin\Posisi;
+use App\User;
 
 class PemilihanController extends Controller
 {
-    public function index() {
-        return view('admin.e-voting.pemilihan');
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $data = Pemilihan::latest()->get();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        $ck = CalonKandidat::all();
+        $ps = Posisi::all();
+        return view('admin.e-voting.pemilihan', ['ck' => $ck, 'ps' => $ps, 'mySekolah' => User::sekolah()]);
     }
+
+
 
     public function store(Request $request) {
         $data = $request->all();
@@ -91,8 +113,8 @@ class PemilihanController extends Controller
         $status = Pemilihan::whereId($request->input('hidden_id'))->update([
             'name'          => $request->input('nama_calon'),
             'posisi'        => $request->input('posisi'),
-            'start_date'    => $tglMulai,
-            'end_date'      => $tglSelesai
+            'start_date'    => $newTglMulai,
+            'end_date'      => $newTglSelesai
         ]);
 
         return response()

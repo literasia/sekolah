@@ -18,10 +18,10 @@
     <div class="col-md-12 col-xl-8">
         <div class="card sale-card">
             <div class="card-header">
-                <h5>Grafik</h5>
+                <h5>Grafik Siswa per TA</h5>
             </div>
             <div class="card-block">
-                <div id="sales-analytics" class="chart-shadow" style="height:380px"></div>
+                <div id="siswa-chart" class="chart-shadow" style="height:380px"></div>
             </div>
         </div>
     </div>
@@ -31,8 +31,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="m-b-25">Siswa</h6>
-                        <h3 class="f-w-700 text-c-blue">{{ rand(10, 10000) }}</h3>
-                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
+                        <h3 class="f-w-700 text-c-blue">{{ $siswa }}</h3>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users bg-c-blue"></i>
@@ -45,8 +44,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="m-b-25">Guru</h6>
-                        <h3 class="f-w-700 text-c-green">{{ rand(10, 5000) }}</h3>
-                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
+                        <h3 class="f-w-700 text-c-green">{{ $guru }}</h3>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users bg-c-green"></i>
@@ -59,8 +57,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="m-b-25">Orang Tua</h6>
-                        <h3 class="f-w-700 text-c-yellow">{{ rand(10, 10000) }}</h3>
-                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
+                        <h3 class="f-w-700 text-c-yellow">{{ $orangtua }}</h3>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users bg-c-yellow"></i>
@@ -97,5 +94,94 @@
 @endsection
 
 @push('js')
-    <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script> -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <script>
+        am4core.useTheme(am4themes_animated);
+
+        const chart = am4core.create("siswa-chart", am4charts.XYChart);
+        chart.dataSource.url = "{{ route('admin.siswa.by.tahun') }}";
+        chart.dataSource.parser = new am4core.JSONParser();
+        chart.dataSource.parser.options.emptyAs = 0;
+
+        chart.data = [
+            @foreach ($siswasByTahun as $siswa)
+                {
+                    "tahun": "{{ $siswa->tahun }}",
+                    "siswa": {{ $siswa->total }}
+                },
+            @endforeach
+        ];
+// chart.data = [{
+//   "tahun": "USA",
+//   "visits": 2025
+// },]; 
+// {
+//   "country": "China",
+//   "visits": 1882
+// }, {
+//   "country": "Japan",
+//   "visits": 1809
+// }, {
+//   "country": "Germany",
+//   "visits": 1322
+// }, {
+//   "country": "UK",
+//   "visits": 1122
+// }, {
+//   "country": "France",
+//   "visits": 1114
+// }, {
+//   "country": "India",
+//   "visits": 984
+// }, {
+//   "country": "Spain",
+//   "visits": 711
+// }, {
+//   "country": "Netherlands",
+//   "visits": 665
+// }, {
+//   "country": "Russia",
+//   "visits": 580
+// }, {
+//   "country": "South Korea",
+//   "visits": 443
+// }, {
+//   "country": "Canada",
+//   "visits": 441
+// }, {
+//   "country": "Brazil",
+//   "visits": 395
+// }];
+
+// Create axes
+
+        const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "tahun";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+
+        categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+        if (target.dataItem && target.dataItem.index & 2 == 2) {
+            return dy + 25;
+        }
+        return dy;
+        });
+
+        const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+        // Create series
+        const series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "siswa";
+        series.dataFields.categoryX = "tahun";
+        series.name = "Siswa";
+        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series.columns.template.fillOpacity = .8;
+
+        const columnTemplate = series.columns.template;
+        columnTemplate.strokeWidth = 2;
+        columnTemplate.strokeOpacity = 1;</script>
 @endpush

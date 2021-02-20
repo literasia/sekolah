@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Superadmin\Library;
 
 use Illuminate\Http\Request;
-use App\Models\Superadmin\Tipe;
 use Yajra\DataTables\DataTables;
 use App\Models\Superadmin\Library;
 use App\Models\Superadmin\Sekolah;
 use App\Http\Controllers\Controller;
+use App\Models\Superadmin\Kategori;
 use App\Models\Superadmin\Penerbit;
 use App\Models\Superadmin\Penulis;
 use App\Utils\CRUDResponse;
@@ -20,7 +20,7 @@ class TambahController extends Controller
         'name' => ['required'],
         'sekolah_id' => ['nullable', 'exists:sekolahs,id'],
         'tingkat' => ['nullable', 'in:SD,SMP,SMA,SMK,Umum'],
-        'kategori_id' => ['nullable', 'exists:tipes,id'],
+        'kategori_id' => ['nullable', 'exists:kategoris,id'],
         'tahun_terbit' => ['nullable', 'numeric'],
         'penulis_id' => ['nullable', 'exists:penulises,id'],
         'penerbit_id' => ['nullable', 'exists:penerbits,id'],
@@ -54,8 +54,10 @@ class TambahController extends Controller
         }
 
         return view('superadmin.library.tambah-baru', [
+            'sekolahs'  => Sekolah::latest()->get(),
+            'kategoris'     => Kategori::latest()->get(),
             'sekolahs'  => Sekolah::orderBy('name')->get(),
-            'tipes'     => Tipe::orderBy('name')->get(),
+            'kategoris' => Kategori::orderBy('name')->get(),
             'penulises' => Penulis::orderBy('name')->get(),
             'penerbits' => Penerbit::orderBy('penerbit')->get()
         ]);
@@ -75,9 +77,7 @@ class TambahController extends Controller
         
         Library::create([
             'name' => $data['name'],
-            'sekolah_id' => $data['sekolah_id'],
             'kategori_id' => $data['kategori_id'],
-            'tingkat' => $data['tingkat'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],
@@ -96,7 +96,7 @@ class TambahController extends Controller
         return view('superadmin.library.tambah-baru_edit', [
             'library' => $library,
             'sekolahs'  => Sekolah::orderBy('name')->get(),
-            'tipes'     => Tipe::orderBy('name')->get(),
+            'kategoris' => Kategori::orderBy('name')->get(),
             'penulises' => Penulis::orderBy('name')->get(),
             'penerbits' => Penerbit::orderBy('penerbit')->get()
         ]);
@@ -118,9 +118,7 @@ class TambahController extends Controller
 
         Library::whereId($id)->update([
             'name' => $data['name'],
-            'sekolah_id' => $data['sekolah_id'],
             'kategori_id' => $data['kategori_id'],
-            'tingkat' => $data['tingkat'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],

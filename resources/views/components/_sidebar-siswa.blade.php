@@ -27,6 +27,16 @@
                         <span class="pcoded-mtext">E-Voting</span>
                     </a>
                 </li>
+
+                <li class="{{ request()->is('siswa/pelajaran') ? 'active' : '' }}">
+                    <a href="{{ route('siswa.pelajaran.jadwal-pelajaran') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-vote-yea"></i>
+                        </span>
+                        <span class="pcoded-mtext">Jadwal Pelajaran</span>
+                    </a>
+                </li>
+
                 <li class="{{ request()->is('siswa/kalender') ? 'active' : '' }}">
                     <a href="{{ route('siswa.kalender.kalender-akademik') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
