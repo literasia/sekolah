@@ -30,10 +30,21 @@
                             <div class="form-group">
                                 <label for="posisi">Posisi</label>
                                 <select name="posisi" id="posisi" class="form-control form-control-sm">
-                                    <option value="">Pilih</option>
+                                    <option value="">-- Pilih --</option>
                                     @foreach($ps as $posisi)
-                                    <option>{{ $posisi->name }}</option>
+                                    <option value="{{ $posisi->name }}">{{ $posisi->name }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="no_urut">Nomor Urut</label>
+                                <select name="no_urut" id="no_urut" class="form-control form-control-sm">
+                                    <option value="">Pilih</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
                                 </select>
                             </div>
                         </div>

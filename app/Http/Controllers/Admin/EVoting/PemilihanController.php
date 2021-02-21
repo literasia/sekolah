@@ -14,21 +14,29 @@ use App\User;
 class PemilihanController extends Controller
 {
     public function index(Request $request) {
-        if ($request->ajax()) {
-            $data = Pemilihan::latest()->get();
-            return DataTables::of($data)
-                ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
-                    return $button;
-                })
-                ->rawColumns(['action'])
-                ->addIndexColumn()
-                ->make(true);
-        }
+        // if ($request->ajax()) {
+        //     $data = Pemilihan::latest()->get();
+        //     return DataTables::of($data)
+        //         ->addColumn('action', function ($data) {
+        //             $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+        //             $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+        //             return $button;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->addIndexColumn()
+        //         ->make(true);
+        // }
         $ck = CalonKandidat::all();
+        $data_pemilihan = Pemilihan::all();
+        $nakan = Pemilihan::all()->where('no_urut');
         $ps = Posisi::all();
-        return view('admin.e-voting.pemilihan', ['ck' => $ck, 'ps' => $ps, 'mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.pemilihan', [
+            'nakan' => $nakan,
+            'ck' => $ck,
+            'ps' => $ps,
+            'data_pemilihan' => $data_pemilihan,
+            'mySekolah' => User::sekolah()
+        ]);
     }
 
 
@@ -60,6 +68,7 @@ class PemilihanController extends Controller
             $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
             $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
             Pemilihan::create([
+                'no_urut'       => $data['no_urut'],
                 'name'          => $nama_calon,
                 'posisi'        => $data['posisi'],
                 'start_date'    => $newTglMulai,
@@ -78,6 +87,7 @@ class PemilihanController extends Controller
         $data = Pemilihan::find($id);
         return response()
             ->json([
+                'no_urut'          => $data['no_urut'],
                 'name'          => $data['name'],
                 'posisi'        => $data['posisi'],
                 'start_date'    => $data['start_date'] ?? "",
@@ -111,6 +121,7 @@ class PemilihanController extends Controller
         $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
 
         $status = Pemilihan::whereId($request->input('hidden_id'))->update([
+            'no_urut'          => $request->input('no_urut'),
             'name'          => $request->input('nama_calon'),
             'posisi'        => $request->input('posisi'),
             'start_date'    => $newTglMulai,

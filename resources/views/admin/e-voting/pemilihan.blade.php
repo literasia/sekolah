@@ -29,6 +29,7 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>No</th>
+                                        <th>No Urut</th>
                                         <th>Kandidat</th>
                                         <th>Jenis Pemilihan</th>
                                         <th>Start Date</th>
@@ -37,7 +38,24 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                    <?php $i = 1; ?>
+                                    @foreach($data_pemilihan as $dt)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $dt->no_urut }}</td>
+                                        <td>
+                                            <ol>
+                                                @foreach($nakan as $nk)
+                                                <li>{{ $nk->name }}</li>
+                                                @endforeach
+                                            </ol>
+                                        </td>
+                                        <td>{{ $dt->posisi }}</td>
+                                        <td>{{ $dt->start_date }}</td>
+                                        <td>{{ $dt->end_date }}</td>
+                                        <td><button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button></td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -117,47 +135,51 @@
                 format: 'd-m-Y'
             });
 
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.e-voting.pemilihan') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'posisi',
-                    name: 'posisi'
-                },
-                {
-                    data: 'start_date',
-                    name: 'start_date'
-                },
-                {
-                    data: 'end_date',
-                    name: 'end_date'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
-                ],
-                columnDefs: [
-                {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
-                    targets: 5
-                }
-                ]
-            });
+            // $('#order-table').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     ajax: {
+            //         url: "{{ route('admin.e-voting.pemilihan') }}",
+            //     },
+            //     columns: [
+            //     {
+            //         data: 'DT_RowIndex',
+            //         name: 'DT_RowIndex'
+            //     },
+            //     {
+            //         data: 'no_urut',
+            //         name: 'no_urut'
+            //     },
+            //     {
+            //         data: 'name',
+            //         name: 'name'
+            //     },
+            //     {
+            //         data: 'posisi',
+            //         name: 'posisi'
+            //     },
+            //     {
+            //         data: 'start_date',
+            //         name: 'start_date'
+            //     },
+            //     {
+            //         data: 'end_date',
+            //         name: 'end_date'
+            //     },
+            //     {
+            //         data: 'action',
+            //         name: 'action'
+            //     }
+            //     ],
+            //     columnDefs: [
+            //     {
+            //         render: function (data, type, full, meta) {
+            //             return "<div class='text-wrap width-200'>" + data + "</div>";
+            //         },
+            //         targets: 5
+            //     }
+            //     ]
+            // });
 
             $('#form-pemilihan').on('submit', function (event) {
                 event.preventDefault();
@@ -242,5 +264,16 @@
             });
 
         });
+
+
+        // const nama_calon = document.getElementById('nama_calon');
+        // const calon_kandidat_id = document.getElementById('calon_id');
+
+        // function setPoin(selected){
+
+        //     // console.log(nama_calon.options[nama_calon.selectedIndex].dataset.poin);
+        //     nama_calon.value = calon_kandidat_id.options[calon_kandidat_id.selectedIndex].dataset.poin;
+        // }
+
     </script>
 @endpush

@@ -15,10 +15,9 @@ class CreatePemilihanKandidatTable extends Migration
     {
         Schema::create('pemilihan_kandidats', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('no_urut');
             $table->string('name');
-            $table->string('calon_kandidat_id');
             $table->string('posisi');
-            $table->string('pemilihan');
             $table->string('start_date');
             $table->string('end_date');
             $table->softDeletes();

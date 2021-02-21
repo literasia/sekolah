@@ -16,7 +16,12 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nama_siswa">Nama Siswa</label>
-                                <input type="text" name="nama_siswa" id="nama_siswa" class="form-control form-control-sm" placeholder="Nama Siswa">
+                                <select name="siswa_id"  id="siswa_id" class="form-control form-control-sm">
+                                    <option value="">Pilih</option>
+                                    @foreach($namaSiswa as $ns)
+                                    <option value="{{ $ns->id }}">{{ $ns->nama_lengkap }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col">

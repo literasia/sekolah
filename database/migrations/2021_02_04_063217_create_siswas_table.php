@@ -19,7 +19,6 @@ class CreateSiswasTable extends Migration
             $table->string('nisn')->nullable();
             $table->date('tanggal_masuk')->nullable();
             $table->bigInteger('id_tingkatan_kelas')->unsigned();
-
             $table->string('nama_lengkap')->nullable();
             $table->string('nama_panggilan')->nullable();
             $table->string('no_ktp')->nullable()->unique();

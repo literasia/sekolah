@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin\EVoting;
+namespace App\Http\Controllers\Admin\Pelanggaran;
 
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Admin\Posisi;
+use App\Models\Admin\SuratPeringatan;
 use App\User;
-use Illuminate\Support\Facades\Auth;
 
-class posisiController extends Controller
+class SuratPeringatanController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = Posisi::latest()->get();
+            $data = SuratPeringatan::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -25,18 +24,18 @@ class posisiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        $sekolahId = User::get('id_sekolah');
-        return view('admin.e-voting.posisi', ['sekolah_id' => $sekolahId ,'mySekolah' => User::sekolah()]);
+        
+        return view('admin.pelanggaran.surat-peringatan', ['mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
         // validasi
         $rules = [
-            'nama_posisi'  => 'required|max:50',
+            'name'  => 'required|max:50',
         ];
 
         $message = [
-            'nama_posisi.required' => 'Kolom ini tidak boleh kosong',
+            'name.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -48,9 +47,10 @@ class posisiController extends Controller
                 ]);
         }
 
-        $status = Posisi::create([
-            'name'  => $request->input('nama_posisi'),
-            'sekolah_id' => $request->input('sekolah_id')
+        $status = SuratPeringatan::create([
+            'name'  => $request->input('name'),
+            'poin'  => $request->input('poin'),
+            'sekolah_id'  => auth()->user()->id_sekolah,
         ]);
 
         return response()
@@ -60,22 +60,26 @@ class posisiController extends Controller
     }
 
     public function edit($id) {
-        $nama_posisi = Posisi::find($id);
+        $name = SuratPeringatan::find($id);
+        $poin = SuratPeringatan::find($id);
 
         return response()
             ->json([
-                'nama_posisi'  => $nama_posisi
+                'name'  => $name,
+                'poin'      => $poin
             ]);
     }
 
     public function update(Request $request) {
         // validasi
         $rules = [
-            'nama_posisi'  => 'required|max:50',
+            'name'  => 'required|max:50',
+            'poin' => 'required|max:50'
         ];
 
         $message = [
-            'nama_posisi.required' => 'Kolom ini tidak boleh kosong',
+            'name.required' => 'Kolom ini gaboleh kosong',
+            'poin.required' => 'Kolom ini gaboleh kosong'
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -87,9 +91,9 @@ class posisiController extends Controller
                 ]);
         }
 
-        $status = Posisi::whereId($request->input('hidden_id'))->update([
-            'name'  => $request->input('nama_posisi'),
-            'sekolah_id'  => $request->input('sekolah_id'),
+        $status = SuratPeringatan::whereId($request->input('hidden_id'))->update([
+            'name'  => $request->input('name'),
+            'poin'  => $request->input('poin'),
         ]);
 
         return response()
@@ -99,8 +103,7 @@ class posisiController extends Controller
     }
 
     public function destroy($id) {
-        $tingkat = Posisi::find($id);
-        $tingkat->delete();
+        $name = SuratPeringatan::find($id);
+        $name->delete();
     }
-
 }

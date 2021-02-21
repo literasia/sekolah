@@ -272,6 +272,16 @@ Route::namespace('Admin')
                 Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')
                     ->name('pelanggaran.sanksi-update');
                 Route::get('/admin/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
+
+
+
+                Route::get('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@index')
+                    ->name('pelanggaran.surat-peringatan');
+                Route::post('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@store');
+                Route::get('/admin/pelanggaran/surat-peringatan/{id}', 'SuratPeringatanController@edit');
+                Route::post('/admin/pelanggaran/surat-peringatan/update', 'SuratPeringatanController@update')
+                    ->name('pelanggaran.surat-peringatan-update');
+                Route::get('/admin/pelanggaran/surat-peringatan/hapus/{id}', 'SuratPeringatanController@destroy');
             });
 
         // E-Voting

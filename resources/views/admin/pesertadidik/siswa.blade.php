@@ -33,6 +33,7 @@
                                         <th>Kelas</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Alamat</th>
+                                        <th>Poin</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,6 +45,8 @@
                                             <td>{{ $siswa->kelas->name }}</td>
                                             <td>{{ $siswa->jk }}</td>
                                             <td>{{ $siswa->alamat }}</td>
+
+                                            <td>{{ $siswa->poin_sp}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-mini btn-info shadow-sm">
                                                     <i class="fa fa-pencil-alt"></i>

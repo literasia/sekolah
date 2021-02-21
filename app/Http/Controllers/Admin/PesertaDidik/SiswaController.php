@@ -7,6 +7,7 @@ use App\Models\Siswa;
 use App\Models\SiswaOrangTua;
 use App\Models\SiswaWali;
 use App\Models\TingkatanKelas;
+use App\Models\Admin\SuratPeringatan;
 use App\User;
 use App\Utils\CRUDResponse;
 use Carbon\Carbon;
@@ -25,6 +26,14 @@ class SiswaController extends Controller
     public function index() {
         $kelases = TingkatanKelas::all();
         $siswas = Siswa::with('kelas')->get();
+        $poin_sp = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        foreach ($siswas as $siswa) {
+            foreach ($poin_sp as $psp) {
+                if ($siswa['poin'] <= $psp['poin']) {
+                    $siswa['poin_sp'] = $siswa['poin']."/".$psp['poin'];
+                }
+            }
+        }
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
             'kelases' => $kelases,
@@ -119,6 +128,7 @@ class SiswaController extends Controller
                     'kode_pos' => $data['kode_pos'],
                     'no_telepon_rumah' => $data['no_telepon_rumah'],
                     'no_telepon' => $data['no_telepon'],
+                    'poin' => $data['poin'],
                     'foto' => $data['foto']
                 ])->id;
                 $data['tanggal_lahir_ayah'] = Carbon::parse($data['tanggal_lahir_ayah'])->format('Y-m-d');

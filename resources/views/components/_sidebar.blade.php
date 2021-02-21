@@ -80,6 +80,11 @@
                                 <span class="pcoded-mtext">Kategori Pelanggaran</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('admin/pelanggaran/surat-peringatan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelanggaran.surat-peringatan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Surat Peringatan</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="@if (request()->is('admin/e-voting/calon') || request()->is('admin/e-voting/posisi') || request()->is('admin/e-voting/pemilihan') || request()->is('admin/e-voting/vote')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
