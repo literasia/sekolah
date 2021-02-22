@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Guru;
 use App\Models\MataPelajaran;
+
+Use App\User;
 class MataPelajaranController extends Controller
 {
 
@@ -18,13 +20,13 @@ class MataPelajaranController extends Controller
             return response()->json(MataPelajaran::findOrFail($request->id));
         }
         $guru = Guru::all();
-        return view('admin.pelajaran.mata-pelajaran', compact('guru'));
+        return view('admin.pelajaran.mata-pelajaran', array_merge(['mySekolah' => User::sekolah()], compact('guru')));
     }
 
     public function write(Request $request) {
         if($request->req == 'write') {
             $obj = MataPelajaran::find($request->id);
-            
+
             if(!$obj){
                 $obj = new MataPelajaran();
             }
@@ -36,8 +38,8 @@ class MataPelajaranController extends Controller
             $obj->keterangan = $request->keterangan ?? '';
             $obj->save();
             return response()->json($obj);
-            
-            
+
+
         }
         elseif($request->req == 'delete') {
             MataPelajaran::find($request->id)->delete();
