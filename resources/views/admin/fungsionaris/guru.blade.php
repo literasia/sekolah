@@ -100,15 +100,16 @@
                 serverSide: true,
                 ajax: "{{ route('admin.fungsionaris.guru') }}?req=table",
                 columns:[
-                    {data: 'id'},
-                    {data: 'nama_guru'},
+                    {data: 'DT_RowIndex'},
+                    {data: 'nama_pegawai'},
                     {data: 'keterangan'},
-                    {data: 'status_id'},
-                    {data: 'id', render: (data) => {
-                        return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                        <button data-id="${data}" type="button" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>`;
-                    }},
+                    {data: 'nama_status'},
+                    {data: 'action'},
+                    // {data: 'id', render: (data) => {
+                    //     return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                    //                         &nbsp;&nbsp;
+                    //     <button data-id="${data}" type="button" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>`;
+                    // }},
                 ]
             });
 
