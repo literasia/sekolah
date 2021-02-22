@@ -73,11 +73,11 @@
                                         <tr>
                                             <td>{{ $obj->nama_lengkap}}</td>
                                             <td class="text-center">{{ $obj->kelas->name ?? ''}}</td>
-                                            <td class="text-center"><input type="radio" name="status" value="H" required {{$obj->absensi && $obj->absensi->status == 'H' ? 'selected' : ''}}></td>
-                                            <td class="text-center"><input type="radio" name="status" value="A" required {{$obj->absensi && $obj->absensi->status == 'A' ? 'selected' : ''}}></td>
-                                            <td class="text-center"><input type="radio" name="status" value="S" required {{$obj->absensi && $obj->absensi->status == 'S' ? 'selected' : ''}}></td>
-                                            <td class="text-center"><input type="radio" name="status" value="I" required {{$obj->absensi && $obj->absensi->status == 'I' ? 'selected' : ''}}></td>
-                                            <td class="text-center"><input type="radio" name="status" value="L" required {{$obj->absensi && $obj->absensi->status == 'L' ? 'selected' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="H" required {{$obj->absensi && $obj->absensi->status == 'H' ? 'checked' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="A" required {{$obj->absensi && $obj->absensi->status == 'A' ? 'checked' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="S" required {{$obj->absensi && $obj->absensi->status == 'S' ? 'checked' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="I" required {{$obj->absensi && $obj->absensi->status == 'I' ? 'checked' : ''}}></td>
+                                            <td class="text-center"><input type="radio" name="status" value="L" required {{$obj->absensi && $obj->absensi->status == 'L' ? 'checked' : ''}}></td>
                                             <td id="submit_{{$obj->id}}" class="text-center">
                                                 @if($obj->absensi)
                                                 APPROVE

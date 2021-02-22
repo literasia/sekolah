@@ -7,14 +7,12 @@ use App\Models\Semester;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 
 class SemesterController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = Semester::where('user_id', Auth::id())->latest()->get();
+            $data = Semester::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -26,7 +24,7 @@ class SemesterController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.semester', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.semester');
     }
 
     public function store(Request $request) {
@@ -50,7 +48,6 @@ class SemesterController extends Controller
 
         $semester = Semester::create([
             'name'  => $request->input('semester'),
-            'user_id' => Auth::id()
         ]);
 
         return response()

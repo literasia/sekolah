@@ -10,17 +10,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-pemilihan">
-                    @csrf
+                <form action="">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="nama_calon">Nama Calon</label>
                                 <select name="nama_calon[]" id="nama_calon" class="form-control form-control-sm" multiple>
                                     <option value="">-- Pilih --</option>
-                                    @foreach($ck as $cakan)
-                                    <option value="{{ $cakan->name }}">{{ $cakan->name }}</option>
-                                    @endforeach
+                                    <option value="Setia">Setia</option>
+                                    <option value="Budi">Budi</option>
                                 </select>
                             </div>
                         </div>
@@ -31,9 +29,8 @@
                                 <label for="posisi">Posisi</label>
                                 <select name="posisi" id="posisi" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
-                                    @foreach($ps as $posisi)
-                                    <option>{{ $posisi->name }}</option>
-                                    @endforeach
+                                    <option value="Position 1">Position 1</option>
+                                    <option value="Position 2">Position 2</option>
                                 </select>
                             </div>
                         </div>
@@ -52,15 +49,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <input type="hidden" name="hidden_id" id="hidden_id">
-                        <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                    </div>
                 </form>
             </div>
-
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+            </div>
         </div>
     </div>
 </div>
