@@ -22,6 +22,7 @@ Route::get('/db-seed', function () {
 Route::get('/dbal', function () {
     shell_exec('composer require doctrine/dbal');
     return "Composer success";
+});
 
 Route::namespace('Guru')
     ->name('guru.')
