@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 {{-- config 1 --}}
-@section('title', 'Fungsionaris | Guru')
-@section('title-2', 'Guru')
-@section('title-3', 'Guru')
+@section('title', 'Fungsionaris | guru')
+@section('title-2', 'guru')
+@section('title-3', 'guru')
 
 @section('describ')
     Ini adalah halaman guru untuk admin
@@ -28,10 +28,10 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>NIP</th>
                                         <th>Nama Guru</th>
-                                        <th>Keterangan</th>
-                                        <th>Status</th>
+                                        <th>No Telp</th>
+                                        <th>Alamat</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -44,7 +44,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.fungsionaris.modals._guru2')
+    @include('admin.fungsionaris.modals._guru')
 @endsection
 
 {{-- addons css --}}
@@ -57,20 +57,6 @@
         .btn i {
             margin-right: 0px;
         }
-        .fileinput .thumbnail {
-    display: inline-block;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-align: center;ry
-    vertical-align: middle;
-    max-width: 250px;
-    box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-}
-.thumbnail {
-    border: 0 none;
-    border-radius: 4px;
-    padding: 0;
-}
     </style>
 @endpush
 
@@ -82,6 +68,21 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    {{-- <script>
+        var csrfToken = $('[name="csrf_token"]').attr('content');
+
+        setInterval(refreshToken, 3600000);
+
+        function refreshToken()
+        {
+            $.get('/route/untuk/refresh/token').done(function(data)
+            {
+                csrfToken = data;
+            });
+        }
+
+        setInterval(refreshToken, 3600000);
+    </script> --}}
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
@@ -100,10 +101,10 @@
                 serverSide: true,
                 ajax: "{{ route('admin.fungsionaris.guru') }}?req=table",
                 columns:[
-                    {data: 'id'},
+                    {data: 'nip'},
                     {data: 'nama_guru'},
-                    {data: 'keterangan'},
-                    {data: 'status_id'},
+                    {data: 'no_telepon'},
+                    {data: 'alamat_tinggal'},
                     {data: 'id', render: (data) => {
                         return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
                                             &nbsp;&nbsp;
@@ -147,7 +148,6 @@
                     formData.append(val.name, val.value);
                 });
 
-                // write
                 $.ajax({
                     url: "{{ route('admin.fungsionaris.guru.write') }}?req=write",
                     cache: false,
@@ -204,7 +204,6 @@
                     })
             });
 
-                //edit
             $("#order-table").on('click', '.btn-edit', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 $.get("{{route('admin.fungsionaris.guru')}}?req=single&id=" + id, function (data, status){

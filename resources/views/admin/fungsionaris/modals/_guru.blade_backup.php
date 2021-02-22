@@ -1,23 +1,23 @@
-<div class="modal fade modal-flex" id="modal-pegawai" tabindex="-1" role="dialog">
+<div class="modal fade modal-flex" id="modal-guru" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Pegawai
+                    Form Pelanggaran
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.store') }}" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    @method("POST")
+            <div class="modal-body">
+                <form id="form_guru" action="/">
                     @csrf
+                    <input type="hidden" name="id" id="id">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="nama_pegawai">Nama Lengkap</label>
-                                <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control form-control-sm" placeholder="Nama Lengkap" required>
+                                <label for="nama_guru">Nama Lengkap</label>
+                                <input type="text" name="nama_guru" id="nama_guru" class="form-control form-control-sm" placeholder="Nama Lengkap">
                             </div>
                         </div>
                     </div>
@@ -66,11 +66,11 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="jk">Jenis Kelamin</label>
-                                <select name="jk" id="jk" class="form-control form-control-sm">
+                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-control form-control-sm">
                                     <option value="">-- Jenis Kelamin --</option>
-                                    <option value="Laki-Laki">Laki-Laki</option>
-                                    <option value="Perempuan">Perempuan</option>
+                                    <option value="L">Laki-Laki</option>
+                                    <option value="P">Perempuan</option>
                                 </select>
                             </div>
                         </div>
@@ -90,11 +90,11 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="is_menikah">Status Menikah</label>
-                                <select name="is_menikah" id="is_menikah" class="form-control form-control-sm">
+                                <label for="status">Status Menikah</label>
+                                <select name="status" id="status" class="form-control form-control-sm">
                                     <option value="">-- Status Menikah --</option>
-                                    <option value="1">Menikah</option>
-                                    <option value="0">Belum Menikah</option>
+                                    <option value="Menikah">Menikah</option>
+                                    <option value="Belum Menikah">Belum Menikah</option>
                                 </select>
                             </div>
                         </div>
@@ -191,16 +191,28 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="foto">Foto Pegawai</label>
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="foto">Foto guru</label>
                                 <input type="file" name="foto" id="foto" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
-
                     <hr>
                     <h5>Informasi Pekerjaan</h5>
                     <div class="row">
@@ -212,9 +224,9 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="bagian">Bagian Pegawai</label>
-                                <select name="bagian" id="bagian" class="form-control form-control-sm" required>
-                                    <option value="">-- Bagian Pegawai --</option>
+                                <label for="bagian_guru">Bagian guru</label>
+                                <select name="bagian_guru" id="bagian_guru" class="form-control form-control-sm">
+                                    <option value="">-- Bagian guru --</option>
                                     <option value="Guru/Tenaga Pendidik">Guru/Tenaga Pendidik</option>
                                     <option value="Teknisi">Teknisi</option>
                                     <option value="Laboran">Laboran</option>
@@ -247,37 +259,26 @@
                             </div>
                         </div>
                     </div>
-
-                    <hr>
-                    <h5>Data Login</h5>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Username" required>
+                                <label for="jenjang">Jenjang</label>
+                                <select name="jenjang" id="jenjang" class="form-control form-control-sm">
+                                    <option value="">-- Jenjang --</option>
+                                    <option value="SD">SD</option>
+                                    <option value="SMP">SMP</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="SMK">SMK</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password" required>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="password_confirmation">Konfirmasi Password</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control form-control-sm" placeholder="Konfirmasi Password" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
-                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="form_guru_submit" type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+            </div>
         </div>
     </div>
 </div>
