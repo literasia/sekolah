@@ -3,19 +3,16 @@
 namespace App\Http\Controllers\Admin\Referensi;
 
 use Validator;
-use App\Models\BagianPegawai;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 
 class BagianPegawaiController extends Controller
 {
     public function index(Request $request) {
-        $tes = User::get('id_sekolah');
         if ($request->ajax()) {
-            $data = BagianPegawai::where('user_id', Auth::id())->latest()->get();
+            $data = Pegawai::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -27,7 +24,7 @@ class BagianPegawaiController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.bagian-pegawai', ['tes' => $tes, 'mySekolah' => User::sekolah()]);
+        return view('admin.referensi.bagian-pegawai');
     }
 
     public function store(Request $request) {
@@ -49,9 +46,8 @@ class BagianPegawaiController extends Controller
                 ]);
         }
 
-        $pegawai = BagianPegawai::create([
+        $pegawai = Pegawai::create([
             'name'  => $request->input('pegawai'),
-            'user_id' => Auth::id()
         ]);
 
         return response()
@@ -61,7 +57,7 @@ class BagianPegawaiController extends Controller
     }
 
     public function edit($id) {
-        $pegawai = BagianPegawai::find($id);
+        $pegawai = Pegawai::find($id);
 
         return response()
             ->json([
@@ -88,7 +84,7 @@ class BagianPegawaiController extends Controller
                 ]);
         }
 
-        BagianPegawai::whereId($request->hidden_id)->update([
+        Pegawai::whereId($request->hidden_id)->update([
             'name'  => $request->input('pegawai'),
         ]);
 
@@ -99,7 +95,7 @@ class BagianPegawaiController extends Controller
     }
 
     public function destroy($id) {
-        $pegawai = BagianPegawai::find($id);
+        $pegawai = Pegawai::find($id);
         $pegawai->delete();
     }
 }

@@ -1,8 +1,7 @@
 <div class="modal fade modal-flex" id="modal-siswa" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="{{ route('admin.pesertadidik.siswa.store') }}" method="POST" id="createForm" enctype="multipart/form-data">
-                @method('POST')
+            <form action="{{ route('admin.pesertadidik.siswa.store') }}" method="POST" id="createForm">
                 @csrf
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -38,7 +37,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btn-submit" class="btn btn-sm btn-outline-success">Simpan</button>
+                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
                 </div>
             </form>

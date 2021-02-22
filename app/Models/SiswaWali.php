@@ -10,8 +10,4 @@ class SiswaWali extends Model
     use SoftDeletes;
 
     protected $guarded = [];
-
-    protected $casts = [
-        'tanggal_lahir_wali' => 'datetime:d-m-Y'
-    ];
 }

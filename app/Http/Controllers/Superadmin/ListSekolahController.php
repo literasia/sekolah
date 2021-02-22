@@ -11,10 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Superadmin\Provinsi;
-use App\Models\Superadmin\KabupatenKota;
 
 class ListSekolahController extends Controller
 {
@@ -33,10 +30,7 @@ class ListSekolahController extends Controller
                 ->make(true);
         }
 
-        $provinsis = Provinsi::all();
-        $kabupaten = KabupatenKota::all();
-
-        return view('superadmin.list-sekolah', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten]);
+        return view('superadmin.list-sekolah');
     }
 
     public function store(Request $req) {
@@ -45,17 +39,14 @@ class ListSekolahController extends Controller
             'id_sekolah'    => 'required|max:100',
             'name'          => 'required|max:100',
             'alamat'        => 'required',
-            'provinsi'        => 'required',
-            'kabupaten'        => 'required',
             'jenjang'       => 'required',
             'tahun_ajaran'  => 'required',
             'username'      => 'required|max:100|unique:users,username',
             'password'      => 'required',
-            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
         ];
 
         $message = [
-            'id_sekolah.required' => 'Kolom ini tidak boleh kosong',
+            'id_sekolah.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($data, $rules, $message);
@@ -64,20 +55,12 @@ class ListSekolahController extends Controller
             return back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        $data['logo'] = null;
-        if ($req->file('logo')) {
-            $data['logo'] = $req->file('logo')->store('schools', 'public');
-        }
-
         $sekolahId = Sekolah::create([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
             'alamat'        => $data['alamat'],
-            'provinsi'        => $data['provinsi'],
-            'kabupaten'        => $data['kabupaten'],
             'jenjang'       => $data['jenjang'],
-            'tahun_ajaran'  => $data['tahun_ajaran'],
-            // 'logo'          => $data['logo']
+            'tahun_ajaran'  => $data['tahun_ajaran']
         ])->id;
         $adminRole = Role::where('name', 'admin')->first();
 
@@ -105,17 +88,14 @@ class ListSekolahController extends Controller
     public function update(Request $req) {
         $data = $req->all();
         $id = $data['hidden_id'];
-        $sekolah = Sekolah::findOrFail($id);
+        Sekolah::findOrFail($id);
 
         $rules = [
            'id_sekolah'    => 'max:100',
            'name'          => 'required|max:100',
            'alamat'        => 'required',
-           'provinsi'        => 'required',
-           'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
-           'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
        ];
 
        $message = [
@@ -127,27 +107,13 @@ class ListSekolahController extends Controller
        if ($validator->fails()) {
             return back()->withErrors($validator->errors()->all())->withInput();
        }
-       
-       $data['logo'] = null;
-       if ($req->file('logo')) {
-           $data['logo'] = $req->file('logo')->store('schools', 'public');
-       } else {
-           $data['logo'] = $sekolah->logo;
-       }
-
-       if ($req->file('logo') && Storage::disk('public')->exists($sekolah->logo)) {
-           Storage::disk('public')->delete($sekolah->logo);
-       }
 
        Sekolah::whereId($id)->update([
            'id_sekolah'    => $data['id_sekolah'],
            'name'          => $data['name'],
            'alamat'        => $data['alamat'],
-           'provinsi'        => $data['provinsi'],
-           'kabupaten'        => $data['kabupaten'],
            'jenjang'       => $data['jenjang'],
-           'tahun_ajaran'  => $data['tahun_ajaran'],
-           // 'logo'          => $data['logo']
+           'tahun_ajaran'  => $data['tahun_ajaran']
        ]);
 
        return back()->with(CRUDResponse::successUpdate("sekolah " . $data['name']));

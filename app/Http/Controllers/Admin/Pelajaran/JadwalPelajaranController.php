@@ -21,11 +21,11 @@ class JadwalPelajaranController extends Controller
                                    ->where('semester', $request->semester)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
-            
+
                                    $data = $data->groupBy('hari');
 
         }
-        
+
         elseif($request->req == 'single') {
             $obj = JadwalPelajaran::findOrFail($request->id);
             return response()->json($obj);
@@ -52,7 +52,7 @@ class JadwalPelajaranController extends Controller
         $tahun_ajaran = ['2019/2020', '2020/2021'];
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
-        
+
         return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
     }
 

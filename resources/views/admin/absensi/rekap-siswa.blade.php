@@ -24,27 +24,22 @@
                 <div class="card-body">
                     <div class="card-block">
                         <h6>Pilih Kelas</h6>
-                        <form action="">
+                        <form action="{{ route('admin.absensi.rekap-siswa') }}">
+                            <input type="hidden" name="req" value="table">
                             <div class="row">
                                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <select name="pilih" id="pilih" class="form-control form-control-sm">
+                                    <select name="kelas_id" id="pilih" class="form-control form-control-sm" required>
                                         <option value="">-- Kelas --</option>
-                                        <option value="X TKJ">X TKJ</option>
-                                        <option value="X OTKP">X OTKP</option>
-                                        <option value="X MM">X MM</option>
-                                        <option value="XI TKJ">XI TKJ</option>
-                                        <option value="XI OTKP">XI OTKP</option>
-                                        <option value="XI MM">XI MM</option>
-                                        <option value="XII TKJ">XII TKJ</option>
-                                        <option value="XII OTKP">XII OTKP</option>
-                                        <option value="XII MM">XII MM</option>
+                                        @foreach($kelas as $obj)
+                                            <option value="{{$obj->id}}" {{ request()->kelas_id == $obj->id ? 'selected' : '' }}>{{ $obj->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm" placeholder="Start Date" readonly>
+                                    <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm" placeholder="Start Date" readonly value="{{ request()->tanggal_mulai ?? '' }}">
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm" placeholder="End Date" readonly>
+                                    <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm" placeholder="End Date" readonly value="{{ request()->tanggal_selesai ?? '' }}">
                                 </div>
                                 <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
                                     <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
@@ -73,66 +68,18 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
+                                    @foreach($data as $obj)
                                     <tr>
-                                        <td>Afifah Sakinah</td>
-                                        <td>XI MM</td>
-                                        <td>2 <span class="text-danger">(0,55 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
+                                        <td>{{ $obj->nama_lengkap }}</td>
+                                        <td>{{ $obj->kelas->name ?? '' }}</td>
+                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'H']) </td>
+                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'A']) </td>
+                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'S']) </td>
+                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'I']) </td>
+                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'L']) </td>
                                         <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
                                     </tr>
-                                    <tr>
-                                        <td>Aidil Syahputra</td>
-                                        <td>XI MM</td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>2 <span class="text-danger">(0,55 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apfis Satria</td>
-                                        <td>XI MM</td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>2 <span class="text-danger">(0,55 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Azzahra Putri Hermaya</td>
-                                        <td>XI MM</td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>2 <span class="text-danger">(0,55 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Balqist</td>
-                                        <td>XI MM</td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>1 <span class="text-danger">(0,27 %)</span></td>
-                                        <td>1 <span class="text-danger">(0,27 %)</span></td>
-                                        <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Daffa Adinata</td>
-                                        <td>XI MM</td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td>1 <span class="text-danger">(0,27 %)</span></td>
-                                        <td>0 <span class="text-danger">(0,00 %)</span></td>
-                                        <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -160,16 +107,15 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable();
 
             $('#tanggal_mulai').dateDropper({
                 theme: 'leaf',
-                format: 'd-m-Y'
+                format: 'Y-m-d'
             });
 
             $('#tanggal_selesai').dateDropper({
                 theme: 'leaf',
-                format: 'd-m-Y'
+                format: 'Y-m-d'
             });
         });
     </script>

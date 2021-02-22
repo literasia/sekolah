@@ -13,19 +13,16 @@ class JadwalPelajaranSiswaController extends Controller
 
     public function index(Request $request) {
         $data = null;
-        // $datakelas = TingkatanKelas::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
-        // return DataTables::of($datakelas);
+
         if($request->req == 'table') {
             $data = JadwalPelajaran::with('mataPelajaran')
                                    ->where('tahun_ajaran', $request->tahun_ajaran)
-                                   ->where('kelas', $request->kelas)
+                                   ->where('kelas_id', $request->kelas_id)
                                    ->where('semester', $request->semester)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
 
                                    $data = $data->groupBy('hari');
-
-
 
         }
 
@@ -50,9 +47,7 @@ class JadwalPelajaranSiswaController extends Controller
             ['id' => '9', 'label' => '(14:45 - 15:30)' ],
         ];
 
-        // $kelas = DB::table('tingkatan_kelas')->where('name', 'X')->first();
-
-        $kelas = ['X', 'XI', 'XII', 'XIII'];
+        $kelas = TingkatanKelas::all();
 
         $tahun_ajaran = ['2019/2020', '2020/2021'];
 
@@ -70,7 +65,7 @@ class JadwalPelajaranSiswaController extends Controller
                 $obj = new JadwalPelajaran();
             }
 
-            $obj->kelas = $request->kelas;
+            $obj->kelas_id = $request->kelas_id;
             $obj->mata_pelajaran_id = $request->mata_pelajaran_id;
             $obj->hari = $request->hari;
             $obj->semester = $request->semester;

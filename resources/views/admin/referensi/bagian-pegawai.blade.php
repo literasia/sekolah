@@ -61,7 +61,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -140,7 +140,7 @@
                     url = "{{ route('admin.referensi.bagian-pegawai') }}";
                     text = "Data sukses ditambahkan";
                 }
-
+                
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.referensi.bagian-pegawai-update') }}";
                     text = "Data sukses diupdate";

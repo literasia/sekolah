@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //user.php
     public function getRedirectRouteByRole() {
         if (!Auth::check()) {
             return route('/');
@@ -35,6 +36,8 @@ class User extends Authenticatable
             return route('superadmin.index');
         } else if ($this->hasRole('siswa')) {
             return route('siswa.index');
+        } else if ($this->hasRole('guru')) {
+            return route('guru.index');
         }  else {
             return route('home');
         }
