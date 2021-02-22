@@ -20,6 +20,67 @@
 @section('content')
 
 
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="card-block">
+                      <form method="get" action="{{route('siswa.pelajaran.jadwal-pelajaran')}}">
+                        <div class="dt-responsive ">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nama_calon">Tampil Jadwal</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="jk">Kelas</label>
+                                    <select name="kelas_id" id="jk" class="form-control form-control-sm" required>
+                                        <option disabled>-- Kelas --</option>
+                                        @foreach($kelas as $obj)
+                                          <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="jk">Semester</label>
+                                    <select name="semester" id="jk" class="form-control form-control-sm" required>
+                                        <option disabled>-- Semester --</option>
+                                        <option value="ganjil">Ganjil</option>
+                                        <option value="genap">Genap</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="agama">Tahun Ajaran</label>
+                                    <select name="tahun_ajaran" id="agama" class="form-control form-control-sm" required>
+                                        <option disabled>-- Tahun Ajaran --</option>
+                                        @foreach($tahun_ajaran as $obj)
+                                        <option value="{{$obj}}">{{$obj}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                  <input type="hidden" name="req" value="table">
+                                <input type="submit" class="btn btn-sm btn-outline-success" value="Tampil" id="tampil">
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="row" id="showjpcard">
@@ -84,7 +145,7 @@
             });
 
             var table = $('#showjpcard');
-            // table.hide();
+            table.hide();
 
             @if(request()->req == 'table')
             table.show();

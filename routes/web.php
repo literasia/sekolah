@@ -22,6 +22,21 @@ Route::get('/db-seed', function () {
 Route::get('/dbal', function () {
     shell_exec('composer require doctrine/dbal');
     return "Composer success";
+
+Route::namespace('Guru')
+    ->name('guru.')
+    ->group(function () {
+        Route::get('/guru', 'GuruController@index')
+            ->name('index');
+
+        Route::get('/guru/absensi/siswaguru', 'Absensi\SiswaGuruController@index')
+        ->name('absensi.siswa');
+    Route::post('/guru/absensi/siswa', 'Absensi\SiswaGuruController@write')
+        ->name('absensi.siswa.write');
+    Route::get('/guru/absensi/rekap-siswaguru', 'Absensi\RekapSiswaGuruController@index')
+        ->name('absensi.rekap-siswa');
+
+
 });
 
 Route::namespace('Siswa')
@@ -29,6 +44,18 @@ Route::namespace('Siswa')
     ->group(function () {
         Route::get('/siswa', 'SiswaController@index')
             ->name('index');
+
+             Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@index')
+             ->name('pelajaran.mata-pelajaran');
+             // Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@write')
+             // ->name('pelajaran.mata-pelajaran.write');
+
+             // Jadwal Pelajaran
+             Route::get('/siswa/pelajaran/jadwal-pelajaran', 'Pelajaran\JadwalPelajaranSiswaController@index')
+             ->name('pelajaran.jadwal-pelajaran');
+         Route::post('/siswa/pelajaran/jadwal-pelajaran', 'Pelajaran\JadwalPelajaranSiswaController@write')
+             ->name('pelajaran.jadwal-pelajaran.write');
+
         //evoting
         Route::get('/siswa/e-voting', 'EVoting\EVotingController@index')
             ->name('e-voting.e-voting');
@@ -249,6 +276,8 @@ Route::namespace('Admin')
     });
 
 
+
+
 Route::namespace('Admin')
     ->name('admin.')
     ->middleware(['auth', 'auth.admin'])
@@ -257,6 +286,9 @@ Route::namespace('Admin')
             ->name('index');
         Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')
             ->name('siswa.by.tahun');
+
+
+
 
         // Peserta Didik
         Route::namespace('PesertaDidik')
@@ -350,6 +382,18 @@ Route::namespace('Admin')
                 Route::post('/admin/fungsionaris/guru', 'GuruController@write')
                     ->name('fungsionaris.guru.write');
             });
+
+             // Sekolah
+         Route::namespace('Sekolah')
+         ->group(function () {
+             // Jam Pelajaran
+             Route::get('/admin/sekolah/jam', 'JadwalPelajaranSekolahController@index')
+                 ->name('sekolah.jam');
+             Route::post('/admin/sekolah/jam', 'JadwalPelajaranSekolahController@write')
+                 ->name('sekolah.jam.write');
+
+
+         });
 
         // Pelajaran
         Route::namespace('Pelajaran')

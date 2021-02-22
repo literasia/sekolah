@@ -105,7 +105,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -176,7 +176,7 @@
             var table = $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.pelajaran.mata-pelajaran') }}?req=table",                
+                ajax: "{{ route('admin.pelajaran.mata-pelajaran') }}?req=table",
                 columns: [
                 {
                     data: 'DT_RowIndex',
@@ -245,7 +245,7 @@
                 resetForm();
             });
 
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {                
+            $("#order-table").on('click', '.btn-delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
                     title: 'Konfirmasi Hapus',

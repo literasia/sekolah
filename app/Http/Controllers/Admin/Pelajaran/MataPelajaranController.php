@@ -19,7 +19,7 @@ class MataPelajaranController extends Controller
             return response()->json(MataPelajaran::findOrFail($request->id));
         }
         $guru = Guru::all();
-        return view('admin.pelajaran.mata-pelajaran', compact('guru'), ['mySekolah' => User::sekolah()]);
+        return view('admin.pelajaran.mata-pelajaran', array_merge(['mySekolah' => User::sekolah()], compact('guru')));
     }
 
     public function write(Request $request) {
