@@ -19,7 +19,10 @@ class MataPelajaranController extends Controller
         if($request->req == 'single') {
             return response()->json(MataPelajaran::findOrFail($request->id));
         }
+        
         $guru = Guru::all();
+        //TODO: GURU BELUM FILTER BY SEKOLAH
+
         return view('admin.pelajaran.mata-pelajaran', array_merge(['mySekolah' => User::sekolah()], compact('guru')));
     }
 
@@ -36,6 +39,7 @@ class MataPelajaranController extends Controller
             $obj->guru_id = $request->guru_id;
             $obj->aktif = $request->aktif == 'on';
             $obj->keterangan = $request->keterangan ?? '';
+            $obj->sekolah_id = $request->user()->id_sekolah;
             $obj->save();
             return response()->json($obj);
 

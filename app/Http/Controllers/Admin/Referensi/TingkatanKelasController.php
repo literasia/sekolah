@@ -48,6 +48,8 @@ class TingkatanKelasController extends Controller
 
         $status = TingkatanKelas::create([
             'name'  => $request->input('tingkat'),
+            'user_id' => $request->user()->id,
+            'sekolah_id' => $request->user()->id_sekolah,
         ]);
 
         return response()
@@ -86,6 +88,8 @@ class TingkatanKelasController extends Controller
 
         $status = TingkatanKelas::whereId($request->input('hidden_id'))->update([
             'name'  => $request->input('tingkat'),
+            'user_id' => $request->user()->id,
+            'sekolah_id' => $request->user()->id_sekolah,
         ]);
 
         return response()

@@ -4,9 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MataPelajaran extends Model
+class JamPelajaran extends Model
 {
-    public function guru() {
-        return $this->belongsTo(Guru::class);
-    }
+    //
 }

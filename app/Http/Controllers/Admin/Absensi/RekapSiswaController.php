@@ -19,7 +19,6 @@ class RekapSiswaController extends Controller
                              $q->where('tanggal', '>=', $request->tanggal_mulai)
                                ->where('tanggal', '<=', $request->tanggal_selesai);
                          }])->get();
-
             //return response()->json($data);
         }
 

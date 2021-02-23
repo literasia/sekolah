@@ -13,36 +13,49 @@ class JamPelajaranController extends Controller
 {
 
     public function index(Request $request) {
-        if($request->req == 'table') {
-            return DataTables::of(JamPelajaran::join('gurus', 'gurus.id', 'guru_id')->select('mata_pelajarans.*', 'nama_guru')->get())->addIndexColumn()->toJson();
-        }
+        
         if($request->req == 'single') {
             return response()->json(JamPelajaran::findOrFail($request->id));
         }
-        $guru = Guru::all();
-        return view('admin.pelajaran.mata-pelajaran', compact('guru'));
+
+        $data = JamPelajaran::where('sekolah_id', $request->user()->id_sekolah)
+                            ->orderBy('jam_ke')
+                            ->get();
+        
+        $data = $data->groupBy('hari');
+        
+        return view('admin.sekolah.jam-pelajaran', compact('data'));
     }
 
     public function write(Request $request) {
         if($request->req == 'write') {
-            $obj = MataPelajaran::find($request->id);
+            $this->validate($request, [
+                'hari' => 'required',
+                'jam_ke' => "required",
+                'jam_mulai' => 'required',
+                'jam_selesai' => "required"
+            ]);
+
+            $obj = JamPelajaran::find($request->id);
 
             if(!$obj){
-                $obj = new MataPelajaran();
+                $obj = new JamPelajaran();
             }
 
-            $obj->nama_pelajaran = $request->nama_pelajaran;
-            $obj->kode_pelajaran = $request->kode_pelajaran;
-            $obj->guru_id = $request->guru_id;
-            $obj->aktif = $request->aktif == 'on';
-            $obj->keterangan = $request->keterangan ?? '';
+            $obj->sekolah_id = $request->user()->id_sekolah;
+            $obj->hari = $request->hari;
+            $obj->jam_ke = $request->jam_ke;
+            $obj->jam_mulai = $request->jam_mulai;
+            $obj->jam_selesai = $request->jam_selesai;
+            $obj->istirahat = $request->istirahat ?? false;
+            $obj->editor_id = $request->user()->id;
             $obj->save();
             return response()->json($obj);
 
 
         }
         elseif($request->req == 'delete') {
-            MataPelajaran::find($request->id)->delete();
+            JamPelajaran::find($request->id)->delete();
         }
     }
 }

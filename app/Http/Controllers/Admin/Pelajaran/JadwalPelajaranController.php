@@ -47,11 +47,13 @@ class JadwalPelajaranController extends Controller
             ['id' => '9', 'label' => '(14:45 - 15:30)' ],
         ];
 
-        $kelas = TingkatanKelas::all();
+        $kelas = TingkatanKelas::where('sekolah_id', $request->user()->id_sekolah)->get();
 
         $tahun_ajaran = ['2019/2020', '2020/2021'];
 
-        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
+        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
+                                  ->where('sekolah_id', $request->user()->id_sekolah)
+                                  ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
 
         return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
     }
