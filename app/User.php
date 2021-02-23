@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //user.php
     public function getRedirectRouteByRole() {
         if (!Auth::check()) {
             return route('/');
