@@ -40,6 +40,7 @@ class MataPelajaranController extends Controller
             $obj->guru_id = $request->guru_id;
             $obj->aktif = $request->aktif;
             $obj->keterangan = $request->keterangan;
+            $obj->sekolah_id = $request->sekolah_id;
             return $obj->save() ? 
                  ResponseFormatter::success($obj, 'Data berhasil disimpan') : ResponseFormatter::error(null, 'Something went wrong'); 
             

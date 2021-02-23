@@ -13,6 +13,7 @@ class MataPelajaranSiswaController extends Controller
 {
 
     public function index(Request $request) {
+
         if($request->req == 'table') {
             return DataTables::of(MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->select('mata_pelajarans.*', 'nama_guru')->get())->addIndexColumn()->toJson();
         }
@@ -20,6 +21,7 @@ class MataPelajaranSiswaController extends Controller
             return response()->json(MataPelajaran::findOrFail($request->id));
         }
         $guru = Guru::all();
+        //TODO: Guru belum filter id_sekolah
         return view('siswa.pelajaran.mata-pelajaran', array_merge(['mySekolah' => User::sekolah()], compact('guru')));
     }
 
@@ -36,6 +38,7 @@ class MataPelajaranSiswaController extends Controller
             $obj->guru_id = $request->guru_id;
             $obj->aktif = $request->aktif == 'on';
             $obj->keterangan = $request->keterangan ?? '';
+            $obj->sekolah_id = $request->sekolah_id;
             $obj->save();
             return response()->json($obj);
 

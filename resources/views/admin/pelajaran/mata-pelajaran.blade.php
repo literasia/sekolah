@@ -237,6 +237,7 @@
                     $('input[name=kode_pelajaran]').val(data.kode_pelajaran);
                     $('input[name=keterangan]').val(data.keterangan);
                     $('input[name=aktif]').prop('checked', data.aktif == 1);
+                    $('select[name=guru_id]').val(data.guru_id);
                     $('#btn').val('Update');
                 });
             });

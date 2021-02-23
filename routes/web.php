@@ -388,9 +388,9 @@ Route::namespace('Admin')
          Route::namespace('Sekolah')
          ->group(function () {
              // Jam Pelajaran
-             Route::get('/admin/sekolah/jam', 'JadwalPelajaranSekolahController@index')
+             Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
                  ->name('sekolah.jam');
-             Route::post('/admin/sekolah/jam', 'JadwalPelajaranSekolahController@write')
+             Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
                  ->name('sekolah.jam.write');
 
 
