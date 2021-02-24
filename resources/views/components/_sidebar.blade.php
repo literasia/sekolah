@@ -194,14 +194,14 @@
                                 <span class="pcoded-mtext">Jenjang Pegawai</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/referensi/pengaturan-hak-akses') ? 'active' : '' }}">
-                            <a href="{{ route('admin.referensi.pengaturan-hak-akses') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Pengaturan Hak Akses</span>
-                            </a>
-                        </li>
                         <li class="{{ request()->is('admin/referensi/tingkatan-kelas') ? 'active' : '' }}">
                             <a href="{{ route('admin.referensi.tingkatan-kelas') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Tingkatan Kelas</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/referensi/pengaturan-hak-akses') ? 'active' : '' }}">
+                            <a href="{{ route('admin.referensi.pengaturan-hak-akses') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Pengaturan Hak Akses</span>
                             </a>
                         </li>
                     </ul>
@@ -222,8 +222,6 @@
                                 <span class="pcoded-mtext">Jurusan</span>
                             </a>
                         </li>
-                    </ul>
-                    <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/sekolah/jam') ? 'active' : '' }}">
                             <a href="{{ route('admin.sekolah.jam') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Jam Pelajaran</span>

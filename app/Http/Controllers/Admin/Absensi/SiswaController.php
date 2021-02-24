@@ -16,7 +16,7 @@ class SiswaController extends Controller
         $data = [];
 
         if($request->req == 'table') {
-            $data = Siswa::with(['kelas', 
+            $data = Siswa::with(['kelas',
                                  'absensi' => function($q) use($request){
                                      $q->where('tanggal', $request->tanggal)->where('kelas_id', $request->kelas_id);
                                 }])
@@ -27,7 +27,7 @@ class SiswaController extends Controller
         }
 
 
-        return view('admin.absensi.siswa', compact('kelas', 'data'));
+        return view('admin.absensi.siswa', compact('kelas', 'data'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {

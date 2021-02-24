@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use App\Models\TingkatanKelas;
+use App\User;
 
 class RekapSiswaController extends Controller
 {
@@ -24,6 +25,6 @@ class RekapSiswaController extends Controller
 
         $kelas = TingkatanKelas::all();
 
-        return view('admin.absensi.rekap-siswa', compact('data', 'kelas'));
+        return view('admin.absensi.rekap-siswa', compact('data', 'kelas'), ['mySekolah' => User::sekolah()]);
     }
 }
