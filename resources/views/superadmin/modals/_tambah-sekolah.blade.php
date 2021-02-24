@@ -26,7 +26,7 @@
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Nama Sekolah">
                             </div>
                         </div>
-                    </div>  
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
@@ -49,9 +49,9 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="kabupaten">Kabupaten:</label>
+                                <label for="kabupaten">Kabupaten / Kota:</label>
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
-                                    <option value="">-- Kabupaten --</option>
+                                    <option value="">-- Kabupaten / Kota --</option>
                                     @foreach($kabupaten as $kab)
                                     <option value="{{ $kab->name }}">{{ $kab->name }}</option>
                                     @endforeach
@@ -111,7 +111,7 @@
                                 <input type="hidden" name="hidden_id" id="hidden_id">
                                 <input type="hidden" id="action">
                                 <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>                          
+                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>
                             </div>
                         </div>
                     </div>

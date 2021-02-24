@@ -273,6 +273,8 @@ Route::namespace('Admin')
             ->name('fungsionaris.')
             ->group(function () {
                 Route::resource('pegawai', 'PegawaiController');
+                Route::get('getKabupaten/{id}', 'PegawaiController@getKabupatenKota');
+                Route::get('getKecamatan/{id}', 'PegawaiController@getKecamatan');
             });
     });
 

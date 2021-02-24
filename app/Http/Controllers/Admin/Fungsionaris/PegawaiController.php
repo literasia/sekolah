@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Superadmin\Provinsi;
+use App\Models\Superadmin\KabupatenKota;
+use App\Models\Superadmin\Kecamatan;
 
 class PegawaiController extends Controller
 {
@@ -32,7 +35,24 @@ class PegawaiController extends Controller
         $pegawais = Pegawai::whereHas('user', function($q) {
             return $q->whereIdSekolah(auth()->user()->id_sekolah);
         })->get();
-        return view('admin.fungsionaris.pegawai', ['pegawais' => $pegawais, 'mySekolah' => User::sekolah()]);
+
+        $provinsis = Provinsi::all();
+        $kabupaten = KabupatenKota::all();
+
+        $kecamatan  = Kecamatan::all();
+        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'mySekolah' => User::sekolah()]);
+    }
+
+    public function getKabupatenKota($id)
+    {
+        $kabupaten = Provinsi::find($id)->kabupatenKotas;
+        return response()->json($kabupaten);
+    }
+
+    public function getKecamatan($id)
+    {
+        $kecamatan = KabupatenKota::find($id)->kecamatans;
+        return response()->json($kecamatan);
     }
 
     public function store(Request $req) {

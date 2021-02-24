@@ -113,19 +113,20 @@
                                 <label for="provinsi">Provinsi</label>
                                 <select name="provinsi" id="provinsi" class="form-control form-control-sm">
                                     <option value="">-- Provinsi --</option>
-                                    <option value="Aceh">Aceh</option>
-                                    <option value="Sumatera Utara">Sumatera Utara</option>
+                                    @foreach($provinsis as $provinsi)
+                                    <option value="{{ $provinsi->name }}">{{ $provinsi->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="kabupaten">Kabupaten</label>
+                                <label for="kabupaten">Kabupaten / Kota</label>
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
-                                    <option value="">-- Kabupaten --</option>
-                                    <option value="Langkat">Langkat</option>
-                                    <option value="Deli Serdang">Deli Serdang</option>
-                                    <option value="Medan">Medan</option>
+                                    <option value="">-- Kabupaten / Kota --</option>
+                                    @foreach($kabupaten as $kab)
+                                    <option value="{{ $kab->name }}">{{ $kab->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -136,9 +137,9 @@
                                 <label for="kecamatan">Kecamatan</label>
                                 <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
                                     <option value="">-- Kecamatan --</option>
-                                    <option value="Besitang">Besitang</option>
-                                    <option value="Medan Kota">Medan Kota</option>
-                                    <option value="Medan Selayang">Medan Selayang</option>
+                                    @foreach($kecamatan as $kec)
+                                    <option value="{{ $kec->name }}">{{ $kec->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
