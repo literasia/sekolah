@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.fungsionaris.pegawai') }}
+    {{ route('admin.fungsionaris.pegawai.index') }}
 @endsection
 
 {{-- main content --}}
@@ -25,7 +25,7 @@
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                         <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                            <table id="pegawai-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>NIP</th>
@@ -43,7 +43,7 @@
                                             <td>{{ $pegawai->no_telepon }}</td>
                                             <td>{{ $pegawai->alamat_tinggal }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                                <a class="btn btn-mini btn-info shadow-sm" href="{{ route('admin.fungsionaris.pegawai.edit', $pegawai->id) }}"><i class="fa fa-pencil-alt"></i></a>
                                                 &nbsp;&nbsp;
                                                 <button type="button" class="btn btn-mini btn-danger shadow-sm"
                                                     data-url="{{ route('admin.fungsionaris.pegawai.destroy', $pegawai->id) }}"
@@ -98,7 +98,13 @@
         };
 
         $(document).ready(function () {
-
+            try {
+                @if (count($pegawais) > 0)
+                    $('#pegawai-table').DataTable();
+                @endif
+            } catch(e) {
+                console.error(e);
+            }
             $('#add').on('click', function () {
                 $('#modal-pegawai').modal('show');
             });

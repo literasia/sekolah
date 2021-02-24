@@ -27,8 +27,9 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <label for="nama_posisi">Posisi</label>
-                                        <input type="text" name="nama_posisi" id="nama_posisi" class="form-control form-control-sm" placeholder="Posisi">
+                                        <label for="nama_posisi">Nama posisi </label>
+                                        <input type="text" name="nama_posisi" id="nama_posisi" class="form-control form-control-sm" placeholder="Nama Posisi">
+                                        <input type="hidden" name="sekolah_id" id="sekolah_id" class="form-control form-control-sm" value="{{ $sekolahId = auth()->user()->id_sekolah }}">
                                     </div>
                                 </div>
                             </div>

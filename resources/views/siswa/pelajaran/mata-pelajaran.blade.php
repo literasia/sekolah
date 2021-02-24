@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.siswa')
 
 {{-- config 1 --}}
 @section('title', 'Pelajaran | Mata Pelajaran')
@@ -6,14 +6,14 @@
 @section('title-3', 'Mata Pelajaran')
 
 @section('describ')
-    Ini adalah halaman mata pelajaran untuk admin
+    Ini adalah halaman mata pelajaran untuk siswa
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pelajaran.mata-pelajaran') }}
+    {{ route('siswa.pelajaran.mata-pelajaran') }}
 @endsection
 
 {{-- main content --}}
@@ -176,7 +176,7 @@
             var table = $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.pelajaran.mata-pelajaran') }}?req=table",
+                ajax: "{{ route('siswa.pelajaran.mata-pelajaran') }}?req=table",
                 columns: [
                 {
                     data: 'DT_RowIndex',
@@ -209,7 +209,7 @@
 
             $('#form-pelajaran').on('submit', function (event) {
                 event.preventDefault();
-                var url = "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=write";
+                var url = "{{ route('siswa.pelajaran.mata-pelajaran') }}?req=write";
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -231,7 +231,7 @@
 
             $('#order-table').on('click', '.btn-edit', function (ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
-                $.get("{{route('admin.pelajaran.mata-pelajaran')}}?req=single&id=" + id, function (data, status){
+                $.get("{{route('siswa.pelajaran.mata-pelajaran')}}?req=single&id=" + id, function (data, status){
                     $('input[name=id]').val(data.id);
                     $('input[name=nama_pelajaran]').val(data.nama_pelajaran);
                     $('input[name=kode_pelajaran]').val(data.kode_pelajaran);
@@ -258,7 +258,7 @@
                     }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
+                            url: "{{ route('siswa.pelajaran.mata-pelajaran') }}?req=delete&id=" + id,
                             cache: false,
                             method: "POST",
                             processData: false,

@@ -3,7 +3,7 @@
 {{-- config 1 --}}
 @section('title', 'Pelajaran | Jadwal Pelajaran')
 @section('title-2', 'Jadwal Pelajaran')
-@section('title-3', 'Jadwal Pelajaran')af
+@section('title-3', 'Jadwal Pelajaran')
 
 @section('describ')
     Ini adalah halaman jadwal pelajaran untuk siswa

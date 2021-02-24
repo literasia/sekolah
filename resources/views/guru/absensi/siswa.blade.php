@@ -23,20 +23,15 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="card-block">
-                        <h6>Pilih Kelas</h6>
+                        <h6>Kelas</h6>
                         <form id="form-absensi" action="{{route('guru.absensi.siswa')}}" method="get">
                             <input type="hidden" name="req" value="table">
                             <div class="row">
                                 <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <select name="kelas_id" id="pilih" class="form-control form-control-sm" required>
-                                        <option value="">-- Kelas --</option>
-                                        @foreach($kelas as $obj)
-                                            <option value="{{$obj->id}}" {{ request()->kelas_id == $obj->id ? 'selected' : '' }}>{{$obj->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" value="{{$kelas->name ?? '-- Anda bukan merupakan wali kelas --'}}" readonly class="form-control form-control-sm">
                                 </div>
                                 <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" placeholder="Tanggal" readonly required value="{{request()->tanggal ?? ''}}">
+                                    <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" placeholder="Tanggal" readonly required value="{{$tanggal}}">
                                 </div>
                                 <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
                                     <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
@@ -68,8 +63,8 @@
                                     @foreach($data as $obj)
                                     <form class="form-absensi">
                                         <input type="hidden" name="siswa_id" value="{{$obj->id}}">
-                                        <input type="hidden" name="kelas_id" value="{{ request()->kelas_id }}">
-                                        <input type="hidden" name="tanggal" value="{{ request()->tanggal }}">
+                                        <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
+                                        <input type="hidden" name="tanggal" value="{{ $tanggal }}">
                                         <tr>
                                             <td>{{ $obj->nama_lengkap}}</td>
                                             <td class="text-center">{{ $obj->kelas->name ?? ''}}</td>

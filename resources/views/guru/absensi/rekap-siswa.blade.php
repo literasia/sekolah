@@ -23,23 +23,18 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="card-block">
-                        <h6>Pilih Kelas</h6>
+                        <h6>Kelas</h6>
                         <form action="{{ route('guru.absensi.rekap-siswa') }}">
                             <input type="hidden" name="req" value="table">
                             <div class="row">
                                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <select name="kelas_id" id="pilih" class="form-control form-control-sm" required>
-                                        <option value="">-- Kelas --</option>
-                                        @foreach($kelas as $obj)
-                                            <option value="{{$obj->id}}" {{ request()->kelas_id == $obj->id ? 'selected' : '' }}>{{ $obj->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" readonly value="{{$kelas->name ?? '-- Anda bukan merupakan wali kelas --'}}" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm" placeholder="Start Date" readonly value="{{ request()->tanggal_mulai ?? '' }}">
+                                    <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm" placeholder="Start Date" readonly value="{{ request()->tanggal_mulai ?? '' }}" required>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm" placeholder="End Date" readonly value="{{ request()->tanggal_selesai ?? '' }}">
+                                    <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm" placeholder="End Date" readonly value="{{ request()->tanggal_selesai ?? '' }}" required>
                                 </div>
                                 <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-6">
                                     <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">

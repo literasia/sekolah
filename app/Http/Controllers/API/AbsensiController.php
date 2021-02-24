@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Absensi;
 
 class AbsensiController extends Controller
 {
@@ -33,5 +35,31 @@ class AbsensiController extends Controller
                          
                          return ResponseFormatter::success($data);
         }
+    }
+
+    public function write(Request $request) {
+        if($request->req == 'insert') {
+            $validation = Validator::make($request->all(), [
+                'tanggal' => 'required|date',
+                'kelas_id' => 'required',
+                'siswa_id' => 'required',
+                'status' => 'required'
+            ]);
+
+            if($validation->fails()) {
+                return ResponseFormatter::error($validation->messages(), 'Unprocessable Entity', 422);
+            }
+
+            $obj = Absensi::create([
+                'kelas_id' => $request->kelas_id,
+                'tanggal' => $request->tanggal,
+                'siswa_id' => $request->siswa_id,
+                'status' => $request->status,
+                'editor_id' => $request->editor_id
+            ]);
+
+            return ResponseFormatter::success($obj);
+        }
+
     }
 }

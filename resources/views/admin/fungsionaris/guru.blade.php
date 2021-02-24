@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 {{-- config 1 --}}
-@section('title', 'Fungsionaris | guru')
-@section('title-2', 'guru')
-@section('title-3', 'guru')
+@section('title', 'Fungsionaris | Guru')
+@section('title-2', 'Guru')
+@section('title-3', 'Guru')
 
 @section('describ')
     Ini adalah halaman guru untuk admin
@@ -28,10 +28,10 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>NIP</th>
+                                        <th>No</th>
                                         <th>Nama Guru</th>
-                                        <th>No Telp</th>
-                                        <th>Alamat</th>
+                                        <th>Keterangan</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -44,7 +44,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.fungsionaris.modals._guru')
+    @include('admin.fungsionaris.modals._guru2')
 @endsection
 
 {{-- addons css --}}
@@ -57,6 +57,20 @@
         .btn i {
             margin-right: 0px;
         }
+        .fileinput .thumbnail {
+    display: inline-block;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-align: center;ry
+    vertical-align: middle;
+    max-width: 250px;
+    box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+}
+.thumbnail {
+    border: 0 none;
+    border-radius: 4px;
+    padding: 0;
+}
     </style>
 @endpush
 
@@ -86,15 +100,16 @@
                 serverSide: true,
                 ajax: "{{ route('admin.fungsionaris.guru') }}?req=table",
                 columns:[
-                    {data: 'nip'},
-                    {data: 'nama_guru'},
-                    {data: 'no_telepon'},
-                    {data: 'alamat_tinggal'},
-                    {data: 'id', render: (data) => {
-                        return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;&nbsp;
-                        <button data-id="${data}" type="button" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>`;
-                    }},
+                    {data: 'DT_RowIndex'},
+                    {data: 'nama_pegawai'},
+                    {data: 'keterangan'},
+                    {data: 'nama_status'},
+                    {data: 'action'},
+                    // {data: 'id', render: (data) => {
+                    //     return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                    //                         &nbsp;&nbsp;
+                    //     <button data-id="${data}" type="button" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>`;
+                    // }},
                 ]
             });
 
@@ -133,6 +148,7 @@
                     formData.append(val.name, val.value);
                 });
 
+                // write
                 $.ajax({
                     url: "{{ route('admin.fungsionaris.guru.write') }}?req=write",
                     cache: false,
@@ -189,6 +205,7 @@
                     })
             });
 
+                //edit
             $("#order-table").on('click', '.btn-edit', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 $.get("{{route('admin.fungsionaris.guru')}}?req=single&id=" + id, function (data, status){

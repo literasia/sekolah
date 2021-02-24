@@ -11,8 +11,9 @@ class RekapSiswaGuruController extends Controller
 {
     public function index(Request $request) {
         $data = [];
-        if($request->req == 'table') {
-            $data = Siswa::where('id_tingkatan_kelas', $request->kelas_id)
+        $kelas = $request->user()->Kelas;
+        if($request->req == 'table' && $request->tanggal_mulai && $request->tanggal_selesai) {
+            $data = Siswa::where('id_tingkatan_kelas', $request->user()->kelas)
                         ->with('kelas')
                         ->orderBy('nama_lengkap')
                          ->with(['absensis' => function($q) use($request){
@@ -22,8 +23,6 @@ class RekapSiswaGuruController extends Controller
 
             //return response()->json($data);
         }
-
-        $kelas = TingkatanKelas::all();
 
         return view('guru.absensi.rekap-siswa', compact('data', 'kelas'));
     }

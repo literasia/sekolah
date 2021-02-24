@@ -8,6 +8,7 @@ use DataTables;
 use App\Models\Guru;
 use App\Models\MataPelajaran;
 use App\Models\JamPelajaran;
+use App\User;
 
 class JamPelajaranController extends Controller
 {
@@ -24,7 +25,7 @@ class JamPelajaranController extends Controller
         
         $data = $data->groupBy('hari');
         
-        return view('admin.sekolah.jam-pelajaran', compact('data'));
+        return view('admin.sekolah.jam-pelajaran', compact('data'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\JadwalPelajaran;
 use App\Models\MataPelajaran;
 use App\Models\TingkatanKelas;
+use App\User;
 
 class JadwalPelajaranController extends Controller
 {
@@ -52,10 +53,11 @@ class JadwalPelajaranController extends Controller
         $tahun_ajaran = ['2019/2020', '2020/2021'];
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
-                                  ->where('sekolah_id', $request->user()->id_sekolah)
-                                  ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
+                                    ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
+                                    ->where('sekolah_id', $request->user()->id_sekolah)
+                                    ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
 
-        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
+        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {

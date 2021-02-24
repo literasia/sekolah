@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //user.php
     public function getRedirectRouteByRole() {
         if (!Auth::check()) {
             return route('/');
@@ -42,7 +43,8 @@ class User extends Authenticatable
         }
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany('App\Role');
     }
 
@@ -60,5 +62,8 @@ class User extends Authenticatable
     public function siswa()
     {
         return $this->hasOne(Siswa::class, 'id', 'siswa_id');
+    }
+    public function Kelas() {
+        return $this->belongsTo('App\Models\TingkatanKelas', 'kelas');
     }
 }

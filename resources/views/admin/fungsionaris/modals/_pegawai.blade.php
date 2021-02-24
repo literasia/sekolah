@@ -3,14 +3,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Pelanggaran
+                    Tambah Pegawai
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.write') }}" method="POST">
+            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.store') }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
+                    @method("POST")
                     @csrf
                     <div class="row">
                         <div class="col">
@@ -242,20 +243,6 @@
                                     <option value="">-- Semester --</option>
                                     <option value="Ganjil">Ganjil</option>
                                     <option value="Genap">Genap</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="jenjang">Jenjang</label>
-                                <select name="jenjang" id="jenjang" class="form-control form-control-sm">
-                                    <option value="">-- Jenjang --</option>
-                                    <option value="SD">SD</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
                                 </select>
                             </div>
                         </div>

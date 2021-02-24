@@ -11,6 +11,10 @@ class Library extends Model
 
     protected $guarded = [];
 
+    public function kategori() {
+        return $this->belongsTo(Kategori::class);
+    }
+
     public function penulis()
     {
         return $this->belongsTo(Penulis::class);

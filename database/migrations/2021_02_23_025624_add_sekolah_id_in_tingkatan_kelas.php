@@ -23,12 +23,14 @@ class AddSekolahIdInTingkatanKelas extends Migration
             $sekolah->name = 'SMA NEGERI 1 MEDAN';
             $sekolah->alamat = 'MEDAN';
             $sekolah->jenjang = 'SMA';
+            $sekolah->provinsi = '';
+            $sekolah->kabupaten = '';
             $sekolah->tahun_ajaran = '2020/2021';
             $sekolah->save();
         }
 
         $user = User::where('username', 'admin')->first();
-        if(!$user->id_sekolah) {
+        if($user && !$user->id_sekolah) {
             $user->id_sekolah = 1;
             $user->save();
         }

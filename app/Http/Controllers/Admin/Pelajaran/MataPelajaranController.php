@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Guru;
 use App\Models\MataPelajaran;
-
-Use App\User;
+use App\User;
 class MataPelajaranController extends Controller
 {
 

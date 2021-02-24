@@ -23,9 +23,10 @@ class ApiResponse {
         ];
     }
 
-    public static function success($data) {
+    public static function success($data, $message = "") {
         return [
             'status' => 'success',
+            'message' => $message,
             'data' => $data
         ];
     }
