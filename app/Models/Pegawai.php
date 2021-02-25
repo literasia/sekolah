@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use App\Models\Admin\Access;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,5 +23,10 @@ class Pegawai extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function access()
+    {
+        return $this->hasOne(Access::class);
     }
 }

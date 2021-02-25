@@ -473,6 +473,8 @@ Route::namespace('Admin')
 
                 Route::get('/admin/referensi/pengaturan-hak-akses', 'PengaturanHakAksesController@index')
                     ->name('referensi.pengaturan-hak-akses');
+                Route::post('/admin/referensi/pengaturan-hak-akses/update', 'PengaturanHakAksesController@update')
+                    ->name('referensi.pengaturan-hak-akses-update');
 
                 // Tingkatan Kelas
                 Route::get('/admin/referensi/tingkatan-kelas', 'TingkatanKelasController@index')

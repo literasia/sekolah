@@ -14,4 +14,9 @@ class Sekolah extends Model
     public function users() {
         return $this->hasMany('App\User');
     }
+
+    public function access()
+    {
+    	return $this->hasMany(App\Models\Admin\Access::class);
+    }
 }

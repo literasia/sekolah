@@ -23,6 +23,8 @@ class AddSekolahIdInTingkatanKelas extends Migration
             $sekolah->name = 'SMA NEGERI 1 MEDAN';
             $sekolah->alamat = 'MEDAN';
             $sekolah->jenjang = 'SMA';
+            $sekolah->provinsi = '0';
+            $sekolah->kabupaten = '0';
             $sekolah->tahun_ajaran = '2020/2021';
             $sekolah->save();
         }
