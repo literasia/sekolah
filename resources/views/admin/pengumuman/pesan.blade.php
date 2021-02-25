@@ -1,4 +1,4 @@
-@extends('layouts.siswa')
+@extends('layouts.admin')
 
 {{-- config 1 --}}
 @section('title', 'Pengumuman | Pesan')
@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pengumuman.pengumuman') }}
+    {{ route('admin.pengumuman.pesan') }}
 @endsection
 
 {{-- main content --}}
@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
