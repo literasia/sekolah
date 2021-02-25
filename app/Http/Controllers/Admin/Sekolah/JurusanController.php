@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Referensi;
+namespace App\Http\Controllers\Admin\Sekolah;
 
 use Validator;
-use App\Models\BagianPegawai;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Admin\Jurusan;
+use Yajra\DataTables\DataTables;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+// use Yajra\DataTables\Facades\DataTables;
 
-class BagianPegawaiController extends Controller
+class JurusanController extends Controller
 {
-    public function index(Request $request) {
-        $tes = User::get('id_sekolah');
-        if ($request->ajax()) {
-            $data = BagianPegawai::where('user_id', Auth::id())->latest()->get();
+    public function index(Request $request)
+    {
+        if ($request->ajax())
+        {
+            $data = Jurusan::where('user_id', Auth::id())->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -27,17 +29,20 @@ class BagianPegawaiController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.bagian-pegawai', ['tes' => $tes, 'mySekolah' => User::sekolah()]);
+        return view('admin.sekolah.jurusan', ['mySekolah' => User::sekolah()]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // validasi
         $rules = [
-            'pegawai'  => 'required|max:100',
+            'kode'  => 'required|max:20',
+            'name'  => 'required|max:100',
         ];
 
         $message = [
-            'pegawai.required' => 'Kolom ini tidak boleh kosong',
+            'kode.required' => 'Kolom ini tidak boleh kosong',
+            'name.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -49,8 +54,9 @@ class BagianPegawaiController extends Controller
                 ]);
         }
 
-        $pegawai = BagianPegawai::create([
-            'name'  => $request->input('pegawai'),
+        Jurusan::create([
+            'kode'  => $request->input('kode'),
+            'name'  => $request->input('name'),
             'user_id' => Auth::id()
         ]);
 
@@ -61,22 +67,24 @@ class BagianPegawaiController extends Controller
     }
 
     public function edit($id) {
-        $pegawai = BagianPegawai::find($id);
+        $jurusan = Jurusan::find($id);
 
         return response()
             ->json([
-                'pegawai'   => $pegawai
+                'jurusan'   => $jurusan,
             ]);
     }
 
     public function update(Request $request) {
         // validasi
         $rules = [
-            'pegawai'  => 'required|max:100',
+            'kode'  => 'required|max:20',
+            'name'  => 'required|max:100',
         ];
 
         $message = [
-            'pegawai.required' => 'Kolom ini gaboleh kosong',
+            'kode.required' => 'Kolom ini tidak boleh kosong',
+            'name.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -88,8 +96,9 @@ class BagianPegawaiController extends Controller
                 ]);
         }
 
-        BagianPegawai::whereId($request->hidden_id)->update([
-            'name'  => $request->input('pegawai'),
+        Jurusan::whereId($request->hidden_id)->update([
+            'kode'  => $request->input('kode'),
+            'name'  => $request->input('name'),
         ]);
 
         return response()
@@ -99,7 +108,7 @@ class BagianPegawaiController extends Controller
     }
 
     public function destroy($id) {
-        $pegawai = BagianPegawai::find($id);
+        $pegawai = Jurusan::find($id);
         $pegawai->delete();
     }
 }

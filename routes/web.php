@@ -389,6 +389,25 @@ Route::namespace('Admin')
              // Sekolah
          Route::namespace('Sekolah')
          ->group(function () {
+            // Jurusan
+             Route::get('/admin/sekolah/jurusan', 'JurusanController@index')
+             ->name('sekolah.jurusan');
+            Route::post('/admin/sekolah/jurusan', 'JurusanController@store');
+            Route::get('/admin/sekolah/jurusan/{id}', 'JurusanController@edit');
+            Route::post('/admin/sekolah/jurusan/update', 'JurusanController@update')
+                ->name('sekolah.jurusan-update');
+            Route::get('/admin/sekolah/jurusan/hapus/{id}', 'JurusanController@destroy');
+
+            // Kelas
+            Route::get('/admin/sekolah/kelas', 'KelasController@index')
+            ->name('sekolah.kelas');
+           Route::post('/admin/sekolah/kelas', 'KelasController@store');
+           Route::get('/admin/sekolah/kelas/{id}', 'KelasController@edit')
+                ->name('sekolah.kelas-edit');
+           Route::post('/admin/sekolah/kelas/update', 'KelasController@update')
+               ->name('sekolah.kelas-update');
+           Route::get('/admin/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
+
              // Jam Pelajaran
              Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
                  ->name('sekolah.jam');
