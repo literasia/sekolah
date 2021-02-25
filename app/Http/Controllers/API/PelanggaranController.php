@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Siswa;
+use App\Models\Admin\PelanggaranSiswa;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

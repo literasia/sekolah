@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemilihanKandidatTable extends Migration
+class CreateCalonTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreatePemilihanKandidatTable extends Migration
      */
     public function up()
     {
-        Schema::create('pemilihan_kandidats', function (Blueprint $table) {
+        Schema::create('calon', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no_urut');
             $table->string('name');
-            $table->string('posisi');
-            $table->string('start_date');
-            $table->string('end_date');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +28,6 @@ class CreatePemilihanKandidatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemilihan_kandidat');
+        Schema::dropIfExists('calon');
     }
 }

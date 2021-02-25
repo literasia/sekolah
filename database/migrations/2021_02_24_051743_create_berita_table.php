@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCalonKandidatTable extends Migration
+class CreateBeritaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateCalonKandidatTable extends Migration
      */
     public function up()
     {
-        Schema::create('calon_kandidats', function (Blueprint $table) {
+        Schema::create('beritas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('user_id');
+            $table->string('kategori');
+            $table->text('isi');
+            $table->string('thumbnail');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ class CreateCalonKandidatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calon_kandidat');
+        Schema::dropIfExists('berita');
     }
 }

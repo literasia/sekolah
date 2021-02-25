@@ -36,11 +36,35 @@ class VotingController extends Controller
         return response()->json(ApiResponse::success($kandidats));
     }
 
+    public function hasilVoting(Request $request){
+        $jumlahsuara = Voting::all();
+        $names = Pemilihan::orderBy('start_date')->get();
+        $pemilihans = Pemilihan::orderBy('posisi')->get();
+        $counts = collect();
+        // dd($names[0]->votes);
+
+        $a = [];
+
+        foreach ($names as $nc) {
+           $a->push(['name' => $nc->calons->name, 'total' => $nc->calons->id]);
+        }
+
+        // foreach($names as $nc){
+        //     foreach ($nc->calons as $calon){
+        //         $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
+        //         foreach($counts as $count){
+        //             $counts->push($hasil);
+        //         }
+        //             return response()->json(ApiResponse::success($counts));
+        //     }
+        // }
+    }
+
     public function store(Request $req) {
         $data = $req->all();
 
         $exist = Voting::where([
-            ['calon_kandidat_id', $data['calon_kandidat_id']],
+            ['calon_id', $data['calon_id']],
             ['id_user', $data['user_id']]
         ])->exists();
 
@@ -49,7 +73,7 @@ class VotingController extends Controller
         }
 
         Voting::create([
-            'calon_kandidat_id' => $data['calon_kandidat_id'],
+            'calon_id' => $data['calon_id'],
             'id_user' => $data['user_id']
         ]);
 

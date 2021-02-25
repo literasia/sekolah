@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models\Superadmin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\User;
 
-class CalonKandidat extends Model
+class Berita extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'calon_kandidats';
+    protected $table = 'beritas';
 	protected $fillable = [
-        'name', 'user_id'
+        'name', 'kategori', 'isi', 'thumbnail'
     ];
     protected $guarded = [];
 }

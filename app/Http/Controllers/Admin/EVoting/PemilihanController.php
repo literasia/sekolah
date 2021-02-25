@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Pemilihan;
-use App\Models\Admin\CalonKandidat;
+use App\Models\Admin\Calon;
 use App\Models\Admin\Posisi;
 use App\User;
+use App\Utils\CRUDResponse;
+
 
 class PemilihanController extends Controller
 {
@@ -26,12 +28,16 @@ class PemilihanController extends Controller
         //         ->addIndexColumn()
         //         ->make(true);
         // }
-        $ck = CalonKandidat::all();
-        $data_pemilihan = Pemilihan::all();
-        $nakan = Pemilihan::all()->where('no_urut');
+        $pemilihan = Pemilihan::find(38);
+        // foreach($pemilihan->calons as $calon){
+        //     echo $calon->name;
+        // }
+        // exit;
+
+        $ck = Calon::all();
+        $data_pemilihan = Pemilihan::orderBy('start_date')->get();
         $ps = Posisi::all();
         return view('admin.e-voting.pemilihan', [
-            'nakan' => $nakan,
             'ck' => $ck,
             'ps' => $ps,
             'data_pemilihan' => $data_pemilihan,
@@ -61,33 +67,32 @@ class PemilihanController extends Controller
                 ]);
         }
 
+        $tglMulai = explode("-", $data['tanggal_mulai']);
+        $tglSelesai = explode("-", $data['tanggal_selesai']);
+        $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
+        $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
+        $pemilihan= Pemilihan::create([
+            'posisi'        => $data['posisi'],
+            'start_date'    => $newTglMulai,
+            'end_date'      => $newTglSelesai
+        ]);
 
         foreach ($request->input('nama_calon') as $nama_calon) {
-            $tglMulai = explode("-", $data['tanggal_mulai']);
-            $tglSelesai = explode("-", $data['tanggal_selesai']);
-            $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
-            $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
-            Pemilihan::create([
-                'no_urut'       => $data['no_urut'],
-                'name'          => $nama_calon,
-                'posisi'        => $data['posisi'],
-                'start_date'    => $newTglMulai,
-                'end_date'      => $newTglSelesai
-            ]);
+            $pemilihan->calons()->attach($nama_calon);
         }
-        
 
         return response()
             ->json([
                 'success' => 'Data Added.',
             ]);
+        return view('admin.e-voting.pemilihan');
+
     }
 
     public function edit($id) {
         $data = Pemilihan::find($id);
         return response()
             ->json([
-                'no_urut'          => $data['no_urut'],
                 'name'          => $data['name'],
                 'posisi'        => $data['posisi'],
                 'start_date'    => $data['start_date'] ?? "",

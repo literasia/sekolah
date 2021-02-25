@@ -3,14 +3,25 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Calon;
+use App\Models\Admin\Voting;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pemilihan extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'no_urut', 'name', 'posisi', 'start_date', 'end_date'
+        'posisi', 'start_date', 'end_date'
     ];
-    protected $table = "pemilihan_kandidats";
+    protected $table = "pemilihan";
     protected $guarded = [];
+
+    public function calons(){
+    	return $this->belongsToMany(Calon::class);
+    }
+
+    public function votes(){
+    	return $this->hasMany(Voting::class);
+    }
+
 }

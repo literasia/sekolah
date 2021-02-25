@@ -37,11 +37,11 @@ class SiswaController extends Controller
     public function store(Request $request) {
         // validasi
         $rules = [
-            'nama_siswa'  => 'required|max:50',
+            'siswa_id'  => 'required|max:50',
         ];
 
         $message = [
-            'nama_siswa.required' => 'Kolom ini tidak boleh kosong',
+            'siswa_id.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);

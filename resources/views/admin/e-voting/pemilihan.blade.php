@@ -24,12 +24,11 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
+                        <div class="dt-responsive table-responsive mt-3">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>No</th>
-                                        <th>No Urut</th>
                                         <th>Kandidat</th>
                                         <th>Jenis Pemilihan</th>
                                         <th>Start Date</th>
@@ -38,14 +37,12 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    <?php $i = 1; ?>
                                     @foreach($data_pemilihan as $dt)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $dt->no_urut }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
                                             <ol>
-                                                @foreach($nakan as $nk)
+                                                @foreach($dt->calons as $nk)
                                                 <li>{{ $nk->name }}</li>
                                                 @endforeach
                                             </ol>
@@ -53,7 +50,11 @@
                                         <td>{{ $dt->posisi }}</td>
                                         <td>{{ $dt->start_date }}</td>
                                         <td>{{ $dt->end_date }}</td>
-                                        <td><button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button></td>
+                                        <td>
+                                            <button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                            &nbsp;
+                                            <button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -151,8 +152,9 @@
             //         name: 'no_urut'
             //     },
             //     {
-            //         data: 'name',
+            //         data: 'name'
             //         name: 'name'
+                    
             //     },
             //     {
             //         data: 'posisi',
@@ -216,7 +218,7 @@
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
                                 .val('Simpan');
-                            $('#order-table').DataTable().ajax.reload();
+                            // $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }

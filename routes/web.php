@@ -78,7 +78,34 @@ Route::namespace('Superadmin')
 
         Route::get('/superadmin/slider', 'SliderController@index')
             ->name('slider');
-         
+
+
+        // Berita    
+        Route::namespace('Berita')
+            ->group(function () {
+            //Berita
+            Route::get('/superadmin/berita/berita', 'BeritaController@index')
+                ->name('berita.berita');
+            Route::post('/superadmin/berita/berita', 'BeritaController@store');
+            Route::get('/superadmin/berita/berita/{id}', 'BeritaController@edit');
+            Route::post('/superadmin/berita/berita/update', 'BeritaController@update')
+                ->name('berita.berita-update');
+            Route::get('/superadmin/berita/berita/hapus/{id}', 'BeritaController@destroy');
+
+            // Kategori Berita    
+            Route::get('/superadmin/berita/kategori-berita', 'KategoriBeritaController@index')
+                ->name('berita.kategori-berita');
+            Route::post('/superadmin/berita/kategori-berita', 'KategoriBeritaController@store');
+            Route::get('/superadmin/berita/kategori-berita/{id}', 'KategoriBeritaController@edit');
+            Route::post('/superadmin/berita/kategori-berita/update', 'KategoriBeritaController@update')
+                ->name('berita.kategori-berita-update');
+            Route::get('/superadmin/berita/kategori-berita/hapus/{id}', 'KategoriBeritaController@destroy');
+
+
+            });
+ 
+
+    
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
@@ -91,6 +118,8 @@ Route::namespace('Superadmin')
             // Referensi
             Route::namespace('Referensi')
                 ->group(function () {
+
+
                     // Jenis Kelamin
                     Route::get('/superadmin/referensi/jenis-kelamin', 'JenisKelaminController@index')
                         ->name('referensi.jenis-kelamin');

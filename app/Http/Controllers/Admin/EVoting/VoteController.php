@@ -12,20 +12,30 @@ use App\Models\Admin\Voting;
 class VoteController extends Controller
 {
     public function index(Request $request) {
-    	$names = Pemilihan::all();
-    	$no = 1;
-        return view('admin.e-voting.vote', ['names' => $names, 'no' => $no, 'mySekolah' => User::sekolah()]);
+        $jumlahsuara = Voting::all();
+    	$names = Pemilihan::orderBy('start_date')->get();
+        $pemilihans = Pemilihan::orderBy('posisi')->get();
+        $counts = collect();
+        // dd($names[0]->votes);
+
+        foreach($names as $nc){
+            foreach ($nc->calons as $calon){
+                $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
+                $counts->push($hasil);
+            }
+        }
+        // exit;
+        return view('admin.e-voting.vote', ['names' => $names, 'pemilihans' =>$pemilihans, 'counts'=>$counts,'mySekolah' => User::sekolah()]);
     } 
      
     public function store(Request $request) {
         // validasi
-        dd('ok');
         $rules = [
-            'calon_kandidat_id'  => 'required|max:50',
+            'calon_id'  => 'required|max:50',
         ];
 
         $message = [
-            'calon_kandidat_id.required' => 'Kolom ini tidak boleh kosong',
+            'calon_id.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Voting::make($request->all(), $rules, $message);
@@ -38,8 +48,8 @@ class VoteController extends Controller
         }
 
         $status = Voting::create([
-            'calon_kandidat_id'  => $request->input('calon_kandidat_id'),
-            'id_user'  => $request->input('id_user')
+            'calon_id'  => $request->input('calon_id'),
+            'id_user'  => auth()->user()->id
         ]);
 
         return response()
