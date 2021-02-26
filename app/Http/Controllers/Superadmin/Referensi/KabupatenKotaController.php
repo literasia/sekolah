@@ -110,4 +110,10 @@ class KabupatenKotaController extends Controller
         $kabupatenKota = KabupatenKota::find($id);
         $kabupatenKota->delete();
     }
+
+    public function getSchools(Request $request)
+    {
+      $kabupaten_id = $request->kabupaten_id;
+      return response()->json(KabupatenKota::findOrFail($kabupaten_id)->schools);
+    }
 }

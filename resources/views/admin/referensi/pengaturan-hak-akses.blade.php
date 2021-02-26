@@ -80,13 +80,17 @@
                                 </tr>
                                 </thead>
                                 <tbody  class="text-left">
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach($pegawais as $pegawai)
                                     <tr>
-                                        <td>Al Firah</br> (Guru / Pegawai)</td>
+                                        <td>{{ $pegawai->name }}</br> ({{ $pegawai->bagian }})</td>
                                         <td>
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" checked id="kalender1" onclick="check('5935745', '#kalender1', 'kalender');">
+                                                    <input class="form-check-input" type="checkbox" {{ $pegawai->access->kalender==1?"checked":"" }} id="kalender{{ $i }}" onclick="check('{{ $pegawai->id }}', '#kalender{{ $i }}', 'kalender');">
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
@@ -98,7 +102,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sekolah1" onclick="check('5935745', '#sekolah1', 'sekolah');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->sekolah==1?"checked":"" }} id="sekolah{{ $i }}" onclick="check('{{ $pegawai->id }}', '#sekolah{{ $i }}', 'sekolah');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -110,7 +114,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="pelajaran1" onclick="check('5935745', '#pelajaran1', 'pelajaran');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->pelajaran==1?"checked":"" }} id="pelajaran{{ $i }}" onclick="check('{{ $pegawai->id }}', '#pelajaran{{ $i }}', 'pelajaran');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -122,7 +126,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="peserta_didik1" onclick="check('5935745', '#peserta_didik1', 'peserta_didik');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->peserta_didik==1?"checked":"" }} id="peserta_didik{{ $i }}" onclick="check('{{ $pegawai->id }}', '#peserta_didik{{ $i }}', 'peserta_didik');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -134,7 +138,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="absensi1" onclick="check('5935745', '#absensi1', 'absensi');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->absensi==1?"checked":"" }} id="absensi{{ $i }}" onclick="check('{{ $pegawai->id }}', '#absensi{{ $i }}', 'absensi');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -146,7 +150,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="daftar_nilai1" onclick="check('5935745', '#daftar_nilai1', 'daftar_nilai');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->daftar_nilai==1?"checked":"" }} id="daftar_nilai{{ $i }}" onclick="check('{{ $pegawai->id }}', '#daftar_nilai{{ $i }}', 'daftar_nilai');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -158,7 +162,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pelanggaran1" onclick="check('5935745', '#pelanggaran1', 'pelanggaran');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->pelanggaran==1?"checked":"" }} id="pelanggaran{{ $i }}" onclick="check('{{ $pegawai->id }}', '#pelanggaran{{ $i }}', 'pelanggaran');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -170,7 +174,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="template1" onclick="check('5935745', '#template1', 'template');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->template==1?"checked":"" }} id="template{{ $i }}" onclick="check('{{ $pegawai->id }}', '#template{{ $i }}', 'template');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -182,7 +186,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="log_user1" onclick="check('5935745', '#log_user1', 'log_user');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->log_user==1?"checked":"" }} id="log_user{{ $i }}" onclick="check('{{ $pegawai->id }}', '#log_user{{ $i }}', 'log_user');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -194,7 +198,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="referensi1" onclick="check('5935745', '#referensi1', 'referensi');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->referensi==1?"checked":"" }} id="referensi{{ $i }}" onclick="check('{{ $pegawai->id }}', '#referensi{{ $i }}', 'referensi');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -206,7 +210,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="buku_tamu1" onclick="check('5935745', '#buku_tamu1', 'buku_tamu');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->buku_tamu==1?"checked":"" }} id="buku_tamu{{ $i }}" onclick="check('{{ $pegawai->id }}', '#buku_tamu{{ $i }}', 'buku_tamu');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -218,7 +222,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="perpustakaan1" onclick="check('5935745', '#perpustakaan1', 'perpustakaan');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->perpustakaan==1?"checked":"" }} id="perpustakaan{{ $i }}" onclick="check('{{ $pegawai->id }}', '#perpustakaan{{ $i }}', 'perpustakaan');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -230,7 +234,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="keuangan1" onclick="check('5935745', '#keuangan1', 'keuangan');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->keuangan==1?"checked":"" }} id="keuangan{{ $i }}" onclick="check('{{ $pegawai->id }}', '#keuangan{{ $i }}', 'keuangan');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -242,7 +246,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sarana_prasarana1" onclick="check('5935745', '#sarana_prasarana1', 'sarana_prasarana');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->sarana_prasarana==1?"checked":"" }} id="sarana_prasarana{{ $i }}" onclick="check('{{ $pegawai->id }}', '#sarana_prasarana{{ $i }}', 'sarana_prasarana');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -254,7 +258,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pmb1" onclick="check('5935745', '#pmb1', 'pmb');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->penerimaan_murid_baru==1?"checked":"" }} id="pmb{{ $i }}" onclick="check('{{ $pegawai->id }}', '#pmb{{ $i }}', 'penerimaan_murid_baru');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -266,7 +270,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="usbk1" onclick="check('5935745', '#usbk1', 'usbk');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->ujian_sekolah_berbasis_komputer==1?"checked":"" }} id="usbk{{ $i }}" onclick="check('{{ $pegawai->id }}', '#usbk{{ $i }}', 'ujian_sekolah_berbasis_komputer');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -278,7 +282,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="evo1" onclick="check('5935745', '#evo1', 'evoting');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->e_voting==1?"checked":"" }} id="evo{{ $i }}" onclick="check('{{ $pegawai->id }}', '#evo{{ $i }}', 'e_voting');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -290,226 +294,7 @@
                                             <div class="checkbox-radios">
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="konsultasi1" onclick="check('5935745', '#konsultasi1', 'konsultasi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Arifin Sitorus Pane</br> (Guru / Pegawai)</td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" checked id="kalender1" onclick="check('5935745', '#kalender1', 'kalender');">
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sekolah1" onclick="check('5935745', '#sekolah1', 'sekolah');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="pelajaran1" onclick="check('5935745', '#pelajaran1', 'pelajaran');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="peserta_didik1" onclick="check('5935745', '#peserta_didik1', 'peserta_didik');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="absensi1" onclick="check('5935745', '#absensi1', 'absensi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="daftar_nilai1" onclick="check('5935745', '#daftar_nilai1', 'daftar_nilai');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pelanggaran1" onclick="check('5935745', '#pelanggaran1', 'pelanggaran');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="template1" onclick="check('5935745', '#template1', 'template');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="log_user1" onclick="check('5935745', '#log_user1', 'log_user');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="referensi1" onclick="check('5935745', '#referensi1', 'referensi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="buku_tamu1" onclick="check('5935745', '#buku_tamu1', 'buku_tamu');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="perpustakaan1" onclick="check('5935745', '#perpustakaan1', 'perpustakaan');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="keuangan1" onclick="check('5935745', '#keuangan1', 'keuangan');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sarana_prasarana1" onclick="check('5935745', '#sarana_prasarana1', 'sarana_prasarana');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pmb1" onclick="check('5935745', '#pmb1', 'pmb');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="usbk1" onclick="check('5935745', '#usbk1', 'usbk');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="evo1" onclick="check('5935745', '#evo1', 'evoting');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="konsultasi1" onclick="check('5935745', '#konsultasi1', 'konsultasi');">
+                                                        <input class="form-check-input" type="checkbox" {{ $pegawai->access->konsultasi==1?"checked":"" }} id="konsultasi{{ $i }}" onclick="check('{{ $pegawai->id }}', '#konsultasi{{ $i }}', 'konsultasi');">
                                                         <span class="form-check-sign">
                                                             <span class="check"></span>
                                                         </span>
@@ -518,444 +303,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Astika Andryani Nst</br> (Guru / Pegawai)</td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" checked id="kalender1" onclick="check('5935745', '#kalender1', 'kalender');">
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sekolah1" onclick="check('5935745', '#sekolah1', 'sekolah');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="pelajaran1" onclick="check('5935745', '#pelajaran1', 'pelajaran');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="peserta_didik1" onclick="check('5935745', '#peserta_didik1', 'peserta_didik');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="absensi1" onclick="check('5935745', '#absensi1', 'absensi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="daftar_nilai1" onclick="check('5935745', '#daftar_nilai1', 'daftar_nilai');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pelanggaran1" onclick="check('5935745', '#pelanggaran1', 'pelanggaran');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="template1" onclick="check('5935745', '#template1', 'template');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="log_user1" onclick="check('5935745', '#log_user1', 'log_user');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="referensi1" onclick="check('5935745', '#referensi1', 'referensi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="buku_tamu1" onclick="check('5935745', '#buku_tamu1', 'buku_tamu');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="perpustakaan1" onclick="check('5935745', '#perpustakaan1', 'perpustakaan');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="keuangan1" onclick="check('5935745', '#keuangan1', 'keuangan');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sarana_prasarana1" onclick="check('5935745', '#sarana_prasarana1', 'sarana_prasarana');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pmb1" onclick="check('5935745', '#pmb1', 'pmb');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="usbk1" onclick="check('5935745', '#usbk1', 'usbk');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="evo1" onclick="check('5935745', '#evo1', 'evoting');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="konsultasi1" onclick="check('5935745', '#konsultasi1', 'konsultasi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lestari Juwita</br> (Guru / Pegawai)</td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" checked id="kalender1" onclick="check('5935745', '#kalender1', 'kalender');">
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sekolah1" onclick="check('5935745', '#sekolah1', 'sekolah');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="pelajaran1" onclick="check('5935745', '#pelajaran1', 'pelajaran');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="peserta_didik1" onclick="check('5935745', '#peserta_didik1', 'peserta_didik');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="absensi1" onclick="check('5935745', '#absensi1', 'absensi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="daftar_nilai1" onclick="check('5935745', '#daftar_nilai1', 'daftar_nilai');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pelanggaran1" onclick="check('5935745', '#pelanggaran1', 'pelanggaran');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="template1" onclick="check('5935745', '#template1', 'template');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="log_user1" onclick="check('5935745', '#log_user1', 'log_user');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="referensi1" onclick="check('5935745', '#referensi1', 'referensi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="buku_tamu1" onclick="check('5935745', '#buku_tamu1', 'buku_tamu');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="perpustakaan1" onclick="check('5935745', '#perpustakaan1', 'perpustakaan');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="keuangan1" onclick="check('5935745', '#keuangan1', 'keuangan');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="sarana_prasarana1" onclick="check('5935745', '#sarana_prasarana1', 'sarana_prasarana');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox"  id="pmb1" onclick="check('5935745', '#pmb1', 'pmb');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="usbk1" onclick="check('5935745', '#usbk1', 'usbk');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="evo1" onclick="check('5935745', '#evo1', 'evoting');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-radios">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked id="konsultasi1" onclick="check('5935745', '#konsultasi1', 'konsultasi');">
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @php
+                                        $i++;
+                                    @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -988,5 +339,35 @@
         $(document).ready(function () {
             $('#order-table').DataTable();
         });
+
+        function check(pegawai_id, id_check_form, structure){
+            var isChecked = jQuery(id_check_form).is(":checked");
+            $.ajax({
+                url : "{{ route('admin.referensi.pengaturan-hak-akses-update') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    pegawai_id,
+                    isChecked,
+                    structure
+                }
+           //      ,
+           //      success : function(data){
+                    // $(id_check_form).attr("checked", "checked");
+           //      },
+           //      error : function(jqXHR, errorThrown, textStatus){
+                    // swal({
+                    //  title: "Failed!",
+                    //  text: "Gagal Mengubah Akses",
+                    //  type: "error",
+                    //  buttonsStyling: false,
+                    //  confirmButtonClass: "btn btn-danger"
+                    // }).then(function(){
+                    //  location.reload();
+                    // });
+           //      }
+        });
+        
+    }
     </script>
 @endpush

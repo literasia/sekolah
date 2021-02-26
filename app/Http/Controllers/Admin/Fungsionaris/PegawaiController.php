@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Superadmin\Provinsi;
-use App\Models\Superadmin\KabupatenKota;
-use App\Models\Superadmin\Kecamatan;
+use App\Models\Superadmin\{Provinsi, KabupatenKota, Kecamatan};
+use App\Models\Admin\Access;
 use App\Models\BagianPegawai;
 use App\Models\Semester;
 use Illuminate\Support\Facades\Auth;
@@ -95,7 +94,7 @@ class PegawaiController extends Controller
 
                 $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
                 $data['tanggal_mulai'] = Carbon::parse($data['tanggal_mulai'])->format('Y-m-d');
-                Pegawai::create([
+                $pegawai = Pegawai::create([
                     'user_id' => $auth['id'],
                     'name' => $data['nama_pegawai'],
                     'nip' => $data['nip'],
@@ -120,8 +119,14 @@ class PegawaiController extends Controller
                     'tanggal_mulai' => $data['tanggal_mulai'],
                     'bagian_pegawai_id' => $data['bagian'],
                     'tahun_ajaran' => $data['tahun_ajaran'],
-                    'semester_id' => $data['semester'],
-                    'foto' => $data['foto']
+                    'semester' => $data['semester'],
+                    'foto' => $data['foto']??""
+                ]);
+
+                // Insert Access
+                $access = Access::create([
+                    'sekolah_id'=>$auth->sekolah()->id,
+                    'pegawai_id'=>$pegawai->id,
                 ]);
 
                 DB::commit();

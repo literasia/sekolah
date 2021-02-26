@@ -37,4 +37,6 @@ Route::namespace('API')
 
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
+        
+        Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
     });

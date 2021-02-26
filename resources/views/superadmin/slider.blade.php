@@ -28,7 +28,8 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>#</th>
+                                        <th>Judul</th>
                                         <th>Keterangan</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
@@ -38,7 +39,24 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                    @foreach($sliders as $slider)
+                                    <tr>
+                                        <td><img src="{{ asset("storage/$slider->foto") }}" width="100px"></td>
+                                        <td>{{ $slider->judul }}</td>
+                                        <td>{{ $slider->keterangan }}</td>
+                                        <td>{{ $slider->start_date }}</td>
+                                        <td>{{ $slider->end_date }}</td>
+                                        <td>{{ $slider->kabupatenKota->name }}</td>
+                                        <td>
+                                            <ol>
+                                                @foreach($slider->sekolah as $sekolah)
+                                                    <li>{{ $sekolah->name }}</li>
+                                                @endforeach
+                                            </ol>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -108,12 +126,12 @@
 
             $('#sekolah').select2();
 
-            $('#tanggal_mulai').dateDropper({
+            $('#start_date').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
             });
 
-            $('#tanggal_selesai').dateDropper({
+            $('#end_date').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
             });
@@ -160,47 +178,70 @@
             //     ]
             // });
 
-            // $('#form-pemilihan').on('submit', function (event) {
-            //     event.preventDefault();
+            $("#kabupaten_kota").change(function(){
+                _this = $(this);
+                $.ajax({
+                    url: '{{ route('superadmin.referensi.kabupaten-kota-getSchools') }}',
+                    dataType: 'JSON',
+                    data: {kabupaten_id:_this.val()},
+                    success: function (data) {
+                        $("#sekolah").html("");
+                        var options = "";
+                        for (let key in data) {
+                            options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        }
+                        $("#sekolah").html(options);
+                    }
+                });
+            });
 
-            //     var url = '';
-            //     if ($('#action').val() == 'add') {
-            //         url = "{{ route('admin.e-voting.pemilihan') }}";
-            //     }
+            $('#form-slider').on('submit', function (event) {
+                event.preventDefault();
 
-            //     if ($('#action').val() == 'edit') {
-            //         url = "{{ route('admin.e-voting.pemilihan-update') }}";
-            //     }
+                var url = '';
+                if ($('#action').val() == 'add') {
+                    url = `{{ route('superadmin.slider.store') }}`;
+                }
 
-            //     $.ajax({
-            //         url: url,
-            //         method: 'POST',
-            //         dataType: 'JSON',
-            //         data: $(this).serialize(),
-            //         success: function (data) {
-            //             var html = ''
-            //             if (data.errors) {
-            //                 html = data.errors[0];
-            //                 $('#nama_calon').addClass('is-invalid');
-            //                 toastr.error(html);
-            //             }
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('superadmin.slider.update') }}";
+                }
+                
+                var form = $('#form-slider')[0];
+                var data = new FormData(form);
+                data.append('_token', '{{ csrf_token() }}')
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: data,
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    success: function (data) {
+                        location.reload();
+                        // var html = '';
+                        // if (data.errors) {
+                        //     html = data.errors[0];
+                        //     $('#nama_calon').addClass('is-invalid');
+                        //     toastr.error(html);
+                        // }
 
-            //             if (data.success) {
-            //                 toastr.success('Sukses!');
-            //                 $('#modal-pemilihan').modal('hide');
-            //                 $('#siswa').removeClass('is-invalid');
-            //                 $('#form-pemilihan')[0].reset();
-            //                 $('#action').val('add');
-            //                 $('#btn')
-            //                     .removeClass('btn-outline-info')
-            //                     .addClass('btn-outline-success')
-            //                     .val('Simpan');
-            //                 $('#order-table').DataTable().ajax.reload();
-            //             }
-            //             $('#form_result').html(html);
-            //         }
-            //     });
-            // });
+                        // if (data.success) {
+                        //     toastr.success('Sukses!');
+                        //     $('#modal-slider').modal('hide');
+                        //     $('#siswa').removeClass('is-invalid');
+                        //     $('#form-slider')[0].reset();
+                        //     $('#action').val('add');
+                        //     $('#btn')
+                        //         .removeClass('btn-outline-info')
+                        //         .addClass('btn-outline-success')
+                        //         .val('Simpan');
+                        //     $('#order-table').DataTable().ajax.reload();
+                        // }
+                        // $('#form_result').html(html);
+                    }
+                });
+            });
 
             // $(document).on('click', '.edit', function () {
             //     var id = $(this).attr('id');

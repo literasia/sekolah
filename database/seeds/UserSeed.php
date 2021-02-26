@@ -42,6 +42,13 @@ class UserSeed extends Seeder
             'role_id'   => '3'
         ]);
 
+        $siswas = User::create([
+            'name'      => 'Guru',
+            'username'  => 'guru',
+            'password'  => bcrypt('guru'),
+            'role_id'   => '4'
+        ]);
+
 
         $superadmins->roles()->attach($superadmin);
         $admins->roles()->attach($admin);
