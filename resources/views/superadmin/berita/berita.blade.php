@@ -136,47 +136,47 @@
                 ]
             });
 
-            // $('#form-berita').on('submit', function (event) {
-            //     event.preventDefault();
+            $('#form-berita').on('submit', function (event) {
+                event.preventDefault();
 
-            //     var url = '';
-            //     if ($('#judul').val() == 'add') {
-            //         url = "{{ route('superadmin.berita.berita') }}";
-            //     }
+                var url = '';
+                if ($('#judul').val() == 'add') {
+                    url = "{{ route('superadmin.berita.berita') }}";
+                }
 
-            //     if ($('#action').val() == 'edit') {
-            //         url = "{{ route('superadmin.berita.berita-update') }}";
-            //     }
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('superadmin.berita.berita-update') }}";
+                }
 
-            //     $.ajax({
-            //         url: url,
-            //         method: 'POST',
-            //         dataType: 'JSON',
-            //         data: $(this).serialize(),
-            //         success: function (data) {
-            //             var html = ''
-            //             if (data.errors) {
-            //                 html = data.errors[0];
-            //                 $('#judul').addClass('is-invalid');
-            //                 toastr.error(html);
-            //             }
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(this).FormData(),
+                    success: function (data) {
+                        var html = ''
+                        if (data.errors) {
+                            html = data.errors[0];
+                            $('#judul').addClass('is-invalid');
+                            toastr.error(html);
+                        }
 
-            //             if (data.success) {
-            //                 toastr.success('Sukses!');
-            //                 $('#modal-berita').modal('hide');
-            //                 $('#judul').removeClass('is-invalid');
-            //                 $('#form-berita')[0].reset();
-            //                 $('#action').val('add');
-            //                 $('#btn')
-            //                     .removeClass('btn-outline-info')
-            //                     .addClass('btn-outline-success')
-            //                     .val('Simpan');
-            //                 $('#order-table').DataTable().ajax.reload();
-            //             }
-            //             $('#form_result').html(html);
-            //         }
-            //     });
-            // });
+                        if (data.success) {
+                            toastr.success('Sukses!');
+                            $('#modal-berita').modal('hide');
+                            $('#judul').removeClass('is-invalid');
+                            $('#form-berita')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .val('Simpan');
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+            });
 
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');

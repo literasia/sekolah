@@ -3,14 +3,14 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Calon;
 
 class CalonPemilihan extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     protected $table = 'calon_pemilihan';
 	protected $fillable = [
@@ -27,8 +27,8 @@ class CalonPemilihan extends Model
         return $this->belongsToMany(Pemilihan::class);
     }
 
-    public function calons(){
-        return $this->hasMany(Calon::class);
+    public function calon(){
+        return $this->hasOne(Calon::class, 'id', 'calon_id')->orderBy('name');
     }
 
 }

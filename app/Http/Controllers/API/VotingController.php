@@ -23,7 +23,7 @@ class VotingController extends Controller
         $voting->when($posisi, function($query) use ($posisi) {
             return $query->where('posisi', $posisi);
         });
-        $voting = $voting->whereRaw("CURRENT_DATE BETWEEN start_date AND end_date")->orderBy('name')->get();
+        $voting = $voting->whereRaw("CURRENT_DATE BETWEEN start_date AND end_date")->orderBy('posisi')->get();
 
         return response()->json(ApiResponse::success($voting));
     }
@@ -32,8 +32,7 @@ class VotingController extends Controller
         $data = $req->all();
         $hasVote = Voting::where('id_user', $data['user_id'])->count();
         if ($hasVote > 0) {
-            $this->hasilVoting($req);
-            return;
+            return $this->hasilVoting($req);
         }
 
         $calonPemilihan = CalonPemilihan::query();
@@ -41,15 +40,19 @@ class VotingController extends Controller
         $calonPemilihan->when($pemilihanId, function($query) use ($pemilihanId) {
             return $query->where('pemilihan_id', $pemilihanId);
         });
-        
-        return response()->json(ApiResponse::success($calonPemilihan->calons()->orderBy('name')->get()));
+        $calonPemilihan = $calonPemilihan->has('calon')->get();
+        $calons = [];
+        foreach ($calonPemilihan as $cp) {
+            $calons[] = $cp->calon;
+        }
+        return response()->json(ApiResponse::success($calons));
     }
 
     public function hasilVoting(Request $request){
         $data = $request->all();
 
         $jumlahsuara = Voting::all();
-        $names = Pemilihan::where('pemilihan_id', $data['pemilihan_id'])->orderBy('id')->get();
+        $names = Pemilihan::whereId($data['pemilihan_id'])->get();
         // $calon = CalonPemilihan::all();
         $pemilihans = Pemilihan::orderBy('posisi')->get();
         $counts = collect();
@@ -99,8 +102,7 @@ class VotingController extends Controller
         ])->exists();
 
         if ($exist) {
-            $this->hasilVoting($req);
-            return;
+            return $this->hasilVoting($req);
         }
 
         Voting::create([

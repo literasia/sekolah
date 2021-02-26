@@ -89,7 +89,6 @@ class PemilihanController extends Controller
             ->json([
                 'success' => 'Data Added.',
             ]);
-        return view('admin.e-voting.pemilihan');
 
     }
 
@@ -150,6 +149,10 @@ class PemilihanController extends Controller
         // dd($pemilihan);
         $pemilihan->calons()->detach();
         $pemilihan->delete();
+        return response()
+            ->json([
+                'danger' => 'Data Deleted.',
+            ]);
     }
 
 }

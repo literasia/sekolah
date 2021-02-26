@@ -136,6 +136,8 @@
                 format: 'd-m-Y'
             });
 
+            $('#order-table').DataTable();
+
             // $('#order-table').DataTable({
             //     processing: true,
             //     serverSide: true,
@@ -218,6 +220,7 @@
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
                                 .val('Simpan');
+                                location.reload();
                             // $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -260,6 +263,7 @@
                             $('#confirmModal').modal('hide');
                             // $('#order-table').DataTable().ajax.reload();
                             toastr.success('Data berhasil dihapus');
+                            location.reload();
                         }, 1000);
                     }
                 });
