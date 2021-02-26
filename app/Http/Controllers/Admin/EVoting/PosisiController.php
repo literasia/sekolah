@@ -10,7 +10,7 @@ use App\Models\Admin\Posisi;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-class posisiController extends Controller
+class PosisiController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {

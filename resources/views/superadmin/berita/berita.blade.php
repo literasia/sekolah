@@ -37,7 +37,20 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+                                    @foreach($data as $dt)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{$dt->name}}</td>
+                                        <td>{{$dt->kategori}}</td>
+                                        <td>{{$dt->isi}}</td>
+                                        <td><a target="_blank" href="{{Storage::url($dt->thumbnail)}}">Lihat Foto</a></td>
+                                        <td>
+                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                            &nbsp;
+                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -93,48 +106,41 @@
             $('#add').on('click', function () {
                 $('#modal-berita').modal('show');
             });
+            $('#order-table').DataTable();
 
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('superadmin.berita.berita') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'kategori',
-                    name: 'kategori'
-                },
-                {
-                    data: 'isi',
-                    name: 'isi'
-                },
-                {
-                    data: 'thumbnail',
-                    name: 'thumbnail'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
-                ],
-                columnDefs: [
-                {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
-                    targets: 5
-                }
-                ]
-            });
+            // $('#order-table').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     ajax: {
+            //         url: "{{ route('superadmin.berita.berita') }}",
+            //     },
+            //     columns: [
+            //     {
+            //         data: 'DT_RowIndex',
+            //         name: 'DT_RowIndex'
+            //     },
+            //     {
+            //         data: 'name',
+            //         name: 'name'
+            //     },
+            //     {
+            //         data: 'kategori',
+            //         name: 'kategori'
+            //     },
+            //     {
+            //         data: 'isi',
+            //         name: 'isi'
+            //     },
+            //     {
+            //         data: 'thumbnail',
+            //         name: 'thumbnail'
+            //     },
+            //     {
+            //         data: 'action',
+            //         name: 'action'
+            //     }
+            //     ]
+            // });
 
             $('#form-berita').on('submit', function (event) {
                 event.preventDefault();
@@ -148,11 +154,15 @@
                     url = "{{ route('superadmin.berita.berita-update') }}";
                 }
 
+                var formData = new FormData($('#form-berita')[0]);
+
                 $.ajax({
                     url: url,
                     method: 'POST',
-                    dataType: 'JSON',
-                    data: $(this).FormData(),
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
                     success: function (data) {
                         var html = ''
                         if (data.errors) {

@@ -32,9 +32,13 @@ Route::namespace('API')
         Route::get('category', 'CategoryController@index');
         Route::resource('voting', 'VotingController');
         Route::get('posisi-kandidat', 'VotingController@posisiKandidat');
+        Route::get('sudah-voting', 'VotingController@hasVote');
         Route::get('hasil-voting', 'VotingController@hasilVoting');
         Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
 
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
+
+        //Berita
+        Route::get('berita', 'BeritaController@index');
     });

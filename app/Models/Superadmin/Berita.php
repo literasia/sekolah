@@ -15,4 +15,5 @@ class Berita extends Model
         'name', 'kategori', 'isi', 'thumbnail'
     ];
     protected $guarded = [];
+    protected $casts = ['created_at'=>'datetime:d-m-Y'];
 }
