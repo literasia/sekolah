@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotingTable extends Migration
+class CreateCalonPemilihanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateVotingTable extends Migration
      */
     public function up()
     {
-        Schema::create('votings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('calon_id')->unsigned();
-            $table->string('id_user');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::create('calon_pemilihan', function (Blueprint $table) {
+            $table->bigInteger('calon_id');
+            $table->bigInteger('pemilihan_id');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateVotingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voting');
+        Schema::dropIfExists('calon_pemilihan');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotingTable extends Migration
+class CreateSuratPeringatanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateVotingTable extends Migration
      */
     public function up()
     {
-        Schema::create('votings', function (Blueprint $table) {
+        Schema::create('surat_peringatans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('calon_id')->unsigned();
-            $table->string('id_user');
+            $table->string('name');
+            $table->string('poin');
+            $table->bigInteger('sekolah_id')->unsigned();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateVotingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voting');
+        Schema::dropIfExists('surat_peringatan');
     }
 }

@@ -287,6 +287,12 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
+                        <label for="poin">Poin</label>
+                        <input type="text" name="poin" id="poin" value="0" readonly class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
                         <label for="foto">Foto Siswa</label>
                         <input type="file" name="foto" id="foto" class="form-control form-control-sm" accept="image/*">
                         <small>max. 2MB (tidak wajib jika tidak ingin diupdate)</small>

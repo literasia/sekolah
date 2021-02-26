@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
 use App\Models\Siswa;
 use App\Models\TingkatanKelas;
+use App\Models\Superadmin\Sekolah;
 use App\User;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
@@ -37,8 +38,12 @@ class AuthController extends Controller
         $user = User::where('username', $data['username'])->first();
         $siswa = Siswa::find($user->siswa_id);
         $kelas = TingkatanKelas::find($siswa->id_tingkatan_kelas);
+        $sekolah = Sekolah::find($user->id_sekolah);
+
         $siswa['kelas'] = $kelas->name;
         $siswa['sekolah_id'] = $user->id_sekolah;
+        $siswa['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
+        $siswa['deskripsi'] = "";
 
         return response()->json(ApiResponse::success($siswa));
     }
@@ -60,9 +65,13 @@ class AuthController extends Controller
 
         $user = User::where('username', $data['username'])->first();
         $pegawai = Pegawai::where('user_id', $user->id)->first();
+        $sekolah = Sekolah::find($user->id_sekolah);
+
         $pegawai['nama_lengkap'] = $pegawai['name'];
         $pegawai['kelas'] = '-';
         $pegawa['sekolah_id'] = $user->id_sekolah;
+        $siswa['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
+        $pegawai['deskripsi'] = "";
 
         return response()->json(ApiResponse::success($pegawai));
     }

@@ -34,6 +34,7 @@
                                         <th>Jenis Kelamin</th>
                                         <th>Alamat</th>
                                         <th>Foto</th>
+                                        <th>Poin</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -45,6 +46,7 @@
                                             <td>{{ $siswa->kelas }}</td>
                                             <td>{{ $siswa->jk }}</td>
                                             <td>{{ $siswa->alamat_tinggal }}</td>
+                                            <td>{{ $siswa->poin_sp}}</td>
                                             <td>
                                                 @if ($siswa->foto)
                                                     <a target="_blank" href="{{ Storage::url($siswa->foto) }}">Lihat</a>

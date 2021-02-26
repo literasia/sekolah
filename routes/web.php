@@ -140,6 +140,29 @@ Route::namespace('Superadmin')
         Route::put('/superadmin/slider', 'SliderController@update')
         ->name('slider.update');
 
+        // Berita
+        Route::namespace('Berita')
+            ->group(function () {
+            //Berita
+            Route::get('/superadmin/berita/berita', 'BeritaController@index')
+                ->name('berita.berita');
+            Route::post('/superadmin/berita/berita', 'BeritaController@store');
+            Route::get('/superadmin/berita/berita/{id}', 'BeritaController@edit');
+            Route::post('/superadmin/berita/berita/update', 'BeritaController@update')
+                ->name('berita.berita-update');
+            Route::get('/superadmin/berita/berita/hapus/{id}', 'BeritaController@destroy');
+
+            // Kategori Berita
+            Route::get('/superadmin/berita/kategori-berita', 'KategoriBeritaController@index')
+                ->name('berita.kategori-berita');
+            Route::post('/superadmin/berita/kategori-berita', 'KategoriBeritaController@store');
+            Route::get('/superadmin/berita/kategori-berita/{id}', 'KategoriBeritaController@edit');
+            Route::post('/superadmin/berita/kategori-berita/update', 'KategoriBeritaController@update')
+                ->name('berita.kategori-berita-update');
+            Route::get('/superadmin/berita/kategori-berita/hapus/{id}', 'KategoriBeritaController@destroy');
+
+
+            });
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
@@ -189,7 +212,7 @@ Route::namespace('Superadmin')
                 Route::post('/superadmin/referensi/provinsi/update', 'ProvinsiController@update')
                     ->name('referensi.provinsi-update');
                 Route::get('/superadmin/referensi/provinsi/hapus/{id}', 'ProvinsiController@destroy');
-                
+
 
                 // Kabupaten/Kota
                 Route::get('/superadmin/referensi/kabupaten-kota/getSchools', 'KabupatenKotaController@getSchools')
@@ -345,6 +368,16 @@ Route::namespace('Admin')
                 Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')
                     ->name('pelanggaran.sanksi-update');
                 Route::get('/admin/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
+
+
+
+                Route::get('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@index')
+                    ->name('pelanggaran.surat-peringatan');
+                Route::post('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@store');
+                Route::get('/admin/pelanggaran/surat-peringatan/{id}', 'SuratPeringatanController@edit');
+                Route::post('/admin/pelanggaran/surat-peringatan/update', 'SuratPeringatanController@update')
+                    ->name('pelanggaran.surat-peringatan-update');
+                Route::get('/admin/pelanggaran/surat-peringatan/hapus/{id}', 'SuratPeringatanController@destroy');
             });
 
         // E-Voting

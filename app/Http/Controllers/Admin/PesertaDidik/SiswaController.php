@@ -8,6 +8,7 @@ use App\Models\SiswaOrangTua;
 use App\Models\SiswaWali;
 use App\Models\TingkatanKelas;
 use App\Models\Admin\Kelas;
+use App\Models\Admin\SuratPeringatan;
 use App\User;
 use App\Utils\CRUDResponse;
 use Carbon\Carbon;
@@ -74,14 +75,24 @@ class SiswaController extends Controller
                 ])->whereNotNull('siswa_id')
                 ->get();
 
+        $poin_sp = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->get();
         $siswas = [];
+        $i = 0;
         foreach ($users as $user) {
             $siswa = $user->siswa;
             $siswa = $siswa::join('kelas', 'siswas.kelas_id', 'kelas.id')
                         ->where('siswas.id', $siswa->id)
                         ->first(['siswas.*', 'kelas.name AS kelas']);
             $siswas[] = $siswa;
+
+            foreach ($poin_sp as $psp) {
+                if ($siswa['poin'] <= $psp['poin']) {
+                    $siswas[$i]['poin_sp'] = $siswa['poin']."/".$psp['poin'];
+                }
+            }
+            $i++;
         }
+
 
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
@@ -155,7 +166,8 @@ class SiswaController extends Controller
                     'kode_pos' => $data['kode_pos'],
                     'no_telepon_rumah' => $data['no_telepon_rumah'],
                     'no_telepon' => $data['no_telepon'],
-                    'foto' => $data['foto']??""
+                    'foto' => $data['foto']??"",
+                    'poin' => $data['poin'],
                 ])->id;
 
                 $data['tanggal_lahir_ayah'] = Carbon::parse($data['tanggal_lahir_ayah'])->format('Y-m-d');

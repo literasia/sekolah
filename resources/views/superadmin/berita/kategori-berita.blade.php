@@ -1,19 +1,19 @@
-@extends('layouts.admin')
+@extends('layouts.superadmin')
 
 {{-- config 1 --}}
-@section('title', 'E-Voting | Calon')
-@section('title-2', 'Calon')
-@section('title-3', 'Calon')
+@section('title', 'Berita | Kategori Berita')
+@section('title-2', 'Kategori Berita')
+@section('title-3', 'Kategori Berita')
 
 @section('describ')
-    Ini adalah halaman calon untuk admin
+    Ini adalah halaman kategori berita untuk admin
 @endsection
 
 @section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.e-voting.calon') }}
+    {{ route('superadmin.berita.kategori-berita') }}
 @endsection
 
 {{-- main content --}}
@@ -23,19 +23,13 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
-                        <form id="form-calon-kandidat">
+                        <form id="form-kategori-berita">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder="tes">
-                                        <label for="calon_id">Nama Calon</label>
-                                        <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
-                                            <option value="">-- Pilih --</option>
-                                            @foreach($namaSiswa as $ns)
-                                            <option data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="kategori_berita">Kategori Berita</label>
+                                        <input type="text" name="kategori_berita" id="kategori_berita" class="form-control form-control-sm">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +55,7 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Calon</th>
+                                        <th>Kategori</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -119,7 +113,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.e-voting.calon') }}",
+                    url: "{{ route('superadmin.berita.kategori-berita') }}",
                 },
                 columns: [
                 {
@@ -137,16 +131,16 @@
                 ]
             });
 
-            $('#form-calon-kandidat').on('submit', function (event) {
+            $('#form-kategori-berita').on('submit', function (event) {
                 event.preventDefault();
 
                 var url = '';
-                if ($('#nama_calon').val() == 'add') {
-                    url = "{{ route('admin.e-voting.calon') }}";
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('superadmin.berita.kategori-berita') }}";
                 }
 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.e-voting.calon-update') }}";
+                    url = "{{ route('superadmin.berita.kategori-berita-update') }}";
                 }
 
                 $.ajax({
@@ -158,14 +152,14 @@
                         var html = ''
                         if (data.errors) {
                             html = data.errors[0];
-                            $('#nama_calon').addClass('is-invalid');
+                            $('#kategori_berita').addClass('is-invalid');
                             toastr.error(html);
                         }
 
                         if (data.success) {
                             toastr.success('Sukses!');
-                            $('#nama_calon').removeClass('is-invalid');
-                            $('#form-calon-kandidat')[0].reset();
+                            $('#kategori_berita').removeClass('is-invalid');
+                            $('#form-kategori-berita')[0].reset();
                             $('#action').val('add');
                             $('#btn')
                                 .removeClass('btn-outline-info')
@@ -181,11 +175,11 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/admin/e-voting/calon/'+id,
+                    url: '/superadmin/berita/kategori-berita/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#nama_calon').val(data.nama_calon.name);
-                        $('#hidden_id').val(data.nama_calon.id);
+                        $('#kategori_berita').val(data.kategori_berita.name);
+                        $('#hidden_id').val(data.kategori_berita.id);
                         $('#action').val('edit');
                         $('#btn')
                             .removeClass('btn-outline-success')
@@ -204,7 +198,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/admin/e-voting/calon/hapus/'+user_id,
+                    url: '/superadmin/berita/kategori-berita/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
@@ -218,17 +212,6 @@
             });
 
         });
-
-
-        const nama_calon = document.getElementById('nama_calon');
-        const calon_id = document.getElementById('calon_id');
-
-
-        function setPoin(selected){
-
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
-            nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
-        }
 
     </script>
 @endpush

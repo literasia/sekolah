@@ -1,19 +1,19 @@
-@extends('layouts.admin')
+@extends('layouts.superadmin')
 
 {{-- config 1 --}}
-@section('title', 'E-Voting | Pemilihan')
-@section('title-2', 'Pemilihan')
-@section('title-3', 'Pemilihan')
+@section('title', 'Berita')
+@section('title-2', 'Berita')
+@section('title-3', 'Berita')
 
 @section('describ')
-    Ini adalah halaman pemilihan untuk admin
+    Ini adalah halaman Berita untuk Superadmin
 @endsection
 
-@section('icon-l', 'fa fa-vote-yea')
+@section('icon-l', 'icon-list')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.e-voting.pemilihan') }}
+    {{ route('superadmin.berita.berita') }}
 @endsection
 
 {{-- main content --}}
@@ -29,27 +29,21 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>No</th>
-                                        <th>Kandidat</th>
-                                        <th>Jenis Pemilihan</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
+                                        <th>Judul</th>
+                                        <th>Kategori</th>
+                                        <th>Isi</th>
+                                        <th>Thumbnail</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    @foreach($data_pemilihan as $dt)
+                                    @foreach($data as $dt)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <ol>
-                                                @foreach($dt->calons as $nk)
-                                                <li>{{ $nk->name }}</li>
-                                                @endforeach
-                                            </ol>
-                                        </td>
-                                        <td>{{ $dt->posisi }}</td>
-                                        <td>{{ $dt->start_date }}</td>
-                                        <td>{{ $dt->end_date }}</td>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{$dt->name}}</td>
+                                        <td>{{$dt->kategori}}</td>
+                                        <td>{{$dt->isi}}</td>
+                                        <td><a target="_blank" href="{{Storage::url($dt->thumbnail)}}">Lihat Foto</a></td>
                                         <td>
                                             <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
                                             &nbsp;
@@ -66,8 +60,25 @@
         </div>
     </div>
 
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal --}}
-    @include('admin.e-voting.modals._pemilihan')
+    @include('superadmin.berita.modals._berita')
 @endsection
 
 {{-- addons css --}}
@@ -75,17 +86,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <!-- Select 2 css -->
-    <link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
-        }
-
-        .select2-container {
-            width: 100% !important;
-            padding: 0;
         }
     </style>
 @endpush
@@ -96,36 +100,19 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <!-- Select 2 js -->
-    <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable();
 
             $('#add').on('click', function () {
-                $('#modal-pemilihan').modal('show');
+                $('#modal-berita').modal('show');
             });
-
-            $('#nama_calon').select2();
-
-            $('#tanggal_mulai').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
-
-            $('#tanggal_selesai').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
-
             $('#order-table').DataTable();
 
             // $('#order-table').DataTable({
             //     processing: true,
             //     serverSide: true,
             //     ajax: {
-            //         url: "{{ route('admin.e-voting.pemilihan') }}",
+            //         url: "{{ route('superadmin.berita.berita') }}",
             //     },
             //     columns: [
             //     {
@@ -133,78 +120,68 @@
             //         name: 'DT_RowIndex'
             //     },
             //     {
-            //         data: 'no_urut',
-            //         name: 'no_urut'
-            //     },
-            //     {
             //         data: 'name',
             //         name: 'name'
-
             //     },
             //     {
-            //         data: 'posisi',
-            //         name: 'posisi'
+            //         data: 'kategori',
+            //         name: 'kategori'
             //     },
             //     {
-            //         data: 'start_date',
-            //         name: 'start_date'
+            //         data: 'isi',
+            //         name: 'isi'
             //     },
             //     {
-            //         data: 'end_date',
-            //         name: 'end_date'
+            //         data: 'thumbnail',
+            //         name: 'thumbnail'
             //     },
             //     {
             //         data: 'action',
             //         name: 'action'
             //     }
-            //     ],
-            //     columnDefs: [
-            //     {
-            //         render: function (data, type, full, meta) {
-            //             return "<div class='text-wrap width-200'>" + data + "</div>";
-            //         },
-            //         targets: 5
-            //     }
             //     ]
             // });
 
-            $('#form-pemilihan').on('submit', function (event) {
+            $('#form-berita').on('submit', function (event) {
                 event.preventDefault();
 
                 var url = '';
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.e-voting.pemilihan') }}";
+                if ($('#judul').val() == 'add') {
+                    url = "{{ route('superadmin.berita.berita') }}";
                 }
 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.e-voting.pemilihan-update') }}";
+                    url = "{{ route('superadmin.berita.berita-update') }}";
                 }
+
+                var formData = new FormData($('#form-berita')[0]);
 
                 $.ajax({
                     url: url,
                     method: 'POST',
-                    dataType: 'JSON',
-                    data: $(this).serialize(),
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
                     success: function (data) {
                         var html = ''
                         if (data.errors) {
                             html = data.errors[0];
-                            $('#nama_calon').addClass('is-invalid');
+                            $('#judul').addClass('is-invalid');
                             toastr.error(html);
                         }
 
                         if (data.success) {
                             toastr.success('Sukses!');
-                            $('#modal-pemilihan').modal('hide');
-                            $('#siswa').removeClass('is-invalid');
-                            $('#form-pemilihan')[0].reset();
+                            $('#modal-berita').modal('hide');
+                            $('#judul').removeClass('is-invalid');
+                            $('#form-berita')[0].reset();
                             $('#action').val('add');
                             $('#btn')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
                                 .val('Simpan');
-                                location.reload();
-                            // $('#order-table').DataTable().ajax.reload();
+                            $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }
@@ -214,17 +191,17 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/admin/e-voting/pemilihan/'+id,
+                    url: '/suepradmin/berita/berita/'+id,
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#nama_calon').val(data.name.name);
-                        $('#posisi').val(data.posisi.posisi);
-                        $('#start_date').val(data.start_date.start_date);
-                        $('#end_date').val(data.end_date.end_date);
+                        $('#judul').val(data.judul.name);
+                        $('#kategori').val(data.kategori.kategori);
+                        $('#isi').val(data.isi.isi);
+                        $('#thumbnail').val(data.thumbnail.thumbnail);
                         $('#hidden_id').val(data.name.id);
-                        $('#modal-pemilihan').modal('show');
+                        $('#modal-berita').modal('show');
                     }
                 });
             });
@@ -238,31 +215,19 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/admin/e-voting/pemilihan/hapus/'+user_id,
+                    url: '/superadmin/berita/berita/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            // $('#order-table').DataTable().ajax.reload();
+                            $('#order-table').DataTable().ajax.reload();
                             toastr.success('Data berhasil dihapus');
-                            location.reload();
                         }, 1000);
                     }
                 });
             });
 
         });
-
-
-        // const nama_calon = document.getElementById('nama_calon');
-        // const calon_kandidat_id = document.getElementById('calon_id');
-
-        // function setPoin(selected){
-
-        //     // console.log(nama_calon.options[nama_calon.selectedIndex].dataset.poin);
-        //     nama_calon.value = calon_kandidat_id.options[calon_kandidat_id.selectedIndex].dataset.poin;
-        // }
-
     </script>
 @endpush

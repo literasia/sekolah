@@ -2,33 +2,45 @@
 
 namespace App\Http\Controllers\Admin\EVoting;
 
+use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Pemilihan;
-use App\Models\Admin\CalonKandidat;
+use App\Models\Admin\Calon;
 use App\Models\Admin\Posisi;
-use App\User;
+use App\Utils\CRUDResponse;
 
 class PemilihanController extends Controller
 {
     public function index(Request $request) {
-        if ($request->ajax()) {
-            $data = Pemilihan::latest()->get();
-            return DataTables::of($data)
-                ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
-                    return $button;
-                })
-                ->rawColumns(['action'])
-                ->addIndexColumn()
-                ->make(true);
-        }
-        $ck = CalonKandidat::all();
+        // if ($request->ajax()) {
+        //     $data = Pemilihan::latest()->get();
+        //     return DataTables::of($data)
+        //         ->editColumn('name', function ($data_pemilihan){
+        //             foreach($dt->calons as $nk){
+        //                 $nama = '<li>{{ $nk->name }}</li>';
+        //             }
+        //         })
+        //         ->addColumn('action', function ($data) {
+        //             $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+        //             $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+        //             return $button;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->addIndexColumn()
+        //         ->make(true);
+        // }
+        $data_pemilihan = Pemilihan::orderBy('start_date')->get();
+        $ck = Calon::all();
         $ps = Posisi::all();
-        return view('admin.e-voting.pemilihan', ['ck' => $ck, 'ps' => $ps, 'mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.pemilihan', [
+            'ck' => $ck,
+            'ps' => $ps,
+            'data_pemilihan' => $data_pemilihan,
+            'mySekolah' => User::sekolah()
+        ]);
     }
 
 
@@ -52,26 +64,32 @@ class PemilihanController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
+        
+        $sekolah_id = auth()->user()->id_sekolah;
 
+        // dd(auth()->user()->id_sekolah);
+        // exit;
+
+        $tglMulai = explode("-", $data['tanggal_mulai']);
+        $tglSelesai = explode("-", $data['tanggal_selesai']);
+        $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
+        $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
+        $pemilihan= Pemilihan::create([
+            'posisi'        => $data['posisi'],
+            'sekolah_id'    => $sekolah_id,
+            'start_date'    => $newTglMulai,
+            'end_date'      => $newTglSelesai
+        ]);
 
         foreach ($request->input('nama_calon') as $nama_calon) {
-            $tglMulai = explode("-", $data['tanggal_mulai']);
-            $tglSelesai = explode("-", $data['tanggal_selesai']);
-            $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
-            $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
-            Pemilihan::create([
-                'name'          => $nama_calon,
-                'posisi'        => $data['posisi'],
-                'start_date'    => $newTglMulai,
-                'end_date'      => $newTglSelesai
-            ]);
+            $pemilihan->calons()->attach($nama_calon);
         }
-        
 
         return response()
             ->json([
                 'success' => 'Data Added.',
             ]);
+
     }
 
     public function edit($id) {
@@ -80,6 +98,7 @@ class PemilihanController extends Controller
             ->json([
                 'name'          => $data['name'],
                 'posisi'        => $data['posisi'],
+                'sekolah_id'        => $data['sekolah_id'],
                 'start_date'    => $data['start_date'] ?? "",
                 'end_date'      => $data['end_date'] ?? "",
             ]);
@@ -111,8 +130,10 @@ class PemilihanController extends Controller
         $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
 
         $status = Pemilihan::whereId($request->input('hidden_id'))->update([
+            'no_urut'          => $request->input('no_urut'),
             'name'          => $request->input('nama_calon'),
             'posisi'        => $request->input('posisi'),
+            'sekolah_id'        => $data['sekolah_id'],
             'start_date'    => $newTglMulai,
             'end_date'      => $newTglSelesai
         ]);
@@ -124,8 +145,14 @@ class PemilihanController extends Controller
     }
 
     public function destroy($id) {
-        $sanksi = Pemilihan::find($id);
-        $sanksi->delete();
+        $pemilihan = Pemilihan::find($id);
+        // dd($pemilihan);
+        $pemilihan->calons()->detach();
+        $pemilihan->delete();
+        return response()
+            ->json([
+                'danger' => 'Data Deleted.',
+            ]);
     }
 
 }

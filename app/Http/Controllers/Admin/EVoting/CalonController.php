@@ -5,16 +5,17 @@ namespace App\Http\Controllers\Admin\EVoting;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Admin\CalonKandidat;
+use App\Models\Admin\Calon;
+use App\Models\Siswa;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class CalonController extends Controller
 {
     public function index(Request $request) {
-        $tes = User::get('id_sekolah');
+        $namaSiswa = Siswa::all();
         if ($request->ajax()) {
-            $data = CalonKandidat::latest()->get();
+            $data = Calon::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -25,7 +26,7 @@ class CalonController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.e-voting.calon', ['tes' => $tes, 'mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.calon', ['namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
@@ -49,10 +50,8 @@ class CalonController extends Controller
                 ]);
         }
 
-
-        $status = CalonKandidat::create([
+        $status = Calon::create([
             'name'  => $request->input('nama_calon'),
-            'user_id' => $request->input('user_id')
         ]);
 
         return response()
@@ -62,7 +61,7 @@ class CalonController extends Controller
     }
 
     public function edit($id) {
-        $tingkat = CalonKandidat::find($id);
+        $tingkat = Calon::find($id);
 
         return response()
             ->json([
@@ -89,7 +88,7 @@ class CalonController extends Controller
                 ]);
         }
 
-        $status = CalonKandidat::whereId($request->input('hidden_id'))->update([
+        $status = Calon::whereId($request->input('hidden_id'))->update([
             'name'  => $request->input('nama_calon'),
             'user_id' => $request->input('user_id')
         ]);
@@ -101,7 +100,7 @@ class CalonController extends Controller
     }
 
     public function destroy($id) {
-        $tingkat = CalonKandidat::find($id);
+        $tingkat = Calon::find($id);
         $tingkat->delete();
     }
 

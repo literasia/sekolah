@@ -24,37 +24,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Pemilihan Ketua OSIS</h5>
+                    <h5>Pemilihan @foreach($pemilihans as $pemilihan)
+                            {{$pemilihan->posisi}}
+                        @endforeach
+                    </h5>
                 </div>
                 <div class="card-block">
-                    <form id="form-voting">
-                        @csrf
-                    <div class="row">
-                        @foreach($names as $name)
-                        <div class="col-md-6 col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>#{{ $no++ }}</h4>
-                                </div>
-                                <div class="card-block">
-                                    <center>
-                                        <img src="{{ asset('img/avatar.png') }}" style="width: 200px; height: 200px;">
-                                        <br><br>
-                                        <h4>{{ $name->name }}</h4>
-                                        <input type="text" name="calon_kandidat_id" id="calon_kandidat_id" class="form-control" value="{{ $name->name }}" readonly>
-                                        <p>Pilih Saya sebagai Ketua OSIS</p>
-                                        <input type="hidden" name="hidden_id" id="hidden_id">
-                                        <input type="hidden" id="action" val="add">
-                                        <input type="submit" class="btn btn-sm btn-outline-success" value="Vote" id="btn">
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                    </form>
                     <div class="row justify-content-center">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Hasil Voting</h5>
@@ -94,67 +71,29 @@
     <script src="{{ asset('bower_components/chart.js/js/Chart.js') }}"></script>
     <!-- <script src="{{ asset('bower_components/chart.js/js/chartjs-custom.js') }}"></script> -->
     <script>
-        $(document).ready(function () {
-            $('#order-table').DataTable();
-
-            $('#form-voting').on('submit', function (event) {
-                event.preventDefault();
-
-                var url = '';
-                if ($('#nama_calon').val() == 'add') {
-                    url = "{{ route('admin.e-voting.vote') }}";
-                }
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.e-voting.vote-update') }}";
-                }
-
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'JSON',
-                    data: $(this).serialize(),
-                    success: function (data) {
-                        var html = ''
-                        if (data.errors) {
-                            html = data.errors[0];
-                            $('#nama_calon').addClass('is-invalid');
-                            toastr.error(html);
-                        }
-
-                        if (data.success) {
-                            toastr.success('Sukses!');
-                            $('#nama_calon').removeClass('is-invalid');
-                            $('#form-voting')[0].reset();
-                            $('#action').val('add');
-                            $('#btn')
-                                .removeClass('btn-outline-info')
-                                .addClass('btn-outline-success')
-                                .val('Vote');
-                        }
-                        $('#form_result').html(html);
-                    }
-                });
-            });
-
-        });
-    </script>
-    <script>
         "use strict";
         $(document).ready(function(){
         /*Doughnut chart*/
         var ctx = document.getElementById("myChart");
         var data = {
             labels: [
-                "Ramadhan", "Mulya"
+                @foreach ($names as $nc)
+                    @foreach($nc->calons as $calon)
+                        "{{ $calon->name }}",
+                    @endforeach
+                @endforeach
             ],
             datasets: [{
-                data: [40, 10],
+                data: [
+                    @foreach($counts as $count)
+                        {{ $count }},
+                    @endforeach
+                ],
                 backgroundColor: [
-                    "#1ABC9C",
-                    "#FCC9BA",
-                    "#B8EDF0",
-                    "#B4C1D7"
+                    "#5a308d",
+                    "#7d2b8b",
+                    "#ca0088",
+                    "#cc1b59"
                 ],
                 borderWidth: [
                     "0px",
@@ -163,10 +102,10 @@
                     "0px"
                 ],
                 borderColor: [
-                    "#1ABC9C",
-                    "#FCC9BA",
-                    "#B8EDF0",
-                    "#B4C1D7"
+                    "#5a308d",
+                    "#7d2b8b",
+                    "#ca0088",
+                    "#cc1b59"
 
                 ]
             }]

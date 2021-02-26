@@ -57,6 +57,11 @@
                                 <span class="pcoded-mtext">Pengaturan Hak Akses</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('admin/pelanggaran/surat-peringatan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelanggaran.surat-peringatan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Surat Peringatan</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="@if (request()->is('admin/sekolah/jam') || request()->is('admin/sekolah/jurusan') || request()->is('admin/sekolah/kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
@@ -78,6 +83,11 @@
                         <li class="{{ request()->is('admin/sekolah/jam') ? 'active' : '' }}">
                             <a href="{{ route('admin.sekolah.jam') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Jam Pelajaran</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/e-voting/vote') ? 'active' : '' }}">
+                            <a href="{{ route('admin.e-voting.vote') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Vote</span>
                             </a>
                         </li>
                     </ul>

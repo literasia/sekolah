@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotingTable extends Migration
+class AddPoinToSiswasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateVotingTable extends Migration
      */
     public function up()
     {
-        Schema::create('votings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('calon_id')->unsigned();
-            $table->string('id_user');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('siswas', function (Blueprint $table) {
+            $table->string('poin');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateVotingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voting');
+        Schema::table('siswas', function (Blueprint $table) {
+            //
+        });
     }
 }
