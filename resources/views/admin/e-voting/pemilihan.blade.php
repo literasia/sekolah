@@ -51,9 +51,9 @@
                                         <td>{{ $dt->start_date }}</td>
                                         <td>{{ $dt->end_date }}</td>
                                         <td>
-                                            <button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
                                             &nbsp;
-                                            <button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -152,7 +152,7 @@
             //         name: 'no_urut'
             //     },
             //     {
-            //         data: 'name'
+            //         data: 'name',
             //         name: 'name'
                     
             //     },
@@ -258,7 +258,7 @@
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
+                            // $('#order-table').DataTable().ajax.reload();
                             toastr.success('Data berhasil dihapus');
                         }, 1000);
                     }

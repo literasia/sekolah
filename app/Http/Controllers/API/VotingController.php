@@ -17,9 +17,9 @@ class VotingController extends Controller
         $voting = Pemilihan::query();
         $sekolahId = $req->query('sekolah_id');
         $posisi = $req->query('posisi');
-        // $voting->when($sekolahId, function($query) use ($sekolahId) {
-        //     return $query->where('sekolah_id', $sekolahId);
-        // });
+        $voting->when($sekolahId, function($query) use ($sekolahId) {
+            return $query->where('sekolah_id', $sekolahId);
+        });
         $voting->when($posisi, function($query) use ($posisi) {
             return $query->where('posisi', $posisi);
         });
@@ -29,18 +29,27 @@ class VotingController extends Controller
     }
 
     public function posisiKandidat(Request $req) {
-        $kandidats = Posisi::query();
-        $sekolahId = $req->query('sekolah_id');
-        // $voting->get($sekolahId, function($query) use ($sekolahId) {
-        //     return $query->where('sekolah_id', $sekolahId);
-        // });
-        $kandidats = $kandidats->orderBy('name')->get();
-        return response()->json(ApiResponse::success($kandidats));
+        $data = $req->all();
+        $hasVote = Voting::where('id_user', $data['user_id'])->count();
+        if ($hasVote > 0) {
+            $this->hasilVoting($req);
+            return;
+        }
+
+        $calonPemilihan = CalonPemilihan::query();
+        $pemilihanId = $req->query('pemilihan_id');
+        $calonPemilihan->when($pemilihanId, function($query) use ($pemilihanId) {
+            return $query->where('pemilihan_id', $pemilihanId);
+        });
+        
+        return response()->json(ApiResponse::success($calonPemilihan->calons()->orderBy('name')->get()));
     }
 
     public function hasilVoting(Request $request){
+        $data = $request->all();
+
         $jumlahsuara = Voting::all();
-        $names = Pemilihan::orderBy('id')->get();
+        $names = Pemilihan::where('pemilihan_id', $data['pemilihan_id'])->orderBy('id')->get();
         // $calon = CalonPemilihan::all();
         $pemilihans = Pemilihan::orderBy('posisi')->get();
         $counts = collect();
@@ -85,15 +94,17 @@ class VotingController extends Controller
         $data = $req->all();
 
         $exist = Voting::where([
-            ['calon_id', $data['calon_id']],
+            ['pemilihan_id', $data['pemilihan_id']],
             ['id_user', $data['user_id']]
         ])->exists();
 
         if ($exist) {
-            return response()->json(ApiResponse::error('Anda sudah pernah voting kandidat ini'));
+            $this->hasilVoting($req);
+            return;
         }
 
         Voting::create([
+            'pemilhan_id' => $data['pemilihan_id'],
             'calon_id' => $data['calon_id'],
             'id_user' => $data['user_id']
         ]);

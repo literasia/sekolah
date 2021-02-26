@@ -18,6 +18,11 @@ class PemilihanController extends Controller
         // if ($request->ajax()) {
         //     $data = Pemilihan::latest()->get();
         //     return DataTables::of($data)
+        //         ->editColumn('name', function ($data_pemilihan){
+        //             foreach($dt->calons as $nk){
+        //                 $nama = '<li>{{ $nk->name }}</li>';
+        //             }
+        //         })
         //         ->addColumn('action', function ($data) {
         //             $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
         //             $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
@@ -27,16 +32,8 @@ class PemilihanController extends Controller
         //         ->addIndexColumn()
         //         ->make(true);
         // }
-        $pemilihan = Pemilihan::find(38);
-        // foreach($pemilihan->calons as $calon){
-        //     echo $calon->name;
-        // }
-        // exit;
-
-        // $sekolah_id = auth()->user()->id_sekolah;
-        // dd($sekolah_id);
-        $ck = Calon::all();
         $data_pemilihan = Pemilihan::orderBy('start_date')->get();
+        $ck = Calon::all();
         $ps = Posisi::all();
         return view('admin.e-voting.pemilihan', [
             'ck' => $ck,
@@ -149,8 +146,10 @@ class PemilihanController extends Controller
     }
 
     public function destroy($id) {
-        $sanksi = Pemilihan::find($id);
-        $sanksi->delete();
+        $pemilihan = Pemilihan::find($id);
+        // dd($pemilihan);
+        $pemilihan->calons()->detach();
+        $pemilihan->delete();
     }
 
 }

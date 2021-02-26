@@ -12,7 +12,7 @@ class CalonPemilihan extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'calon';
+    protected $table = 'calon_pemilihan';
 	protected $fillable = [
         'name', 'user_id'
     ];
