@@ -119,7 +119,7 @@ class PegawaiController extends Controller
                     'tanggal_mulai' => $data['tanggal_mulai'],
                     'bagian_pegawai_id' => $data['bagian'],
                     'tahun_ajaran' => $data['tahun_ajaran'],
-                    'semester' => $data['semester'],
+                    'semester_id' => $data['semester'],
                     'foto' => $data['foto']??""
                 ]);
 
