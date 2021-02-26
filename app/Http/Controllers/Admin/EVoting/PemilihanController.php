@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\EVoting;
 
+use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,9 +10,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Calon;
 use App\Models\Admin\Posisi;
-use App\User;
 use App\Utils\CRUDResponse;
-
 
 class PemilihanController extends Controller
 {
@@ -34,6 +33,8 @@ class PemilihanController extends Controller
         // }
         // exit;
 
+        // $sekolah_id = auth()->user()->id_sekolah;
+        // dd($sekolah_id);
         $ck = Calon::all();
         $data_pemilihan = Pemilihan::orderBy('start_date')->get();
         $ps = Posisi::all();
@@ -66,6 +67,11 @@ class PemilihanController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
+        
+        $sekolah_id = auth()->user()->id_sekolah;
+
+        // dd(auth()->user()->id_sekolah);
+        // exit;
 
         $tglMulai = explode("-", $data['tanggal_mulai']);
         $tglSelesai = explode("-", $data['tanggal_selesai']);
@@ -73,6 +79,7 @@ class PemilihanController extends Controller
         $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
         $pemilihan= Pemilihan::create([
             'posisi'        => $data['posisi'],
+            'sekolah_id'    => $sekolah_id,
             'start_date'    => $newTglMulai,
             'end_date'      => $newTglSelesai
         ]);
@@ -95,6 +102,7 @@ class PemilihanController extends Controller
             ->json([
                 'name'          => $data['name'],
                 'posisi'        => $data['posisi'],
+                'sekolah_id'        => $data['sekolah_id'],
                 'start_date'    => $data['start_date'] ?? "",
                 'end_date'      => $data['end_date'] ?? "",
             ]);
@@ -129,6 +137,7 @@ class PemilihanController extends Controller
             'no_urut'          => $request->input('no_urut'),
             'name'          => $request->input('nama_calon'),
             'posisi'        => $request->input('posisi'),
+            'sekolah_id'        => $data['sekolah_id'],
             'start_date'    => $newTglMulai,
             'end_date'      => $newTglSelesai
         ]);

@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-berita" enctype="multipart/form-data" action="{{ route('superadmin.berita.store') }}" method="POST">
+                <form id="form-berita" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col">

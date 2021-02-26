@@ -11,7 +11,7 @@ class Pemilihan extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'posisi', 'start_date', 'end_date'
+        'posisi', 'sekolah_id', 'start_date', 'end_date'
     ];
     protected $table = "pemilihan";
     protected $guarded = [];

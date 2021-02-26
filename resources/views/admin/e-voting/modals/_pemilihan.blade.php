@@ -15,6 +15,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <input type="text" name="sekolah_id" id="sekolah_id" placeholder="{{ auth()->user()->id_sekolah }}">
                                 <label for="nama_calon">Nama Calon</label>
                                 <select name="nama_calon[]" id="nama_calon" class="form-control form-control-sm" multiple>
                                     <option value="">-- Pilih --</option>

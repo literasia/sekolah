@@ -8,6 +8,8 @@ use App\Utils\ApiResponse;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Posisi;
 use App\Models\Admin\Voting;
+use App\Models\Admin\Calon;
+use App\Models\Admin\CalonPemilihan;
 
 class VotingController extends Controller
 {
@@ -38,17 +40,36 @@ class VotingController extends Controller
 
     public function hasilVoting(Request $request){
         $jumlahsuara = Voting::all();
-        $names = Pemilihan::orderBy('start_date')->get();
+        $names = Pemilihan::orderBy('id')->get();
+        // $calon = CalonPemilihan::all();
         $pemilihans = Pemilihan::orderBy('posisi')->get();
         $counts = collect();
         // dd($names[0]->votes);
+        // exit();
 
-        $a = [];
-
-        foreach ($names as $nc) {
-           $a->push(['name' => $nc->calons->name, 'total' => $nc->calons->id]);
+        foreach($names as $nc){
+            foreach ($nc->calons as $calon){
+                $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
+                $counts->push(['name'=>$calon->name, 'total'=>$hasil]);
+            }
+                return response()->json(ApiResponse::success($counts));
         }
 
+
+        // foreach ($names as $nc){
+        //     // foreach($nc->calons as $calon){
+        //     //     $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
+        //     //     $counts->push(['name' => $calon->name, 'total' => $hasil]);
+        //     //     return response()->json(ApiResponse::success($counts));
+        //     // }
+        //         echo $nc->id;
+        // }
+
+        // foreach ($names as $calon){
+        //         // $hasil = Voting::where(['pemilihan_id'=>$calon->id, 'calon_id' => $calon->id])->count();
+        //         $counts->push(['name' => $calon->name]);
+        //         return response()->json(ApiResponse::success($counts));
+        // }
         // foreach($names as $nc){
         //     foreach ($nc->calons as $calon){
         //         $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
