@@ -15,7 +15,7 @@ class CreatePemilihanTable extends Migration
     {
         Schema::create('pemilihan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->bigInteger('sekolah_id')->unsigned()->nullable();
             $table->string('posisi');
             $table->string('start_date');
             $table->string('end_date');

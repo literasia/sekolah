@@ -66,6 +66,23 @@
         </div>
     </div>
 
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal --}}
     @include('admin.e-voting.modals._pemilihan')
 @endsection
@@ -75,6 +92,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <!-- Select 2 css -->
     <link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
@@ -101,7 +119,6 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable();
 
             $('#add').on('click', function () {
                 $('#modal-pemilihan').modal('show');

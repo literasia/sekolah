@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\EVoting;
 
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;

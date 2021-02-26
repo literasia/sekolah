@@ -33,8 +33,8 @@
                                         <th>Kelas</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Alamat</th>
-                                        <th>Foto</th>
                                         <th>Poin</th>
+                                        <th>Foto</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
