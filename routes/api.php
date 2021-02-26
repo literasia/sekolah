@@ -32,8 +32,9 @@ Route::namespace('API')
         Route::get('category', 'CategoryController@index');
         Route::resource('voting', 'VotingController');
         Route::get('posisi-kandidat', 'VotingController@posisiKandidat');
+        Route::get('calon-kandidat', 'VotingController@calonKandidat');
         Route::get('sudah-voting', 'VotingController@hasVote');
-        Route::get('hasil-voting', 'VotingController@hasilVoting');
+        Route::get('hasil-voting', 'VotingController@getHasilVoting');
         Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
         Route::get('absensi', 'AbsensiController@read');
 

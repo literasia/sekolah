@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
 use App\Models\Siswa;
-use App\Models\TingkatanKelas;
+use App\Models\Admin\Kelas;
 use App\Models\Superadmin\Sekolah;
 use App\User;
 use App\Utils\ApiResponse;
@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     public function test()
     {
-        return response()->json(ApiResponse::error('error lah'));     
+        return response()->json(ApiResponse::error('error lah'));
     }
 
     public function studentLogin(Request $req) {
@@ -37,9 +37,8 @@ class AuthController extends Controller
 
         $user = User::where('username', $data['username'])->first();
         $siswa = Siswa::find($user->siswa_id);
-        $kelas = TingkatanKelas::find($siswa->id_tingkatan_kelas);
+        $kelas = Kelas::find($siswa->kelas_id);
         $sekolah = Sekolah::find($user->id_sekolah);
-
         $siswa['kelas'] = $kelas->name;
         $siswa['sekolah_id'] = $user->id_sekolah;
         $siswa['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
@@ -47,7 +46,7 @@ class AuthController extends Controller
 
         return response()->json(ApiResponse::success($siswa));
     }
-    
+
     public function schoolLogin(Request $req) {
         $data = $req->all();
 
@@ -64,13 +63,14 @@ class AuthController extends Controller
         }
 
         $user = User::where('username', $data['username'])->first();
-        $pegawai = Pegawai::where('user_id', $user->id)->first();
+        $pegawai = $user;
+        // $pegawai = Pegawai::where('user_id', $user->id)->first();
         $sekolah = Sekolah::find($user->id_sekolah);
 
         $pegawai['nama_lengkap'] = $pegawai['name'];
         $pegawai['kelas'] = '-';
-        $pegawa['sekolah_id'] = $user->id_sekolah;
-        $siswa['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
+        $pegawai['sekolah_id'] = $user->id_sekolah;
+        $pegawai['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
         $pegawai['deskripsi'] = "";
 
         return response()->json(ApiResponse::success($pegawai));
