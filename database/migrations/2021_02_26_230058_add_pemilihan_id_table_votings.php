@@ -14,7 +14,7 @@ class AddPemilihanIdTableVotings extends Migration
     public function up()
     {
         Schema::table('votings', function (Blueprint $table) {
-            $table->unsignedBigInteger('pemilihan_id')->nullable();
+            $table->unsignedBigInteger('pemilihan_id')->nullable()->after('id');
             $table->foreign('pemilihan_id')->references('id')->on('pemilihan')->onDelete('cascade');
         });
     }
