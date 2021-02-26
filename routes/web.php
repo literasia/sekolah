@@ -135,6 +135,10 @@ Route::namespace('Superadmin')
 
         Route::get('/superadmin/slider', 'SliderController@index')
             ->name('slider');
+        Route::post('/superadmin/slider', 'SliderController@store')
+        ->name('slider.store');
+        Route::put('/superadmin/slider', 'SliderController@update')
+        ->name('slider.update');
 
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
             ->name('list-sekolah');
@@ -176,6 +180,8 @@ Route::namespace('Superadmin')
                 Route::get('/superadmin/referensi/status-nikah/hapus/{id}', 'StatusNikahController@destroy');
 
                 // Provinsi
+                Route::get('/superadmin/referensi/provinsi/getKabupatenKota', 'ProvinsiController@getKabupatenKota')
+                    ->name('referensi.provinsi-getKabupatenKota');
                 Route::get('/superadmin/referensi/provinsi', 'ProvinsiController@index')
                     ->name('referensi.provinsi');
                 Route::post('/superadmin/referensi/provinsi', 'ProvinsiController@store');
@@ -183,8 +189,11 @@ Route::namespace('Superadmin')
                 Route::post('/superadmin/referensi/provinsi/update', 'ProvinsiController@update')
                     ->name('referensi.provinsi-update');
                 Route::get('/superadmin/referensi/provinsi/hapus/{id}', 'ProvinsiController@destroy');
+                
 
                 // Kabupaten/Kota
+                Route::get('/superadmin/referensi/kabupaten-kota/getSchools', 'KabupatenKotaController@getSchools')
+                    ->name('referensi.kabupaten-kota-getSchools');
                 Route::get('/superadmin/referensi/kabupaten-kota', 'KabupatenKotaController@index')
                     ->name('referensi.kabupaten-kota');
                 Route::post('/superadmin/referensi/kabupaten-kota', 'KabupatenKotaController@store');

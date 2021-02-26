@@ -42,7 +42,7 @@
                                 <select name="provinsi" id="provinsi" class="form-control form-control-sm">
                                     <option value="">-- Provinsi --</option>
                                     @foreach($provinsis as $provinsi)
-                                    <option value="{{ $provinsi->name }}">{{ $provinsi->name }}</option>
+                                    <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,10 +51,10 @@
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten / Kota:</label>
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
-                                    <option value="">-- Kabupaten / Kota --</option>
-                                    @foreach($kabupaten as $kab)
-                                    <option value="{{ $kab->name }}">{{ $kab->name }}</option>
-                                    @endforeach
+                                    {{-- <option value="">-- Kabupaten / Kota --</option> --}}
+                                    {{-- @foreach($kabupaten as $kab) --}}
+                                    {{-- <option value="{{ $kab->name }}">{{ $kab->name }}</option> --}}
+                                    {{-- @endforeach --}}
                                 </select>
                             </div>
                         </div>

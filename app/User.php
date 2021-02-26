@@ -57,11 +57,6 @@ class User extends Authenticatable
         return self::join('sekolahs', 'users.id_sekolah', 'sekolahs.id')
             ->where('users.id', auth()->user()->id)
             ->first('sekolahs.*');
-        return $this->belongsTo(Sekolah::class, 'id', 'id_sekolah');
-    }
-
-    public function kodsa(){
-        return $this->belongsTo(Sekolah::class);
     }
 
     public function siswa()

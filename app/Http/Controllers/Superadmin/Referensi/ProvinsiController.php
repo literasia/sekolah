@@ -98,4 +98,11 @@ class ProvinsiController extends Controller
         $provinsi = Provinsi::find($id);
         $provinsi->delete();
     }
+
+    public function getKabupatenKota(Request $request)
+    {
+      $provinsi_id = $request->provinsi_id;
+      // dd($provinsi_id);
+      return response()->json(Provinsi::findOrFail($provinsi_id)->kabupatenKotas);
+    }
 }
