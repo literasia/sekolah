@@ -515,7 +515,12 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/pengumuman/pesan', 'PesanController@index')
                     ->name('pengumuman.pesan');
-            });
+                Route::post('/admin/pengumuman/pesan', 'PesanController@store');
+                Route::get('/admin/pengumuman/pesan/{id}', 'PesanController@edit');
+                Route::post('/admin/pengumuman/pesan/update', 'PesanController@update')
+                    ->name('pengumuman.pesan-update');
+                Route::post('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
+                });
     });
 
 Auth::routes();

@@ -22,8 +22,8 @@
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="card-block">
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                         <div class="dt-responsive table-responsive">
                             <table id="siswa-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
@@ -42,7 +42,7 @@
                                         <tr>
                                             <td>{{ $siswa->nis }}</td>
                                             <td>{{ $siswa->nama_lengkap }}</td>
-                                            <td>{{ $siswa->kelas->name }}</td>
+                                            <td>{{ $siswa->kelas }}</td>
                                             <td>{{ $siswa->jk }}</td>
                                             <td>{{ $siswa->alamat_tinggal }}</td>
                                             <td>
@@ -65,7 +65,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr><td colspan="6" class="text-center">Tidak ada data</td></tr>
+                                        <tr><td colspan="7" class="text-center">Tidak ada data</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -118,6 +118,9 @@
         };
 
         $(document).ready(function () {
+
+            // $('#siswa-table').DataTable();
+
             try {
                 $('#siswa-table').DataTable();
             } catch (error) {

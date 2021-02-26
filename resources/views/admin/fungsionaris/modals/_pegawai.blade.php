@@ -114,7 +114,7 @@
                                 <select name="provinsi" id="provinsi" class="form-control form-control-sm">
                                     <option value="">-- Provinsi --</option>
                                     @foreach($provinsis as $provinsi)
-                                    <option value="{{ $provinsi->name }}">{{ $provinsi->name }}</option>
+                                    <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -125,7 +125,7 @@
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
                                     <option value="">-- Kabupaten / Kota --</option>
                                     @foreach($kabupaten as $kab)
-                                    <option value="{{ $kab->name }}">{{ $kab->name }}</option>
+                                    <option value="{{ $kab->id }}">{{ $kab->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -138,7 +138,7 @@
                                 <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
                                     <option value="">-- Kecamatan --</option>
                                     @foreach($kecamatan as $kec)
-                                    <option value="{{ $kec->name }}">{{ $kec->name }}</option>
+                                    <option value="{{ $kec->id }}">{{ $kec->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -216,10 +216,9 @@
                                 <label for="bagian">Bagian Pegawai</label>
                                 <select name="bagian" id="bagian" class="form-control form-control-sm" required>
                                     <option value="">-- Bagian Pegawai --</option>
-                                    <option value="Guru/Tenaga Pendidik">Guru/Tenaga Pendidik</option>
-                                    <option value="Teknisi">Teknisi</option>
-                                    <option value="Laboran">Laboran</option>
-                                    <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                    @foreach($bagian as $bagian)
+                                    <option value="{{ $bagian->id }}">{{ $bagian->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -242,8 +241,9 @@
                                 <label for="semester">Semester</label>
                                 <select name="semester" id="semester" class="form-control form-control-sm">
                                     <option value="">-- Semester --</option>
-                                    <option value="Ganjil">Ganjil</option>
-                                    <option value="Genap">Genap</option>
+                                    @foreach($semester as $sem)
+                                    <option value="{{ $sem->id }}">{{ $sem->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -20,8 +20,8 @@
                 <h5>List Sekolah</h5>
             </div>
             <div class="card-body">
-                <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                 <div class="card-block">
+                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
@@ -38,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -168,7 +168,7 @@
                     this.method = "POST";
                     this.querySelector("input[name=_method]").value = "POST";
                 }
-                
+
                 if ($('#action').val() == 'edit') {
                     this.action = "{{ route('superadmin.list-sekolah-update') }}";
                     this.querySelector("input[name=_method]").value = "POST";

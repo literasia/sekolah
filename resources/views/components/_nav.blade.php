@@ -33,14 +33,14 @@
                 </a>
                 </li>
             </ul>
-            
+
             {{-- Nav Right --}}
             <ul class="nav-right">
                 <li class="header-notification">
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon-bell"></i>
-                            <span class="badge bg-c-red">5</span>
+                            {{-- <span class="badge bg-c-red">0</span> --}}
                         </div>
                         <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
@@ -85,7 +85,7 @@
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ asset('assets/images/avatar-4.jpg') }}" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
+                            <span>{{$mySekolah->name}}</span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">

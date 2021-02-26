@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pegawai extends Model
 {
     use SoftDeletes;
-    
-    protected $fillable = [
-        'user_id', 'name', 'nip', 'nik', 'gelar_depan', 'gelar_belakang',
-        'tempat_lahir', 'tanggal_lahir', 'jk', 'agama', 'is_menikah', 'alamat_tinggal',
-        'provinsi', 'kabupaten', 'kecamatan', 'dusun', 'rt', 'rw', 'kode_pos', 'no_telepon_rumah',
-        'no_telepon', 'tanggal_mulai', 'bagian', 'tahun_ajaran', 'semester', 'foto'
-    ];
+
+    // protected $fillable = [
+    //     'user_id', 'name', 'nip', 'nik', 'gelar_depan', 'gelar_belakang',
+    //     'tempat_lahir', 'tanggal_lahir', 'jk', 'agama', 'is_menikah', 'alamat_tinggal',
+    //     'provinsi_id', 'kabupaten_kota_id', 'kecamatan_id', 'dusun', 'rt', 'rw', 'kode_pos', 'no_telepon_rumah',
+    //     'no_telepon', 'tanggal_mulai', 'bagian_pegawai_id', 'tahun_ajaran', 'semester_id', 'foto'
+    // ];
 
     protected $guarded = [];
 

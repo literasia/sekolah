@@ -125,8 +125,10 @@
                                             <label for="provinsi">Provinsi</label>
                                             <select name="provinsi" id="provinsi" class="form-control form-control-sm">
                                                 <option value="">-- Provinsi --</option>
-                                                <option value="Aceh" {{ $pegawai->provinsi == 'Aceh' ? 'selected' : '' }}>Aceh</option>
-                                                <option value="Sumatera Utara" {{ $pegawai->provinsi == 'Sumatera Utara' ? 'selected' : '' }}>Sumatera Utara</option>
+
+                                                @foreach($provinsis as $provinsi)
+                                                <option value="{{ $provinsi->id }}" {{ $pegawai->provinsi_id == $provinsi->id ? 'selected' : '' }}>{{ $provinsi->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -135,9 +137,9 @@
                                             <label for="kabupaten">Kabupaten</label>
                                             <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
                                                 <option value="">-- Kabupaten --</option>
-                                                <option value="Langkat" {{ $pegawai->kabupaten == 'Langkat' ? 'selected' : '' }}>Langkat</option>
-                                                <option value="Deli Serdang" {{ $pegawai->kabupaten == 'Deli Serdang' ? 'selected' : '' }}>Deli Serdang</option>
-                                                <option value="Medan" {{ $pegawai->kabupaten == 'Medan' ? 'selected' : '' }}>Medan</option>
+                                                @foreach($kabupaten as $kab)
+                                                <option value="{{ $kab->id }}" {{ $pegawai->kabupaten_kota_id == $kab->id ? 'selected' : '' }}>{{ $kab->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -148,9 +150,9 @@
                                             <label for="kecamatan">Kecamatan</label>
                                             <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
                                                 <option value="">-- Kecamatan --</option>
-                                                <option value="Besitang" {{ $pegawai->kecamatan == 'Besitang' ? 'selected' : '' }}>Besitang</option>
-                                                <option value="Medan Kota" {{ $pegawai->kecamatan == 'Medan Kota' ? 'selected' : '' }}>Medan Kota</option>
-                                                <option value="Medan Selayang" {{ $pegawai->kecamatan == 'Medan Selayang' ? 'selected' : '' }}>Medan Selayang</option>
+                                                @foreach($kecamatan as $kec)
+                                                <option value="{{ $kec->id }}" {{ $pegawai->kecamatan_id == $kec->id ? 'selected' : '' }}>{{ $kec->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -231,10 +233,9 @@
                                             <label for="bagian">Bagian Pegawai</label>
                                             <select name="bagian" id="bagian" class="form-control form-control-sm" required>
                                                 <option value="">-- Bagian Pegawai --</option>
-                                                <option value="Guru/Tenaga Pendidik" {{ $pegawai->bagian == 'Guru/Tenaga Pendidik' ? 'selected' : '' }}>Guru/Tenaga Pendidik</option>
-                                                <option value="Teknisi" {{ $pegawai->bagian == 'Teknisi' ? 'selected' : '' }}>Teknisi</option>
-                                                <option value="Laboran" {{ $pegawai->bagian == 'Laboran' ? 'selected' : '' }}>Laboran</option>
-                                                <option value="Tenaga Kependidikan" {{ $pegawai->bagian == 'Tenaga Kependidikan' ? 'selected' : '' }}>Tenaga Kependidikan</option>
+                                                @foreach($bagian as $bagian)
+                                                <option value="{{ $bagian->id }}" {{ $pegawai->bagian_pegawai_id == $bagian->id ? 'selected' : '' }}>{{ $bagian->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -257,8 +258,9 @@
                                             <label for="semester">Semester</label>
                                             <select name="semester" id="semester" class="form-control form-control-sm">
                                                 <option value="">-- Semester --</option>
-                                                <option value="Ganjil" {{ $pegawai->semester == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                                                <option value="Genap" {{ $pegawai->semester == 'Genap' ? 'selected' : '' }}>Genap</option>
+                                                @foreach($semester as $sem)
+                                                <option value="{{ $sem->id }}" {{ $pegawai->semester_id == $sem->id ? 'selected' : '' }}>{{ $sem->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

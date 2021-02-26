@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableKelas extends Migration
+class CreateTablePesans extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,18 @@ class CreateTableKelas extends Migration
      */
     public function up()
     {
-        Schema::create('kelas', function (Blueprint $table) {
+        Schema::create('pesans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('tingkatan_kelas_id')->nullable()->unsigned();
-            $table->unsignedBigInteger('pegawai_id')->nullable()->unsigned();
-            $table->unsignedBigInteger('jurusan_id')->nullable()->unsigned();
-            $table->string('name');
-            $table->integer('kapasitas')->nullable();
-            $table->text('keterangan')->nullable();
+            $table->string('judul');
+            $table->enum('notifikasi', ['Yes', 'No']);
+            $table->enum('dashboard', ['Yes', 'No']);
+            $table->enum('message_time', ['Permanen', 'Using Time']);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('message')->nullable();
+            $table->enum('status', ['Aktif', 'TIdak Aktif']);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +37,6 @@ class CreateTableKelas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelas');
+        Schema::dropIfExists('pesans');
     }
 }

@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
 use App\Models\Superadmin\Kecamatan;
+use App\Models\BagianPegawai;
+use App\Models\Semester;
+use Illuminate\Support\Facades\Auth;
 
 class PegawaiController extends Controller
 {
@@ -26,8 +29,6 @@ class PegawaiController extends Controller
         'agama' => ['nullable', 'in:' . PegawaiController::AGAMA_RULE],
         'is_menikah' => ['nullable', 'boolean'],
         'tanggal_mulai' => ['nullable', 'date'],
-        'bagian' => ['in:Guru/Tenaga Pendidik,Teknisi,Laboran,Tenaga Kependidikan'],
-        'semester' => ['nullable', 'in:Genap,Ganjil'],
         'foto' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2000']
     ];
 
@@ -38,9 +39,10 @@ class PegawaiController extends Controller
 
         $provinsis = Provinsi::all();
         $kabupaten = KabupatenKota::all();
-
         $kecamatan  = Kecamatan::all();
-        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'mySekolah' => User::sekolah()]);
+        $bagian = BagianPegawai::where('user_id', Auth::id())->get();
+        $semester = Semester::where('user_id', Auth::id())->get();
+        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
     }
 
     public function getKabupatenKota($id)
@@ -106,9 +108,9 @@ class PegawaiController extends Controller
                     'agama' => $data['agama'],
                     'is_menikah' => $data['is_menikah'],
                     'alamat_tinggal' => $data['alamat_tinggal'],
-                    'provinsi' => $data['provinsi'],
-                    'kabupaten' => $data['kabupaten'],
-                    'kecamatan' => $data['kecamatan'],
+                    'provinsi_id' => $data['provinsi'],
+                    'kabupaten_kota_id' => $data['kabupaten'],
+                    'kecamatan_id' => $data['kecamatan'],
                     'dusun' => $data['dusun'],
                     'rt' => $data['rt'],
                     'rw' => $data['rw'],
@@ -116,9 +118,9 @@ class PegawaiController extends Controller
                     'no_telepon_rumah' => $data['no_telepon_rumah'],
                     'no_telepon' => $data['no_telepon'],
                     'tanggal_mulai' => $data['tanggal_mulai'],
-                    'bagian' => $data['bagian'],
+                    'bagian_pegawai_id' => $data['bagian'],
                     'tahun_ajaran' => $data['tahun_ajaran'],
-                    'semester' => $data['semester'],
+                    'semester_id' => $data['semester'],
                     'foto' => $data['foto']
                 ]);
 
@@ -139,8 +141,13 @@ class PegawaiController extends Controller
 
     public function edit($id) {
         $pegawai = Pegawai::findOrFail($id);
+        $provinsis = Provinsi::all();
+        $kabupaten = KabupatenKota::all();
+        $kecamatan  = Kecamatan::all();
+        $bagian = BagianPegawai::where('user_id', Auth::id())->get();
+        $semester = Semester::where('user_id', Auth::id())->get();
 
-        return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah(), 'provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'bagian' => $bagian, 'semester' => $semester]);
     }
 
     public function update($id, Request $req) {
@@ -161,7 +168,33 @@ class PegawaiController extends Controller
             $currFoto = null;
         }
 
-        $pegawai->update($data);
+        $pegawai->update([
+            'name' => $data['nama_pegawai'],
+            'nip' => $data['nip'],
+            'nik' => $data['nik'],
+            'gelar_depan' => $data['gelar_depan'],
+            'gelar_belakang' => $data['gelar_belakang'],
+            'tempat_lahir' => $data['tempat_lahir'],
+            'tanggal_lahir' => $data['tanggal_lahir'],
+            'jk' => $data['jk'],
+            'agama' => $data['agama'],
+            'is_menikah' => $data['is_menikah'],
+            'alamat_tinggal' => $data['alamat_tinggal'],
+            'provinsi_id' => $data['provinsi'],
+            'kabupaten_kota_id' => $data['kabupaten'],
+            'kecamatan_id' => $data['kecamatan'],
+            'dusun' => $data['dusun'],
+            'rt' => $data['rt'],
+            'rw' => $data['rw'],
+            'kode_pos' => $data['kode_pos'],
+            'no_telepon_rumah' => $data['no_telepon_rumah'],
+            'no_telepon' => $data['no_telepon'],
+            'tanggal_mulai' => $data['tanggal_mulai'],
+            'bagian_pegawai_id' => $data['bagian'],
+            'tahun_ajaran' => $data['tahun_ajaran'],
+            'semester_id' => $data['semester'],
+            'foto' => $data['foto']
+        ]);
 
         if ($req->file('foto') && $currFoto && Storage::disk('public')->exists($currFoto)) {
             Storage::disk('public')->delete($currFoto);

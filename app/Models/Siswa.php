@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\TingkatanKelas;
+use App\Models\Admin\Kelas;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,7 +28,7 @@ class Siswa extends Model
 
     public function kelas()
     {
-        return $this->belongsTo(TingkatanKelas::class, 'id_tingkatan_kelas', 'id');
+        return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
     }
 
     public function absensi() {

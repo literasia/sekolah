@@ -55,7 +55,7 @@ class KelasController extends Controller
         $rules = [
             'name'  => 'required|max:100',
             'tingkat'  => 'required|max:100',
-            'jurusan'  => 'required|max:100',
+            'jurusan'  => 'nullable|max:100',
             'kapasitas' => 'nullable',
             'keterangan' => 'nullable',
         ];
@@ -63,7 +63,6 @@ class KelasController extends Controller
         $message = [
             'name.required' => 'Kolom ini tidak boleh kosong',
             'tingkat.required' => 'Kolom ini tidak boleh kosong',
-            'jurusan.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -79,7 +78,7 @@ class KelasController extends Controller
             'name' => $request->input('name'),
             'tingkatan_kelas_id' => $request->input('tingkat'),
             'pegawai_id' => $request->input('wali_kelas'),
-            'jurusan_id' => $request->input('jurusan'),
+            'jurusan_id' => $request->input('jurusan') ? $request->input('jurusan') : NULL,
             'kapasitas' => $request->input('kapasitas'),
             'keterangan' => $request->input('keterangan'),
             'user_id' => Auth::id()
@@ -105,7 +104,7 @@ class KelasController extends Controller
         $rules = [
             'name'  => 'required|max:100',
             'tingkat'  => 'required|max:100',
-            'jurusan'  => 'required|max:100',
+            'jurusan'  => 'nullable|max:100',
             'kapasitas' => 'nullable',
             'keterangan' => 'nullable',
         ];
@@ -113,7 +112,6 @@ class KelasController extends Controller
         $message = [
             'name.required' => 'Kolom ini tidak boleh kosong',
             'tingkat.required' => 'Kolom ini tidak boleh kosong',
-            'jurusan.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -129,7 +127,7 @@ class KelasController extends Controller
             'name' => $request->input('name'),
             'tingkatan_kelas_id' => $request->input('tingkat'),
             'pegawai_id' => $request->input('wali_kelas'),
-            'jurusan_id' => $request->input('jurusan'),
+            'jurusan_id' => $request->input('jurusan')??"",
             'kapasitas' => $request->input('kapasitas'),
             'keterangan' => $request->input('keterangan'),
         ]);

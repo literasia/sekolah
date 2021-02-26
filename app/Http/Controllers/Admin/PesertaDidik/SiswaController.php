@@ -7,6 +7,7 @@ use App\Models\Siswa;
 use App\Models\SiswaOrangTua;
 use App\Models\SiswaWali;
 use App\Models\TingkatanKelas;
+use App\Models\Admin\Kelas;
 use App\User;
 use App\Utils\CRUDResponse;
 use Carbon\Carbon;
@@ -24,7 +25,7 @@ class SiswaController extends Controller
     private const PENDIDIKAN_RULE = "SD/Sederajat,SMP/MTs/Sederajat,SMA/MA/Sederajat,D1/D2/D3,S1,S2,S3";
     private $siswaRules = [
         'nama_lengkap' => 'required',
-        'kelas' => ['required', 'exists:tingkatan_kelas,id'],
+        'kelas' => ['required', 'exists:kelas,id'],
         'jk' => ['nullable', 'in:Laki-Laki,Perempuan'],
         'agama' => ['nullable', 'in:' . SiswaController::AGAMA_RULE],
         'suku' => ['nullable', 'in:Melayu,Aceh,Batak,Karo,Mandailing,Simalungun,Pak-Pak,Nias,Angkola,Jawa'],
@@ -65,7 +66,7 @@ class SiswaController extends Controller
     public function index() {
         $sekolahId = auth()->user()->id_sekolah;
         $userId = auth()->user()->id;
-        $kelases = TingkatanKelas::where('user_id', $userId)->get();
+        $kelases = Kelas::where('user_id', $userId)->get();
         $users = User::has('siswa')
                 ->where([
                     ['id_sekolah', $sekolahId],
@@ -76,9 +77,9 @@ class SiswaController extends Controller
         $siswas = [];
         foreach ($users as $user) {
             $siswa = $user->siswa;
-            $siswa = $siswa::join('tingkatan_kelas AS kelas', 'siswas.id_tingkatan_kelas', 'kelas.id')
+            $siswa = $siswa::join('kelas', 'siswas.kelas_id', 'kelas.id')
                         ->where('siswas.id', $siswa->id)
-                        ->first(['siswas.*', 'kelas.name']);
+                        ->first(['siswas.*', 'kelas.name AS kelas']);
             $siswas[] = $siswa;
         }
 
@@ -115,7 +116,7 @@ class SiswaController extends Controller
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        $kelas = TingkatanKelas::find($data['kelas']);
+        $kelas = Kelas::find($data['kelas']);
         $kelasId = $kelas['id'];
         $exception = DB::transaction(function () use ($data, $kelasId, $req) {
             $auth = auth()->user();
@@ -128,7 +129,7 @@ class SiswaController extends Controller
                     'nis' => $data['nis'],
                     'nisn' => $data['nisn'],
                     'tanggal_masuk' => $data['tanggal_masuk'],
-                    'id_tingkatan_kelas' => $kelasId,
+                    'kelas_id' => $kelasId,
                     'nama_lengkap' => $data['nama_lengkap'],
                     'nama_panggilan' => $data['nama_panggilan'],
                     'jk' => $data['jk'],
@@ -154,7 +155,7 @@ class SiswaController extends Controller
                     'kode_pos' => $data['kode_pos'],
                     'no_telepon_rumah' => $data['no_telepon_rumah'],
                     'no_telepon' => $data['no_telepon'],
-                    'foto' => $data['foto']
+                    'foto' => $data['foto']??""
                 ])->id;
 
                 $data['tanggal_lahir_ayah'] = Carbon::parse($data['tanggal_lahir_ayah'])->format('Y-m-d');
@@ -252,7 +253,7 @@ class SiswaController extends Controller
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        $kelas = TingkatanKelas::find($data['kelas']);
+        $kelas = Kelas::find($data['kelas']);
         $kelasId = $kelas['id'];
         $exception = DB::transaction(function () use ($data, $kelasId, $id) {
             $auth = auth()->user();
@@ -265,7 +266,7 @@ class SiswaController extends Controller
                     'nis' => $data['nis'],
                     'nisn' => $data['nisn'],
                     'tanggal_masuk' => $data['tanggal_masuk'],
-                    'id_tingkatan_kelas' => $kelasId,
+                    'kelas_id' => $kelasId,
                     'nama_lengkap' => $data['nama_lengkap'],
                     'nama_panggilan' => $data['nama_panggilan'],
                     'jk' => $data['jk'],

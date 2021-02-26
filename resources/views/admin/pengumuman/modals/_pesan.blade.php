@@ -10,12 +10,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form id="form-pesan">
+                    @csrf
                     <div class="row">
                         <div class="col-md-12">
                           <div class="form-group bmd-form-group">
                             <label class="bmd-label-floating">Judul</label>
-                            <input type="text" name="title" id="title" class="form-control form-control-sm" placeholder="judul">
+                            <input type="text" name="judul" id="judul" class="form-control form-control-sm" placeholder="Judul">
                           </div>
                         </div>
                       </div>
@@ -24,7 +25,7 @@
                            <label>Pengaturan Pesan : </label>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="Notification Message" name="message_option[]" checked>
+                                    <input class="form-check-input" type="checkbox" value="Yes" name="notifikasi" checked>
                                     Notifikasi Pesan
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -33,7 +34,7 @@
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="Dashboard Notification" name="message_option[]">
+                                    <input class="form-check-input" type="checkbox" value="Yes" name="dashboard">
                                     Dashboard Notifikasi
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -68,13 +69,13 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="start_date" class="bmd-label-floating">Start Date</label>
-                                       <input type="text" class="form-control form-control-sm" id="start_date" name="start_date" readonly>
+                                       <input type="text" class="form-control form-control-sm" id="start_date" name="start_date" readonly disabled>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="end_date" class="bmd-label-floating">End Date</label>
-                                       <input type="text" class="form-control form-control-sm" id="end_date" name="end_date" readonly>
+                                       <input type="text" class="form-control form-control-sm" id="end_date" name="end_date" readonly disabled>
                                     </div>
                                   </div>
                                 </div>
