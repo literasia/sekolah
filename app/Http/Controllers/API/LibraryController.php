@@ -22,11 +22,16 @@ class LibraryController extends Controller
         }
 
         $libraries = Library::query()->with(['kategori', 'penulis']);
-        
+
         $sekolahId = $req->query('sekolah_id');
         $libraries->when($sekolahId, function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)
                 ->orWhereNull('sekolah_id');
+        });
+
+        $kategoriId = $req->query('kategori_id');
+        $libraries->when($kategoriId, function($query) use ($kategoriId) {
+            return $query->where('kategori_id', $kategoriId);
         });
 
         $q = $req->query('q');

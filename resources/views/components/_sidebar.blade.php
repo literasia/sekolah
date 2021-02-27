@@ -8,7 +8,7 @@
                     </a>
                 @endif
                 @if ($mySekolah->name)
-                    <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah->name }}</h3>
+                    <h3 style="color: white;" class="text-center mt-2">{{ $mySekolah->name ?? ''}}</h3>
                 @endif
             @endif
             <div class="pcoded-navigation-label">Navigation</div>
