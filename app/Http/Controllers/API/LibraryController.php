@@ -47,7 +47,7 @@ class LibraryController extends Controller
                     ->limit(30);
                 break;
             default:
-                $libraries = $libraries;
+                $libraries = $libraries->orderBy('name')->limit(30);
         }
 
         $libraries = $libraries->get();
