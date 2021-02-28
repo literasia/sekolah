@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 use App\Models\TingkatanKelas;
 use App\Models\Siswa;
 use App\Models\Absensi;
+use App\Models\Admin\Kelas;
+use Illuminate\Support\Facades\Auth;
 
 class SiswaController extends Controller
 {
     public function index(Request $request) {
-        $kelas = TingkatanKelas::all();
+        $kelas = Kelas::where('user_id', auth()->id())->get();
+        // dd($kelas);
         $data = [];
 
         if($request->req == 'table') {
@@ -20,7 +23,7 @@ class SiswaController extends Controller
                                  'absensi' => function($q) use($request){
                                      $q->where('tanggal', $request->tanggal)->where('kelas_id', $request->kelas_id);
                                 }])
-                         ->where('id_tingkatan_kelas', $request->kelas_id)
+                         ->where('kelas_id', $request->kelas_id)
                          ->orderBy('nama_lengkap')
                          ->get();
             // return response()->json($data);

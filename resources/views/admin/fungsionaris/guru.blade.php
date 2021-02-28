@@ -206,16 +206,33 @@
             });
 
                 //edit
-            $("#order-table").on('click', '.btn-edit', function(ev, data) {
-                var id = ev.currentTarget.getAttribute('data-id');
-                $.get("{{route('admin.fungsionaris.guru')}}?req=single&id=" + id, function (data, status){
-                    for(key in data) {
-                        $(`#${key}`).val(data[key])
-                    }
+            // $("#order-table").on('click', '.btn-edit', function(ev, data) {
+            //     var id = ev.currentTarget.getAttribute('data-id');
+            //     $.get("{{route('admin.fungsionaris.guru')}}?req=single&id=" + id, function (data, status){
+            //         for(key in data) {
+            //             $(`#${key}`).val(data[key])
+            //         }
 
-                    modal.modal('show');
+            //         modal.modal('show');
+            //     });
+            // })
+
+            $(document).on('click', '.btn-edit', function () {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: '/admin/fungsionaris/guru/edit/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#action').val('edit');
+                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#pegawai_id').val(data.guru.pegawai_id);
+                        $('#status_guru_id').val(data.guru.status_guru_id);
+                        $('#keterangan').val(data.guru.keterangan);
+                        $('#id').val(data.guru.id);
+                        modal.modal('show');
+                    }
                 });
-            })
+            });
 
         });
     </script>

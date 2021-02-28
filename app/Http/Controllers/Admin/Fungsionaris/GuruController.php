@@ -19,12 +19,13 @@ class GuruController extends Controller
             // $data = Guru::latest()->get();
             $data = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
                 ->join('status_gurus', 'gurus.status_guru_id', 'status_gurus.id')
+                ->where('gurus.user_id', Auth::id())
                 // ->first(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status'])
                 ->get(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status']);
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" data-id="' . $data->id . '" class="btn-edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="btn-delete btn btn-mini btn-danger shadow-sm">Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -46,7 +47,7 @@ class GuruController extends Controller
             ]);
 
             $obj = Guru::find($request->id);
-
+            // dd($obj);
             if(!$obj) {
                 $obj = new Guru();
             }
@@ -66,5 +67,15 @@ class GuruController extends Controller
             $obj->delete();
             return response()->json(true);
         }
+    }
+
+    public function edit($id) {
+        $guru = Guru::find($id);
+        // dd($guru);
+
+        // return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah(), 'provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'bagian' => $bagian, 'semester' => $semester]);
+        return response()->json([
+            'guru'  => $guru,
+        ]);
     }
 }

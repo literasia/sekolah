@@ -424,6 +424,7 @@ Route::namespace('Admin')
             ->group(function () {
                 Route::get('/admin/fungsionaris/guru', 'GuruController@index')
                     ->name('fungsionaris.guru');
+                Route::get('/admin/fungsionaris/guru/edit/{id}', 'GuruController@edit');
                 Route::post('/admin/fungsionaris/guru', 'GuruController@write')
                     ->name('fungsionaris.guru.write');
             });
