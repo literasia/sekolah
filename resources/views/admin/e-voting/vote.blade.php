@@ -20,14 +20,12 @@
 @section('content')
 
 
+    @foreach($pemilihans as $pemilihan)
     <div class="row container">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Pemilihan @foreach($pemilihans as $pemilihan)
-                            {{$pemilihan->posisi}}
-                        @endforeach
-                    </h5>
+                    <h5>Pemilihan {{ $pemilihan->posisi }}</h5>
                 </div>
                 <div class="card-block">
                     <div class="row justify-content-center">
@@ -38,7 +36,7 @@
                                     <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
                                 </div>
                                 <div class="card-block">
-                                    <canvas id="myChart" width="284" height="284" style="display: block; width: 284px; height: 284px;"></canvas>
+                                    <canvas id="myChart{{ $pemilihan->id }}" width="284" height="284" style="display: block; width: 284px; height: 284px;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -47,6 +45,9 @@
             </div>
         </div>
     </div>
+    @endforeach
+
+
 @endsection
 
 {{-- addons css --}}
@@ -74,14 +75,13 @@
         "use strict";
         $(document).ready(function(){
         /*Doughnut chart*/
-        var ctx = document.getElementById("myChart");
-        var data = {
+        @foreach ($names as $nc)
+        var ctx{{ $nc->id }} = document.getElementById("myChart{{ $nc->id }}");
+        var data{{ $nc->id }} = {
             labels: [
-                @foreach ($names as $nc)
                     @foreach($nc->calons as $calon)
                         "{{ $calon->name }}",
                     @endforeach
-                @endforeach
             ],
             datasets: [{
                 data: [
@@ -111,10 +111,11 @@
             }]
         };
 
-        var myDoughnutChart = new Chart(ctx, {
+        var myDoughnutChart = new Chart(ctx{{$nc->id}}, {
             type: 'doughnut',
-            data: data
+            data: data{{$nc->id}}
         });
+        @endforeach
 
     });
     </script>

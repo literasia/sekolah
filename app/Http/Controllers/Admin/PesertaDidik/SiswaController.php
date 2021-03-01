@@ -29,9 +29,9 @@ class SiswaController extends Controller
         $poin_sp = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->get();
         foreach ($siswas as $siswa) {
             foreach ($poin_sp as $psp) {
-                if ($siswa['poin'] <= $psp['poin']) {
+                // if ($siswa['poin'] <= $psp['poin']) {
                     $siswa['poin_sp'] = $siswa['poin']."/".$psp['poin'];
-                }
+                // }
             }
         }
         return view('admin.pesertadidik.siswa', [

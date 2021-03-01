@@ -215,6 +215,7 @@
                         $('#siswa_id').val(data.siswa_id.siswa_id);
                         $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
                         $('#pelanggaran').val(data.pelanggaran.pelanggaran);
+                        $('#poin_lama').val(data.poin.poin);
                         $('#poin').val(data.poin.poin);
                         $('#sebab').val(data.sebab.sebab);
                         $('#sanksi').val(data.sanksi.sanksi);

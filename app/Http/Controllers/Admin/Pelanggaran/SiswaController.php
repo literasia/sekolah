@@ -120,11 +120,9 @@ class SiswaController extends Controller
         }
 
         $siswa = Siswa::find($request->input('siswa_id'));
-        if ($siswa->poin <= $request->input('poin') && $request->input('poin') >= $siswa->poin) {
-            $siswa->poin -= $request->input('poin');
-        }elseif ($siswa->poin >= $request->input('poin') && $request->input('poin') <= $siswa->poin) {
-            $siswa->poin += $request->input('poin');
-        }
+        $siswa->poin -= $request->input('poin_lama');
+        $siswa->poin += $request->input('poin');
+
         $siswa->save();
         $status = PelanggaranSiswa::whereId($request->input('hidden_id'))->update([
             'siswa_id'  			=> $request->input('siswa_id'),
@@ -145,8 +143,11 @@ class SiswaController extends Controller
     }
 
     public function destroy($id) {
-        $sanksi = PelanggaranSiswa::find($id);
-        $sanksi->delete();
+        $pelanggaran = PelanggaranSiswa::find($id);
+        $siswa = Siswa::whereId($pelanggaran->siswa_id)->first();
+        $siswa->poin -= $pelanggaran->poin;
+        $siswa->save();
+        $pelanggaran->delete();
     }
 
 }
