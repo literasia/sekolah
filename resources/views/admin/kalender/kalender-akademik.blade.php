@@ -35,11 +35,14 @@
     </div>
 @endsection
 
+{{-- @include('admin.pelanggaran.modals._kalender') --}}
+
+
 {{-- addons css --}}
 @push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.print.css') }}" media='print'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.print.css') }}" media='print'>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -52,8 +55,14 @@
     <script type="text/javascript" src="{{ asset('bower_components/moment/js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/fullcalendar/js/fullcalendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/pages/full-calender/calendar.js') }}"></script>
-    <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
     <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script> --}}
+    <script>
+        $('#calendar').on('click', function () {
+            $('#modal-siswa').modal('show');
+        });
+
+    </script>
 @endpush

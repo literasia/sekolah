@@ -184,8 +184,8 @@
                     url: '/admin/e-voting/calon/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#nama_calon').val(data.nama_calon.name);
-                        $('#hidden_id').val(data.nama_calon.id);
+                        $('#nama_calon').val(data.calon_id.name);
+                        $('#hidden_id').val(data.calon_id.id);
                         $('#action').val('edit');
                         $('#btn')
                             .removeClass('btn-outline-success')

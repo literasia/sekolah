@@ -15,6 +15,7 @@ class CreateVotingTable extends Migration
     {
         Schema::create('votings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('pemilihan_id')->unsigned();
             $table->bigInteger('calon_id')->unsigned();
             $table->string('id_user');
             $table->softDeletes();

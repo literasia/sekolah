@@ -10,6 +10,8 @@ use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Utils\CRUDResponse;
+
 
 
 class BeritaController extends Controller
@@ -50,6 +52,14 @@ class BeritaController extends Controller
     	return view('superadmin.berita.berita', ['no'=>$no, 'katbe' => $katbe, 'data' =>$data]);
     }
 
+    public function edit($id) {
+        $berita = Berita::find($id);
+        $katbe = KategoriBerita::all();
+        return view('superadmin.berita.berita_edit', [
+            'berita' => $berita, 'katbe' => $katbe
+        ]);
+    }
+
     public function store(Request $req) {
         // dd($req->thumbnail);
 
@@ -77,5 +87,42 @@ class BeritaController extends Controller
         ]);
 
     }
+
+    public function update($id, Request $req) {
+        $data = $req->all();
+
+        $validator = Validator::make($data, $this->rules);
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors()->all())->withInput();
+        }
+
+        $berita = Berita::findOrFail($id);
+        $data['thumbnail'] = null;
+        if ($req->file('thumbnail')) {
+            $data['thumbnail'] = $req->file('thumbnail')->store('berita', 'public');
+        }
+
+        Berita::whereId($id)->update([
+            'name' => $data['judul'],
+            'kategori' => $data['kategori'],
+            'isi' => $data['isi'],
+            'thumbnail' => $data['thumbnail'] ?? $berita->thumbnail
+        ]);
+        
+        if ($req->file('thumbnail') && $berita->thumbnail && Storage::disk('public')->exists($berita->thumbnail)) {
+            Storage::disk('public')->delete($berita->thumbnail);
+        }
+
+        return redirect()->route('superadmin.berita.berita')->with(CRUDResponse::successUpdate("Berita"));
+    }
+
+    public function destroy($id) {
+        $berita = Berita::find($id);
+        $berita->delete();
+        if ($berita->thumbnail && Storage::disk('public')->exists($berita->thumbnail)) {
+            Storage::disk('public')->delete($berita->thumbnail);
+        }
+    }
+
 
 }

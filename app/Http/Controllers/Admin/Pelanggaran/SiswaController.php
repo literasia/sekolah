@@ -76,6 +76,7 @@ class SiswaController extends Controller
     }
 
     public function edit($id) {
+        $siswa_id = PelanggaranSiswa::find($id);
         $nama_siswa = PelanggaranSiswa::find($id);
         $tanggal_pelanggaran = PelanggaranSiswa::find($id);
         $pelanggaran = PelanggaranSiswa::find($id);
@@ -87,6 +88,7 @@ class SiswaController extends Controller
 
         return response()
             ->json([
+                'siswa_id'  => $siswa_id,
                 'nama_siswa'  => $nama_siswa,
                 'tanggal_pelanggaran'  => $tanggal_pelanggaran,
                 'pelanggaran'  => $pelanggaran,
@@ -101,11 +103,11 @@ class SiswaController extends Controller
     public function update(Request $request) {
         // validasi
         $rules = [
-            'nama_siswa'  => 'required|max:50',
+            'siswa_id'  => 'required|max:50',
         ];
 
         $message = [
-            'nama_siswa.required' => 'Kolom ini tidak boleh kosong',
+            'siswa_id.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -117,8 +119,16 @@ class SiswaController extends Controller
                 ]);
         }
 
+        $siswa = Siswa::find($request->input('siswa_id'));
+        if ($siswa->poin <= $request->input('poin') && $request->input('poin') >= $siswa->poin) {
+            $siswa->poin -= $request->input('poin');
+        }elseif ($siswa->poin >= $request->input('poin') && $request->input('poin') <= $siswa->poin) {
+            $siswa->poin += $request->input('poin');
+        }
+        $siswa->save();
         $status = PelanggaranSiswa::whereId($request->input('hidden_id'))->update([
-            'nama_siswa'  			=> $request->input('nama_siswa'),
+            'siswa_id'  			=> $request->input('siswa_id'),
+            'nama_siswa'            => $siswa->nama_lengkap,
             'tanggal_pelanggaran'  	=> $request->input('tanggal_pelanggaran'),
             'pelanggaran'  			=> $request->input('pelanggaran'),
             'poin'  				=> $request->input('poin'),

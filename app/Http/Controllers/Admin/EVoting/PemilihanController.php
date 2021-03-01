@@ -94,13 +94,16 @@ class PemilihanController extends Controller
 
     public function edit($id) {
         $data = Pemilihan::find($id);
+        $nama_calon = [];
+        $nama_calon = Pemilihan::find($id)->calons;
         return response()
             ->json([
-                'name'          => $data['name'],
-                'posisi'        => $data['posisi'],
-                'sekolah_id'        => $data['sekolah_id'],
-                'start_date'    => $data['start_date'] ?? "",
-                'end_date'      => $data['end_date'] ?? "",
+                'name'          => $nama_calon,
+                'pemilihan_id'  => $data->id,
+                'posisi'        => $data->posisi,
+                'sekolah_id'    => $data->sekolah_id,
+                'start_date'    => $data->start_date,
+                'end_date'      => $data->end_date
             ]);
     }
 
@@ -124,19 +127,28 @@ class PemilihanController extends Controller
                 ]);
         }
 
+        $sekolah_id = auth()->user()->id_sekolah;
+
         $tglMulai = explode("-", $data['tanggal_mulai']);
         $tglSelesai = explode("-", $data['tanggal_selesai']);
         $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
         $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
 
         $status = Pemilihan::whereId($request->input('hidden_id'))->update([
-            'no_urut'          => $request->input('no_urut'),
-            'name'          => $request->input('nama_calon'),
-            'posisi'        => $request->input('posisi'),
-            'sekolah_id'        => $data['sekolah_id'],
+            'posisi'        => $data['posisi'],
+            'sekolah_id'    => $sekolah_id,
             'start_date'    => $newTglMulai,
             'end_date'      => $newTglSelesai
         ]);
+
+        $pemilihan = Pemilihan::whereId($request->input('hidden_id'))->first();
+        // dd($pemilihan);
+
+        $pemilihan->calons()->detach();
+
+        foreach ($request->input('nama_calon') as $nama_calon) {
+            $pemilihan->calons()->attach($nama_calon);
+        }
 
         return response()
             ->json([

@@ -19,8 +19,8 @@ class CalonController extends Controller
             $data = Calon::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    // $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button = '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -62,22 +62,22 @@ class CalonController extends Controller
     }
 
     public function edit($id) {
-        $tingkat = Calon::find($id);
+        $calon_id = Calon::find($id);
 
         return response()
             ->json([
-                'nama_calon'  => $tingkat
+                'calon_id'  => $calon_id
             ]);
     }
 
     public function update(Request $request) {
         // validasi
         $rules = [
-            'nama_calon'  => 'required|max:50',
+            'calon_id'  => 'required|max:50',
         ];
 
         $message = [
-            'nama_calon.required' => 'Kolom ini tidak boleh kosong',
+            'calon_id.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -90,8 +90,7 @@ class CalonController extends Controller
         }
 
         $status = Calon::whereId($request->input('hidden_id'))->update([
-            'name'  => $request->input('nama_calon'),
-            'user_id' => $request->input('user_id')
+            'name'  => $request->input('nama_calon')
         ]);
 
         return response()

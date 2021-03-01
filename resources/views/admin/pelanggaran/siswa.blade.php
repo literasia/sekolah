@@ -212,7 +212,7 @@
                     success: function (data) {
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#nama_siswa').val(data.nama_siswa.nama_siswa);
+                        $('#siswa_id').val(data.siswa_id.siswa_id);
                         $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
                         $('#pelanggaran').val(data.pelanggaran.pelanggaran);
                         $('#poin').val(data.poin.poin);
@@ -222,6 +222,10 @@
                         $('#keterangan').val(data.keterangan.keterangan);
                         $('#hidden_id').val(data.nama_siswa.id);
                         $('#modal-siswa').modal('show');
+                        $('#btn')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Update');
                     }
                 });
             });
