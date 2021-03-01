@@ -24,6 +24,15 @@ Route::get('/dbal', function () {
     return "Composer success";
 });
 
+Route::middleware('auth')->group(function(){
+    Route::get('/superadmin/referensi/provinsi/getKabupatenKota', 'Superadmin\Referensi\ProvinsiController@getKabupatenKota')
+        ->name('superadmin.referensi.provinsi-getKabupatenKota');
+    Route::get('/superadmin/referensi/kabupaten-kota/getSchools', 'Superadmin\Referensi\KabupatenKotaController@getSchools')
+        ->name('superadmin.referensi.kabupaten-kota-getSchools');
+    Route::get('/superadmin/referensi/kabupaten-kota/getKecamatans', 'Superadmin\Referensi\KabupatenKotaController@getKecamatans')
+        ->name('superadmin.referensi.kabupaten-kota-getKecamatans');
+});
+
 Route::namespace('Guru')
     ->name('guru.')
     ->group(function () {
@@ -203,8 +212,6 @@ Route::namespace('Superadmin')
                 Route::get('/superadmin/referensi/status-nikah/hapus/{id}', 'StatusNikahController@destroy');
 
                 // Provinsi
-                Route::get('/superadmin/referensi/provinsi/getKabupatenKota', 'ProvinsiController@getKabupatenKota')
-                    ->name('referensi.provinsi-getKabupatenKota');
                 Route::get('/superadmin/referensi/provinsi', 'ProvinsiController@index')
                     ->name('referensi.provinsi');
                 Route::post('/superadmin/referensi/provinsi', 'ProvinsiController@store');
@@ -215,8 +222,6 @@ Route::namespace('Superadmin')
 
 
                 // Kabupaten/Kota
-                Route::get('/superadmin/referensi/kabupaten-kota/getSchools', 'KabupatenKotaController@getSchools')
-                    ->name('referensi.kabupaten-kota-getSchools');
                 Route::get('/superadmin/referensi/kabupaten-kota', 'KabupatenKotaController@index')
                     ->name('referensi.kabupaten-kota');
                 Route::post('/superadmin/referensi/kabupaten-kota', 'KabupatenKotaController@store');

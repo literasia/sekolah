@@ -124,9 +124,9 @@
                                 <label for="kabupaten">Kabupaten / Kota</label>
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
                                     <option value="">-- Kabupaten / Kota --</option>
-                                    @foreach($kabupaten as $kab)
-                                    <option value="{{ $kab->id }}">{{ $kab->name }}</option>
-                                    @endforeach
+                                    {{-- @foreach($kabupaten as $kab) --}}
+                                    {{-- <option value="{{ $kab->id }}">{{ $kab->name }}</option> --}}
+                                    {{-- @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -137,9 +137,9 @@
                                 <label for="kecamatan">Kecamatan</label>
                                 <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
                                     <option value="">-- Kecamatan --</option>
-                                    @foreach($kecamatan as $kec)
-                                    <option value="{{ $kec->id }}">{{ $kec->name }}</option>
-                                    @endforeach
+                                    {{-- @foreach($kecamatan as $kec) --}}
+                                    {{-- <option value="{{ $kec->id }}">{{ $kec->name }}</option> --}}
+                                    {{-- @endforeach --}}
                                 </select>
                             </div>
                         </div>

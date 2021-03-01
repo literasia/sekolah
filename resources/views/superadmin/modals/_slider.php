@@ -38,6 +38,9 @@
                                 <label for="sekolah">Sekolah</label>
                                 <select name="sekolah[]" id="sekolah" class="form-control form-control-sm" multiple>
                                     <option value="">-- Pilih Kabupaten Dahulu --</option>
+                                    <!-- @foreach($ck as $cakan)
+                                    <option value="{{ $cakan->name }}">{{ $cakan->name }}</option>
+                                    @endforeach -->
                                 </select>
                             </div>
                         </div>

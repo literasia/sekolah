@@ -50,12 +50,6 @@ class PegawaiController extends Controller
         return response()->json($kabupaten);
     }
 
-    public function getKecamatan($id)
-    {
-        $kecamatan = KabupatenKota::find($id)->kecamatans;
-        return response()->json($kecamatan);
-    }
-
     public function store(Request $req) {
         $data = $req->all();
         $validator = Validator::make($data, $this->pegawaiRules);

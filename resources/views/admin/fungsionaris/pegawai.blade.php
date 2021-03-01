@@ -105,6 +105,42 @@
             } catch(e) {
                 console.error(e);
             }
+
+            $("#provinsi").change(function(){
+                _this = $(this);
+                $.ajax({
+                    url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
+                    dataType: 'JSON',
+                    data: {provinsi_id:_this.val()},
+                    success: function (data) {
+                        $("#kabupaten").html("");
+                        var options = "";
+                        for (let key in data) {
+                            options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        }
+                        $("#kabupaten").html(options);
+                        $("#kabupaten").change();
+                    }
+                });
+            });
+
+            $("#kabupaten").change(function(){
+                _this = $(this);
+                $.ajax({
+                    url: '{{ route('superadmin.referensi.kabupaten-kota-getKecamatans') }}',
+                    dataType: 'JSON',
+                    data: {kabupaten_kota_id:_this.val()},
+                    success: function (data) {
+                        $("#kecamatan").html("");
+                        var options = "";
+                        for (let key in data) {
+                            options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        }
+                        $("#kecamatan").html(options);
+                    }
+                });
+            });
+
             $('#add').on('click', function () {
                 $('#modal-pegawai').modal('show');
             });
