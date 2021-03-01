@@ -145,7 +145,7 @@
             }
         });
 
-        $('#form-kelas').on('submit', function (event) {
+        $('#form-pesan').on('submit', function (event) {
             event.preventDefault();
             var url = '';
 

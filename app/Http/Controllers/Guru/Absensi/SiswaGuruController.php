@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Guru\Absensi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\TingkatanKelas;
+use App\Models\Admin\Kelas;
 use App\Models\Siswa;
 use App\Models\Absensi;
 
 class SiswaGuruController extends Controller
 {
     public function index(Request $request) {
-        $kelas = TingkatanKelas::all();
+        $kelas = Kelas::all();
         $data = [];
 
         if($request->req == 'table') {
@@ -19,7 +19,7 @@ class SiswaGuruController extends Controller
                                  'absensi' => function($q) use($request){
                                      $q->where('tanggal', $request->tanggal)->where('kelas_id', $request->kelas_id);
                                 }])
-                         ->where('id_tingkatan_kelas', $request->kelas_id)
+                         ->where('kelas_id', $request->kelas_id)
                          ->orderBy('nama_lengkap')
                          ->get();
             // return response()->json($data);

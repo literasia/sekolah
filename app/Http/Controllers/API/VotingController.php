@@ -30,14 +30,29 @@ class VotingController extends Controller
 
     public function hasVote(Request $req) {
         $data = $req->all();
-        
-        $hasVote = Voting::where('id_user', $data['user_id'])->count();
+
+        $hasVote = Voting::where([
+            ['id_user', $data['user_id']],
+            ['pemilihan_id', $data['pemilihan_id']]
+        ])->count();
         return response()->json(ApiResponse::success([
             'has_vote' => ($hasVote > 0)
         ]));
     }
 
     public function posisiKandidat(Request $req) {
+        $data = $req->all();
+        $posisis = Posisi::query();
+
+        $sekolahId = $req->query('sekolah_id');
+        $posisis->when($sekolahId, function($query) use ($sekolahId) {
+            return $query->where('sekolah_id', $sekolahId);
+        });
+
+        return response()->json(ApiResponse::success($posisis->get()));
+    }
+
+    public function calonKandidat(Request $req) {
         $data = $req->all();
 
         $calonPemilihan = CalonPemilihan::query();
@@ -51,6 +66,10 @@ class VotingController extends Controller
             $calons[] = $cp->calon;
         }
         return response()->json(ApiResponse::success($calons));
+    }
+
+    public function getHasilVoting(Request $req) {
+        return response()->json(ApiResponse::success($this->hasilVoting($req)));
     }
 
     public function hasilVoting(Request $request){
@@ -69,7 +88,8 @@ class VotingController extends Controller
                 $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
                 $counts->push(['name'=>$calon->name, 'total'=>$hasil]);
             }
-                return response()->json(ApiResponse::success($counts));
+            return $counts;
+                // return response()->json(ApiResponse::success($counts));
         }
 
 

@@ -69,16 +69,22 @@
                                 </thead>
                                 <tbody class="text-left">
                                     @foreach($data as $obj)
-                                    <tr>
-                                        <td>{{ $obj->nama_lengkap }}</td>
-                                        <td>{{ $obj->kelas->name ?? '' }}</td>
-                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'H']) </td>
-                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'A']) </td>
-                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'S']) </td>
-                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'I']) </td>
-                                        <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'L']) </td>
-                                        <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
-                                    </tr>
+                                        @if ($obj->absensis == '')
+                                        <tr>
+                                            <td colspan="8">Data Kosong</td>
+                                        </tr>
+                                        @else
+                                        <tr>
+                                            <td>{{ $obj->nama_lengkap }}</td>
+                                            <td>{{ $obj->kelas->name ?? '' }}</td>
+                                            <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'H']) </td>
+                                            <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'A']) </td>
+                                            <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'S']) </td>
+                                            <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'I']) </td>
+                                            <td>@include('admin.absensi.rekap-siswa-table-cell-status', ['absensis' => $obj->absensis, 'status' => 'L']) </td>
+                                            <td><button class="btn btn-success shadow-sm nobradius" type="button" disabled>Cetak</button></td>
+                                        </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

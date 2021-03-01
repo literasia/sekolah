@@ -25,7 +25,7 @@
                                 <label for="posisi">Kabupaten / Kota</label>
                                 <select name="kabupaten_kota" id="kabupaten_kota" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
-                                    <?php 
+                                    <?php
                                         foreach($cities as $city){
                                     ?>
                                         <option value="<?= $city->id ?>"><?= $city->name ?></option>
@@ -38,6 +38,7 @@
                                 <label for="sekolah">Sekolah</label>
                                 <select name="sekolah[]" id="sekolah" class="form-control form-control-sm" multiple>
                                     <option value="">-- Pilih Kabupaten Dahulu --</option>
+
                                 </select>
                             </div>
                         </div>

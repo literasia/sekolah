@@ -212,7 +212,7 @@
                     success: function (data) {
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#nama_siswa').val(data.nama_siswa.nama_siswa);
+                        $('#siswa_id').val(data.nama_siswa.siswa_id);
                         $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
                         $('#pelanggaran').val(data.pelanggaran.pelanggaran);
                         $('#poin').val(data.poin.poin);

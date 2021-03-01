@@ -89,7 +89,7 @@ class PegawaiController extends Controller
                 $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
                 $data['tanggal_mulai'] = Carbon::parse($data['tanggal_mulai'])->format('Y-m-d');
                 $pegawai = Pegawai::create([
-                    'user_id' => $auth['id'],
+                    'user_id' => $userId,
                     'name' => $data['nama_pegawai'],
                     'nip' => $data['nip'],
                     'nik' => $data['nik'],
