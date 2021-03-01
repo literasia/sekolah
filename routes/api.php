@@ -37,6 +37,7 @@ Route::namespace('API')
         Route::get('hasil-voting', 'VotingController@getHasilVoting');
         Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
         Route::get('absensi', 'AbsensiController@read');
+        Route::post('absensi', 'AbsensiController@write');
 
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');

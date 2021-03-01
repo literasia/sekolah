@@ -14,7 +14,7 @@ class JenjangPegawaiController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = JenjangPegawai::latest()->get();
+            $data = JenjangPegawai::where('user_id', auth()->id())->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';

@@ -63,8 +63,8 @@ class AuthController extends Controller
         }
 
         $user = User::where('username', $data['username'])->first();
-        $pegawai = $user;
-        // $pegawai = Pegawai::where('user_id', $user->id)->first();
+        // $pegawai = $user;
+        $pegawai = Pegawai::where('user_id', $user->id)->first();
         $sekolah = Sekolah::find($user->id_sekolah);
 
         $pegawai['nama_lengkap'] = $pegawai['name'];

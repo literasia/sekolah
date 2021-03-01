@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Kelas;
 use App\Models\TingkatanKelas;
-use App\Models\Pegawai;
+use App\Models\{Pegawai, Guru};
 use App\Models\Admin\Jurusan;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +26,7 @@ class KelasController extends Controller
                 ->where('kelas.user_id', Auth::id())
                 ->get(['kelas.*', 'pegawais.name AS wali_kelas', 'jurusans.name AS jurusan']);
             // $data = Kelas::all();
+            // dd($data);
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -41,12 +42,13 @@ class KelasController extends Controller
             ->where('kelas.user_id', Auth::id())
             ->get(['kelas.*', 'pegawais.name AS guru', 'jurusans.name AS jurusan']);
         $pegawai = Pegawai::join('gurus', 'pegawais.id', 'gurus.pegawai_id')
-            ->where('gurus.user_id', Auth::id())
+            ->where('pegawais.user_id', Auth::id())
             ->get();
+        $gurus = Guru::where('user_id', Auth::id())->get();
         $tingkat = TingkatanKelas::where('user_id', Auth::id())->latest()->get();
         $jurusan = Jurusan::where('user_id', Auth::id())->latest()->get();
 
-        return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'jurusan' => $jurusan, 'pegawai' => $pegawai, 'mySekolah' => User::sekolah()]);
+        return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'jurusan' => $jurusan, 'gurus' => $gurus, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request)

@@ -52,8 +52,8 @@
                                         <label for="wali_kelas">Wali Kelas</label>
                                         <select name="wali_kelas" id="wali_kelas" class="form-control form-control-sm">
                                             <option value="">-- Wali Kelas --</option>
-                                            @foreach($pegawai as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                            @foreach($gurus as $guru)
+                                            <option value="{{$guru->pegawai_id}}">{{$guru->pegawai->name}}</option>
                                             @endforeach
                                         </select>
                                         <span id="form_result" class="text-danger"></span>
