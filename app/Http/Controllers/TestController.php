@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pegawai;
+use App\Models\Guru;
+use App\User;
 
 class TestController extends Controller
 {
     public function __invoke(Request $request) {
         
-        $pegawai = Pegawai::with('user')->findOrFail(1);
+        $data = Guru::with('pegawai.akun')->where('pegawai_id', 5)->firstOrFail();
 
-        dump($pegawai->user);
+        return response()->json($data);
     }
 }

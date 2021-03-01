@@ -45,7 +45,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="status_guru_id">Wali Kelas</label>
-                                            <select name="kelas_id" id="status_guru_id" class="form-control form-control-sm">
+                                            <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
                                                 <option value="">-- Pilih kelas jika guru merupakan wali kelas --</option>
                                                 @foreach($kelas as $obj)
                                                 <option value="{{ $obj->id }}">{{ $obj->name }}</option>

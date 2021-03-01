@@ -16,7 +16,13 @@ class GuruController extends Controller
 {
     //read
     public function index(Request $request) {
-        if ($request->ajax()) {
+
+        if($request->req == 'single') {
+            $data = Guru::with('pegawai.akun')->findOrFail($request->id);
+            return response()->json($data);
+        }
+
+        if ($request->req == 'table') {
             // $data = Guru::latest()->get();
             $data = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
                 ->join('status_gurus', 'gurus.status_guru_id', 'status_gurus.id')
@@ -34,7 +40,7 @@ class GuruController extends Controller
         }
         $pegawai = Pegawai::where('user_id', Auth::id())->latest()->get();
         $status = StatusGuru::where('user_id', Auth::id())->latest()->get();
-        $kelas = TingkatanKelas::all();
+        $kelas = TingkatanKelas::where('user_id', Auth::id())->get();
 
         return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'mySekolah' => User::sekolah(), 'kelas' => $kelas]);
     }
@@ -50,6 +56,11 @@ class GuruController extends Controller
             $obj = Guru::find($request->id);
 
             if(!$obj) {
+                // validasi guru tersebut sudah dicreate
+                $exist = Guru::where('pegawai_id', $request->pegawai_id)->first();
+                if($exist) {
+                    return response()->json('GAGAL! Guru yang bersangkutan sudah ada. Silahkan edit jika terdapat kesalahan', 403);
+                }
                 $obj = new Guru();
             }
 
@@ -61,9 +72,9 @@ class GuruController extends Controller
             $obj->save();
             
             if($request->kelas_id) {
-                $pegawai = Pegawai::with('user')->findOrFail($request->pegawai_id);
-                $pegawai->user->kelas = $request->kelas_id;
-                $pegawai->user->save();
+                $pegawai = Pegawai::with('akun')->findOrFail($request->pegawai_id);
+                $pegawai->akun->kelas = $request->kelas_id;
+                $pegawai->akun->save();
 
                 return response()->json($pegawai->user);
             }            

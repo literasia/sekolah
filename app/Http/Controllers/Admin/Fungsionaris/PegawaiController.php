@@ -99,7 +99,8 @@ class PegawaiController extends Controller
                     'bagian' => $data['bagian'],
                     'tahun_ajaran' => $data['tahun_ajaran'],
                     'semester' => $data['semester'],
-                    'foto' => $data['foto']
+                    'foto' => $data['foto'],
+                    'akun_id' => $userId
                 ]);
 
                 DB::commit();

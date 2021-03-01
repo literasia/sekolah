@@ -19,6 +19,7 @@ class AbsensiController extends Controller
                                 }])
                          ->where('id_tingkatan_kelas', $request->kelas_id)
                          ->orderBy('nama_lengkap')
+                        //  ->select('id', 'nama_lengkap', 'id_tingkatan_kelas')
                          ->get();
             
                          return ResponseFormatter::success($data);
@@ -31,10 +32,25 @@ class AbsensiController extends Controller
                          ->with(['absensis' => function($q) use($request){
                              $q->where('tanggal', '>=', $request->tanggal_mulai)
                                ->where('tanggal', '<=', $request->tanggal_selesai);
-                         }])->get();
+                         }])
+                        //  ->select('id', 'nama_lengkap', 'id_tingkatan_kelas')
+                         ->get();
                          
                          return ResponseFormatter::success($data);
         }
+        elseif($request->req == 'siswa') {
+            $data = Siswa::with('kelas')
+                        ->orderBy('nama_lengkap')
+                         ->with(['absensis' => function($q) use($request){
+                             $q->where('tanggal', '>=', $request->tanggal_mulai)
+                               ->where('tanggal', '<=', $request->tanggal_selesai);
+                         }])
+                        //  ->select('id', 'nama_lengkap', 'id_tingkatan_kelas')
+                         ->find($request->siswa_id);
+                         
+                         return ResponseFormatter::success($data);
+        }
+
     }
 
     public function write(Request $request) {

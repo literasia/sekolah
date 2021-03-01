@@ -172,7 +172,7 @@
 
             });
             //delete done
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {
+            $("#order-table").on('click', '.delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
                     title: 'Konfirmasi Hapus',
@@ -206,12 +206,20 @@
             });
 
                 //edit
-            $("#order-table").on('click', '.btn-edit', function(ev, data) {
+            $("#order-table").on('click', '.edit', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 $.get("{{route('admin.fungsionaris.guru')}}?req=single&id=" + id, function (data, status){
-                    for(key in data) {
-                        $(`#${key}`).val(data[key])
-                    }
+                    // for(key in data) {
+                    //     $(`#${key}`).val(data[key])
+                    // }
+                    $("input[name=id]").val(data.id);
+                    $("select[name=pegawai_id]").val(data.pegawai_id);
+                    $("select[name=status_guru_id]").val(data.status_guru_id);
+                    console.log(data.pegawai.akun.kelas);
+                    if(data.pegawai && data.pegawai.akun) {
+                        $("select[name=kelas_id]").val(data.pegawai.akun.kelas);
+                    }                    
+                    $("textarea[name=keterangan]").val(data.keterangan);                
 
                     modal.modal('show');
                 });
