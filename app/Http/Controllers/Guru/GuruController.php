@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class GuruController extends Controller
 {
     public function index() {
+    	// dd(auth()->user()->pegawai->access->kalender);
         return view('guru.index');
     }
 }

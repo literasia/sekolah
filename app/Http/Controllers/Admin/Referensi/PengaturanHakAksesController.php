@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class PengaturanHakAksesController extends Controller
 {
     public function index() {
-    	$pegawais = Pegawai::where(['user_id'=>auth()->user()->id])->get();
+    	// $pegawais = Pegawai::where(['user_id'=>auth()->user()->id])->get();
+        $pegawais = Pegawai::whereHas('user', function($q) {
+            return $q->whereIdSekolah(auth()->user()->id_sekolah);
+        })->get();
     	// dd($pegawais[0]->access);
         return view('admin.referensi.pengaturan-hak-akses', [
         	'mySekolah' => User::sekolah(),

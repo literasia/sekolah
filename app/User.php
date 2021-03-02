@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Siswa;
 use App\Models\Admin\Kelas;
 use App\Models\Superadmin\Sekolah;
+use App\Models\Pegawai;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -67,5 +68,10 @@ class User extends Authenticatable
 
     public function kelases() {
         return $this->hasMany(Kelas::class);
+    }
+
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class);
     }
 }
