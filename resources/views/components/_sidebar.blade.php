@@ -110,7 +110,7 @@
                         </li>
                         <li class="{{ request()->is('admin/e-voting/vote') ? 'active' : '' }}">
                             <a href="{{ route('admin.e-voting.vote') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Vote</span>
+                                <span class="pcoded-mtext">Hasil Vote</span>
                             </a>
                         </li>
                     </ul>

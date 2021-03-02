@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pengumuman.pengumuman') }}
+    {{ route('admin.pengumuman.pesan') }}
 @endsection
 
 {{-- main content --}}
