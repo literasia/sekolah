@@ -27,10 +27,10 @@ class MataPelajaranController extends Controller
     }
 
     public function write(Request $request) {
-        
+
         if($request->req == 'write') {
             $obj = MataPelajaran::find($request->id);
-            
+
             if(!$obj){
                 $obj = new MataPelajaran();
             }
@@ -41,19 +41,19 @@ class MataPelajaranController extends Controller
             $obj->aktif = $request->aktif;
             $obj->keterangan = $request->keterangan;
             $obj->sekolah_id = $request->sekolah_id;
-            return $obj->save() ? 
-                 ResponseFormatter::success($obj, 'Data berhasil disimpan') : ResponseFormatter::error(null, 'Something went wrong'); 
-            
+            return $obj->save() ?
+                 ResponseFormatter::success($obj, 'Data berhasil disimpan') : ResponseFormatter::error(null, 'Something went wrong');
+
         }
         elseif($request->req == 'delete') {
             $obj = MataPelajaran::find($request->id);
             if(!$obj)
                 return ResponseFormatter::error(null, 'Data tidak ditemukan');
-            
+
             $obj->delete();
 
             return ResponseFormatter::success('Data telah dihapus');
         }
     }
-    
+
 }
