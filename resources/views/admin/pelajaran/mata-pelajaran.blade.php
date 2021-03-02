@@ -29,7 +29,7 @@
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label for="nama_pelajaran">Nama Pelajaran</label>
-                                        <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran" required>
+                                        <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran">
                                         <span id="form_result" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -79,9 +79,10 @@
                             <br>
                             <div class="row">
                                 <div class="col">
-                                    <input type="hidden" name="id" id="id">
+                                    <input type="hidden" name="hidden_id" id="hidden_id">
+                                    <input type="hidden" id="action" val="add">
                                     <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-danger" id="reset">Batal</button>
+                                    <button type="reset" class="btn btn-sm btn-danger">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -209,22 +210,45 @@
 
             $('#form-pelajaran').on('submit', function (event) {
                 event.preventDefault();
-                var url = "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=write";
+                var url = '';
+
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('admin.pelajaran.mata-pelajaran') }}";
+                    text = "Data sukses ditambahkan";
+                }
+                
+                if ($('#action').val() == 'edit') {
+                    url = "{{-- route('admin.pelajaran.mata-pelajaran-update') --}}";
+                    text = "Data sukses diupdate";
+                }
+
                 $.ajax({
                     url: url,
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        toastr.success('Data sukses ditambahkan');
-                        resetForm();
-                        table.ajax.reload();
-                    },
-                    error: function(data) {
-                        if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
+                        var html = '';
+                        if (data.errors) {
+                            // for (var count = 0; count <= data.errors.length; count++) {
+                            html = data.errors[0];
+                            // }
+                            $('#pelajaran').addClass('is-invalid');
+                            toastr.error(html);
+                        }
+
+                        if (data.success) {
+                            toastr.success('Data sukses ditambahkan');
+                            $('#pelajaran').removeClass('is-invalid');
+                            $('#form-pelajaran')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .val('Simpan');
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
                     }
                 });
             });

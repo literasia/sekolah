@@ -197,8 +197,8 @@ Route::namespace('Superadmin')
                     Route::delete('/superadmin/library/tipe/delete/{id}', 'SettingController@deleteTipe')
                         ->name('library-tipe-delete');
 
-                    Route::get('/superadmin/library', 'TambahController@index')
-                        ->name('library');
+                    // Route::get('/superadmin/library', 'TambahController@index')
+                    //     ->name('library');
                 });
     });
 
@@ -254,6 +254,7 @@ Route::namespace('Admin')
 
 Route::namespace('Admin')
     ->name('admin.')
+    ->prefix('admin')
     ->middleware(['auth', 'auth.admin'])
     ->group(function () {
         Route::get('/admin', 'AdminController@index')
@@ -382,6 +383,18 @@ Route::namespace('Admin')
                     ->name('pelajaran.jadwal-pelajaran');
                 Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
                     ->name('pelajaran.jadwal-pelajaran.write');
+            });
+
+        // Pelajaran
+        Route::namespace('Pelajaran')
+            ->group(function () {
+                // Pelajaran
+                Route::get('/admin/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
+                    ->name('pelajaran.mata-pelajaran');
+
+                // Jadwal Pelajaran
+                Route::get('/admin/pelajaran/jadwal-pelajaran', 'RekapSiswaController@index')
+                    ->name('pelajaran.jadwal-pelajaran');
             });
 
         // Absensi

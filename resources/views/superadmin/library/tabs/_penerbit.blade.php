@@ -16,6 +16,12 @@
                                     <span class="text-danger" id="penerbit_result"></span>
                                 </div>
                             </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <input type="text" name="tahun" id="tahun" class="form-control" placeholder="Tahun" required>
+                                    <span class="text-danger" id="tahun_result"></span>
+                                </div>
+                            </div>
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                                 <input type="submit" value="Simpan" class="btn btn-sm btn-success btn-block shadow-sm">
                             </div>
@@ -38,6 +44,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <input type="text" name="tahun" id="tahun-penerbit-update" class="form-control" placeholder="Tahun" required>
+                                    <span class="text-danger" id="tahun_result"></span>
+                                    @error('penerbit')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                                 <input type="submit" value="Update" class="btn btn-sm btn-info btn-block shadow-sm">
                             </div>
@@ -52,6 +67,7 @@
                         <tr>
                             <th>#</th>
                             <th>Penerbit</th>
+                            <th>Tahun</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -60,6 +76,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $penerbit->penerbit }}</td>
+                                <td>{{ $penerbit->tahun }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-info shadow-sm" id="edit-penerbit" data-id="{{ $penerbit->id }}"><i class="fa fa-pencil-alt"></i></button>
                                     <button type="button" class="btn btn-sm btn-danger shadow-sm" id="delete-penerbit"
