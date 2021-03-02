@@ -13,15 +13,16 @@ class AbsensiController extends Controller
 {
     public function read(Request $request) {
         if($request->req == 'table') {
-            $data = Siswa::with(['kelas', 
+            $data = Siswa::with(['kelas',
                                  'absensi' => function($q) use($request){
-                                     $q->where('tanggal', $request->tanggal)->where('kelas_id', $request->kelas_id);
+                                     $q->where('tanggal', $request->tanggal)
+                                     ->where('kelas_id', $request->kelas_id);
                                 }])
                          ->where('id_tingkatan_kelas', $request->kelas_id)
                          ->orderBy('nama_lengkap')
                         //  ->select('id', 'nama_lengkap', 'id_tingkatan_kelas')
                          ->get();
-            
+
                          return ResponseFormatter::success($data);
         }
 
@@ -35,7 +36,7 @@ class AbsensiController extends Controller
                          }])
                         //  ->select('id', 'nama_lengkap', 'id_tingkatan_kelas')
                          ->get();
-                         
+
                          return ResponseFormatter::success($data);
         }
         elseif($request->req == 'siswa') {
@@ -47,7 +48,7 @@ class AbsensiController extends Controller
                          }])
                         //  ->select('id', 'nama_lengkap', 'id_tingkatan_kelas')
                          ->find($request->siswa_id);
-                         
+
                          return ResponseFormatter::success($data);
         }
 
