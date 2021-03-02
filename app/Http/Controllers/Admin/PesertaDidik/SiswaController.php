@@ -47,7 +47,6 @@ class SiswaController extends Controller
             'kelas' => ['required', 'exists:tingkatan_kelas,id'],
             'jk' => ['nullable', 'in:Laki-Laki,Perempuan'],
             'agama' => ['nullable', 'in:' . SiswaController::AGAMA_RULE],
-            'is_siswa_pindahan' => ['nullable', 'boolean'],
             'suku' => ['nullable', 'in:Melayu,Aceh,Batak,Karo,Mandailing,Simalungun,Pak-Pak,Nias,Angkola,Jawa'],
             'golongan_darah' => ['nullable', 'in:A,B,AB,O'],
             'tanggal_lahir' => ['nullable', 'date'],

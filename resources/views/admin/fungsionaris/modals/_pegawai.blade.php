@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.store') }}" method="POST">
+            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.write') }}" method="POST">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
@@ -261,7 +261,6 @@
                         </div>
                     </div>
 
-                    
                     <hr>
                     <h5>Data Login</h5>
                     <div class="row">
@@ -294,3 +293,4 @@
             </form>
         </div>
     </div>
+</div>
