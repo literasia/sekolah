@@ -44,9 +44,14 @@ class KelasController extends Controller
         $pegawai = Pegawai::join('gurus', 'pegawais.id', 'gurus.pegawai_id')
             ->where('pegawais.user_id', Auth::id())
             ->get();
-        $gurus = Guru::where('user_id', Auth::id())->get();
+        // $gurus = Guru::where('user_id', Auth::id())->get();
+        $gurus = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
+            ->where('gurus.user_id', Auth::id())
+            ->get(['gurus.*', 'pegawais.name AS name']);
         $tingkat = TingkatanKelas::where('user_id', Auth::id())->latest()->get();
         $jurusan = Jurusan::where('user_id', Auth::id())->latest()->get();
+
+        // return($gurus);
 
         return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'jurusan' => $jurusan, 'gurus' => $gurus, 'mySekolah' => User::sekolah()]);
     }

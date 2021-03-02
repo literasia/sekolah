@@ -166,6 +166,7 @@
                 $('input[name=id]').val('');
                 $('input[name=nama_pelajaran]').val('');
                 $('input[name=kode_pelajaran]').val('');
+                $('select[name=guru_id]').val('');
                 $('input[name=keterangan]').val('');
                 $('input[name=aktif]').prop('checked', true);
                 $('#btn').val('Simpan');
