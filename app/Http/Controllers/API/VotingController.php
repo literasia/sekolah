@@ -42,7 +42,7 @@ class VotingController extends Controller
 
     public function posisiKandidat(Request $req) {
         $data = $req->all();
-        $posisis = Posisi::query();
+        $posisis = Pemilihan::query();
 
         $sekolahId = $req->query('sekolah_id');
         $posisis->when($sekolahId, function($query) use ($sekolahId) {

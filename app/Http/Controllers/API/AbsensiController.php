@@ -25,14 +25,13 @@ class AbsensiController extends Controller
         }
 
         elseif($request->req == 'rekap') {
+            $req = $request->all();
             $data = Siswa::with(['kelas',
                                  'absensis' => function($q) use($request) {
-                                     $q->where('tanggal', '>=', $request->tanggal_mulai)
-                                      ->where('tanggal', '<=', $request->tanggal_selesai)
-                                       ->where('kelas_id', $request->kelas_id)
-                                       ->where('siswa_id', $request->siswa_id)
-                                       ->orderBy('tanggal');
+                                     $q->whereRaw("tanggal BETWEEN '" . $request->tanggal_mulai . "' AND '" . $request->tanggal_selesai . "'")
+                                      ->orderBy('tanggal');
                                 }])
+                         ->where('siswas.id', $request->siswa_id)
                          ->where('kelas_id', $request->kelas_id)
                          ->first();
 
