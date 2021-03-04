@@ -29,10 +29,10 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="kelas">Kelas</label>
-                                        <select name="kelas" id="kelas" class="form-control form-control-sm">
+                                        <select name="kelas_id" id="kelas" class="form-control form-control-sm">
                                             <option disabled="" value="">-- Kelas --</option>
                                             @foreach($kelas as $obj)
-                                            <option value="{{ $obj }}">{{ $obj }}</option>
+                                            <option value="{{ $obj->id }}">{{ $obj->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -112,7 +112,7 @@
                                             </label>
                                           </div>
                                           @endif
-                                          @endforeach  
+                                          @endforeach
                                         </div>
                                     </div>
                                     <div class="col-sm-6" id="side_right">
@@ -127,7 +127,7 @@
                                             </label>
                                           </div>
                                           @endif
-                                          @endforeach  
+                                          @endforeach
                                     </div>
                                   </div>
                                 </div>
@@ -166,10 +166,10 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="jk">Kelas</label>
-                                    <select name="kelas" id="jk" class="form-control form-control-sm" required>
+                                    <select name="kelas_id" id="jk" class="form-control form-control-sm" required>
                                         <option disabled>-- Kelas --</option>
                                         @foreach($kelas as $obj)
-                                          <option value="{{$obj}}">{{$obj}}</option>
+                                          <option value="{{$obj->id}}">{{$obj->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -258,7 +258,7 @@
 
 {{-- addons js --}}
 @push('js')
-    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>    
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
@@ -288,7 +288,7 @@
               $('textarea[name=keterangan]').val('');
               var $radios = $('input:radio[name=jam_pelajaran]');
               $radios.prop('checked', false);
-              $radios.filter('[value=1]').prop('checked', true);              
+              $radios.filter('[value=1]').prop('checked', true);
             };
 
             $("#reset-form").click(() => {
@@ -317,7 +317,7 @@
                 });
             });
 
-            $("#showjpcard").on('click', '.btn-delete', function(ev, data) {                
+            $("#showjpcard").on('click', '.btn-delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
                     title: 'Konfirmasi Hapus',
@@ -353,7 +353,7 @@
             });
 
 
-           
+
         });
     </script>
 @endpush

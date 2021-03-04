@@ -45,10 +45,9 @@
                                         <td>{{$dt->isi}}</td>
                                         <td><a target="_blank" href="{{Storage::url($dt->thumbnail)}}">Lihat Foto</a></td>
                                         <td>
-                                            <a class="edit btn btn-mini btn-info shadow-sm" href='{{route('superadmin.berita.edit', $dt->id) }}'><i class="fa fa-pencil-alt"></i></a>
-                                            {{-- <button type="button" id="{{ route('superadmin.berita.berita.edit', $dt->id) }}" class="edit btn btn-mini btn-info shadow-sm">Edit</button> --}}
+                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
                                             &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class='fa fa-trash'></i></button>
+                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -182,34 +181,30 @@
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
                                 .val('Simpan');
-                            location.reload();
-                            // $('#order-table').DataTable().ajax.reload();
+                            $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }
                 });
             });
 
-            // $(document).on('click', '.edit', function () {
-            //     var id = $(this).attr('id');
-            //     $.ajax({
-            //         url: '/superadmin/berita/berita/'+id,
-            //         dataType: 'JSON',
-            //         success: function (data) {
-            //             $('#action').val('edit');
-            //             $('#judul').val(data.judul);
-            //             $('#kategori').val(data.kategori);
-            //             $('#isi').val(data.isi);
-            //             // $('#thumbnail').val(data.thumbnail);
-            //             $('#hidden_id').val(data.judul.id);
-            //             $('#btn')
-            //                 .removeClass('btn-outline-info')
-            //                 .addClass('btn-outline-success')
-            //                 .val('Update');
-            //             $('#modal-berita').modal('show');
-            //         }
-            //     });
-            // });
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/suepradmin/berita/berita/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#action').val('edit');
+                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#judul').val(data.judul.name);
+                        $('#kategori').val(data.kategori.kategori);
+                        $('#isi').val(data.isi.isi);
+                        $('#thumbnail').val(data.thumbnail.thumbnail);
+                        $('#hidden_id').val(data.name.id);
+                        $('#modal-berita').modal('show');
+                    }
+                });
+            });
 
             var user_id;
             $(document).on('click', '.delete', function () {
@@ -220,14 +215,13 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/superadmin/berita/berita/hapus/'+user_id,
+                    url: '/superadmin/berita/berita/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            location.reload();
-                            // $('#order-table').DataTable().ajax.reload();
+                            $('#order-table').DataTable().ajax.reload();
                             toastr.success('Data berhasil dihapus');
                         }, 1000);
                     }

@@ -15,7 +15,7 @@ use App\Models\Admin\Sanksi;
 class SiswaController extends Controller
 {
     public function index(Request $request) {
-    	if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = PelanggaranSiswa::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
@@ -30,7 +30,7 @@ class SiswaController extends Controller
 
         $kategori = Pelanggaran::all();
         $sanksi = Sanksi::all();
-    	$namaSiswa = Siswa::all();
+        $namaSiswa = Siswa::all();
         return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
@@ -125,15 +125,15 @@ class SiswaController extends Controller
 
         $siswa->save();
         $status = PelanggaranSiswa::whereId($request->input('hidden_id'))->update([
-            'siswa_id'  			=> $request->input('siswa_id'),
+            'siswa_id'              => $request->input('siswa_id'),
             'nama_siswa'            => $siswa->nama_lengkap,
-            'tanggal_pelanggaran'  	=> $request->input('tanggal_pelanggaran'),
-            'pelanggaran'  			=> $request->input('pelanggaran'),
-            'poin'  				=> $request->input('poin'),
-            'sebab'  				=> $request->input('sebab'),
-            'sanksi'  				=> $request->input('sanksi'),
-            'penanganan'  			=> $request->input('penanganan'),
-            'keterangan'  			=> $request->input('keterangan')
+            'tanggal_pelanggaran'   => $request->input('tanggal_pelanggaran'),
+            'pelanggaran'           => $request->input('pelanggaran'),
+            'poin'                  => $request->input('poin'),
+            'sebab'                 => $request->input('sebab'),
+            'sanksi'                => $request->input('sanksi'),
+            'penanganan'            => $request->input('penanganan'),
+            'keterangan'            => $request->input('keterangan')
         ]);
 
         return response()

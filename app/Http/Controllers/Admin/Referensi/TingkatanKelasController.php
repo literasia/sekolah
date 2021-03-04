@@ -11,24 +11,25 @@ use App\User;
 
 class TingkatanKelasController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         if ($request->ajax()) {
-            $data = TingkatanKelas::latest()->get();
+            $data = TingkatanKelas::where('user_id', auth()->user()->id)->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
-        
         return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah()]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // validasi
         $rules = [
             'tingkat'  => 'required|max:50',
@@ -48,7 +49,10 @@ class TingkatanKelasController extends Controller
         }
 
         $status = TingkatanKelas::create([
+            'user_id' => auth()->user()->id,
             'name'  => $request->input('tingkat'),
+            'user_id' => $request->user()->id,
+            'sekolah_id' => $request->user()->id_sekolah,
         ]);
 
         return response()
@@ -57,7 +61,8 @@ class TingkatanKelasController extends Controller
             ]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $tingkat = TingkatanKelas::find($id);
 
         return response()
@@ -66,7 +71,8 @@ class TingkatanKelasController extends Controller
             ]);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         // validasi
         $rules = [
             'tingkat'  => 'required|max:50',
@@ -84,9 +90,13 @@ class TingkatanKelasController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
-
-        $status = TingkatanKelas::whereId($request->input('hidden_id'))->update([
+        $status = TingkatanKelas::where([
+            ['id', $request->input('hidden_id')],
+            ['user_id', auth()->user()->id]
+        ])->update([
             'name'  => $request->input('tingkat'),
+            'user_id' => $request->user()->id,
+            'sekolah_id' => $request->user()->id_sekolah,
         ]);
 
         return response()
@@ -95,8 +105,13 @@ class TingkatanKelasController extends Controller
             ]);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $tingkat = TingkatanKelas::find($id);
+        if ($tingkat->user_id != auth()->user()->id) {
+            return;
+        }
+
         $tingkat->delete();
     }
 }

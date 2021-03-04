@@ -28,4 +28,9 @@ class KabupatenKota extends Model
     public function kecamatans() {
         return $this->hasMany('App\Models\Superadmin\Kecamatan');
     }
+
+    public function schools()
+    {
+        return $this->hasMany('App\Models\Superadmin\Sekolah', 'kabupaten'); 
+    }
 }

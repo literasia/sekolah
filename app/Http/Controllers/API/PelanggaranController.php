@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Validator;
 class PelanggaranController extends Controller
 {
     public function index(Request $req) {
-        $pelanggarans = Siswa::query();
-        
-        $userId = $req->query('user_id');
-        // $kelases->when($sekolahId, function($query) use ($sekolahId) {
-        //     return $query->where('sekolah_id', $sekolahId);                
-        // });
+        $pelanggarans = PelanggaranSiswa::query();
+
+        $siswaId = $req->query('siswa_id');
+        $pelanggarans->when($siswaId, function($query) use ($siswaId) {
+            return $query->where('siswa_id', $siswaId);
+        });
 
         return response()->json(ApiResponse::success($pelanggarans->get()));
     }

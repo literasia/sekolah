@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Admin\Referensi;
 
 use Validator;
-use App\Models\Pegawai;
+use App\Models\BagianPegawai;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class BagianPegawaiController extends Controller
 {
     public function index(Request $request) {
+        $tes = User::get('id_sekolah');
         if ($request->ajax()) {
-            $data = Pegawai::latest()->get();
+            $data = BagianPegawai::where('user_id', Auth::id())->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -25,7 +27,7 @@ class BagianPegawaiController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.bagian-pegawai', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.bagian-pegawai', ['tes' => $tes, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {
@@ -35,7 +37,7 @@ class BagianPegawaiController extends Controller
         ];
 
         $message = [
-            'pegawai.required' => 'Kolom ini gaboleh kosong',
+            'pegawai.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -47,8 +49,9 @@ class BagianPegawaiController extends Controller
                 ]);
         }
 
-        $pegawai = Pegawai::create([
+        $pegawai = BagianPegawai::create([
             'name'  => $request->input('pegawai'),
+            'user_id' => Auth::id()
         ]);
 
         return response()
@@ -58,7 +61,7 @@ class BagianPegawaiController extends Controller
     }
 
     public function edit($id) {
-        $pegawai = Pegawai::find($id);
+        $pegawai = BagianPegawai::find($id);
 
         return response()
             ->json([
@@ -85,7 +88,7 @@ class BagianPegawaiController extends Controller
                 ]);
         }
 
-        Pegawai::whereId($request->hidden_id)->update([
+        BagianPegawai::whereId($request->hidden_id)->update([
             'name'  => $request->input('pegawai'),
         ]);
 
@@ -96,7 +99,7 @@ class BagianPegawaiController extends Controller
     }
 
     public function destroy($id) {
-        $pegawai = Pegawai::find($id);
+        $pegawai = BagianPegawai::find($id);
         $pegawai->delete();
     }
 }

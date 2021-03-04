@@ -3,14 +3,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Pelanggaran
+                    Tambah Pegawai
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.write') }}" method="POST">
+            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.store') }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
+                    @method("POST")
                     @csrf
                     <div class="row">
                         <div class="col">
@@ -112,19 +113,20 @@
                                 <label for="provinsi">Provinsi</label>
                                 <select name="provinsi" id="provinsi" class="form-control form-control-sm">
                                     <option value="">-- Provinsi --</option>
-                                    <option value="Aceh">Aceh</option>
-                                    <option value="Sumatera Utara">Sumatera Utara</option>
+                                    @foreach($provinsis as $provinsi)
+                                    <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="kabupaten">Kabupaten</label>
+                                <label for="kabupaten">Kabupaten / Kota</label>
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
-                                    <option value="">-- Kabupaten --</option>
-                                    <option value="Langkat">Langkat</option>
-                                    <option value="Deli Serdang">Deli Serdang</option>
-                                    <option value="Medan">Medan</option>
+                                    <option value="">-- Kabupaten / Kota --</option>
+                                    {{-- @foreach($kabupaten as $kab) --}}
+                                    {{-- <option value="{{ $kab->id }}">{{ $kab->name }}</option> --}}
+                                    {{-- @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -135,9 +137,9 @@
                                 <label for="kecamatan">Kecamatan</label>
                                 <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
                                     <option value="">-- Kecamatan --</option>
-                                    <option value="Besitang">Besitang</option>
-                                    <option value="Medan Kota">Medan Kota</option>
-                                    <option value="Medan Selayang">Medan Selayang</option>
+                                    {{-- @foreach($kecamatan as $kec) --}}
+                                    {{-- <option value="{{ $kec->id }}">{{ $kec->name }}</option> --}}
+                                    {{-- @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -214,10 +216,9 @@
                                 <label for="bagian">Bagian Pegawai</label>
                                 <select name="bagian" id="bagian" class="form-control form-control-sm" required>
                                     <option value="">-- Bagian Pegawai --</option>
-                                    <option value="Guru/Tenaga Pendidik">Guru/Tenaga Pendidik</option>
-                                    <option value="Teknisi">Teknisi</option>
-                                    <option value="Laboran">Laboran</option>
-                                    <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                    @foreach($bagian as $bagian)
+                                    <option value="{{ $bagian->id }}">{{ $bagian->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -240,22 +241,9 @@
                                 <label for="semester">Semester</label>
                                 <select name="semester" id="semester" class="form-control form-control-sm">
                                     <option value="">-- Semester --</option>
-                                    <option value="Ganjil">Ganjil</option>
-                                    <option value="Genap">Genap</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="jenjang">Jenjang</label>
-                                <select name="jenjang" id="jenjang" class="form-control form-control-sm">
-                                    <option value="">-- Jenjang --</option>
-                                    <option value="SD">SD</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
+                                    @foreach($semester as $sem)
+                                    <option value="{{ $sem->id }}">{{ $sem->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

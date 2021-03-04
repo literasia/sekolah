@@ -5,66 +5,63 @@ namespace App\Http\Controllers\Admin\Fungsionaris;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use App\Models\Pegawai;
 use App\Models\Guru;
 use DataTables;
+use App\Models\StatusGuru;
+use Illuminate\Support\Facades\Auth;
 
 class GuruController extends Controller
 {
     //read
     public function index(Request $request) {
-        if($request->req == 'table') {
-            return DataTables::of(Guru::get())->toJson();
+        if ($request->ajax()) {
+            // $data = Guru::latest()->get();
+            $data = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
+                ->join('status_gurus', 'gurus.status_guru_id', 'status_gurus.id')
+                ->where('gurus.user_id', Auth::id())
+                // ->first(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status'])
+                ->get(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status']);
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" data-id="' . $data->id . '" class="btn-edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="btn-delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         }
+        // $pegawai = Pegawai::where('user_id', Auth::id())->latest()->get();
+        $user = User::sekolah();
+        $pegawai = Pegawai::join('users', 'pegawais.user_id', 'users.id')
+            ->where('users.id_sekolah', $user->id)
+            ->get(['pegawais.*']);
+        $status = StatusGuru::where('user_id', Auth::id())->latest()->get();
+        // return($pegawai);
 
-        elseif($request->req == 'single') {
-            return response()->json(Guru::find($request->id));
-        }
-
-        return view('admin.fungsionaris.guru');
+        return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {
         if($request->req == 'write') {
 
             $this->validate($request, [
-                'nama_guru' => "required",
+                'pegawai_id' => "required",
                 // isi validasi
             ]);
 
             $obj = Guru::find($request->id);
-
+            // dd($obj);
             if(!$obj) {
                 $obj = new Guru();
             }
 
-            $obj->nama_guru = $request->nama_guru;
-            $obj->nip = $request->nip;
-            $obj->nik = $request->nik;
-            $obj->gelar_depan = $request->gelar_depan;
-            $obj->gelar_belakang = $request->gelar_belakang;
-            $obj->tempat_lahir = $request->tempat_lahir;
-            $obj->tanggal_lahir = $request->tanggal_lahir;
-            $obj->jenis_kelamin = $request->jenis_kelamin;
-            $obj->agama = $request->agama;
+            $obj->user_id = Auth::id();
+            $obj->pegawai_id = $request->pegawai_id;
+            $obj->status_guru_id = $request->status_guru_id;
+            $obj->keterangan = $request->keterangan;
             $obj->status = $request->status;
-            $obj->alamat_tinggal = $request->alamat_tinggal;
-            $obj->provinsi = $request->provinsi;
-            $obj->kabupaten = $request->kabupaten;
-            $obj->kecamatan = $request->kecamatan;
-            $obj->dusun = $request->dusun;
-            $obj->rt = $request->rt;
-            $obj->rw = $request->rw;
-            $obj->kode_pos = $request->kode_pos;
-            $obj->no_telepon_rumah = $request->no_telepon_rumah;
-            $obj->no_telepon = $request->no_telepon;
-            $obj->email = $request->email;
-            $obj->username = $request->username;
-            $obj->password = $request->password;
-            $obj->tanggal_mulai = $request->tanggal_mulai;
-            $obj->bagian_guru = $request->bagian_guru;
-            $obj->tahun_ajaran = $request->tahun_ajaran;
-            $obj->semester = $request->semester;
-            $obj->jenjang = $request->jenjang;
             $obj->save();
 
             return response()->json(true);
@@ -75,5 +72,15 @@ class GuruController extends Controller
             $obj->delete();
             return response()->json(true);
         }
+    }
+
+    public function edit($id) {
+        $guru = Guru::find($id);
+        // dd($guru);
+
+        // return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah(), 'provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'bagian' => $bagian, 'semester' => $semester]);
+        return response()->json([
+            'guru'  => $guru,
+        ]);
     }
 }

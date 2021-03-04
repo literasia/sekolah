@@ -12,7 +12,7 @@ use App\Models\Admin\Voting;
 class VoteController extends Controller
 {
     public function index(Request $request) {
-    	$names = Pemilihan::orderBy('start_date')->get();
+        $names = Pemilihan::orderBy('start_date')->get();
         $pemilihans = Pemilihan::orderBy('id')->get();
         $counts = collect();
         // dd($names[0]->votes);

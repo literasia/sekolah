@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
@@ -55,18 +54,13 @@ class ListSekolahController extends Controller
         ];
 
         $message = [
-            'id_sekolah.required' => 'Kolom ini tidak boleh kosong',
+            'id_sekolah.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($data, $rules, $message);
 
         if ($validator->fails()) {
             return back()->withErrors($validator->errors()->all())->withInput();
-        }
-
-        $data['logo'] = null;
-        if ($req->file('logo')) {
-            $data['logo'] = $req->file('logo')->store('schools', 'public');
         }
 
         $sekolahId = Sekolah::create([
@@ -105,7 +99,7 @@ class ListSekolahController extends Controller
     public function update(Request $req) {
         $data = $req->all();
         $id = $data['hidden_id'];
-        $sekolah = Sekolah::findOrFail($id);
+        Sekolah::findOrFail($id);
 
         $rules = [
            'id_sekolah'    => 'max:100',
@@ -115,7 +109,6 @@ class ListSekolahController extends Controller
            'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
-           'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
        ];
 
        $message = [
@@ -126,17 +119,6 @@ class ListSekolahController extends Controller
 
        if ($validator->fails()) {
             return back()->withErrors($validator->errors()->all())->withInput();
-       }
-       
-       $data['logo'] = null;
-       if ($req->file('logo')) {
-           $data['logo'] = $req->file('logo')->store('schools', 'public');
-       } else {
-           $data['logo'] = $sekolah->logo;
-       }
-
-       if ($req->file('logo') && Storage::disk('public')->exists($sekolah->logo)) {
-           Storage::disk('public')->delete($sekolah->logo);
        }
 
        Sekolah::whereId($id)->update([
@@ -167,7 +149,7 @@ class ListSekolahController extends Controller
             $success = true;
             $message = "Data Tidak Ada";
         }
-        
+
         return response()
             ->json([
                 'success' => '👍 '.$sekolah->name.' berhasil dihapus!',

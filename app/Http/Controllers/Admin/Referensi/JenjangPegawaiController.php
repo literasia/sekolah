@@ -8,12 +8,13 @@ use App\Models\JenjangPegawai;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class JenjangPegawaiController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = JenjangPegawai::latest()->get();
+            $data = JenjangPegawai::where('user_id', auth()->id())->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -24,7 +25,7 @@ class JenjangPegawaiController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
+
         return view('admin.referensi.jenjang-pegawai', ['mySekolah' => User::sekolah()]);
     }
 
@@ -35,7 +36,7 @@ class JenjangPegawaiController extends Controller
         ];
 
         $message = [
-            'jenjang.required' => 'Kolom ini tidak boleh kosong',
+            'jenjang.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -49,6 +50,7 @@ class JenjangPegawaiController extends Controller
 
         $status = JenjangPegawai::create([
             'name'  => $request->input('jenjang'),
+            'user_id' => Auth::id()
         ]);
 
         return response()

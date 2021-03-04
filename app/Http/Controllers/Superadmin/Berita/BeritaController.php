@@ -31,7 +31,7 @@ class BeritaController extends Controller
         // foreach ($data as $berita) {
         //     $data[$i]['thumbnail'] = '<a target="_blank" href="'.Storage::url($berita->thumbnail).'">Lihat Foto</a>';
         // }
-    	// if ($request->ajax()) {
+        // if ($request->ajax()) {
      //        $data = Berita::latest()->get();
      //        $i = 0;
      //        foreach ($data as $berita) {
@@ -49,7 +49,7 @@ class BeritaController extends Controller
      //            ->make(true);
      //    }
         $katbe = KategoriBerita::all();
-    	return view('superadmin.berita.berita', ['no'=>$no, 'katbe' => $katbe, 'data' =>$data]);
+        return view('superadmin.berita.berita', ['no'=>$no, 'katbe' => $katbe, 'data' =>$data]);
     }
 
     public function edit($id) {

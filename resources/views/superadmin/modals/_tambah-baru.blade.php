@@ -46,7 +46,7 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="kategori_id">Kategori:</label>
-                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm">
+                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" required>
                                     <option value="">-- Kategori --</option>
                                     @foreach ($kategoris as $kategori)
                                         <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
@@ -166,7 +166,7 @@
                                 <input type="hidden" name="hidden_id" id="hidden_id">
                                 <input type="hidden" id="action">
                                 <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>                          
+                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>
                             </div>
                         </div>
                     </div>

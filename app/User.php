@@ -3,8 +3,9 @@
 namespace App;
 
 use App\Models\Siswa;
-use App\Models\Kelas;
+use App\Models\Admin\Kelas;
 use App\Models\Superadmin\Sekolah;
+use App\Models\Pegawai;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //user.php
     public function getRedirectRouteByRole() {
         if (!Auth::check()) {
             return route('/');
@@ -36,12 +38,15 @@ class User extends Authenticatable
             return route('superadmin.index');
         } else if ($this->hasRole('siswa')) {
             return route('siswa.index');
+        } else if ($this->hasRole('guru')) {
+            return route('guru.index');
         }  else {
             return route('home');
         }
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany('App\Role');
     }
 
@@ -60,8 +65,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Siswa::class, 'id', 'siswa_id');
     }
-    
+
     public function kelases() {
         return $this->hasMany(Kelas::class);
+    }
+
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class);
     }
 }

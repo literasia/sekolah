@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JadwalPelajaran;
 use App\Models\MataPelajaran;
+use App\Models\TingkatanKelas;
+use App\User;
 
 class JadwalPelajaranController extends Controller
 {
@@ -16,7 +18,7 @@ class JadwalPelajaranController extends Controller
         if($request->req == 'table') {
             $data = JadwalPelajaran::with('mataPelajaran')
                                    ->where('tahun_ajaran', $request->tahun_ajaran)
-                                   ->where('kelas', $request->kelas)
+                                   ->where('kelas_id', $request->kelas_id)
                                    ->where('semester', $request->semester)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
@@ -46,13 +48,16 @@ class JadwalPelajaranController extends Controller
             ['id' => '9', 'label' => '(14:45 - 15:30)' ],
         ];
 
-        $kelas = ['X', 'XI', 'XII'];
+        $kelas = TingkatanKelas::where('sekolah_id', $request->user()->id_sekolah)->get();
 
         $tahun_ajaran = ['2019/2020', '2020/2021'];
 
-        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
+        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
+                                    ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
+                                    ->where('sekolah_id', $request->user()->id_sekolah)
+                                    ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
 
-        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
+        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {
@@ -64,7 +69,7 @@ class JadwalPelajaranController extends Controller
                 $obj = new JadwalPelajaran();
             }
 
-            $obj->kelas = $request->kelas;
+            $obj->kelas_id = $request->kelas_id;
             $obj->mata_pelajaran_id = $request->mata_pelajaran_id;
             $obj->hari = $request->hari;
             $obj->semester = $request->semester;

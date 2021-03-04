@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-pemilihan">
+                <form id="form-slider" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -22,12 +22,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="posisi">Kabupaten</label>
-                                <select name="posisi" id="posisi" class="form-control form-control-sm">
+                                <label for="posisi">Kabupaten / Kota</label>
+                                <select name="kabupaten_kota" id="kabupaten_kota" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
-                                    <!-- @foreach($ps as $posisi)
-                                    <option>{{ $posisi->name }}</option>
-                                    @endforeach -->
+                                    <?php
+                                        foreach($cities as $city){
+                                    ?>
+                                        <option value="<?= $city->id ?>"><?= $city->name ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -35,11 +37,23 @@
                             <div class="form-group">
                                 <label for="sekolah">Sekolah</label>
                                 <select name="sekolah[]" id="sekolah" class="form-control form-control-sm" multiple>
-                                    <option value="">-- Pilih --</option>
-                                    <!-- @foreach($ck as $cakan)
-                                    <option value="{{ $cakan->name }}">{{ $cakan->name }}</option>
-                                    @endforeach -->
+                                    <option value="">-- Pilih Kabupaten Dahulu --</option>
+
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="start_date">Start Date</label>
+                                <input id="start_date" name="start_date" class="form-control form-control-sm" type="text" placeholder="Start Date" readonly />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="end_date">End Date</label>
+                                <input id="end_date" name="end_date" class="form-control form-control-sm" type="text" placeholder="End Date" readonly />
                             </div>
                         </div>
                     </div>
@@ -48,20 +62,6 @@
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
                                 <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="tanggal_mulai">Start Date</label>
-                                <input id="tanggal_mulai" name="tanggal_mulai" class="form-control form-control-sm" type="text" placeholder="Start Date" readonly />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="tanggal_selesai">End Date</label>
-                                <input id="tanggal_selesai" name="tanggal_selesai" class="form-control form-control-sm" type="text" placeholder="End Date" readonly />
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="hidden_id" id="hidden_id">
-                        <input type="hidden" id="action" val="add">
+                        <input type="hidden" id="action" value="add">
                         <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
                         <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
                     </div>

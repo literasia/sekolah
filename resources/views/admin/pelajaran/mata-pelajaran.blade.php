@@ -9,7 +9,7 @@
     Ini adalah halaman mata pelajaran untuk admin
 @endsection
 
-@section('icon-l', 'fa fa-book')
+@section('icon-l', 'fa fa-list-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -46,9 +46,9 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <label for="guru">Guru Budang Studi/Pengajar</label>
+                                        <label for="guru_id">Guru Budang Studi/Pengajar</label>
                                         <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
-                                        <select name="guru" id="guru" class="form-control form-control-sm">
+                                        <select name="guru_id" id="guru" class="form-control form-control-sm" required>
                                             <option value="">-- Guru Budang Studi/Pengajar --</option>
                                             @foreach($guru as $obj)
                                             <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
@@ -105,7 +105,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -166,6 +166,7 @@
                 $('input[name=id]').val('');
                 $('input[name=nama_pelajaran]').val('');
                 $('input[name=kode_pelajaran]').val('');
+                $('select[name=guru_id]').val('');
                 $('input[name=keterangan]').val('');
                 $('input[name=aktif]').prop('checked', true);
                 $('#btn').val('Simpan');
@@ -237,6 +238,7 @@
                     $('input[name=kode_pelajaran]').val(data.kode_pelajaran);
                     $('input[name=keterangan]').val(data.keterangan);
                     $('input[name=aktif]').prop('checked', data.aktif == 1);
+                    $('select[name=guru_id]').val(data.guru_id);
                     $('#btn').val('Update');
                 });
             });
@@ -245,7 +247,7 @@
                 resetForm();
             });
 
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {                
+            $("#order-table").on('click', '.btn-delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
                     title: 'Konfirmasi Hapus',
@@ -277,6 +279,7 @@
                     }
                     })
             });
+
 
         });
     </script>

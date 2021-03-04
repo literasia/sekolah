@@ -20,8 +20,8 @@
                 <h5>List Sekolah</h5>
             </div>
             <div class="card-body">
-                <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                 <div class="card-block">
+                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
@@ -38,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -145,6 +145,23 @@
                 ]
             });
 
+            $("#provinsi").change(function(){
+                _this = $(this);
+                $.ajax({
+                    url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
+                    dataType: 'JSON',
+                    data: {provinsi_id:_this.val()},
+                    success: function (data) {
+                        $("#kabupaten").html("");
+                        var options = "";
+                        for (let key in data) {
+                            options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        }
+                        $("#kabupaten").html(options);
+                    }
+                });
+            });
+
             $('#rest').on('click', function () {
                 $('#form-sekolah')[0].reset();
                 $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
@@ -157,7 +174,7 @@
 
             $('#add').on('click', function () {
                 $('#modal-sekolah').modal('show');
-                $('.modal-title').text('Tambahin Sekolah nya doong');
+                $('.modal-title').text('Tambah Sekolah');
                 $('#action').val('add');
                 $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
             });
@@ -168,7 +185,7 @@
                     this.method = "POST";
                     this.querySelector("input[name=_method]").value = "POST";
                 }
-                
+
                 if ($('#action').val() == 'edit') {
                     this.action = "{{ route('superadmin.list-sekolah-update') }}";
                     this.querySelector("input[name=_method]").value = "POST";
@@ -235,6 +252,19 @@
                         $('#tahun_ajaran').val(data.sekolah.tahun_ajaran);
                         $('#alamat').val(data.sekolah.alamat);
                         $('#provinsi').val(data.sekolah.provinsi);
+                        $.ajax({
+                            url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
+                            dataType: 'JSON',
+                            data: {provinsi_id:data.sekolah.provinsi},
+                            success: function (data) {
+                                $("#kabupaten").html("");
+                                var options = "";
+                                for (let key in data) {
+                                    options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                                }
+                                $("#kabupaten").html(options);
+                            }
+                        });
                         $('#kabupaten').val(data.sekolah.kabupaten);
                         $('#hidden_id').val(data.sekolah.id);
                         $('#username').val(data.user[0].username).attr('readonly', true);

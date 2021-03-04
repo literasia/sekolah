@@ -198,7 +198,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/superadmin/berita/kategori-berita/hapus/'+user_id,
+                    url: '/superadmin/berita/kategori-berita/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
