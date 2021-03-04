@@ -4,7 +4,7 @@
 @section('title-2', 'Dashboard')
 @section('title-3', 'Dashboard')
 @section('describ')
-    Ini adalah halaman dashboard awal untuk superadmin
+    Ini adalah halaman dashboard awal untuk admin
 @endsection
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
@@ -18,10 +18,10 @@
     <div class="col-md-12 col-xl-8">
         <div class="card sale-card">
             <div class="card-header">
-                <h5>Grafik Siswa per TA</h5>
+                <h5>Grafik</h5>
             </div>
             <div class="card-block">
-                <div id="siswa-chart" class="chart-shadow" style="height:380px"></div>
+                <div id="sales-analytics" class="chart-shadow" style="height:380px"></div>
             </div>
         </div>
     </div>
@@ -30,11 +30,12 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h6 class="m-b-25">Siswa</h6>
-                        <h3 class="f-w-700 text-c-blue">{{ $siswa }}</h3>
+                        <h6 class="m-b-25">E-Book</h6>
+                        <h3 class="f-w-700 text-c-blue">{{ $ebook }}</h3>
+                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-users bg-c-blue"></i>
+                        <i class="fas fa-book-open bg-c-blue"></i>
                     </div>
                 </div>
             </div>
@@ -43,11 +44,12 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h6 class="m-b-25">Guru</h6>
-                        <h3 class="f-w-700 text-c-green">{{ $guru }}</h3>
+                        <h6 class="m-b-25">Audio Book</h6>
+                        <h3 class="f-w-700 text-c-green">{{ $audiobook }}</h3>
+                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-users bg-c-green"></i>
+                        <i class="fas fa-file-audio bg-c-green"></i>
                     </div>
                 </div>
             </div>
@@ -56,11 +58,12 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h6 class="m-b-25">Orang Tua</h6>
-                        <h3 class="f-w-700 text-c-yellow">{{ $orangtua }}</h3>
+                        <h6 class="m-b-25">Video Book</h6>
+                        <h3 class="f-w-700 text-c-yellow">{{ $videobook }}</h3>
+                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-users bg-c-yellow"></i>
+                        <i class="fas fa-file-video bg-c-yellow"></i>
                     </div>
                 </div>
             </div>
@@ -69,9 +72,40 @@
 
     {{-- Project statustic start --}}
     <div class="col-xl-12">
-        <div class="card shadow-sm">
+        <div class="card proj-progress-card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6">
+                        <h6>Siswa</h6>
+                        <h5 class="m-b-30 f-w-700">{{ $siswa }}<span class="text-c-green m-l-10">+1.69%</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-red" style="width:25%"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6">
+                        <h6>Sekolah</h6>
+                        <h5 class="m-b-30 f-w-700">{{ $sekolah }}<span class="text-c-green m-l-10">+0.99%</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-green" style="width:85%"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6">
+                        <h6>Kota/Kabupaten</h6>
+                        <h5 class="m-b-30 f-w-700">{{ $kabupaten }}<span class="text-c-green m-l-10">+0.35%</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-yellow" style="width:45%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- testimonial and top selling start --}}
+    <{{-- div class="col-md-12">
+        <div class="card table-card">
             <div class="card-header">
-                <h5>Pengumuman</h5>
+                <h5>Sekolah</h5>
                 <div class="card-header-right">
                     <ul class="list-unstyled card-option">
                         <li class="first-opt"><i class="feather icon-chevron-left open-card-option"></i></li>
@@ -84,104 +118,56 @@
                 </div>
             </div>
             <div class="card-block p-b-0">
-                <p class="text-muted">
-                    Tidak ada pengumuman.
-                </p>
+                <div class="table-responsive">
+                    <table class="table table-hover m-b-0">
+                        <thead>
+                            <tr>
+                                <th>Nama Sekolah</th>
+                                <th>Kota/Kab</th>
+                                <th>Jumlah Siswa</th>
+                                <th>Jumlah Guru</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SMA N 1 Medan</td>
+                                <td>Medan</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                            </tr>
+                            <tr>
+                                <td>SMA N 1 Brandan Barat</td>
+                                <td>Langkat</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                            </tr>
+                            <tr>
+                                <td>SMA N 1 Babalan</td>
+                                <td>Langkat</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                            </tr>
+                            <tr>
+                                <td>SMA N 1 Besitang</td>
+                                <td>Langkat</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                            </tr>
+                            <tr>
+                                <td>SMK YPT Maju</td>
+                                <td>Besitang</td>
+                                <td>{{ rand(10,1000) }}</td>
+                                <td>{{ rand(10,1000) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
 
 @push('js')
-    <!-- <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script> -->
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
-    <script>
-        am4core.useTheme(am4themes_animated);
-
-        const chart = am4core.create("siswa-chart", am4charts.XYChart);
-        chart.dataSource.url = "{{ route('admin.siswa.by.tahun') }}";
-        chart.dataSource.parser = new am4core.JSONParser();
-        chart.dataSource.parser.options.emptyAs = 0;
-
-        chart.data = [
-            @foreach ($siswasByTahun as $siswa)
-                {
-                    "tahun": "{{ $siswa->tahun }}",
-                    "siswa": {{ $siswa->total }}
-                },
-            @endforeach
-        ];
-// chart.data = [{
-//   "tahun": "USA",
-//   "visits": 2025
-// },]; 
-// {
-//   "country": "China",
-//   "visits": 1882
-// }, {
-//   "country": "Japan",
-//   "visits": 1809
-// }, {
-//   "country": "Germany",
-//   "visits": 1322
-// }, {
-//   "country": "UK",
-//   "visits": 1122
-// }, {
-//   "country": "France",
-//   "visits": 1114
-// }, {
-//   "country": "India",
-//   "visits": 984
-// }, {
-//   "country": "Spain",
-//   "visits": 711
-// }, {
-//   "country": "Netherlands",
-//   "visits": 665
-// }, {
-//   "country": "Russia",
-//   "visits": 580
-// }, {
-//   "country": "South Korea",
-//   "visits": 443
-// }, {
-//   "country": "Canada",
-//   "visits": 441
-// }, {
-//   "country": "Brazil",
-//   "visits": 395
-// }];
-
-// Create axes
-
-        const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "tahun";
-        categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.renderer.minGridDistance = 30;
-
-        categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
-        if (target.dataItem && target.dataItem.index & 2 == 2) {
-            return dy + 25;
-        }
-        return dy;
-        });
-
-        const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-        // Create series
-        const series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.valueY = "siswa";
-        series.dataFields.categoryX = "tahun";
-        series.name = "Siswa";
-        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
-        series.columns.template.fillOpacity = .8;
-
-        const columnTemplate = series.columns.template;
-        columnTemplate.strokeWidth = 2;
-        columnTemplate.strokeOpacity = 1;</script>
+    <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
 @endpush
