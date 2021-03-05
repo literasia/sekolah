@@ -38,7 +38,7 @@
                                 <select name="pelanggaran" onchange="setPoin(this)"  id="pelanggaran" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
                                     @foreach($kategori as $k)
-                                    <option data-poin="{{$k-> poin}}">{{ $k->name }}</option>
+                                    <option data-poin="{{$k->poin}}">{{ $k->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -86,6 +86,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
                         <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">

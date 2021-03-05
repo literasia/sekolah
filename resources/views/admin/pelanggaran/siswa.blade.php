@@ -215,6 +215,7 @@
                         $('#siswa_id').val(data.nama_siswa.siswa_id);
                         $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
                         $('#pelanggaran').val(data.pelanggaran.pelanggaran);
+                        $('#poin_lama').val(data.poin.poin);
                         $('#poin').val(data.poin.poin);
                         $('#sebab').val(data.sebab.sebab);
                         $('#sanksi').val(data.sanksi.sanksi);
@@ -222,6 +223,10 @@
                         $('#keterangan').val(data.keterangan.keterangan);
                         $('#hidden_id').val(data.nama_siswa.id);
                         $('#modal-siswa').modal('show');
+                        $('#btn')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Update');
                     }
                 });
             });

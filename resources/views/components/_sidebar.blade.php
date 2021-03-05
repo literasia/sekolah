@@ -231,6 +231,11 @@
                                 <span class="pcoded-mtext">Pemilihan</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('admin/e-voting/vote') ? 'active' : '' }}">
+                            <a href="{{ route('admin.e-voting.vote') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Hasil Vote</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="@if (request()->is('admin/kalender/kalender-akademik')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">

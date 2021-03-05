@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive mt-3">
+                        <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
@@ -51,9 +51,11 @@
                                         <td>{{ $dt->start_date }}</td>
                                         <td>{{ $dt->end_date }}</td>
                                         <td>
+                                            <center>
                                             <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
                                             &nbsp;
                                             <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                            </center>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -235,12 +237,15 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#nama_calon').val(data.name.name);
-                        $('#posisi').val(data.posisi.posisi);
-                        $('#start_date').val(data.start_date.start_date);
-                        $('#end_date').val(data.end_date.end_date);
-                        $('#hidden_id').val(data.name.id);
+                        $('#nama_calon').val(data.name);
+                        $('#posisi').val(data.posisi);
+                        $('#start_date').val(data.start_date);
+                        $('#end_date').val(data.end_date);
+                        $('#hidden_id').val(data.pemilihan_id);
+                        $('#btn')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Update');
                         $('#modal-pemilihan').modal('show');
                     }
                 });
