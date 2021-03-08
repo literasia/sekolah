@@ -12,7 +12,7 @@ class Berita extends Model
 
     protected $table = 'beritas';
 	protected $fillable = [
-        'name', 'kategori', 'isi', 'thumbnail'
+        'name', 'kategori' , 'tanggal_rilis', 'isi', 'thumbnail'
     ];
     protected $guarded = [];
     protected $casts = ['created_at'=>'datetime:d-m-Y'];

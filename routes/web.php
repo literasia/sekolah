@@ -263,6 +263,8 @@ Route::namespace('Superadmin')
     ->group(function () {
         Route::get('/', 'SuperadminController@index')->name('index');
 
+        Route::resource('berita', 'Berita\BeritaController');
+
         Route::resource('library', 'Library\TambahController');
         Route::namespace('Library')
             ->group(function () {

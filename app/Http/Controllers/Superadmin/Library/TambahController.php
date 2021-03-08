@@ -69,7 +69,7 @@ class TambahController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator->errors()->all())->withInput();
         }
-    
+
         $data['thumbnail'] = null;
         if ($req->file('thumbnail')) {
             $data['thumbnail'] = $req->file('thumbnail')->store('libraries', 'public');

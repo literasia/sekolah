@@ -1,22 +1,37 @@
-<div class="modal fade modal-flex" id="modal-berita" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Tambah Berita
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+@extends('layouts.superadmin')
+
+{{-- config 1 --}}
+@section('title', 'Berita')
+@section('title-2', 'Berita')
+@section('title-3', 'Berita')
+
+@section('describ')
+    Ini adalah halaman Berita untuk Superadmin
+@endsection
+
+@section('icon-l', 'icon-book')
+@section('icon-r', 'icon-home')
+
+@section('link')
+    {{ route('superadmin.berita.berita') }}
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card shadow">
+            <div class="card-header">
+                <h5>Edit Berita | {{ $berita->name }}</h5>
             </div>
-            <div class="modal-body">
-                <form id="form-berita" enctype="multipart/form-data">
+            <div class="card-body">
+                <form id="form-berita" method="POST" action="{{ route('superadmin.berita.update', $berita->id) }}" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="judul">Judul</label>
-                                <input type="text" name="judul" id="judul" class="form-control form-control-sm">
+                                <input type="text" name="judul" id="judul" class="form-control form-control-sm" value="{{ $berita->name }}">
                             </div>
                         </div>
                     </div>
@@ -28,7 +43,7 @@
                                 <select name="kategori" id="kategori" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
                                     @foreach($katbe as $kb)
-                                    <option>{{ $kb->name }}</option>
+                                    <option value="{{ $kb->name }}">{{ $kb->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -59,14 +74,42 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <input type="hidden" name="hidden_id" id="hidden_id">
-                        <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Ubah</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+{{-- addons css --}}
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <style>
+        .btn i {
+            margin-right: 0px;
+        }
+    </style>
+@endpush
+
+{{-- addons js --}}
+@push('js')
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+        });
+
+        $('#tanggal_rilis').dateDropper({
+                theme: 'leaf',
+                format: 'd-m-Y'
+            });
+    </script>
+@endpush
