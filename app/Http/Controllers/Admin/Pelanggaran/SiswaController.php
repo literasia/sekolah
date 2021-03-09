@@ -15,7 +15,7 @@ use App\Models\Admin\Sanksi;
 class SiswaController extends Controller
 {
     public function index(Request $request) {
-    	if ($request->ajax()) {
+        if ($request->ajax()) {
             $data = PelanggaranSiswa::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
@@ -30,7 +30,7 @@ class SiswaController extends Controller
 
         $kategori = Pelanggaran::all();
         $sanksi = Sanksi::all();
-    	$namaSiswa = Siswa::all();
+        $namaSiswa = Siswa::all();
         return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
@@ -76,6 +76,7 @@ class SiswaController extends Controller
     }
 
     public function edit($id) {
+        $siswa_id = PelanggaranSiswa::find($id);
         $nama_siswa = PelanggaranSiswa::find($id);
         $tanggal_pelanggaran = PelanggaranSiswa::find($id);
         $pelanggaran = PelanggaranSiswa::find($id);
@@ -87,6 +88,7 @@ class SiswaController extends Controller
 
         return response()
             ->json([
+                'siswa_id'  => $siswa_id,
                 'nama_siswa'  => $nama_siswa,
                 'tanggal_pelanggaran'  => $tanggal_pelanggaran,
                 'pelanggaran'  => $pelanggaran,
@@ -101,11 +103,11 @@ class SiswaController extends Controller
     public function update(Request $request) {
         // validasi
         $rules = [
-            'nama_siswa'  => 'required|max:50',
+            'siswa_id'  => 'required|max:50',
         ];
 
         $message = [
-            'nama_siswa.required' => 'Kolom ini tidak boleh kosong',
+            'siswa_id.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -117,15 +119,21 @@ class SiswaController extends Controller
                 ]);
         }
 
+        $siswa = Siswa::find($request->input('siswa_id'));
+        $siswa->poin -= $request->input('poin_lama');
+        $siswa->poin += $request->input('poin');
+
+        $siswa->save();
         $status = PelanggaranSiswa::whereId($request->input('hidden_id'))->update([
-            'nama_siswa'  			=> $request->input('nama_siswa'),
-            'tanggal_pelanggaran'  	=> $request->input('tanggal_pelanggaran'),
-            'pelanggaran'  			=> $request->input('pelanggaran'),
-            'poin'  				=> $request->input('poin'),
-            'sebab'  				=> $request->input('sebab'),
-            'sanksi'  				=> $request->input('sanksi'),
-            'penanganan'  			=> $request->input('penanganan'),
-            'keterangan'  			=> $request->input('keterangan')
+            'siswa_id'              => $request->input('siswa_id'),
+            'nama_siswa'            => $siswa->nama_lengkap,
+            'tanggal_pelanggaran'   => $request->input('tanggal_pelanggaran'),
+            'pelanggaran'           => $request->input('pelanggaran'),
+            'poin'                  => $request->input('poin'),
+            'sebab'                 => $request->input('sebab'),
+            'sanksi'                => $request->input('sanksi'),
+            'penanganan'            => $request->input('penanganan'),
+            'keterangan'            => $request->input('keterangan')
         ]);
 
         return response()
@@ -135,8 +143,11 @@ class SiswaController extends Controller
     }
 
     public function destroy($id) {
-        $sanksi = PelanggaranSiswa::find($id);
-        $sanksi->delete();
+        $pelanggaran = PelanggaranSiswa::find($id);
+        $siswa = Siswa::whereId($pelanggaran->siswa_id)->first();
+        $siswa->poin -= $pelanggaran->poin;
+        $siswa->save();
+        $pelanggaran->delete();
     }
 
 }

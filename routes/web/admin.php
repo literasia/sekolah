@@ -238,5 +238,5 @@ Route::namespace('Pengumuman')->group(function () {
     Route::get('/admin/pengumuman/pesan/{id}', 'PesanController@edit');
     Route::post('/admin/pengumuman/pesan/update', 'PesanController@update')
         ->name('pengumuman.pesan-update');
-    Route::post('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
+    Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 });

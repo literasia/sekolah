@@ -9,24 +9,25 @@ use App\Models\Admin\Pesan;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\Utils\CRUDResponse;
 
 class PesanController extends Controller
 {
     public function index(Request $request) {
-        // if ($request->ajax()) {
-        //     $data = Pesan::where('user_id', Auth::id())->latest()->get();
-        //     return DataTables::of($data)
-        //         ->addColumn('action', function ($data) {
-        //                 $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-        //                 $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
-        //                 return $button;
-        //             })
-        //         ->rawColumns(['action'])
-        //         ->addIndexColumn()
-        //         ->make(true);
-        // }
-        $data = Pesan::where('user_id', Auth::id())->get();
-        return view('admin.pengumuman.pesan', ['data' => $data, 'mySekolah' => User::sekolah()]);
+        if ($request->ajax()) {
+            $data = Pesan::where('user_id', Auth::id())->latest()->get();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                        // $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                        $button = '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                        return $button;
+                    })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        // $data = Pesan::where('user_id', Auth::id())->get();
+        return view('admin.pengumuman.pesan', ['mySekolah' => User::sekolah()]);
         // return $data;
     }
 
@@ -97,5 +98,10 @@ class PesanController extends Controller
             ->json([
                 'kelas' => $kelas,
             ]);
+    }
+
+    public function destroy($id) {
+        $pesan = Pesan::find($id);
+        $pesan->delete();
     }
 }

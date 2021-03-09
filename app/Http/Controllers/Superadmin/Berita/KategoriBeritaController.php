@@ -95,7 +95,7 @@ class KategoriBeritaController extends Controller
     }
 
     public function destroy($id) {
-        $kategoriBerita = KategoriBerita::find($id);
-        $kategoriBerita->delete();
+        $delKategori = KategoriBerita::find($id);
+        $delKategori->delete();
     }
 }

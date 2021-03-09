@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    @php
+                                    {{-- @php
                                         $i = 1;
                                     @endphp
                                     @forelse($data as $pesan)
@@ -60,7 +60,7 @@
                                         @endphp
                                     @empty
                                         <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
-                                    @endforelse
+                                    @endforelse --}}
                                 </tbody>
                             </table>
                         </div>
@@ -70,9 +70,27 @@
         </div>
     </div>
 
+    <div iv id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal --}}
     @include('admin.pengumuman.modals._pesan')
-@endsection
+    {{-- @include('components.modals._confirm-delete-modal') --}}
+    @endsection
 
 {{-- addons css --}}
 @push('css')
@@ -80,6 +98,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
@@ -96,29 +115,43 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            // $('#order-table').DataTable({
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: {
-            //         url: "{{ route('admin.pengumuman.pesan') }}",
-            //     },
-            //     columns: [
-            //         {data: 'DT_RowIndex'},
-            //         {data: 'judul'},
-            //         {data: 'message_time'},
-            //         {data: 'created_at'},
-            //         {data: 'start_date'},
-            //         // {data: ''},
-            //         {data: 'action'},
-            //     ]
-            // });
-            try {
-                @if (count($data) > 0)
-                    $('#order-table').DataTable();
-                @endif
-            } catch(e) {
-                console.error(e);
-            }
+            $('#order-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.pengumuman.pesan') }}",
+                },
+                columns: [
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'judul',
+                    name: 'judul'
+                },
+                {
+                    data: 'message_time',
+                    name: 'message_time'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+                ]
+            });
 
             $('#add').on('click', function () {
                 $('#modal-pesan').modal('show');
@@ -133,109 +166,103 @@
                 theme: 'leaf',
                 format: 'Y-m-d'
             });
-        });
 
-        $('input:radio[name="message_time"]').change(function(){
-            if ($(this).is(':checked') && $(this).val() == 'Using Time') {
-                $("#start_date").removeAttr('disabled', '');
-                $("#end_date").removeAttr('disabled', '');
-            }else{
-                $("#start_date").attr('disabled', '');
-                $("#end_date").attr('disabled', '');
-            }
-        });
+            $('input:radio[name="message_time"]').change(function(){
+                if ($(this).is(':checked') && $(this).val() == 'Using Time') {
+                    $("#start_date").removeAttr('disabled', '');
+                    $("#end_date").removeAttr('disabled', '');
+                }else{
+                    $("#start_date").attr('disabled', '');
+                    $("#end_date").attr('disabled', '');
+                }
+            });
 
-        $('#form-pesan').on('submit', function (event) {
-            event.preventDefault();
-            var url = '';
+            $('#form-pesan').on('submit', function (event) {
+                event.preventDefault();
+                var url = '';
 
-            if ($('#action').val() == 'add') {
-                url = "{{ route('admin.pengumuman.pesan') }}";
-                text = "Data sukses ditambahkan";
-            }
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('admin.pengumuman.pesan') }}";
+                    text = "Data sukses ditambahkan";
+                }
 
-            if ($('#action').val() == 'edit') {
-                url = "{{ route('admin.pengumuman.pesan-update') }}";
-                text = "Data sukses diupdate";
-            }
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('admin.pengumuman.pesan-update') }}";
+                    text = "Data sukses diupdate";
+                }
 
-            $.ajax({
-                url: url,
-                method: 'POST',
-                dataType: 'JSON',
-                data: $(this).serialize(),
-                success: function (data) {
-                    var html = '';
-                    if (data.errors) {
-                        // for (var count = 0; count <= data.errors.length; count++) {
-                        html = data.errors[0];
-                        // }
-                        $('#judul').addClass('is-invalid');
-                        $('#message').addClass('is-invalid');
-                        toastr.error(html);
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        var html = '';
+                        if (data.errors) {
+                            // for (var count = 0; count <= data.errors.length; count++) {
+                            html = data.errors[0];
+                            // }
+                            $('#judul').addClass('is-invalid');
+                            $('#message').addClass('is-invalid');
+                            toastr.error(html);
+                        }
+
+                        if (data.success) {
+                            toastr.success('Data sukses ditambahkan');
+                            $('#judul').removeClass('is-invalid');
+                            $('#message').removeClass('is-invalid');
+                            $('#modal-pesan').modal('hide');
+                            $('#form-pesan')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .val('Simpan');
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
                     }
+                });
+            });
 
-                    if (data.success) {
-                        toastr.success('Data sukses ditambahkan');
-                        $('#judul').removeClass('is-invalid');
-                        $('#message').removeClass('is-invalid');
-                        $('#form-pesan')[0].reset();
-                        $('#action').val('add');
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/admin/pengumuman/pesan/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data.pegawai);
+                        $('#pegawai').val(data.pegawai.name);
+                        $('#hidden_id').val(data.pegawai.id);
+                        $('#action').val('edit');
                         $('#btn')
-                            .removeClass('btn-outline-info')
-                            .addClass('btn-outline-success')
-                            .val('Simpan');
-                        $('#order-table').DataTable().ajax.reload();
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Update');
                     }
-                    $('#form_result').html(html);
-                }
+                });
             });
-        });
 
-        $(document).on('click', '.edit', function () {
-            var id = $(this).attr('data-id');
-            $.ajax({
-                url: '/admin/pengumuman/pesan/'+id,
-                dataType: 'JSON',
-                success: function (data) {
-                    console.log(data.kelas);
-                    $('#judul').val(data.kelas.judul);
-                    $('#notifikasi').val(data.kelas.notifikasi);
-                    $('#dashboard').val(data.kelas.dashboard);
-                    $('#message_time').val(data.kelas.message_time);
-                    $('#start_date').val(data.kelas.start_date);
-                    $('#end_date').val(data.kelas.end_date);
-                    $('#message').val(data.kelas.message);
-                    $('#hidden_id').val(data.kelas.id);
-                    $('#action').val('edit');
-                    $('#btn')
-                        .removeClass('btn-outline-success')
-                        .addClass('btn-outline-info')
-                        .val('Update');
-                    $('#modal-pesan').modal('show');
-                }
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
             });
-        });
 
-        var user_id;
-        $(document).on('click', '.delete', function () {
-            user_id = $(this).attr('data-id');
-            $('#ok_button').text('Hapus');
-            $('#confirmModal').modal('show');
-        });
-
-        $('#ok_button').click(function () {
-            $.ajax({
-                url: '/admin/pengumuman/pesan/hapus/'+user_id,
-                beforeSend: function () {
-                    $('#ok_button').text('Menghapus...');
-                }, success: function (data) {
-                    setTimeout(function () {
-                        $('#confirmModal').modal('hide');
-                        $('#order-table').DataTable().ajax.reload();
-                        toastr.success('Data berhasil dihapus');
-                    }, 1000);
-                }
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: '/admin/pengumuman/pesan/hapus/'+user_id,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, success: function (data) {
+                        setTimeout(function () {
+                            $('#confirmModal').modal('hide');
+                            $('#order-table').DataTable().ajax.reload();
+                            toastr.success('Data berhasil dihapus');
+                        }, 1000);
+                    }
+                });
             });
         });
     </script>

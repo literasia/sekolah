@@ -133,7 +133,7 @@
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('guru/absensi/siswa') ? 'active' : '' }}">
                             <a href="{{ route('guru.absensi.siswa') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Siswa 2</span>
+                                <span class="pcoded-mtext">Siswa</span>
                             </a>
                         </li>
                         <li class="{{ request()->is('guru/absensi/rekap-siswa') ? 'active' : '' }}">
@@ -282,7 +282,7 @@
                     </ul>
                 </li>
                 @endif
-                
+
 
             </ul>
         </div>
