@@ -28,6 +28,7 @@
                             <table id="siswa-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
+                                        <th>ID Kelas</th>
                                         <th>NIS</th>
                                         <th>Nama Lengkap</th>
                                         <th>Kelas</th>
@@ -41,6 +42,7 @@
                                 <tbody class="text-left">
                                     @forelse($siswas as $siswa)
                                         <tr>
+                                            <td>{{ $siswa->kelas_id }}</td>
                                             <td>{{ $siswa->nis }}</td>
                                             <td>{{ $siswa->nama_lengkap }}</td>
                                             <td>{{ $siswa->kelas }}</td>

@@ -93,7 +93,6 @@ class SiswaController extends Controller
             $i++;
         }
 
-
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
             'kelases' => $kelases,

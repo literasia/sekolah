@@ -24,6 +24,7 @@ Route::namespace('PesertaDidik')
             ->name('pengaturan-siswa-per-kelas');
         Route::get('siswa-pindahan', 'SiswaPindahanController@index')
             ->name('siswa-pindahan');
+        
 });
 
 // Pelanggaran
@@ -112,6 +113,8 @@ Route::namespace('Fungsionaris')->name('fungsionaris.')->prefix('fungsionaris')-
     Route::get('getKecamatan/{id}', 'PegawaiController@getKecamatan');
 });
 
+
+
      // Sekolah
 Route::namespace('Sekolah')->group(function () {
     // Jurusan
@@ -169,6 +172,14 @@ Route::namespace('Absensi')->group(function () {
 Route::namespace('DaftarNilai')->group(function () {
     Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
         ->name('daftar-nilai');
+});
+
+// Import
+Route::namespace('Import')->group(function () {
+    Route::get('/admin/import/import-siswa', 'SiswaController@index')
+        ->name('import.import-siswa');
+    Route::post('/admin/import/import-siswa/import_excel', 'SiswaController@import_excel')
+        ->name('import.import-siswa.import_excel');
 });
 
 // Referensi

@@ -84,14 +84,14 @@
                     </div>
                     <div class="col-xl-4 col-md-6">
                         <h6>Guru</h6>
-                        <h5 class="m-b-30 f-w-700">532</h5>
+                        <h5 class="m-b-30 f-w-700">{{ $guru }}</h5>
                         <div class="progress">
                             <div class="progress-bar bg-c-red" style="width:25%"></div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-md-6">
                         <h6>Orang Tua</h6>
-                        <h5 class="m-b-30 f-w-700">89%</h5>
+                        <h5 class="m-b-30 f-w-700">{{ $orangtua }}</h5>
                         <div class="progress">
                             <div class="progress-bar bg-c-green" style="width:85%"></div>
                         </div>
