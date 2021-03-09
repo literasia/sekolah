@@ -204,6 +204,7 @@ class PegawaiController extends Controller
 
     public function destroy($id) {
         $pegawai = Pegawai::findOrFail($id);
+        $access = $pegawai->access->delete();
         $pegawai->delete();
 
         if ($pegawai->foto && Storage::disk('public')->exists($pegawai->foto)) {

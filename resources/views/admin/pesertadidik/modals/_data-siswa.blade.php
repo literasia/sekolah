@@ -213,9 +213,10 @@
                     <div class="form-group">
                         <label for="provinsi">Provinsi</label>
                         <select name="provinsi" id="provinsi" class="form-control form-control-sm">
-                            <option value="">-- Provinsi --</option>
-                            <option value="Aceh">Aceh</option>
-                            <option value="Sumatera Utara">Sumatera Utara</option>
+                            <option value="" selected>-- Provinsi --</option>
+                            @foreach($provinsis as $provinsi)
+                            <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -224,9 +225,6 @@
                         <label for="kabupaten">Kabupaten</label>
                         <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
                             <option value="">-- Kabupaten --</option>
-                            <option value="Langkat">Langkat</option>
-                            <option value="Deli Serdang">Deli Serdang</option>
-                            <option value="Medan">Medan</option>
                         </select>
                     </div>
                 </div>
@@ -237,9 +235,6 @@
                         <label for="kecamatan">Kecamatan</label>
                         <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
                             <option value="">-- Kecamatan --</option>
-                            <option value="Besitang">Besitang</option>
-                            <option value="Medan Kota">Medan Kota</option>
-                            <option value="Medan Selayang">Medan Selayang</option>
                         </select>
                     </div>
                 </div>

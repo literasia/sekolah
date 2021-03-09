@@ -19,7 +19,7 @@
                             <a class="nav-link" data-toggle="tab" href="#data-wali" role="tab">Data Wali</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#data-login" role="tab">Data Login Siswa</a>
+                            <a class="nav-link" id="toggle-data-login" data-toggle="tab" href="#data-login" role="tab">Data Login Siswa</a>
                         </li>
                     </ul>
                     <div class="tab-content modal-body">
