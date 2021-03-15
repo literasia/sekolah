@@ -20,7 +20,7 @@ class JamPelajaranController extends Controller
         }
 
         $data = JamPelajaran::where('sekolah_id', $request->user()->id_sekolah)
-                            ->orderBy('jam_ke')
+                            ->orderBy('jam_mulai')
                             ->get();
         
         $data = $data->groupBy('hari');
