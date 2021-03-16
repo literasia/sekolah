@@ -192,6 +192,7 @@
                     url: "{{ route('admin.sekolah.kelas') }}",
                 },
                 columns: [
+                    {data: 'id'},
                     {data: 'name'},
                     {data: 'wali_kelas'},
                     {data: 'kapasitas'},

@@ -121,11 +121,9 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-
             $('#add').on('click', function () {
                 $('#modal-import-siswa').modal('show');
             });
-
-            // $('#order-table').DataTable();
+        });
     </script>
 @endpush
