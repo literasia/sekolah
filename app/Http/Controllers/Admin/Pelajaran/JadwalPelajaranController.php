@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin\Pelajaran;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\JadwalPelajaran;
-use App\Models\MataPelajaran;
-use App\Models\TingkatanKelas;
+use App\Models\{JadwalPelajaran, JamPelajaran, MataPelajaran, TingkatanKelas, Semester};
+use App\Models\Admin\Kelas;
 use App\User;
 
 class JadwalPelajaranController extends Controller
@@ -48,36 +47,68 @@ class JadwalPelajaranController extends Controller
             ['id' => '9', 'label' => '(14:45 - 15:30)' ],
         ];
 
-        $kelas = TingkatanKelas::where('sekolah_id', $request->user()->id_sekolah)->get();
+        $kelas = Kelas::where('user_id', $request->user()->id)->get();
 
         $tahun_ajaran = ['2019/2020', '2020/2021'];
+        $semesters = Semester::where('user_id', auth()->user()->id)->get();
+        // dd($data);
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
                                     ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
                                     ->where('sekolah_id', $request->user()->id_sekolah)
                                     ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
 
-        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
+        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran', 'semesters'), ['mySekolah' => User::sekolah()]);
+    }
+
+    public function getJamPelajaran(Request $request)
+    {
+        $jam_pelajarans = JamPelajaran::where([
+            'sekolah_id'=>auth()->user()->sekolah()->id,
+            'hari'=>$request->hari
+        ])->orderBy('jam_mulai')->get();
+        $rowCount=0;
+        $html = NULL;
+        foreach($jam_pelajarans->chunk(6) as $key=>$chunk_jp){
+            $html.='<div class="col-sm-6">';
+            foreach($chunk_jp as $jp){
+                $html .= '
+                  <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="jam_pelajaran[]" value="'.$jp->id.'">
+                        '.$jp->jam_ke.' '.date("H:i", strtotime($jp->jam_mulai)).' - '.date("H:i", strtotime($jp->jam_selesai)).'
+                    </label>
+                  </div>';
+            }
+            $html.='</div>';
+        }
+        echo $html;
+    }
+
+    public function getJadwalPelajaran(Request $request)
+    {
+        $kelas = $request->kelas;
+        $semester = $request->semester;
+        $tahun_ajaran = $request->tahun_ajaran;
     }
 
     public function write(Request $request) {
 
         if($request->req == 'write') {
-            $obj = JadwalPelajaran::find($request->id);
-
-            if(!$obj) {
-                $obj = new JadwalPelajaran();
+            foreach($request->jam_pelajaran as $jam_pelajaran){
+                $obj = JadwalPelajaran::find($request->id);
+                if(!$obj) {
+                    $obj = new JadwalPelajaran();
+                }
+                $obj->kelas_id = $request->kelas_id;
+                $obj->mata_pelajaran_id = $request->mata_pelajaran_id;
+                $obj->hari = $request->hari;
+                $obj->semester = $request->semester;
+                $obj->tahun_ajaran = $request->tahun_ajaran;
+                $obj->jam_pelajaran = $jam_pelajaran;
+                $obj->keterangan = $request->keterangan;
+                $obj->save();
             }
-
-            $obj->kelas_id = $request->kelas_id;
-            $obj->mata_pelajaran_id = $request->mata_pelajaran_id;
-            $obj->hari = $request->hari;
-            $obj->semester = $request->semester;
-            $obj->tahun_ajaran = $request->tahun_ajaran;
-            $obj->jam_pelajaran = $request->jam_pelajaran;
-            $obj->keterangan = $request->keterangan;
-            $obj->save();
-
             return response()->json($obj);
         }
         elseif($request->req == 'delete') {

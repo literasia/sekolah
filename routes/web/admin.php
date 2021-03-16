@@ -133,11 +133,11 @@ Route::namespace('Sekolah')->group(function () {
        ->name('sekolah.kelas-update');
     Route::get('/admin/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
 
-     // Jam Pelajaran
-     Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
-         ->name('sekolah.jam');
-     Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
-         ->name('sekolah.jam.write');
+    // Jam Pelajaran
+    Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
+        ->name('sekolah.jam');
+    Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
+        ->name('sekolah.jam.write');
  });
 
 // Pelajaran
@@ -151,6 +151,8 @@ Route::namespace('Pelajaran')->group(function () {
     // Jadwal Pelajaran
     Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
         ->name('pelajaran.jadwal-pelajaran');
+    Route::post('/admin/pelajaran/jadwal-pelajaran/getJamPelajaran', 'JadwalPelajaranController@getJamPelajaran')
+        ->name('pelajaran.jadwal-pelajaran.getJamPelajaran');
     Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
         ->name('pelajaran.jadwal-pelajaran.write');
 });

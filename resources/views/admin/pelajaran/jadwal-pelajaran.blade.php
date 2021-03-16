@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Hari --</option>
+                                            <option value="">-- Pilih Hari --</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>
@@ -70,8 +70,9 @@
                                         <label for="semester">Semester</label>
                                         <select name="semester" id="semester" class="form-control form-control-sm">
                                             <option disabled="" value="">-- Semester --</option>
-                                            <option value="ganjil">Ganjil</option>
-                                            <option value="genap">Genap</option>
+                                            @foreach($semesters as $semester)
+                                              <option value="{{ $semester->id }}">{{ $semester->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -98,37 +99,8 @@
                                       <label>Jam Ke</label>
                                     </div>
                                   </div>
-                                  <div class="row" style="margin-top: -10px;">
-                                    <div class="col-sm-6">
-                                        <div id="side_left">
-                                          @foreach ($jam_pelajaran as $key => $jp)
-                                          @if($key <= 6)
-                                          <div class="form-check">
-                                            <label class="form-check-label">
-                                              @if($jp['id'] != '-')
-                                                <input class="form-check-input" id="id_jpl{{$key}}" type="radio" name="jam_pelajaran" value="{{ $jp['id'] }}">
-                                              @endif
-                                              {{ $jp['id'] }} {{ $jp['label'] }}
-                                            </label>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6" id="side_right">
-                                      @foreach ($jam_pelajaran as $key => $jp)
-                                          @if($key > 6)
-                                          <div class="form-check">
-                                            <label class="form-check-label">
-                                              @if($jp['id'] != '-')
-                                                <input class="form-check-input" id="id_jpr{{$key}}" type="radio" name="jam_pelajaran" value="{{ $jp['id'] }}">
-                                              @endif
-                                              {{ $jp['id'] }} {{ $jp['label'] }}
-                                            </label>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                    </div>
+                                  <div class="row" style="margin-top: -10px;" id="jam_pelajaran">
+                                    
                                   </div>
                                 </div>
                               </div>
@@ -165,8 +137,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="jk">Kelas</label>
-                                    <select name="kelas_id" id="jk" class="form-control form-control-sm" required>
+                                    <label for="kelas2">Kelas</label>
+                                    <select name="kelas_id" id="kelas2" class="form-control form-control-sm" required>
                                         <option disabled>-- Kelas --</option>
                                         @foreach($kelas as $obj)
                                           <option value="{{$obj->id}}">{{$obj->name}}</option>
@@ -176,18 +148,19 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="jk">Semester</label>
-                                    <select name="semester" id="jk" class="form-control form-control-sm" required>
+                                    <label for="semester">Semester</label>
+                                    <select name="semester" id="semester2" class="form-control form-control-sm" required>
                                         <option disabled>-- Semester --</option>
-                                        <option value="ganjil">Ganjil</option>
-                                        <option value="genap">Genap</option>
+                                        @foreach($semesters as $semester)
+                                          <option value="{{ $semester->id }}">{{ $semester->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="agama">Tahun Ajaran</label>
-                                    <select name="tahun_ajaran" id="agama" class="form-control form-control-sm" required>
+                                    <select name="tahun_ajaran" id="tahun_ajaran2" class="form-control form-control-sm" required>
                                         <option disabled>-- Tahun Ajaran --</option>
                                         @foreach($tahun_ajaran as $obj)
                                         <option value="{{$obj}}">{{$obj}}</option>
@@ -279,6 +252,18 @@
             table.show();
             @endif
 
+            $("#hari").change(function(){
+              _this = $(this);
+              $.ajax({
+                  url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
+                  method: 'POST',
+                  data: {hari:_this.val()},
+                  success: function (data) {
+                      $('#jam_pelajaran').html(data);
+                  }
+              });
+            })
+
             var resetForm = () => {
               $('select[name=kelas]').val("{{ $kelas[0] ?? null }}");
               $('select[name=mata_pelajaran_id]').val("{{ $mata_pelajaran[0]->id ?? null }}");
@@ -301,8 +286,8 @@
                 $.ajax({
                     url: url,
                     method: 'POST',
-                    dataType: 'JSON',
-                    data: $(this).serialize(),
+                    // dataType: 'JSON',
+                    data: $("#form-jadwal-pelajaran").serialize(),
                     success: function (data) {
                         toastr.success('Data berhasil disimpan');
                         resetForm();
