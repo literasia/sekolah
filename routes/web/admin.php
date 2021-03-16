@@ -168,9 +168,29 @@ Route::namespace('Absensi')->group(function () {
 });
 
 // Daftar Nilai
+Route::resource('daftar-nilai', 'DaftarNilai\DaftarNilaiController');
 Route::namespace('DaftarNilai')->group(function () {
+
     Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
         ->name('daftar-nilai');
+    Route::post('/admin/daftar-nilai', 'DaftarNilaiController@store');
+});
+
+// Kalender
+Route::namespace('Kalender')->group(function () {
+    Route::get('/admin/kalender/kalender-akademik', 'KalenderAkademikController@index')
+        ->name('kalender.kalender-akademik');
+    Route::post('/admin/kalender/tambah', 'KalenderAkademikController@store')->name('kalender.tambah-event');
+    Route::post('/admin/kalender/update/{id}', 'KalenderAkademikController@update')->name('kalender.edit-event');
+    Route::get('/admin/kalender/hapus/{id}', 'KalenderAkademikController@destroy');
+});
+
+// Import
+Route::namespace('Import')->group(function () {
+    Route::get('/admin/import/import-siswa', 'SiswaController@index')
+        ->name('import.import-siswa');
+    Route::post('/admin/import/import-siswa/import_excel', 'SiswaController@import_excel')
+        ->name('import.import-siswa.import_excel');
 });
 
 // Referensi

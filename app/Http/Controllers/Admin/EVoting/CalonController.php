@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin\EVoting;
 
+use App\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use App\Models\Siswa;
+use App\Models\Admin\Calon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Admin\Calon;
-use App\Models\Siswa;
-use App\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CalonController extends Controller

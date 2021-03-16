@@ -177,7 +177,7 @@
                 clearDataSiswa(); clearDataOrtu(); clearDataWali();
                 $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
                 $('#btn-submit').text('Tambah');
-                
+
                 $("#toggle-data-login").show();
                 $("#data-login").show();
                 $("#username").prop('required', true);
@@ -252,11 +252,11 @@
                         $('#jarak_rumah_sekolah').val(data.jarak_rumah_sekolah);
                         $('#is_siswa_pindahan').val(data.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
                         $('#alamat_tinggal').val(data.alamat_tinggal);
-                        
+
                         // $.when($('#provinsi').val(data.provinsi).change()).then(function(){
                         //     $.when($('#kabupaten').val(data.kabupaten).change()).then(function(){
-                        //         $('#kecamatan').val(data.kecamatan);    
-                        //     });    
+                        //         $('#kecamatan').val(data.kecamatan);
+                        //     });
                         // });
                         $('#provinsi').val(data.provinsi).change();
                         setTimeout(()=>{
@@ -266,7 +266,7 @@
                             },500);
                         },500);
                         // $('#kecamatan').val(data.kecamatan);
-                        
+
                         $('#dusun').val(data.dusun);
                         $('#rt').val(data.rt);
                         $('#rw').val(data.rw);
