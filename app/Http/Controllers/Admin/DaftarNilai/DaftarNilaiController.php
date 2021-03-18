@@ -49,7 +49,7 @@ class DaftarNilaiController extends Controller
         // dd($nilai[0][0]);
 
         $semester = Semester::whereId('user_id', auth()->user()->id)->orderBy('name')->get();
-         
+
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
                                     ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
@@ -58,7 +58,7 @@ class DaftarNilaiController extends Controller
                                     ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran) as name')->get();
         }
 
-        return view('admin.daftar-nilai', 
+        return view('admin.daftar-nilai',
         	compact('a',
                     'nilai',
                     'def_uni',

@@ -19,7 +19,10 @@ class ListSekolahController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = Sekolah::latest()->get();
+            $data = Sekolah::join('provinsis', 'sekolahs.provinsi', 'provinsis.id')
+                ->join('kabupaten_kotas', 'sekolahs.kabupaten', 'kabupaten_kotas.id')
+                ->latest()->get(['sekolahs.*', 'provinsis.name AS provinsis', 'kabupaten_kotas.name AS kabupatens']);
+            // return($data);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

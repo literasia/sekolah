@@ -27,7 +27,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="tanggal_pelanggaran">Tanggal</label>
-                                <input id="tanggal_pelanggaran" name="tanggal_pelanggaran" class="form-control form-control-sm" type="text" placeholder="Tanggal" readonly />
+                                <input id="tanggal_pelanggaran" name="tanggal_pelanggaran" class="form-control form-control-sm" type="text" placeholder="Tanggal" readonly required />
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="sebab">Sebab</label>
-                                <textarea name="sebab" id="sebab" cols="10" rows="3" class="form-control form-control-sm" placeholder="Sebab"></textarea>
+                                <textarea name="sebab" id="sebab" cols="10" rows="3" class="form-control form-control-sm" placeholder="Sebab" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -75,13 +75,13 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="penanganan">Penanganan</label>
-                                <textarea name="penanganan" id="penanganan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Penanganan"></textarea>
+                                <textarea name="penanganan" id="penanganan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Penanganan" required></textarea>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan"></textarea>
+                                <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                     </div>
                 </form>
             </div>
-            
+
         </div>
     </div>
 </div>

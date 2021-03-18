@@ -24,7 +24,6 @@ Route::namespace('PesertaDidik')
             ->name('pengaturan-siswa-per-kelas');
         Route::get('siswa-pindahan', 'SiswaPindahanController@index')
             ->name('siswa-pindahan');
-        
 });
 
 // Pelanggaran
@@ -113,8 +112,6 @@ Route::namespace('Fungsionaris')->name('fungsionaris.')->prefix('fungsionaris')-
     Route::get('getKecamatan/{id}', 'PegawaiController@getKecamatan');
 });
 
-
-
      // Sekolah
 Route::namespace('Sekolah')->group(function () {
     // Jurusan
@@ -136,11 +133,11 @@ Route::namespace('Sekolah')->group(function () {
        ->name('sekolah.kelas-update');
     Route::get('/admin/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
 
-     // Jam Pelajaran
-     Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
-         ->name('sekolah.jam');
-     Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
-         ->name('sekolah.jam.write');
+    // Jam Pelajaran
+    Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
+        ->name('sekolah.jam');
+    Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
+        ->name('sekolah.jam.write');
  });
 
 // Pelajaran
@@ -154,6 +151,8 @@ Route::namespace('Pelajaran')->group(function () {
     // Jadwal Pelajaran
     Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
         ->name('pelajaran.jadwal-pelajaran');
+    Route::post('/admin/pelajaran/jadwal-pelajaran/getJamPelajaran', 'JadwalPelajaranController@getJamPelajaran')
+        ->name('pelajaran.jadwal-pelajaran.getJamPelajaran');
     Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
         ->name('pelajaran.jadwal-pelajaran.write');
 });
@@ -261,5 +260,5 @@ Route::namespace('Pengumuman')->group(function () {
     Route::get('/admin/pengumuman/pesan/{id}', 'PesanController@edit');
     Route::post('/admin/pengumuman/pesan/update', 'PesanController@update')
         ->name('pengumuman.pesan-update');
-    Route::post('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
+    Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 });

@@ -24,6 +24,11 @@ Route::get('/dbal', function () {
     return "Composer success";
 });
 
+Route::get('/composer-install', function () {
+    shell_exec('composer install');
+    return "Composer success";
+});
+
 Route::middleware('auth')->group(function(){
     Route::get('/superadmin/referensi/provinsi/getKabupatenKota', 'Superadmin\Referensi\ProvinsiController@getKabupatenKota')
         ->name('superadmin.referensi.provinsi-getKabupatenKota');
@@ -286,8 +291,6 @@ Route::namespace('Admin')
         // Peserta Didik
         // Route -> Admin/PesertaDidik
         // url /admin/peserta-didik
-    
-
 
 
         // Fungsionaris

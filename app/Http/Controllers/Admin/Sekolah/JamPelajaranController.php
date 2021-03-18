@@ -14,17 +14,17 @@ class JamPelajaranController extends Controller
 {
 
     public function index(Request $request) {
-        
+
         if($request->req == 'single') {
             return response()->json(JamPelajaran::findOrFail($request->id));
         }
 
         $data = JamPelajaran::where('sekolah_id', $request->user()->id_sekolah)
-                            ->orderBy('jam_ke')
+                            ->orderBy('jam_mulai')
                             ->get();
-        
+
         $data = $data->groupBy('hari');
-        
+
         return view('admin.sekolah.jam-pelajaran', compact('data'), ['mySekolah' => User::sekolah()]);
     }
 

@@ -138,10 +138,52 @@
 
             $('#tanggal_lahir_wali').dateDropper(dateOptions);
 
+            $("#provinsi").change(function(){
+                _this = $(this);
+                $.ajax({
+                    url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
+                    dataType: 'JSON',
+                    data: {provinsi_id:_this.val()},
+                    success: function (data) {
+                        $("#kabupaten").html("");
+                        var options = "";
+                        for (let key in data) {
+                            options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        }
+                        $("#kabupaten").html(options);
+                        $("#kabupaten").change();
+                    }
+                });
+            });
+
+            $("#kabupaten").change(function(){
+                _this = $(this);
+                $.ajax({
+                    url: '{{ route('superadmin.referensi.kabupaten-kota-getKecamatans') }}',
+                    dataType: 'JSON',
+                    data: {kabupaten_kota_id:_this.val()},
+                    success: function (data) {
+                        $("#kecamatan").html("");
+                        var options = "";
+                        for (let key in data) {
+                            options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        }
+                        $("#kecamatan").html(options);
+                    }
+                });
+            });
+
             $('#add').on('click', function () {
                 clearDataSiswa(); clearDataOrtu(); clearDataWali();
                 $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
                 $('#btn-submit').text('Tambah');
+
+                $("#toggle-data-login").show();
+                $("#data-login").show();
+                $("#username").prop('required', true);
+                $("#password").prop('required', true);
+                $("#password_confirmation").prop('required', true);
+
                 $('#modal-siswa input[name=_method]').val("POST");
                 $('#modal-siswa').modal('show');
             });
@@ -157,17 +199,18 @@
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("password_confirmation");
             let errMsg;
+            if($("#btn-submit").text()=="Tambah"){
+                if (password.value != confirmPassword.value) {
+                    errMsg = 'Maaf, konfirmasi password belum sama pada data login siswa';
+                } else if (password.value.length < 6) {
+                    errMsg = 'Password min. 6 karakter';
+                }
 
-            if (password.value != confirmPassword.value) {
-                errMsg = 'Maaf, konfirmasi password belum sama pada data login siswa';
-            } else if (password.value.length < 6) {
-                errMsg = 'Password min. 6 karakter';
-            }
-
-            if (errMsg) {
-                toastr.error(errMsg);
-                e.preventDefault();
-                return false;
+                if (errMsg) {
+                    toastr.error(errMsg);
+                    e.preventDefault();
+                    return false;
+                }
             }
         }
 
@@ -180,6 +223,11 @@
 
         $(document).on('click', '.edit', function () {
                 var id = $(this).data('id');
+                $("#toggle-data-login").hide();
+                $("#data-login").hide();
+                $("#username").prop('required', false);
+                $("#password").prop('required', false);
+                $("#password_confirmation").prop('required', false);
                 $.ajax({
                     url: '/admin/peserta-didik/siswa/'+id,
                     dataType: 'JSON',
@@ -187,7 +235,7 @@
                         $('#nis').val(data.nis);
                         $('#nisn').val(data.nisn);
                         $('input[name=tanggal_masuk').val(data.tanggal_masuk);
-                        $('#kelas').val(data.id_tingkatan_kelas);
+                        $('#kelas').val(data.kelas_id);
                         $('input[name=nama_lengkap]').val(data.nama_lengkap);
                         $('#nama_panggilan').val(data.nama_panggilan);
                         $('#jk').val(data.jk);
@@ -204,15 +252,34 @@
                         $('#jarak_rumah_sekolah').val(data.jarak_rumah_sekolah);
                         $('#is_siswa_pindahan').val(data.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
                         $('#alamat_tinggal').val(data.alamat_tinggal);
-                        $('#provinsi').val(data.provinsi);
-                        $('#kabupaten').val(data.kabupaten);
-                        $('#kecamatan').val(data.kecamatan);
+
+                        // $.when($('#provinsi').val(data.provinsi).change()).then(function(){
+                        //     $.when($('#kabupaten').val(data.kabupaten).change()).then(function(){
+                        //         $('#kecamatan').val(data.kecamatan);
+                        //     });
+                        // });
+                        $('#provinsi').val(data.provinsi).change();
+                        setTimeout(()=>{
+                            $('#kabupaten').val(data.kabupaten).change();
+                            setTimeout(()=>{
+                                $('#kecamatan').val(data.kecamatan);
+                            },500);
+                        },500);
+                        // $('#kecamatan').val(data.kecamatan);
+
                         $('#dusun').val(data.dusun);
                         $('#rt').val(data.rt);
                         $('#rw').val(data.rw);
                         $('#kode_pos').val(data.kode_pos);
                         $('#no_telepon').val(data.no_telepon);
                         $('#no_telepon_rumah').val(data.no_telepon_rumah);
+
+                        // $("#provinsi option").prop('selected', false);
+                        // $("#kabupaten option").prop('selected', false);
+                        // $("#kecamatan option").prop('selected', false);
+                        // $('#provinsi option[value="'+data.provinsi+'"]').prop('selected', true);
+                        // $('#kabupaten option[value="'+data.kabupaten+'"]').prop('selected', true);
+                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected', true);
 
                         if (data.siswa_orang_tua) {
                             const orangTua = data.siswa_orang_tua;

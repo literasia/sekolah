@@ -22,8 +22,8 @@
         <div class="col-xl-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="card-block">
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
@@ -41,7 +41,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -212,7 +212,7 @@
                     success: function (data) {
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#siswa_id').val(data.siswa_id.siswa_id);
+                        $('#siswa_id').val(data.nama_siswa.siswa_id);
                         $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
                         $('#pelanggaran').val(data.pelanggaran.pelanggaran);
                         $('#poin_lama').val(data.poin.poin);

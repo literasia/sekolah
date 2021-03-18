@@ -9,6 +9,7 @@ use App\Models\SiswaWali;
 use App\Models\TingkatanKelas;
 use App\Models\Admin\Kelas;
 use App\Models\Admin\SuratPeringatan;
+use App\Models\Superadmin\Provinsi;
 use App\User;
 use App\Utils\CRUDResponse;
 use Carbon\Carbon;
@@ -75,6 +76,7 @@ class SiswaController extends Controller
                 ])->whereNotNull('siswa_id')
                 ->get();
 
+        $provinsis = Provinsi::all();
         $poin_sp = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->get();
         $siswas = [];
         $i = 0;
@@ -93,10 +95,12 @@ class SiswaController extends Controller
             $i++;
         }
 
+
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,
             'kelases' => $kelases,
-            'mySekolah' => User::sekolah()
+            'mySekolah' => User::sekolah(),
+            'provinsis'=>$provinsis,
         ]);
     }
 
@@ -258,7 +262,8 @@ class SiswaController extends Controller
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        $siswaLoginRules['username'] = ['required'];
+        $siswaLoginRules['username'] = [];
+        $siswaLoginRules['password'] = [];
         $validator = Validator::make($data, $siswaLoginRules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->all())->withInput();
@@ -303,7 +308,7 @@ class SiswaController extends Controller
                     'kode_pos' => $data['kode_pos'],
                     'no_telepon_rumah' => $data['no_telepon_rumah'],
                     'no_telepon' => $data['no_telepon'],
-                    'foto' => $data['foto']
+                    'foto' => $data['foto']??""
                 ]);
                 $data['tanggal_lahir_ayah'] = Carbon::parse($data['tanggal_lahir_ayah'])->format('Y-m-d');
                 $data['tanggal_lahir_ibu'] = Carbon::parse($data['tanggal_lahir_ibu'])->format('Y-m-d');
@@ -346,8 +351,7 @@ class SiswaController extends Controller
 
                 User::where('siswa_id', $id)->update([
                     'name' => $data['nama_lengkap'],
-                    'nis' => $data['nis'],
-                    'password' => Hash::make($data['password'])
+                    'nis' => $data['nis']
                 ]);
                 DB::commit();
             } catch (Exception $e) {
@@ -377,6 +381,9 @@ class SiswaController extends Controller
 
     public function destroy($id) {
         $siswa = Siswa::findOrFail($id);
+        if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+            Storage::disk('public')->delete($siswa->foto);
+        }
         $siswa->delete();
         return redirect()->back()->with(CRUDResponse::successDelete("siswa"));
     }
