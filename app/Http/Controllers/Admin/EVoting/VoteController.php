@@ -12,8 +12,8 @@ use App\Models\Admin\Voting;
 class VoteController extends Controller
 {
     public function index(Request $request) {
-        $names = Pemilihan::orderBy('start_date')->get();
-        $pemilihans = Pemilihan::orderBy('id')->get();
+        $names = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $pemilihans = Pemilihan::orderBy('id')->where('sekolah_id', auth()->user()->id_sekolah)->get();
         $counts = collect();
         // dd($names[0]->votes);
 
