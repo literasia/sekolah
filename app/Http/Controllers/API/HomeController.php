@@ -15,7 +15,7 @@ class HomeController extends Controller
         $data = $req->all();
 
         $libraries = Library::query()->with(['kategori', 'penulis']);
-        
+
         $sekolahId = $req->query('sekolah_id');
         $libraries->when($sekolahId, function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)
@@ -31,8 +31,7 @@ class HomeController extends Controller
             ];
         }
 
-
-        $akses = User::find($data['user_id'])->pegawai->access;
+        $akses = User::find($data['user_id'])->pegawai->access ?? null;
 
         $data = [
             'banners' => $banners,

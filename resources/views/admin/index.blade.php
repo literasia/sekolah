@@ -116,7 +116,7 @@
 
     {{-- Project statustic start --}}
 
-    
+
         {{-- <div class="card proj-progress-card">
             <div class="card-block">
                 <div class="row">
@@ -174,7 +174,7 @@
 </div>
 
 <div class="row">
-    
+
 </div>
 
 @endsection
