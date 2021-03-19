@@ -173,7 +173,9 @@ Route::namespace('DaftarNilai')->group(function () {
 
     Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
         ->name('daftar-nilai');
-    Route::post('/admin/daftar-nilai', 'DaftarNilaiController@store');
+    Route::post('/admin/daftar-nilai', 'DaftarNilaiController@store')->name('daftar-nilai.store');
+    Route::put('/admin/daftar-nilai', 'DaftarNilaiController@update')->name('daftar-nilai.update');
+    Route::delete('/admin/daftar-nilai', 'DaftarNilaiController@destroy')->name('daftar-nilai.destroy');
 });
 
 // Kalender

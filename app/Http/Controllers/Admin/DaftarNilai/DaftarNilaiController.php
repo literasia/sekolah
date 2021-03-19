@@ -22,6 +22,8 @@ class DaftarNilaiController extends Controller
     	$data = [];
         $def_uni =1;
         $jumlah_data = 1;
+        $data_siswa=[];
+        $data_pelajaran=NULL;
         $kelas = Kelas::where('user_id', auth()->id())->get();
         $semester = Semester::where('user_id', auth()->user()->id)->get();
 
@@ -29,39 +31,76 @@ class DaftarNilaiController extends Controller
                                     ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
                                     ->where('sekolah_id', auth()->user()->id_sekolah)
                                     ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
-
         if($request->req == 'table') {
-        $jumlah_data = DaftarNilai::selectRaw('urutan_nilai')->count();
-            if ($jumlah_data < 1) {
-                $jumlah_data = 1;
+            if($request->kelas_id && $request->mata_pelajaran_id && $request->tahun_ajaran && $request->semester_id && $request->kategori_nilai){
+                $siswas = Siswa::where(['kelas_id'=>$request->kelas_id])->orderBy('nama_lengkap', 'ASC');
+                
+                if($siswas->count() > 0){
+                    foreach($siswas->get() as $siswa){
+                        $id_siswa = $siswa->id;
+                        $daftarNilai = DaftarNilai::where(['kelas_id' => $request->kelas_id, 'siswa_id'=>$id_siswa, 'mata_pelajaran_id'=>$request->mata_pelajaran_id, 'semester_id'=>$request->semester_id, 'tahun_ajaran'=>$request->tahun_ajaran, 'kategori_nilai'=>$request->kategori_nilai, 'urutan_nilai'=>'1']);
+                        if($daftarNilai->count() == 0){
+                            $nilai = new DaftarNilai;
+                            $nilai->kelas_id = $request->kelas_id;
+                            $nilai->siswa_id = $siswa->id;
+                            $nilai->mata_pelajaran_id = $request->mata_pelajaran_id;
+                            $nilai->semester_id = $request->semester_id;
+                            $nilai->tahun_ajaran = $request->tahun_ajaran;
+                            $nilai->kategori_nilai = $request->kategori_nilai;
+                            $nilai->nilai = 0;
+                            $nilai->urutan_nilai = 1;
+                            $nilai->save();
+                        }
+                    }
+                }
+                else{
+                    $id_siswa = 0;
+                }
+
+                $data_siswa = $siswas->get();
+                $jumlah_data = DaftarNilai::where([
+                    'kelas_id'=>$request->kelas_id, 
+                    'siswa_id'=>$id_siswa,
+                    'mata_pelajaran_id'=>$request->mata_pelajaran_id,
+                    'semester_id'=>$request->semester_id, 
+                    'tahun_ajaran'=>$request->tahun_ajaran,
+                    'kategori_nilai'=>$request->kategori_nilai
+                ])->count();
+                $data_pelajaran = MataPelajaran::findOrFail($request->mata_pelajaran_id);
+
             }
-        $def_uni = 1;
-        // dd($jumlah_data);
+            // $jumlah_data = DaftarNilai::selectRaw('urutan_nilai')->count();
+            // if ($jumlah_data < 1) {
+            //     $jumlah_data = 1;
+            // }
 
-        $data = Siswa::with(['kelas'])
-                         ->where('kelas_id', $request->kelas_id)
-                         ->orderBy('nama_lengkap')
-                         ->get();
-            // return response()->json($data);
-        foreach ($data as $dt) {
-            $nilai[] = DaftarNilai::whereNotNull('nilai')->where('siswa_id', $dt->id)->get();
+            // $def_uni = 1;
+            // dd($jumlah_data);
+
+            // $data = Siswa::with(['kelas'])
+            //                  ->where('kelas_id', $request->kelas_id)
+            //                  ->orderBy('nama_lengkap')
+            //                  ->get();
+                // return response()->json($data);
+            // foreach ($data as $dt) {
+            //     $nilai[] = DaftarNilai::whereNotNull('nilai')->where('siswa_id', $dt->id)->get();
+            // }
+
+            // $semester = Semester::whereId('user_id', auth()->user()->id)->orderBy('name')->get();
+
+
+            // $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
+            //             ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
+            //             ->where('sekolah_id', auth()->user()->id_sekolah)
+            //             ->selectRaw('mata_pelajarans.guru_id, concat(name) as nama_guru')
+            //             ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran) as name')->get();
         }
-
-        $semester = Semester::whereId('user_id', auth()->user()->id)->orderBy('name')->get();
-
-
-        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
-                                    ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
-                                    ->where('sekolah_id', auth()->user()->id_sekolah)
-                                    ->selectRaw('mata_pelajarans.guru_id, concat(name) as nama_guru')
-                                    ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran) as name')->get();
-        }
-
         return view('admin.daftar-nilai',
         	compact('a',
                     'nilai',
-                    'def_uni',
+                    'data_siswa',
                     'jumlah_data',
+                    'data_pelajaran',
         			'pelajaran',
         			'kelas',
         			'data',
@@ -72,24 +111,110 @@ class DaftarNilaiController extends Controller
     }
 
     public function store(Request $request) {
-        $data = $request->all();
+        $kelas_id = $request->kelas_id;
+        $mata_pelajaran_id = $request->mata_pelajaran_id;
+        $semester_id = $request->semester_id;
+        $tahun_ajaran = $request->tahun_ajaran;
+        $kategori_nilai = $request->kategori_nilai;
+        $urutan_nilai = $request->urutan_nilai;
 
-        $no_urut = 1;
+        $data_siswa = Siswa::where(['kelas_id'=>$kelas_id])->orderBy('nama_lengkap', 'ASC');
+        
+        if($data_siswa->count() > 0){
+            foreach($data_siswa->get() as $siswa){
+                $id_siswa = $siswa->id;
 
-        foreach ($request->input('nilai') as $nilai) {
-            $status = DaftarNilai::create([
-                'kelas_id'  => $request->input('kelas_id'),
-                'siswa_id'  => $request->input('siswa_id'),
-                'mata_pelajaran_id'  => $request->input('mata_pelajaran_id'),
-                'semester_id'  => $request->input('semester_id'),
-                'tahun_ajaran'  => $request->input('tahun_ajaran'),
-                'kategori_nilai'  => $request->input('kategori_nilai'),
-                'nilai'  => $nilai,
-                'urutan_nilai'  => $no_urut,
+                $daftar_nilai = DaftarNilai::where([
+                    'kelas_id'=>$kelas_id,
+                    'siswa_id'=>$id_siswa,
+                    'mata_pelajaran_id'=>$mata_pelajaran_id,
+                    'semester_id'=>$semester_id,
+                    'tahun_ajaran'=>$tahun_ajaran,
+                    'kategori_nilai'=>$kategori_nilai,
+                    'urutan_nilai'=>$urutan_nilai
+                ]);
+
+                if($daftar_nilai->count() == 0){
+                    $data = DaftarNilai::create([
+                        'kelas_id'  => $kelas_id,
+                        'siswa_id'  => $id_siswa,
+                        'mata_pelajaran_id' => $mata_pelajaran_id,
+                        'semester_id' => $semester_id,
+                        'tahun_ajaran' => $tahun_ajaran,
+                        'kategori_nilai' => $kategori_nilai,
+                        'nilai'=>0,
+                        'urutan_nilai' => $urutan_nilai
+                    ]);
+                }
+            }
+        }
+        /////////////////////////////
+        return response()->json(['siswa'=>$data_siswa->get()]);
+
+        // return redirect()->route('admin.daftar-nilai')->with(CRUDResponse::successUpdate("Nilai"));
+    }
+
+    public function update(Request $request)
+    {
+        $siswa_id = $request->siswa_id;
+        $kelas_id = $request->kelas_id;
+        $mata_pelajaran_id = $request->mata_pelajaran_id;
+        $tahun_ajaran = $request->tahun_ajaran;
+        $semester_id = $request->semester_id;
+        $kategori_nilai = $request->kategori_nilai;
+        $nilai = $request->nilai;
+        $urutan_nilai = $request->urutan_nilai;
+
+        $daftar_nilai = DaftarNilai::where([
+            'kelas_id' => $kelas_id,
+            'siswa_id' => $siswa_id,
+            'mata_pelajaran_id' => $mata_pelajaran_id,
+            'semester_id' => $semester_id,
+            'tahun_ajaran' => $tahun_ajaran,
+            'kategori_nilai' => $kategori_nilai,
+            'urutan_nilai' => $urutan_nilai
+        ])->first();
+
+        if($daftar_nilai->count() > 0){
+            $daftar_nilai->nilai = $nilai;
+            $daftar_nilai->save();
+        }
+        else if($daftar_nilai->count() == 0){
+            DaftarNilai::create([
+                'kelas_id'=>$kelas_id,
+                'siswa_id'=>$siswa_id,
+                'mata_pelajaran_id'=>$mata_pelajaran_id,
+                'semester_id'=>$semester_id,
+                'tahun_ajaran'=>$tahun_ajaran,
+                'kategori_nilai'=>$kategori_nilai,
+                'nilai'=>$nilai,
+                'urutan_nilai'=>$urutan_nilai
             ]);
         }
+    }
 
+    public function destroy(Request $request)
+    {
+        $siswa_id = $request->siswa_id;
+        $kelas_id = $request->kelas_id;
+        $mata_pelajaran_id = $request->mata_pelajaran_id;
+        $tahun_ajaran = $request->tahun_ajaran;
+        $semester_id = $request->semester_id;
+        $kategori_nilai = $request->kategori_nilai;
+        $nilai = $request->nilai;
+        $urutan_nilai = $request->urutan_nilai;
 
-        return redirect()->route('admin.daftar-nilai')->with(CRUDResponse::successUpdate("Nilai"));
+        $daftar_nilai = DaftarNilai::where([
+            'kelas_id' => $kelas_id,
+            'mata_pelajaran_id' => $mata_pelajaran_id,
+            'semester_id' => $semester_id,
+            'tahun_ajaran' => $tahun_ajaran,
+            'kategori_nilai' => $kategori_nilai,
+            'urutan_nilai' => $urutan_nilai
+        ]);
+        if($daftar_nilai->forceDelete()){
+            $data_siswa = Siswa::where(['kelas_id'=>$kelas_id])->orderBy('nama_lengkap', 'ASC');
+            return response()->json(['siswa'=>$data_siswa->get()]);
+        }
     }
 }

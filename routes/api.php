@@ -51,4 +51,14 @@ Route::namespace('API')
         //Berita
         Route::get('berita', 'BeritaController@index');
         Route::get('kalender/{id}/{date}', 'KalenderController@index');
+        Route::get('tesguru', function(){
+            $guru = App\Models\Guru::find(2);
+            $senin = $guru->jadwalPelajaran
+                    ->where('hari','senin')
+                    ->where('tahun_ajaran', '2019/2020')
+                    ->where('semester', 1);
+            foreach($senin as $s){
+                echo ($s->kelas->name);
+            }
+        });
     });
