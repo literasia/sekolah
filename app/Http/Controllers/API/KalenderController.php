@@ -33,12 +33,13 @@ class KalenderController extends Controller
         } else if ($day == "Saturday") {
             $day = "sabtu";
         }
-
-        $data = JadwalPelajaran::select('jadwal_pelajarans.id', 'kelas_id', 'jam_pelajaran', 'nama_pelajaran AS nama', 'jam_mulai', 'jam_selesai', 'kode_pelajaran')->join('mata_pelajarans', 'jadwal_pelajarans.mata_pelajaran_id', 'mata_pelajarans.id')->join('jam_pelajarans', 'jadwal_pelajarans.jam_pelajaran', 'jam_pelajarans.jam_ke')
+        $data = JadwalPelajaran::select('jadwal_pelajarans.id', 'kelas_id', 'jam_pelajaran', 'nama_pelajaran AS nama', 'jam_mulai', 'jam_selesai', 'kode_pelajaran')
+            ->join('mata_pelajarans', 'jadwal_pelajarans.mata_pelajaran_id', 'mata_pelajarans.id')
+            ->join('jam_pelajarans', 'jadwal_pelajarans.jam_pelajaran', 'jam_pelajarans.jam_ke')
             ->where('mata_pelajarans.sekolah_id', $id)
             ->where('tahun_ajaran', $request->tahun_ajaran)
             ->where('semester', $request->semester)
-            ->where('jadwal_pelajarans.hari', 'kamis')
+            ->where('jadwal_pelajarans.hari', $day)
             ->orderBy('jam_pelajaran')
             ->get();
         if ($request->has('kelas_id')) {
@@ -92,6 +93,14 @@ class KalenderController extends Controller
         foreach ($kalender as $k => $v) {
             $events[] = $data->$k = $v;
         }
+
+        // uasort($events, function($a, $b) {
+        //     if($a['jam_mulai'] == $b['jam_mulai']) {
+        //         return 0;
+        //     }
+        //     return ($a['jam_mulai'] < $b['jam_mulai']) ? -1 : 1;
+        // });
+
         return response()->json(ApiResponse::success($events));
     }
 }

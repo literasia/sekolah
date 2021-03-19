@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pegawai;
 use App\Models\Siswa;
 use App\Models\Admin\Kelas;
+use App\Models\Semester;
 use App\Models\Superadmin\Sekolah;
 use App\User;
 use App\Utils\ApiResponse;
@@ -39,7 +40,13 @@ class AuthController extends Controller
         $siswa = Siswa::find($user->siswa_id);
         $kelas = Kelas::find($siswa->kelas_id);
         $sekolah = Sekolah::find($user->id_sekolah);
+        $admin = User::where([
+            ['role_id', 2],
+            ['id_sekolah', $user->id_sekolah]
+        ])->first();
+        $semester = Semester::whereUserId($admin->id)->orderByDesc('id')->first();
         $siswa['kelas'] = $kelas->name;
+        $siswa['semester'] = $semester->name;
         $siswa['sekolah_id'] = $user->id_sekolah;
         $siswa['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
         $siswa['deskripsi'] = "";
@@ -65,8 +72,13 @@ class AuthController extends Controller
         $user = User::where('username', $data['username'])->first();
         $pegawai = Pegawai::leftJoin('gurus', 'gurus.pegawai_id', 'pegawais.id')->where('pegawais.user_id', $user->id)->first(['pegawais.*', 'gurus.id AS guru_id']);
         $sekolah = Sekolah::find($user->id_sekolah);
-
+        $admin = User::where([
+            ['role_id', 2],
+            ['id_sekolah', $user->id_sekolah]
+        ])->first();
+        $semester = Semester::whereUserId($admin->id)->orderByDesc('id')->first();
         $pegawai['nama_lengkap'] = $pegawai['name'];
+        $pegawai['semester'] = $semester->name;
         $pegawai['kelas'] = '-';
         $pegawai['sekolah_id'] = $user->id_sekolah;
         $pegawai['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
