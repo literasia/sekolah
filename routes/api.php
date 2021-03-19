@@ -36,6 +36,8 @@ Route::namespace('API')
         Route::get('sudah-voting', 'VotingController@hasVote');
         Route::get('hasil-voting', 'VotingController@getHasilVoting');
         Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
+        // Route::get('mapel-guru/{$id}', 'MapelGuruController@read');
+        Route::get('mapelguru', 'MapelGuruController@read');
         Route::get('absensi', 'AbsensiController@read');
         Route::post('absensi', 'AbsensiController@write');
 
@@ -46,19 +48,11 @@ Route::namespace('API')
 
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
-        Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
-
         //Berita
         Route::get('berita', 'BeritaController@index');
-        Route::get('kalender/{id}/{date}', 'KalenderController@index');
-        Route::get('tesguru', function(){
-            $guru = App\Models\Guru::find(2);
-            $senin = $guru->jadwalPelajaran
-                    ->where('hari','senin')
-                    ->where('tahun_ajaran', '2019/2020')
-                    ->where('semester', 1);
-            foreach($senin as $s){
-                echo ($s->kelas->name);
-            }
-        });
+        Route::get('kalender/{id}', 'KalenderController@index');
+
+        // Route::get('testing', 'JadwalPelajaranController@testing');
+        Route::post('test-login/student', 'AuthController@testStudentLogin');
+        Route::post('test-login/school', 'AuthController@testSchoolLogin');
     });

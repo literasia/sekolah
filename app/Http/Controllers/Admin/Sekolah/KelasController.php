@@ -11,7 +11,7 @@ use App\Models\Admin\Jurusan;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
-use DataTables;
+use Yajra\DataTables\DataTables;
 use Exeption;
 
 
@@ -26,7 +26,7 @@ class KelasController extends Controller
                 ->where('kelas.user_id', Auth::id())
                 ->get(['kelas.*', 'pegawais.name AS wali_kelas', 'jurusans.name AS jurusan']);
             // $data = Kelas::all();
-            // dd($data);
+            // return($data);
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';

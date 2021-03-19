@@ -19,8 +19,11 @@ class Guru extends Model
         return $this->belongsTo(Pegawai::class);
     }
 
-    public function jadwalPelajaran()
-    {
+    public function jadwalPelajaran() {
     	return $this->hasManyThrough(JadwalPelajaran::class, MataPelajaran::class);
+    }
+
+    public function jamPelajaran() {
+        return $this->hasManyThrough(jamPelajaran::class);
     }
 }
