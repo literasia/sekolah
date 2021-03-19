@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
-                                            <option value="">-- Pilih Hari --</option>
+                                            <option disabled="" value="">-- Hari --</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>

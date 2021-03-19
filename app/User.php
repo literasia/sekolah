@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Siswa;
 use App\Models\Admin\Kelas;
+use App\Models\Guru;
 use App\Models\Superadmin\Sekolah;
 use App\Models\Pegawai;
 use Illuminate\Notifications\Notifiable;

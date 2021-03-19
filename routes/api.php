@@ -51,4 +51,8 @@ Route::namespace('API')
         //Berita
         Route::get('berita', 'BeritaController@index');
         Route::get('kalender/{id}', 'KalenderController@index');
+
+        // Route::get('testing', 'JadwalPelajaranController@testing');
+        Route::post('test-login/student', 'AuthController@testStudentLogin');
+        Route::post('test-login/school', 'AuthController@testSchoolLogin');
     });
