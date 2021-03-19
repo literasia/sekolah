@@ -34,17 +34,19 @@ class KalenderController extends Controller
             $day = "sabtu";
         }
 
-        $data = JadwalPelajaran::select('jam_pelajaran', 'nama_pelajaran AS nama', 'jam_mulai', 'jam_selesai', 'kode_pelajaran')->join('mata_pelajarans', 'jadwal_pelajarans.mata_pelajaran_id', 'mata_pelajarans.id')->join('jam_pelajarans', 'jadwal_pelajarans.jam_pelajaran', 'jam_pelajarans.jam_ke')
+        $data = JadwalPelajaran::select('jadwal_pelajarans.id', 'kelas_id', 'jam_pelajaran', 'nama_pelajaran AS nama', 'jam_mulai', 'jam_selesai', 'kode_pelajaran')->join('mata_pelajarans', 'jadwal_pelajarans.mata_pelajaran_id', 'mata_pelajarans.id')->join('jam_pelajarans', 'jadwal_pelajarans.jam_pelajaran', 'jam_pelajarans.jam_ke')
             ->where('mata_pelajarans.sekolah_id', $id)
             ->where('tahun_ajaran', $request->tahun_ajaran)
-            ->where('kelas_id', $request->kelas_id)
             ->where('semester', $request->semester)
             ->where('jadwal_pelajarans.hari', 'kamis')
             ->orderBy('jam_pelajaran')
             ->get();
-
-
-
+        if ($request->has('kelas_id')) {
+            $kelasId = $request->kelas_id;
+            $data = array_filter($data->toArray(), function ($japel) use ($kelasId) {
+                return $japel['kelas_id'] == $kelasId;
+            });
+        }
         $kalender = Kalender::select('id', 'title AS nama', 'start_date', 'end_date', 'start_clock AS jam_mulai', 'end_clock AS jam_selesai')->where('sekolah_id', "=", $id)->where('start_date', '=', $request->tanggal)->orderByDesc('start_clock')->get();
 
         // $event = [];
@@ -83,6 +85,7 @@ class KalenderController extends Controller
         //     $message = 'Success get Data';
         // }
         $events = [];
+        $data = (object) $data;
         foreach ($data as $k => $v) {
             $events[] = $kalender->$k = $v;
         }

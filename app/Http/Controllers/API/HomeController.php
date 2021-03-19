@@ -7,6 +7,7 @@ use App\Models\Superadmin\Library;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -30,12 +31,13 @@ class HomeController extends Controller
             ];
         }
 
-        // $accesses = 
+
+        $akses = User::find($data['user_id'])->pegawai->access;
 
         $data = [
             'banners' => $banners,
             'newestLibraries' => $libraries,
-
+            'akses' => $akses
         ];
 
         return response()->json(ApiResponse::success($data));
