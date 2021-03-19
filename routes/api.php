@@ -36,7 +36,8 @@ Route::namespace('API')
         Route::get('sudah-voting', 'VotingController@hasVote');
         Route::get('hasil-voting', 'VotingController@getHasilVoting');
         Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
-        Route::get('mapel-guru/{$id}', 'MapelGuruController@read');
+        // Route::get('mapel-guru/{$id}', 'MapelGuruController@read');
+        Route::get('mapelguru', 'MapelGuruController@read');
         Route::get('absensi', 'AbsensiController@read');
         Route::post('absensi', 'AbsensiController@write');
 

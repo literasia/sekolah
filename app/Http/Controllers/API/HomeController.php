@@ -30,9 +30,12 @@ class HomeController extends Controller
             ];
         }
 
+        // $accesses = 
+
         $data = [
             'banners' => $banners,
-            'newestLibraries' => $libraries
+            'newestLibraries' => $libraries,
+
         ];
 
         return response()->json(ApiResponse::success($data));
