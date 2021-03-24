@@ -123,11 +123,11 @@
                     name: 'alamat'
                 },
                 {
-                    data: 'provinsi',
+                    data: 'provinsis',
                     name: 'provinsi'
                 },
                 {
-                    data: 'kabupaten',
+                    data: 'kabupatens',
                     name: 'kabupaten'
                 },
                 {
@@ -251,21 +251,28 @@
                         $('#jenjang').val(data.sekolah.jenjang);
                         $('#tahun_ajaran').val(data.sekolah.tahun_ajaran);
                         $('#alamat').val(data.sekolah.alamat);
-                        $('#provinsi').val(data.sekolah.provinsi);
-                        $.ajax({
-                            url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
-                            dataType: 'JSON',
-                            data: {provinsi_id:data.sekolah.provinsi},
-                            success: function (data) {
-                                $("#kabupaten").html("");
-                                var options = "";
-                                for (let key in data) {
-                                    options += `<option value="${data[key].id}">${data[key].name}</option>`;
-                                }
-                                $("#kabupaten").html(options);
-                            }
-                        });
-                        $('#kabupaten').val(data.sekolah.kabupaten);
+                        // $('#provinsi').val(data.sekolah.provinsi);
+                        // $.ajax({
+                        //     url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
+                        //     dataType: 'JSON',
+                        //     data: {provinsi_id:data.sekolah.provinsi},
+                        //     success: function (data) {
+                        //         $("#kabupaten").html("");
+                        //         var options = "";
+                        //         for (let key in data) {
+                        //             options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                        //         }
+                        //         $("#kabupaten").html(options);
+                        //     }
+                        // });
+                        $('#provinsi').val(data.sekolah.provinsi).change();
+                        setTimeout(()=>{
+                            $('#kabupaten').val(data.sekolah.kabupaten).change();
+                            // setTimeout(()=>{
+                            //     $('#kecamatan').val(data.kecamatan);
+                            // },500);
+                        },500);
+                        // $('#kabupaten').val(data.sekolah.kabupaten);
                         $('#hidden_id').val(data.sekolah.id);
                         $('#username').val(data.user[0].username).attr('readonly', true);
                         $('#password').val(data.user[0].password).attr('readonly', true);

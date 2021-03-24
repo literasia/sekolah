@@ -45,7 +45,7 @@ class BeritaController extends Controller
         //         $libraries = $libraries;
         // }
 
-        $berita = $berita->orderBy('created_at', 'desc')->limit(30)->get();
+        $berita = $berita->orderBy('tanggal_rilis', 'desc')->limit(30)->get();
         return response()->json(ApiResponse::success($berita));
     }
 }

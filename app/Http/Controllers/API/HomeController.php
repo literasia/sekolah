@@ -7,6 +7,7 @@ use App\Models\Superadmin\Library;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
         $data = $req->all();
 
         $libraries = Library::query()->with(['kategori', 'penulis']);
-        
+
         $sekolahId = $req->query('sekolah_id');
         $libraries->when($sekolahId, function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)
@@ -30,9 +31,12 @@ class HomeController extends Controller
             ];
         }
 
+        $akses = User::find($data['user_id'])->pegawai->access ?? null;
+
         $data = [
             'banners' => $banners,
-            'newestLibraries' => $libraries
+            'newestLibraries' => $libraries,
+            'akses' => $akses
         ];
 
         return response()->json(ApiResponse::success($data));

@@ -22,9 +22,9 @@ class AdminController extends Controller
         $ebook = Library::whereNotNull('link_ebook')->count();
         $kabupaten = KabupatenKota::count();
         $sekolah = Sekolah::where('id_sekolah')->count();
-        $siswa = Siswa::count();
-        $guru = Guru::count();
-        $orangtua = SiswaOrangTua::count();
+        $siswa = User::where('role_id', 3)->where('id_sekolah', auth()->user()->id_sekolah)->count();
+        $guru = User::where('role_id', 4)->where('id_sekolah', auth()->user()->id_sekolah)->count();
+        $orangtua = User::where('role_id', 3)->where('id_sekolah', auth()->user()->id_sekolah)->count();
         return view('admin.index', [
         	'audiobook' => $audiobook,
             'videobook' => $videobook,

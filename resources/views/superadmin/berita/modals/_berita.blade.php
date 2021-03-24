@@ -32,7 +32,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div> 
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="tanggal_rilis">Tanggal Rilis</label>
+                                <input id="tanggal_rilis" name="tanggal_rilis" class="form-control form-control-sm" type="text" placeholder="Tanggal" readonly />
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">

@@ -112,6 +112,7 @@
                                 <thead class="text-left">
                                     <tr>
                                         <th>Kelas</th>
+                                        <th>ID Kelas</th>
                                         <th>Wali Kelas</th>
                                         <th>Kapasitas</th>
                                         <th>Jurusan</th>
@@ -193,6 +194,7 @@
                 },
                 columns: [
                     {data: 'name'},
+                    {data: 'id'},
                     {data: 'wali_kelas'},
                     {data: 'kapasitas'},
                     {data: 'jurusan'},
