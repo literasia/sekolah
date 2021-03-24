@@ -1,7 +1,7 @@
 @extends('layouts.guru')
 
 {{-- config 1 --}}
-@section('title', 'Absensi | Absesnsi Siswa')
+@section('title', 'Absensi | Absensi Siswa')
 @section('title-2', 'Absesnsi Siswa')
 @section('title-3', 'Absesnsi Siswa')
 

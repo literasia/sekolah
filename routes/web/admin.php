@@ -171,6 +171,12 @@ Route::namespace('DaftarNilai')->group(function () {
         ->name('daftar-nilai');
 });
 
+// E-Rapor
+Route::namespace('ERapor')->group(function () {
+    Route::get('/admin/e-rapor/kenaikan-kelas', 'KenaikanKelasController@index')
+        ->name('e-rapor.kenaikan-kelas');
+});
+
 // Referensi
 Route::namespace('Referensi')->group(function () {
     // Bagian Pegawai
@@ -239,4 +245,14 @@ Route::namespace('Pengumuman')->group(function () {
     Route::post('/admin/pengumuman/pesan/update', 'PesanController@update')
         ->name('pengumuman.pesan-update');
     Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
+});
+
+// Pengumuman
+Route::namespace('Perpustakaan')->group(function () {
+    Route::get('/admin/perpustakaan/e-book', 'EBookController@index')
+        ->name('perpustakaan.e-book');
+    Route::get('/admin/perpustakaan/video-book', 'VideoBookController@index')
+        ->name('perpustakaan.video-book');
+    Route::get('/admin/perpustakaan/audio-book', 'AudioBookController@index')
+        ->name('perpustakaan.audio-book');
 });

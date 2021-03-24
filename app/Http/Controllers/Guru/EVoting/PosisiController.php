@@ -2,84 +2,105 @@
 
 namespace App\Http\Controllers\Guru\EVoting;
 
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Models\Admin\Posisi;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class PosisiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $data = Posisi::latest()->get();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        $sekolahId = User::get('id_sekolah');
+        return view('guru.e-voting.posisi', ['sekolah_id' => $sekolahId ,'mySekolah' => User::sekolah()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function store(Request $request) {
+        // validasi
+        $rules = [
+            'nama_posisi'  => 'required|max:50',
+        ];
+
+        $message = [
+            'nama_posisi.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $status = Posisi::create([
+            'name'  => $request->input('nama_posisi'),
+            'sekolah_id' => $request->input('sekolah_id')
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Added.',
+            ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function edit($id) {
+        $nama_posisi = Posisi::find($id);
+
+        return response()
+            ->json([
+                'nama_posisi'  => $nama_posisi
+            ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function update(Request $request) {
+        // validasi
+        $rules = [
+            'nama_posisi'  => 'required|max:50',
+        ];
+
+        $message = [
+            'nama_posisi.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $status = Posisi::whereId($request->input('hidden_id'))->update([
+            'name'  => $request->input('nama_posisi'),
+            'sekolah_id'  => $request->input('sekolah_id'),
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Updated.',
+            ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function destroy($id) {
+        $tingkat = Posisi::find($id);
+        $tingkat->delete();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

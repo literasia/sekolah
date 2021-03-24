@@ -33,11 +33,11 @@
                                     <th>Penerbit</th>
                                     <th>Tahun Terbit</th>
                                     <th>Tingkat</th>
+                                    <th>Lama Pinjam</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
                             </tbody>
                         </table>
                     </div>

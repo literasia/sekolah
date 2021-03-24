@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.guru')
 
 {{-- config 1 --}}
 @section('title', 'Sekolah | Jam Pelajaran')
@@ -6,14 +6,14 @@
 @section('title-3', 'Jam Pelajaran')
 
 @section('describ')
-    Ini adalah halaman jam pelajaran untuk sekolah
+    Ini adalah halaman jam pelajaran untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.sekolah.jam') }}
+    {{ route('guru.sekolah.jam') }}
 @endsection
 
 {{-- main content --}}

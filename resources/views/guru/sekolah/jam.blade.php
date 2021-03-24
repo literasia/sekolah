@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.guru')
 
 {{-- config 1 --}}
 @section('title', 'Pelajaran | Jadwal Pelajaran')
@@ -6,14 +6,14 @@
 @section('title-3', 'Jadwal Pelajaran')
 
 @section('describ')
-    Ini adalah halaman jadwal pelajaran untuk admin
+    Ini adalah halaman jadwal pelajaran untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.sekolah.jam') }}
+    {{ route('guru.sekolah.jam') }}
 @endsection
 
 {{-- main content --}}
@@ -153,7 +153,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
-                      <form method="get" action="{{route('admin.sekolah.jam')}}">
+                      <form method="get" action="{{route('guru.sekolah.jam')}}">
                         <div class="dt-responsive ">
                             <div class="row">
                                 <div class="col">
@@ -216,25 +216,25 @@
 
         <div class="row">
           <div class="col-md-4">
-            @include('admin.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Senin', 'data' => $data['senin'] ?? []])
+            @include('guru.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Senin', 'data' => $data['senin'] ?? []])
           </div>
           <div class="col-md-4">
-            @include('admin.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Selasa', 'data' => $data['selasa'] ?? []])
+            @include('guru.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Selasa', 'data' => $data['selasa'] ?? []])
           </div>
           <div class="col-md-4">
-            @include('admin.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Rabu', 'data' => $data['rabu'] ?? []])
+            @include('guru.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Rabu', 'data' => $data['rabu'] ?? []])
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-4">
-            @include('admin.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Kamis', 'data' => $data['kamis'] ?? []])
+            @include('guru.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Kamis', 'data' => $data['kamis'] ?? []])
           </div>
           <div class="col-md-4">
-            @include('admin.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Jumat', 'data' => $data['jumat'] ?? []])
+            @include('guru.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Jumat', 'data' => $data['jumat'] ?? []])
           </div>
           <div class="col-md-4">
-            @include('admin.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Sabtu', 'data' => $data['sabtu'] ?? []])
+            @include('guru.sekolah.jadwal-pelajaran-table-hari', ['hari' => 'Sabtu', 'data' => $data['sabtu'] ?? []])
           </div>
         </div>
 
@@ -296,8 +296,8 @@
             });
 
             $('#form-jadwal-pelajaran').on('submit', function (event) {
-                event.preventDefault();
-                var url = "{{ route('admin.sekolah.jam.write') }}?req=write";
+                event.preventDefault();               
+                var url = "{{ route('guru.sekolah.jam.write') }}?req=write";
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -330,7 +330,7 @@
                     }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('admin.sekolah.jam.write') }}?req=delete&id=" + id,
+                            url: "{{ route('guru.sekolah.jam.write') }}?req=delete&id=" + id,
                             cache: false,
                             method: "POST",
                             processData: false,

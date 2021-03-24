@@ -13,55 +13,51 @@
 @endsection
 
 @section('content')
+<head>
+    <style>
+        div.announcement {
+          overflow-x: auto;
+          height: 22rem;
+        }
+    </style>
+</head>
 <div class="row" >
     {{-- sale revenue card start --}}
     <div class="col-md-12 col-xl-8" >
-        <div class="card  text-white bg-dark mb-3 sale-card text-center">
-            <div class="card-header" >
-            <head>
-<style>
-div.ex1 {
-  background-color: dark;
-  width: 650px;
-  height: 350px;
-  overflow: auto;
-
-}
-</style>
-</head>
-<body>
-<h2 class="text-left">Pengumuman</h2>
+        <div class="card text-white bg-dark mb-3 sale-card text-center">
+            <div class="card-header pb-0" >
+                <h2 class="text-left my-2">Pengumuman</h2>
             </div>
-            <div class="card-block text-left">
-            <div class="ex1">
-                <h5>14 Juni 2021 | Penerimaan guru Baru</h5>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
-                <a>&nbsp</a>
+            <div class="card-block text-left pb-4">
+                <div class="announcement m-0 bg-dark pr-2">
+                    <h5>14 Juni 2021 | Penerimaan guru Baru</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
+                    <a>&nbsp</a>
 
-                <h5>23 Juni 2021 | Masuk Sekolah</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                    <h5>23 Juni 2021 | Masuk Sekolah</h5>
+                    <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
+                    <a>&nbsp</a>
 
-                <h5>19 Agustus 2021 | Libur Nasional</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                    <h5>19 Agustus 2021 | Libur Nasional</h5>
+                    <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
+                    <a>&nbsp</a>
 
-                <h5>20 September 2021 | Ujian Akhir Sekolah</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                    <h5>20 September 2021 | Ujian Akhir Sekolah</h5>
+                    <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
+                    <a>&nbsp</a>
 
-                <h5>20 Oktober 2021 | Kenaikan Kelas</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                    <h5>20 Oktober 2021 | Kenaikan Kelas</h5>
+                    <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
+                    <a>&nbsp</a>
 
-                <h5>16 Desember 2021 | Libur Nasional</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                    <h5>16 Desember 2021 | Libur Nasional</h5>
+                    <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
+                    <a>&nbsp</a>
+                </div>  
             </div>
         </div>
     </div>
-</div>
-</body>
+
     <div class="col-md-12 col-xl-4">
         <div class="card comp-card">
             <div class="card-body">
@@ -71,12 +67,12 @@ div.ex1 {
                         <h3 class="f-w-700 text-c-blue">{{ rand(10, 100) }}</h3>
                         <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
                     </div>
-                <div class="col-auto">
-                    <i class="fas fa-book-open bg-c-blue"></i>
+                    <div class="col-auto">
+                        <i class="fas fa-book-open bg-c-blue"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="card comp-card">
             <div class="card-body">
                 <div class="row align-items-center">
@@ -85,12 +81,12 @@ div.ex1 {
                         <h3 class="f-w-700 text-c-green">{{ rand(10, 100) }}</h3>
                         <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
                     </div>
-                <div class="col-auto">
-                    <i class="fas fa-file-audio bg-c-green"></i>
+                    <div class="col-auto">
+                        <i class="fas fa-file-audio bg-c-green"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="card comp-card">
             <div class="card-body">
                 <div class="row align-items-center">
@@ -99,13 +95,13 @@ div.ex1 {
                         <h3 class="f-w-700 text-c-yellow">{{ rand(10, 100) }}</h3>
                         <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
                     </div>
-                <div class="col-auto">
-                    <i class="fas fa-file-video bg-c-yellow"></i>
+                    <div class="col-auto">
+                        <i class="fas fa-file-video bg-c-yellow"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     {{-- testimonial and top selling start --}}
     <div class="col-md-12">
