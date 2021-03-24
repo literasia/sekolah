@@ -13,7 +13,7 @@ class SanksiController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = Sanksi::latest()->get();
+            $data = Sanksi::where('sekolah_id', auth()->user()->id_sekolah)->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -48,7 +48,8 @@ class SanksiController extends Controller
         }
 
         $status = Sanksi::create([
-            'name'  => $request->input('sanksi')
+            'name'  => $request->input('sanksi'),
+            'sekolah_id' => auth()->user()->id_sekolah
         ]);
 
         return response()
@@ -86,7 +87,8 @@ class SanksiController extends Controller
         }
 
         $status = Sanksi::whereId($request->input('hidden_id'))->update([
-            'name'  => $request->input('sanksi')
+            'name'  => $request->input('sanksi'),
+            'sekolah_id' => auth()->user()->id_sekolah
         ]);
 
         return response()

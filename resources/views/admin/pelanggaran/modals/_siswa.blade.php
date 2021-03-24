@@ -17,9 +17,9 @@
                             <div class="form-group">
                                 <label for="nama_siswa">Nama Siswa</label>
                                 <select name="siswa_id"  id="siswa_id" class="form-control form-control-sm">
-                                    <option value="">Pilih</option>
+                                    <option>-- Pilih --</option>
                                     @foreach($namaSiswa as $ns)
-                                    <option value="{{ $ns->id }}">{{ $ns->nama_lengkap }}</option>
+                                    <option value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
                                     @endforeach
                                 </select>
                             </div>

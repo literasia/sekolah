@@ -31,8 +31,7 @@ class HomeController extends Controller
             ];
         }
 
-
-        $akses = User::find($data['user_id'])->pegawai->access;
+        $akses = User::find($data['user_id'])->pegawai->access ?? null;
 
         $data = [
             'banners' => $banners,

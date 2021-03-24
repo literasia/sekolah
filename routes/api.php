@@ -44,11 +44,15 @@ Route::namespace('API')
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
         Route::get('pelanggaran-siswa/{id}', 'PelanggaranController@pelanggaranSiswa');
-
-
+        Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
+        Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
         //Berita
         Route::get('berita', 'BeritaController@index');
         Route::get('kalender/{id}', 'KalenderController@index');
+
+        // Route::get('testing', 'JadwalPelajaranController@testing');
+        Route::post('test-login/student', 'AuthController@testStudentLogin');
+        Route::post('test-login/school', 'AuthController@testSchoolLogin');
     });
