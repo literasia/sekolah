@@ -19,7 +19,10 @@ class ListSekolahController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = Sekolah::latest()->get();
+            $data = Sekolah::join('provinsis', 'sekolahs.provinsi', 'provinsis.id')
+                ->join('kabupaten_kotas', 'sekolahs.kabupaten', 'kabupaten_kotas.id')
+                ->latest()->get(['sekolahs.*', 'provinsis.name AS provinsis', 'kabupaten_kotas.name AS kabupatens']);
+            // return($data);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -44,8 +47,8 @@ class ListSekolahController extends Controller
             'id_sekolah'    => 'required|max:100',
             'name'          => 'required|max:100',
             'alamat'        => 'required',
-            'provinsi'        => 'required',
-            'kabupaten'        => 'required',
+            'provinsi'      => 'required',
+            'kabupaten'     => 'required',
             'jenjang'       => 'required',
             'tahun_ajaran'  => 'required',
             'username'      => 'required|max:100|unique:users,username',
@@ -67,8 +70,8 @@ class ListSekolahController extends Controller
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
             'alamat'        => $data['alamat'],
-            'provinsi'        => $data['provinsi'],
-            'kabupaten'        => $data['kabupaten'],
+            'provinsi'      => $data['provinsi'],
+            'kabupaten'     => $data['kabupaten'],
             'jenjang'       => $data['jenjang'],
             'tahun_ajaran'  => $data['tahun_ajaran'],
             // 'logo'          => $data['logo']

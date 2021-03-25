@@ -13,4 +13,8 @@ class Kalender extends Model
     ];
     protected $table = "kalenders";
     protected $guarded = [];
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0ea2fcc8958b74262adb3f414b3fb883c3b1f1b7

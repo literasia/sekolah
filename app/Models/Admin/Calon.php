@@ -2,11 +2,12 @@
 
 namespace App\Models\Admin;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Voting;
+use App\Models\Siswa;
 
 class Calon extends Model
 {
@@ -14,7 +15,7 @@ class Calon extends Model
 
     protected $table = 'calon';
 	protected $fillable = [
-        'name', 'user_id'
+        'name', 'sekolah_id'
     ];
     protected $guarded = [];
 
@@ -29,6 +30,10 @@ class Calon extends Model
 
     public function votes(){
         return $this->hasMany(Voting::class);
+    }
+
+    public function user(){
+        return $this->hasMany(User::class);
     }
 
 }

@@ -61,7 +61,6 @@ class BeritaController extends Controller
     }
 
     public function store(Request $req) {
-        // dd($req->thumbnail);
 
         $data = $req->all();
         $validator = Validator::make($data, $this->rules);
@@ -73,10 +72,11 @@ class BeritaController extends Controller
         if ($req->file('thumbnail')) {
             $data['thumbnail'] = $req->file('thumbnail')->store('berita', 'public');
         }
-        
+
         Berita::create([
             'name' => $data['judul'],
             'kategori' => $data['kategori'],
+            'tanggal_rilis' => $data['tanggal_rilis'],
             'isi' => $data['isi'],
             'thumbnail' => $data['thumbnail']
         ]);
@@ -105,10 +105,11 @@ class BeritaController extends Controller
         Berita::whereId($id)->update([
             'name' => $data['judul'],
             'kategori' => $data['kategori'],
+            'tanggal_rilis' => $data['tanggal_rilis'],
             'isi' => $data['isi'],
             'thumbnail' => $data['thumbnail'] ?? $berita->thumbnail
         ]);
-        
+
         if ($req->file('thumbnail') && $berita->thumbnail && Storage::disk('public')->exists($berita->thumbnail)) {
             Storage::disk('public')->delete($berita->thumbnail);
         }

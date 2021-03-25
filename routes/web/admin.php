@@ -133,11 +133,11 @@ Route::namespace('Sekolah')->group(function () {
        ->name('sekolah.kelas-update');
     Route::get('/admin/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
 
-     // Jam Pelajaran
-     Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
-         ->name('sekolah.jam');
-     Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
-         ->name('sekolah.jam.write');
+    // Jam Pelajaran
+    Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
+        ->name('sekolah.jam');
+    Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
+        ->name('sekolah.jam.write');
  });
 
 // Pelajaran
@@ -151,6 +151,8 @@ Route::namespace('Pelajaran')->group(function () {
     // Jadwal Pelajaran
     Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
         ->name('pelajaran.jadwal-pelajaran');
+    Route::post('/admin/pelajaran/jadwal-pelajaran/getJamPelajaran', 'JadwalPelajaranController@getJamPelajaran')
+        ->name('pelajaran.jadwal-pelajaran.getJamPelajaran');
     Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
         ->name('pelajaran.jadwal-pelajaran.write');
 });
@@ -166,9 +168,31 @@ Route::namespace('Absensi')->group(function () {
 });
 
 // Daftar Nilai
+Route::resource('daftar-nilai', 'DaftarNilai\DaftarNilaiController');
 Route::namespace('DaftarNilai')->group(function () {
+
     Route::get('/admin/daftar-nilai', 'DaftarNilaiController@index')
         ->name('daftar-nilai');
+    Route::post('/admin/daftar-nilai', 'DaftarNilaiController@store')->name('daftar-nilai.store');
+    Route::put('/admin/daftar-nilai', 'DaftarNilaiController@update')->name('daftar-nilai.update');
+    Route::delete('/admin/daftar-nilai', 'DaftarNilaiController@destroy')->name('daftar-nilai.destroy');
+});
+
+// Kalender
+Route::namespace('Kalender')->group(function () {
+    Route::get('/admin/kalender/kalender-akademik', 'KalenderAkademikController@index')
+        ->name('kalender.kalender-akademik');
+    Route::post('/admin/kalender/tambah', 'KalenderAkademikController@store')->name('kalender.tambah-event');
+    Route::post('/admin/kalender/update/{id}', 'KalenderAkademikController@update')->name('kalender.edit-event');
+    Route::get('/admin/kalender/hapus/{id}', 'KalenderAkademikController@destroy');
+});
+
+// Import
+Route::namespace('Import')->group(function () {
+    Route::get('/admin/import/import-siswa', 'SiswaController@index')
+        ->name('import.import-siswa');
+    Route::post('/admin/import/import-siswa/import_excel', 'SiswaController@import_excel')
+        ->name('import.import-siswa.import_excel');
 });
 
 // E-Rapor

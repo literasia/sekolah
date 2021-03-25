@@ -10,6 +10,6 @@ class JadwalPelajaran extends Model
         return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
     }
     public function kelas() {
-        return $this->belongsTo(TingkatanKelas::class);
+        return $this->belongsTo(Admin\Kelas::class);
     }
 }

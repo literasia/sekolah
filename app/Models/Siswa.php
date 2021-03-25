@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Admin\Kelas;
+use App\Models\Admin\{Kelas, DaftarNilai};
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -37,5 +37,10 @@ class Siswa extends Model
 
     public function absensis() {
         return $this->hasMany(Absensi::class);
+    }
+
+    public function nilai()
+    {
+        return $this->hasMany(DaftarNilai::class);
     }
 }

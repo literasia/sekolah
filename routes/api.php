@@ -36,14 +36,23 @@ Route::namespace('API')
         Route::get('sudah-voting', 'VotingController@hasVote');
         Route::get('hasil-voting', 'VotingController@getHasilVoting');
         Route::get('jadwalpelajaran', 'JadwalPelajaranController@read');
+        // Route::get('mapel-guru/{$id}', 'MapelGuruController@read');
+        Route::get('mapelguru', 'MapelGuruController@read');
         Route::get('absensi', 'AbsensiController@read');
         Route::post('absensi', 'AbsensiController@write');
 
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
+        Route::get('pelanggaran-siswa/{id}', 'PelanggaranController@pelanggaranSiswa');
+
 
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
         //Berita
         Route::get('berita', 'BeritaController@index');
+        Route::get('kalender/{id}', 'KalenderController@index');
+
+        // Route::get('testing', 'JadwalPelajaranController@testing');
+        Route::post('test-login/student', 'AuthController@testStudentLogin');
+        Route::post('test-login/school', 'AuthController@testSchoolLogin');
     });

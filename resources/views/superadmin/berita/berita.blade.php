@@ -9,7 +9,7 @@
     Ini adalah halaman Berita untuk Superadmin
 @endsection
 
-@section('icon-l', 'icon-list')
+@section('icon-l', 'icon-book')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -31,7 +31,7 @@
                                         <th>No</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
-                                        <th>Isi</th>
+                                        <th>Tanggal Rilis</th>
                                         <th>Thumbnail</th>
                                         <th>Actions</th>
                                     </tr>
@@ -42,12 +42,12 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{$dt->name}}</td>
                                         <td>{{$dt->kategori}}</td>
-                                        <td>{{$dt->isi}}</td>
+                                        <td>{{$dt->tanggal_rilis}}</td>
                                         <td><a target="_blank" href="{{Storage::url($dt->thumbnail)}}">Lihat Foto</a></td>
                                         <td>
-                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                            <a class="edit btn btn-mini btn-info shadow-sm" href='{{route('superadmin.berita.edit', $dt->id) }}'><i class="fa fa-pencil-alt"></i></a>
                                             &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class='fa fa-trash'></i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -86,6 +86,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
@@ -100,12 +101,19 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
 
             $('#add').on('click', function () {
                 $('#modal-berita').modal('show');
             });
+
+            $('#tanggal_rilis').dateDropper({
+                theme: 'leaf',
+                format: 'd-m-Y'
+            });
+
             $('#order-table').DataTable();
 
             // $('#order-table').DataTable({
@@ -181,27 +189,10 @@
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
                                 .val('Simpan');
-                            $('#order-table').DataTable().ajax.reload();
+                            location.reload();
+                            // $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
-                    }
-                });
-            });
-
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('id');
-                $.ajax({
-                    url: '/suepradmin/berita/berita/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#judul').val(data.judul.name);
-                        $('#kategori').val(data.kategori.kategori);
-                        $('#isi').val(data.isi.isi);
-                        $('#thumbnail').val(data.thumbnail.thumbnail);
-                        $('#hidden_id').val(data.name.id);
-                        $('#modal-berita').modal('show');
                     }
                 });
             });
@@ -215,13 +206,14 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/superadmin/berita/berita/'+user_id,
+                    url: '/superadmin/berita/berita/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
+                            location.reload();
+                            // $('#order-table').DataTable().ajax.reload();
                             toastr.success('Data berhasil dihapus');
                         }, 1000);
                     }
