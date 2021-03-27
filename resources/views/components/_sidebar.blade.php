@@ -32,11 +32,6 @@
                                 <span class="pcoded-mtext">Bagian Pegawai</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/referensi/semester') ? 'active' : '' }}">
-                            <a href="{{ route('admin.referensi.semester') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Semester</span>
-                            </a>
-                        </li>
                         <li class="{{ request()->is('admin/referensi/status-guru') ? 'active' : '' }}">
                             <a href="{{ route('admin.referensi.status-guru') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Status Guru</span>
@@ -65,6 +60,11 @@
                         <span class="pcoded-mtext">Sekolah</span>
                     </a>
                     <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/sekolah/semester') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sekolah.semester') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Semester</span>
+                            </a>
+                        </li>
                         <li class="{{ request()->is('admin/sekolah/jurusan') ? 'active' : '' }}">
                             <a href="{{ route('admin.sekolah.jurusan') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Jurusan</span>

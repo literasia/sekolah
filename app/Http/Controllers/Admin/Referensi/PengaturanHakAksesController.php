@@ -24,13 +24,13 @@ class PengaturanHakAksesController extends Controller
 
     public function update(Request $request)
     {
-    	$pegawai_id = $request->pegawai_id;
-    	$isChecked = $request->isChecked;
-    	$structure	= $request->structure;
+    	$pegawai_id    = $request->pegawai_id;
+    	$isChecked     = $request->isChecked;
+    	$structure     = $request->structure;
 
     	$access = Access::where('pegawai_id', $pegawai_id)->first();
     	$access->{$structure} = $isChecked=='true'?1:0;
+    	// dd($access);
     	$access->save();
-    	// dd($access->kalender);
     }
 }

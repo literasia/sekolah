@@ -13,8 +13,7 @@ use Carbon\Carbon;
 class LibraryController extends Controller
 {
 
-    public function index(Request $req)
-    {
+    public function index(Request $req) {
         $data = $req->all();
 
         $validator = Validator::make($data, [
@@ -27,20 +26,40 @@ class LibraryController extends Controller
         $libraries = Library::query()->with(['kategori', 'penulis']);
 
         $sekolahId = $req->query('sekolah_id');
-        $libraries->when($sekolahId, function ($query) use ($sekolahId) {
+        $libraries->when($sekolahId, function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)
                 ->orWhereNull('sekolah_id');
         });
 
         $kategoriId = $req->query('kategori_id');
-        $libraries->when($kategoriId, function ($query) use ($kategoriId) {
+        $libraries->when($kategoriId, function($query) use ($kategoriId) {
             return $query->where('kategori_id', $kategoriId);
         });
 
         $q = $req->query('q');
-        $libraries->when($q, function ($query) use ($q) {
+        $libraries->when($q, function($query) use ($q) {
             return $query->whereRaw("name LIKE '%" . strtolower($q) . "%'");
         });
+
+        $filterType = $req->query('filter_type');
+        $filterFunc = null;
+        if ($filterType == 'ebook') {
+            $filterFunc = function($query) {
+                return $query->whereNotNull('link_ebook')->where('link_ebook', '!=', '');
+            };
+        } else if ($filterType == 'audio') {
+            $filterFunc = function($query) {
+                return $query->whereNotNull('link_audio')->where('link_audio', '!=', '');
+            };
+        } else if ($filterType == 'video') {
+            $filterFunc = function($query) {
+                return $query->whereNotNull('link_video')->where('link_video', '!=', '');
+            };
+        }
+
+        if ($filterFunc != null) {
+            $libraries->when($filterType, $filterFunc);
+        }
 
         $orderBy = $data['order_by'];
         switch ($orderBy) {
@@ -59,9 +78,18 @@ class LibraryController extends Controller
 
     public function getPinjam($id, Request $request)
     {
-        $data = Pinjam::join('siswas', 'pinjams.siswa_id', 'siswas.id')->join('libraries', 'pinjams.library_id', 'libraries.id')
-            ->where('siswa_id', $id)
-            ->get('pinjams.*');
+        if ($request->library_id) {
+            $data = Pinjam::join('siswas', 'pinjams.siswa_id', 'siswas.id')
+                            ->join('libraries', 'pinjams.library_id', 'libraries.id')
+                            ->where('pinjams.siswa_id', $id)
+                            ->where('pinjams.library_id', $request->library_id)
+                            ->get('pinjams.*');
+        }else{
+            $data = Pinjam::join('siswas', 'pinjams.siswa_id', 'siswas.id')
+                            ->join('libraries', 'pinjams.library_id', 'libraries.id')
+                            ->where('pinjams.siswa_id', $id)
+                            ->get('pinjams.*');
+        }
 
         return response()->json(ApiResponse::success($data));
     }

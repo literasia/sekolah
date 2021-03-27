@@ -114,6 +114,16 @@ Route::namespace('Fungsionaris')->name('fungsionaris.')->prefix('fungsionaris')-
 
      // Sekolah
 Route::namespace('Sekolah')->group(function () {
+
+    // Semester
+    Route::get('/admin/sekolah/semester', 'SemesterController@index')
+        ->name('sekolah.semester');
+    Route::post('/admin/sekolah/semester', 'SemesterController@store');
+    Route::get('/admin/sekolah/semester/{id}', 'SemesterController@edit');
+    Route::post('/admin/sekolah/semester/update', 'SemesterController@update')
+        ->name('sekolah.semester-update');
+    Route::get('/admin/sekolah/semester/hapus/{id}', 'SemesterController@destroy');
+
     // Jurusan
     Route::get('/admin/sekolah/jurusan', 'JurusanController@index')
      ->name('sekolah.jurusan');
@@ -203,15 +213,6 @@ Route::namespace('Referensi')->group(function () {
     Route::post('/admin/referensi/bagian-pegawai/update', 'BagianPegawaiController@update')
         ->name('referensi.bagian-pegawai-update');
     Route::get('/admin/referensi/bagian-pegawai/hapus/{id}', 'BagianPegawaiController@destroy');
-
-    // Semester
-    Route::get('/admin/referensi/semester', 'SemesterController@index')
-        ->name('referensi.semester');
-    Route::post('/admin/referensi/semester', 'SemesterController@store');
-    Route::get('/admin/referensi/semester/{id}', 'SemesterController@edit');
-    Route::post('/admin/referensi/semester/update', 'SemesterController@update')
-        ->name('referensi.semester-update');
-    Route::get('/admin/referensi/semester/hapus/{id}', 'SemesterController@destroy');
 
     // Status Guru
     Route::get('/admin/referensi/status-guru', 'StatusGuruController@index')
