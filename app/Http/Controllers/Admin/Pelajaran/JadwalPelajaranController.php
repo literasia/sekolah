@@ -16,6 +16,7 @@ class JadwalPelajaranController extends Controller
 
         if($request->req == 'table') {
             $data = JadwalPelajaran::with('mataPelajaran')
+                                   ->with('jamPelajaran')
                                    ->where('tahun_ajaran', $request->tahun_ajaran)
                                    ->where('kelas_id', $request->kelas_id)
                                    ->where('semester', $request->semester)
@@ -23,7 +24,7 @@ class JadwalPelajaranController extends Controller
                                    ->get();
 
                                    $data = $data->groupBy('hari');
-
+            // dd($data);
         }
 
         elseif($request->req == 'single') {
