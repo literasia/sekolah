@@ -264,6 +264,19 @@
                         </li>
                     </ul>
                 </li>
+                <li class="@if (request()->is('admin/e-rapor/kenaikan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-file-alt"></i></span>
+                        <span class="pcoded-mtext">E-Rapor</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/e-rapor/kenaikan-kelas') ? 'active' : '' }}">
+                            <a href="{{ route('admin.e-rapor.kenaikan-kelas') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Kenaikan Kelas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file"></i></span>
@@ -286,6 +299,16 @@
                         <li class="">
                             <a href="#!" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">E-Book</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/perpustakaan/video-book') ? 'active' : '' }}">
+                            <a href="{{ route('admin.perpustakaan.video-book') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Video Book</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/perpustakaan/audio-book') ? 'active' : '' }}">
+                            <a href="{{ route('admin.perpustakaan.audio-book') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Audio Book</span>
                             </a>
                         </li>
                     </ul>
