@@ -124,6 +124,15 @@ Route::namespace('Sekolah')->group(function () {
         ->name('sekolah.semester-update');
     Route::get('/admin/sekolah/semester/hapus/{id}', 'SemesterController@destroy');
 
+        // Tahun Ajaran
+    Route::get('/admin/sekolah/tahun-ajaran', 'TahunAjaranController@index')
+        ->name('sekolah.tahun-ajaran');
+    Route::post('/admin/sekolah/tahun-ajaran', 'TahunAjaranController@store');
+    Route::get('/admin/sekolah/tahun-ajaran/{id}', 'TahunAjaranController@edit');
+    Route::post('/admin/sekolah/tahun-ajaran/update', 'TahunAjaranController@update')
+        ->name('sekolah.tahun-ajaran-update');
+    Route::get('/admin/sekolah/tahun-ajaran/hapus/{id}', 'TahunAjaranController@destroy');
+
     // Jurusan
     Route::get('/admin/sekolah/jurusan', 'JurusanController@index')
      ->name('sekolah.jurusan');

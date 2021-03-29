@@ -27,17 +27,21 @@ class SemesterController extends Controller
 				->make(true);
 		}
 
-		$semester = Sekolah::where('semester')
-							->where('id', auth()->user()->id_sekolah)
-							->get();
+		// $semester = Sekolah::where('semester')
+		// 					->where('id', auth()->user()->id_sekolah)
+		// 					->get();
+		$semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
 		// dd($semester);
+		// if ($semester->count() <= 0) {
+		// 	$semester = false;
+		// }
 
 		return view('admin.sekolah.semester', ['semester' => $semester, 'mySekolah' => User::sekolah()]);
 	}
 
 	public function update(Request $request)
 	{
-		$id     = $request->id;
+		$id     		= $request->id;
 		$isChecked      = $request->isChecked;
 		$structure      = $request->structure;
 		// dd($structure);

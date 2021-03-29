@@ -60,6 +60,11 @@
                         <span class="pcoded-mtext">Sekolah</span>
                     </a>
                     <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/sekolah/tahun-ajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sekolah.tahun-ajaran') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tahun Ajaran</span>
+                            </a>
+                        </li>
                         <li class="{{ request()->is('admin/sekolah/semester') ? 'active' : '' }}">
                             <a href="{{ route('admin.sekolah.semester') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Semester</span>
