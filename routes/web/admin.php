@@ -203,6 +203,16 @@ Route::namespace('Import')->group(function () {
         ->name('import.import-siswa.import_excel');
 });
 
+// E-Rapor
+Route::namespace('ERapor')->group(function () {
+    Route::get('/admin/e-rapor/kenaikan-kelas', 'KenaikanKelasController@index')
+        ->name('e-rapor.kenaikan-kelas');
+    Route::post('/admin/e-rapor/kenaikan-kelas/get', 'KenaikanKelasController@index')
+        ->name('e-rapor.kenaikan-kelas.get');
+    Route::post('/admin/e-rapor/kenaikan-kelas/add', 'KenaikanKelasController@store')
+        ->name('e-rapor.kenaikan-kelas.add');
+});
+
 // Referensi
 Route::namespace('Referensi')->group(function () {
     // Bagian Pegawai
