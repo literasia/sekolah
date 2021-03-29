@@ -44,8 +44,8 @@ Route::namespace('API')
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
         Route::get('pelanggaran-siswa/{id}', 'PelanggaranController@pelanggaranSiswa');
-
-
+        Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
+        Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
         //Berita

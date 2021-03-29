@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Superadmin\Library;
+use App\Models\Pinjam;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class LibraryController extends Controller
 {
@@ -75,5 +77,72 @@ class LibraryController extends Controller
 
         $libraries = $libraries->get();
         return response()->json(ApiResponse::success($libraries));
+    }
+
+    public function getPinjam($id, Request $request)
+    {
+        if ($request->library_id) {
+            $data = Pinjam::join('siswas', 'pinjams.siswa_id', 'siswas.id')
+                            ->join('libraries', 'pinjams.library_id', 'libraries.id')
+                            ->where('pinjams.siswa_id', $id)
+                            ->where('pinjams.library_id', $request->library_id)
+                            ->get('pinjams.*');
+        }else{
+            $data = Pinjam::join('siswas', 'pinjams.siswa_id', 'siswas.id')
+                            ->join('libraries', 'pinjams.library_id', 'libraries.id')
+                            ->where('pinjams.siswa_id', $id)
+                            ->get('pinjams.*');
+        }
+
+        return response()->json(ApiResponse::success($data));
+    }
+
+    public function addPinjam($id, Request $request)
+    {
+        // $req = $request->all();
+        // Validator::make($req, [
+        //     'ebook_expired_at' => ['nullable'],
+        //     'audio_expired_at' => ['nullable'],
+        //     'video_expired_at' => ['nullable']
+        // ]);
+        // dd(Carbon::now()->format('m'));
+        $pinjam  = Pinjam::where('siswa_id', $id)->latest()->get('total_pinjam');
+
+        if ($pinjam->count() <= 0) {
+            $pinjam = 1;
+            $data = Pinjam::create([
+                'siswa_id' => $id,
+                'library_id' => $request->library_id,
+                'ebook_expired_at' => $request->ebook_expired_at,
+                'audio_expired_at' => $request->audio_expired_at,
+                'video_expired_at' => $request->video_expired_at,
+                'total_pinjam' => $pinjam
+            ]);
+            return response()->json(ApiResponse::success($data, "Peminjaman Berhasil"));
+        } else {
+            $pinjam = $pinjam[0]->total_pinjam + 1;
+            $data = Pinjam::where('siswa_id', $id)->where('library_id', $request->library_id)
+                ->update([
+                    'ebook_expired_at' => $request->ebook_expired_at,
+                    'audio_expired_at' => $request->audio_expired_at,
+                    'video_expired_at' => $request->video_expired_at,
+                    'total_pinjam' => $pinjam
+                ]);
+
+            if ($data) {
+                return response()->json(ApiResponse::success($data, "Peminjaman Berhasil"));
+            } else {
+
+                $data = Pinjam::create([
+                    'siswa_id' => $id,
+                    'library_id' => $request->library_id,
+                    'ebook_expired_at' => $request->ebook_expired_at,
+                    'audio_expired_at' => $request->audio_expired_at,
+                    'video_expired_at' => $request->video_expired_at,
+                    'total_pinjam' => $pinjam
+                ]);
+                return response()->json(ApiResponse::success($data, "Peminjaman Berhasil"));
+            }
+        }
     }
 }

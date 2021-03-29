@@ -87,7 +87,6 @@ class AuthController extends Controller
         return response()->json(ApiResponse::success($pegawai));
     }
 
-
     public function testSchoolLogin(Request $req) {
         $data = $req->all();
 

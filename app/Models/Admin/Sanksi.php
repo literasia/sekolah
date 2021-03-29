@@ -9,7 +9,7 @@ class Sanksi extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'name'
+        'name', 'sekolah_id'
     ];
     protected $guarded = [];
 }
