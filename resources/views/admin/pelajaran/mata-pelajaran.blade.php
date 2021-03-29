@@ -46,10 +46,10 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <label for="guru_id">Guru Budang Studi/Pengajar</label>
+                                        <label for="guru_id">Guru Bidang Studi/Pengajar</label>
                                         <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
                                         <select name="guru_id" id="guru" class="form-control form-control-sm" required>
-                                            <option value="">-- Guru Budang Studi/Pengajar --</option>
+                                            <option value="">-- Guru Bidang Studi/Pengajar --</option>
                                             @foreach($guru as $obj)
                                             <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
                                             @endforeach
