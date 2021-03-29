@@ -39,12 +39,35 @@ class LibraryController extends Controller
             return $query->whereRaw("name LIKE '%" . strtolower($q) . "%'");
         });
 
+        $filterType = $req->query('filter_type');
+        $filterFunc = null;
+        if ($filterType == 'ebook') {
+            $filterFunc = function($query) {
+                return $query->whereNotNull('link_ebook')->where('link_ebook', '!=', '');
+            };
+        } else if ($filterType == 'audio') {
+            $filterFunc = function($query) {
+                return $query->whereNotNull('link_audio')->where('link_audio', '!=', '');
+            };
+        } else if ($filterType == 'video') {
+            $filterFunc = function($query) {
+                return $query->whereNotNull('link_video')->where('link_video', '!=', '');
+            };
+        }
+
+        if ($filterFunc != null) {
+            $libraries->when($filterType, $filterFunc);
+        }
+
+        $skipData = ((empty($data['page']) ? 1 : $data['page']) - 1) * 30;
+
         $orderBy = $data['order_by'];
         switch ($orderBy) {
             case "popular":
                 $libraries = $libraries->orderByDesc('viewed')
                     ->orderBy('name')
-                    ->limit(30);
+                    ->skip($skipData)
+                    ->take(30);
                 break;
             default:
                 $libraries = $libraries->orderBy('name')->limit(30);
