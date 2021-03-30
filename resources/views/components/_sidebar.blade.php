@@ -282,7 +282,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@if (request()->is('admin/e-rapor/kenaikan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                {{-- <li class="@if (request()->is('admin/e-rapor/kenaikan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file-alt"></i></span>
                         <span class="pcoded-mtext">E-Rapor</span>
@@ -294,7 +294,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file"></i></span>
