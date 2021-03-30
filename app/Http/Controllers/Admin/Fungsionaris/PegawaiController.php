@@ -17,6 +17,7 @@ use App\Models\Superadmin\{Provinsi, KabupatenKota, Kecamatan};
 use App\Models\Admin\Access;
 use App\Models\BagianPegawai;
 use App\Models\Semester;
+use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\Auth;
 
 class PegawaiController extends Controller
@@ -40,7 +41,7 @@ class PegawaiController extends Controller
         $kabupaten = KabupatenKota::all();
         $kecamatan  = Kecamatan::all();
         $bagian = BagianPegawai::where('user_id', Auth::id())->get();
-        $semester = Semester::where('user_id', Auth::id())->get();
+        $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
         return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
     }
 
@@ -113,7 +114,7 @@ class PegawaiController extends Controller
                     'tanggal_mulai' => $data['tanggal_mulai'],
                     'bagian_pegawai_id' => $data['bagian'],
                     'tahun_ajaran' => $data['tahun_ajaran'],
-                    'semester_id' => $data['semester'],
+                    'semester' => $data['semester'],
                     'foto' => $data['foto']??""
                 ]);
 
@@ -144,7 +145,7 @@ class PegawaiController extends Controller
         $kabupaten = KabupatenKota::all();
         $kecamatan  = Kecamatan::all();
         $bagian = BagianPegawai::where('user_id', Auth::id())->get();
-        $semester = Semester::where('user_id', Auth::id())->get();
+        $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
 
         return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah(), 'provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'bagian' => $bagian, 'semester' => $semester]);
     }
@@ -191,7 +192,7 @@ class PegawaiController extends Controller
             'tanggal_mulai' => $data['tanggal_mulai'],
             'bagian_pegawai_id' => $data['bagian'],
             'tahun_ajaran' => $data['tahun_ajaran'],
-            'semester_id' => $data['semester'],
+            'semester' => $data['semester'],
             'foto' => $data['foto']
         ]);
 
