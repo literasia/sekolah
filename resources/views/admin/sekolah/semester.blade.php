@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 {{-- config 1 --}}
-@section('title', 'Referensi | Semester')
+@section('title', 'Sekolah | Semester')
 @section('title-2', 'Semester')
 @section('title-3', 'Semester')
 
@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.referensi.semester') }}
+    {{ route('admin.sekolah.semester') }}
 @endsection
 
 {{-- main content --}}
@@ -21,33 +21,27 @@
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
             <div class="card shadow-sm">
-                <div class="card-body">
+                <div class="card-header">
+                    <h5>Semester</h5>
+                </div>
+                <div class="card-body" style="margin-top: -20px">
                     <div class="card-block">
-                        <form id="form-semester">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="semester">Semester</label>
-                                        <input type="text" name="semester" id="semester" class="form-control form-control-sm" placeholder="Semester">
-                                        <span id="form_result" class="text-danger"></span>
-                                    </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                  <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Ganjil'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
+                                  <label for="Ganjil">Ganjil</label>
+
+                                  <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Genap'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
+                                  <label for="Genap">Genap</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+        {{-- <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
@@ -68,7 +62,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div id="confirmModal" class="modal fade" role="dialog">
@@ -110,11 +104,46 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            $('#order-table').DataTable();
+        });
+
+        function check(id, id_check_form, structure){
+            var isChecked = jQuery(id_check_form).is(":checked");
+            $.ajax({
+                url : "{{ route('admin.sekolah.semester-update') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id,
+                    isChecked,
+                    structure
+                }
+           //      ,
+           //      success : function(data){
+                    // $(id_check_form).attr("checked", "checked");
+           //      },
+           //      error : function(jqXHR, errorThrown, textStatus){
+                    // swal({
+                    //  title: "Failed!",
+                    //  text: "Gagal Mengubah Akses",
+                    //  type: "error",
+                    //  buttonsStyling: false,
+                    //  confirmButtonClass: "btn btn-danger"
+                    // }).then(function(){
+                    //  location.reload();
+                    // });
+           //      }
+        });
+        
+    }
+    </script>
+    {{-- <script>
+        $(document).ready(function () {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.referensi.semester') }}",
+                    url: "{{ route('admin.sekolah.semester') }}",
                 },
                 columns: [
                 {
@@ -137,11 +166,11 @@
 
                 var url = '';
                 if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.referensi.semester') }}";
+                    url = "{{ route('admin.sekolah.semester') }}";
                 }
 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.referensi.semester-update') }}";
+                    url = "{{ route('admin.sekolah.semester-update') }}";
                 }
 
                 $.ajax({
@@ -176,7 +205,7 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/admin/referensi/semester/'+id,
+                    url: '/admin/sekolah/semester/'+id,
                     dataType: 'JSON',
                     success: function (data) {
                         $('#semester').val(data.semester.name);
@@ -199,7 +228,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/admin/referensi/semester/hapus/'+user_id,
+                    url: '/admin/sekolah/semester/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {
@@ -212,5 +241,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endpush

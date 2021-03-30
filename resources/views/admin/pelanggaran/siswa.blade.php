@@ -51,8 +51,6 @@
         </div>
     </div>
 
-    {{-- Modal --}}
-    @include('admin.pelanggaran.modals._siswa')
 
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -70,6 +68,8 @@
         </div>
     </div>
 </div>
+    {{-- Modal --}}
+    @include('admin.pelanggaran.modals._siswa')
 @endsection
 
 {{-- addons css --}}
@@ -77,27 +77,45 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <!-- Select 2 css -->
+    <link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <style>
         .btn i {
             margin-right: 0px;
+        }
+
+        .select2-container {
+            width: 100% !important;
+            padding: 0;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            background-color: transparent; 
+            color: #000;
+            padding: 0px 30px 0px 10px; 
         }
     </style>
 @endpush
 
 {{-- addons js --}}
 @push('js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <!-- Select 2 js -->
+    <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
         $(document).ready(function () {
             $('#add').on('click', function () {
                 $('#modal-siswa').modal('show');
             });
+
+
+            $('#siswa_id').select2();
 
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',

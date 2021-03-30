@@ -13,7 +13,7 @@ class KategoriPelanggaranController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = Pelanggaran::latest()->get();
+            $data = Pelanggaran::where('sekolah_id', auth()->user()->id_sekolah)->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -50,6 +50,7 @@ class KategoriPelanggaranController extends Controller
         $status = Pelanggaran::create([
             'name'  => $request->input('kategori'),
             'poin'  => $request->input('poin'),
+            'sekolah_id' => auth()->user()->id_sekolah
         ]);
 
         return response()
@@ -93,6 +94,7 @@ class KategoriPelanggaranController extends Controller
         $status = Pelanggaran::whereId($request->input('hidden_id'))->update([
             'name'  => $request->input('kategori'),
             'poin'  => $request->input('poin'),
+            'sekolah_id' => auth()->user()->id_sekolah
         ]);
 
         return response()

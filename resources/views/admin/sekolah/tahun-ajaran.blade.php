@@ -1,19 +1,19 @@
 @extends('layouts.admin')
 
 {{-- config 1 --}}
-@section('title', 'E-Voting | Calon')
-@section('title-2', 'Calon')
-@section('title-3', 'Calon')
+@section('title', 'Sekolah | Tahun Ajaran')
+@section('title-2', 'Tahun Ajaran')
+@section('title-3', 'Tahun Ajaran')
 
 @section('describ')
-    Ini adalah halaman calon untuk admin
+    Ini adalah halaman tahun ajaran untuk admin
 @endsection
 
 @section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.e-voting.calon') }}
+    {{ route('admin.sekolah.tahun-ajaran') }}
 @endsection
 
 {{-- main content --}}
@@ -23,18 +23,25 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
-                        <form id="form-calon-kandidat">
+                        <form id="form-tahun-ajaran">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder="tes">
-                                        <label for="calon_id">Nama Calon</label>
-                                        <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
-                                            <option value="">-- Pilih --</option>
-                                            @foreach($namaSiswa as $ns)
-                                            <option data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }}</option>
-                                            @endforeach
+                                        {{-- <input type="text" name="tahun_ajaran" id="tahun_ajaran" placeholder="tes"> --}}
+                                        <label for="tahun_ajaran">Tahun Ajaran</label>
+                                        <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
+                                            <option disabled="">-- Pilih --</option>
+                                            <option value="2018/2019">2018/2019</option>
+                                            <option value="2019/2020">2019/2020</option>
+                                            <option value="2020/2021">2020/2021</option>
+                                            <option value="2021/2022">2021/2022</option>
+                                            <option value="2022/2023">2022/2023</option>
+                                            <option value="2023/2024">2023/2024</option>
+                                            <option value="2024/2025">2024/2025</option>
+                                            <option value="2025/2026">2025/2026</option>
+                                            <option value="2026/2027">2026/2027</option>
+                                            <option value="2027/2028">2027/2028</option>
                                         </select>
                                     </div>
                                 </div>
@@ -60,8 +67,8 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama Calon</th>
+                                        <th>#</th>
+                                        <th>Tahun Ajaran Aktif</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -76,7 +83,7 @@
         </div>
     </div>
 
-    <div id="confirmModal" class="modal fade" role="dialog">
+    {{-- <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -91,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 {{-- addons css --}}
@@ -100,23 +107,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
-    <!-- Select 2 css -->
-    <link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <style>
         .btn i {
             margin-right: 0px;
-        }
-
-        .select2-container {
-            width: 100% !important;
-            padding: 0;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            background-color: transparent; 
-            color: #000;
-            padding: 0px 30px 0px 10px; 
         }
     </style>
 @endpush
@@ -127,18 +121,14 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <!-- Select 2 js -->
-    <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#calon_id').select2();
-
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.e-voting.calon') }}",
+                    url: "{{ route('admin.sekolah.tahun-ajaran') }}",
                 },
                 columns: [
                 {
@@ -146,8 +136,8 @@
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'tahun_ajaran',
+                    name: 'tahun_ajaran'
                 },
                 {
                     data: 'action',
@@ -156,16 +146,11 @@
                 ]
             });
 
-            $('#form-calon-kandidat').on('submit', function (event) {
+            $('#form-tahun-ajaran').on('submit', function (event) {
                 event.preventDefault();
 
-                var url = '';
-                if ($('#nama_calon').val() == 'add') {
-                    url = "{{ route('admin.e-voting.calon') }}";
-                }
-
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.e-voting.calon-update') }}";
+                    url = "{{ route('admin.sekolah.tahun-ajaran-update') }}";
                 }
 
                 $.ajax({
@@ -177,14 +162,14 @@
                         var html = ''
                         if (data.errors) {
                             html = data.errors[0];
-                            $('#nama_calon').addClass('is-invalid');
+                            $('#tahun_ajaran').addClass('is-invalid');
                             toastr.error(html);
                         }
 
                         if (data.success) {
                             toastr.success('Sukses!');
-                            $('#nama_calon').removeClass('is-invalid');
-                            $('#form-calon-kandidat')[0].reset();
+                            $('#tahun_ajaran').removeClass('is-invalid');
+                            $('#form-tahun-ajaran')[0].reset();
                             $('#action').val('add');
                             $('#btn')
                                 .removeClass('btn-outline-info')
@@ -200,11 +185,11 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/admin/e-voting/calon/'+id,
+                    url: '/admin/sekolah/tahun-ajaran/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#nama_calon').val(data.calon_id.name);
-                        $('#hidden_id').val(data.calon_id.id);
+                        $('#tahun_ajaran').val(data.tahun_ajaran.tahun_ajaran);
+                        $('#hidden_id').val(data.tahun_ajaran.id);
                         $('#action').val('edit');
                         $('#btn')
                             .removeClass('btn-outline-success')
@@ -214,40 +199,28 @@
                 });
             });
 
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
+            // var user_id;
+            // $(document).on('click', '.delete', function () {
+            //     user_id = $(this).attr('id');
+            //     $('#ok_button').text('Hapus');
+            //     $('#confirmModal').modal('show');
+            // });
 
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/e-voting/calon/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
-                        }, 1000);
-                    }
-                });
-            });
+            // $('#ok_button').click(function () {
+            //     $.ajax({
+            //         url: '/admin/e-voting/posisi/hapus/'+user_id,
+            //         beforeSend: function () {
+            //             $('#ok_button').text('Menghapus...');
+            //         }, success: function (data) {
+            //             setTimeout(function () {
+            //                 $('#confirmModal').modal('hide');
+            //                 $('#order-table').DataTable().ajax.reload();
+            //                 toastr.success('Data berhasil dihapus');
+            //             }, 1000);
+            //         }
+            //     });
+            // });
 
         });
-
-
-        const nama_calon = document.getElementById('nama_calon');
-        const calon_id = document.getElementById('calon_id');
-
-
-        function setPoin(selected){
-
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
-            nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
-        }
-
     </script>
 @endpush
