@@ -112,7 +112,7 @@ Ini adalah halaman Daftar Nilai untuk admin
                                 <input type="hidden" name="tahun_ajaran" value="{{ request()->tahun_ajaran }}">
                                 <input type="hidden" name="kategori_nilai" value="{{ request()->kategori_nilai }}">
                                 <input type="hidden" name="mata_pelajaran_id" value="{{ request()->mata_pelajaran_id }}">
-                                <input type="hidden" name="semester_id" value="{{ request()->semester_id }}">
+                                <input type="hidden" name="semester" value="{{ request()->semester }}">
                                 <tr>
                                     <td>{{ $obj->nama_lengkap}}</td>
                                     {{-- @foreach ($pelajaran as $pl) --}}
@@ -125,13 +125,13 @@ Ini adalah halaman Daftar Nilai untuk admin
                                     ->where('kelas_id',request()->kelas_id)
                                     ->where('mata_pelajaran_id',request()->mata_pelajaran_id)
                                     ->where('tahun_ajaran',request()->tahun_ajaran)
-                                    ->where('semester_id',request()->semester_id)
+                                    ->where('semester',request()->semester)
                                     ->where('kategori_nilai',request()->kategori_nilai);
                                     // dd($obj->nilai
                                     // ->where('kelas_id',request()->kelas_id)
                                     // ->where('mata_pelajaran_id',request()->mata_pelajaran_id)
                                     // ->where('tahun_ajaran',request()->tahun_ajaran)
-                                    // ->where('semester_id',request()->semester_id)
+                                    // ->where('semester',request()->semester)
                                     // ->where('kategori_nilai',request()->kategori_nilai)
                                     // );
                                     @endphp
@@ -184,7 +184,7 @@ Ini adalah halaman Daftar Nilai untuk admin
         var kelas_id = "<?php echo $_GET['kelas_id'] ?? ""; ?>";
         var mata_pelajaran_id = "<?php echo $_GET['mata_pelajaran_id'] ?? ""; ?>";
         var tahun_ajaran = "<?php echo $_GET['tahun_ajaran'] ?? ""; ?>";
-        var semester_id = "<?php echo $_GET['semester_id'] ?? ""; ?>";
+        var semester = "<?php echo $_GET['semester'] ?? ""; ?>";
         var kategori_nilai = "<?php echo $_GET['kategori_nilai'] ?? ""; ?>";
         var i;
         var nilai;
@@ -203,7 +203,7 @@ Ini adalah halaman Daftar Nilai untuk admin
                     kelas_id,
                     mata_pelajaran_id,
                     tahun_ajaran,
-                    semester_id,
+                    semester,
                     kategori_nilai,
                     nilai,
                     urutan_nilai: i
@@ -218,10 +218,10 @@ Ini adalah halaman Daftar Nilai untuk admin
         var kelas_id = "<?php echo $_GET['kelas_id'] ?? ""; ?>";
         var mata_pelajaran_id = "<?php echo $_GET['mata_pelajaran_id'] ?? ""; ?>";
         var tahun_ajaran = "<?php echo $_GET['tahun_ajaran'] ?? ""; ?>";
-        var semester_id = "<?php echo $_GET['semester_id'] ?? ""; ?>";
+        var semester = "<?php echo $_GET['semester'] ?? ""; ?>";
         var kategori_nilai = "<?php echo $_GET['kategori_nilai'] ?? ""; ?>";
         //Jika kosong
-        if (kelas_id == "" || mata_pelajaran_id == "" || tahun_ajaran == "" || semester_id == "" || kategori_nilai == "") {
+        if (kelas_id == "" || mata_pelajaran_id == "" || tahun_ajaran == "" || semester == "" || kategori_nilai == "") {
             swal({
                 title: "Oops!",
                 text: "Tidak dapat menambah nilai.",
@@ -242,7 +242,7 @@ Ini adalah halaman Daftar Nilai untuk admin
                     kelas_id,
                     mata_pelajaran_id,
                     tahun_ajaran,
-                    semester_id,
+                    semester,
                     kategori_nilai,
                     urutan_nilai: number
                 },
@@ -322,7 +322,7 @@ Ini adalah halaman Daftar Nilai untuk admin
             var kelas_id = "<?php echo $_GET['kelas_id'] ?? ""; ?>";
             var mata_pelajaran_id = "<?php echo $_GET['mata_pelajaran_id'] ?? ""; ?>";
             var tahun_ajaran = "<?php echo $_GET['tahun_ajaran'] ?? ""; ?>";
-            var semester_id = "<?php echo $_GET['semester_id'] ?? ""; ?>";
+            var semester = "<?php echo $_GET['semester'] ?? ""; ?>";
             var kategori_nilai = "<?php echo $_GET['kategori_nilai'] ?? ""; ?>";
 
             $.ajax({
@@ -335,7 +335,7 @@ Ini adalah halaman Daftar Nilai untuk admin
                     kelas_id,
                     mata_pelajaran_id,
                     tahun_ajaran,
-                    semester_id,
+                    semester,
                     kategori_nilai,
                     urutan_nilai: number
                 },
