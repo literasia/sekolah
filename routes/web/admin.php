@@ -284,3 +284,9 @@ Route::namespace('Pengumuman')->group(function () {
         ->name('pengumuman.pesan-update');
     Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 });
+
+// Perpustakaan
+Route::namespace('Perpustakaan')->group(function () {
+    Route::get('/admin/perpustakaan/peminjaman', 'PeminjamanController@index')
+        ->name('perpustakaan.list-peminjam');
+});

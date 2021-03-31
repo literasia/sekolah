@@ -295,19 +295,19 @@
                         </li>
                     </ul>
                 </li>
-                <li class="pcoded-hasmenu">
-                    <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="fa fa-book"></i></span>
-                        <span class="pcoded-mtext">Perpustakaan</span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        <li class="">
-                            <a href="#!" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">E-Book</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="@if (request()->is('admin/perpustakaan/peminjaman')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <a href="javascript:void(0);" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="fa fa-book"></i></span>
+                    <span class="pcoded-mtext">Perpustakaan</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="{{ request()->is('admin/perpustakaan/peminjaman') ? 'active' : '' }}">
+                        <a href="{{ route('admin.perpustakaan.list-peminjam') }}" class="waves-effect waves-dark">
+                            <span class="pcoded-mtext">Peminjaman</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             </ul>
         </div>
     </div>
