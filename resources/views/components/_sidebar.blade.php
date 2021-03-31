@@ -245,10 +245,23 @@
                         <li class="{{ request()->is('admin/e-rapor/kenaikan-kelas') ? 'active' : '' }}">
                             <a href="{{ route('admin.e-rapor.kenaikan-kelas') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Kenaikan Kelas</span>
+<<<<<<< HEAD
+=======
+                <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-file"></i></span>
+                        <span class="pcoded-mtext">Import</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/import/import-siswa') ? 'active' : '' }}">
+                            <a href="{{ route('admin.import.import-siswa') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Siswa</span>
+>>>>>>> 3fb7c27010cf01aabdb5e7f1aab9889558d3f040
                             </a>
                         </li>
                     </ul>
                 </li>
+<<<<<<< HEAD
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file"></i></span>
@@ -264,6 +277,10 @@
                 </li>
                 <li class="@if (request()->is('admin/perpustakaan/e-book') || request()->is('admin/perpustakaan/video-book') || request()->is('admin/perpustakaan/audio-book')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                 <li class="pcoded-hasmenu">
+=======
+                <li class="@if (request()->is('admin/perpustakaan/e-book') || request()->is('admin/perpustakaan/video-book') || request()->is('admin/perpustakaan/audio-book')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                  <li class="pcoded-hasmenu">
+>>>>>>> 3fb7c27010cf01aabdb5e7f1aab9889558d3f040
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-book"></i></span>
                         <span class="pcoded-mtext">Perpustakaan</span>
