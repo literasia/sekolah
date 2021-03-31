@@ -236,7 +236,6 @@
                         </li>
                     </ul>
                 </li>
-<<<<<<< HEAD
                 <li class="@if (request()->is('admin/e-rapor/kenaikan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file-alt"></i></span>
@@ -246,7 +245,10 @@
                         <li class="{{ request()->is('admin/e-rapor/kenaikan-kelas') ? 'active' : '' }}">
                             <a href="{{ route('admin.e-rapor.kenaikan-kelas') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Kenaikan Kelas</span>
-=======
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file"></i></span>
@@ -255,17 +257,13 @@
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/import/import-siswa') ? 'active' : '' }}">
                             <a href="{{ route('admin.import.import-siswa') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Siswa</span>
->>>>>>> 0ea2fcc8958b74262adb3f414b3fb883c3b1f1b7
+                                <span class="pcoded-mtext">Siswa</span
                             </a>
                         </li>
                     </ul>
                 </li>
-<<<<<<< HEAD
                 <li class="@if (request()->is('admin/perpustakaan/e-book') || request()->is('admin/perpustakaan/video-book') || request()->is('admin/perpustakaan/audio-book')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-=======
                 <li class="pcoded-hasmenu">
->>>>>>> 0ea2fcc8958b74262adb3f414b3fb883c3b1f1b7
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-book"></i></span>
                         <span class="pcoded-mtext">Perpustakaan</span>
