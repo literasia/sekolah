@@ -10,7 +10,7 @@ class Pelanggaran extends Model
     use SoftDeletes;
 
 	protected $fillable = [
-        'name', 'poin'
+        'name', 'poin', 'sekolah_id'
     ];
     protected $guarded = [];
 }

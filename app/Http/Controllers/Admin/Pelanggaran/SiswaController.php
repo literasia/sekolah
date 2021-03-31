@@ -16,7 +16,10 @@ class SiswaController extends Controller
 {
     public function index(Request $request) {
         if ($request->ajax()) {
-            $data = PelanggaranSiswa::latest()->get();
+            $data = PelanggaranSiswa::join('siswas', 'siswas.id', 'pelanggaran_siswas.siswa_id')
+                                    ->join('users', 'users.siswa_id', 'siswas.id')
+                                    ->where('users.id_sekolah', auth()->user()->id_sekolah)
+                                    ->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
@@ -28,9 +31,12 @@ class SiswaController extends Controller
                 ->make(true);
         }
 
-        $kategori = Pelanggaran::all();
-        $sanksi = Sanksi::all();
-        $namaSiswa = Siswa::all();
+        $kategori = Pelanggaran::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $sanksi = Sanksi::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $namaSiswa = Siswa::join('users', 'users.siswa_id', 'siswas.id')
+                            ->where('id_sekolah', auth()->user()->id_sekolah)
+                            ->get('siswas.*');
+        // dd($namaSiswa);
         return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
