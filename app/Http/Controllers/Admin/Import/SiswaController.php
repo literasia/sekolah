@@ -39,7 +39,7 @@ class SiswaController extends Controller
 
 		// import data
 		// Excel::import(new SiswaImport, public_path('/file_siswa/'.$nama_file));
-		$siswa = Excel::import(new SiswaImport, public_path('/storage/'.$data['file']));
+		$siswa = Excel::import(new SiswaImport, storage_path('/app/public/'.$data['file']));
 
 		// dd($siswa);
 		// notifikasi dengan session
@@ -47,6 +47,6 @@ class SiswaController extends Controller
 
 		// alihkan halaman kembali
 		return redirect()->route('admin.import.import-siswa')->with(CRUDResponse::successCreate("Data Siswa"));
-		 
+
     }
 }

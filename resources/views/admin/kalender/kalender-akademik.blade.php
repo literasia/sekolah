@@ -90,6 +90,7 @@ Ini adalah halaman kalender akademik untuk admin
 <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+{{-- <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script> --}}
 
 
 <script type="text/javascript">
@@ -210,7 +211,7 @@ Ini adalah halaman kalender akademik untuk admin
         //Fungsi Add-Update-Delete Data
         $("#addFormEvent").submit(function(e) {
             e.preventDefault();
-            // 
+            //
             var atribut = $(this).attr("action");
             var form_data = new FormData($(this)[0]);
             if (atribut == "tambah") {

@@ -15,7 +15,7 @@ class HomeController extends Controller
         $data = $req->all();
 
         $libraries = Library::query()->with(['kategori', 'penulis']);
-        
+
         $sekolahId = $req->query('sekolah_id');
         $libraries->when($sekolahId, function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)

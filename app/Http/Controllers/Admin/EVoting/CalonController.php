@@ -29,7 +29,7 @@ class CalonController extends Controller
                 ->make(true);
         }
 
-        
+
         return view('admin.e-voting.calon', ['namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 

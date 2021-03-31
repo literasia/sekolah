@@ -111,8 +111,8 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>ID Kelas</th>
                                         <th>Kelas</th>
+                                        <th>ID Kelas</th>
                                         <th>Wali Kelas</th>
                                         <th>Kapasitas</th>
                                         <th>Jurusan</th>
@@ -193,8 +193,8 @@
                     url: "{{ route('admin.sekolah.kelas') }}",
                 },
                 columns: [
-                    {data: 'id'},
                     {data: 'name'},
+                    {data: 'id'},
                     {data: 'wali_kelas'},
                     {data: 'kapasitas'},
                     {data: 'jurusan'},
