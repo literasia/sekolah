@@ -257,7 +257,7 @@
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/import/import-siswa') ? 'active' : '' }}">
                             <a href="{{ route('admin.import.import-siswa') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Siswa</span
+                                <span class="pcoded-mtext">Siswa</span>
                             </a>
                         </li>
                     </ul>
