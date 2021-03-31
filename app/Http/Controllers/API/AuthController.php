@@ -44,9 +44,8 @@ class AuthController extends Controller
             ['role_id', 2],
             ['id_sekolah', $user->id_sekolah]
         ])->first();
-        $semester = Semester::whereUserId($admin->id)->orderByDesc('id')->first();
         $siswa['kelas'] = $kelas->name;
-        $siswa['semester'] = $semester->name;
+        $siswa['semester'] = $sekolah->semester;
         $siswa['sekolah_id'] = $user->id_sekolah;
         $siswa['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);
         $siswa['deskripsi'] = "";
@@ -107,6 +106,7 @@ class AuthController extends Controller
         $sekolah = Sekolah::find($user->id_sekolah);
 
         $pegawai['nama_lengkap'] = $pegawai['name'];
+        $pegawai['semester'] = $sekolah->semester;
         $pegawai['kelas'] = '-';
         $pegawai['sekolah_id'] = $user->id_sekolah;
         $pegawai['tahun_ajaran'] = str_replace("-", "/", $sekolah->tahun_ajaran);

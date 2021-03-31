@@ -51,7 +51,7 @@ class JadwalPelajaranController extends Controller
         $kelas = Kelas::where('user_id', $request->user()->id)->get();
 
         $tahun_ajaran = ['2019/2020', '2020/2021'];
-        $semesters = Semester::where('user_id', auth()->user()->id)->get();
+        // $semesters = Semester::where('user_id', auth()->user()->id)->get();
         // dd($data);
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
@@ -59,7 +59,7 @@ class JadwalPelajaranController extends Controller
                                     ->where('sekolah_id', $request->user()->id_sekolah)
                                     ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
 
-        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran', 'semesters'), ['mySekolah' => User::sekolah()]);
+        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
     }
 
     public function getJamPelajaran(Request $request)

@@ -48,6 +48,9 @@ Route::namespace('API')
         Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
+        //Nilai
+        Route::get('nilai-siswa/{id}', 'DaftarNilaiAPIController@nilaiSiswa');
+        Route::get('nilai-guru/{id}', 'DaftarNilaiAPIController@nilaiGuru');
         //Berita
         Route::get('berita', 'BeritaController@index');
         Route::get('kalender/{id}', 'KalenderController@index');

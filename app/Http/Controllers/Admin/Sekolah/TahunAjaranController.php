@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Auth;
 class TahunAjaranController extends Controller
 {
 	public function index(Request $request) {
+		if ($request->ajax()) {
+            $data = Sekolah::where('id', auth()->user()->id_sekolah)->get();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    // $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
 
 		// $tahun_ajaran = Sekolah::where('tahun_ajaran')
 		// 					->where('id', auth()->user()->id_sekolah)
@@ -24,17 +36,24 @@ class TahunAjaranController extends Controller
 		return view('admin.sekolah.tahun-ajaran', ['tahun_ajaran' => $tahun_ajaran, 'mySekolah' => User::sekolah()]);
 	}
 
-	public function update(Request $request)
-	{
-		$id     = $request->id;
-		$isChecked      = $request->isChecked;
-		$structure      = $request->structure;
-		// dd($structure);
+	public function edit($id) {
+        $tahun_ajaran = Sekolah::find($id);
 
+        return response()
+            ->json([
+                'tahun_ajaran'  => $tahun_ajaran
+            ]);
+    }
 
-		$tahun_ajaran = Sekolah::where('id', $id)->first();
-		$tahun_ajaran->$structure = $isChecked == 'true' ? "Ganjil":"Genap";
-		// dd($tahun_ajaran->$structure);
-		$tahun_ajaran->save();
-	}
+	public function update(Request $request) {
+
+        $status = Sekolah::whereId($request->input('hidden_id'))->update([
+            'tahun_ajaran'  => $request->tahun_ajaran,
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Updated.',
+            ]);
+    }
 }

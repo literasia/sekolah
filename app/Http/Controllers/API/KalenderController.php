@@ -93,14 +93,12 @@ class KalenderController extends Controller
         foreach ($kalender as $k => $v) {
             $events[] = $data->$k = $v;
         }
-
         // uasort($events, function($a, $b) {
         //     if($a['jam_mulai'] == $b['jam_mulai']) {
         //         return 0;
         //     }
         //     return ($a['jam_mulai'] < $b['jam_mulai']) ? -1 : 1;
         // });
-
         return response()->json(ApiResponse::success($events));
     }
 }

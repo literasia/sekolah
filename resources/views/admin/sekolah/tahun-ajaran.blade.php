@@ -9,7 +9,7 @@
     Ini adalah halaman tahun ajaran untuk admin
 @endsection
 
-@section('icon-l', 'fa fa-list-alt')
+@section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -21,27 +21,45 @@
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
             <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5>Tahun Ajaran</h5>
-                </div>
-                <div class="card-body" style="margin-top: -20px">
+                <div class="card-body">
                     <div class="card-block">
-                        <div class="row">
-                            <div class="col">
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                  <input type="radio" class="btn-check" name="radioBtn" id="tahun_ajaran" autocomplete="off" {{ $tahun_ajaran[0]->tahun_ajaran=='Ganjil'?"checked":"" }} onclick="check('{{ $tahun_ajaran[0]->id }}', '#tahun_ajaran', 'tahun_ajaran');">
-                                  <label for="Ganjil">Ganjil</label>
-
-                                  <input type="radio" class="btn-check" name="radioBtn" id="tahun_ajaran" autocomplete="off" {{ $tahun_ajaran[0]->tahun_ajaran=='Genap'?"checked":"" }} onclick="check('{{ $tahun_ajaran[0]->id }}', '#tahun_ajaran', 'tahun_ajaran');">
-                                  <label for="Genap">Genap</label>
+                        <form id="form-tahun-ajaran">
+                            @csrf
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        {{-- <input type="text" name="tahun_ajaran" id="tahun_ajaran" placeholder="tes"> --}}
+                                        <label for="tahun_ajaran">Tahun Ajaran</label>
+                                        <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
+                                            <option disabled="">-- Pilih --</option>
+                                            <option value="2018/2019">2018/2019</option>
+                                            <option value="2019/2020">2019/2020</option>
+                                            <option value="2020/2021">2020/2021</option>
+                                            <option value="2021/2022">2021/2022</option>
+                                            <option value="2022/2023">2022/2023</option>
+                                            <option value="2023/2024">2023/2024</option>
+                                            <option value="2024/2025">2024/2025</option>
+                                            <option value="2025/2026">2025/2026</option>
+                                            <option value="2026/2027">2026/2027</option>
+                                            <option value="2027/2028">2027/2028</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="hidden" name="hidden_id" id="hidden_id">
+                                    <input type="hidden" id="action" val="add">
+                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="card-block">
@@ -49,23 +67,23 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
-                                        <th>tahun_ajaran</th>
+                                        <th>#</th>
+                                        <th>Tahun Ajaran Aktif</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     </div>
 
-    <div id="confirmModal" class="modal fade" role="dialog">
+    {{-- <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -80,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 {{-- addons css --}}
@@ -89,6 +107,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <style>
         .btn i {
             margin-right: 0px;
@@ -102,48 +121,14 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            // $('#order-table').DataTable();
-        });
-
-        function check(id, id_check_form, structure){
-            var isChecked = jQuery(id_check_form).is(":checked");
-            $.ajax({
-                url : "{{ route('admin.sekolah.tahun_ajaran-update') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id,
-                    isChecked,
-                    structure
-                }
-           //      ,
-           //      success : function(data){
-                    // $(id_check_form).attr("checked", "checked");
-           //      },
-           //      error : function(jqXHR, errorThrown, textStatus){
-                    // swal({
-                    //  title: "Failed!",
-                    //  text: "Gagal Mengubah Akses",
-                    //  type: "error",
-                    //  buttonsStyling: false,
-                    //  confirmButtonClass: "btn btn-danger"
-                    // }).then(function(){
-                    //  location.reload();
-                    // });
-           //      }
-        });
-        
-    }
-    </script>
-    {{-- <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.sekolah.tahun_ajaran') }}",
+                    url: "{{ route('admin.sekolah.tahun-ajaran') }}",
                 },
                 columns: [
                 {
@@ -151,8 +136,8 @@
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'tahun_ajaran',
+                    name: 'tahun_ajaran'
                 },
                 {
                     data: 'action',
@@ -161,16 +146,11 @@
                 ]
             });
 
-            $('#form-tahun_ajaran').on('submit', function (event) {
+            $('#form-tahun-ajaran').on('submit', function (event) {
                 event.preventDefault();
 
-                var url = '';
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.sekolah.tahun_ajaran') }}";
-                }
-
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.sekolah.tahun_ajaran-update') }}";
+                    url = "{{ route('admin.sekolah.tahun-ajaran-update') }}";
                 }
 
                 $.ajax({
@@ -189,7 +169,7 @@
                         if (data.success) {
                             toastr.success('Sukses!');
                             $('#tahun_ajaran').removeClass('is-invalid');
-                            $('#form-tahun_ajaran')[0].reset();
+                            $('#form-tahun-ajaran')[0].reset();
                             $('#action').val('add');
                             $('#btn')
                                 .removeClass('btn-outline-info')
@@ -205,10 +185,10 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/admin/sekolah/tahun_ajaran/'+id,
+                    url: '/admin/sekolah/tahun-ajaran/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#tahun_ajaran').val(data.tahun_ajaran.name);
+                        $('#tahun_ajaran').val(data.tahun_ajaran.tahun_ajaran);
                         $('#hidden_id').val(data.tahun_ajaran.id);
                         $('#action').val('edit');
                         $('#btn')
@@ -219,27 +199,28 @@
                 });
             });
 
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
+            // var user_id;
+            // $(document).on('click', '.delete', function () {
+            //     user_id = $(this).attr('id');
+            //     $('#ok_button').text('Hapus');
+            //     $('#confirmModal').modal('show');
+            // });
 
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/sekolah/tahun_ajaran/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
-                        }, 1000);
-                    }
-                });
-            });
+            // $('#ok_button').click(function () {
+            //     $.ajax({
+            //         url: '/admin/e-voting/posisi/hapus/'+user_id,
+            //         beforeSend: function () {
+            //             $('#ok_button').text('Menghapus...');
+            //         }, success: function (data) {
+            //             setTimeout(function () {
+            //                 $('#confirmModal').modal('hide');
+            //                 $('#order-table').DataTable().ajax.reload();
+            //                 toastr.success('Data berhasil dihapus');
+            //             }, 1000);
+            //         }
+            //     });
+            // });
+
         });
-    </script> --}}
+    </script>
 @endpush
