@@ -26,7 +26,7 @@ class DaftarNilaiController extends Controller
         $data_siswa = [];
         $data_pelajaran = NULL;
         $kelas = Kelas::where('user_id', auth()->id())->get();
-        $semester = Semester::where('user_id', auth()->user()->id)->get();
+        // $semester = Semester::where('user_id', auth()->user()->id)->get();
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
             ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
@@ -105,7 +105,7 @@ class DaftarNilaiController extends Controller
                 'pelajaran',
                 'kelas',
                 'data',
-                'semester',
+                // 'semester',
             ),
             [
                 'mySekolah' => User::sekolah()
