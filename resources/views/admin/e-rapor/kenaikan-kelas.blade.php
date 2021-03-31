@@ -47,7 +47,7 @@
                                 <div class="card-body">
                                     <div class="form-check mb-2">
                                         <input class="form-check-input position-static" type="checkbox" name="kelas" id="kelas" aria-label="...">
-                                        <label class="form-check-label ml-2" for="kelas">Asdf</label>
+                                        <label class="form-check-label ml-2" for="kelas">Asdfg</label>
                                     </div>
                                 </div>
                             </div>
