@@ -33,7 +33,7 @@
                                         <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
                                             <option value="">-- Pilih --</option>
                                             @foreach($namaSiswa as $ns)
-                                            <option data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }}</option>
+                                            <option data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
                                             @endforeach
                                         </select>
                                     </div>
