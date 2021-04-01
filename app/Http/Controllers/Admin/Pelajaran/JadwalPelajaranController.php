@@ -16,14 +16,13 @@ class JadwalPelajaranController extends Controller
 
         if($request->req == 'table') {
             $data = JadwalPelajaran::with('mataPelajaran')
-                                   ->with('jamPelajaran')
                                    ->where('tahun_ajaran', $request->tahun_ajaran)
                                    ->where('kelas_id', $request->kelas_id)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
 
                                    $data = $data->groupBy('hari');
-            // dd($data);
+
         }
 
         // if($request->req == 'table') {
