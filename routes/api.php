@@ -55,6 +55,10 @@ Route::namespace('API')
         //Berita
         Route::get('berita', 'BeritaController@index');
         Route::get('kalender/{id}', 'KalenderController@index');
+        
+        //pinjam library
+        Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
+        Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
 
         // Route::get('testing', 'JadwalPelajaranController@testing');
         Route::post('test-login/student', 'AuthController@testStudentLogin');
