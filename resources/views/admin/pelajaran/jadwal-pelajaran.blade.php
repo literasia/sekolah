@@ -31,6 +31,7 @@
                                         <label for="kelas">Kelas</label>
                                         <select name="kelas_id" id="kelas" class="form-control form-control-sm">
                                             <option disabled="" value="" selected>-- Kelas --</option>
+                                            <option disabled="" value="">-- Kelas --</option>
                                             @foreach($kelas as $obj)
                                             <option value="{{ $obj->id }}">{{ $obj->name }}</option>
                                             @endforeach
@@ -42,6 +43,7 @@
                                         <label for="pelajaran">Pelajaran</label>
                                         <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
                                             <option disabled="" value="" selected>-- Pelajaran --</option>
+                                            <option disabled="" value="">-- Pelajaran --</option>
                                             @foreach($pelajaran as $obj)
                                             <option value="{{$obj->id}}">{{$obj->name}}</option>
                                             @endforeach
@@ -53,6 +55,7 @@
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
                                             <option disabled="" value="" selected>-- Hari --</option>
+                                            <option disabled="" value="">-- Hari --</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>
@@ -69,10 +72,9 @@
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <select name="semester" id="semester" class="form-control form-control-sm">
-                                            <option disabled="" value="" selected>-- Semester --</option>
-                                            @foreach($semesters as $semester)
-                                              <option value="{{ $semester->id }}">{{ $semester->name }}</option>
-                                            @endforeach
+                                            <option disabled="" value="">-- Semester --</option>
+                                            <option value="Ganjil">Ganjil</option>
+                                            <option value="Genap">Genap</option>
                                         </select>
                                     </div>
                                 </div>
@@ -81,6 +83,7 @@
                                         <label for="tahun_ajaran">Tahun Ajaran</label>
                                         <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
                                             <option disabled="" value="" selected>-- Tahun Ajaran --</option>
+                                            <option disabled="" value="">-- Tahun Ajaran --</option>
                                             <option value="2019/2020">2019/2020</option>
                                             <option value="2020/2021">2020/2021</option>
                                         </select>
@@ -140,6 +143,7 @@
                                     <label for="kelas2">Kelas</label>
                                     <select name="kelas_id" id="kelas2" class="form-control form-control-sm" required>
                                         <option disabled selected>-- Kelas --</option>
+                                        <option disabled>-- Kelas --</option>
                                         @foreach($kelas as $obj)
                                           <option value="{{$obj->id}}">{{$obj->name}}</option>
                                         @endforeach
@@ -150,10 +154,9 @@
                                 <div class="form-group">
                                     <label for="semester">Semester</label>
                                     <select name="semester" id="semester2" class="form-control form-control-sm" required>
-                                        <option disabled selected>-- Semester --</option>
-                                        @foreach($semesters as $semester)
-                                          <option value="{{ $semester->id }}">{{ $semester->name }}</option>
-                                        @endforeach
+                                        <option disabled>-- Semester --</option>
+                                        <option value="Ganjil">Ganjil</option>
+                                        <option value="Genap">Genap</option>
                                     </select>
                                 </div>
                             </div>
@@ -162,6 +165,7 @@
                                     <label for="agama">Tahun Ajaran</label>
                                     <select name="tahun_ajaran" id="tahun_ajaran2" class="form-control form-control-sm" required>
                                         <option disabled selected>-- Tahun Ajaran --</option>
+                                        <option disabled>-- Tahun Ajaran --</option>
                                         @foreach($tahun_ajaran as $obj)
                                         <option value="{{$obj}}">{{$obj}}</option>
                                         @endforeach

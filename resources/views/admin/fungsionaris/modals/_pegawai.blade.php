@@ -242,7 +242,7 @@
                                 <select name="semester" id="semester" class="form-control form-control-sm">
                                     <option value="">-- Semester --</option>
                                     @foreach($semester as $sem)
-                                    <option value="{{ $sem->id }}">{{ $sem->name }}</option>
+                                    <option value="{{ $sem->semester }}">{{ $sem->semester }}</option>
                                     @endforeach
                                 </select>
                             </div>
