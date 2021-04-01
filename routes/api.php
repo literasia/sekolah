@@ -41,11 +41,15 @@ Route::namespace('API')
         Route::get('absensi', 'AbsensiController@read');
         Route::post('absensi', 'AbsensiController@write');
 
+        //nilai
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
         Route::get('pelanggaran-siswa/{id}', 'PelanggaranController@pelanggaranSiswa');
-        Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
-        Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
+
+        //pengumuman
+        Route::get('pengumuman/{sekolah_id}', 'PengumumanAPIController@getPesan');
+
+        //slider
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
         //Berita

@@ -69,10 +69,9 @@
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <select name="semester" id="semester" class="form-control form-control-sm">
-                                            <option disabled="" value="" selected>-- Semester --</option>
-                                            @foreach($semesters as $semester)
-                                              <option value="{{ $semester->id }}">{{ $semester->name }}</option>
-                                            @endforeach
+                                            <option disabled="" value="">-- Semester --</option>
+                                            <option value="Ganjil">Ganjil</option>
+                                            <option value="Genap">Genap</option>
                                         </select>
                                     </div>
                                 </div>
@@ -81,6 +80,7 @@
                                         <label for="tahun_ajaran">Tahun Ajaran</label>
                                         <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
                                             <option disabled="" value="" selected>-- Tahun Ajaran --</option>
+                                            <option disabled="" value="">-- Tahun Ajaran --</option>
                                             <option value="2019/2020">2019/2020</option>
                                             <option value="2020/2021">2020/2021</option>
                                         </select>
@@ -150,10 +150,9 @@
                                 <div class="form-group">
                                     <label for="semester">Semester</label>
                                     <select name="semester" id="semester2" class="form-control form-control-sm" required>
-                                        <option disabled selected>-- Semester --</option>
-                                        @foreach($semesters as $semester)
-                                          <option value="{{ $semester->id }}">{{ $semester->name }}</option>
-                                        @endforeach
+                                        <option disabled>-- Semester --</option>
+                                        <option value="Ganjil">Ganjil</option>
+                                        <option value="Genap">Genap</option>
                                     </select>
                                 </div>
                             </div>
