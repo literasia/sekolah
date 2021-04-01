@@ -105,7 +105,6 @@ class DaftarNilaiController extends Controller
                 'pelajaran',
                 'kelas',
                 'data',
-                // 'semester',
             ),
             [
                 'mySekolah' => User::sekolah()

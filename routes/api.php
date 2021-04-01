@@ -41,19 +41,24 @@ Route::namespace('API')
         Route::get('absensi', 'AbsensiController@read');
         Route::post('absensi', 'AbsensiController@write');
 
+        //nilai
         Route::get('kelas', 'KelasController@index');
         Route::get('pelanggaran', 'PelanggaranController@index');
         Route::get('pelanggaran-siswa/{id}', 'PelanggaranController@pelanggaranSiswa');
-        Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
-        Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
+
+        //pengumuman
+        Route::get('pengumuman/{sekolah_id}', 'PengumumanAPIController@getPesan');
+
+        //slider
         Route::get('sekolah/{sekolah_id}/sliders', 'SliderController@index');
 
-        //Nilai
-        Route::get('nilai-siswa/{id}', 'DaftarNilaiAPIController@nilaiSiswa');
-        Route::get('nilai-guru/{id}', 'DaftarNilaiAPIController@nilaiGuru');
         //Berita
         Route::get('berita', 'BeritaController@index');
         Route::get('kalender/{id}', 'KalenderController@index');
+        
+        //pinjam library
+        Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
+        Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
 
         // Route::get('testing', 'JadwalPelajaranController@testing');
         Route::post('test-login/student', 'AuthController@testStudentLogin');
