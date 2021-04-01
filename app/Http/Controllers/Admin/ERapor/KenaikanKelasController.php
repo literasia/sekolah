@@ -18,7 +18,9 @@ class KenaikanKelasController extends Controller
         $kelases = DB::table('kelas')
             ->select('tingkatan_kelas.*', 'kelas.*', 'kelas.name as kelas_name', 'tingkatan_kelas.name as tingkatan_name')
             ->join('tingkatan_kelas', 'kelas.tingkatan_kelas_id', 'tingkatan_kelas.id')
-            ->where('kelas.user_id', $userId)->get();
+            ->where('kelas.user_id', $userId)
+            ->where('kelas.deleted_at', null)
+            ->get();
 
         $data = [];
         if ($req->pilih1) {
