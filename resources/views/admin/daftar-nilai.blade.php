@@ -40,33 +40,33 @@
                                     <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
                                             <option value="">-- Pelajaran --</option>
                                             @foreach($pelajaran as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                            <option value="{{$obj->id}}" {{ request()->mata_pelajaran_id == $obj->id ? 'selected' : '' }}>{{$obj->name}}</option>
                                             @endforeach
                                         </select>
                                 </div>
                                 <div class="col-xl-2">
                                     <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
                                         <option value="">-- Tahun Ajaran --</option>
-                                        <option value="2019/2020">2019/2020</option>
-                                        <option value="2020/2021">2020/2021</option>
+                                        <option value="2019/2020" {{ request()->tahun_ajaran == "2019/2020" ? 'selected' : '' }}>2019/2020</option>
+                                        <option value="2020/2021" {{ request()->tahun_ajaran == "2020/2021" ? 'selected' : '' }}>2020/2021</option>
                                     </select>
                                 </div>
                                 <div class="col-xl-2">
                                     <select name="semester_id" id="semester" class="form-control form-control-sm">
                                         <option value="">-- Semester --</option>
                                         @foreach($semester as $sms)
-                                            <option value="{{$sms->id}}">{{$sms->name}}</option>
+                                            <option value="{{$sms->id}}" {{ request()->semester_id == $sms->id ? 'selected' : '' }}>{{$sms->name}}</option>
                                             @endforeach
                                     </select>
                                 </div>
                                 <div class="col-xl-2">
                                     <select name="kategori_nilai" id="kategori_nilai" class="form-control form-control-sm">
                                         <option value="">-- Kategori Nilai --</option>
-                                        <option value="UH">UH</option>
-                                        <option value="UTS">UTS</option>
-                                        <option value="UAS">UAS</option>
-                                        <option value="Tugas">Tugas Harian</option>
-                                        <option value="Praktek">Praktek</option>
+                                        <option value="UH" {{ request()->kategori_nilai == "UH" ? 'selected' : '' }}>UH</option>
+                                        <option value="UTS" {{ request()->kategori_nilai == "UTS" ? 'selected' : '' }}>UTS</option>
+                                        <option value="UAS" {{ request()->kategori_nilai == "UAS" ? 'selected' : '' }}>UAS</option>
+                                        <option value="Tugas" {{ request()->kategori_nilai == "Tugas" ? 'selected' : '' }}>Tugas Harian</option>
+                                        <option value="Praktek" {{ request()->kategori_nilai == "Praktek" ? 'selected' : '' }}>Praktek</option>
                                     </select>
                                 </div>
                                 <div class="col-xl-2">
@@ -137,14 +137,20 @@
                                             //     ->where('semester_id',request()->semester_id)
                                             //     ->where('kategori_nilai',request()->kategori_nilai)
                                             // );
+                                            $j=1;
                                             @endphp
-                                            @for ($j = 1; $j <= $jumlah_data; $j++)
-                                                @php
-                                                $totalNilai += $nilai[$j-1]->nilai;
-                                                @endphp
-                                                <td id="cells_{{ $obj->id."_".$j }}"><input type="number" max="100" class="form-control" name="{{ "nilai_".$j."_".$obj->id }}" id="{{"nilai_".$j."_".$obj->id}}" onchange="nilai_changed('{{ $obj->id }}')" value="{{ $nilai[$j-1]->nilai??"" }}"></td>
+                                            @foreach($nilai as $key=>$n)
+                                                <?php
+                                                    if($j<=$jumlah_data){
+                                                        $totalNilai += $n->nilai;
+                                                    }
+                                                ?>
+                                                <td id="cells_{{ $obj->id."_".$j }}"><input type="number" max="100" class="form-control" name="{{ "nilai_".$j."_".$obj->id }}" id="{{"nilai_".$j."_".$obj->id}}" onchange="nilai_changed('{{ $obj->id }}')" value="{{ $n->nilai??"" }}"></td>
                                                 {{-- <td><input type="number" id="nilai{{$obj->id}}" name="nilai[]" class="form-control form-control-sm" onchange="nilai_changed('{{ $obj->id }}')" value=""></td> --}}
-                                            @endfor
+                                                <?php
+                                                    $j++;
+                                                ?>
+                                            @endforeach
 
                                             @php
                                             $total = $totalNilai / $jumlah_data;
