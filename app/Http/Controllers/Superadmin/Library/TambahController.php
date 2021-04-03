@@ -27,12 +27,14 @@ class TambahController extends Controller
         'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
     ];
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+
         if ($request->ajax()) {
             // datatable error
             // $data = Library::with(['penerbit', 'penulis'])->orderBy('name')->get();
             $data = Library::all();
-            foreach($data as $d) {
+            foreach ($data as $d) {
                 $penulis = Penulis::find($d['penulis_id']);
                 $penerbit = Penerbit::find($d['penerbit_id']);
                 $d['penulis'] = $penulis['name'] ?? '-';
@@ -41,7 +43,30 @@ class TambahController extends Controller
             }
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($data) {
+                ->addColumn('status', function ($data) {
+                    if (!$data->link_audio == '') {
+                        $audio = "<button type='button' class='ml-2 delete btn btn-mini btn-primary shadow-sm'><i class='far fa-file-audio'></i></button>";
+                    } else {
+                        $audio = '';
+                    }
+
+                    if (!$data->link_ebook == '') {
+                        $ebook = "<button type='button' class='ml-2 delete btn btn-mini btn-info shadow-sm'><i class='fas fa-book'></i></button>";
+                    } else {
+                        $ebook = '';
+                    }
+
+                    if (!$data->link_video == '') {
+                        $video = "<button type='button' class='ml-2 delete btn btn-mini btn-danger shadow-sm'><i class='far fa-file-video'></i></button>";
+                    } else {
+                        $video = '';
+                    }
+                    $icon = $audio . $video . $ebook;
+
+                    return $icon;
+                })
+                ->escapeColumns('status')
+                ->addColumn('action', function ($data) {
                     $deleteUrl = route('superadmin.library.destroy', $data['id']);
                     // $button = '<button type="button" id="'.$data['id'].'" class="edit btn btn-mini btn-info shadow-sm" onclick="editBtnClicked(event);"><i class="fa fa-pencil-alt"></i></button>';
                     $button = '<a class="edit btn btn-mini btn-info shadow-sm" href=' . route('superadmin.library.edit', $data['id']) . '><i class="fa fa-pencil-alt"></i></a>';
@@ -63,21 +88,24 @@ class TambahController extends Controller
         ]);
     }
 
-    public function store(Request $req) {
+    public function store(Request $req)
+    {
         $data = $req->all();
         $validator = Validator::make($data, $this->rules);
         if ($validator->fails()) {
             return back()->withErrors($validator->errors()->all())->withInput();
         }
-    
+
         $data['thumbnail'] = null;
         if ($req->file('thumbnail')) {
             $data['thumbnail'] = $req->file('thumbnail')->store('libraries', 'public');
         }
-        
+
         Library::create([
             'name' => $data['name'],
+            'sekolah_id' => 1,
             'kategori_id' => $data['kategori_id'],
+            'tingkat' => 'smk',
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],
@@ -90,8 +118,9 @@ class TambahController extends Controller
 
         return back()->with(CRUDResponse::successCreate("perpustakaan " . $data['name']));
     }
-   
-    public function edit($id) {
+
+    public function edit($id)
+    {
         $library = Library::findOrFail($id);
         return view('superadmin.library.tambah-baru_edit', [
             'library' => $library,
@@ -102,7 +131,8 @@ class TambahController extends Controller
         ]);
     }
 
-    public function update($id, Request $req) {
+    public function update($id, Request $req)
+    {
         $data = $req->all();
 
         $validator = Validator::make($data, $this->rules);
@@ -128,7 +158,7 @@ class TambahController extends Controller
             'deskripsi' => $data['deskripsi'],
             'thumbnail' => $data['thumbnail'] ?? $library->thumbnail
         ]);
-        
+
         if ($req->file('thumbnail') && $library->thumbnail && Storage::disk('public')->exists($library->thumbnail)) {
             Storage::disk('public')->delete($library->thumbnail);
         }
@@ -136,7 +166,8 @@ class TambahController extends Controller
         return redirect()->route('superadmin.library.index')->with(CRUDResponse::successUpdate("perpustakaan " . $library->name));
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $library = Library::findOrFail($id);
         $library->delete();
         if ($library->thumbnail && Storage::disk('public')->exists($library->thumbnail)) {

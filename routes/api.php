@@ -67,6 +67,9 @@ Route::namespace('API')
         //pinjam library
         Route::get('get-pinjam/{id}', 'LibraryController@getPinjam');
         Route::post('add-pinjam/{id}', 'LibraryController@addPinjam');
+        
+        //like
+        Route::post('like-library/{id}', 'LibraryController@like');
 
         // Route::get('testing', 'JadwalPelajaranController@testing');
         Route::post('test-login/student', 'AuthController@testStudentLogin');

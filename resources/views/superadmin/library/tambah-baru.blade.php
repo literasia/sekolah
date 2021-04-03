@@ -4,12 +4,12 @@
 @section('title-2', 'Library')
 @section('title-3', 'Library')
 @section('describ')
-    Ini adalah halaman library untuk superadmin
+Ini adalah halaman library untuk superadmin
 @endsection
 @section('icon-l', 'icon-book-open')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('superadmin.library.index') }}
+{{ route('superadmin.library.index') }}
 @endsection
 
 @section('content')
@@ -32,12 +32,12 @@
                                     <th>Penulis</th>
                                     <th>Penerbit</th>
                                     <th>Tahun Terbit</th>
-                                    <th>Tingkat</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -54,34 +54,33 @@
 
 {{-- addons css --}}
 @push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
-    <style>
-        .btn i {
-            margin-right: 0px;
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+<style>
+    .btn i {
+        margin-right: 0px;
+    }
+</style>
 @endpush
 
 {{-- addons js --}}
 @push('js')
-    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('superadmin.library.index') }}",
-                },
-                columns: [
-                {
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('superadmin.library.index') }}",
+            },
+            columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
@@ -106,33 +105,31 @@
                     name: 'tahun_terbit'
                 },
                 {
-                    data: 'tingkat',
-                    name: 'tingkat'
+                    data: 'status',
+                    name: 'status'
                 },
                 {
                     data: 'action',
                     name: 'action'
                 }
-                ],
-                columnDefs: [
-                {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
-                    targets: 2
-                }
-                ]
-            });
-
-            $('#add').on('click', function () {
-                $('#modal-library').modal('show');
-            });
+            ],
+            columnDefs: [{
+                render: function(data, type, full, meta) {
+                    return "<div class='text-wrap width-200'>" + data + "</div>";
+                },
+                targets: 2
+            }],
         });
 
-        $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
-            const url = $(e.relatedTarget).data('url');
-            const form = confirmDeleteModal.querySelector('#deleteForm');
-            form.action = url;
+        $('#add').on('click', function() {
+            $('#modal-library').modal('show');
         });
-    </script>
+    });
+
+    $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
+        const url = $(e.relatedTarget).data('url');
+        const form = confirmDeleteModal.querySelector('#deleteForm');
+        form.action = url;
+    });
+</script>
 @endpush

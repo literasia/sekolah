@@ -48,7 +48,11 @@ class KalenderController extends Controller
                 return $japel['kelas_id'] == $kelasId;
             });
         }
-        $kalender = Kalender::select('id', 'title AS nama', 'start_date', 'end_date', 'start_clock AS jam_mulai', 'end_clock AS jam_selesai')->where('sekolah_id', "=", $id)->where('start_date', '=', $request->tanggal)->orderByDesc('start_clock')->get();
+        $kalender = Kalender::select('id', 'title AS nama', 'start_date', 'end_date', 'start_clock AS jam_mulai', 'end_clock AS jam_selesai')
+            ->where('sekolah_id', "=", $id)
+            ->whereBetween('start_date', [$request->tanggal_mulai, $request->tanggal_akhir])
+            // ->whereRaw('? between start_date and end_date', [$request->tanggal_mulai])
+            ->orderBy('start_date')->get();
 
         // $event = [];
         // $kalender = [];
