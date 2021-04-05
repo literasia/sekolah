@@ -29,7 +29,7 @@ class HomeController extends Controller
         
         $borrowedLibraries = Library::with(['kategori', 'penulis'])
             ->whereHas('pinjams', function($q) use ($userId) {
-                $q->where('siswa_id', $userId);
+                $q->where('user_id', $userId);
             })
             ->get();
 
