@@ -44,6 +44,7 @@ class AuthController extends Controller
             ['role_id', 2],
             ['id_sekolah', $user->id_sekolah]
         ])->first();
+        $siswa['user_id'] = $user->id;
         $siswa['kelas'] = $kelas->name;
         $siswa['semester'] = $sekolah->semester;
         $siswa['sekolah_id'] = $user->id_sekolah;
@@ -75,6 +76,7 @@ class AuthController extends Controller
             ['role_id', 2],
             ['id_sekolah', $user->id_sekolah]
         ])->first();
+        $pegawai['user_id'] = $user->id;
         $pegawai['nama_lengkap'] = $pegawai['name'];
         $pegawai['semester'] = $sekolah->semester;
         $pegawai['kelas'] = '-';
