@@ -11,12 +11,12 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $data = Pinjam::select('pinjams.*', 'siswas.nama_lengkap', 'libraries.name')->where('users.id_sekolah', 1)
-            ->join('siswas', 'siswas.id', 'pinjams.siswa_id')
+        $data = Pinjam::select('pinjams.*', 'users.name AS nama_lengkap', 'libraries.name')
+            ->join('users', 'users.siswa_id', 'pinjams.user_id')
             ->join('libraries', 'libraries.id', 'pinjams.library_id')
-            ->join('kelas', 'kelas.id', 'siswas.kelas_id')
-            ->join('users', 'users.id', 'kelas.user_id')
+            ->where('users.id_sekolah', auth()->user()->id_sekolah)
             ->get();
+
 
         return view('admin.perpustakaan.peminjaman', [
             'mySekolah' => User::sekolah(),
