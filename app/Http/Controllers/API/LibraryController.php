@@ -69,7 +69,7 @@ class LibraryController extends Controller
         $orderBy = $data['order_by'];
         if ($orderBy == "borrowed" && !empty($userId)) {
             $libraries = $libraries->whereHas('pinjams', function($q) use ($userId) {
-                $q->where('siswa_id', $userId);
+                $q->where('user_id', $userId);
             });
         } 
 
