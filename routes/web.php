@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::get('/migrate', function () {
@@ -139,9 +139,13 @@ Route::namespace('Superadmin')
         Route::get('/superadmin/slider', 'SliderController@index')
             ->name('slider');
         Route::post('/superadmin/slider', 'SliderController@store')
-        ->name('slider.store');
-        Route::put('/superadmin/slider', 'SliderController@update')
-        ->name('slider.update');
+            ->name('slider.store');
+        Route::get('/superadmin/slider/{id}', 'SliderController@destroy')
+            ->name('slider.destroy');
+        Route::get('/superadmin/slider/update/{id}', 'SliderController@edit')
+            ->name('slider.update-slider');
+        Route::post('/superadmin/slider/edit/{id}', 'SliderController@update')
+            ->name('slider.update');
 
         // Berita
         Route::namespace('Berita')

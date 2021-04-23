@@ -18,9 +18,9 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#data-wali" role="tab">Data Wali</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" id="toggle-data-login" data-toggle="tab" href="#data-login" role="tab">Data Login Siswa</a>
-                        </li>
+                        </li> --}}
                     </ul>
                     <div class="tab-content modal-body">
                         <div class="tab-pane active" id="data-siswa" role="tabpanel">
