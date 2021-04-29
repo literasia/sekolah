@@ -55,19 +55,26 @@
                         </div>
                     </div>
 
-                    <a class="text-info" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="rotate">Tanggal Terbit <i class="fa fa-chevron-right rotate"></i></span></a>
+                    <a class="text-info rotate-collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tanggal Terbit <i class="fa fa-chevron-right rotate ml-1"></i></a>
 
                     <div class="collapse mt-2" id="collapseExample">
                         <div class="row" >
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="tanggal_terbit">Tanggal</label>
+                                    <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="jam">Jam</label>
                                     <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer">
+                    <div class="modal-footer mt-3">
                         <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
