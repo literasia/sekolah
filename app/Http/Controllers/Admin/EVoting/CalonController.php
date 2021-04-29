@@ -60,6 +60,7 @@ class CalonController extends Controller
         $status = Calon::create([
             'name'  => $request->input('nama_calon'),
             'sekolah_id' => $idSekolah,
+            'kelas_id' => $request->input('kelas_id')
         ]);
 
         return response()

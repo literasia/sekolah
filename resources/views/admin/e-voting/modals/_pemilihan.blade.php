@@ -15,11 +15,23 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="nama_calon">Nama Calon</label>
-                                <select name="nama_calon[]" id="nama_calon" class="form-control form-control-sm" multiple>
-                                    <option value="">-- Pilih --</option>
-                                    @foreach($ck as $cakan)
-                                    <option value="{{ $cakan->id }}">{{ $cakan->name }}</option>
+                            <label for="posisi">Kelas</label>
+                                <select name="posisi" id="posisi" class="form-control form-control-sm">
+                                    <option selected disabled class="pilih">-- Pilih --</option>
+                                    <option value="Ketua Osis" class="ketua_osis">Ketua Osis</option>
+                                    <option value="Ketua Kelas" class="ketua_kelas">Ketua Kelas</option>
+                                </select>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="kelas">Kelas</label>
+                                <select name="kelas" id="kelas" class="form-control form-control-sm">
+                                    <option selected disabled>-- Pilih --</option>
+                                    @foreach($kelas as $k)
+                                    <option value="{{ $k->id }}" id="{{ $k->id }}" class="k">{{ $k->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -28,12 +40,10 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="posisi">Posisi</label>
-                                <select name="posisi" id="posisi" class="form-control form-control-sm">
+                                <label for="nama_calon">Nama Calon</label>
+                                <select name="nama_calon[]" id="nama_calon" class="form-control form-control-sm" multiple>
                                     <option value="">-- Pilih --</option>
-                                    @foreach($ps as $posisi)
-                                    <option value="{{ $posisi->name }}">{{ $posisi->name }}</option>
-                                    @endforeach
+                                    
                                 </select>
                             </div>
                         </div>
