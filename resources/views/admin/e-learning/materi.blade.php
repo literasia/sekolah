@@ -120,8 +120,8 @@
             $('#modal-materi').modal('show');
         });
 
-        $(".rotate").click(function() {
-            $(this).toggleClass("down"); 
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
         });
     })
 </script>
