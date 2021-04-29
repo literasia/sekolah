@@ -10,11 +10,14 @@ use Yajra\DataTables\DataTables;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Calon;
 use App\Models\Admin\Posisi;
+use App\Models\Admin\Kelas;
+use App\Models\Siswa;
 use App\Utils\CRUDResponse;
 
 class PemilihanController extends Controller
 {
     public function index(Request $request) {
+        
         // if ($request->ajax()) {
         //     $data = Pemilihan::latest()->get();
         //     return DataTables::of($data)
@@ -34,18 +37,32 @@ class PemilihanController extends Controller
         // }
         $data_pemilihan = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();
         $ck = Calon::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $kelas = Kelas::where('kelas.user_id',auth()->user()->id)->get();
+      
         // dd($ck);
         // dd(auth()->user()->id_sekolah);
         $ps = Posisi::all();
         return view('admin.e-voting.pemilihan', [
             'ck' => $ck,
             'ps' => $ps,
+            'kelas' => $kelas,
             'data_pemilihan' => $data_pemilihan,
             'mySekolah' => User::sekolah()
         ]);
     }
 
 
+    public function getKelas(Request $request, $id)
+    {
+        if($request->req == "all"){
+            $siswa = Calon::where('sekolah_id',auth()->user()->id_sekolah)->get();
+        }else{
+            $siswa = Calon::where('kelas_id', $id)->get();
+        }
+       
+
+        return response($siswa);
+    }
 
     public function store(Request $request) {
         $data = $request->all();
@@ -69,19 +86,31 @@ class PemilihanController extends Controller
         
         $sekolah_id = auth()->user()->id_sekolah;
 
-        // dd(auth()->user()->id_sekolah);
+     
         // exit;
 
         $tglMulai = explode("-", $data['tanggal_mulai']);
         $tglSelesai = explode("-", $data['tanggal_selesai']);
         $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
         $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
-        $pemilihan= Pemilihan::create([
-            'posisi'        => $data['posisi'],
-            'sekolah_id'    => $sekolah_id,
-            'start_date'    => $newTglMulai,
-            'end_date'      => $newTglSelesai
-        ]);
+
+        if($data['posisi'] == 'Ketua Osis'){
+            $pemilihan= Pemilihan::create([
+                'posisi'        => $data['posisi'],
+                'sekolah_id'    => $sekolah_id,
+                'start_date'    => $newTglMulai,
+                'end_date'      => $newTglSelesai,
+            ]);
+        }else{
+            $pemilihan= Pemilihan::create([
+                'posisi'        => $data['posisi'],
+                'sekolah_id'    => $sekolah_id,
+                'start_date'    => $newTglMulai,
+                'end_date'      => $newTglSelesai,
+                'kelas_id'      => $data['kelas']
+            ]);
+        }
+        
 
         foreach ($request->input('nama_calon') as $nama_calon) {
             $pemilihan->calons()->attach($nama_calon);

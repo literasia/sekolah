@@ -11,11 +11,12 @@ class MataPelajaranController extends Controller
 {
     public function read(Request $request) {
         if($request->req == 'table') {
-            $data = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
+            $data = MataPelajaran::join('gurus', 'gurus.pegawai_id', 'guru_id')
+                                   ->join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
                                  ->where(function($q) use($request){
                                     $q->where('nama_pelajaran', 'like', "%$request->search%")
-                                      ->orWhere('nama_guru', 'like', "%$request->search%");;
-                                })->select('mata_pelajarans.*', 'nama_guru')
+                                      ->orWhere('name', 'like', "%$request->search%");;
+                                })->select('mata_pelajarans.*', 'name')
                                  ->paginate($request->per_page);
             return ResponseFormatter::success($data);
         }

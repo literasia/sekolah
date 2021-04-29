@@ -15,14 +15,13 @@ class VotingController extends Controller
 {
     public function index(Request $req) {
         $voting = Pemilihan::query();
-        $sekolahId = $req->query('sekolah_id');
-        $posisi = $req->query('posisi');
-        $voting->when($sekolahId, function($query) use ($sekolahId) {
-            return $query->where('sekolah_id', $sekolahId);
-        });
-        $voting->when($posisi, function($query) use ($posisi) {
-            return $query->where('posisi', $posisi);
-        });
+
+        if($req->posisi == "Ketua Kelas"){
+            $voting->where('sekolah_id', $req->sekolah_id)->where('posisi', $req->posisi)->where('kelas_id', $req->kelas_id);
+        }else{
+            $voting->where('sekolah_id', $req->sekolah_id)->where('posisi', $req->posisi);
+        }
+    
         $voting = $voting->whereRaw("CURRENT_DATE BETWEEN start_date AND end_date")->orderBy('posisi')->get();
 
         return response()->json(ApiResponse::success($voting));

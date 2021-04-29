@@ -88,6 +88,7 @@ Route::namespace('EVoting')->group(function () {
         ->name('e-voting.pemilihan');
     Route::post('/admin/e-voting/pemilihan', 'PemilihanController@store');
     Route::get('/admin/e-voting/pemilihan/{id}', 'PemilihanController@edit');
+    Route::get('/admin/e-voting/pemilihan/kelas/{id}', 'PemilihanController@getKelas')->name('e-voting.pemilihan.kelas');
     Route::post('/admin/e-voting/pemilihan/update', 'PemilihanController@update')
         ->name('e-voting.pemilihan-update');
     Route::get('/admin/e-voting/pemilihan/hapus/{id}', 'PemilihanController@destroy')->name('e-voting.pemilihan-destroy');
@@ -222,6 +223,14 @@ Route::namespace('ERapor')->group(function () {
         ->name('e-rapor.kenaikan-kelas.get');
     Route::post('/admin/e-rapor/kenaikan-kelas/add', 'KenaikanKelasController@store')
         ->name('e-rapor.kenaikan-kelas.add');
+});
+
+// E-Learning
+Route::namespace('ELearning')->group(function () {
+    Route::get('/admin/e-learning/materi', 'MateriController@index')
+        ->name('e-learning.materi');
+    Route::get('/admin/e-learning/kuis', 'KuisController@index')
+        ->name('e-learning.kuis');
 });
 
 // Referensi

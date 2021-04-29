@@ -28,12 +28,13 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder="tes">
+                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder  ="tes">
+                                        <input type="hidden" name="kelas_id" id="kelas_id" placeholder="tes">
                                         <label for="calon_id">Nama Calon</label>
                                         <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
                                             <option value="">-- Pilih --</option>
                                             @foreach($namaSiswa as $ns)
-                                            <option data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
+                                            <option data-kelas="{{ $ns->kelas_id }}" data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -158,6 +159,8 @@
 
             $('#form-calon-kandidat').on('submit', function (event) {
                 event.preventDefault();
+                var id = $(this).val();
+                console.log($(this).serialize())
 
                 var url = '';
                 if ($('#nama_calon').val() == 'add') {
@@ -244,9 +247,10 @@
 
 
         function setPoin(selected){
-
+            console.log(selected)
             // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
             nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
+            kelas_id.value = calon_id.options[calon_id.selectedIndex].dataset.kelas;
         }
 
     </script>
