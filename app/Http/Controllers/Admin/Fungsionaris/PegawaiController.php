@@ -118,10 +118,30 @@ class PegawaiController extends Controller
                     'foto' => $data['foto']??""
                 ]);
 
+                // $accesses = Access::where('id_sekolah', $auth->sekolah()->id)->first();
+
                 // Insert Access
                 $access = Access::create([
                     'sekolah_id'=>$auth->sekolah()->id,
                     'pegawai_id'=>$pegawai->id,
+                    // 'kalender' => $accesses->kalender,
+                    // 'sekolah' => $accesses->sekolah,
+                    // 'pelajaran' => $accesses->pelajaran,
+                    // 'peserta_didik' => $accesses->peserta_didik,
+                    // 'absensi' => $accesses->absensi,
+                    // 'daftar_nilai' => $accesses->daftar_nilai,
+                    // 'pelanggaran' => $accesses->pelanggaran,
+                    // 'template' => $accesses->template,
+                    // 'log_user' => $accesses->log_user,
+                    // 'referensi' => $accesses->referensi,
+                    // 'buku_tamu' => $accesses->buku_tamu,
+                    // 'konsultasi' => $accesses->konsultasi,
+                    // 'perpustakaan' => $accesses->perpustakaan,
+                    // 'keuangan' => $accesses->keuangan,
+                    // 'sarana_prasarana' => $accesses->sarana_prasarana,
+                    // 'penerimaan_murid_baru' => $accesses->penerimaan_murid_baru,
+                    // 'ujian_sekolah_berbasis_komputer' => $accesses->ujian_sekolah_berbasis_komputer,
+                    // 'e_voting' => $accesses->e_voting,
                 ]);
 
                 DB::commit();
