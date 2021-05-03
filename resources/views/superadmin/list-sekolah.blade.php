@@ -79,6 +79,19 @@
         .btn i {
             margin-right: 0px;
         }
+        .checkbox {
+            position: absolute;
+            left: 15px;
+            cursor: pointer;
+        }
+        .add-ons-icon {
+            font-size: 16pt!important;
+            color: #e14293;
+        }
+        .card-hover:hover {
+            background: rgba(45,155,219,0.21);
+            color: #e14293;
+        }
     </style>
 @endpush
 

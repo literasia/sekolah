@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <label for="mata_pelajaran">Mata Pelajaran</label>
                                 <select name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm">
-                                    <option value=""></option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label for="kelas">Kelas</label>
                                 <select name="kelas" id="kelas" class="form-control form-control-sm">
-                                    <option value=""></option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -55,20 +55,36 @@
                         </div>
                     </div>
 
-                    <a class="text-info rotate-collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tanggal Terbit <i class="fa fa-chevron-right rotate ml-1"></i></a>
-
-                    <div class="collapse mt-2" id="collapseExample">
-                        <div class="row" >
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="tanggal_terbit">Tanggal</label>
-                                    <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
-                                </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select name="status" id="status" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="">Draf</option>
+                                    <option value="">Terbitkan</option>
+                                </select>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="jam">Jam</label>
-                                    <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <a class="text-info rotate-collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tanggal Terbit <i class="fa fa-chevron-right rotate ml-1"></i></a>
+                                <div class="collapse mt-2" id="collapseExample">
+                                    <div class="row" >
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tanggal_terbit">Tanggal</label>
+                                                <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="jam">Jam</label>
+                                                <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
