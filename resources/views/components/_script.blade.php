@@ -23,6 +23,8 @@
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js')}}"></script>
+<script src="{{ asset('http://127.0.0.1:8000/js/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script>
 
 {{-- add ons JS --}}
 @stack('js')

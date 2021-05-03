@@ -231,6 +231,8 @@ Route::namespace('ELearning')->group(function () {
         ->name('e-learning.materi');
     Route::get('/admin/e-learning/kuis', 'KuisController@index')
         ->name('e-learning.kuis');
+    Route::get('/admin/e-learning/soal', 'SoalController@index')
+        ->name('e-learning.soal');
 });
 
 // Referensi
