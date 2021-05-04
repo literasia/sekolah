@@ -9,10 +9,12 @@ use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class StatusGuruController extends Controller
 {
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         if ($request->ajax()) {
             $data = StatusGuru::where('user_id', auth()->id())->get();
             return DataTables::of($data)
@@ -26,7 +28,7 @@ class StatusGuruController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.status-guru', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.status-guru', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request) {

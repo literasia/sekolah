@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\JadwalPelajaran;
 use App\Models\MataPelajaran;
 use App\Models\TingkatanKelas;
+use App\Models\Superadmin\Addons;
 
 class JadwalPelajaranSekolahController extends Controller
 {
 
     public function index(Request $request) {
         $data = null;
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
 
         if($request->req == 'table') {
             $data = JadwalPelajaran::with('mataPelajaran')
@@ -53,7 +55,7 @@ class JadwalPelajaranSekolahController extends Controller
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", nama_guru) as name')->get();
 
-        return view('admin.sekolah.jam', compact('jam_pelajaran', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
+        return view('admin.sekolah.jam', compact('jam_pelajaran', 'addons', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
     }
 
     public function write(Request $request) {

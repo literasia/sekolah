@@ -9,10 +9,12 @@ use Yajra\DataTables\DataTables;
 use App\Models\Admin\Posisi;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class PosisiController extends Controller
 {
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         if ($request->ajax()) {
             $data = Posisi::latest()->get();
             return DataTables::of($data)
@@ -26,7 +28,7 @@ class PosisiController extends Controller
                 ->make(true);
         }
         $sekolahId = User::get('id_sekolah');
-        return view('admin.e-voting.posisi', ['sekolah_id' => $sekolahId ,'mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.posisi', ['sekolah_id' => $sekolahId ,'mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request) {

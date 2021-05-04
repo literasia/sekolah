@@ -19,6 +19,7 @@ use App\Models\BagianPegawai;
 use App\Models\Semester;
 use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class PegawaiController extends Controller
 {
@@ -33,6 +34,8 @@ class PegawaiController extends Controller
     ];
 
     public function index() {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         $pegawais = Pegawai::whereHas('user', function($q) {
             return $q->whereIdSekolah(auth()->user()->id_sekolah);
         })->get();
@@ -42,7 +45,7 @@ class PegawaiController extends Controller
         $kecamatan  = Kecamatan::all();
         $bagian = BagianPegawai::where('user_id', Auth::id())->get();
         $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
-        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'addons' => $addons , 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
     }
 
     public function getKabupatenKota($id)
@@ -118,30 +121,10 @@ class PegawaiController extends Controller
                     'foto' => $data['foto']??""
                 ]);
 
-                // $accesses = Access::where('id_sekolah', $auth->sekolah()->id)->first();
-
                 // Insert Access
                 $access = Access::create([
                     'sekolah_id'=>$auth->sekolah()->id,
                     'pegawai_id'=>$pegawai->id,
-                    // 'kalender' => $accesses->kalender,
-                    // 'sekolah' => $accesses->sekolah,
-                    // 'pelajaran' => $accesses->pelajaran,
-                    // 'peserta_didik' => $accesses->peserta_didik,
-                    // 'absensi' => $accesses->absensi,
-                    // 'daftar_nilai' => $accesses->daftar_nilai,
-                    // 'pelanggaran' => $accesses->pelanggaran,
-                    // 'template' => $accesses->template,
-                    // 'log_user' => $accesses->log_user,
-                    // 'referensi' => $accesses->referensi,
-                    // 'buku_tamu' => $accesses->buku_tamu,
-                    // 'konsultasi' => $accesses->konsultasi,
-                    // 'perpustakaan' => $accesses->perpustakaan,
-                    // 'keuangan' => $accesses->keuangan,
-                    // 'sarana_prasarana' => $accesses->sarana_prasarana,
-                    // 'penerimaan_murid_baru' => $accesses->penerimaan_murid_baru,
-                    // 'ujian_sekolah_berbasis_komputer' => $accesses->ujian_sekolah_berbasis_komputer,
-                    // 'e_voting' => $accesses->e_voting,
                 ]);
 
                 DB::commit();

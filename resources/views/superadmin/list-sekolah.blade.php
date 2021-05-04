@@ -267,25 +267,22 @@
                         $('#provinsi').val(data.provinsi);
                         $('#kabupaten').val(data.kabupaten);
                         // add ons
-                        data.template == 1 ? $('#template').prop('checked', true) : $('#template').prop('checked', false);
-                        data.referensi == 1 ? $('#referensi').prop('checked', true) : $('#referensi').prop('checked', false);
+                        data.dashboard == 1 ? $('#dashboard').prop('checked', true) : $('#dashboard').prop('checked', false);
                         data.sekolah == 1 ? $('#sekolah').prop('checked', true) : $('#sekolah').prop('checked', false);
+                        data.referensi == 1 ? $('#referensi').prop('checked', true) : $('#referensi').prop('checked', false);
                         data.fungsionaris == 1 ? $('#fungsionaris').prop('checked', true) : $('#fungsionaris').prop('checked', false);
                         data.pelajaran == 1 ? $('#pelajaran').prop('checked', true) : $('#pelajaran').prop('checked', false);
                         data.peserta_didik == 1 ? $('#peserta_didik').prop('checked', true) : $('#peserta_didik').prop('checked', false);
                         data.absensi == 1 ? $('#absensi').prop('checked', true) : $('#absensi').prop('checked', false);
-                        data.buku_tamu == 1 ? $('#buku_tamu').prop('checked', true) : $('#buku_tamu').prop('checked', false);
+                        data.e_learning == 1 ? $('#e_learning').prop('checked', true) : $('#e_learning').prop('checked', false);
                         data.daftar_nilai == 1 ? $('#daftar_nilai').prop('checked', true) : $('#daftar_nilai').prop('checked', false);
-                        data.konsultasi == 1 ? $('#konsultasi').prop('checked', true) : $('#konsultasi').prop('checked', false);
+                        data.e_rapor == 1 ? $('#e_rapor').prop('checked', true) : $('#e_rapor').prop('checked', false);
                         data.pelanggaran == 1 ? $('#pelanggaran').prop('checked', true) : $('#pelanggaran').prop('checked', false);
                         data.e_voting == 1 ? $('#e_voting').prop('checked', true) : $('#e_voting').prop('checked', false);
                         data.kalender == 1 ? $('#kalender').prop('checked', true) : $('#kalender').prop('checked', false);
-                        data.keuangan == 1 ? $('#keuangan').prop('checked', true) : $('#keuangan').prop('checked', false);
-                        data.penerimaan_murid_baru == 1 ? $('#penerimaan_murid_baru').prop('checked', true) : $('#penerimaan_murid_baru').prop('checked', false);
-                        data.ujian_sekolah_berbasis_komputer == 1 ? $('#ujian_sekolah_berbasis_komputer').prop('checked', true) : $('#ujian_sekolah_berbasis_komputer').prop('checked', false);
-                        data.log_user == 1 ? $('#log_user').prop('checked', true) : $('#log_user').prop('checked', false);
+                        data.import == 1 ? $('#import').prop('checked', true) : $('#import').prop('checked', false);
                         data.perpustakaan == 1 ? $('#perpustakaan').prop('checked', true) : $('#perpustakaan').prop('checked', false);
-                        data.sarana_prasarana == 1 ? $('#sarana_prasarana').prop('checked', true) : $('#sarana_prasarana').prop('checked', false);
+
                         // $('#provinsi').val(data.sekolah.provinsi);
                         // $.ajax({
                         //     url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',

@@ -8,10 +8,12 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Voting;
+use App\Models\Superadmin\Addons;
 
 class VoteController extends Controller
 {
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $names = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();
         $pemilihans = Pemilihan::orderBy('id')->where('sekolah_id', auth()->user()->id_sekolah)->get();
         $counts = collect();
@@ -24,7 +26,7 @@ class VoteController extends Controller
             }
         }
         // exit;
-        return view('admin.e-voting.vote', ['names' => $names, 'pemilihans' =>$pemilihans, 'counts'=>$counts,'mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.vote', ['names' => $names, 'pemilihans' =>$pemilihans,'addons' => $addons, 'counts'=>$counts,'mySekolah' => User::sekolah()]);
     } 
      
     public function store(Request $request) {
