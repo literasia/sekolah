@@ -49,12 +49,27 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row answer" id="multiple-choice" style="display: none;">
                         <div class="col">
-                            <div class="form-group">
+                            <div class="form-group m-0" id="questions-group">
                                 <label for="questions">Jawaban</label>
-                                <input type="text" name="point" id="point" class="form-control form-control-sm  mb-3">
-                                <input type="text" name="point" id="point" class="form-control form-control-sm">
+                                <div id="questions-form1">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <input type="text" name="point" id="point1" class="form-control form-control-sm mb-3">
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="checkbox" name="" class="d-inline-block">
+                                            <p class="ml-2 d-inline-block">Jawaban yang benar</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 1.25em">
+                                <div class="col-12">
+                                    <input type='button' value='Tambah Jawaban' id='addButton' class="btn btn-primary btn-sm">
+                                    <input type='button' value='Hapus Jawaban' id='removeButton' class="btn btn-outline-primary btn-sm">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,18 +78,14 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="mata_pelajaran">Mata Pelajaran</label>
-                                <select name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                </select>
+                                <input type="text" name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm" readonly>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-group">
                                 <label for="kelas">Kelas</label>
-                                <select name="kelas" id="kelas" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                </select>
+                                <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" readonly>
                             </div>
                         </div>
                         <div class="col">

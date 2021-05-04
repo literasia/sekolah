@@ -96,6 +96,7 @@
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script>
     $('document').ready(function() {
+
         $('#order-table').DataTable();
 
         $('#add').on('click', function() {
@@ -110,6 +111,48 @@
             //     .addClass('btn-outline-info add')
             //     .html('Simpan');
             $('#modal-soal').modal('show');
+        });
+
+        $('#question_type').change(function(){
+            $('.answer').hide();
+            $('#' + $(this).val()).show();
+        });
+
+        var counter = 2;
+        
+        $("#addButton").click(function () {
+                
+            if(counter>6){
+                Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
+                return false;
+            }   
+        
+            var newQuestionsForm =  '<div id="questions-form'+counter+'">' +
+                                        '<div class="row">' +
+                                            '<div class="col-8">' +
+                                                '<input type="text" name="point" id="point'+counter+'" class="form-control form-control-sm mb-3">' +
+                                            '</div>' +
+                                            '<div class="col-4">' +
+                                                '<input type="checkbox" name="" class="d-inline-block">' +
+                                                '<p class="ml-2 d-inline-block">Jawaban yang benar</p>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>';
+
+            
+            $('#questions-group').append(newQuestionsForm);
+            counter++;
+        });
+
+        $("#removeButton").click(function () {
+        
+            if(counter==1){
+                Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
+                return false;
+            }      
+
+            counter--;       
+            $("#questions-form" + counter).remove();    
         });
 
         tinymce.init({
