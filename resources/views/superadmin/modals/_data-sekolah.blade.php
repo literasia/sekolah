@@ -1,6 +1,5 @@
 <div class="card">
     <div class="card-body">
-    	
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
@@ -106,7 +105,6 @@
                                 <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>
                             </div>
                         </div>
-                    </div>
-                
+                    </div> 
     </div>
 </div>
