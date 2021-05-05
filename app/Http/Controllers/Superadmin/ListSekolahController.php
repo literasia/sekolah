@@ -181,7 +181,9 @@ class ListSekolahController extends Controller
                 return back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        Sekolah::whereId($id)->update([
+        $sekolah = Sekolah::findOrFail($id);
+
+        $sekolah->update([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
             'alamat'        => $data['alamat'],
@@ -193,10 +195,11 @@ class ListSekolahController extends Controller
         ]);
 
         $addons = Addons::where('sekolah_id', $data['hidden_id'])->first();
+        $user = User::where('id_sekolah', $data['hidden_id'])->first();
 
         // Crete Addons
         $addons->update([
-            'sekolah_id' => $sekolahId,
+            'sekolah_id' => $data['hidden_id'],
             'user_id' => $user->id,
             'referensi' => !empty($req->referensi) ? 1 : 0,
             'sekolah' => !empty($req->sekolah) ? 1 : 0,
