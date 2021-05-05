@@ -9,11 +9,12 @@ use App\Models\Guru;
 use App\Models\MataPelajaran;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class MataPelajaranController extends Controller
 {
-
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         if($request->req == 'table') {
             return DataTables::of(MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
                 ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
@@ -30,7 +31,7 @@ class MataPelajaranController extends Controller
             ->get(['gurus.*', 'pegawais.name AS nama_guru']);
         //TODO: GURU BELUM FILTER BY SEKOLAH
 
-        return view('admin.pelajaran.mata-pelajaran', array_merge(['mySekolah' => User::sekolah()], compact('guru')));
+        return view('admin.pelajaran.mata-pelajaran', array_merge(['mySekolah' => User::sekolah()], compact('guru', 'addons')));
     }
 
     public function write(Request $request) {

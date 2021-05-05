@@ -10,11 +10,14 @@ use App\Models\Guru;
 use DataTables;
 use App\Models\StatusGuru;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class GuruController extends Controller
 {
     //read
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             // $data = Guru::latest()->get();
             $data = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
@@ -40,7 +43,7 @@ class GuruController extends Controller
         $status = StatusGuru::where('user_id', Auth::id())->latest()->get();
         // return($pegawai);
 
-        return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'addons' => $addons ,'mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {

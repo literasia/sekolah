@@ -16,9 +16,9 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="card shadow">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <h5>List Sekolah</h5>
-            </div>
+            </div> --}}
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -259,11 +259,30 @@
                     success: function (data) {
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#id_sekolah').val(data.sekolah.id_sekolah);
-                        $('#name').val(data.sekolah.name);
-                        $('#jenjang').val(data.sekolah.jenjang);
-                        $('#tahun_ajaran').val(data.sekolah.tahun_ajaran);
-                        $('#alamat').val(data.sekolah.alamat);
+                        $('#id_sekolah').val(data.id_sekolah);
+                        $('#name').val(data.name);
+                        $('#jenjang').val(data.jenjang);
+                        $('#tahun_ajaran').val(data.tahun_ajaran);
+                        $('#alamat').val(data.alamat);
+                        $('#provinsi').val(data.provinsi);
+                        $('#kabupaten').val(data.kabupaten);
+                        // add ons
+                        data.dashboard == 1 ? $('#dashboard').prop('checked', true) : $('#dashboard').prop('checked', false);
+                        data.sekolah == 1 ? $('#sekolah').prop('checked', true) : $('#sekolah').prop('checked', false);
+                        data.referensi == 1 ? $('#referensi').prop('checked', true) : $('#referensi').prop('checked', false);
+                        data.fungsionaris == 1 ? $('#fungsionaris').prop('checked', true) : $('#fungsionaris').prop('checked', false);
+                        data.pelajaran == 1 ? $('#pelajaran').prop('checked', true) : $('#pelajaran').prop('checked', false);
+                        data.peserta_didik == 1 ? $('#peserta_didik').prop('checked', true) : $('#peserta_didik').prop('checked', false);
+                        data.absensi == 1 ? $('#absensi').prop('checked', true) : $('#absensi').prop('checked', false);
+                        data.e_learning == 1 ? $('#e_learning').prop('checked', true) : $('#e_learning').prop('checked', false);
+                        data.daftar_nilai == 1 ? $('#daftar_nilai').prop('checked', true) : $('#daftar_nilai').prop('checked', false);
+                        data.e_rapor == 1 ? $('#e_rapor').prop('checked', true) : $('#e_rapor').prop('checked', false);
+                        data.pelanggaran == 1 ? $('#pelanggaran').prop('checked', true) : $('#pelanggaran').prop('checked', false);
+                        data.e_voting == 1 ? $('#e_voting').prop('checked', true) : $('#e_voting').prop('checked', false);
+                        data.kalender == 1 ? $('#kalender').prop('checked', true) : $('#kalender').prop('checked', false);
+                        data.import == 1 ? $('#import').prop('checked', true) : $('#import').prop('checked', false);
+                        data.perpustakaan == 1 ? $('#perpustakaan').prop('checked', true) : $('#perpustakaan').prop('checked', false);
+
                         // $('#provinsi').val(data.sekolah.provinsi);
                         // $.ajax({
                         //     url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
@@ -278,15 +297,15 @@
                         //         $("#kabupaten").html(options);
                         //     }
                         // });
-                        $('#provinsi').val(data.sekolah.provinsi).change();
-                        setTimeout(()=>{
-                            $('#kabupaten').val(data.sekolah.kabupaten).change();
-                            // setTimeout(()=>{
-                            //     $('#kecamatan').val(data.kecamatan);
-                            // },500);
-                        },500);
+                        // $('#provinsi').val(data.sekolah.provinsi).change();
+                        // setTimeout(()=>{
+                        //     $('#kabupaten').val(data.sekolah.kabupaten).change();
+                        //     // setTimeout(()=>{
+                        //     //     $('#kecamatan').val(data.kecamatan);
+                        //     // },500);
+                        // },500);
                         // $('#kabupaten').val(data.sekolah.kabupaten);
-                        $('#hidden_id').val(data.sekolah.id);
+                        $('#hidden_id').val(data.id);
                         $('#username').val(data.user[0].username).attr('readonly', true);
                         $('#password').val(data.user[0].password).attr('readonly', true);
                         $('#modal-sekolah').modal('show');

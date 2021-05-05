@@ -48,7 +48,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row answer" id="multiple-choice" style="display: none;">
                         <div class="col">
                             <div class="form-group m-0" id="questions-group">
