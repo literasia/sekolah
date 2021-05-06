@@ -20,7 +20,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
-                    <a href="" id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></a>
+                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
@@ -31,6 +31,7 @@
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
                                     <th>Soal</th>
+                                    <th>Durasi</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -44,6 +45,7 @@
                                     <td>VII</td>
                                     <td>Mursilah</td>
                                     <td><label class="badge badge-primary py-2 px-3">1</label></td>
+                                    <td>00:10:00</td>
                                     <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
                                     <td><label class="badge badge-success">Diterbitkan</label></td>
                                     <td></td>
@@ -55,6 +57,7 @@
                                     <td>VII</td>
                                     <td>Mursilah</td>
                                     <td><label class="badge badge-secondary disabled py-2 px-3">0</label></td>
+                                    <td>00:10:00</td>
                                     <td><small>Diperbarui, 2021/04/28 pukul 05:04 PM</small></td>
                                     <td><label class="badge badge-warning">Draf</label></td>
                                     <td></td>
@@ -67,6 +70,7 @@
         </div>
     </div>
 </div>
+@include('admin.e-learning.modals._kuis')
 @endsection
 
 {{-- addons css --}}
@@ -95,6 +99,10 @@
     .badge-secondary {
         background-color: #6c757d6b;
     }
+    .duration-option, .duration-option:focus {
+        border: 1px solid #ced4da!important;
+        background-color: #85ccff4a;
+    }
 </style>
 @endpush
 
@@ -107,7 +115,21 @@
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script>
     $('document').ready(function() {
-        $('#order-table').DataTable();s
+        $('#order-table').DataTable();
+
+        $('#add').on('click', function() {
+            // $('.modal-title').html('Tambah Pesan');
+            // $('#judul').val('');
+            // $('#message').val('');
+            // $('#start_date').val('');
+            // $('#end_date').val('');
+            // $('#action').val('add');
+            // $('#button')
+            //     .removeClass('btn-outline-success edit')
+            //     .addClass('btn-outline-info add')
+            //     .html('Simpan');
+            $('#modal-kuis').modal('show');
+        });
     })
 </script>
 @endpush

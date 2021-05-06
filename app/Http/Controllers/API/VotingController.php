@@ -43,12 +43,10 @@ class VotingController extends Controller
         $data = $req->all();
         $posisis = Pemilihan::query();
 
-        $sekolahId = $req->query('sekolah_id');
-        $posisis->when($sekolahId, function($query) use ($sekolahId) {
-            return $query->where('sekolah_id', $sekolahId);
-        });
+        $ketuaKelas = Pemilihan::where('sekolah_id', $req->sekolah_id)->where('kelas_id', $req->kelas_id)->get();
+        $ketuaOsis = Pemilihan::where('sekolah_id', $req->sekolah_id)->where('posisi', "Ketua Osis")->get();
 
-        return response()->json(ApiResponse::success($posisis->get()));
+        return response()->json(ApiResponse::success($ketua));
     }
 
     public function calonKandidat(Request $req) {

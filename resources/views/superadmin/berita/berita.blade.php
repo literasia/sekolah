@@ -9,7 +9,7 @@
     Ini adalah halaman Berita untuk Superadmin
 @endsection
 
-@section('icon-l', 'icon-book')
+@section('icon-l', 'fa fa-newspaper')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -106,6 +106,20 @@
         $(document).ready(function () {
 
             $('#add').on('click', function () {
+                $('.modal-title').html('Tambah Berita');
+                $('#action').val('add');
+                $('#judul').val('');
+                $('#kategori').val('');
+                $('#tanggal_rilis').val('');
+                $('#isi').val('');
+                $('#btn')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .val('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                    .val('Batal');
                 $('#modal-berita').modal('show');
             });
 
@@ -186,9 +200,13 @@
                             $('#form-berita')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             location.reload();
                             // $('#order-table').DataTable().ajax.reload();
                         }

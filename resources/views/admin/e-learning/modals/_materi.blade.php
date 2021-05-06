@@ -24,18 +24,14 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="mata_pelajaran">Mata Pelajaran</label>
-                                <select name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                </select>
+                                <input type="text" name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm" readonly>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-group">
                                 <label for="kelas">Kelas</label>
-                                <select name="kelas" id="kelas" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                </select>
+                                <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" readonly>
                             </div>
                         </div>
                         <div class="col">
@@ -49,8 +45,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="keterangan">Materi</label>
-                                <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
+                                <label for="materi">Materi</label>
+                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
                             </div>
                         </div>
                     </div>

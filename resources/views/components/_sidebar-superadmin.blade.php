@@ -14,7 +14,7 @@
                 <li class="@if (request()->is('superadmin/berita') || request()->is('superadmin/library/setting')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="icon-book-open"></i>
+                            <i class="fa fa-newspaper"></i>
                         </span>
                         <span class="pcoded-mtext">Berita</span>
                     </a>
@@ -34,7 +34,7 @@
                 <li class="{{ request()->is('superadmin/slider') ? 'active' : '' }}">
                     <a href="{{ route('superadmin.slider') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-list"></i>
+                            <i class="fa fa-images"></i>
                         </span>
                         <span class="pcoded-mtext">Slider</span>
                     </a>
@@ -42,7 +42,7 @@
                 <li class="{{ request()->is('superadmin/list-sekolah') ? 'active' : '' }}">
                     <a href="{{ route('superadmin.list-sekolah') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="icon-list"></i>
+                            <i class="fa fa-school"></i>
                         </span>
                         <span class="pcoded-mtext">List Sekolah</span>
                     </a>
@@ -70,7 +70,7 @@
                 <li class="@if (request()->is('superadmin/referensi/jenis-kelamin') || request()->is('superadmin/referensi/agama') || request()->is('superadmin/referensi/status-nikah') || request()->is('superadmin/referensi/provinsi') || request()->is('superadmin/referensi/kabupaten-kota') || request()->is('superadmin/referensi/kecamatan') || request()->is('superadmin/referensi/suku')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="icon-list"></i>
+                            <i class="fa fa-list-alt"></i>
                         </span>
                         <span class="pcoded-mtext">Referensi</span>
                     </a>

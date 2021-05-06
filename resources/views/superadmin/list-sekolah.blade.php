@@ -6,7 +6,7 @@
 @section('describ')
     Ini adalah halaman list sekolah untuk superadmin
 @endsection
-@section('icon-l', 'icon-home')
+@section('icon-l', 'fa fa-school')
 @section('icon-r', 'icon-home')
 @section('link')
     {{ route('superadmin.list-sekolah') }}

@@ -9,7 +9,7 @@
 Ini adalah halaman slider untuk Superadmin
 @endsection
 
-@section('icon-l', 'icon-list')
+@section('icon-l', 'fa fa-images')
 @section('icon-r', 'icon-home')
 
 @section('link')

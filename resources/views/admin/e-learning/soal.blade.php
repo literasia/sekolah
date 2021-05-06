@@ -93,7 +93,34 @@
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('bower_components/tinymce/tinymce.min.js')}}"></script>
+<script src="{{ asset('bower_components/tinymce/jquery.tinymce.min.js')}}"></script>
+<script src="{{ asset('http://127.0.0.1:8000/bower_components/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script type="text/javascript">
+    tinymce.init({
+            external_plugins: {
+                'tiny_mce_wiris' : 'http://127.0.0.1:8000/bower_components/tinymce/plugins/tiny_mce_wiris/plugin.min.js'
+            },
+            selector: 'textarea#materi',
+            height: 200,
+            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+            imagetools_cors_hosts: ['picsum.photos'],
+            menubar: 'file edit view insert format tools table help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
+            toolbar_sticky: true,
+            autosave_ask_before_unload: true,
+            autosave_interval: '30s',
+            autosave_prefix: '{path}{query}-{id}-',
+            autosave_restore_when_empty: false,
+            autosave_retention: '2m',  
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            noneditable_noneditable_class: 'mceNonEditable',
+            toolbar_mode: 'sliding',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+</script>
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
@@ -112,12 +139,48 @@
             $('#modal-soal').modal('show');
         });
 
-        tinymce.init({
-            external_plugins: {
-                'tiny_mce_wiris' : 'http://127.0.0.1:8000/js/tinymce/plugins/tiny_mce_wiris/plugin.min.js'
-            },
-            selector: 'textarea#questions',
-            height: 200,
+        $('#question_type').change(function(){
+            $('.answer').hide();
+            $('#' + $(this).val()).show();
+        });
+
+        var counter = 2;
+        
+        $("#addButton").click(function () {
+                
+            if(counter>6){
+                Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
+                return false;
+            }   
+        
+            var newQuestionsForm =  '<div id="questions-form'+counter+'">' +
+                                        '<div class="row">' +
+                                            '<div class="col-8">' +
+                                                '<input type="text" name="point" id="point'+counter+'" class="form-control form-control-sm mb-3">' +
+                                            '</div>' +
+                                            '<div class="col-4">' +
+                                                '<input type="checkbox" name="" class="d-inline-block">' +
+                                                '<p class="ml-2 d-inline-block">Jawaban yang benar</p>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>';
+
+            
+            $('#questions-group').append(newQuestionsForm);
+            counter++;
+        });
+
+        $("#removeButton").click(function () {
+        
+            if(counter==1){
+                Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
+                return false;
+            }      
+
+            counter--;       
+            $("#questions-form" + counter).remove();    
+        });
+
               // menubar: 'file edit view insert format tools table help',
               // plugins: [
               //   'advlist autolink lists link image charmap print preview anchor',
@@ -141,22 +204,5 @@
               // },
               // noneditable_noneditable_class: 'mceNonEditable',
 
-            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-            imagetools_cors_hosts: ['picsum.photos'],
-            menubar: 'file edit view insert format tools table help',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
-            toolbar_sticky: true,
-            autosave_ask_before_unload: true,
-            autosave_interval: '30s',
-            autosave_prefix: '{path}{query}-{id}-',
-            autosave_restore_when_empty: false,
-            autosave_retention: '2m',  
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-            noneditable_noneditable_class: 'mceNonEditable',
-            toolbar_mode: 'sliding',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
-    })
 </script>
 @endpush
