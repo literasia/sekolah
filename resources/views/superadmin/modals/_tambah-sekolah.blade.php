@@ -9,8 +9,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <ul class="nav nav-tabs" role="tablist">
+            <form id="form-sekolah" action="" method="POST" enctype="multipart/form-data">
+                @csrf @method("POST")
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#data-sekolah" role="tab">Data Sekolah</a>
                         </li>
@@ -25,9 +27,22 @@
                         <div class="tab-pane" id="add-ons" role="tabpanel">
                             @include('superadmin.modals._add-ons')
                         </div>
+                    </div> 
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-right">
+                                <input type="hidden" name="hidden_id" id="hidden_id">
+                                <input type="hidden" id="action">
+                                <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

@@ -9,11 +9,14 @@ use App\Utils\CRUDResponse;
 use Illuminate\Http\Request;
 use App\Imports\SiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
 {
 	public function index(){
-    	return view('admin.import.import-siswa', ['mySekolah' => User::sekolah()]);
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
+    	return view('admin.import.import-siswa', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
 	}
 
     public function import_excel(Request $request){

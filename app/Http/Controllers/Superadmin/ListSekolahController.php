@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
+use App\Models\Admin\Access;
+use App\Models\Superadmin\Addons;
 
 class ListSekolahController extends Controller
 {
@@ -76,9 +78,12 @@ class ListSekolahController extends Controller
             'tahun_ajaran'  => $data['tahun_ajaran'],
             // 'logo'          => $data['logo']
         ])->id;
+    
+        
+        // Get Roles
         $adminRole = Role::where('name', 'admin')->first();
 
-        User::create([
+        $user = User::create([
             'id_sekolah'    => $sekolahId,
             'role_id'       => $adminRole->id,
             'name'          => $data['name'],
@@ -86,22 +91,74 @@ class ListSekolahController extends Controller
             'password'      => Hash::make($data['password'])
         ]);
 
+        $user_id = User::findOrFail($user->id);
+
+        // Attach to Role User
+        $user_id->roles()->attach($adminRole->id);
+        
+        // Add Addons
+        Addons::create([
+            'sekolah_id' => $sekolahId,
+            'user_id' => $user->id,
+            'referensi' => !empty($req->referensi) ? 1 : 0,
+            'sekolah' => !empty($req->sekolah) ? 1 : 0,
+            'fungsionaris' => !empty($req->fungsionaris) ? 1 : 0,
+            'pelajaran' => !empty($req->pelajaran) ? 1 : 0,
+            'peserta_didik' => !empty($req->peserta_didik) ? 1 : 0,
+            'absensi' => !empty($req->absensi) ? 1 : 0,
+            'e_learning' => !empty($req->e_learning) ? 1 : 0,
+            'daftar_nilai' => !empty($req->daftar_nilai) ? 1 : 0,
+            'e_rapor' => !empty($req->e_rapor) ? 1 : 0,
+            'pelanggaran' => !empty($req->pelanggaran) ? 1 : 0,
+            'e_voting' => !empty($req->e_voting) ? 1 : 0,
+            'kalender' => !empty($req->kalender) ? 1 : 0,
+            'import' => !empty($req->import) ? 1 : 0,
+            'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+        ]);
+
         return back()->with(CRUDResponse::successCreate("sekolah " . $data['name']));
     }
 
     public function edit($id) {
-        $sekolah = Sekolah::find($id);
+        $sekolah = Sekolah::findOrFail($id);
+        $provinsi = Provinsi::findOrFail($sekolah->provinsi);
+        $kabupaten = KabupatenKota::findOrFail($sekolah->kabupaten);
+
+        // get Addons
+        $addons = Addons::where('sekolah_id', $sekolah->id)->first();
 
         return response()
-            ->json([
-                'sekolah'   => $sekolah,
+            ->json([                
+                'id'   => $sekolah->id,
+                'id_sekolah'   => $sekolah->id_sekolah,
+                'name'   => $sekolah->name,
+                'alamat'   => $sekolah->alamat,
+                'provinsi'   => $provinsi->id,
+                'kabupaten'   => $kabupaten->id,
+                'jenjang'   => $sekolah->jenjang,
+                'tahun_ajaran'   => $sekolah->tahun_ajaran,
                 'user'      => User::where('id_sekolah', $sekolah->id)->get(),
+                'referensi' => $addons->referensi,
+                'sekolah' => $addons->sekolah,
+                'fungsionaris' => $addons->fungsionaris,
+                'pelajaran' => $addons->pelajaran,
+                'peserta_didik' => $addons->peserta_didik,
+                'absensi' => $addons->absensi,
+                'e_learning' => $addons->e_learning,
+                'daftar_nilai' => $addons->daftar_nilai,
+                'e_rapor' => $addons->e_rapor,
+                'pelanggaran' => $addons->pelanggaran,
+                'e_voting' => $addons->e_voting,
+                'kalender' => $addons->kalender,
+                'import' => $addons->import,
+                'perpustakaan' => $addons->perpustakaan,
             ]);
     }
 
     public function update(Request $req) {
         $data = $req->all();
         $id = $data['hidden_id'];
+        
         Sekolah::findOrFail($id);
 
         $rules = [
@@ -112,28 +169,53 @@ class ListSekolahController extends Controller
            'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
-       ];
+        ];
 
-       $message = [
-           'id_sekolah.required' => 'Kolom ini gaboleh kosong',
-       ];
+        $message = [
+            'id_sekolah.required' => 'Kolom ini gaboleh kosong',
+        ];
 
-       $validator = Validator::make($data, $rules, $message);
+        $validator = Validator::make($data, $rules, $message);
 
-       if ($validator->fails()) {
-            return back()->withErrors($validator->errors()->all())->withInput();
-       }
+        if ($validator->fails()) {
+                return back()->withErrors($validator->errors()->all())->withInput();
+        }
 
-       Sekolah::whereId($id)->update([
-           'id_sekolah'    => $data['id_sekolah'],
-           'name'          => $data['name'],
-           'alamat'        => $data['alamat'],
-           'provinsi'        => $data['provinsi'],
-           'kabupaten'        => $data['kabupaten'],
-           'jenjang'       => $data['jenjang'],
-           'tahun_ajaran'  => $data['tahun_ajaran'],
-           // 'logo'          => $data['logo']
-       ]);
+        $sekolah = Sekolah::findOrFail($id);
+
+        $sekolah->update([
+            'id_sekolah'    => $data['id_sekolah'],
+            'name'          => $data['name'],
+            'alamat'        => $data['alamat'],
+            'provinsi'        => $data['provinsi'],
+            'kabupaten'        => $data['kabupaten'],
+            'jenjang'       => $data['jenjang'],
+            'tahun_ajaran'  => $data['tahun_ajaran'],
+            // 'logo'          => $data['logo']
+        ]);
+
+        $addons = Addons::where('sekolah_id', $data['hidden_id'])->first();
+        $user = User::where('id_sekolah', $data['hidden_id'])->first();
+
+        // Crete Addons
+        $addons->update([
+            'sekolah_id' => $data['hidden_id'],
+            'user_id' => $user->id,
+            'referensi' => !empty($req->referensi) ? 1 : 0,
+            'sekolah' => !empty($req->sekolah) ? 1 : 0,
+            'fungsionaris' => !empty($req->fungsionaris) ? 1 : 0,
+            'pelajaran' => !empty($req->pelajaran) ? 1 : 0,
+            'peserta_didik' => !empty($req->peserta_didik) ? 1 : 0,
+            'absensi' => !empty($req->absensi) ? 1 : 0,
+            'e_learning' => !empty($req->elearning) ? 1 : 0,
+            'daftar_nilai' => !empty($req->daftar_nilai) ? 1 : 0,
+            'e_rapor' => !empty($req->e_rapor) ? 1 : 0,
+            'pelanggaran' => !empty($req->pelanggaran) ? 1 : 0,
+            'e_voting' => !empty($req->e_voting) ? 1 : 0,
+            'kalender' => !empty($req->kalender) ? 1 : 0,
+            'import' => !empty($req->import) ? 1 : 0,
+            'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+        ]);
 
        return back()->with(CRUDResponse::successUpdate("sekolah " . $data['name']));
     }

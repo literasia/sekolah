@@ -8,9 +8,12 @@ use App\Models\Pegawai;
 use App\Models\Admin\Access;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
+
 class PengaturanHakAksesController extends Controller
 {
     public function index() {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
     	// $pegawais = Pegawai::where(['user_id'=>auth()->user()->id])->get();
         $pegawais = Pegawai::whereHas('user', function($q) {
             return $q->whereIdSekolah(auth()->user()->id_sekolah);
@@ -18,7 +21,8 @@ class PengaturanHakAksesController extends Controller
     	// dd($pegawais[0]->access);
         return view('admin.referensi.pengaturan-hak-akses', [
         	'mySekolah' => User::sekolah(),
-        	'pegawais'	=> $pegawais
+        	'pegawais'	=> $pegawais,
+			'addons' => $addons
         ]);
     }
 

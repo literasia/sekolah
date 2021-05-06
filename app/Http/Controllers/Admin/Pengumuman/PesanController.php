@@ -10,11 +10,14 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Utils\CRUDResponse;
+use App\Models\Superadmin\Addons;
 
 class PesanController extends Controller
 {
     public function index(Request $request)
     {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             $data = Pesan::where('user_id', Auth::id())->latest()->get();
             return DataTables::of($data)
@@ -28,7 +31,7 @@ class PesanController extends Controller
                 ->make(true);
         }
         // $data = Pesan::where('user_id', Auth::id())->get();
-        return view('admin.pengumuman.pesan', ['mySekolah' => User::sekolah()]);
+        return view('admin.pengumuman.pesan', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
         // return $data;
     }
 

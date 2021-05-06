@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
-                                <input type="file" class="form-control form-control-sm" name="thumbnail" id="thumbnail" accept="image/*" value="" autocomplete="off">
+                                <input type="file" name="thumbnail" id="thumbnail" accept="image/*" value="" autocomplete="off">
                                 <label for="thumbnail" class="mt-1">
                                     thumbnail:
                                     <small class="text-muted">max. 3MB</small>
@@ -62,8 +62,8 @@
                     <div class="modal-footer">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>
             </div>

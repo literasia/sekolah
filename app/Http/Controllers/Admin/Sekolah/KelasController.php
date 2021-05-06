@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Yajra\DataTables\DataTables;
 use Exeption;
+use App\Models\Superadmin\Addons;
 
 
 class KelasController extends Controller
 {
     //read
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             // $data = Guru::latest()->get();
             $data = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
@@ -53,7 +56,7 @@ class KelasController extends Controller
 
         // return($gurus);
 
-        return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'jurusan' => $jurusan, 'gurus' => $gurus, 'mySekolah' => User::sekolah()]);
+        return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'addons' => $addons, 'jurusan' => $jurusan, 'gurus' => $gurus, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request)

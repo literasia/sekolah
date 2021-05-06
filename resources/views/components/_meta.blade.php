@@ -30,6 +30,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/widget.css') }}">
 <link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
+<!-- <script src="{{ asset('bower_components/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> -->
 
 {{-- Add on CSS --}}
 @stack('css')

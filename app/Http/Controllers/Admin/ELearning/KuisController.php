@@ -9,11 +9,13 @@ use App\Models\Admin\Kelas;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Superadmin\Addons;
 
 class KuisController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.e-learning.kuis', ['mySekolah' => User::sekolah()]);  
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+        return view('admin.e-learning.kuis', ['mySekolah' => User::sekolah(), 'addons' => $addons]);  
     }
 }
