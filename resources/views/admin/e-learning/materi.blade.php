@@ -19,6 +19,15 @@
     <div class="col-xl-12">
         <div class="card shadow">
             <div class="card-body">
+
+                {{-- <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="materi">Materi</label>
+                            <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
+                        </div>
+                    </div>
+                </div> --}}
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive">
@@ -101,53 +110,49 @@
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/tinymce/tinymce.min.js')}}"></script>
-<!-- <script src="{{ asset('assets/plugins/tinymce/jquery.tinymce.min.js')}}"></script> -->
-
-<!-- <script src="{{ asset('bower_components/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> -->
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script type="text/javascript">
-    tinymce.init({
-            // external_plugins: {
-            //     'tiny_mce_wiris' : 'http://127.0.0.1:8080/bower_components/tinymce/plugins/tiny_mce_wiris/plugin.min.js'
-            // },
-            selector: 'textarea#materi',
-            height: 200,
-            plugins: 'anchor',
-             // print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons
-            // imagetools_cors_hosts: ['picsum.photos'],
-            menubar: 'file edit view insert format tools table help',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | ',
-            // tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry
-            // toolbar_sticky: true,
-            // autosave_ask_before_unload: true,
-            // autosave_interval: '30s',
-            // autosave_prefix: '{path}{query}-{id}-',
-            // autosave_restore_when_empty: false,
-            // autosave_retention: '2m',  
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-            // noneditable_noneditable_class: 'mceNonEditable',
-            toolbar_mode: 'sliding',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
+  
 </script>
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
 
+        tinymce.init({
+            external_plugins: {
+                'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
+            },
+            selector: '#materi',
+            height: 500,
+            menubar: 'file edit view insert format tools table tc help',
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+
+        $(document).on('focusin', function(e) {
+            if ($(e.target).closest(".tox-dialog").length) {
+                e.stopImmediatePropagation();
+            }
+        });
+
         $('#add').on('click', function() {
-            // $('.modal-title').html('Tambah Pesan');
-            // $('#judul').val('');
-            // $('#message').val('');
-            // $('#start_date').val('');
-            // $('#end_date').val('');
-            // $('#action').val('add');
-            // $('#button')
-            //     .removeClass('btn-outline-success edit')
-            //     .addClass('btn-outline-info add')
-            //     .html('Simpan');
+            $('.modal-title').html('Tambah Pesan');
+            $('#judul').val('');
+            $('#message').val('');
+            $('#start_date').val('');
+            $('#end_date').val('');
+            $('#action').val('add');
+            $('#button')
+                .removeClass('btn-outline-success edit')
+                .addClass('btn-outline-info add')
+                .html('Simpan');
             $('#modal-materi').modal('show');
+           
         });
 
         $(".rotate-collapse").click(function() {
