@@ -7,7 +7,7 @@ use App\Models\Pegawai;
 
 class Access extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function pegawai()
     {
