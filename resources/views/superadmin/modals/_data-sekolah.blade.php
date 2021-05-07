@@ -77,22 +77,43 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="col">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Username">
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="col" id="default-password-group">
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password">
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="col">
                 <div class="form-group">
                     <label for="file">Pilih File:</label>
                     <input type="file" name="logo" id="logo" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="password-lama-group">
+                <div class="form-group">
+                    <label for="password">Password Lama:</label>
+                    <input type="password" name="password_lama" id="password_lama" class="form-control form-control-sm" placeholder="Password">
+                    <p class="form-text text-muted" id="old-password-message"></p>
+                </div>
+            </div>
+            <div class="col" id="password-baru-group">
+                <div class="form-group">
+                    <label for="password">Password Baru:</label>
+                    <input type="password" name="password_baru" id="password_baru" class="form-control form-control-sm" placeholder="Password">
+                </div>
+            </div>
+            <div class="col" id="password-konfirmasi-group">
+                <div class="form-group">
+                    <label for="password">Konfirmasi Password:</label>
+                    <input type="password" name="confirmation_password" id="password_konfirmasi" class="form-control form-control-sm" placeholder="Password">
                 </div>
             </div>
         </div>
