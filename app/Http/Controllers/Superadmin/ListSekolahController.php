@@ -176,7 +176,7 @@ class ListSekolahController extends Controller
            'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
-           'password_baru' => 'min:6|required_with:password_confirmation',
+           'password_baru' => 'required_with:password_confirmation',
            'password_confirmation' => 'same:password_baru'
         ];
 
@@ -240,7 +240,7 @@ class ListSekolahController extends Controller
             'pelajaran' => !empty($req->pelajaran) ? 1 : 0,
             'peserta_didik' => !empty($req->peserta_didik) ? 1 : 0,
             'absensi' => !empty($req->absensi) ? 1 : 0,
-            'e_learning' => !empty($req->elearning) ? 1 : 0,
+            'e_learning' => !empty($req->e_learning) ? 1 : 0,
             'daftar_nilai' => !empty($req->daftar_nilai) ? 1 : 0,
             'e_rapor' => !empty($req->e_rapor) ? 1 : 0,
             'pelanggaran' => !empty($req->pelanggaran) ? 1 : 0,
