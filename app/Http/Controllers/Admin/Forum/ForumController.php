@@ -15,3 +15,5 @@ class ForumController extends Controller
         return view('admin.forum.forum',['mySekolah' => User::sekolah()]);   
     }
 }
+
+//wt rewt

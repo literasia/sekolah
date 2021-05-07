@@ -296,7 +296,7 @@ Route::namespace('Pengumuman')->group(function () {
     Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 
 });
-// Forum
+// Forum diskusi
 Route::namespace('Forum')->group(function () {
     Route::get('/admin/forum/forum', 'ForumController@index')
         ->name('forum.forum');

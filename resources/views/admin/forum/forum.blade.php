@@ -78,7 +78,7 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <!--
     <script src="{{ asset('bower_components/switchery/js/switchery.min.js') }}"></script>
-    <script src="{{ asset('assets/pages/advance-elements/swithces.js') }}"></script>
+    <script src="{{ asset('assets/pages/advance-elements/swithces.js') }} "></script1>
     -->
     <script>
         $(document).ready(function () {
