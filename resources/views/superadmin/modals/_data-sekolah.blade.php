@@ -1,8 +1,5 @@
 <div class="card">
     <div class="card-body">
-    	<form id="form-sekolah" action="" method="POST" enctype="multipart/form-data">
-                    @method("POST")
-                    @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
@@ -41,10 +38,10 @@
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten / Kota:</label>
                                 <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
-                                    {{-- <option value="">-- Kabupaten / Kota --</option> --}}
-                                    {{-- @foreach($kabupaten as $kab) --}}
-                                    {{-- <option value="{{ $kab->name }}">{{ $kab->name }}</option> --}}
-                                    {{-- @endforeach --}}
+                                    <option value="">-- Kabupaten / Kota --</option>
+                                    @foreach($kabupaten as $kab)
+                                    <option value="{{ $kab->id }}">{{ $kab->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -108,7 +105,6 @@
                                 <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </div> 
     </div>
 </div>

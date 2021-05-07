@@ -9,10 +9,13 @@ use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class JenjangPegawaiController extends Controller
 {
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             $data = JenjangPegawai::where('user_id', auth()->id())->get();
             return DataTables::of($data)
@@ -26,7 +29,7 @@ class JenjangPegawaiController extends Controller
                 ->make(true);
         }
 
-        return view('admin.referensi.jenjang-pegawai', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.jenjang-pegawai', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request) {

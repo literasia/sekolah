@@ -8,11 +8,14 @@ use App\Models\TingkatanKelas;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Superadmin\Addons;
 
 class TingkatanKelasController extends Controller
 {
     public function index(Request $request)
     {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             $data = TingkatanKelas::where('user_id', auth()->user()->id)->latest()->get();
             return DataTables::of($data)
@@ -25,7 +28,7 @@ class TingkatanKelasController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request)
