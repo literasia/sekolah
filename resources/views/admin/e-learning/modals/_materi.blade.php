@@ -46,7 +46,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="materi">Materi</label>
-                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
+                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Materi" required></textarea>
                             </div>
                         </div>
                     </div>

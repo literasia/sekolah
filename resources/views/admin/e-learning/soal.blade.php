@@ -125,6 +125,42 @@
     $('document').ready(function() {
         $('#order-table').DataTable();
 
+        var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        tinymce.init({
+            external_plugins: {
+                'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
+            },
+            selector: '#questions',
+            height: 300,
+            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+            imagetools_cors_hosts: ['picsum.photos'],
+            menubar: 'file edit view insert format tools table help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
+            toolbar_sticky: true,
+            // autosave_ask_before_unload: true,
+            // autosave_interval: '30s',
+            // autosave_prefix: '{path}{query}-{id}-',
+            // autosave_restore_when_empty: false,
+            // autosave_retention: '2m',
+            image_advtab: true,
+            importcss_append: true,
+            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            noneditable_noneditable_class: 'mceNonEditable',
+            toolbar_mode: 'sliding',
+            contextmenu: 'link image imagetools table',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+
+        $(document).on('focusin', function(e) {
+            if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
+                e.stopImmediatePropagation();
+            }
+        });
+
         $('#add').on('click', function() {
             // $('.modal-title').html('Tambah Pesan');
             // $('#judul').val('');
@@ -180,29 +216,6 @@
             counter--;       
             $("#questions-form" + counter).remove();    
         });
-
-              // menubar: 'file edit view insert format tools table help',
-              // plugins: [
-              //   'advlist autolink lists link image charmap print preview anchor',
-              //   'searchreplace visualblocks code fullscreen',
-              //   'insertdatetime media table paste code help wordcount'
-              // ],
-              // toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
-              // content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-              // autosave_ask_before_unload: true,
-              // autosave_interval: '30s',
-              //  autosave_restore_when_empty: false,
-              // autosave_retention: '2m',
-              // image_advtab: true,
-              // images_upload_url: 'jhjkjjk.php',
-              //  /* we override default upload handler to simulate successful upload*/
-              // images_upload_handler: function (blobInfo, success, failure) {
-              //   setTimeout(function () {
-              //     /* no matter what you upload, we will turn it into TinyMCE logo :)*/
-              //     success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
-              //   }, 2000);
-              // },
-              // noneditable_noneditable_class: 'mceNonEditable',
-
+    });
 </script>
 @endpush

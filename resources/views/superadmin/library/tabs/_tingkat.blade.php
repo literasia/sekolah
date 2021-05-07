@@ -50,7 +50,7 @@
                 <table class="table table-sm table-bordered" id="table-tingkat">
                     <thead class="text-center">
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>Tingkat</th>
                             <th>Actions</th>
                         </tr>
