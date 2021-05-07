@@ -220,8 +220,6 @@
                             $('#password_lama').addClass('is-invalid');
                             $('#old-password-message').html('password lama tidak sama');
                         }
-                        console.log(data.error_old_password);
-                        console.log(data.errors);
                         // rules error message
                         if (data.error) {
                             data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');

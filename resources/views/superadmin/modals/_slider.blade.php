@@ -11,6 +11,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-slider" method="POST" enctype="multipart/form-data">
+                    @csrf @method("POST")
                     <div class="row">
                         <div class="col">
                             <div class="form-group">

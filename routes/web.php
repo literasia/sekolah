@@ -151,12 +151,10 @@ Route::namespace('Superadmin')
         Route::namespace('Berita')
             ->group(function () {
             //Berita
-            Route::get('/superadmin/berita/berita', 'BeritaController@index')
-                ->name('berita.berita');
-            Route::post('/superadmin/berita/berita', 'BeritaController@store');
+            Route::get('/superadmin/berita/berita', 'BeritaController@index')->name('berita.berita');
+            Route::post('/superadmin/berita/berita', 'BeritaController@store')->name('berita.berita.store');
+            Route::post('/superadmin/berita/berita/update', 'BeritaController@update')->name('berita.berita.update');
             Route::get('/superadmin/berita/berita/{id}', 'BeritaController@edit');
-            Route::post('/superadmin/berita/berita/update', 'BeritaController@update')
-                ->name('berita.berita-update');
             Route::get('/superadmin/berita/berita/hapus/{id}', 'BeritaController@destroy');
 
             // Kategori Berita

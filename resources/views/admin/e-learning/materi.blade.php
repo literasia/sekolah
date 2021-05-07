@@ -118,25 +118,6 @@
     $('document').ready(function() {
         $('#order-table').DataTable();
 
-        // tinymce.init({
-        //     external_plugins: {
-        //         'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
-        //     },
-        //     selector: '#materi',
-        //     height: 500,
-        //     menubar: 'file edit view insert format tools table tc help',
-        //     plugins: [
-        //         'advlist autolink lists link image charmap print preview anchor',
-        //         'searchreplace visualblocks code fullscreen',
-        //         'insertdatetime media table paste code help wordcount'
-        //     ],
-        //     toolbar: 'tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
-        //     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        // });
-
-        
-        var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
         tinymce.init({
             external_plugins: {
                 'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
@@ -163,8 +144,6 @@
             contextmenu: 'link image imagetools table',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
-
-
 
 
         $(document).on('focusin', function(e) {
