@@ -305,6 +305,32 @@
                         </li>
                     </ul>
                 </li>
+                <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-cup"></i></span>
+                        <span class="pcoded-mtext">Leaderboard</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/leaderboard/leaderboard') ? 'active' : '' }}">
+                            <a href="{{ route('admin.leaderboard.leaderboard') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Leaderboard</span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
+                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="icon-people"></i></span>
+                        <span class="pcoded-mtext">Forum</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/forum/forum') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.forum') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Forum Diskusi</span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file"></i></span>
