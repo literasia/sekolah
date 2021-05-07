@@ -307,8 +307,8 @@ Route::namespace('Forum')->group(function () {
     Route::get('/admin/forum/forum/hapus/{id}', 'ForumController@destroy');
 
 // //Aktifitas
-//     Route::get('/admin/forum/aktifitas', 'AktifitasController@index')
-//         ->name('forum.aktifitas');  
+//     Route::get('/admin/forum/ aktifitas', 'AktifitasController@index')
+//         -name('forum.aktifitas');  
 });
 
 //Leaderboard

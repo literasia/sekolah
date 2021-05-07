@@ -344,7 +344,6 @@
                         </li>
                     </ul>
                 </li>
-<<<<<<< HEAD
                 <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="ti-cup"></i></span>
@@ -360,7 +359,7 @@
                 </li>
                 <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="icon-book"></i></span>
+                        <span class="pcoded-micon"><i class="icon-people"></i></span>
                         <span class="pcoded-mtext">Forum</span>
                     </a>
                     <ul class="pcoded-submenu">
@@ -371,11 +370,9 @@
                         </li>                        
                     </ul>
                 </li>
-=======
                 @endif
 
                 @if ($addons != null && $addons->import)
->>>>>>> 24ae08eff4303dcaf687d5d9b3bc396f12c8cb2d
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-file"></i></span>
