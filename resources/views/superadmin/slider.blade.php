@@ -138,10 +138,6 @@ Ini adalah halaman slider untuk Superadmin
                     name: 'foto'
                 },
                 {
-                    data: 'kabupaten_kota_id',
-                    name: 'kabupaten_kota_id'
-                },
-                {
                     data: 'keterangan',
                     name: 'keterangan'
                 },
@@ -152,6 +148,10 @@ Ini adalah halaman slider untuk Superadmin
                 {
                     data: 'end_date',
                     name: 'end_date'
+                },
+                {
+                    data: 'kabupaten_kota_id',
+                    name: 'kabupaten_kota_id'
                 },
                 {
                     data: 'action',

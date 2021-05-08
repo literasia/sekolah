@@ -39,6 +39,9 @@ class SliderController extends Controller
                     $btnlink = '<a target="_blank" href="'.Storage::url($data->foto).'" class="badge badge-warning">Lihat Foto</a>';
                     return $btnlink;
                 })
+                ->editColumn('kabupaten_kota_id', function ($data) {
+                    return $data->kabupatenKota->name;
+                })
                 ->rawColumns(['action', 'foto'])
                 ->addIndexColumn()
                 ->make(true);
@@ -96,7 +99,7 @@ class SliderController extends Controller
     public function edit($id)
     {
         $cities = KabupatenKota::all();
-        $slider = Slider::select('kabupaten_kotas.name', 'sliders.*')->where('sliders.id', $id)->join('kabupaten_kotas', 'sliders.kabupaten_kota_id', 'kabupaten_kotas.id')->get();
+        // $slider = Slider::select('kabupaten_kotas.name', 'sliders.*')->where('sliders.id', $id)->join('kabupaten_kotas', 'sliders.kabupaten_kota_id', 'kabupaten_kotas.id')->get();
         $sekolah = DB::table('sekolah_slider')->select('*')->where('slider_id', $id)->get();
     
         $slider = Slider::findOrFail($id);
