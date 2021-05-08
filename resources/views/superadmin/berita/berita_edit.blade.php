@@ -9,7 +9,7 @@
     Ini adalah halaman Berita untuk Superadmin
 @endsection
 
-@section('icon-l', 'icon-book')
+@section('icon-l', 'fa fa-newspaper')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
-                                <input type="file" class="form-control form-control-sm" name="thumbnail" id="thumbnail" accept="image/*" value="" autocomplete="off">
+                                <input type="file" name="thumbnail" id="thumbnail" accept="image/*" value="" autocomplete="off">
                                 <label for="thumbnail" class="mt-1">
                                     thumbnail:
                                     <small class="text-muted">max. 3MB</small>
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Ubah</button>
+                                <button type="submit" class="btn btn-sm btn-info">Ubah</button>
                             </div>
                         </div>
                     </div>

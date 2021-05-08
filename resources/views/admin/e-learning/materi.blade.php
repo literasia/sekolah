@@ -19,6 +19,15 @@
     <div class="col-xl-12">
         <div class="card shadow">
             <div class="card-body">
+
+                {{-- <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="materi">Materi</label>
+                            <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
+                        </div>
+                    </div>
+                </div> --}}
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive">
@@ -102,49 +111,64 @@
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script type="text/javascript">
+  
+</script>
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
 
-        $('#add').on('click', function() {
-            // $('.modal-title').html('Tambah Pesan');
-            // $('#judul').val('');
-            // $('#message').val('');
-            // $('#start_date').val('');
-            // $('#end_date').val('');
-            // $('#action').val('add');
-            // $('#button')
-            //     .removeClass('btn-outline-success edit')
-            //     .addClass('btn-outline-info add')
-            //     .html('Simpan');
-            $('#modal-materi').modal('show');
-        });
-
-        $(".rotate-collapse").click(function() {
-            $(".rotate").toggleClass("down"); 
-        });
-
         tinymce.init({
             external_plugins: {
-                'tiny_mce_wiris' : 'http://127.0.0.1:8000/js/tinymce/plugins/tiny_mce_wiris/plugin.min.js'
+                'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
             },
-            selector: 'textarea#materi',
-            height: 200,
+            selector: '#materi',
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             imagetools_cors_hosts: ['picsum.photos'],
             menubar: 'file edit view insert format tools table help',
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
             toolbar_sticky: true,
-            autosave_ask_before_unload: true,
-            autosave_interval: '30s',
-            autosave_prefix: '{path}{query}-{id}-',
-            autosave_restore_when_empty: false,
-            autosave_retention: '2m',  
+            // autosave_ask_before_unload: true,
+            // autosave_interval: '30s',
+            // autosave_prefix: '{path}{query}-{id}-',
+            // autosave_restore_when_empty: false,
+            // autosave_retention: '2m',
+            image_advtab: true,
+            importcss_append: true,
+            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
             image_caption: true,
             quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
             noneditable_noneditable_class: 'mceNonEditable',
             toolbar_mode: 'sliding',
+            contextmenu: 'link image imagetools table',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+
+
+        $(document).on('focusin', function(e) {
+            if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
+                e.stopImmediatePropagation();
+            }
+        });
+   
+
+        $('#add').on('click', function() {
+            $('.modal-title').html('Tambah Pesan');
+            $('#judul').val('');
+            $('#message').val('');
+            $('#start_date').val('');
+            $('#end_date').val('');
+            $('#action').val('add');
+            $('#button')
+                .removeClass('btn-outline-success edit')
+                .addClass('btn-outline-info add')
+                .html('Simpan');
+            $('#modal-materi').modal('show');
+        });
+
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
         });
     })
 </script>

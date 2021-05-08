@@ -9,7 +9,7 @@
 Ini adalah halaman slider untuk Superadmin
 @endsection
 
-@section('icon-l', 'icon-list')
+@section('icon-l', 'fa fa-images')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -25,42 +25,20 @@ Ini adalah halaman slider untuk Superadmin
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <table id="slider-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
                                     <th>#</th>
                                     <th>Judul</th>
+                                    <th>Foto</th>
                                     <th>Keterangan</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Kabupaten</th>
-                                    <th>Sekolah</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
-                                @foreach($sliders as $slider)
-                                <tr>
-                                    <td><img src="{{ asset("storage/$slider->foto") }}" width="100px"></td>
-                                    <td>{{ $slider->judul }}</td>
-                                    <td>{{ $slider->keterangan }}</td>
-                                    <td>{{ $slider->start_date }}</td>
-                                    <td>{{ $slider->end_date }}</td>
-                                    <td>{{ $slider->kabupatenKota->name }}</td>
-                                    <td>
-                                        <ol>
-                                            @foreach($slider->sekolah as $sekolah)
-                                            <li>{{ $sekolah->name }}</li>
-                                            @endforeach
-                                        </ol>
-                                    </td>
-                                    <td>
-                                        <a class="edit btn btn-mini btn-info shadow-sm" href='{{route('superadmin.slider.update-slider', $slider->id) }}'><i class="fa fa-pencil-alt"></i></a>
-                                        &nbsp;
-                                        <button type="button" id="{{$slider->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class='fa fa-trash'></i></button>
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -128,10 +106,7 @@ Ini adalah halaman slider untuk Superadmin
             $('#modal-slider').modal('show');
         });
 
-        $('#order-table').DataTable();
-
         $('#sekolah').select2();
-
 
         $('#start_date').dateDropper({
             theme: 'leaf',
@@ -143,47 +118,47 @@ Ini adalah halaman slider untuk Superadmin
             format: 'd-m-Y'
         });
 
-        // $('#order-table').DataTable({
-        //     processing: true,
-        //     serverSide: true,
-        //     ajax: {
-        //         url: "{{ route('admin.e-voting.pemilihan') }}",
-        //     },
-        //     columns: [
-        //     {
-        //         data: 'DT_RowIndex',
-        //         name: 'DT_RowIndex'
-        //     },
-        //     {
-        //         data: 'name',
-        //         name: 'name'
-        //     },
-        //     {
-        //         data: 'posisi',
-        //         name: 'posisi'
-        //     },
-        //     {
-        //         data: 'start_date',
-        //         name: 'start_date'
-        //     },
-        //     {
-        //         data: 'end_date',
-        //         name: 'end_date'
-        //     },
-        //     {
-        //         data: 'action',
-        //         name: 'action'
-        //     }
-        //     ],
-        //     columnDefs: [
-        //     {
-        //         render: function (data, type, full, meta) {
-        //             return "<div class='text-wrap width-200'>" + data + "</div>";
-        //         },
-        //         targets: 5
-        //     }
-        //     ]
-        // });
+        $('#slider-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('superadmin.slider') }}",
+            },
+            columns: [
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'judul',
+                    name: 'judul'
+                },
+                {
+                    data: 'foto',
+                    name: 'foto'
+                },
+                {
+                    data: 'keterangan',
+                    name: 'keterangan'
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date'
+                },
+                {
+                    data: 'end_date',
+                    name: 'end_date'
+                },
+                {
+                    data: 'kabupaten_kota_id',
+                    name: 'kabupaten_kota_id'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ],
+        });
 
         $("#kabupaten_kota").change(function() {
             _this = $(this);
@@ -204,28 +179,108 @@ Ini adalah halaman slider untuk Superadmin
             });
         });
 
-
-        var id;
-        $(document).on('click', '.edit-slider', function() {
-            id = $(this).attr('id');
-            $('#modal-slider-edit').modal('show');
+        function getSekolahKabupaten(kabupaten_id, sekolah){
             $.ajax({
-                url: '/superadmin/slider/edit/' + 1,
+                url: "{{ route('superadmin.referensi.kabupaten-kota-getSchools') }}",
                 dataType: 'JSON',
+                data: {
+                    kabupaten_id: kabupaten_id
+                },
                 success: function(data) {
-                    $('#action').val('edit');
-                    $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                    $('#nama_calon').val(data.name.name);
-                    $('#posisi').val(data.posisi.posisi);
-                    $('#start_date').val(data.start_date.start_date);
-                    $('#end_date').val(data.end_date.end_date);
-                    $('#hidden_id').val(data.name.id);
-                    $('#modal-pemilihan').modal('show');
+                    $("#sekolah").html("");
+                    var options = "";
+                    for (let key in data) {
+                        options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                    }
+                    $("#sekolah").html(options);
+                    
+                    sekolah.forEach(item => {
+                        $(`#sekolah option[value=${item.sekolah_id}]`).attr("selected","selected");
+                    });
+                }
+            });
+        }
+
+        $('#form-slider').on('submit', function (e) {
+            event.preventDefault();
+
+            let url = '';
+            if ($('#action').val() == 'add') {
+                url = "{{ route('superadmin.slider.store') }}";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('superadmin.slider.update') }}";
+            }
+
+            var formData = new FormData($('#form-slider')[0]);
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    let html = ''
+
+                    // rules error message
+                    if (data.error) {
+                        data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
+                        data.errors.sekolah ? $('#sekolah').addClass('is-invalid') : $('#sekolah').removeClass('is-invalid');
+                        data.errors.kabupaten_kota ? $('#kabupaten_kota').addClass('is-invalid') : $('#kabupaten_kota').removeClass('is-invalid');
+                        data.errors.keterangan ? $('#keterangan').addClass('is-invalid') : $('#keterangan').removeClass('is-invalid');
+                        data.errors.start_date ? $('#start_date').addClass('is-invalid') : $('#start_date').removeClass('is-invalid');
+                        data.errors.end_date ? $('#end_date').addClass('is-invalid') : $('#end_date').removeClass('is-invalid');
+                        toastr.error("data masih kosong");
+                    }
+
+                    // Succes
+                    if (data.success) {
+                        toastr.success('Sukses!');
+                        $('#modal-slider').modal('hide');
+                        $('#judul').removeClass('is-invalid');
+                        $('#form-slider')[0].reset();
+                        $('#action').val('add');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .val('Batal');
+                        $('#slider-table').DataTable().ajax.reload();
+                    }
+                    $('#form_result').html(html);
                 }
             });
         });
 
-        var user_id;
+        $(document).on('click', '.edit', function () {
+            let id = $(this).attr('id');
+            $.ajax({
+                url: '/superadmin/slider/edit/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    $('#action').val('edit');
+                    $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').val('Update');
+                    $('#judul').val(data.judul);
+                    $('#kabupaten_kota').val(data.kabupaten_kota_id);
+                    getSekolahKabupaten(data.kabupaten_kota_id, data.sekolah);
+                    $('#start_date').val(data.start_date);
+                    $('#end_date').val(data.end_date);
+                    $('#keterangan').val(data.keterangan);
+                    $('#hidden_id').val(data.id);
+                    $('#modal-slider').modal('show');
+                }
+            });
+        });
+
+        let user_id;
         $(document).on('click', '.delete', function() {
             user_id = $(this).attr('id');
             $('#ok_button').text('Hapus');
@@ -241,7 +296,7 @@ Ini adalah halaman slider untuk Superadmin
                 success: function(data) {
                     setTimeout(function() {
                         $('#confirmModal').modal('hide');
-                        location.reload();
+                        $('#slider-table').DataTable().ajax.reload();
                         toastr.success('Data berhasil dihapus');
                     }, 1000);
                 }

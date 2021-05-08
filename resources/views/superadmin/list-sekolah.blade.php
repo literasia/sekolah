@@ -186,24 +186,27 @@
             });
 
             $('#add').on('click', function () {
+                $('#password-lama-group').css('display', 'none');
+                $('#password-baru-group').css('display', 'none');
+                $('#password-konfirmasi-group').css('display', 'none');
                 $('#modal-sekolah').modal('show');
                 $('.modal-title').text('Tambah Sekolah');
+                $('#username').attr('readonly', false);
+                $('#password').attr('readonly', false);
                 $('#action').val('add');
                 $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
             });
 
             $('#form-sekolah').on('submit', function (e) {
+                event.preventDefault();
+
                 if ($('#action').val() == 'add') {
-                    this.action = "{{ route('superadmin.list-sekolah') }}";
-                    this.method = "POST";
-                    this.querySelector("input[name=_method]").value = "POST";
+                    url = "{{ route('superadmin.list-sekolah.store') }}";
                 }
 
                 if ($('#action').val() == 'edit') {
-                    this.action = "{{ route('superadmin.list-sekolah-update') }}";
-                    this.querySelector("input[name=_method]").value = "POST";
+                    url = "{{ route('superadmin.list-sekolah-update') }}";
                 }
-                return;
 
                 $.ajax({
                     url: url,
@@ -212,23 +215,26 @@
                     data: $(this).serialize(),
                     success: function (data) {
                         var html = '';
-                        if (data.errors) {
-                            for (var count = 0; count < data.errors.length; count++) {
-                                html = data.errors[count];
-                            }
-                            $('#sekolah').addClass('is-invalid');
-                            $('#id_sekolah').addClass('is-invalid');
-                            $('#name').addClass('is-invalid');
-                            $('#jenjang').addClass('is-invalid');
-                            $('#tahun_ajaran').addClass('is-invalid');
-                            $('#alamat').addClass('is-invalid');
-                            $('#provinsi').addClass('is-invalid');
-                            $('#kabupaten').addClass('is-invalid');
-                            $('#username').addClass('is-invalid');
-                            $('#password').addClass('is-invalid');
-                            toastr.error(html);
+                        // old password error message
+                        if (data.error_old_password) {
+                            $('#password_lama').addClass('is-invalid');
+                            $('#old-password-message').html('password lama tidak sama');
+                        }
+                        // rules error message
+                        if (data.error) {
+                            data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
+                            data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
+                            data.errors.jenjang ? $('#jenjang').addClass('is-invalid') : $('#jenjang').removeClass('is-invalid');
+                            data.errors.tahun_ajaran ? $('#tahun_ajaran').addClass('is-invalid') : $('#tahun_ajaran').removeClass('is-invalid');
+                            data.errors.alamat ? $('#alamat').addClass('is-invalid') : $('#name').removeClass('is-invalid');
+                            data.errors.provinsi ? $('#provinsi').addClass('is-invalid') : $('#provinsi').removeClass('is-invalid');
+                            data.errors.kabupaten ? $('#kabupaten').addClass('is-invalid') : $('#kabupaten').removeClass('is-invalid');
+                            data.errors.username ? $('#username').addClass('is-invalid') : $('#username').removeClass('is-invalid');
+                            data.errors.password ? $('#password').addClass('is-invalid') : $('#password').removeClass('is-invalid');
+                            toastr.error("data masih kosong");
                         }
 
+                        // success error message
                         if (data.success) {
                             toastr.success(data.success);
                             $('#modal-sekolah').modal('hide');
@@ -283,28 +289,11 @@
                         data.import == 1 ? $('#import').prop('checked', true) : $('#import').prop('checked', false);
                         data.perpustakaan == 1 ? $('#perpustakaan').prop('checked', true) : $('#perpustakaan').prop('checked', false);
 
-                        // $('#provinsi').val(data.sekolah.provinsi);
-                        // $.ajax({
-                        //     url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
-                        //     dataType: 'JSON',
-                        //     data: {provinsi_id:data.sekolah.provinsi},
-                        //     success: function (data) {
-                        //         $("#kabupaten").html("");
-                        //         var options = "";
-                        //         for (let key in data) {
-                        //             options += `<option value="${data[key].id}">${data[key].name}</option>`;
-                        //         }
-                        //         $("#kabupaten").html(options);
-                        //     }
-                        // });
-                        // $('#provinsi').val(data.sekolah.provinsi).change();
-                        // setTimeout(()=>{
-                        //     $('#kabupaten').val(data.sekolah.kabupaten).change();
-                        //     // setTimeout(()=>{
-                        //     //     $('#kecamatan').val(data.kecamatan);
-                        //     // },500);
-                        // },500);
-                        // $('#kabupaten').val(data.sekolah.kabupaten);
+                        $('#password-lama-group').css('display', 'block');
+                        $('#password-baru-group').css('display', 'block');
+                        $('#password-konfirmasi-group').css('display', 'block');
+                        $('#default-password-group').css('display', 'none');
+                        
                         $('#hidden_id').val(data.id);
                         $('#username').val(data.user[0].username).attr('readonly', true);
                         $('#password').val(data.user[0].password).attr('readonly', true);
@@ -335,47 +324,5 @@
                 });
             });
         });
-
-        // function deleteConfirmation(id) {
-        //     var number = id;
-        //     console.log(number);
-        //     Swal.fire({
-        //         icon: 'warning',
-        //         title: "Delete?",
-        //         text: "Please ensure and then confirm!",
-        //         type: "warning",
-        //         showCancelButton: !0,
-        //         confirmButtonText: "Yes, delete it!",
-        //         cancelButtonText: "No, Cancel it!",
-        //         reverseButtons: !0
-        //     }).then(function (event) {
-        //         if (event.value === true) {
-        //             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        //             $.ajax({
-        //                 url: '/superadmin/list-sekolah/delete/'+number,
-        //                 type: 'POST',
-        //                 data: { _token: CSRF_TOKEN },
-        //                 dataType: 'JSON',
-        //                 success: function (results) {
-        //                     if (results.success === true) {
-        //                         Swal.fire({
-        //                             icon: 'success',
-        //                             title: "Success!",
-        //                             text: "👍 Data Deleted Successfully.",
-        //                         });
-        //                         $('#form-sekolah')[0].reset();
-        //                         $('#order-table').DataTable().ajax.reload();
-        //                     } else {
-        //                         toastr.error('⚠ Failed!');
-        //                     }
-        //                 }
-        //             });
-        //         } else {
-        //             event.dismiss;
-        //         }
-        //     }, function (dismiss) {
-        //         return false;
-        //     });
-        // }
     </script>
 @endpush

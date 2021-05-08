@@ -45,7 +45,7 @@
                 </div>
 
                 {{-- Form update --}}
-                <button id="cancel-kategori-btn" class="btn-cancel btn btn-danger btn-sm shadow-sm mb-3">Batal</button>
+                <button id="cancel-kategori-btn" class="btn-cancel btn btn-outline-success btn-sm shadow-sm mb-3">Batal</button>
                 <div id="update-kategori-container" class="update-container">
                     <form id="form-kategori-update" method="POST" action="{{ route('superadmin.library-kategori.index') }}" enctype="multipart/form-data">
                         @method('PUT')

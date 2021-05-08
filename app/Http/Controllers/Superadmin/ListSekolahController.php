@@ -64,10 +64,15 @@ class ListSekolahController extends Controller
 
         $validator = Validator::make($data, $rules, $message);
 
+        // Validation rules
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
         }
 
+        // Add Sekolah
         $sekolahId = Sekolah::create([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
@@ -91,9 +96,8 @@ class ListSekolahController extends Controller
             'password'      => Hash::make($data['password'])
         ]);
 
-        $user_id = User::findOrFail($user->id);
-
         // Attach to Role User
+        $user_id = User::findOrFail($user->id);
         $user_id->roles()->attach($adminRole->id);
         
         // Add Addons
@@ -116,7 +120,10 @@ class ListSekolahController extends Controller
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
         ]);
 
-        return back()->with(CRUDResponse::successCreate("sekolah " . $data['name']));
+        return response()
+            ->json([
+                'success' => 'Data berhasil ditambahkan.',
+        ]);
     }
 
     public function edit($id) {
@@ -159,7 +166,7 @@ class ListSekolahController extends Controller
         $data = $req->all();
         $id = $data['hidden_id'];
         
-        Sekolah::findOrFail($id);
+        $sekolah = Sekolah::findOrFail($id);
 
         $rules = [
            'id_sekolah'    => 'max:100',
@@ -169,19 +176,45 @@ class ListSekolahController extends Controller
            'kabupaten'        => 'required',
            'jenjang'       => 'required',
            'tahun_ajaran'  => 'required',
+           'password_baru' => 'required_with:password_confirmation',
+           'password_confirmation' => 'same:password_baru'
         ];
 
-        $message = [
-            'id_sekolah.required' => 'Kolom ini gaboleh kosong',
-        ];
+        // get user
+        $user = User::where('id_sekolah', $sekolah->id)->first();
+    
+        // $message = [
+        //     'id_sekolah.required' => 'Kolom ini gaboleh kosong',
+        // ];
 
-        $validator = Validator::make($data, $rules, $message);
+        $validator = Validator::make($data, $rules);
 
+        // Validation Rules
         if ($validator->fails()) {
-                return back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
         }
 
-        Sekolah::whereId($id)->update([
+        // Change User Password
+        if (!empty($req->password_lama)) {
+            if (Hash::check($req->password_lama, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($req->password_baru)
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error_old_password' => true
+                ]);
+            }
+        }
+
+        // Update Sekolah
+        $sekolah = Sekolah::findOrFail($id);
+
+        $sekolah->update([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
             'alamat'        => $data['alamat'],
@@ -192,11 +225,14 @@ class ListSekolahController extends Controller
             // 'logo'          => $data['logo']
         ]);
 
+        // Get Addons
         $addons = Addons::where('sekolah_id', $data['hidden_id'])->first();
+        // Get User
+        $user = User::where('id_sekolah', $data['hidden_id'])->first();
 
-        // Crete Addons
+        // Update Addons Sekolah
         $addons->update([
-            'sekolah_id' => $sekolahId,
+            'sekolah_id' => $data['hidden_id'],
             'user_id' => $user->id,
             'referensi' => !empty($req->referensi) ? 1 : 0,
             'sekolah' => !empty($req->sekolah) ? 1 : 0,
@@ -204,7 +240,7 @@ class ListSekolahController extends Controller
             'pelajaran' => !empty($req->pelajaran) ? 1 : 0,
             'peserta_didik' => !empty($req->peserta_didik) ? 1 : 0,
             'absensi' => !empty($req->absensi) ? 1 : 0,
-            'e_learning' => !empty($req->elearning) ? 1 : 0,
+            'e_learning' => !empty($req->e_learning) ? 1 : 0,
             'daftar_nilai' => !empty($req->daftar_nilai) ? 1 : 0,
             'e_rapor' => !empty($req->e_rapor) ? 1 : 0,
             'pelanggaran' => !empty($req->pelanggaran) ? 1 : 0,
@@ -214,7 +250,10 @@ class ListSekolahController extends Controller
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
         ]);
 
-       return back()->with(CRUDResponse::successUpdate("sekolah " . $data['name']));
+        return response()
+            ->json([
+                'success' => 'Data berhasil diubah.',
+        ]);
     }
 
     public function destroy($id) {
