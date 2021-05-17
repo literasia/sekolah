@@ -19,18 +19,9 @@
     <div class="col-xl-12">
         <div class="card shadow">
             <div class="card-body">
-
-                {{-- <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="materi">Materi</label>
-                            <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>

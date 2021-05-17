@@ -24,11 +24,11 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
+                        <div class="dt-responsive table-responsive mt-3">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Guru</th>
                                         <th>Keterangan</th>
                                         <th>Status</th>
@@ -58,19 +58,19 @@
             margin-right: 0px;
         }
         .fileinput .thumbnail {
-    display: inline-block;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-align: center;ry
-    vertical-align: middle;
-    max-width: 250px;
-    box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-}
-.thumbnail {
-    border: 0 none;
-    border-radius: 4px;
-    padding: 0;
-}
+            display: inline-block;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-align: center;ry
+            vertical-align: middle;
+            max-width: 250px;
+            box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+        }
+        .thumbnail {
+            border: 0 none;
+            border-radius: 4px;
+            padding: 0;
+        }
     </style>
 @endpush
 
@@ -224,12 +224,12 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
                         $('#pegawai_id').val(data.guru.pegawai_id);
                         $('#status_guru_id').val(data.guru.status_guru_id);
                         $('#keterangan').val(data.guru.keterangan);
                         $('#id').val(data.guru.id);
-                        modal.modal('show');
+                        $('#modal-guru').modal('show');
                     }
                 });
             });

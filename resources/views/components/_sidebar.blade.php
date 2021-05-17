@@ -24,7 +24,7 @@
                 </li>
 
                 @if ($addons != null && $addons->referensi)
-                <li class="@if (request()->is('admin/referensi/bagian-pegawai') || request()->is('admin/referensi/semester') || request()->is('admin/referensi/status-guru') || request()->is('admin/referensi/pengaturan-hak-akses') || request()->is('admin/referensi/jenjang-pegawai') || request()->is('admin/referensi/tingkatan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/referensi/bagian-pegawai') || request()->is('admin/referensi/status-guru') || request()->is('admin/referensi/jenjang-pegawai') || request()->is('admin/referensi/pengaturan-hak-akses') || request()->is('admin/referensi/tingkatan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-list-alt"></i></span>
                         <span class="pcoded-mtext">Referensi</span>
@@ -60,7 +60,7 @@
                 @endif
 
                 @if ($addons != null && $addons->sekolah)
-                <li class="@if (request()->is('admin/sekolah/jam') || request()->is('admin/sekolah/jurusan') || request()->is('admin/sekolah/kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/sekolah/tahun-ajaran') || request()->is('admin/sekolah/semester') || request()->is('admin/sekolah/jam') || request()->is('admin/sekolah/jurusan') || request()->is('admin/sekolah/kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-school"></i></span>
                         <span class="pcoded-mtext">Sekolah</span>
@@ -221,6 +221,7 @@
                                 <span class="pcoded-mtext">Soal</span>
                             </a>
                         </li>
+                        
                     </ul>
                 </li>
                 @endif
