@@ -32,7 +32,7 @@
 <link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
 {{-- Wiris Math for Tinymce --}}
 <script src="{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> 
-{{-- <script src="{{ asset('assets/plugins/tinymce/jquery.tinymce.min.js')}}"></script> --}}
+{{-- Tiny MCE --}}
 <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js')}}"></script> 
 
 {{-- Add on CSS --}}

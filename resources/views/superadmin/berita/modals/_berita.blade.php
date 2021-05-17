@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-berita" enctype="multipart/form-data">
-                    @csrf
+                    @csrf @method("POST")
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -27,7 +27,7 @@
                                 <label for="kategori">Kategori</label>
                                 <select name="kategori" id="kategori" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
-                                    @foreach($katbe as $kb)
+                                    @foreach($kategori as $kb)
                                     <option>{{ $kb->name }}</option>
                                     @endforeach
                                 </select>

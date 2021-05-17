@@ -25,32 +25,20 @@
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                         <div class="dt-responsive table-responsive mt-3">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                            <table id="berita-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>No.</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
+                                        <th>Thumbnail</th>
                                         <th>Tanggal Rilis</th>
                                         <th>Thumbnail</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-left">
-                                    @foreach($data as $dt)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{$dt->name}}</td>
-                                        <td>{{$dt->kategori}}</td>
-                                        <td>{{$dt->tanggal_rilis}}</td>
-                                        <td><a target="_blank" href="{{Storage::url($dt->thumbnail)}}">Lihat Foto</a></td>
-                                        <td>
-                                            <a class="edit btn btn-mini btn-info shadow-sm" href='{{route('superadmin.berita.edit', $dt->id) }}'><i class="fa fa-pencil-alt"></i></a>
-                                            &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class='fa fa-trash'></i></button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                <tbody>
+
                                 </tbody>
                             </table>
                         </div>
@@ -128,52 +116,54 @@
                 format: 'd-m-Y'
             });
 
-            $('#order-table').DataTable();
+            $('#berita-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('superadmin.berita.berita') }}",
+                },
+                columns: [
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'kategori',
+                    name: 'kategori'
+                },
+                {
+                    data: 'isi',
+                    name: 'isi'
+                },
+                {
+                    data: 'thumbnail',
+                    name: 'thumbnail'
+                },
+                {
+                    data: 'tanggal_rilis',
+                    name: 'tanggal_rilis'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+                ]
+            });
 
-            // $('#order-table').DataTable({
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: {
-            //         url: "{{ route('superadmin.berita.berita') }}",
-            //     },
-            //     columns: [
-            //     {
-            //         data: 'DT_RowIndex',
-            //         name: 'DT_RowIndex'
-            //     },
-            //     {
-            //         data: 'name',
-            //         name: 'name'
-            //     },
-            //     {
-            //         data: 'kategori',
-            //         name: 'kategori'
-            //     },
-            //     {
-            //         data: 'isi',
-            //         name: 'isi'
-            //     },
-            //     {
-            //         data: 'thumbnail',
-            //         name: 'thumbnail'
-            //     },
-            //     {
-            //         data: 'action',
-            //         name: 'action'
-            //     }
-            //     ]
-            // });
-
-            $('#form-berita').on('submit', function (event) {
+            $('#form-berita').on('submit', function (e) {
                 event.preventDefault();
 
-                var url = '';
-                if ($('#judul').val() == 'add') {
-                    url = "{{ route('superadmin.berita.berita') }}";
+                let url = '';
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('superadmin.berita.berita.store') }}";
                 }
 
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('superadmin.berita.berita-update') }}";
+                    url = "{{ route('superadmin.berita.berita.update') }}";
                 }
 
                 var formData = new FormData($('#form-berita')[0]);
@@ -181,18 +171,25 @@
                 $.ajax({
                     url: url,
                     method: 'POST',
+                    dataType: 'JSON',
                     data: formData,
                     contentType: false,
                     cache: false,
                     processData: false,
                     success: function (data) {
-                        var html = ''
-                        if (data.errors) {
-                            html = data.errors[0];
-                            $('#judul').addClass('is-invalid');
-                            toastr.error(html);
+                        let html = ''
+
+                        // rules error message
+                        if (data.error) {
+                            data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
+                            data.errors.kategori ? $('#kategori').addClass('is-invalid') : $('#kategori').removeClass('is-invalid');
+                            data.errors.tanggal_rilis ? $('#tanggal_rilis').addClass('is-invalid') : $('#tanggal_rilis').removeClass('is-invalid');
+                            data.errors.isi ? $('#isi').addClass('is-invalid') : $('#isi').removeClass('is-invalid');
+                            data.errors.thumbnail ? $('#thumbnail').addClass('is-invalid') : $('#thumbnail').removeClass('is-invalid');
+                            toastr.error("data masih kosong");
                         }
 
+                        // Succes
                         if (data.success) {
                             toastr.success('Sukses!');
                             $('#modal-berita').modal('hide');
@@ -207,13 +204,32 @@
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
                                 .val('Batal');
-                            location.reload();
-                            // $('#order-table').DataTable().ajax.reload();
+                            $('#berita-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }
                 });
             });
+
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/superadmin/berita/berita/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#action').val('edit');
+                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').val('Update');
+                        $('#judul').val(data.judul);
+                        $('#kategori').val(data.kategori);
+                        $('#isi').val(data.isi);
+                        $('#tanggal_rilis').val(data.tanggal_rilis);
+                        
+                        $('#hidden_id').val(data.id);
+                        $('#modal-berita').modal('show');
+                    }
+                });
+            });
+
 
             var user_id;
             $(document).on('click', '.delete', function () {
@@ -230,8 +246,7 @@
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
-                            location.reload();
-                            // $('#order-table').DataTable().ajax.reload();
+                            $('#berita-table').DataTable().ajax.reload();
                             toastr.success('Data berhasil dihapus');
                         }, 1000);
                     }

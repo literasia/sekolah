@@ -39,7 +39,6 @@
                                 <label for="sekolah">Sekolah</label>
                                 <select name="sekolah[]" id="sekolah" class="form-control form-control-sm" multiple>
                                     <option value="">-- Pilih Kabupaten Dahulu --</option>
-
                                 </select>
                             </div>
                         </div>

@@ -53,6 +53,11 @@
                             <p class="m-0">E-Learning</p>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
+                            <input type="checkbox" id="forum" name="forum" value="1" class="d-block checkbox">
+                            <span><i class="fas fa-comments add-ons-icon mb-2"></i></span>
+                            <p class="m-0">Forum</p>
+                        </div>         
+                        <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
                             <input type="checkbox" id="daftar_nilai" name="daftar_nilai" value="1" class="d-block checkbox">
                             <span><i class="fa fa-medal add-ons-icon mb-2"></i></span>
                             <p class="m-0">Daftar Nilai</p>
@@ -61,11 +66,6 @@
                             <input type="checkbox" id="e_rapor" name="e_rapor" value="1" class="d-block checkbox">
                             <span><i class="fa fa-file-alt add-ons-icon mb-2"></i></span>
                             <p class="m-0">E-Raport</p>
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
-                            <input type="checkbox" id="pelanggaran" name="pelanggaran" value="1" class="d-block checkbox">
-                            <span><i class="fa fa-exclamation-triangle add-ons-icon mb-2"></i></span>
-                            <p class="m-0">Pelanggaran</p>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
                             <input type="checkbox" id="e_voting" name="e_voting" value="1" class="d-block checkbox">
@@ -88,7 +88,12 @@
                             <input type="checkbox" id="perpustakaan" name="perpustakaan" value="1" class="d-block checkbox">
                             <span><i class="fa fa-book add-ons-icon mb-2"></i></span>
                             <p class="m-0">Perpustakaan</p>
-                        </div>         
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
+                            <input type="checkbox" id="pelanggaran" name="pelanggaran" value="1" class="d-block checkbox">
+                            <span><i class="fa fa-exclamation-triangle add-ons-icon mb-2"></i></span>
+                            <p class="m-0">Pelanggaran</p>
+                        </div>
                     </div>
                 </div>
             </div>
