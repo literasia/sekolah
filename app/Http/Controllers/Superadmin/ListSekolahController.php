@@ -117,6 +117,7 @@ class ListSekolahController extends Controller
             'e_voting' => !empty($req->e_voting) ? 1 : 0,
             'kalender' => !empty($req->kalender) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
         ]);
 
@@ -134,10 +135,14 @@ class ListSekolahController extends Controller
         // get Addons
         $addons = Addons::where('sekolah_id', $sekolah->id)->first();
 
+        // get User
+        $user = User::where('id_sekolah', $sekolah->id_sekolah)->first();
+
         return response()
             ->json([                
                 'id'   => $sekolah->id,
                 'id_sekolah'   => $sekolah->id_sekolah,
+                'username' => $user->username,                
                 'name'   => $sekolah->name,
                 'alamat'   => $sekolah->alamat,
                 'provinsi'   => $provinsi->id,
@@ -151,6 +156,7 @@ class ListSekolahController extends Controller
                 'pelajaran' => $addons->pelajaran,
                 'peserta_didik' => $addons->peserta_didik,
                 'absensi' => $addons->absensi,
+                'forum' => $addons->forum,
                 'e_learning' => $addons->e_learning,
                 'daftar_nilai' => $addons->daftar_nilai,
                 'e_rapor' => $addons->e_rapor,
@@ -181,7 +187,7 @@ class ListSekolahController extends Controller
         ];
 
         // get user
-        $user = User::where('id_sekolah', $sekolah->id)->first();
+        $user = User::where('id_sekolah', $sekolah->id_sekolah)->first();
     
         // $message = [
         //     'id_sekolah.required' => 'Kolom ini gaboleh kosong',
@@ -211,9 +217,6 @@ class ListSekolahController extends Controller
             }
         }
 
-        // Update Sekolah
-        $sekolah = Sekolah::findOrFail($id);
-
         $sekolah->update([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
@@ -227,8 +230,9 @@ class ListSekolahController extends Controller
 
         // Get Addons
         $addons = Addons::where('sekolah_id', $data['hidden_id'])->first();
+        
         // Get User
-        $user = User::where('id_sekolah', $data['hidden_id'])->first();
+        $user = User::where('id_sekolah', $sekolah->id_sekolah)->first();
 
         // Update Addons Sekolah
         $addons->update([
@@ -247,6 +251,7 @@ class ListSekolahController extends Controller
             'e_voting' => !empty($req->e_voting) ? 1 : 0,
             'kalender' => !empty($req->kalender) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
         ]);
 

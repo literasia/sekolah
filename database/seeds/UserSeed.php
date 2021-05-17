@@ -22,34 +22,6 @@ class UserSeed extends Seeder
         $admin = Role::where('name', 'admin')->first();
         $siswa = Role::where('name', 'siswa')->first();
 
-        $superadmins = User::create([
-            'name'      => 'Superadmin',
-            'username'  => 'superadmin',
-            'password'  => bcrypt('superadmin'),
-            'role_id'   => 1
-        ]);
-
-        $admins = User::create([
-            'name'      => 'Admin',
-            'username'  => 'admin',
-            'password'  => bcrypt('admin'),
-            'role_id'   => 2
-        ]);
-
-        $siswas = User::create([
-            'name'      => 'Siswa',
-            'username'  => 'siswa',
-            'password'  => bcrypt('siswa'),
-            'role_id'   => '3'
-        ]);
-
-        $guru = User::create([
-            'name'      => 'Guru',
-            'username'  => 'guru',
-            'password'  => bcrypt('guru'),
-            'role_id'   => '4'
-        ]);
-
         // Add Provinsi
         $provinsi = Provinsi::create([
             'name' => 'Sumatera Utara',
@@ -70,6 +42,35 @@ class UserSeed extends Seeder
             'kabupaten'     => $kabupaten->id,
             'jenjang'       => 'SMA',
             'tahun_ajaran'  => '2020-2021',
+        ]);
+
+        $superadmins = User::create([
+            'name'      => 'Superadmin',
+            'username'  => 'superadmin',
+            'password'  => bcrypt('superadmin'),
+            'role_id'   => 1,
+        ]);
+
+        $admins = User::create([
+            'id_sekolah' => $sekolah->id_sekolah,
+            'name'      => 'Admin',
+            'username'  => 'admin',
+            'password'  => bcrypt('admin'),
+            'role_id'   => 2
+        ]);
+
+        $siswas = User::create([
+            'name'      => 'Siswa',
+            'username'  => 'siswa',
+            'password'  => bcrypt('siswa'),
+            'role_id'   => '3'
+        ]);
+
+        $guru = User::create([
+            'name'      => 'Guru',
+            'username'  => 'guru',
+            'password'  => bcrypt('guru'),
+            'role_id'   => '4'
         ]);
         
         // Add Addons
@@ -95,8 +96,6 @@ class UserSeed extends Seeder
         $superadmins->roles()->attach($superadmin);
         $admins->roles()->attach($admin);
         $siswas->roles()->attach($siswa);
-        $guru->roles()->attach($guru);
-
-        
+        $guru->roles()->attach($guru);        
     }
 }

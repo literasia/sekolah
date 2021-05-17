@@ -263,6 +263,7 @@
                     url: '/superadmin/list-sekolah/'+id,
                     dataType: 'JSON',
                     success: function (data) {
+                        console.log(data);
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
                         $('#id_sekolah').val(data.id_sekolah);
@@ -288,6 +289,7 @@
                         data.kalender == 1 ? $('#kalender').prop('checked', true) : $('#kalender').prop('checked', false);
                         data.import == 1 ? $('#import').prop('checked', true) : $('#import').prop('checked', false);
                         data.perpustakaan == 1 ? $('#perpustakaan').prop('checked', true) : $('#perpustakaan').prop('checked', false);
+                        data.forum == 1 ? $('#forum').prop('checked', true) : $('#forum').prop('checked', false);
 
                         $('#password-lama-group').css('display', 'block');
                         $('#password-baru-group').css('display', 'block');
@@ -295,8 +297,8 @@
                         $('#default-password-group').css('display', 'none');
                         
                         $('#hidden_id').val(data.id);
-                        $('#username').val(data.user[0].username).attr('readonly', true);
-                        $('#password').val(data.user[0].password).attr('readonly', true);
+                        $('#username').val(data.username).attr('readonly', true);
+                        $('#password').val(data.password).attr('readonly', true);
                         $('#modal-sekolah').modal('show');
                     }
                 });
