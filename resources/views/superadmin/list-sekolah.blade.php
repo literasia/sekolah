@@ -22,11 +22,11 @@
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>ID Sekolah</th>
                                     <th>Nama Sekolah</th>
                                     <th>Jenjang</th>
@@ -175,14 +175,16 @@
                 });
             });
 
-            $('#rest').on('click', function () {
+            $('#btn-cancel').on('click', function () {
                 $('#form-sekolah')[0].reset();
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
 
             $('.close').on('click', function () {
                 $('#form-sekolah')[0].reset();
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
 
             $('#add').on('click', function () {
@@ -194,7 +196,8 @@
                 $('#username').attr('readonly', false);
                 $('#password').attr('readonly', false);
                 $('#action').val('add');
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
 
             $('#form-sekolah').on('submit', function (e) {
@@ -249,7 +252,8 @@
                             $('#password').removeClass('is-invalid');
                             $('#form-sekolah')[0].reset();
                             $('#action').val('add');
-                            $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                            $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -265,7 +269,8 @@
                     success: function (data) {
                         console.log(data);
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
+                        $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
                         $('#id_sekolah').val(data.id_sekolah);
                         $('#name').val(data.name);
                         $('#jenjang').val(data.jenjang);

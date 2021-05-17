@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
-                                <input type="file" class="form-control form-control-sm" name="thumbnail" id="thumbnail" accept="image/*" value="" autocomplete="off">
+                                <input type="file" name="thumbnail" id="thumbnail" accept="image/*" value="" autocomplete="off">
                             </div>
 
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
@@ -96,7 +96,7 @@
                 <table class="table table-sm table-bordered" id="table-kategori">
                     <thead class="text-center">
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>Kategori</th>
                             <th>Thumbnail</th>
                             <th>Actions</th>
@@ -107,7 +107,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $kategori->name }}</td>
-                                <td><a href="{{ Storage::url($kategori->thumbnail) }}" target="_blank">Lihat</a></td>
+                                <td><a href="{{ Storage::url($kategori->thumbnail) }}" target="_blank"><label class="badge badge-warning">Lihat</label></a></td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-info shadow-sm" id="edit-kategori" data-id="{{ $kategori->id }}"><i class="fa fa-pencil-alt"></i></button>
                                     <button type="button" class="btn btn-sm btn-danger shadow-sm" id="delete-kategori"

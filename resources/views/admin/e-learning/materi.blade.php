@@ -19,18 +19,9 @@
     <div class="col-xl-12">
         <div class="card shadow">
             <div class="card-body">
-
-                {{-- <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="materi">Materi</label>
-                            <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
@@ -117,12 +108,15 @@
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
+        
+        var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         tinymce.init({
             external_plugins: {
                 'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
             },
             selector: '#materi',
+            height: 300,
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             imagetools_cors_hosts: ['picsum.photos'],
             menubar: 'file edit view insert format tools table help',
@@ -144,7 +138,6 @@
             contextmenu: 'link image imagetools table',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
-
 
         $(document).on('focusin', function(e) {
             if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {

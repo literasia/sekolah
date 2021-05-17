@@ -165,8 +165,8 @@
                             <div class="text-right">
                                 <input type="hidden" name="hidden_id" id="hidden_id">
                                 <input type="hidden" id="action">
-                                <button type="button" id="rest" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
-                                <button type="submit" id="btn" class="btn btn-sm btn-outline-success">Simpan</button>
+                                <button type="submit" id="btn" class="btn btn-sm btn-success">Simpan</button>
+                                <button type="button" id="rest" class="btn btn-sm btn-outline-success" data-dismiss="modal">Batal</button>
                             </div>
                         </div>
                     </div>

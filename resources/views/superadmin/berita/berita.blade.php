@@ -28,7 +28,7 @@
                             <table id="berita-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No.</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
                                         <th>Thumbnail</th>

@@ -28,7 +28,7 @@ Ini adalah halaman slider untuk Superadmin
                         <table id="slider-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Foto</th>
                                     <th>Keterangan</th>

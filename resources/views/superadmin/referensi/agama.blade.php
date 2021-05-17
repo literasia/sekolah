@@ -41,8 +41,8 @@
                             <div class="col">
                                 <input type="hidden" name="hidden_id" id="hidden_id">
                                 <input type="hidden" id="action" val="add">
-                                <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                <button type="reset" class="btn btn-sm btn-danger">Batal</button>
+                                <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
                             </div>
                         </div>
                     </form>
@@ -58,7 +58,7 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Agama</th>
                                     <th>Actions</th>
                                 </tr>
@@ -168,9 +168,13 @@
                             $('#form-agama')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -188,9 +192,13 @@
                         $('#hidden_id').val(data.agama.id);
                         $('#action').val('edit');
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                     }
                 });
             });

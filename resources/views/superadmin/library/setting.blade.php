@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Library Setting')
+@section('title', 'Library | Library Setting')
 @section('title-2', 'Library Setting')
 @section('title-3', 'Library Setting')
 @section('describ')
