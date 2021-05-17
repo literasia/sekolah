@@ -116,6 +116,72 @@
 		        <small class="d-block mt-2">Tampilkan di kuis, berapa banyak poin untuk masing-masing pertanyaan.</small>
 		    </div>
 		</div>
+		<div class="row mb-4 ">
+			<div class="col-md-12">
+				<h6 class="font-weight-bold">Penomoran jawaban</h6>
+				<div class="custom-control custom-switch">
+		            <input type="checkbox" class="custom-control-input" name="number-answers" id="number-answers">
+		            <label class="custom-control-label" for="number-answers">Aktifkan</label>
+		        </div>
+		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, maka semua jawaban akan diberi nomor (hanya untuk single dan multiple choice.</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Teks pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check">
+									  	<input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<h6 class="font-weight-bold mt-3">Tanpa penomoran</h6>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Tes pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check pl-0">
+		        						<p class="d-inline-block mb-0 mr-1">1.</p>
+									  	<input class="position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check pl-0">
+										<p class="d-inline-block mb-0 mr-1">2.</p>
+									  	<input class="position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check pl-0">
+									  	<p class="d-inline-block mb-0 mr-1">3.</p>
+									  	<input class="position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<h6 class="font-weight-bold mt-3">Dengan penomoran</h6>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
+		    </div>
+		</div>
 		<div class="row mb-4">
 			<div class="col-md-12">
 				<h6 class="font-weight-bold">Sembunyikan pemberitahuan Benar-Salah</h6>

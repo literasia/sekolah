@@ -345,6 +345,8 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+
                 <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="ti-cup"></i></span>
@@ -358,6 +360,7 @@
                         </li>                        
                     </ul>
                 </li>
+                
                 <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="icon-people"></i></span>
@@ -371,7 +374,6 @@
                         </li>                        
                     </ul>
                 </li>
-                @endif
 
                 @if ($addons != null && $addons->import)
                 <li class="@if (request()->is('admin/import/import-siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
@@ -391,19 +393,19 @@
 
                 @if ($addons != null && $addons->perpustakaan)
                 <li class="@if (request()->is('admin/perpustakaan/peminjaman')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                <a href="javascript:void(0);" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="fa fa-book"></i></span>
-                    <span class="pcoded-mtext">Perpustakaan</span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="{{ request()->is('admin/perpustakaan/peminjaman') ? 'active' : '' }}">
-                        <a href="{{ route('admin.perpustakaan.list-peminjam') }}" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Peminjaman</span>
-                        </a>
-                    </li>
-                </ul>
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-book"></i></span>
+                        <span class="pcoded-mtext">Perpustakaan</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/perpustakaan/peminjaman') ? 'active' : '' }}">
+                            <a href="{{ route('admin.perpustakaan.list-peminjam') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Peminjaman</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @endif
-            </li>
             </ul>
         </div>
     </div>

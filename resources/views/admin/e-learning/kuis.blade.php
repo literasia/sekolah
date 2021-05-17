@@ -110,6 +110,16 @@
         left: 20px; 
         background: #fff;
     }
+    .demo-content {
+        visibility: hidden;
+        display: none;
+        z-index: 9999999!important;
+        background: #fff;
+    }
+    .demo-wrapper a:hover + .demo-content {
+        visibility: visible;
+        display: block;
+    }
 </style>
 @endpush
 
