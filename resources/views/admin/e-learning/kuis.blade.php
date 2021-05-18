@@ -26,7 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Judul Kuis</th>
+                                    <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
