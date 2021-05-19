@@ -18,7 +18,7 @@ use App\Models\Admin\Access;
 use App\Models\Superadmin\Addons;
 
 class ListSekolahController extends Controller
-{
+{ //
     public function index(Request $request) {
         if ($request->ajax()) {
             $data = Sekolah::join('provinsis', 'sekolahs.provinsi', 'provinsis.id')
