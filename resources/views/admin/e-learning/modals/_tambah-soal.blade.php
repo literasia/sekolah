@@ -48,7 +48,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row answer" id="multiple-choice" style="display: none;">
                         <div class="col">
                             <div class="form-group m-0" id="questions-group">
@@ -135,8 +134,8 @@
                         <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>
             </div>

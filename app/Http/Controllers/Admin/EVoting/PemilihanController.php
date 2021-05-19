@@ -13,9 +13,10 @@ use App\Models\Admin\Posisi;
 use App\Models\Admin\Kelas;
 use App\Models\Siswa;
 use App\Utils\CRUDResponse;
+use App\Models\Superadmin\Addons;
 
 class PemilihanController extends Controller
-{
+{ //
     public function index(Request $request) {
         
         // if ($request->ajax()) {
@@ -35,6 +36,7 @@ class PemilihanController extends Controller
         //         ->addIndexColumn()
         //         ->make(true);
         // }
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $data_pemilihan = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();
         $ck = Calon::where('sekolah_id', auth()->user()->id_sekolah)->get();
         $kelas = Kelas::where('kelas.user_id',auth()->user()->id)->get();
@@ -47,7 +49,8 @@ class PemilihanController extends Controller
             'ps' => $ps,
             'kelas' => $kelas,
             'data_pemilihan' => $data_pemilihan,
-            'mySekolah' => User::sekolah()
+            'mySekolah' => User::sekolah(),
+            'addons' => $addons
         ]);
     }
 

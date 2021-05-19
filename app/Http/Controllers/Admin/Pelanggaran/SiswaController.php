@@ -11,10 +11,13 @@ use App\Models\Admin\PelanggaranSiswa;
 use App\Models\Siswa;
 use App\Models\Admin\Pelanggaran;
 use App\Models\Admin\Sanksi;
+use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ //
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             $data = PelanggaranSiswa::join('siswas', 'siswas.id', 'pelanggaran_siswas.siswa_id')
                                     ->join('users', 'users.siswa_id', 'siswas.id')
@@ -37,7 +40,7 @@ class SiswaController extends Controller
                             ->where('id_sekolah', auth()->user()->id_sekolah)
                             ->get('siswas.*');
         // dd($namaSiswa);
-        return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
+        return view('admin.pelanggaran.siswa', ['kategori' => $kategori, 'addons' => $addons, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request) {

@@ -9,7 +9,7 @@ use App\Models\Admin\Pemilihan;
 use App\Models\Admin\Calon;
 
 class CalonPemilihan extends Model
-{
+{ //
     // use SoftDeletes;
 
     protected $table = 'calon_pemilihan';

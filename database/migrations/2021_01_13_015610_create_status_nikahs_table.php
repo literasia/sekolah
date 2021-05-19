@@ -10,7 +10,7 @@ class CreateStatusNikahsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('status_nikahs', function (Blueprint $table) {

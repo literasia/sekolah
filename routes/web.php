@@ -136,48 +136,36 @@ Route::namespace('Superadmin')
         Route::get('/superadmin', 'SuperadminController@index')
             ->name('index');
 
-        Route::get('/superadmin/slider', 'SliderController@index')
-            ->name('slider');
-        Route::post('/superadmin/slider', 'SliderController@store')
-            ->name('slider.store');
-        Route::get('/superadmin/slider/{id}', 'SliderController@destroy')
-            ->name('slider.destroy');
-        Route::get('/superadmin/slider/update/{id}', 'SliderController@edit')
-            ->name('slider.update-slider');
-        Route::post('/superadmin/slider/edit/{id}', 'SliderController@update')
-            ->name('slider.update');
-
+        Route::get('/superadmin/slider', 'SliderController@index')->name('slider');
+        Route::post('/superadmin/slider', 'SliderController@store')->name('slider.store');
+        Route::get('/superadmin/slider/edit/{id}', 'SliderController@edit')->name('slider.edit');
+        Route::post('/superadmin/slider/update', 'SliderController@update')->name('slider.update');
+        Route::get('/superadmin/slider/{id}', 'SliderController@destroy')->name('slider.destroy');
+        
         // Berita
         Route::namespace('Berita')
             ->group(function () {
             //Berita
-            Route::get('/superadmin/berita/berita', 'BeritaController@index')
-                ->name('berita.berita');
-            Route::post('/superadmin/berita/berita', 'BeritaController@store');
+            Route::get('/superadmin/berita/berita', 'BeritaController@index')->name('berita.berita');
+            Route::post('/superadmin/berita/berita', 'BeritaController@store')->name('berita.berita.store');
+            Route::post('/superadmin/berita/berita/update', 'BeritaController@update')->name('berita.berita.update');
             Route::get('/superadmin/berita/berita/{id}', 'BeritaController@edit');
-            Route::post('/superadmin/berita/berita/update', 'BeritaController@update')
-                ->name('berita.berita-update');
             Route::get('/superadmin/berita/berita/hapus/{id}', 'BeritaController@destroy');
 
             // Kategori Berita
-            Route::get('/superadmin/berita/kategori-berita', 'KategoriBeritaController@index')
-                ->name('berita.kategori-berita');
+            Route::get('/superadmin/berita/kategori-berita', 'KategoriBeritaController@index')->name('berita.kategori-berita');
             Route::post('/superadmin/berita/kategori-berita', 'KategoriBeritaController@store');
             Route::get('/superadmin/berita/kategori-berita/{id}', 'KategoriBeritaController@edit');
-            Route::post('/superadmin/berita/kategori-berita/update', 'KategoriBeritaController@update')
-                ->name('berita.kategori-berita-update');
+            Route::post('/superadmin/berita/kategori-berita/update', 'KategoriBeritaController@update')->name('berita.kategori-berita-update');
             Route::get('/superadmin/berita/kategori-berita/hapus/{id}', 'KategoriBeritaController@destroy');
+        });
 
-
-            });
-        Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')
-            ->name('list-sekolah');
-        Route::post('/superadmin/list-sekolah', 'ListSekolahController@store');
+        // List Sekolah
+        Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')->name('list-sekolah');
+        Route::post('/superadmin/list-sekolah', 'ListSekolahController@store')->name('list-sekolah.store');
         Route::get('/superadmin/list-sekolah/{id}', 'ListSekolahController@edit');
-        Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')
-            ->name('list-sekolah-update');
+        Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')->name('list-sekolah-update');
         Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy');
-
 
         // Referensi
         Route::namespace('Referensi')

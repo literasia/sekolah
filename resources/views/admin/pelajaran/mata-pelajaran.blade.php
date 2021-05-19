@@ -80,8 +80,8 @@
                             <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="id" id="id">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-danger" id="reset">Batal</button>
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="reset" class="btn btn-sm btn-outline-success" id="reset">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -97,7 +97,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Pelajaran</th>
                                         <th>Guru</th>
                                         <th>Status</th>
@@ -218,14 +218,22 @@
                     data: $(this).serialize(),
                     success: function (data) {
                         toastr.success('Data sukses ditambahkan');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#reset')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .val('Batal');
                         resetForm();
                         table.ajax.reload();
                     },
                     error: function(data) {
                         if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
+                            return Swal.fire('Error', data.responseJSON.message, 'error');
+                        else if(typeof data.responseJSON == 'string')
+                            return Swal.fire('Error', data.responseJSON, 'error');
                     }
                 });
             });
@@ -239,7 +247,14 @@
                     $('input[name=keterangan]').val(data.keterangan);
                     $('input[name=aktif]').prop('checked', data.aktif == 1);
                     $('select[name=guru_id]').val(data.guru_id);
-                    $('#btn').val('Update');
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#reset')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .val('Batal');
                 });
             });
 

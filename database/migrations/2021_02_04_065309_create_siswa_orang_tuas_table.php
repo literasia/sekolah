@@ -10,7 +10,7 @@ class CreateSiswaOrangTuasTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('siswa_orang_tuas', function (Blueprint $table) {

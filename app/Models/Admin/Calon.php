@@ -10,7 +10,7 @@ use App\Models\Admin\Voting;
 use App\Models\Siswa;
 
 class Calon extends Model
-{
+{ //
     use SoftDeletes;
 
     protected $table = 'calon';

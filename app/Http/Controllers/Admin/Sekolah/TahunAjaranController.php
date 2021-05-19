@@ -9,15 +9,18 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class TahunAjaranController extends Controller
-{
+{ //
 	public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
 		if ($request->ajax()) {
             $data = Sekolah::where('id', auth()->user()->id_sekolah)->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
                     // $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
                     return $button;
                 })
@@ -33,7 +36,7 @@ class TahunAjaranController extends Controller
 
 		// dd($tahun_ajaran);
 
-		return view('admin.sekolah.tahun-ajaran', ['tahun_ajaran' => $tahun_ajaran, 'mySekolah' => User::sekolah()]);
+		return view('admin.sekolah.tahun-ajaran', ['tahun_ajaran' => $tahun_ajaran, 'addons' => $addons ,'mySekolah' => User::sekolah()]);
 	}
 
 	public function edit($id) {

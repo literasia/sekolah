@@ -9,11 +9,12 @@ use App\Models\Guru;
 use App\Models\MataPelajaran;
 use App\Models\JamPelajaran;
 use App\User;
+use App\Models\Superadmin\Addons;
 
 class JamPelajaranController extends Controller
-{
-
+{ //
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
 
         if($request->req == 'single') {
             return response()->json(JamPelajaran::findOrFail($request->id));
@@ -25,7 +26,7 @@ class JamPelajaranController extends Controller
 
         $data = $data->groupBy('hari');
 
-        return view('admin.sekolah.jam-pelajaran', compact('data'), ['mySekolah' => User::sekolah()]);
+        return view('admin.sekolah.jam-pelajaran', compact('data', 'addons'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {

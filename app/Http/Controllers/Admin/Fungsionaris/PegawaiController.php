@@ -19,9 +19,10 @@ use App\Models\BagianPegawai;
 use App\Models\Semester;
 use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class PegawaiController extends Controller
-{
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
     private $pegawaiRules = [
         'tanggal_lahir' => ['nullable', 'date'],
@@ -33,6 +34,8 @@ class PegawaiController extends Controller
     ];
 
     public function index() {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         $pegawais = Pegawai::whereHas('user', function($q) {
             return $q->whereIdSekolah(auth()->user()->id_sekolah);
         })->get();
@@ -42,7 +45,7 @@ class PegawaiController extends Controller
         $kecamatan  = Kecamatan::all();
         $bagian = BagianPegawai::where('user_id', Auth::id())->get();
         $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
-        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'addons' => $addons , 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
     }
 
     public function getKabupatenKota($id)

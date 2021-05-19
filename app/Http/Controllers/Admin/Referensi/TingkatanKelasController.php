@@ -8,24 +8,27 @@ use App\Models\TingkatanKelas;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Superadmin\Addons;
 
 class TingkatanKelasController extends Controller
-{
+{ //
     public function index(Request $request)
     {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             $data = TingkatanKelas::where('user_id', auth()->user()->id)->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah()]);
+        return view('admin.referensi.tingkatan-kelas', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request)

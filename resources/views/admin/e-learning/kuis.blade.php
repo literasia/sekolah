@@ -21,11 +21,11 @@
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
@@ -83,25 +83,42 @@
     .btn i {
         margin-right: 0px;
     }
-
     .rotate{
         -moz-transition: all .2s linear;
         -webkit-transition: all 2s linear;
         transition: all .2s linear;
     }
-
     .rotate.down{
         -moz-transform:rotate(90deg);
         -webkit-transform:rotate(90deg);
         transform:rotate(90deg);
     }
-
     .badge-secondary {
         background-color: #6c757d6b;
     }
     .duration-option, .duration-option:focus {
         border: 1px solid #ced4da!important;
         background-color: #85ccff4a;
+    }
+    .quiz-modal-wrapper {
+        position: relative;
+    }
+
+    .quiz-modal-caption {
+        position: absolute; 
+        top: -35px; 
+        left: 20px; 
+        background: #fff;
+    }
+    .demo-content {
+        visibility: hidden;
+        display: none;
+        z-index: 9999999!important;
+        background: #fff;
+    }
+    .demo-wrapper a:hover + .demo-content {
+        visibility: visible;
+        display: block;
     }
 </style>
 @endpush

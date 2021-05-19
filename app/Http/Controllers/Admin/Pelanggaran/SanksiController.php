@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Sanksi;
 use App\User;
+use App\Models\Superadmin\Addons;
 
 class SanksiController extends Controller
-{
+{ //
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         if ($request->ajax()) {
             $data = Sanksi::where('sekolah_id', auth()->user()->id_sekolah)->get();
             return DataTables::of($data)
@@ -25,7 +27,7 @@ class SanksiController extends Controller
                 ->make(true);
         }
         
-        return view('admin.pelanggaran.sanksi', ['mySekolah' => User::sekolah()]);
+        return view('admin.pelanggaran.sanksi', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request) {

@@ -10,10 +10,12 @@ use App\Models\Siswa;
 use App\Models\Absensi;
 use App\Models\Admin\Kelas;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ //
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $kelas = Kelas::where('user_id', auth()->id())->get();
         // dd($kelas);
         $data = [];
@@ -30,7 +32,7 @@ class SiswaController extends Controller
         }
 
 
-        return view('admin.absensi.siswa', compact('kelas', 'data'), ['mySekolah' => User::sekolah()]);
+        return view('admin.absensi.siswa', compact('kelas', 'data', 'addons'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {
