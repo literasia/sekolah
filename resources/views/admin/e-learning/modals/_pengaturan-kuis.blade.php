@@ -190,6 +190,73 @@
 		            <label class="custom-control-label" for="hide-message">Aktif</label>
 		        </div>
 		        <small class="d-block mt-2">Jika memilih pilihan ini, maka pesan benar atau salah dari suatu jawaban tidak akan ditampilkan.</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Teks pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check bg-success">
+									  	<input class="form-check-input form-check-input-custom position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input form-check-input-custom position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input form-check-input-custom position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<div class="p-3 border bg-light mt-2">
+		        					<p class="font-weight-bold mb-2">Benar</p>
+		        					<p>Isi pesan...</p>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-3">Normal</h5>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Teks pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check bg-success">
+									  	<input class="form-check-input form-check-input-custom position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input form-check-input-custom position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input form-check-input-custom position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
+		        				</div>
+		        				<div class="p-3 border bg-light mt-2" style="visibility: hidden;">
+		        					<p class="font-weight-bold mb-2">Benar</p>
+		        					<p>Isi pesan...</p>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-3">Diaktifkan</h5>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
 		    </div>
 		</div>
 		<div class="row mb-4">
@@ -200,6 +267,73 @@
 		            <label class="custom-control-label" for="answer-mark">Nonaktif</label>
 		        </div>
 		        <small class="d-block mt-2">Jika memilih pilihan ini, maka jawaban tidak akan diberi warna sebagai tanda benar atau salah.</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Teks pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check bg-success my-1">
+									  	<input class="checkbox form-check-input-custom position-static" type="checkbox">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check bg-success my-1">
+									  	<input class="checkbox form-check-input-custom position-static" type="checkbox">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check bg-danger my-1">
+									  	<input class="checkbox form-check-input-custom position-static" type="checkbox">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<div class="p-3 border bg-light mt-2">
+		        					<p class="font-weight-bold mb-2">Salah</p>
+		        					<p>Isi pesan...</p>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-3">Normal</h5>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Teks pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check my-1">
+									  	<input class="checkbox form-check-input-custom position-static" type="checkbox">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check my-1">
+									  	<input class="checkbox form-check-input-custom position-static" type="checkbox">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check my-1">
+									  	<input class="checkbox form-check-input-custom position-static" type="checkbox">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<div class="p-3 border bg-light mt-2">
+		        					<p class="font-weight-bold mb-2">Benar</p>
+		        					<p>Isi pesan...</p>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-3">Dinonaktifkan</h5>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
 		    </div>
 		</div>
 		<div class="row mb-4">

@@ -25,7 +25,7 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th>No</th>
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
@@ -119,6 +119,12 @@
     .demo-wrapper a:hover + .demo-content {
         visibility: visible;
         display: block;
+    }
+    .form-check-input-custom {
+        margin-left: -1rem!important;
+    }
+    .btn-next {
+        border-radius: 30px;
     }
 </style>
 @endpush

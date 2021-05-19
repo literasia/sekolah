@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
+                        <div class="dt-responsive table-responsive mt-3">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
@@ -113,15 +113,11 @@
             $('#add').on('click', function () {
                 $('#modal-siswa').modal('show');
             });
-
-
             $('#siswa_id').select2();
-
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
             });
-
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -179,19 +175,15 @@
                 }
                 ]
             });
-
             $('#form-pelanggaran-siswa').on('submit', function (event) {
                 event.preventDefault();
-
                 var url = '';
                 if ($('#siswa').val() == 'add') {
                     url = "{{ route('admin.pelanggaran.siswa') }}";
                 }
-
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.pelanggaran.siswa-update') }}";
                 }
-
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -204,7 +196,6 @@
                             $('#siswa').addClass('is-invalid');
                             toastr.error(html);
                         }
-
                         if (data.success) {
                             toastr.success('Sukses!');
                             $('#modal-siswa').modal('hide');
@@ -212,16 +203,19 @@
                             $('#form-pelanggaran-siswa')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }
                 });
             });
-
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
@@ -229,7 +223,6 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
                         $('#siswa_id').val(data.nama_siswa.siswa_id);
                         $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
                         $('#pelanggaran').val(data.pelanggaran.pelanggaran);
@@ -240,22 +233,24 @@
                         $('#penanganan').val(data.penanganan.penanganan);
                         $('#keterangan').val(data.keterangan.keterangan);
                         $('#hidden_id').val(data.nama_siswa.id);
-                        $('#modal-siswa').modal('show');
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
+                        $('#modal-siswa').modal('show');
                     }
                 });
             });
-
             var user_id;
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('#ok_button').text('Hapus');
                 $('#confirmModal').modal('show');
             });
-
             $('#ok_button').click(function () {
                 $.ajax({
                     url: '/admin/pelanggaran/siswa/hapus/'+user_id,
@@ -271,17 +266,11 @@
                 });
             });
         });
-
         const pelanggaran = document.getElementById('pelanggaran');
         const poin = document.getElementById('poin');
-
-
         function setPoin(selected){
-
             // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
             poin.value = pelanggaran.options[pelanggaran.selectedIndex].dataset.poin;
         }
-
-
     </script>
 @endpush

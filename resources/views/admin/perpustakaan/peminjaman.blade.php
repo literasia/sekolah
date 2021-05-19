@@ -16,9 +16,6 @@ Ini adalah halaman list peminjam untuk admin
 <div class="row">
     <div class="col-xl-12">
         <div class="card shadow">
-            <div class="card-header">
-                <h5>List Peminjam</h5>
-            </div>
             <div class="card-body">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">
