@@ -19,7 +19,7 @@ use App\Models\Superadmin\Addons;
 
 class ListSekolahController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = Sekolah::join('provinsis', 'sekolahs.provinsi', 'provinsis.id')
                 ->join('kabupaten_kotas', 'sekolahs.kabupaten', 'kabupaten_kotas.id')

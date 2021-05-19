@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Superadmin\Addons;
 
 class DaftarNilaiController extends Controller
-{
+{ //
     public function index(Request $request)
     {
         $a = 0;

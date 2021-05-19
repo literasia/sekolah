@@ -10,7 +10,7 @@ class CreateJenisKelaminsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('jenis_kelamins', function (Blueprint $table) {

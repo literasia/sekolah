@@ -10,7 +10,7 @@ class CreateAbsensisTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('absensis', function (Blueprint $table) {

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 
 class KenaikanKelasController extends Controller
-{
+{ //
     public function index(Request $req)
     {
         $userId = auth()->user()->id;

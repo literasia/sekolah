@@ -9,8 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class LeaderboardController extends Controller
-{
-
+{ //
     public function index(Request $request) {
         return view('admin.leaderboard.leaderboard',['mySekolah' => User::sekolah()]);   
     }

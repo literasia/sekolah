@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class SuperadminController extends Controller
 {
-    public function index() {
+    public function index() { //
         $audiobook = Library::whereNotNull('link_audio')->count();
         $videobook = Library::whereNotNull('link_video')->count();
         $ebook = Library::whereNotNull('link_ebook')->count();

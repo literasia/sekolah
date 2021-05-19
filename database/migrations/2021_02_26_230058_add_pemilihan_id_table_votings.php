@@ -10,7 +10,7 @@ class AddPemilihanIdTableVotings extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('votings', function (Blueprint $table) {

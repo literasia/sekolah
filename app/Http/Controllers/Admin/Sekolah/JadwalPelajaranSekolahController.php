@@ -10,8 +10,7 @@ use App\Models\TingkatanKelas;
 use App\Models\Superadmin\Addons;
 
 class JadwalPelajaranSekolahController extends Controller
-{
-
+{ //
     public function index(Request $request) {
         $data = null;
         $addons = Addons::where('user_id', auth()->user()->id)->first();

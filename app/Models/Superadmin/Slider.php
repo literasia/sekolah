@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Superadmin\{KabupatenKota, Sekolah};
 
 class Slider extends Model
-{
-
+{ //
 	protected $guarded = [];
 
     public function kabupatenKota()

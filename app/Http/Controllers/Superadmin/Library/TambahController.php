@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class TambahController extends Controller
-{
+{ //
     private $rules = [
         'name' => ['required'],
         'sekolah_id' => ['nullable', 'exists:sekolahs,id'],

@@ -11,7 +11,7 @@ use App\Models\Superadmin\KabupatenKota;
 
 class KabupatenKotaController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = KabupatenKota::latest()->get();
             return DataTables::of($data)

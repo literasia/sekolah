@@ -10,7 +10,7 @@ class CreatePenulisPenerbitsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('penulis_penerbits', function (Blueprint $table) {

@@ -27,7 +27,7 @@ class JadwalPelajaranController extends Controller
 
         }
 
-        // if($request->req == 'table') {
+        // if($request->req == 'table') { //
         //     $data = JadwalPelajaran::with('mataPelajaran')
         //                            ->where('tahun_ajaran', $request->tahun_ajaran)
         //                            ->where('kelas_id', $request->kelas_id)

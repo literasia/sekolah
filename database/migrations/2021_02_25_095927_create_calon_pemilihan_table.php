@@ -10,7 +10,7 @@ class CreateCalonPemilihanTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('calon_pemilihan', function (Blueprint $table) {

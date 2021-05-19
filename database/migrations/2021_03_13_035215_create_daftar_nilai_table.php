@@ -10,7 +10,7 @@ class CreateDaftarNilaiTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('daftar_nilai', function (Blueprint $table) {

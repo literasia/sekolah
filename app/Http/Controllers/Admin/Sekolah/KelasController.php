@@ -18,7 +18,7 @@ use App\Models\Superadmin\Addons;
 
 class KelasController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 

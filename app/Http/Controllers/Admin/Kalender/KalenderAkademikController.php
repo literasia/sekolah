@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Superadmin\Addons;
 
 class KalenderAkademikController extends Controller
-{
+{ //
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
