@@ -171,7 +171,7 @@
             // $('#button')
             //     .removeClass('btn-outline-success edit')
             //     .addClass('btn-outline-info add')
-            //     .html('Simpan');
+            //     .html('Simpan'); ;
             $('#modal-soal').modal('show');
         });
 

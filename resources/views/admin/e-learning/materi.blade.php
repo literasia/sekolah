@@ -126,7 +126,7 @@
             // autosave_interval: '30s',
             // autosave_prefix: '{path}{query}-{id}-',
             // autosave_restore_when_empty: false,
-            // autosave_retention: '2m',
+            // autosave_retention: '2m', ,
             image_advtab: true,
             importcss_append: true,
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
