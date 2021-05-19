@@ -157,7 +157,6 @@
                 }
                 ]
             });
-
             $("#provinsi").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -174,19 +173,16 @@
                     }
                 });
             });
-
             $('#btn-cancel').on('click', function () {
                 $('#form-sekolah')[0].reset();
                 $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
                 $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
             $('.close').on('click', function () {
                 $('#form-sekolah')[0].reset();
                 $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
                 $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
             $('#add').on('click', function () {
                 $('#password-lama-group').css('display', 'none');
                 $('#password-baru-group').css('display', 'none');
@@ -199,18 +195,14 @@
                 $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
                 $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
             $('#form-sekolah').on('submit', function (e) {
                 event.preventDefault();
-
                 if ($('#action').val() == 'add') {
                     url = "{{ route('superadmin.list-sekolah.store') }}";
                 }
-
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('superadmin.list-sekolah-update') }}";
                 }
-
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -236,7 +228,6 @@
                             data.errors.password ? $('#password').addClass('is-invalid') : $('#password').removeClass('is-invalid');
                             toastr.error("data masih kosong");
                         }
-
                         // success error message
                         if (data.success) {
                             toastr.success(data.success);
@@ -260,7 +251,6 @@
                     }
                 });
             });
-
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
@@ -297,7 +287,6 @@
                         data.pelanggaran == 1 ? $('#pelanggaran').prop('checked', true) : $('#pelanggaran').prop('checked', false);
                         data.leaderboard == 1 ? $('#leaderboard').prop('checked', true) : $('#leaderboard').prop('checked', false);
                         data.forum == 1 ? $('#forum').prop('checked', true) : $('#forum').prop('checked', false);
-
                         $('#password-lama-group').css('display', 'block');
                         $('#password-baru-group').css('display', 'block');
                         $('#password-konfirmasi-group').css('display', 'block');
@@ -310,14 +299,12 @@
                     }
                 });
             });
-
             var user_id;
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('#ok_button').text('Hapus');
                 $('#confirmModal').modal('show');
             });
-
             $('#ok_button').click(function () {
                 $.ajax({
                     url: '/superadmin/list-sekolah/hapus/'+user_id,
@@ -335,4 +322,3 @@
         });
     </script>
 @endpush
-<!-- // -->
