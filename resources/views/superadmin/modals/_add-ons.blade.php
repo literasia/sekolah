@@ -68,9 +68,9 @@
                             <p class="m-0">E-Raport</p>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
-                            <input type="checkbox" id="e_voting" name="e_voting" value="1" class="d-block checkbox">
-                            <span><i class="fas fa-vote-yea add-ons-icon mb-2"></i></span>
-                            <p class="m-0">E-Voting</p>
+                            <input type="checkbox" id="leaderboard" name="leaderboard" value="1" class="d-block checkbox">
+                            <span><i class="ti-cup add-ons-icon mb-2"></i></span>
+                            <p class="m-0">Leaderboard</p>
                         </div>
                     </div>
                 </div>
@@ -79,6 +79,11 @@
                 <div class="form-group">
                     <label for="add_ons"></label>
                     <div class="row mx-1 text-center">
+                        <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
+                            <input type="checkbox" id="e_voting" name="e_voting" value="1" class="d-block checkbox">
+                            <span><i class="fas fa-vote-yea add-ons-icon mb-2"></i></span>
+                            <p class="m-0">E-Voting</p>
+                        </div>
                         <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
                             <input type="checkbox" id="import" name="import" value="1" class="d-block checkbox">
                             <span><i class="fa fa-file add-ons-icon mb-2"></i></span>

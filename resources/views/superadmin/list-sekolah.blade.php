@@ -294,6 +294,8 @@
                         data.kalender == 1 ? $('#kalender').prop('checked', true) : $('#kalender').prop('checked', false);
                         data.import == 1 ? $('#import').prop('checked', true) : $('#import').prop('checked', false);
                         data.perpustakaan == 1 ? $('#perpustakaan').prop('checked', true) : $('#perpustakaan').prop('checked', false);
+                        data.pelanggaran == 1 ? $('#pelanggaran').prop('checked', true) : $('#pelanggaran').prop('checked', false);
+                        data.leaderboard == 1 ? $('#leaderboard').prop('checked', true) : $('#leaderboard').prop('checked', false);
                         data.forum == 1 ? $('#forum').prop('checked', true) : $('#forum').prop('checked', false);
 
                         $('#password-lama-group').css('display', 'block');
