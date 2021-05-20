@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Yajra\DataTables\DataTables;
 use Exeption;
+use App\Models\Superadmin\Addons;
 
 
 class KelasController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             // $data = Guru::latest()->get();
             $data = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
@@ -29,8 +32,8 @@ class KelasController extends Controller
             // return($data);
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -53,7 +56,7 @@ class KelasController extends Controller
 
         // return($gurus);
 
-        return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'jurusan' => $jurusan, 'gurus' => $gurus, 'mySekolah' => User::sekolah()]);
+        return view('admin.sekolah.kelas',['tingkat' => $tingkat, 'addons' => $addons, 'jurusan' => $jurusan, 'gurus' => $gurus, 'mySekolah' => User::sekolah()]);
     }
 
     public function store(Request $request)

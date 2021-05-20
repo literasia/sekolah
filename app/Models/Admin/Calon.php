@@ -10,12 +10,12 @@ use App\Models\Admin\Voting;
 use App\Models\Siswa;
 
 class Calon extends Model
-{
+{ //
     use SoftDeletes;
 
     protected $table = 'calon';
 	protected $fillable = [
-        'name', 'sekolah_id'
+        'name', 'sekolah_id', 'kelas_id'
     ];
     protected $guarded = [];
 

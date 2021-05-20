@@ -140,6 +140,62 @@
 
             $('#order-table').DataTable();
 
+            if($('.pilih').is(':selected')){
+                    $('#kelas').prop('disabled',true);
+                };
+            $('#posisi').on('change', function(){
+                if($('.ketua_osis').is(':selected')){
+                    $('#kelas').prop('disabled', true);
+                    var id = $('#k').val();
+                    $.ajax({
+                    url: "/admin/e-voting/pemilihan/kelas/" + id,
+                    method: 'GET',
+                    dataType: 'JSON',
+                    data: {
+                        req: "all"
+                    },
+                    success: function (data) {
+                        $('#nama_calon')
+                            .find('option')
+                            .remove()
+                        data.forEach(function(siswa){
+                            console.log(siswa);
+                            var elem = $("<option></option>");
+                            elem.attr("value", siswa.id);
+                            elem.text(siswa.name);
+                            elem.appendTo($("select#nama_calon"));  
+                        });
+                    }
+                });
+                }else{
+                    $('#kelas').prop('disabled',false);
+                }
+            });
+
+
+            $('#kelas').on('change', function() {
+                var id = $(this).val();
+                
+                $.ajax({
+                    url: "/admin/e-voting/pemilihan/kelas/" + id,
+                    method: 'GET',
+                    dataType: 'JSON',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $('#nama_calon')
+                            .find('option')
+                            .remove()
+                        data.forEach(function(siswa){
+                            console.log(siswa);
+                            var elem = $("<option></option>");
+                            elem.attr("value", siswa.id);
+                            elem.text(siswa.name);
+                            elem.appendTo($("select#nama_calon"));  
+                        });
+                    }
+                });
+            });
+
             // $('#order-table').DataTable({
             //     processing: true,
             //     serverSide: true,
@@ -198,7 +254,7 @@
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.pemilihan-update') }}";
                 }
-
+                console.log($(this).serialize());
                 $.ajax({
                     url: url,
                     method: 'POST',

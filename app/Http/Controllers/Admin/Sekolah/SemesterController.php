@@ -10,10 +10,13 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class SemesterController extends Controller
-{
+{ //
 	public function index(Request $request) {
+		$addons = Addons::where('user_id', auth()->user()->id)->first();
+		
 		if ($request->ajax()) {
 			$data = Semester::where('user_id', Auth::id())->latest()->get();
 			return DataTables::of($data)
@@ -36,7 +39,7 @@ class SemesterController extends Controller
 		// 	$semester = false;
 		// }
 
-		return view('admin.sekolah.semester', ['semester' => $semester, 'mySekolah' => User::sekolah()]);
+		return view('admin.sekolah.semester', ['semester' => $semester, 'addons' => $addons, 'mySekolah' => User::sekolah()]);
 	}
 
 	public function update(Request $request)

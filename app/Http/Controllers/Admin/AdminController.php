@@ -12,11 +12,13 @@ use App\Models\Siswa;
 use App\Models\SiswaOrangTua;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Superadmin\Addons;
 
 class AdminController extends Controller
-{
+{ // .
     public function index() {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+        
     	$audiobook = Library::whereNotNull('link_audio')->count();
         $videobook = Library::whereNotNull('link_video')->count();
         $ebook = Library::whereNotNull('link_ebook')->count();
@@ -34,7 +36,8 @@ class AdminController extends Controller
             'siswa' => $siswa,
             'guru' => $guru,
             'orangtua' => $orangtua,
-        	'mySekolah' => User::sekolah()
+        	'mySekolah' => User::sekolah(),
+            'addons' => $addons
         ]);
     }
 }

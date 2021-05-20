@@ -50,7 +50,7 @@
                 <table class="table table-sm table-bordered" id="table-penerbit">
                     <thead class="text-center">
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>Penerbit</th>
                             <th>Actions</th>
                         </tr>

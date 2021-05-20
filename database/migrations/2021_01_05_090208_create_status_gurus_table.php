@@ -10,7 +10,7 @@ class CreateStatusGurusTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('status_gurus', function (Blueprint $table) {

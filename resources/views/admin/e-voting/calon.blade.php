@@ -28,12 +28,13 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
-                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder="tes">
+                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder  ="tes">
+                                        <input type="hidden" name="kelas_id" id="kelas_id" placeholder="tes">
                                         <label for="calon_id">Nama Calon</label>
                                         <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
                                             <option value="">-- Pilih --</option>
                                             @foreach($namaSiswa as $ns)
-                                            <option data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
+                                            <option data-kelas="{{ $ns->kelas_id }}" data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -43,8 +44,8 @@
                                 <div class="col">
                                     <input type="hidden" name="hidden_id" id="hidden_id">
                                     <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -158,6 +159,8 @@
 
             $('#form-calon-kandidat').on('submit', function (event) {
                 event.preventDefault();
+                var id = $(this).val();
+                console.log($(this).serialize())
 
                 var url = '';
                 if ($('#nama_calon').val() == 'add') {
@@ -187,9 +190,13 @@
                             $('#form-calon-kandidat')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -207,9 +214,13 @@
                         $('#hidden_id').val(data.calon_id.id);
                         $('#action').val('edit');
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                     }
                 });
             });
@@ -244,9 +255,10 @@
 
 
         function setPoin(selected){
-
+            console.log(selected)
             // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
             nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
+            kelas_id.value = calon_id.options[calon_id.selectedIndex].dataset.kelas;
         }
 
     </script>

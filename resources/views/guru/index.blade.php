@@ -9,7 +9,7 @@
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('admin.index') }}
+    {{ route('guru.index') }}
 @endsection
 
 @section('content')

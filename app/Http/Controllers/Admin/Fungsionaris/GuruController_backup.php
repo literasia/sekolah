@@ -7,11 +7,13 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Models\Guru;
 use DataTables;
+use App\Models\Superadmin\Addons;
 
 class GuruController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         if($request->req == 'table') {
             return DataTables::of(Guru::get())->toJson();
         }
@@ -20,7 +22,7 @@ class GuruController extends Controller
             return response()->json(Guru::find($request->id));
         }
 
-        return view('admin.fungsionaris.guru',['mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.guru',['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function write(Request $request) {

@@ -9,12 +9,14 @@ use App\Models\Admin\Kelas;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Superadmin\Addons;
 
 class KenaikanKelasController extends Controller
-{
+{ //
     public function index(Request $req)
     {
         $userId = auth()->user()->id;
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $kelases = DB::table('kelas')
             ->select('tingkatan_kelas.*', 'kelas.*', 'kelas.name as kelas_name', 'tingkatan_kelas.name as tingkatan_name')
             ->join('tingkatan_kelas', 'kelas.tingkatan_kelas_id', 'tingkatan_kelas.id')
@@ -29,7 +31,8 @@ class KenaikanKelasController extends Controller
         return view('admin.e-rapor.kenaikan-kelas', [
             'mySekolah' => User::sekolah(),
             'kelases' => $kelases,
-            'data' => $data
+            'data' => $data,
+            'addons' => $addons
         ]);
     }
 

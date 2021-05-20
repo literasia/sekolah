@@ -26,4 +26,8 @@ class Guru extends Model
     public function jamPelajaran() {
         return $this->hasManyThrough(jamPelajaran::class);
     }
+
+    public function mataPelajaran(){
+        return $this->hasMany(MataPelajaran::class);
+    }
 }

@@ -9,10 +9,12 @@ use App\Models\Admin\Calon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\Models\Superadmin\Addons;
 
 class CalonController extends Controller
-{
+{ //
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $namaSiswa = Siswa::join('users', 'users.name', 'siswas.nama_lengkap')->where('id_sekolah', auth()->user()->id_sekolah)->get();
         // dd($namaSiswa);
         if ($request->ajax()) {
@@ -30,7 +32,7 @@ class CalonController extends Controller
         }
 
 
-        return view('admin.e-voting.calon', ['namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
+        return view('admin.e-voting.calon', ['namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
     public function store(Request $request) {
@@ -60,6 +62,7 @@ class CalonController extends Controller
         $status = Calon::create([
             'name'  => $request->input('nama_calon'),
             'sekolah_id' => $idSekolah,
+            'kelas_id' => $request->input('kelas_id')
         ]);
 
         return response()

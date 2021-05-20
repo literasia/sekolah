@@ -10,11 +10,14 @@ use App\Models\Guru;
 use DataTables;
 use App\Models\StatusGuru;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class GuruController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         if ($request->ajax()) {
             // $data = Guru::latest()->get();
             $data = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
@@ -24,8 +27,8 @@ class GuruController extends Controller
                 ->get(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status']);
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" data-id="' . $data->id . '" class="btn-edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="btn-delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" data-id="' . $data->id . '" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -40,7 +43,7 @@ class GuruController extends Controller
         $status = StatusGuru::where('user_id', Auth::id())->latest()->get();
         // return($pegawai);
 
-        return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'mySekolah' => User::sekolah()]);
+        return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'addons' => $addons ,'mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {

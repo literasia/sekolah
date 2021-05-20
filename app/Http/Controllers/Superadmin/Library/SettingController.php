@@ -11,7 +11,7 @@ use App\Models\Superadmin\Penulis;
 use App\Models\Superadmin\Tingkat;
 
 class SettingController extends Controller
-{
+{ //
     public function index() {
         return view('superadmin.library.setting', [
             'tipes'     => Tipe::orderBy('name')->get(),

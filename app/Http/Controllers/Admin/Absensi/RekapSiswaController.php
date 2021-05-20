@@ -9,10 +9,13 @@ use App\Models\Siswa;
 use App\Models\TingkatanKelas;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class RekapSiswaController extends Controller
-{
+{ //
     public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+
         $data = [];
         if($request->req == 'table') {
             $data = Siswa::where('kelas_id', $request->kelas_id)
@@ -27,6 +30,6 @@ class RekapSiswaController extends Controller
 
         $kelas = Kelas::where('user_id', Auth::id())->get();
 
-        return view('admin.absensi.rekap-siswa', compact('data', 'kelas'), ['mySekolah' => User::sekolah()]);
+        return view('admin.absensi.rekap-siswa', compact('data', 'kelas', 'addons'), ['mySekolah' => User::sekolah()]);
     }
 }

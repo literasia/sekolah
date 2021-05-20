@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
-                            <table id="siswa-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <div class="dt-responsive table-responsive mt-3">
+                            <table id="siswa-table" class="table table-striped table-bordered border nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>NIS</th>
@@ -49,7 +49,7 @@
                                             <td>{{ $siswa->poin_sp}}</td>
                                             <td>
                                                 @if ($siswa->foto)
-                                                    <a target="_blank" href="{{ Storage::url($siswa->foto) }}">Lihat</a>
+                                                    <a target="_blank" href="{{ Storage::url($siswa->foto) }}"><label class="badge badge-warning">Lihat</label></a>
                                                 @else
                                                     -
                                                 @endif
@@ -67,7 +67,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr><td colspan="7" class="text-center">Tidak ada data</td></tr>
+                                        <tr><td colspan="8" class="text-center">Tidak ada data</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -176,7 +176,8 @@
             $('#add').on('click', function () {
                 clearDataSiswa(); clearDataOrtu(); clearDataWali();
                 $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
-                $('#btn-submit').text('Tambah');
+                $('#btn-submit').text('Simpan');
+                $('#btn-cancel').text('Batal');
 
                 $("#toggle-data-login").show();
                 $("#data-login").show();
@@ -324,7 +325,14 @@
                         }
 
                         $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}/${id}`);
-                        $('#btn-submit').text('Ubah');
+                        $('#btn-submit')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .text('Update');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .text('Batal');
                         $('#modal-siswa input[name=_method]').val("PUT");
                         $('#modal-siswa').modal('show');
                     }

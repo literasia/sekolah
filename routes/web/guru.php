@@ -22,6 +22,14 @@ Route::namespace('Kalender')
         ->name('kalender.kalender-akademik');
 });
 
+Route::namespace('Fungsionaris')
+    ->group(function () {
+        Route::get('/guru/fungsionaris/pegawai', 'PegawaiController@index')
+        ->name('fungsionaris.pegawai');
+        Route::get('/guru/fungsionaris/guru', 'GuruuController@index')
+        ->name('fungsionaris.guru');
+});
+
 // Sekolah
 Route::namespace('Sekolah')->group(function () {
     // Jurusan
@@ -105,6 +113,12 @@ Route::namespace('Absensi')->group(function () {
 Route::namespace('DaftarNilai')->group(function () {
     Route::get('/guru/daftar-nilai', 'DaftarNilaiController@index')
         ->name('daftar-nilai');
+});
+
+// E-Rapor
+Route::namespace('ERapor')->group(function () {
+    Route::get('/admin/e-rapor/kenaikan-kelas', 'KenaikanKelasController@index')
+        ->name('e-rapor.kenaikan-kelas');
 });
 
 // Pelanggaran

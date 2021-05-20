@@ -36,7 +36,7 @@
                 <table class="table table-sm table-bordered" id="table-penulis-penerbit">
                     <thead class="text-center">
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>Penulis</th>
                             <th>Penerbit</th>
                             <th>Actions</th>

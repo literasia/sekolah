@@ -6,14 +6,14 @@
 @section('title-3', 'Kenaikan Kelas')
 
 @section('describ')
-Ini adalah halaman Kenaikan Kelas untuk admin
+    Ini adalah halaman Kenaikan Kelas untuk admin
 @endsection
 
 @section('icon-l', 'fa fa-file-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
-{{ route('admin.e-rapor.kenaikan-kelas') }}
+    {{ route('admin.e-rapor.kenaikan-kelas') }}
 @endsection
 
 {{-- main content --}}

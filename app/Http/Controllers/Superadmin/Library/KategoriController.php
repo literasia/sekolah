@@ -15,7 +15,7 @@ class KategoriController extends Controller
     {
     }
 
-    public function store(Request $req) {
+    public function store(Request $req) { //
         $data = $req->all();
         $validator = Validator::make($data, [
             'name' => ['required', 'min:3'],

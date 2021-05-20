@@ -11,7 +11,7 @@ class ChangeDateTypeToPemilihanKandidats extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('pemilihan_kandidats', function (Blueprint $table) {

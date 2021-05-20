@@ -289,7 +289,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="foto">Foto Siswa</label>
-                        <input type="file" name="foto" id="foto" class="form-control form-control-sm" accept="image/*">
+                        <input type="file" name="foto" id="foto" accept="image/*">
                         <small>max. 2MB (tidak wajib jika tidak ingin diupdate)</small>
                     </div>
                 </div>
