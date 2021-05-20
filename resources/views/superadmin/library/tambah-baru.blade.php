@@ -16,17 +16,14 @@ Ini adalah halaman library untuk superadmin
 <div class="row">
     <div class="col-xl-12">
         <div class="card shadow">
-            <div class="card-header">
-                <h5>Library</h5>
-            </div>
             <div class="card-body">
-                <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                 <div class="card-block">
-                    <div class="dt-responsive table-responsive">
+                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Deskripsi</th>
                                     <th>Penulis</th>

@@ -30,6 +30,10 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/widget.css') }}">
 <link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
+{{-- Wiris Math for Tinymce --}}
+<script src="{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> 
+{{-- Tiny MCE --}}
+<script src="{{ asset('assets/plugins/tinymce/tinymce.min.js')}}"></script> 
 
 {{-- Add on CSS --}}
 @stack('css')

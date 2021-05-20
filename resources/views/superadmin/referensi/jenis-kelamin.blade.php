@@ -37,8 +37,8 @@
                             <div class="col">
                                 <input type="hidden" name="hidden_id" id="hidden_id">
                                 <input type="hidden" id="action" val="add">
-                                <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                <button type="reset" class="btn btn-sm btn-danger">Batal</button>
+                                <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                <button type="reset" class="btn btn-sm btn-outline-success">Batal</button>
                             </div>
                         </div>
                     </form>
@@ -54,7 +54,7 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Actions</th>
                                 </tr>

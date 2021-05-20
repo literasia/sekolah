@@ -19,9 +19,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
     private const KEWARGANEGARAAN_RULE = "WNI,WNA";
     private const PENDIDIKAN_RULE = "SD/Sederajat,SMP/MTs/Sederajat,SMA/MA/Sederajat,D1/D2/D3,S1,S2,S3";
@@ -66,6 +67,7 @@ class SiswaController extends Controller
     ];
 
     public function index() {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $sekolahId = auth()->user()->id_sekolah;
         $userId = auth()->user()->id;
         $kelases = Kelas::where('user_id', $userId)->get();
@@ -101,6 +103,7 @@ class SiswaController extends Controller
             'kelases' => $kelases,
             'mySekolah' => User::sekolah(),
             'provinsis'=>$provinsis,
+            'addons' => $addons,
         ]);
     }
 

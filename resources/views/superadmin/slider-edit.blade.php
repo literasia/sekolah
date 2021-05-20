@@ -9,7 +9,7 @@
 Ini adalah halaman Slider untuk Superadmin
 @endsection
 
-@section('icon-l', 'icon-book')
+@section('icon-l', 'fa fa-images')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -97,7 +97,7 @@ Ini adalah halaman Slider untuk Superadmin
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Ubah</button>
+                                <button type="submit" class="btn btn-sm btn-info">Ubah</button>
                             </div>
                         </div>
                     </div>

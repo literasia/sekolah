@@ -10,7 +10,7 @@ class AlterJadwalPelajaranKelas extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         // DB::transaction(function(){

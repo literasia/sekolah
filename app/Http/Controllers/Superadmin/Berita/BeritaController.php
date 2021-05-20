@@ -6,66 +6,65 @@ namespace App\Http\Controllers\Superadmin\Berita;
 use Illuminate\Http\Request;
 use App\Models\Superadmin\KategoriBerita;
 use App\Models\Superadmin\Berita;
-use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Utils\CRUDResponse;
-
-
+use Yajra\DataTables\DataTables;
 
 class BeritaController extends Controller
-{
-
-    private $rules = [
-        'judul' => ['required'],
-        'kategori' => ['required'],
-        'isi' => ['required'],
-        'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
-    ];
-
+{ //
     public function index(Request $request){
-        $data = Berita::latest()->get();
-        $no = 1;
-        // $i = 0;
-        // foreach ($data as $berita) {
-        //     $data[$i]['thumbnail'] = '<a target="_blank" href="'.Storage::url($berita->thumbnail).'">Lihat Foto</a>';
-        // }
-        // if ($request->ajax()) {
-     //        $data = Berita::latest()->get();
-     //        $i = 0;
-     //        foreach ($data as $berita) {
-     //            $data[$i]['thumbnail'] = '<a target="_blank" href="'.Storage::url($berita->thumbnail).'">Lihat Foto</a>';
-     //        }
-     //        return DataTables::of($data)
-     //            ->addColumn('action', function ($data) {
-     //                $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-     //                $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
-     //                return $button;
-     //            })
-     //            ->rawColumns(['action'])
-     //            ->rawColumns(['thumbnail'])
-     //            ->addIndexColumn()
-     //            ->make(true);
-     //    }
-        $katbe = KategoriBerita::all();
-        return view('superadmin.berita.berita', ['no'=>$no, 'katbe' => $katbe, 'data' =>$data]);
+        if ($request->ajax()) {
+            $data = Berita::latest()->get();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    return $button;
+                })
+                ->addColumn('thumbnail', function ($data) {
+                    $btnlink = '<a target="_blank" href="'.Storage::url($data->thumbnail).'" class="badge badge-warning">Lihat Foto</a>';
+                    return $btnlink;
+                })
+                ->rawColumns(['action', 'thumbnail'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        $kategori = KategoriBerita::all();
+        return view('superadmin.berita.berita', ['kategori' => $kategori]);
     }
 
     public function edit($id) {
-        $berita = Berita::find($id);
-        $katbe = KategoriBerita::all();
-        return view('superadmin.berita.berita_edit', [
-            'berita' => $berita, 'katbe' => $katbe
+        $berita = Berita::findOrFail($id);
+
+        return response()->json([
+            'id' => $berita->id,
+            'judul' => $berita->name,
+            'kategori' => $berita->kategori,
+            'isi' => $berita->isi,
+            'tanggal_rilis' => $berita->tanggal_rilis,
+            'thumbnail' => $berita->thumbnail
         ]);
     }
 
     public function store(Request $req) {
+        $rules = [
+            'judul' => ['required'],
+            'kategori' => ['required'],
+            'isi' => ['required'],
+            'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
+        ];
 
         $data = $req->all();
-        $validator = Validator::make($data, $this->rules);
+        $validator = Validator::make($data, $rules);
+
+        // Validation rules
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
         }
 
         $data['thumbnail'] = null;
@@ -88,21 +87,32 @@ class BeritaController extends Controller
 
     }
 
-    public function update($id, Request $req) {
-        $data = $req->all();
+    public function update(Request $req) {
+        $rules = [
+            'judul' => ['required'],
+            'kategori' => ['required'],
+            'isi' => ['required'],
+            'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
+        ];
 
-        $validator = Validator::make($data, $this->rules);
+        $data = $req->all();
+        $validator = Validator::make($data, $rules);
+
+        // Validation rules
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
         }
 
-        $berita = Berita::findOrFail($id);
+        $berita = Berita::findOrFail($data['hidden_id']);
         $data['thumbnail'] = null;
         if ($req->file('thumbnail')) {
             $data['thumbnail'] = $req->file('thumbnail')->store('berita', 'public');
         }
 
-        Berita::whereId($id)->update([
+        $berita->update([
             'name' => $data['judul'],
             'kategori' => $data['kategori'],
             'tanggal_rilis' => $data['tanggal_rilis'],
@@ -114,7 +124,10 @@ class BeritaController extends Controller
             Storage::disk('public')->delete($berita->thumbnail);
         }
 
-        return redirect()->route('superadmin.berita.berita')->with(CRUDResponse::successUpdate("Berita"));
+        return response()
+        ->json([
+            'success' => 'Data berhasil diubah.',
+    ]);
     }
 
     public function destroy($id) {
@@ -123,6 +136,11 @@ class BeritaController extends Controller
         if ($berita->thumbnail && Storage::disk('public')->exists($berita->thumbnail)) {
             Storage::disk('public')->delete($berita->thumbnail);
         }
+
+        return response()
+        ->json([
+            'success' => '👍 Data berhasil dihapus!',
+        ]);
     }
 
 

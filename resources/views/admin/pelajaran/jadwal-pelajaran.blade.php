@@ -107,8 +107,8 @@
                               <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="id" id="id">
-                                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
-                                    <button id="reset-form" type="button" class="btn btn-sm btn-danger">Batal</button>
+                                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                                    <button id="reset-form" type="button" class="btn btn-sm btn-outline-success">Batal</button>
                                 </div>
                             </div>
                           </form>
@@ -169,7 +169,7 @@
                             <div class="col">
                                 <div class="form-group">
                                   <input type="hidden" name="req" value="table">
-                                <input type="submit" class="btn btn-sm btn-outline-success" value="Tampil" id="tampil">
+                                <input type="submit" class="btn btn-sm btn-success" value="Tampil" id="tampil">
                             </div>
                             </div>
                         </div>

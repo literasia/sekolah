@@ -25,12 +25,12 @@
                     <h5>Semester</h5>
                 </div>
                 <div class="card-body" style="margin-top: -20px">
-                    <div class="card-block">
+                    <div class="card-block px-0">
                         <div class="row">
                             <div class="col">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                   <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Ganjil'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
-                                  <label for="Ganjil">Ganjil</label>
+                                  <label for="Ganjil" class="mr-3">Ganjil</label>
 
                                   <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Genap'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
                                   <label for="Genap">Genap</label>

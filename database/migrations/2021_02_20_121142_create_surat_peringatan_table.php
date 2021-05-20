@@ -10,7 +10,7 @@ class CreateSuratPeringatanTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('surat_peringatans', function (Blueprint $table) {

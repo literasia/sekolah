@@ -13,9 +13,10 @@ use App\Models\TingkatanKelas;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Superadmin\Addons;
 
 class DaftarNilaiController extends Controller
-{
+{ //
     public function index(Request $request)
     {
         $a = 0;
@@ -28,6 +29,7 @@ class DaftarNilaiController extends Controller
         $kelas = Kelas::where('user_id', auth()->id())->get();
         // $semester = Semester::where('user_id', auth()->user()->id)->get();
 
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
             ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
             ->where('sekolah_id', auth()->user()->id_sekolah)
@@ -105,6 +107,7 @@ class DaftarNilaiController extends Controller
                 'pelajaran',
                 'kelas',
                 'data',
+                'addons'
             ),
             [
                 'mySekolah' => User::sekolah()

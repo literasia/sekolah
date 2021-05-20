@@ -74,8 +74,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="form_guru_submit" type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
-                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                <button id="form_guru_submit" type="submit" class="btn btn-sm btn-success">Simpan</button>
+                <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
             </div>
         </div>
     </div>

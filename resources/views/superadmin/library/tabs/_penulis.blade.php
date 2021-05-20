@@ -50,7 +50,7 @@
                 <table class="table table-sm table-bordered" id="table-penulis">
                     <thead class="text-center">
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>Penulis</th>
                             <th>Actions</th>
                         </tr>

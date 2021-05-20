@@ -87,8 +87,10 @@ Ini adalah halaman Daftar Nilai untuk admin
                                     <th style="vertical-align: middle">Nama Siswa</th>
                                     <th style="vertical-align: middle">Pelajaran</th>
                                     <th style="vertical-align: middle">Guru</th>
-                                    @for ($i = 1; $i <= $jumlah_data; $i++) @if ($i==1) <th style="width: 15%; vertical-align: middle">{{ request()->kategori_nilai }} {{ $i }}
-                                        <button id="btnTambahNilai" class="btn btn-outline-primary btn-sm shadow-sm"><i class="fa fa-plus"></i></button>
+                                    @for ($i = 1; $i <= $jumlah_data; $i++)
+                                        @if ($i==1)
+                                        <th style="width: 15%; vertical-align: middle">{{ request()->kategori_nilai }} {{ $i }}
+                                            <button id="btnTambahNilai" class="btn btn-outline-primary btn-sm shadow-sm"><i class="fa fa-plus"></i></button>
                                         </th>
                                         @else
                                         <th id="cells_<?php echo $i; ?>" style="width: 15%; vertical-align: middle">{{ request()->kategori_nilai }} {{ $i }}
@@ -275,7 +277,7 @@ Ini adalah halaman Daftar Nilai untuk admin
                         var number_befored = number - 1;
                         // if(number_befored >= 1){
                         $("#cells_" + number_befored + " button").remove();
-                        // }    
+                        // }
                         cell += " " + buttons;
                         $("#nr_cell").before(cell);
                     }

@@ -166,21 +166,6 @@
                                 <span class="pcoded-mtext">Siswa</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('guru/pelanggaran/sanksi') ? 'active' : '' }}">
-                            <a href="{{ route('guru.pelanggaran.sanksi') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Sanksi</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('guru/pelanggaran/kategori-pelanggaran') ? 'active' : '' }}">
-                            <a href="{{ route('guru.pelanggaran.kategori-pelanggaran') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Kategori Pelanggaran</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('guru/pelanggaran/surat-peringatan') ? 'active' : '' }}">
-                            <a href="{{ route('guru.pelanggaran.surat-peringatan') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Surat Peringatan</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 @endif
@@ -239,14 +224,14 @@
                     </ul>
                 </li>
                 @endif
-                {{-- <li class="@if (request()->is('guru/fungsionaris/pegawai') || request()->is('guru/fungsionaris/guru')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('guru/fungsionaris/pegawai') || request()->is('guru/fungsionaris/guru')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-user-tie"></i></span>
                         <span class="pcoded-mtext">Fungsionaris</span>
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('guru/fungsionaris/pegawai') ? 'active' : '' }}">
-                            <a href="{{ route('guru.fungsionaris.pegawai.index') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('guru.fungsionaris.pegawai') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pegawai</span>
                             </a>
                         </li>
@@ -256,7 +241,7 @@
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
                 @if(auth()->user()->pegawai->access->e_voting)
                 <li class="@if (request()->is('guru/e-voting/calon') || request()->is('guru/e-voting/posisi') || request()->is('guru/e-voting/pemilihan') || request()->is('guru/e-voting/vote')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
@@ -282,8 +267,6 @@
                     </ul>
                 </li>
                 @endif
-
-
             </ul>
         </div>
     </div>
