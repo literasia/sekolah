@@ -126,6 +126,9 @@
     .btn-next {
         border-radius: 30px;
     }
+    .border-bottom-custom {
+        border-bottom: 2px solid red;
+    }
 </style>
 @endpush
 

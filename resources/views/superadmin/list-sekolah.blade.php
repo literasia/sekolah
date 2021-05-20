@@ -256,6 +256,13 @@
                 $.ajax({
                     url: '/superadmin/list-sekolah/'+id,
                     dataType: 'JSON',
+                    beforeSend: function (xhr) {
+                        var token = $('meta[name="csrf_token"]').attr('content');
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
                     success: function (data) {
                         console.log(data);
                         $('#action').val('edit');

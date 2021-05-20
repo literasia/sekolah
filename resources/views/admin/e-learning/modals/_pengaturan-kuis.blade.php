@@ -248,7 +248,7 @@
 		        				<div class="mt-3">
 		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
 		        				</div>
-		        				<div class="p-3 border bg-light mt-2" style="visibility: hidden;">
+		        				<div class="p-3 border bg-light mt-2 invisible">
 		        					<p class="font-weight-bold mb-2">Benar</p>
 		        					<p>Isi pesan...</p>
 		        				</div>
@@ -354,6 +354,65 @@
 		            <label class="custom-control-label" for="hide-numbering">Aktif</label>
 		        </div>
 		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, penomoran pertanyaan disembunyikan</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between">
+		        					<p class="font-weight-bold m-0 border-bottom-custom">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Teks pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check">
+									  	<input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check">
+									  	<input class="form-check-input position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-3">Normal</h5>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<p>Pertanyaan 3 dari 7</p>
+		        				<div class="d-flex justify-content-between invisible">
+		        					<p class="font-weight-bold m-0">3. Pertanyaan</p>
+		        					<label class="badge badge-warning p-1 ml-5">1 poin</label>
+		        				</div>
+		        				<p class="my-2">Tes pertanyaan</p>
+		        				<div class="p-3 border bg-light">
+		        					<div class="form-check pl-0">
+									  	<input class="position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 1</label>
+									</div>
+									<div class="form-check pl-0">
+									  	<input class="position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 2</label>
+									</div>
+									<div class="form-check pl-0">
+									  	<input class="position-static" type="radio" name="blankRadio" id="blankRadio1" value="option1" aria-label="...">
+									  	<label>Tes 3</label>
+									</div>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-block btn btn-info btn-next mr-0 ml-auto">Next</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-3">Diaktifkan</h5>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
 		    </div>
 		</div>
 	</div>
@@ -368,6 +427,76 @@
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="average-point" id="average-point" checked>
 		            <label class="custom-control-label" for="average-point">Aktif</label>
+		        </div>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-12">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p>Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2" style="width: 600px;">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-8">
+		        											Nilai rata-rata
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-8">
+		        											Nilai kamu
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-8">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-4">
+		        												<p>21,17%</p>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-8">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-4">
+		        												<p>27,03%</p>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="mt-3">
+		        					<button class="d-inline-block btn btn-info btn-next">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next">Lihat pertanyaan</button>
+		        				</div>
+		        			</div>
+		        		</div>
+		        	</div>
 		        </div>
 		    </div>
 		</div>
