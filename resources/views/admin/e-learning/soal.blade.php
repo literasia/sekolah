@@ -89,39 +89,14 @@
 
 {{-- addons js --}}
 @push('js')
+<script src="{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> 
+<script src="{{ asset('assets/plugins/tinymce/tinymce.min.js')}}"></script>
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('bower_components/tinymce/tinymce.min.js')}}"></script>
-<script src="{{ asset('bower_components/tinymce/jquery.tinymce.min.js')}}"></script>
-<script src="{{ asset('http://127.0.0.1:8000/bower_components/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script type="text/javascript">
-    tinymce.init({
-            external_plugins: {
-                'tiny_mce_wiris' : 'http://127.0.0.1:8000/bower_components/tinymce/plugins/tiny_mce_wiris/plugin.min.js'
-            },
-            selector: 'textarea#materi',
-            height: 200,
-            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-            imagetools_cors_hosts: ['picsum.photos'],
-            menubar: 'file edit view insert format tools table help',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
-            toolbar_sticky: true,
-            autosave_ask_before_unload: true,
-            autosave_interval: '30s',
-            autosave_prefix: '{path}{query}-{id}-',
-            autosave_restore_when_empty: false,
-            autosave_retention: '2m',  
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-            noneditable_noneditable_class: 'mceNonEditable',
-            toolbar_mode: 'sliding',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
-</script>
-<script>
     $('document').ready(function() {
         $('#order-table').DataTable();
 
@@ -131,7 +106,7 @@
             external_plugins: {
                 'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
             },
-            selector: '#questions',
+            selector: '#materi',
             height: 300,
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             imagetools_cors_hosts: ['picsum.photos'],
@@ -142,7 +117,7 @@
             // autosave_interval: '30s',
             // autosave_prefix: '{path}{query}-{id}-',
             // autosave_restore_when_empty: false,
-            // autosave_retention: '2m',
+            // autosave_retention: '2m', ,
             image_advtab: true,
             importcss_append: true,
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
@@ -155,6 +130,7 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
 
+
         $(document).on('focusin', function(e) {
             if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
                 e.stopImmediatePropagation();
@@ -162,16 +138,7 @@
         });
 
         $('#add').on('click', function() {
-            // $('.modal-title').html('Tambah Pesan');
-            // $('#judul').val('');
-            // $('#message').val('');
-            // $('#start_date').val('');
-            // $('#end_date').val('');
-            // $('#action').val('add');
-            // $('#button')
-            //     .removeClass('btn-outline-success edit')
-            //     .addClass('btn-outline-info add')
-            //     .html('Simpan'); ;
+            $('.modal-title').html('Tambah Soal');
             $('#modal-soal').modal('show');
         });
 

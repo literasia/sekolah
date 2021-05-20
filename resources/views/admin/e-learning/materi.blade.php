@@ -97,6 +97,8 @@
 
 {{-- addons js --}}
 @push('js')
+<script src="{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> 
+<script src="{{ asset('assets/plugins/tinymce/tinymce.min.js')}}"></script>
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -147,16 +149,7 @@
    
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Pesan');
-            $('#judul').val('');
-            $('#message').val('');
-            $('#start_date').val('');
-            $('#end_date').val('');
-            $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
+            $('.modal-title').html('Tambah Kuis');
             $('#modal-materi').modal('show');
         });
 
