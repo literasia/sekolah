@@ -192,6 +192,8 @@
                 $('#password-baru-group').css('display', 'none');
                 $('#password-konfirmasi-group').css('display', 'none');
                 $('#modal-sekolah').modal('show');
+                $('.form-control').val('');
+                // console.log($('.add-ons-icon').children()[0]);
                 $('.modal-title').text('Tambah Sekolah');
                 $('#username').attr('readonly', false);
                 $('#password').attr('readonly', false);

@@ -89,7 +89,7 @@ class ListSekolahController extends Controller
         $adminRole = Role::where('name', 'admin')->first();
 
         $user = User::create([
-            'id_sekolah'    => $sekolah->id_sekolah,
+            'id_sekolah'    => $sekolah->id,
             'role_id'       => $adminRole->id,
             'name'          => $data['name'],
             'username'      => $data['username'],
