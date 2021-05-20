@@ -11,7 +11,7 @@ use App\Models\Superadmin\Addons;
 
 class GuruController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         if($request->req == 'table') {

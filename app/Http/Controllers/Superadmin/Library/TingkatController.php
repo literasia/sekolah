@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class TingkatController extends Controller
-{
+{ //
     private $validationRules = [
         'name' => ['required']
     ];

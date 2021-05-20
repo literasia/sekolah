@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 
 class MateriController extends Controller
-{
+{ //
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();

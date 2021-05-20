@@ -10,7 +10,7 @@ class CreatePelanggaranTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('pelanggarans', function (Blueprint $table) {

@@ -10,7 +10,7 @@ class AlterTahunTerbitAsNullableToPenerbits extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('penerbits', function (Blueprint $table) {

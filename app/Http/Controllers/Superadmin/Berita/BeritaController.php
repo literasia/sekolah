@@ -13,7 +13,7 @@ use App\Utils\CRUDResponse;
 use Yajra\DataTables\DataTables;
 
 class BeritaController extends Controller
-{
+{ //
     public function index(Request $request){
         if ($request->ajax()) {
             $data = Berita::latest()->get();

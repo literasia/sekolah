@@ -110,6 +110,25 @@
         left: 20px; 
         background: #fff;
     }
+    .demo-content {
+        visibility: hidden;
+        display: none;
+        z-index: 9999999!important;
+        background: #fff;
+    }
+    .demo-wrapper a:hover + .demo-content {
+        visibility: visible;
+        display: block;
+    }
+    .form-check-input-custom {
+        margin-left: -1rem!important;
+    }
+    .btn-next {
+        border-radius: 30px;
+    }
+    .border-bottom-custom {
+        border-bottom: 2px solid red;
+    }
 </style>
 @endpush
 

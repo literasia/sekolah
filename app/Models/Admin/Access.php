@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Pegawai;
 
 class Access extends Model
-{
+{ //
     protected $guarded = ['id'];
 
     public function pegawai()

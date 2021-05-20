@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class ProvinsiController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = Provinsi::latest()->get();
             return DataTables::of($data)

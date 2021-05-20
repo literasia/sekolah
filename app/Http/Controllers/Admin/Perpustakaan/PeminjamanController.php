@@ -9,7 +9,7 @@ use App\Models\Pinjam;
 use App\Models\Superadmin\Addons;
 
 class PeminjamanController extends Controller
-{
+{ //
     public function index()
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();

@@ -25,7 +25,7 @@ class SliderController extends Controller
     ];
 
     public function index(Request $request)
-    {
+    { //
         $cities = KabupatenKota::all();
         if ($request->ajax()) {
             $data = Slider::latest()->get();

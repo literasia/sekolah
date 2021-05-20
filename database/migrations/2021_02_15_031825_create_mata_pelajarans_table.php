@@ -10,7 +10,7 @@ class CreateMataPelajaransTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('mata_pelajarans', function (Blueprint $table) {

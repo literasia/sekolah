@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Superadmin\Addons;
 
 class PegawaiController extends Controller
-{
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
     private $pegawaiRules = [
         'tanggal_lahir' => ['nullable', 'date'],

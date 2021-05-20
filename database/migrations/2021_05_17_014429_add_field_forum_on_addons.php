@@ -10,7 +10,7 @@ class AddFieldForumOnAddons extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('addons', function (Blueprint $table) {

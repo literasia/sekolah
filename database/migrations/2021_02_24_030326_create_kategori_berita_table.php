@@ -10,7 +10,7 @@ class CreateKategoriBeritaTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('kategori_beritas', function (Blueprint $table) {

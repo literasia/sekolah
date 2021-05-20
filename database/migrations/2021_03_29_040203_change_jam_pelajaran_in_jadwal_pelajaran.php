@@ -10,7 +10,7 @@ class ChangeJamPelajaranInJadwalPelajaran extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('jadwal_pelajarans', function (Blueprint $table) {

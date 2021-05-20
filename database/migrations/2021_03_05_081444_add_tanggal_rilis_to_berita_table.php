@@ -10,7 +10,7 @@ class AddTanggalRilisToBeritaTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('beritas', function (Blueprint $table) {

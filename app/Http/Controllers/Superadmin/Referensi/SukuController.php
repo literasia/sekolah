@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class SukuController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = Suku::latest()->get();
             return DataTables::of($data)

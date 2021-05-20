@@ -10,7 +10,7 @@ class CreateGurusTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('gurus', function (Blueprint $table) {
