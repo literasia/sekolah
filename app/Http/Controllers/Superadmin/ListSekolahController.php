@@ -136,7 +136,7 @@ class ListSekolahController extends Controller
         $addons = Addons::where('sekolah_id', $sekolah->id)->first();
 
         // get User
-        $user = User::where('id_sekolah', $sekolah->id)->first();
+        $user = User::where('id_sekolah', $sekolah->id_sekolah)->first();
 
         return response()
             ->json([                
@@ -149,7 +149,7 @@ class ListSekolahController extends Controller
                 'kabupaten'   => $kabupaten->id,
                 'jenjang'   => $sekolah->jenjang,
                 'tahun_ajaran'   => $sekolah->tahun_ajaran,
-                'user'      => User::where('id_sekolah', $sekolah->id)->get(),
+                'user'      =>  User::where('id_sekolah', $sekolah->id)->first(),
                 'referensi' => $addons->referensi,
                 'sekolah' => $addons->sekolah,
                 'fungsionaris' => $addons->fungsionaris,
