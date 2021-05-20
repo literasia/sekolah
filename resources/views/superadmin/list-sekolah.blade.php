@@ -208,6 +208,7 @@
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
+                    
                     success: function (data) {
                         var html = '';
                         // old password error message
@@ -252,6 +253,7 @@
                 });
             });
             $(document).on('click', '.edit', function () {
+                console.log('tes123');
                 var id = $(this).attr('id');
                 $.ajax({
                     url: '/superadmin/list-sekolah/'+id,
@@ -264,7 +266,7 @@
                         }
                     },
                     success: function (data) {
-                        console.log(data);
+                        console.log('tes');
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
                         $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
@@ -329,3 +331,4 @@
         });
     </script>
 @endpush
+<!--  -->
