@@ -79,10 +79,15 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-clockpicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
         margin-right: 0px;
+    }
+    .modal-dialog {
+        margin-bottom: 6rem!important;
     }
 </style>
 @endpush
@@ -96,6 +101,8 @@
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
         $('#order-table').DataTable();
@@ -117,7 +124,7 @@
             // autosave_interval: '30s',
             // autosave_prefix: '{path}{query}-{id}-',
             // autosave_restore_when_empty: false,
-            // autosave_retention: '2m', ,
+            // autosave_retention: '2m', 
             image_advtab: true,
             importcss_append: true,
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
@@ -145,6 +152,16 @@
         $('#question_type').change(function(){
             $('.answer').hide();
             $('#' + $(this).val()).show();
+        });
+
+        $('#publish_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+            autoclose: true
         });
 
         var counter = 2;

@@ -75,22 +75,25 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-clockpicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
         margin-right: 0px;
     }
-
     .rotate{
         -moz-transition: all .2s linear;
         -webkit-transition: all 2s linear;
         transition: all .2s linear;
     }
-
     .rotate.down{
         -moz-transform:rotate(90deg);
         -webkit-transform:rotate(90deg);
         transform:rotate(90deg);
+    }
+    .modal-dialog {
+        margin-bottom: 6rem!important;
     }
 </style>
 @endpush
@@ -102,11 +105,10 @@
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-<script type="text/javascript">
-  
-</script>
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
@@ -128,7 +130,7 @@
             // autosave_interval: '30s',
             // autosave_prefix: '{path}{query}-{id}-',
             // autosave_restore_when_empty: false,
-            // autosave_retention: '2m', ,
+            // autosave_retention: '2m', 
             image_advtab: true,
             importcss_append: true,
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
@@ -151,6 +153,16 @@
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Kuis');
             $('#modal-materi').modal('show');
+        });
+
+        $('#publish_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+            autoclose: true
         });
 
         $(".rotate-collapse").click(function() {
