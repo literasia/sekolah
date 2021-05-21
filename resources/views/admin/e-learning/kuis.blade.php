@@ -118,7 +118,7 @@
         z-index: 9999999!important;
         background: #fff;
     }
-    .demo-wrapper a:hover + .demo-content {
+    .demo-wrapper a:hover + .demo-content, .demo-wrapper a:active + .demo-content, .demo-wrapper a:focus + .demo-content {
         visibility: visible;
         display: block;
     }

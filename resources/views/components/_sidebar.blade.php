@@ -226,6 +226,20 @@
                 </li>
                 @endif
 
+                <li class="@if (request()->is('admin/banksoal/banksoal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
+                        <span class="pcoded-mtext">Bank Soal</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/banksoal/soal') ? 'active' : '' }}">
+                            <a href="{{ route('admin.banksoal.soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Soal</span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
+
                 @if ($addons != null && $addons->daftar_nilai)
                 <li class="{{ request()->is('admin/daftar-nilai') ? 'active' : '' }}">
                      <a href="{{ route('admin.daftar-nilai') }}" class="waves-effect waves-dark">
@@ -350,7 +364,7 @@
                 @if ($addons != null && $addons->leaderboard)
                 <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="ti-cup"></i></span>
+                        <span class="pcoded-micon"><i class="fa fa-trophy"></i></span>
                         <span class="pcoded-mtext">Leaderboard</span>
                     </a>
                     <ul class="pcoded-submenu">
@@ -366,7 +380,7 @@
                 @if ($addons != null && $addons->forum)
                 <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="icon-people"></i></span>
+                        <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
                         <span class="pcoded-mtext">Forum</span>
                     </a>
                     <ul class="pcoded-submenu">
