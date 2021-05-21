@@ -9,7 +9,7 @@
     Ini adalah halaman Forum Diskusi untuk admin
 @endsection
 
-@section('icon-l', 'icon-people')
+@section('icon-l', 'fa fa-comments')
 @section('icon-r', 'icon-home')
 
 @section('link')

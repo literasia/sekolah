@@ -296,7 +296,14 @@ Route::namespace('Pengumuman')->group(function () {
     Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 
 });
-// Forum diskusi
+
+//Bank Soal
+Route::namespace('BaankSoal')->group(function () {
+    Route::get('/admin/banksoal/soal', 'BankSoalController@index')
+        ->name('banksoal.soal');
+});
+
+// Forum
 Route::namespace('Forum')->group(function () {
     Route::get('/admin/forum/forum', 'ForumController@index')
         ->name('forum.forum');
@@ -306,13 +313,9 @@ Route::namespace('Forum')->group(function () {
         ->name('forum.forum-update');
     Route::get('/admin/forum/forum/hapus/{id}', 'ForumController@destroy');
 
-// //Aktifitas
-//     Route::get('/admin/forum/ aktifitas', 'AktifitasController@index')
-//         -name('forum.aktifitas');  
 });
 
 //Leaderboard
-// Forum
 Route::namespace('Leaderboard')->group(function () {
     Route::get('/admin/leaderboard/leaderboard', 'LeaderboardController@index')
         ->name('leaderboard.leaderboard');
@@ -322,6 +325,7 @@ Route::namespace('Leaderboard')->group(function () {
         ->name('leaderboard.leaderboard-update');
     Route::get('/admin/leaderboard/leaderboard/hapus/{id}', 'LeaderboardController@destroy');
 });
+
 // Perpustakaan
 Route::namespace('Perpustakaan')->group(function () {
     Route::get('/admin/perpustakaan/peminjaman', 'PeminjamanController@index')
