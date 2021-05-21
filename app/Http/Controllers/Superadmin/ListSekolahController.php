@@ -6,7 +6,6 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
 use App\Models\Admin\Access;
-use App\Models\Superadmin\Addons;
+use App\Models\Superadmin\{Addons, Sekolah};
 
 class ListSekolahController extends Controller
 {
@@ -55,7 +54,7 @@ class ListSekolahController extends Controller
             'tahun_ajaran'  => 'required',
             'username'      => 'required|max:100|unique:users,username',
             'password'      => 'required',
-            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
+            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000 ']
         ];
 
         $message = [

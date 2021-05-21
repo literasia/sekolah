@@ -439,21 +439,21 @@
 		        				<p>Waktu kamu: 00:00:07</p>
 		        				<div class="px-3 text-center">
 		        					<p class="font-weight-bold">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
-		        					<div class="border p-2" style="width: 600px;">
+		        					<div class="border p-2">
 		        						<div class="row">
 		        							<div class="col-4 border-right">
 		        								<ul class="list-group border-0 text-left">
 		        									<li class="list-group-item border-0 px-0">
 		        										<div class="row">
-		        											<div class="col-8">
-		        											Nilai rata-rata
+		        											<div class="col-12">
+		        											<small>Nilai rata-rata</small>
 		        											</div>
 		        										</div>
 		        									</li>
 		        									<li class="list-group-item border-0 px-0">
 		        										<div class="row">
-		        											<div class="col-8">
-		        											Nilai kamu
+		        											<div class="col-12">
+		        											<small>Nilai kamu</small>
 		        											</div>
 		        										</div>
 		        									</li>
@@ -463,24 +463,24 @@
 		        								<ul class="list-group border-0 text-left">
 		        									<li class="list-group-item border-0 px-0">
 		        										<div class="row">
-		        											<div class="col-8">
+		        											<div class="col-sm-8">
 		        												<div class="progress">
 		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 																</div>
 		        											</div>
-		        											<div class="col-4">
+		        											<div class="col-sm-4">
 		        												<p>21,17%</p>
 		        											</div>
 		        										</div>
 		        									</li>
 		        									<li class="list-group-item border-0 px-0">
 		        										<div class="row">
-		        											<div class="col-8">
+		        											<div class="col-sm-8">
 		        												<div class="progress">
 		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 																</div>
 		        											</div>
-		        											<div class="col-4">
+		        											<div class="col-sm-4">
 		        												<p>27,03%</p>
 		        											</div>
 		        										</div>
@@ -508,6 +508,141 @@
 		            <label class="custom-control-label" for="hide-correct-question">Aktifkan</label>
 		        </div>
 		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, maka jumlah pertanyaan yang di jawab dengan benar tidak lagi ditampilkan.</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2 border-bottom-custom">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p>Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12" style="line-height: 1;">
+		        											<small>Nilai rata-rata</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12 pt-0" style="line-height: 1;">
+		        											<small>Nilai kamu</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>21,17%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>27,03%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="my-3">
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-4">Normal</h5>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2 invisible">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p>Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12" style="line-height: 1;">
+		        											<small>Nilai rata-rata</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12  pt-0" style="line-height: 1;">
+		        											<small>Nilai kamu</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>21,17%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>27,03%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="my-3">
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-4">Diaktifkan</h5>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
 		    </div>
 		</div>
 		<div class="row mb-4">
@@ -518,6 +653,141 @@
 		            <label class="custom-control-label" for="hide-quiz-time">Aktifkan</label>
 		        </div>
 		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, maka waktu untuk menyelesaikan kuis ini tidak akan ditampilkan.</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p class="border-bottom-custom">Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12" style="line-height: 1;">
+		        											<small>Nilai rata-rata</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12 pt-0" style="line-height: 1;">
+		        											<small>Nilai kamu</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>21,17%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>27,03%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="my-3">
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-4">Normal</h5>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p class="invisible">Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12" style="line-height: 1;">
+		        											<small>Nilai rata-rata</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12  pt-0" style="line-height: 1;">
+		        											<small>Nilai kamu</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>21,17%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>27,03%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="my-3">
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-4">Diaktifkan</h5>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
 		    </div>
 		</div>
 		<div class="row mb-4">
@@ -528,6 +798,141 @@
 		            <label class="custom-control-label" for="hide-score">Aktifkan</label>
 		        </div>
 		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, maka skor akhir tidak akan ditampilkan.</small>
+		        <div class="demo-wrapper position-relative">
+		        	<a href="#" class="text-info"><u>Demo</u></a>
+		        	<div class="demo-content position-absolute p-3 shadow rounded">
+		        		<div class="row p-2">
+		        			<div class="col-md-6 border p-3">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p>Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold border-bottom-custom">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12" style="line-height: 1;">
+		        											<small>Nilai rata-rata</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12 pt-0" style="line-height: 1;">
+		        											<small>Nilai kamu</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>21,17%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>27,03%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="my-3">
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-4">Normal</h5>
+		        			</div>
+		        			<div class="col-md-6 border p-3">
+		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h6 class="font-weight-bold">Hasil</h6>
+		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
+		        				<p>Waktu kamu: 00:00:07</p>
+		        				<div class="px-3 text-center">
+		        					<p class="font-weight-bold invisible">Kamu telah menjangkau 10 dari 37 poin, (27,03%)</p>
+		        					<div class="border p-2">
+		        						<div class="row">
+		        							<div class="col-4 border-right">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12" style="line-height: 1;">
+		        											<small>Nilai rata-rata</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-12  pt-0" style="line-height: 1;">
+		        											<small>Nilai kamu</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        							<div class="col-8 text-left">
+		        								<ul class="list-group border-0 text-left">
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 21%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>21,17%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        									<li class="list-group-item border-0 px-0">
+		        										<div class="row">
+		        											<div class="col-sm-8 p-0">
+		        												<div class="progress">
+		  															<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 27%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+																</div>
+		        											</div>
+		        											<div class="col-sm-4 pr-0 pl-2">
+		        												<small>27,03%</small>
+		        											</div>
+		        										</div>
+		        									</li>
+		        								</ul>
+		        							</div>
+		        						</div>
+		        					</div>
+		        				</div>
+		        				<div class="my-3">
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
+		        				</div>
+		        				<h5 class="font-weight-bold mt-4">Diaktifkan</h5>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </div>
 		    </div>
 		</div>
 	</div>
