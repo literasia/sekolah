@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class AgamaController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = Agama::latest()->get();
             return DataTables::of($data)

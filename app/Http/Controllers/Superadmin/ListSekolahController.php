@@ -149,7 +149,7 @@ class ListSekolahController extends Controller
                 'kabupaten'   => $kabupaten->id,
                 'jenjang'   => $sekolah->jenjang,
                 'tahun_ajaran'   => $sekolah->tahun_ajaran,
-                'user'      => User::where('id_sekolah', $sekolah->id)->get(),
+                'user'      =>  User::where('id_sekolah', $sekolah->id)->first(),
                 'referensi' => $addons->referensi,
                 'sekolah' => $addons->sekolah,
                 'fungsionaris' => $addons->fungsionaris,

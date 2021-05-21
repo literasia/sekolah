@@ -10,7 +10,7 @@ class CreatePegawaisTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('pegawais', function (Blueprint $table) {

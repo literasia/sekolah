@@ -10,7 +10,7 @@ class CreateVotingTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('votings', function (Blueprint $table) {

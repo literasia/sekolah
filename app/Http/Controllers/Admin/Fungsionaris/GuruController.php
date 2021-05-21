@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class GuruController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 

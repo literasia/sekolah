@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ //
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $kelas = Kelas::where('user_id', auth()->id())->get();

@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Superadmin\Addons;
 
 class CalonController extends Controller
-{
+{ //
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $namaSiswa = Siswa::join('users', 'users.name', 'siswas.nama_lengkap')->where('id_sekolah', auth()->user()->id_sekolah)->get();

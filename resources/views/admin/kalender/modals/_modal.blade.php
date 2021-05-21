@@ -61,8 +61,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-outline-success" style="margin-right: 10px;" id="btnEvent">Simpan</button>
-                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-sm btn-success" style="margin-right: 10px;" id="btnEvent">Simpan</button>
+                    <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     <div id="deleteEvent" class="text-left"></div>
                 </div>
             </div>

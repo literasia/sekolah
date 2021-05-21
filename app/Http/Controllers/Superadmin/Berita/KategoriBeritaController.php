@@ -9,7 +9,7 @@ use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 
 class KategoriBeritaController extends Controller
-{
+{ //
     public function index(Request $request) {
         if ($request->ajax()) {
             $data = KategoriBerita::latest()->get();

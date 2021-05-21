@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Superadmin\Addons;
 
 class PengaturanHakAksesController extends Controller
-{
+{ //
     public function index() {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
     	// $pegawais = Pegawai::where(['user_id'=>auth()->user()->id])->get();

@@ -10,7 +10,7 @@ class CreateSanksiTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ ///
     public function up()
     {
         Schema::create('sanksis', function (Blueprint $table) {

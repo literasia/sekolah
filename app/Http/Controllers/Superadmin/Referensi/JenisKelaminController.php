@@ -10,7 +10,7 @@ use App\Models\Superadmin\JenisKelamin;
 
 class JenisKelaminController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = JenisKelamin::latest()->get();
             return DataTables::of($data)

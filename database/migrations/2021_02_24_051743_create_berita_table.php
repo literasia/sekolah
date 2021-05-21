@@ -10,7 +10,7 @@ class CreateBeritaTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('beritas', function (Blueprint $table) {

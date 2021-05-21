@@ -10,7 +10,7 @@ use App\Models\Superadmin\StatusNikah;
 
 class StatusNikahController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) { //
         if ($request->ajax()) {
             $data = StatusNikah::latest()->get();
             return DataTables::of($data)

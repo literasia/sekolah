@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
     private const KEWARGANEGARAAN_RULE = "WNI,WNA";
     private const PENDIDIKAN_RULE = "SD/Sederajat,SMP/MTs/Sederajat,SMA/MA/Sederajat,D1/D2/D3,S1,S2,S3";
