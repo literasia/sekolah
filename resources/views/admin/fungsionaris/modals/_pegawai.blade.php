@@ -9,15 +9,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createForm" action="{{ route('admin.fungsionaris.pegawai.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="form-pegawai" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     @method("POST")
                     @csrf
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="nama_pegawai">Nama Lengkap</label>
-                                <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control form-control-sm" placeholder="Nama Lengkap" required>
+                                <label for="name">Nama Lengkap</label>
+                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Nama Lengkap" required>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="provinsi">Provinsi</label>
-                                <select name="provinsi" id="provinsi" class="form-control form-control-sm">
+                                <select name="provinsi_id" id="provinsi" class="form-control form-control-sm">
                                     <option value="">-- Provinsi --</option>
                                     @foreach($provinsis as $provinsi)
                                     <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
@@ -122,7 +122,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten / Kota</label>
-                                <select name="kabupaten" id="kabupaten" class="form-control form-control-sm">
+                                <select name="kabupaten_id" id="kabupaten" class="form-control form-control-sm">
                                     <option value="">-- Kabupaten / Kota --</option>
                                     {{-- @foreach($kabupaten as $kab) --}}
                                     {{-- <option value="{{ $kab->id }}">{{ $kab->name }}</option> --}}
@@ -135,7 +135,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="kecamatan">Kecamatan</label>
-                                <select name="kecamatan" id="kecamatan" class="form-control form-control-sm">
+                                <select name="kecamatan_id" id="kecamatan" class="form-control form-control-sm">
                                     <option value="">-- Kecamatan --</option>
                                     {{-- @foreach($kecamatan as $kec) --}}
                                     {{-- <option value="{{ $kec->id }}">{{ $kec->name }}</option> --}}
@@ -213,8 +213,8 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="bagian">Bagian Pegawai</label>
-                                <select name="bagian" id="bagian" class="form-control form-control-sm" required>
+                                <label for="bagian_pegawai_id">Bagian Pegawai</label>
+                                <select name="bagian_pegawai_id" id="bagian_pegawai_id" class="form-control form-control-sm" required>
                                     <option value="">-- Bagian Pegawai --</option>
                                     @foreach($bagian as $bagian)
                                     <option value="{{ $bagian->id }}">{{ $bagian->name }}</option>
@@ -258,23 +258,38 @@
                                 <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Username" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
+                        <div class="col" id="default-password-group">
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password" required>
+                                <label for="password">Password:</label>
+                                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password">
                             </div>
                         </div>
-                        <div class="col">
+                    </div>
+                    <div class="row">
+                        <div class="col" id="password-lama-group">
                             <div class="form-group">
-                                <label for="password_confirmation">Konfirmasi Password</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control form-control-sm" placeholder="Konfirmasi Password" required>
+                                <label for="password">Password Lama:</label>
+                                <input type="password" name="password_lama" id="password_lama" class="form-control form-control-sm" placeholder="Password">
+                                <p class="form-text text-muted" id="old-password-message"></p>
+                            </div>
+                        </div>
+                        <div class="col" id="password-baru-group">
+                            <div class="form-group">
+                                <label for="password">Password Baru:</label>
+                                <input type="password" name="password_baru" id="password_baru" class="form-control form-control-sm" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="col" id="password-konfirmasi-group">
+                            <div class="form-group">
+                                <label for="password">Konfirmasi Password:</label>
+                                <input type="password" name="confirmation_password" id="password_konfirmasi" class="form-control form-control-sm" placeholder="Password">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" name="hidden_id" id="hidden_id">
+                    <input type="hidden" id="action">
                     <button type="submit" class="btn btn-sm btn-success">Simpan</button>
                     <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                 </div>

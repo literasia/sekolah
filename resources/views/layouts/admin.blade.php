@@ -31,20 +31,6 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <div class="page-body">
-                                        {{-- [ flash message ] --}}
-                                        @if(session('success'))
-                                            <div class="alert alert-success text-center">{{ session('success') }}</div>
-                                        @endif
-
-                                        @if(session('failed'))
-                                            <div class="alert alert-danger text-center">{{ session('failed') }}</div>
-                                        @endif
-
-                                        @foreach ($errors->all() as $err)
-                                            <div class="alert alert-danger text-center">{{ $err }}</div>
-                                        @endforeach
-
-                                        {{-- [ page content ] start --}}
                                         @yield('content')
                                     </div>
                                 </div>

@@ -9,5 +9,9 @@ class StatusGuru extends Model
 {
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
+    public function guru(){
+        return $this->hasOne(Guru::class);
+    }
 }

@@ -103,14 +103,22 @@ Route::namespace('EVoting')->group(function () {
 });
 
 // Fungsionaris
-Route::namespace('Fungsionaris')->name('fungsionaris.')->prefix('fungsionaris')->group(function () {
-    Route::resource('pegawai', 'PegawaiController');
-    Route::get('guru', 'GuruController@index')
-        ->name('guru');
-    Route::post('guru', 'GuruController@write')
-        ->name('guru.write');
+Route::namespace('Fungsionaris')->name('fungsionaris.')->group(function () {
+    // Pegawai
+    Route::get('admin/fungsionaris/pegawai', 'PegawaiController@index')->name('pegawai');
+    Route::get('admin/fungsionaris/pegawai/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
+    Route::post('admin/fungsionaris/pegawai', 'PegawaiController@store')->name('pegawai.store');
+    Route::post('admin/fungsionaris/pegawai/update', 'PegawaiController@update')->name('pegawai.update');
+    Route::get('admin/fungsionaris/pegawai/delete/{id}', 'PegawaiController@destroy');
     Route::get('getKabupaten/{id}', 'PegawaiController@getKabupatenKota');
     Route::get('getKecamatan/{id}', 'PegawaiController@getKecamatan');
+
+    // Guru
+    Route::get('admin/fungsionaris/guru', 'GuruController@index')->name('guru');
+    Route::get('admin/fungsionaris/guru/edit/{id}', 'GuruController@edit')->name('guru.edit');
+    Route::post('admin/fungsionaris/guru', 'GuruController@store')->name('guru.store');
+    Route::post('admin/fungsionaris/guru/update', 'GuruController@update')->name('guru.update');
+    Route::get('admin/fungsionaris/guru/delete/{id}', 'GuruController@destroy');
 });
 
      // Sekolah
