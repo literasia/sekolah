@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin\Fungsionaris;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Models\Pegawai;
 use App\Utils\CRUDResponse;
 use Carbon\Carbon;
 use Exception;
@@ -13,39 +11,48 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Superadmin\{Provinsi, KabupatenKota, Kecamatan};
+use App\Models\Superadmin\{Provinsi, KabupatenKota, Kecamatan, Addons, Sekolah};
 use App\Models\Admin\Access;
-use App\Models\BagianPegawai;
-use App\Models\Semester;
-use App\Models\Superadmin\Sekolah;
+use App\Models\{BagianPegawai, Semester, Pegawai};
+use App\{User, Role};
 use Illuminate\Support\Facades\Auth;
-use App\Models\Superadmin\Addons;
+use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
 
 class PegawaiController extends Controller
-{ /
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
-    private $pegawaiRules = [
-        'tanggal_lahir' => ['nullable', 'date'],
-        'jk' => ['nullable', 'in:Laki-Laki,Perempuan'],
-        'agama' => ['nullable', 'in:' . PegawaiController::AGAMA_RULE],
-        'is_menikah' => ['nullable', 'boolean'],
-        'tanggal_mulai' => ['nullable', 'date'],
-        'foto' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2000']
-    ];
 
-    public function index() {
+    public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-
-        $pegawais = Pegawai::whereHas('user', function($q) {
-            return $q->whereIdSekolah(auth()->user()->id_sekolah);
-        })->get();
+        if ($request->ajax()) {
+            $data = Pegawai::whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
         $provinsis = Provinsi::all();
         $kabupaten = KabupatenKota::all();
         $kecamatan  = Kecamatan::all();
         $bagian = BagianPegawai::where('user_id', Auth::id())->get();
         $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
-        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 'addons' => $addons , 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan,'pegawais' => $pegawais, 'bagian' => $bagian, 'semester' => $semester, 'mySekolah' => User::sekolah()]);
+
+        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 
+                                                'addons' => $addons , 
+                                                'kabupaten' => $kabupaten, 
+                                                'kecamatan' => $kecamatan,
+                                                'bagian' => $bagian, 
+                                                'semester' => $semester, 
+                                                'mySekolah' => User::sekolah()]);
     }
 
     public function getKabupatenKota($id)
@@ -54,92 +61,67 @@ class PegawaiController extends Controller
         return response()->json($kabupaten);
     }
 
-    public function store(Request $req) {
-        $data = $req->all();
-        $validator = Validator::make($data, $this->pegawaiRules);
+    public function store(Request $request) {
+        // Validation rules
+        $rules = [
+            'tanggal_lahir' => ['nullable', 'date'],
+            'jk' => ['nullable', 'in:Laki-Laki,Perempuan'],
+            'agama' => ['nullable', 'in:' . PegawaiController::AGAMA_RULE],
+            'is_menikah' => ['nullable', 'boolean'],
+            'tanggal_mulai' => ['nullable', 'date'],
+            'foto' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2000']
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
+
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
         }
 
-        $validator = Validator::make($data, [
-            'username' => ['required', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:6'],
-            'email' => ['nullable', 'unique:users']
+        // Add User
+        $user = User::create([
+            'role_id' => 4,
+            'id_sekolah' => auth()->user()->id_sekolah,
+            'name' => $request->name,
+            'username' => $request->username,
+            'nis' => $request->nip,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors()->all())->withInput();
+
+        // $user_id = User::findOrFail($user->id);
+
+        // // get Roles to attach user roles
+        // $role = Role::where('name', 'pegawai')->first();
+
+        // // attach
+        // $user_id->roles()->attach($role->id);
+
+        // Add Photo to public
+        $request['foto'] = null;
+        if ($request->file('foto')) {
+            $data['foto'] = $request->file('foto')->store('pegawais', 'public');
         }
 
-        $exception = DB::transaction(function () use ($data, $req) {
-            $auth = auth()->user();
+        // Change Date Type
+        $request['tanggal_lahir'] = Carbon::parse($request['tanggal_lahir'])->format('Y-m-d');
+        $request['tanggal_mulai'] = Carbon::parse($request['tanggal_mulai'])->format('Y-m-d');
+        $request['user_id'] = $user->id;
 
-            DB::beginTransaction();
-            try {
-                $userId = User::create([
-                    'role_id' => 4,
-                    'id_sekolah' => $auth['id_sekolah'],
-                    'name' => $data['nama_pegawai'],
-                    'username' => $data['username'],
-                    'nis' => $data['nip'],
-                    'email' => $data['email'],
-                    'password' => Hash::make($data['password'])
-                ])->id;
+        // Create Pegawai
+        $pegawai = Pegawai::create($request->all());
 
-                $data['foto'] = null;
-                if ($req->file('foto')) {
-                    $data['foto'] = $req->file('foto')->store('pegawais', 'public');
-                }
-
-                $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
-                $data['tanggal_mulai'] = Carbon::parse($data['tanggal_mulai'])->format('Y-m-d');
-                $pegawai = Pegawai::create([
-                    'user_id' => $userId,
-                    'name' => $data['nama_pegawai'],
-                    'nip' => $data['nip'],
-                    'nik' => $data['nik'],
-                    'gelar_depan' => $data['gelar_depan'],
-                    'gelar_belakang' => $data['gelar_belakang'],
-                    'tempat_lahir' => $data['tempat_lahir'],
-                    'tanggal_lahir' => $data['tanggal_lahir'],
-                    'jk' => $data['jk'],
-                    'agama' => $data['agama'],
-                    'is_menikah' => $data['is_menikah'],
-                    'alamat_tinggal' => $data['alamat_tinggal'],
-                    'provinsi_id' => $data['provinsi'],
-                    'kabupaten_kota_id' => $data['kabupaten'],
-                    'kecamatan_id' => $data['kecamatan'],
-                    'dusun' => $data['dusun'],
-                    'rt' => $data['rt'],
-                    'rw' => $data['rw'],
-                    'kode_pos' => $data['kode_pos'],
-                    'no_telepon_rumah' => $data['no_telepon_rumah'],
-                    'no_telepon' => $data['no_telepon'],
-                    'tanggal_mulai' => $data['tanggal_mulai'],
-                    'bagian_pegawai_id' => $data['bagian'],
-                    'tahun_ajaran' => $data['tahun_ajaran'],
-                    'semester' => $data['semester'],
-                    'foto' => $data['foto']??""
-                ]);
-
-                // Insert Access
-                $access = Access::create([
-                    'sekolah_id'=>$auth->sekolah()->id,
-                    'pegawai_id'=>$pegawai->id,
-                ]);
-
-                DB::commit();
-            } catch (Exception $e) {
-                DB::rollback();
-                dd($e->getMessage());
-                return $e->getMessage();
-            }
-        });
-
-        if ($exception) {
-            return redirect()->back()->withErrors($exception)->withInput();
-        }
-
-        return redirect()->back()->with(CRUDResponse::successCreate("pegawai"));
+        // Create Accesses
+        $access = Access::create([
+            'sekolah_id'=> auth()->user()->id_sekolah,
+            'pegawai_id'=> $pegawai->id,
+        ]);
+    
+        // Respons Data
+        return response()->json(['success' => 'Data berhasil disimpan.']);
     }
 
     public function edit($id) {
@@ -147,63 +129,107 @@ class PegawaiController extends Controller
         $provinsis = Provinsi::all();
         $kabupaten = KabupatenKota::all();
         $kecamatan  = Kecamatan::all();
-        $bagian = BagianPegawai::where('user_id', Auth::id())->get();
+        $bagian = BagianPegawai::where('user_id', auth()->user()->id)->get();
         $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
 
-        return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah(), 'provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'bagian' => $bagian, 'semester' => $semester]);
+        // get User
+        $user = User::findOrFail($pegawai->user_id);
+
+        return response()
+            ->json([                
+                'id'   => $pegawai->id,
+                'username' => $user->username,                
+                'name'   => $pegawai->name,
+                'email'   => $pegawai->email,
+                'nip'   => $pegawai->nip,
+                'provinsi_id'   => $pegawai->provinsi_id,
+                'kabupaten_kota_id'   => $pegawai->kabupaten_kota_id,
+                'kecamatan_id'   => $pegawai->kecamatan_id,
+                'nik'   => $pegawai->nik,
+                'gelar_depan'   => $pegawai->gelar_depan,
+                'gelar_belakang'   => $pegawai->gelar_belakang,
+                'tempat_lahir' => $pegawai->tempat_lahir,
+                'jk' => $pegawai->jk,
+                'agama' => $pegawai->agama,
+                'is_menikah' => $pegawai->is_menikah,
+                'alamat_tinggal' => $pegawai->alamat_tinggal,
+                'tanggal_lahir' => $pegawai->tanggal_lahir,
+                'dusun' => $pegawai->dusun,
+                'rt' => $pegawai->rt,
+                'rw' => $pegawai->rw,
+                'kode_pos' => $pegawai->kode_pos,
+                'no_telepon_rumah' => $pegawai->no_telepon_rumah,
+                'no_telepon' => $pegawai->no_telepon,
+                'email' => $pegawai->email,
+                'tanggal_mulai' => $pegawai->tanggal_mulai,
+                'tahun_ajaran' => $pegawai->tahun_ajaran,
+                'jenjang' => $pegawai->jenjang,
+                'foto' => $pegawai->foto,
+                'bagian_pegawai_id' => $pegawai->bagian_pegawai_id,
+                'semester' => $pegawai->semester
+            ]);
     }
 
-    public function update($id, Request $req) {
-        $data = $req->all();
+    public function update(Request $request) {
+        $data = $request->all();
+        $id = $request->hidden_id;
 
-        $validator = Validator::make($data, $this->pegawaiRules);
+        // Validation rules
+        $rules = [
+            'tanggal_lahir' => ['nullable', 'date'],
+            'jk' => ['nullable', 'in:Laki-Laki,Perempuan'],
+            'agama' => ['nullable', 'in:' . PegawaiController::AGAMA_RULE],
+            'is_menikah' => ['nullable', 'boolean'],
+            'tanggal_mulai' => ['nullable', 'date'],
+            'password_baru' => 'required_with:password_confirmation',
+            'password_confirmation' => 'same:password_baru'
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
+
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
         }
 
         $pegawai = Pegawai::findOrFail($id);
         $currFoto = $pegawai->foto;
         $data['foto'] = $pegawai->foto;
-        $data['name'] = $data['nama_pegawai'];
-        if ($req->file('foto')) {
-            $data['foto'] = $req->file('foto')->store('pegawais', 'public');
-        } else {
-            $currFoto = null;
+        $data['name'] = $data['name'];
+
+        // Request new photo
+        if ($request->file('foto')) {
+            // Insert new photo
+            $data['foto'] = $request->file('foto')->store('pegawais', 'public');
+            // if exist same file photo delete it
+            if ($request->file('foto') && $currFoto && Storage::disk('public')->exists($currFoto)) {
+                Storage::disk('public')->delete($currFoto);
+            }
+        } 
+
+        // Change User Password
+        // get user
+        $user = User::findOrFail($pegawai->user_id);
+
+        if (!empty($request->password_lama)) {
+            if (Hash::check($request->password_lama, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($request->password_baru)
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error_old_password' => true
+                ]);
+            }
         }
 
-        $pegawai->update([
-            'name' => $data['nama_pegawai'],
-            'nip' => $data['nip'],
-            'nik' => $data['nik'],
-            'gelar_depan' => $data['gelar_depan'],
-            'gelar_belakang' => $data['gelar_belakang'],
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-            'jk' => $data['jk'],
-            'agama' => $data['agama'],
-            'is_menikah' => $data['is_menikah'],
-            'alamat_tinggal' => $data['alamat_tinggal'],
-            'provinsi_id' => $data['provinsi'],
-            'kabupaten_kota_id' => $data['kabupaten'],
-            'kecamatan_id' => $data['kecamatan'],
-            'dusun' => $data['dusun'],
-            'rt' => $data['rt'],
-            'rw' => $data['rw'],
-            'kode_pos' => $data['kode_pos'],
-            'no_telepon_rumah' => $data['no_telepon_rumah'],
-            'no_telepon' => $data['no_telepon'],
-            'tanggal_mulai' => $data['tanggal_mulai'],
-            'bagian_pegawai_id' => $data['bagian'],
-            'tahun_ajaran' => $data['tahun_ajaran'],
-            'semester' => $data['semester'],
-            'foto' => $data['foto']
-        ]);
+        $pegawai->update($request->all());   
 
-        if ($req->file('foto') && $currFoto && Storage::disk('public')->exists($currFoto)) {
-            Storage::disk('public')->delete($currFoto);
-        }
-
-        return redirect()->route('admin.fungsionaris.pegawai.index')->with(CRUDResponse::successUpdate("pegawai " . $pegawai->name));
+        // Respons Data
+        return response()->json(['success' => 'Data berhasil diubah.']);
     }
 
     public function destroy($id) {
@@ -215,6 +241,7 @@ class PegawaiController extends Controller
             Storage::disk('public')->delete($pegawai->foto);
         }
 
-        return redirect()->back()->with(CRUDResponse::successDelete("pegawai"));
+        // Respons Data
+        return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

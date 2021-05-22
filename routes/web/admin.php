@@ -28,49 +28,39 @@ Route::namespace('PesertaDidik')
 
 // Pelanggaran
 Route::namespace('Pelanggaran')->group(function () {
-    Route::get('/admin/pelanggaran/siswa', 'SiswaController@index')
-        ->name('pelanggaran.siswa');
+    Route::get('/admin/pelanggaran/siswa', 'SiswaController@index')->name('pelanggaran.siswa');
     Route::post('/admin/pelanggaran/siswa', 'SiswaController@store');
     Route::get('/admin/pelanggaran/siswa/{id}', 'SiswaController@edit');
-    Route::post('/admin/pelanggaran/siswa/update', 'SiswaController@update')
-        ->name('pelanggaran.siswa-update');
+    Route::post('/admin/pelanggaran/siswa/update', 'SiswaController@update')->name('pelanggaran.siswa-update');
     Route::get('/admin/pelanggaran/siswa/hapus/{id}', 'SiswaController@destroy');
 
-    Route::get('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')
-        ->name('pelanggaran.kategori-pelanggaran');
+    Route::get('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')->name('pelanggaran.kategori-pelanggaran');
     Route::post('/admin/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@store');
     Route::get('/admin/pelanggaran/kategori-pelanggaran/{id}', 'KategoriPelanggaranController@edit');
-    Route::post('/admin/pelanggaran/kategori-pelanggaran/update', 'KategoriPelanggaranController@update')
-        ->name('pelanggaran.kategori-pelanggaran-update');
+    Route::post('/admin/pelanggaran/kategori-pelanggaran/update', 'KategoriPelanggaranController@update')->name('pelanggaran.kategori-pelanggaran-update');
     Route::get('/admin/pelanggaran/kategori-pelanggaran/hapus/{id}', 'KategoriPelanggaranController@destroy');
 
-    Route::get('/admin/pelanggaran/sanksi', 'SanksiController@index')
-        ->name('pelanggaran.sanksi');
+    Route::get('/admin/pelanggaran/sanksi', 'SanksiController@index')->name('pelanggaran.sanksi');
     Route::post('/admin/pelanggaran/sanksi', 'SanksiController@store');
     Route::get('/admin/pelanggaran/sanksi/{id}', 'SanksiController@edit');
-    Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')
-        ->name('pelanggaran.sanksi-update');
+    Route::post('/admin/pelanggaran/sanksi/update', 'SanksiController@update')->name('pelanggaran.sanksi-update');
     Route::get('/admin/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
 
 
 
-    Route::get('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@index')
-        ->name('pelanggaran.surat-peringatan');
+    Route::get('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@index')->name('pelanggaran.surat-peringatan');
     Route::post('/admin/pelanggaran/surat-peringatan', 'SuratPeringatanController@store');
     Route::get('/admin/pelanggaran/surat-peringatan/{id}', 'SuratPeringatanController@edit');
-    Route::post('/admin/pelanggaran/surat-peringatan/update', 'SuratPeringatanController@update')
-        ->name('pelanggaran.surat-peringatan-update');
+    Route::post('/admin/pelanggaran/surat-peringatan/update', 'SuratPeringatanController@update')->name('pelanggaran.surat-peringatan-update');
     Route::get('/admin/pelanggaran/surat-peringatan/hapus/{id}', 'SuratPeringatanController@destroy');
 });
 
 // E-Voting
 Route::namespace('EVoting')->group(function () {
-    Route::get('/admin/e-voting/calon', 'CalonController@index')
-        ->name('e-voting.calon');
+    Route::get('/admin/e-voting/calon', 'CalonController@index')->name('e-voting.calon');
     Route::post('/admin/e-voting/calon', 'CalonController@store');
     Route::get('/admin/e-voting/calon/{id}', 'CalonController@edit');
-    Route::post('/admin/e-voting/calon/update', 'CalonController@update')
-        ->name('e-voting.calon-update');
+    Route::post('/admin/e-voting/calon/update', 'CalonController@update')->name('e-voting.calon-update');
     Route::get('/admin/e-voting/calon/hapus/{id}', 'CalonController@destroy');
 
 
@@ -82,10 +72,7 @@ Route::namespace('EVoting')->group(function () {
         ->name('e-voting.posisi-update');
     Route::get('/admin/e-voting/posisi/hapus/{id}', 'PosisiController@destroy');
 
-
-
-    Route::get('/admin/e-voting/pemilihan', 'PemilihanController@index')
-        ->name('e-voting.pemilihan');
+    Route::get('/admin/e-voting/pemilihan', 'PemilihanController@index')->name('e-voting.pemilihan');
     Route::post('/admin/e-voting/pemilihan', 'PemilihanController@store');
     Route::get('/admin/e-voting/pemilihan/{id}', 'PemilihanController@edit');
     Route::get('/admin/e-voting/pemilihan/kelas/{id}', 'PemilihanController@getKelas')->name('e-voting.pemilihan.kelas');
@@ -103,14 +90,22 @@ Route::namespace('EVoting')->group(function () {
 });
 
 // Fungsionaris
-Route::namespace('Fungsionaris')->name('fungsionaris.')->prefix('fungsionaris')->group(function () {
-    Route::resource('pegawai', 'PegawaiController');
-    Route::get('guru', 'GuruController@index')
-        ->name('guru');
-    Route::post('guru', 'GuruController@write')
-        ->name('guru.write');
+Route::namespace('Fungsionaris')->name('fungsionaris.')->group(function () {
+    // Pegawai
+    Route::get('admin/fungsionaris/pegawai', 'PegawaiController@index')->name('pegawai');
+    Route::get('admin/fungsionaris/pegawai/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
+    Route::post('admin/fungsionaris/pegawai', 'PegawaiController@store')->name('pegawai.store');
+    Route::post('admin/fungsionaris/pegawai/update', 'PegawaiController@update')->name('pegawai.update');
+    Route::get('admin/fungsionaris/pegawai/delete/{id}', 'PegawaiController@destroy');
     Route::get('getKabupaten/{id}', 'PegawaiController@getKabupatenKota');
     Route::get('getKecamatan/{id}', 'PegawaiController@getKecamatan');
+
+    // Guru
+    Route::get('admin/fungsionaris/guru', 'GuruController@index')->name('guru');
+    Route::get('admin/fungsionaris/guru/edit/{id}', 'GuruController@edit')->name('guru.edit');
+    Route::post('admin/fungsionaris/guru', 'GuruController@store')->name('guru.store');
+    Route::post('admin/fungsionaris/guru/update', 'GuruController@update')->name('guru.update');
+    Route::get('admin/fungsionaris/guru/delete/{id}', 'GuruController@destroy');
 });
 
      // Sekolah
@@ -159,6 +154,12 @@ Route::namespace('Sekolah')->group(function () {
     Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
         ->name('sekolah.jam.write');
  });
+
+// Bank Soal
+Route::namespace('BankSoal')->group(function () {
+    Route::get('/admin/banksoal/soal', 'SoalController@index')
+        ->name('banksoal.soal');
+});
 
 // Pelajaran
 Route::namespace('Pelajaran')->group(function () {
@@ -296,14 +297,7 @@ Route::namespace('Pengumuman')->group(function () {
     Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 
 });
-
-//Bank Soal
-Route::namespace('BaankSoal')->group(function () {
-    Route::get('/admin/banksoal/soal', 'BankSoalController@index')
-        ->name('banksoal.soal');
-});
-
-// Forum
+// Forum diskusi
 Route::namespace('Forum')->group(function () {
     Route::get('/admin/forum/forum', 'ForumController@index')
         ->name('forum.forum');
@@ -313,9 +307,13 @@ Route::namespace('Forum')->group(function () {
         ->name('forum.forum-update');
     Route::get('/admin/forum/forum/hapus/{id}', 'ForumController@destroy');
 
+// //Aktifitas
+//     Route::get('/admin/forum/ aktifitas', 'AktifitasController@index')
+//         -name('forum.aktifitas');  
 });
 
 //Leaderboard
+// Forum
 Route::namespace('Leaderboard')->group(function () {
     Route::get('/admin/leaderboard/leaderboard', 'LeaderboardController@index')
         ->name('leaderboard.leaderboard');
@@ -325,7 +323,6 @@ Route::namespace('Leaderboard')->group(function () {
         ->name('leaderboard.leaderboard-update');
     Route::get('/admin/leaderboard/leaderboard/hapus/{id}', 'LeaderboardController@destroy');
 });
-
 // Perpustakaan
 Route::namespace('Perpustakaan')->group(function () {
     Route::get('/admin/perpustakaan/peminjaman', 'PeminjamanController@index')

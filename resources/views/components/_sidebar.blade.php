@@ -103,7 +103,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/fungsionaris/pegawai') ? 'active' : '' }}">
-                            <a href="{{ route('admin.fungsionaris.pegawai.index') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('admin.fungsionaris.pegawai') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pegawai</span>
                             </a>
                         </li>
@@ -226,7 +226,7 @@
                 </li>
                 @endif
 
-                <li class="@if (request()->is('admin/banksoal/banksoal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
                         <span class="pcoded-mtext">Bank Soal</span>

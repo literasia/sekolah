@@ -18,7 +18,7 @@ class Pegawai extends Model
     //     'no_telepon', 'tanggal_mulai', 'bagian_pegawai_id', 'tahun_ajaran', 'semester_id', 'foto'
     // ];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function user()
     {
@@ -28,5 +28,9 @@ class Pegawai extends Model
     public function access()
     {
         return $this->hasOne(Access::class);
+    }
+
+    public function guru(){
+        return $this->hasOne(Guru::class);
     }
 }

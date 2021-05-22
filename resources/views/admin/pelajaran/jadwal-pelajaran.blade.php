@@ -233,7 +233,6 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-
     <script>
         $(document).ready(function () {
 
@@ -287,7 +286,7 @@
                     // dataType: 'JSON',
                     data: $("#form-jadwal-pelajaran").serialize(),
                     success: function (data) {
-                        toastr.success('Data berhasil disimpan');
+                        Swal.fire("Berhasil", data.success, "success");
                         resetForm();
                         table.hide();
                     },
@@ -319,7 +318,7 @@
                             processData: false,
                             contentType: false,
                             success: function (data) {
-                                toastr.success('Data berhasil dihapus');
+                                Swal.fire("Berhasil", data.success, "success");
                                 setTimeout(() => {
                                  window.location.reload();
                                 }, 500)
