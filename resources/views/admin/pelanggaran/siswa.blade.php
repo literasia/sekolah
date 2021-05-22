@@ -197,7 +197,7 @@
                             toastr.error(html);
                         }
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            toastr.success(data.success);
                             $('#modal-siswa').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pelanggaran-siswa')[0].reset();
@@ -223,16 +223,16 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#siswa_id').val(data.nama_siswa.siswa_id);
-                        $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
-                        $('#pelanggaran').val(data.pelanggaran.pelanggaran);
-                        $('#poin_lama').val(data.poin.poin);
-                        $('#poin').val(data.poin.poin);
-                        $('#sebab').val(data.sebab.sebab);
-                        $('#sanksi').val(data.sanksi.sanksi);
-                        $('#penanganan').val(data.penanganan.penanganan);
-                        $('#keterangan').val(data.keterangan.keterangan);
-                        $('#hidden_id').val(data.nama_siswa.id);
+                        $('#siswa_id').select2('val', '1');
+                        $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran);
+                        $('#pelanggaran').val(data.pelanggaran);
+                        $('#poin_lama').val(data.poin);
+                        $('#poin').val(data.poin);
+                        $('#sebab').val(data.sebab);
+                        $('#sanksi').val(data.sanksi);
+                        $('#penanganan').val(data.penanganan);
+                        $('#keterangan').val(data.keterangan);
+                        $('#hidden_id').val(data.id);
                         $('#btn')
                             .removeClass('btn-success')
                             .addClass('btn-info')

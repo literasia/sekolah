@@ -8,14 +8,13 @@ use App\Models\Pegawai;
 use App\Models\{JadwalPelajaran, MataPelajaran};
 class Guru extends Model
 {
-    protected $fillable = ['nama', 'status_guru', 'is_aktif', 'user_id'];
-    public function user()
-    {
+    protected $guarded = ['id'];
+
+    public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function pegawai()
-    {
+    public function pegawai(){
         return $this->belongsTo(Pegawai::class);
     }
 
@@ -29,5 +28,9 @@ class Guru extends Model
 
     public function mataPelajaran(){
         return $this->hasMany(MataPelajaran::class);
+    }
+
+    public function statusGuru(){
+        return $this->belongsTo(StatusGuru::class);
     }
 }
