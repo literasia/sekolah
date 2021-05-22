@@ -99,8 +99,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-    
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             //read
@@ -120,10 +119,9 @@
             $('#add').on('click', function () {
                 $('#modal-guru').modal('show');
                 $('.form-control').val('');
-                // console.log($('.add-ons-icon').children()[0]);
                 $('.modal-title').text('Tambah Guru');
                 $('#action').val('add');
-                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
                 $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
 
@@ -172,7 +170,7 @@
                             $('#name').removeClass('is-invalid');
                             $('#form-guru')[0].reset();
                             $('#action').val('add');
-                            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                            $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
                             $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }

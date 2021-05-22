@@ -20,7 +20,7 @@ use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class PegawaiController extends Controller
-{ /
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
 
     public function index(Request $request) {
