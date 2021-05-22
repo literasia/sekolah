@@ -90,6 +90,8 @@ class UserSeed extends Seeder
             'e_voting' => 1,
             'kalender' => 1,
             'import' => 1,
+            'leaderboard' => 1,
+            'forum' => 1,
             'perpustakaan' => 1,
         ]);
 
