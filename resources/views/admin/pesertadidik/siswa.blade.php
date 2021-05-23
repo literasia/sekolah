@@ -43,7 +43,7 @@
                                         <tr>
                                             <td>{{ $siswa->nis }}</td>
                                             <td>{{ $siswa->nama_lengkap }}</td>
-                                            <td>{{ $siswa->kelas }}</td>
+                                            <td>{{ $siswa->kelas->name }}</td>
                                             <td>{{ $siswa->jk }}</td>
                                             <td>{{ $siswa->alamat_tinggal }}</td>
                                             <td>{{ $siswa->poin_sp}}</td>

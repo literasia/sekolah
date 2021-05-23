@@ -36,6 +36,7 @@ class KalenderAkademikController extends Controller
         } else {
             $prioritas = "bg-success";
         }
+
         Kalender::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'title'        => $request->title,
@@ -45,6 +46,7 @@ class KalenderAkademikController extends Controller
             'end_clock' => $request->end_clock,
             'prioritas' => $prioritas,
         ]);
+        
         return response()
             ->json([
                 'success' => 'Data Added.',
