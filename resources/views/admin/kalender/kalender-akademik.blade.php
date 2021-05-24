@@ -122,7 +122,7 @@ Ini adalah halaman kalender akademik untuk admin
             selectable: true,
             // displayEventTime: true,
             eventSources: [{
-                events: JSON.parse('{!!$events!!}'),
+                events: JSON.parse(`{!!$events!!}`),
                 textColor: 'white', // an option!
                 timeFormat: 'H(:mm)'
             }],

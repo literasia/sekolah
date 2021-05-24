@@ -39,16 +39,31 @@ class KelasController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+        
         $kelas = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
             ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })
             ->get(['kelas.*', 'pegawais.name AS guru', 'jurusans.name AS jurusan']);
+            
+        
         $pegawai = Pegawai::join('gurus', 'pegawais.id', 'gurus.pegawai_id')
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })
             ->get();
+        
         // $gurus = Guru::where('user_id', Auth::id())->get();
         $gurus = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })
             ->get(['gurus.*', 'pegawais.name AS name']);
-        $tingkat = TingkatanKelas::where('user_id', Auth::id())->latest()->get();
-        $jurusan = Jurusan::where('user_id', Auth::id())->latest()->get();
+        
+        $tingkat = TingkatanKelas::latest()->get();
+        
+        $jurusan = Jurusan::latest()->get();
 
         // return($gurus);
 
