@@ -43,7 +43,7 @@
                                         <tr>
                                             <td>{{ $siswa->nis }}</td>
                                             <td>{{ $siswa->nama_lengkap }}</td>
-                                            <td>{{ $siswa->kelas }}</td>
+                                            <td>{{ $siswa->kelas->name }}</td>
                                             <td>{{ $siswa->jk }}</td>
                                             <td>{{ $siswa->alamat_tinggal }}</td>
                                             <td>{{ $siswa->poin_sp}}</td>
@@ -108,33 +108,27 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/pages/file-upload/dropzone-amd-module.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
+    <!--
+    <script src="{{ asset('bower_components/switchery/js/switchery.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/advance-elements/swithces.js') }}"></script>
+    -->
     <script>
         const confirmDeleteModal = document.getElementById('confirmDeleteModal');
         const dateOptions = {
             theme: 'leaf',
             format: 'd-m-Y'
         };
-
         $(document).ready(function () {
-
             // $('#siswa-table').DataTable();
-
             try {
                 $('#siswa-table').DataTable();
             } catch (error) {
             }
-
             $('#dropper-default').dateDropper(dateOptions);
-
             $('#tanggal_lahir').dateDropper(dateOptions);
-
             $('#tanggal_lahir_ayah').dateDropper(dateOptions);
-
             $('#tanggal_lahir_ibu').dateDropper(dateOptions);
-
             $('#tanggal_lahir_wali').dateDropper(dateOptions);
-
             $("#provinsi").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -152,7 +146,6 @@
                     }
                 });
             });
-
             $("#kabupaten").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -169,30 +162,25 @@
                     }
                 });
             });
-
             $('#add').on('click', function () {
                 clearDataSiswa(); clearDataOrtu(); clearDataWali();
                 $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
                 $('#btn-submit').text('Simpan');
                 $('#btn-cancel').text('Batal');
-
                 $("#toggle-data-login").show();
                 $("#data-login").show();
                 $("#username").prop('required', true);
                 $("#password").prop('required', true);
                 $("#password_confirmation").prop('required', true);
-
                 $('#modal-siswa input[name=_method]').val("POST");
                 $('#modal-siswa').modal('show');
             });
         });
-
         $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
             const url = $(e.relatedTarget).data('url');
             const form = confirmDeleteModal.querySelector('#deleteForm');
             form.action = url;
         });
-
         const createForm = (e) => {
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("password_confirmation");
@@ -203,7 +191,6 @@
                 } else if (password.value.length < 6) {
                     errMsg = 'Password min. 6 karakter';
                 }
-
                 if (errMsg) {
                     toastr.error(errMsg);
                     e.preventDefault();
@@ -211,14 +198,12 @@
                 }
             }
         }
-
         document.addEventListener('submit', (e) => {
             const id = e.target.id;
             switch(e.target.id) {
                 case "createForm": createForm(e); break;
             }
         });
-
         $(document).on('click', '.edit', function () {
                 var id = $(this).data('id');
                 $("#toggle-data-login").hide();
@@ -250,7 +235,6 @@
                         $('#jarak_rumah_sekolah').val(data.jarak_rumah_sekolah);
                         $('#is_siswa_pindahan').val(data.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
                         $('#alamat_tinggal').val(data.alamat_tinggal);
-
                         // $.when($('#provinsi').val(data.provinsi).change()).then(function(){
                         //     $.when($('#kabupaten').val(data.kabupaten).change()).then(function(){
                         //         $('#kecamatan').val(data.kecamatan);
@@ -264,21 +248,18 @@
                             },500);
                         },500);
                         // $('#kecamatan').val(data.kecamatan);
-
                         $('#dusun').val(data.dusun);
                         $('#rt').val(data.rt);
                         $('#rw').val(data.rw);
                         $('#kode_pos').val(data.kode_pos);
                         $('#no_telepon').val(data.no_telepon);
                         $('#no_telepon_rumah').val(data.no_telepon_rumah);
-
                         // $("#provinsi option").prop('selected', false);
                         // $("#kabupaten option").prop('selected', false);
                         // $("#kecamatan option").prop('selected', false);
                         // $('#provinsi option[value="'+data.provinsi+'"]').prop('selected', true);
                         // $('#kabupaten option[value="'+data.kabupaten+'"]').prop('selected', true);
                         // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected', true);
-
                         if (data.siswa_orang_tua) {
                             const orangTua = data.siswa_orang_tua;
                             $('#status_anak').val(orangTua.status_anak);
@@ -306,7 +287,6 @@
                         } else {
                             clearDataOrtu();
                         }
-
                         if (data.siswa_wali) {
                             const wali = data.siswa_wali;
                             $('#nama_wali').val(wali.nama_wali);
@@ -320,7 +300,6 @@
                         } else {
                             clearDataWali();
                         }
-
                         $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}/${id}`);
                         $('#btn-submit')
                             .removeClass('btn-success')
@@ -335,7 +314,6 @@
                     }
                 });
             });
-
             function clearDataSiswa() {
                 $('#nis').val("");
                 $('#nisn').val("");
@@ -370,7 +348,6 @@
                 $('#password').val("");
                 $('#password_confirmation').val("");
             }
-
             function clearDataOrtu() {
                 $('#status_anak').val("");
                 $('#anak_ke').val("");
@@ -395,7 +372,6 @@
                 $('#no_telepon_ayah').val("");
                 $('#no_telepon_ibu').val("");
             }
-
             function clearDataWali() {
                 $('#nama_wali').val("");
                 $('#tempat_lahir_wali').val("");
