@@ -4,6 +4,7 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\User;
 
 class Jurusan extends Model
 { //
@@ -13,4 +14,8 @@ class Jurusan extends Model
     ];
     protected $table = "jurusans";
     protected $guarded = [];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
