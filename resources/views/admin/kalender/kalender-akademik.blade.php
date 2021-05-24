@@ -121,11 +121,20 @@ Ini adalah halaman kalender akademik untuk admin
             droppable: false,
             selectable: true,
             // displayEventTime: true,
-            eventSources: [{
-                events: JSON.parse('{!!$events!!}'),
-                textColor: 'white', // an option!
-                timeFormat: 'H(:mm)'
-            }],
+            eventSources: [
+
+                // your event source
+                {
+                    events: JSON.parse(`{!!$events!!}`),
+                    // an option!
+                    textColor: 'white', // an option!
+                    timeFormat: 'H(:mm)'
+                }
+
+                // any other event sources...
+
+            ],
+
             select: function(start, end, allDay) {
                 $("#addEvent").modal("show");
                 $("#addEvent .modal-title").text("Tambah Event");
