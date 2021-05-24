@@ -168,6 +168,10 @@
             });
 
             $('#add').on('click', function () {
+                $('#default-password-group').css('display', 'block');
+                $('#username').attr('readonly', false);
+                $('#password').attr('readonly', false);
+                $('#form-pegawai')[0].reset();
                 $('#password-lama-group').css('display', 'none');
                 $('#password-baru-group').css('display', 'none');
                 $('#password-konfirmasi-group').css('display', 'none');
