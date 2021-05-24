@@ -252,14 +252,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             var table = $('#showjpcard');
             table.hide();
-
             @if(request()->req == 'table')
             table.show();
             @endif
-
             $("#hari").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -271,7 +268,6 @@
                     }
                 });
             })
-
             var resetForm = () => {
               $('select[name=kelas_id]').val("{{ $kelas[0] ?? null }}");
               $('select[name=mata_pelajaran_id]').val("{{ $mata_pelajaran[0]->id ?? null }}");
@@ -283,11 +279,9 @@
               $radios.prop('checked', false);
               $radios.filter('[value=1]').prop('checked', true);
             };
-
             $("#reset-form").click(() => {
               resetForm();
             });
-
             $('#form-jadwal-pelajaran').on('submit', function (event) {
                 console.log('tes');
                 event.preventDefault();
@@ -311,7 +305,6 @@
                     }
                 });
             });
-
             $("#showjpcard").on('click', '.btn-delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
@@ -331,7 +324,7 @@
                             processData: false,
                             contentType: false,
                             success: function (data) {
-                                Swal.fire("Berhasil", "Data dihapus!", "success");
+                                toastr.success('Data berhasil dihapus');
                                 setTimeout(() => {
                                  window.location.reload();
                                 }, 500)
@@ -346,9 +339,6 @@
                     }
                     })
             });
-
-
-
         });
     </script>
 @endpush

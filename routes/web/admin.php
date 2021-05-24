@@ -155,12 +155,6 @@ Route::namespace('Sekolah')->group(function () {
         ->name('sekolah.jam.write');
  });
 
-// Bank Soal
-Route::namespace('BankSoal')->group(function () {
-    Route::get('/admin/banksoal/soal', 'SoalController@index')
-        ->name('banksoal.soal');
-});
-
 // Pelajaran
 Route::namespace('Pelajaran')->group(function () {
     // Pelajaran
