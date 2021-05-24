@@ -80,4 +80,12 @@ class User extends Authenticatable
     public function addons(){
         return $this->hasOne(Addons::class);
     }
+
+    public function tingkatanKelas(){
+        return $this->hasMany(TingkatanKelas::class);
+    }
+
+    public function jurusan(){
+        return $this->hasMany(Jurusan::class);
+    }
 }
