@@ -15,74 +15,32 @@ class JadwalPelajaranController extends Controller
     public function index(Request $request) {
         $data = null;
         $addons = Addons::where('user_id', auth()->user()->id)->first();
+        $tahun_ajaran = $request->tahun_ajaran;
+        $kelas_id = $request->kelas_id;
+        $semester = $request->semester;
 
         if($request->req == 'table') {
             $data = JadwalPelajaran::with('mataPelajaran')
-                                   ->where('tahun_ajaran', $request->tahun_ajaran)
-                                   ->where('kelas_id', $request->kelas_id)
+                                   ->where('tahun_ajaran', $tahun_ajaran)
+                                   ->where('kelas_id', $kelas_id)
+                                   ->where('semester', $semester)
                                    ->orderBy('jam_pelajaran')
                                    ->get();
 
-                                   $data = $data->groupBy('hari');
-
-        }
-
-        // if($request->req == 'table') { //
-        //     $data = JadwalPelajaran::with('mataPelajaran')
-        //                            ->where('tahun_ajaran', $request->tahun_ajaran)
-        //                            ->where('kelas_id', $request->kelas_id)
-        //                            ->where('semester', $request->semester)
-        //                            ->orderBy('jam_pelajaran')
-        //                            ->get();
-
-        //                            $data = $data->groupBy('hari');
-
-        // }
-
-        elseif($request->req == 'single') {
+            $data = $data->groupBy('hari');
+        }elseif($request->req == 'single') {
             $obj = JadwalPelajaran::findOrFail($request->id);
             return response()->json($obj);
         }
 
-        $jam_pelajaran = [
-            ['id' => '-', 'label' => '(07:30 - 08:00)' ],
-            ['id' => '1', 'label' => '(08:00 - 08:45)' ],
-            ['id' => '2', 'label' => '(08:45 - 09:30)' ],
-            ['id' => '3', 'label' => '(09:30 - 10:15)' ],
-            ['id' => '-', 'label' => '(10:15 - 10:30)' ],
-            ['id' => '4', 'label' => '(10:30 - 11:15)' ],
-            ['id' => '5', 'label' => '(11:15 - 12:00)' ],
-            ['id' => '-', 'label' => '(12:00 - 12:15)' ],
-            ['id' => '6', 'label' => '(12:15 - 13:00)' ],
-            ['id' => '7', 'label' => '(13:00 - 13:45)' ],
-            ['id' => '-', 'label' => '(13:45 - 14:00)' ],
-            ['id' => '8', 'label' => '(14:00 - 14:45)' ],
-            ['id' => '9', 'label' => '(14:45 - 15:30)' ],
-        ];
-
         $kelas = Kelas::where('user_id', $request->user()->id)->get();
-
-        $tahun_ajaran = [
-            '2018/2019',
-            '2019/2020',
-            '2020/2021',
-            '2021/2022',
-            '2022/2023',
-            '2023/2024',
-            '2024/2025',
-            '2025/2026',
-            '2026/2027',
-            '2027/2028',
-        ];
-        // $semesters = Semester::where('user_id', auth()->user()->id)->get();
-        // dd($data);
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
                                     ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
                                     ->where('sekolah_id', $request->user()->id_sekolah)
                                     ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
 
-        return view('admin.pelajaran.jadwal-pelajaran', compact('jam_pelajaran', 'kelas', 'addons', 'tahun_ajaran', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
+        return view('admin.pelajaran.jadwal-pelajaran', compact('kelas_id', 'semester', 'kelas', 'tahun_ajaran', 'addons', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
     }
 
     public function getJamPelajaran(Request $request)

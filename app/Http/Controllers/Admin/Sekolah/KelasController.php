@@ -26,7 +26,6 @@ class KelasController extends Controller
             // $data = Guru::latest()->get();
             $data = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
                 ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
-                ->where('kelas.user_id', Auth::id())
                 ->get(['kelas.*', 'pegawais.name AS wali_kelas', 'jurusans.name AS jurusan']);
             // $data = Kelas::all();
             // return($data);
@@ -42,10 +41,8 @@ class KelasController extends Controller
         }
         $kelas = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
             ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
-            // ->where('kelas.user_id', Auth::id())
             ->get(['kelas.*', 'pegawais.name AS guru', 'jurusans.name AS jurusan']);
         $pegawai = Pegawai::join('gurus', 'pegawais.id', 'gurus.pegawai_id')
-            ->where('pegawais.user_id', Auth::id())
             ->get();
         // $gurus = Guru::where('user_id', Auth::id())->get();
         $gurus = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
