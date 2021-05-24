@@ -175,6 +175,8 @@
                 $('#password-lama-group').css('display', 'none');
                 $('#password-baru-group').css('display', 'none');
                 $('#password-konfirmasi-group').css('display', 'none');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
                 $('#modal-pegawai').modal('show');
             });
 
