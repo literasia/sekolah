@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label for="kelas">Kelas</label>
                                         <select name="kelas_id" id="kelas" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Kelas --</option>
+                                            <option value="">-- Kelas --</option>
                                             @foreach($kelas as $obj)
                                             <option value="{{ $obj->id }}">{{ $obj->name }}</option>
                                             @endforeach
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <label for="pelajaran">Pelajaran</label>
                                         <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Pelajaran --</option>
+                                            <option value="">-- Pelajaran --</option>
                                             @foreach($pelajaran as $obj)
                                             <option value="{{$obj->id}}">{{$obj->name}}</option>
                                             @endforeach
@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Hari --</option>
+                                            <option value="">-- Hari --</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>
@@ -69,7 +69,7 @@
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <select name="semester" id="semester" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Semester --</option>
+                                            <option value="">-- Semester --</option>
                                             <option value="Ganjil">Ganjil</option>
                                             <option value="Genap">Genap</option>
                                         </select>
@@ -79,16 +79,20 @@
                                     <div class="form-group">
                                         <label for="tahun_ajaran">Tahun Ajaran</label>
                                         <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Tahun Ajaran --</option>
+                                            <option value="">-- Tahun Ajaran --</option>
+                                            <option value="2018/2019">2018/2019</option>
                                             <option value="2019/2020">2019/2020</option>
                                             <option value="2020/2021">2020/2021</option>
+                                            <option value="2021/2022">2021/2022</option>
+                                            <option value="2022/2023">2022/2023</option>
+                                            <option value="2023/2024">2023/2024</option>
+                                            <option value="2024/2025">2024/2025</option>
+                                            <option value="2025/2026">2025/2026</option>
+                                            <option value="2026/2027">2026/2027</option>
+                                            <option value="2027/2028">2027/2028</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <label id="lblketerangan" class="bmd-label-floating">Keterangan</label>
-                                    <span class="bmd-form-group"><textarea name="keterangan" id="keterangan" class="form-control" autocomplete="off"></textarea></span>
-                                  </div>
                             </div>
 
                             <div class="row">
@@ -102,9 +106,10 @@
 
                                   </div>
                                 </div>
-                              </div>
-                              <br>
-                              <div class="row">
+                            </div>
+
+                            <br>
+                            <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="id" id="id">
                                     <button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -138,9 +143,9 @@
                                 <div class="form-group">
                                     <label for="kelas2">Kelas</label>
                                     <select name="kelas_id" id="kelas2" class="form-control form-control-sm" required>
-                                        <option disabled>-- Kelas --</option>
-                                        @foreach($kelas as $obj)
-                                          <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                        <option>-- Kelas --</option>
+                                        @foreach($kelas as $item)
+                                          <option value="{{$item->id}}" @if ($kelas_id == $item->id) selected @endif>{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -149,9 +154,9 @@
                                 <div class="form-group">
                                     <label for="semester">Semester</label>
                                     <select name="semester" id="semester2" class="form-control form-control-sm" required>
-                                        <option disabled>-- Semester --</option>
-                                        <option value="Ganjil">Ganjil</option>
-                                        <option value="Genap">Genap</option>
+                                        <option>-- Semester --</option>
+                                        <option value="Ganjil" @if ($semester == "Ganjil") selected @endif>Ganjil</option>
+                                        <option value="Genap" @if ($semester == "Genap") selected @endif>Genap</option>
                                     </select>
                                 </div>
                             </div>
@@ -159,18 +164,25 @@
                                 <div class="form-group">
                                     <label for="agama">Tahun Ajaran</label>
                                     <select name="tahun_ajaran" id="tahun_ajaran2" class="form-control form-control-sm" required>
-                                        <option disabled>-- Tahun Ajaran --</option>
-                                        @foreach($tahun_ajaran as $obj)
-                                        <option value="{{$obj}}">{{$obj}}</option>
-                                        @endforeach
+                                        <option>-- Tahun Ajaran --</option>
+                                        <option value="2018/2019" @if ($tahun_ajaran == "2018/2019") selected @endif>2018/2019</option>
+                                        <option value="2019/2020" @if ($tahun_ajaran == "2019/2020") selected @endif>2019/2020</option>
+                                        <option value="2020/2021" @if ($tahun_ajaran == "2020/2021") selected @endif>2020/2021</option>
+                                        <option value="2021/2022" @if ($tahun_ajaran == "2021/2022") selected @endif>2021/2022</option>
+                                        <option value="2022/2023" @if ($tahun_ajaran == "2022/2023") selected @endif>2022/2023</option>
+                                        <option value="2023/2024" @if ($tahun_ajaran == "2023/2024") selected @endif>2023/2024</option>
+                                        <option value="2024/2025" @if ($tahun_ajaran == "2024/2025") selected @endif>2024/2025</option>
+                                        <option value="2025/2026" @if ($tahun_ajaran == "2025/2026") selected @endif>2025/2026</option>
+                                        <option value="2026/2027" @if ($tahun_ajaran == "2026/2027") selected @endif>2026/2027</option>
+                                        <option value="2027/2028" @if ($tahun_ajaran == "2027/2028") selected @endif>2027/2028</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                  <input type="hidden" name="req" value="table">
-                                <input type="submit" class="btn btn-sm btn-success" value="Tampil" id="tampil">
-                            </div>
+                                    <input type="hidden" name="req" value="table">
+                                    <input type="submit" class="btn btn-sm btn-success" value="Tampil" id="tampil">
+                                </div>
                             </div>
                         </div>
                         </div>
@@ -179,7 +191,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>   
 
 
     <div class="row" id="showjpcard">
@@ -249,19 +261,19 @@
             @endif
 
             $("#hari").change(function(){
-              _this = $(this);
-              $.ajax({
-                  url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
-                  method: 'POST',
-                  data: {hari:_this.val()},
-                  success: function (data) {
-                      $('#jam_pelajaran').html(data);
-                  }
-              });
+                _this = $(this);
+                $.ajax({
+                    url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
+                    method: 'POST',
+                    data: {hari:_this.val()},
+                    success: function (data) {
+                        $('#jam_pelajaran').html(data);
+                    }
+                });
             })
 
             var resetForm = () => {
-              $('select[name=kelas]').val("{{ $kelas[0] ?? null }}");
+              $('select[name=kelas_id]').val("{{ $kelas[0] ?? null }}");
               $('select[name=mata_pelajaran_id]').val("{{ $mata_pelajaran[0]->id ?? null }}");
               $('select[name=hari]').val("senin");
               $('select[name=semester]').val("ganjil");
@@ -277,6 +289,7 @@
             });
 
             $('#form-jadwal-pelajaran').on('submit', function (event) {
+                console.log('tes');
                 event.preventDefault();
                 var text = "Data sukses ditambahkan";
                 var url = "{{ route('admin.pelajaran.jadwal-pelajaran.write') }}?req=write";
