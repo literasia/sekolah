@@ -146,7 +146,7 @@ Ini adalah halaman kalender akademik untuk admin
 
                 // your event source
                 {
-                    events: JSON.parse('{!!$events!!}'),
+                    events: JSON.parse(`{!!$events!!}`),
                     // an option!
                     textColor: 'white', // an option!
                     timeFormat: 'H(:mm)'
