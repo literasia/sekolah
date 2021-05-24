@@ -227,6 +227,12 @@ Route::namespace('ELearning')->group(function () {
         ->name('e-learning.soal');
 });
 
+// Bank Soal
+Route::namespace('BankSoal')->group(function () {
+    Route::get('/admin/banksoal/soal', 'SoalController@index')
+        ->name('banksoal.soal');
+});
+
 // Referensi
 Route::namespace('Referensi')->group(function () {
     // Bagian Pegawai
