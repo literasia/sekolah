@@ -235,7 +235,6 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -279,6 +278,7 @@
 
             $('#form-jadwal-pelajaran').on('submit', function (event) {
                 event.preventDefault();
+                var text = "Data sukses ditambahkan";
                 var url = "{{ route('admin.pelajaran.jadwal-pelajaran.write') }}?req=write";
                 $.ajax({
                     url: url,
@@ -286,7 +286,7 @@
                     // dataType: 'JSON',
                     data: $("#form-jadwal-pelajaran").serialize(),
                     success: function (data) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         resetForm();
                         table.hide();
                     },
@@ -318,7 +318,7 @@
                             processData: false,
                             contentType: false,
                             success: function (data) {
-                                Swal.fire("Berhasil", data.success, "success");
+                                Swal.fire("Berhasil", "Data dihapus!", "success");
                                 setTimeout(() => {
                                  window.location.reload();
                                 }, 500)

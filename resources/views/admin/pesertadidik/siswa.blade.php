@@ -108,10 +108,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/pages/file-upload/dropzone-amd-module.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-    <!--
-    <script src="{{ asset('bower_components/switchery/js/switchery.min.js') }}"></script>
-    <script src="{{ asset('assets/pages/advance-elements/swithces.js') }}"></script>
-    -->
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         const confirmDeleteModal = document.getElementById('confirmDeleteModal');
         const dateOptions = {

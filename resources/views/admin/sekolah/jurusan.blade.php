@@ -118,6 +118,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -149,6 +150,7 @@
             $('#form-jurusan').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+                var text = "Data sukses ditambahkan";
 
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.sekolah.jurusan') }}";
@@ -177,7 +179,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
+                            Swal.fire("Berhasil", text, "success");
                             $('#kode').removeClass('is-invalid');
                             $('#name').removeClass('is-invalid');
                             $('#form-jurusan')[0].reset();
@@ -236,7 +238,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

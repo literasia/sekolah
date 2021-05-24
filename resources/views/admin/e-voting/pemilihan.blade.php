@@ -247,12 +247,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.e-voting.pemilihan') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.pemilihan-update') }}";
+                    text = "Data sukses diupdate";
                 }
                 console.log($(this).serialize());
                 $.ajax({
@@ -269,7 +273,7 @@
                         }
 
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-pemilihan').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pemilihan')[0].reset();
@@ -323,7 +327,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             // $('#order-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                             location.reload();
                         }, 1000);
                     }

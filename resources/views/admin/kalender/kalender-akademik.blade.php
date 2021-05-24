@@ -219,7 +219,7 @@ Ini adalah halaman kalender akademik untuk admin
                 processData: false,
                 success: function(data) {
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", "Data sukses ditambahkan", "success");
                         location.reload();
                         $("#addEvent").modal("hide");
                         $("#title").val('');
@@ -256,7 +256,7 @@ Ini adalah halaman kalender akademik untuk admin
 
                 setTimeout(function() {
                     $('#addEvent').modal('hide');
-                    Swal.fire("Berhasil", data.success, "success");
+                    Swal.fire("Berhasil", "Data sukses diupdate", "success");
                     location.reload();
                 }, 1000);
             }
@@ -280,7 +280,7 @@ Ini adalah halaman kalender akademik untuk admin
                             $('#confirmModal').modal('hide');
                             $('#addEvent').modal('hide');
                             // $('#order-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                             location.reload();
                         }, 1000);
                     }

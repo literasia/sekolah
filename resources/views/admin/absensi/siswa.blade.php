@@ -140,7 +140,7 @@
                 };
 
                 $.post("{{route('admin.absensi.siswa.write')}}", params).done(data => {
-                    toastr.success('Data berhasil disimpan');
+                    Swal.fire("Berhasil","Data sukses ditambahkan", "success");
                     $(`#submit_${params.siswa_id}`).html("APPROVE");
                 }).fail((data) => {
                     if(typeof data.responseJSON.message == 'string')

@@ -137,12 +137,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#nama_posisi').val() == 'add') {
                     url = "{{ route('admin.e-voting.posisi') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.posisi-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -159,7 +163,7 @@
                         }
 
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#nama_posisi').removeClass('is-invalid');
                             $('#form-posisi-kandidat')[0].reset();
                             $('#action').val('add');
@@ -215,7 +219,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

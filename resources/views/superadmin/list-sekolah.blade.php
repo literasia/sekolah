@@ -233,7 +233,7 @@
                         }
                         // success error message
                         if (data.success) {
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", data.success, "success");
                             $('#modal-sekolah').modal('hide');
                             $('#id_sekolah').removeClass('is-invalid');
                             $('#name').removeClass('is-invalid');
@@ -325,7 +325,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", data.success, "success");
                         }, 1000);
                     }
                 });
