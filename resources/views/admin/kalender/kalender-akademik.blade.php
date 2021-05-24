@@ -78,21 +78,15 @@ Ini adalah halaman kalender akademik untuk admin
 
 {{-- addons js --}}
 @push('js')
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script> --}}
 <script type="text/javascript" src="{{ asset('bower_components/moment/js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bower_components/fullcalendar/js/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
-{{-- <script src="https://sekolah.schlrr.com/assets/js/js/fullcalendar.min.js"></script> --}}
-{{-- <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script> --}}
 <script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
-{{-- <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script> --}}
-
-
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script type="text/javascript">
     $(document).ready(function() {
         $('.clockpicker').clockpicker({
