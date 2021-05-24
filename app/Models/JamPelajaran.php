@@ -9,5 +9,9 @@ use App\Models\{JadwalPelajaran, MataPelajaran, JamPelajaran};
 
 class JamPelajaran extends Model
 {
-    //
+    protected $guarded = ['id'];
+
+    public function jadwalPelajaran(){
+        return $this->hasMany(JadwalPelajaran::class);
+    }
 }

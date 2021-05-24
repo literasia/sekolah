@@ -164,12 +164,9 @@ Route::namespace('Pelajaran')->group(function () {
         ->name('pelajaran.mata-pelajaran.write');
 
     // Jadwal Pelajaran
-    Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
-        ->name('pelajaran.jadwal-pelajaran');
-    Route::post('/admin/pelajaran/jadwal-pelajaran/getJamPelajaran', 'JadwalPelajaranController@getJamPelajaran')
-        ->name('pelajaran.jadwal-pelajaran.getJamPelajaran');
-    Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
-        ->name('pelajaran.jadwal-pelajaran.write');
+    Route::get('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')->name('pelajaran.jadwal-pelajaran');
+    Route::post('/admin/pelajaran/jadwal-pelajaran/getJamPelajaran', 'JadwalPelajaranController@getJamPelajaran')->name('pelajaran.jadwal-pelajaran.getJamPelajaran');
+    Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')->name('pelajaran.jadwal-pelajaran.write');
 });
 
 // Absensi
