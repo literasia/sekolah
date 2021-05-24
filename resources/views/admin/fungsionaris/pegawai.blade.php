@@ -260,7 +260,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
+                        $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
                         $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
                         $('#name').val(data.name);
                         $('#nik').val(data.nik);
