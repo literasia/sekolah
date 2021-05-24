@@ -108,6 +108,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -136,6 +137,7 @@
                 event.preventDefault();
                 var url = '';
 
+                var text = "Data sukses ditambahkan";
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.referensi.bagian-pegawai') }}";
                     text = "Data sukses ditambahkan";
@@ -154,15 +156,13 @@
                     success: function (data) {
                         var html = '';
                         if (data.errors) {
-                            // for (var count = 0; count <= data.errors.length; count++) {
                             html = data.errors[0];
-                            // }
                             $('#pegawai').addClass('is-invalid');
                             toastr.error(html);
                         }
 
                         if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
+                            Swal.fire("Berhasil",text, "success");
                             $('#pegawai').removeClass('is-invalid');
                             $('#form-pegawai')[0].reset();
                             $('#action').val('add');
@@ -219,7 +219,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

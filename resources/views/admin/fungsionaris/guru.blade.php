@@ -138,12 +138,16 @@
             $('#form-guru').on('submit', function (e) {
                 event.preventDefault();
 
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.fungsionaris.guru.store') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.fungsionaris.guru.update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -165,7 +169,7 @@
 
                         // success success message
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-guru').modal('hide');
                             $('#name').removeClass('is-invalid');
                             $('#form-guru')[0].reset();
@@ -194,7 +198,6 @@
                         $('#status_guru_id').val(data.status_guru_id);
                         $('#keterangan').val(data.keterangan);
                         $('#status').val(data.status);
-                        
                         $('#hidden_id').val(data.id);
                         $('#modal-guru').modal('show');
                     }
@@ -217,7 +220,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
