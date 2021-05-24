@@ -13,6 +13,7 @@ class JadwalPelajaranController extends Controller
     {
         if ($request->req == 'table') {
             $data = JadwalPelajaran::join('mata_pelajarans', 'jadwal_pelajarans.mata_pelajaran_id', 'mata_pelajarans.id')->where('tahun_ajaran', $request->tahun_ajaran)
+                ->join('jam_pelajarans', 'jam_pelajarans.id', 'jadwal_pelajarans.jam_pelajaran')
                 ->where('kelas_id', $request->kelas_id)
                 ->where('semester', $request->semester)
                 ->orderBy('jam_pelajaran')

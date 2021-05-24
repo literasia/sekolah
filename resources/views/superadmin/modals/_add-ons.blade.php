@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
                             <input type="checkbox" id="leaderboard" name="leaderboard" value="1" class="d-block checkbox">
-                            <span><i class="ti-cup add-ons-icon mb-2"></i></span>
+                            <span><i class="fa fa-trophy add-ons-icon mb-2"></i></span>
                             <p class="m-0">Leaderboard</p>
                         </div>
                     </div>

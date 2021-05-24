@@ -245,7 +245,6 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
@@ -253,14 +252,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             var table = $('#showjpcard');
             table.hide();
-
             @if(request()->req == 'table')
             table.show();
             @endif
-
             $("#hari").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -272,7 +268,6 @@
                     }
                 });
             })
-
             var resetForm = () => {
               $('select[name=kelas_id]').val("{{ $kelas[0] ?? null }}");
               $('select[name=mata_pelajaran_id]').val("{{ $mata_pelajaran[0]->id ?? null }}");
@@ -284,14 +279,13 @@
               $radios.prop('checked', false);
               $radios.filter('[value=1]').prop('checked', true);
             };
-
             $("#reset-form").click(() => {
               resetForm();
             });
-
             $('#form-jadwal-pelajaran').on('submit', function (event) {
                 console.log('tes');
                 event.preventDefault();
+                var text = "Data sukses ditambahkan";
                 var url = "{{ route('admin.pelajaran.jadwal-pelajaran.write') }}?req=write";
                 $.ajax({
                     url: url,
@@ -299,7 +293,7 @@
                     // dataType: 'JSON',
                     data: $("#form-jadwal-pelajaran").serialize(),
                     success: function (data) {
-                        toastr.success('Data berhasil disimpan');
+                        Swal.fire("Berhasil", text, "success");
                         resetForm();
                         table.hide();
                     },
@@ -311,7 +305,6 @@
                     }
                 });
             });
-
             $("#showjpcard").on('click', '.btn-delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
@@ -346,9 +339,6 @@
                     }
                     })
             });
-
-
-
         });
     </script>
 @endpush

@@ -35,7 +35,8 @@ class GuruController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
+        // $pegawai = Pegawai::where('user_id', Auth::id())->latest()->get();
+        // $user = User::sekolah();
         $pegawai = Pegawai::join('users', 'pegawais.user_id', 'users.id')
             ->where('users.id_sekolah', auth()->user()->id_sekolah)
             ->get(['pegawais.*']);

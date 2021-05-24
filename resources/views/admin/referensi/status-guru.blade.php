@@ -107,6 +107,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -135,12 +136,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.referensi.status-guru') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.referensi.status-guru-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -157,7 +162,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#status_guru').removeClass('is-invalid');
                             $('#form-status')[0].reset();
                             $('#action').val('add');
@@ -213,7 +218,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

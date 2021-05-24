@@ -90,9 +90,7 @@ Ini adalah halaman kalender akademik untuk admin
 <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
-{{-- <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script> --}}
-
-
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -110,25 +108,6 @@ Ini adalah halaman kalender akademik untuk admin
             theme: 'leaf',
             format: 'd-m-Y'
         });
-
-        // $('#external-events .fc-event').each(function() {
-
-        //     // store data so the calendar knows to render an event upon drop
-        //     $(this).data('event', {
-        //         title: $.trim($(this).text()), // use the element's text as the event title
-        //         stick: true // maintain when user navigates (see docs on the renderEvent method)
-        //     });
-
-        //     // make the event draggable using jQuery UI
-        //     $(this).draggable({
-        //         zIndex: 999,
-        //         revert: true, // will cause the event to go back to its
-        //         revertDuration: 0 //  original position after the drag
-        //     });
-
-        // });
-
-
 
         $('#calendar').fullCalendar({
             header: {
@@ -155,6 +134,7 @@ Ini adalah halaman kalender akademik untuk admin
                 // any other event sources...
 
             ],
+
             select: function(start, end, allDay) {
                 $("#addEvent").modal("show");
                 $("#addEvent .modal-title").text("Tambah Event");
@@ -167,10 +147,7 @@ Ini adalah halaman kalender akademik untuk admin
                 $("#addEvent #start_clock").val("");
                 $("#addEvent #end_clock").val("");
                 $("#deleteEvent").html("");
-
-
             },
-
             eventClick: function(event) {
                 $("#addEvent").modal("show");
                 $("#addEvent .modal-title").text("Edit Event");
@@ -187,26 +164,8 @@ Ini adalah halaman kalender akademik untuk admin
 
                 var button_delete = '<button type="button" class="btn btn-sm btn-outline-danger" onclick=del_event(' + event.id + ')>Hapus Event</button>';
                 $("#deleteEvent").html(button_delete);
-                // var class_name;
-                // if (event.className == "event-red") {
-                //  class_name = 'Sangat Penting';
-                // } else if (event.className == "event-orange") {
-                //  class_name = 'Penting';
-                // } else if (event.className == "event-azure") {
-                //  class_name = 'Wajib Datang';
-                // } else if (event.className == "event-rose") {
-                //  class_name = 'Tidak Diwajibkan Datang';
-                // } else if (event.className == "event-green") {
-                //  class_name = 'Diharapkan Datang';
-                // }
-
-                // $("#prioritas option[value='" + class_name + "']").prop("selected", true);
             }
-
         });
-        // $('#calendar').fullCalendar();
-
-
 
         //Fungsi Add-Update-Delete Data
         $("#addFormEvent").submit(function(e) {
@@ -226,7 +185,7 @@ Ini adalah halaman kalender akademik untuk admin
     function add_event(form_data) {
         //Pengumpulan Data
         console.log(form_data);
-        var event_title = $("#event_title").val();
+        var title = $("#event_title").val();
         var start_date = $("#start_date").val();
         var end_date = $("#end_date").val();
         var start_clock = $("#start_clock").val();
@@ -246,7 +205,7 @@ Ini adalah halaman kalender akademik untuk admin
         }
 
         //Jika kosong
-        if (event_title == "" || start_date == "" || end_date == "" || start_clock == "" || end_clock == "" || prioritas == "") {
+        if (title == "" || start_date == "" || end_date == "" || start_clock == "" || end_clock == "" || prioritas == "") {
             swal({
                 title: "Something is missing!",
                 text: "Tolong Lengkapi Data",
@@ -259,7 +218,6 @@ Ini adalah halaman kalender akademik untuk admin
         else {
             //Memulai memasukan data ke database
             $.ajax({
-
                 url: "{{route('admin.kalender.tambah-event')}}",
                 method: "POST",
                 dataType: "JSON",
@@ -270,7 +228,7 @@ Ini adalah halaman kalender akademik untuk admin
                 processData: false,
                 success: function(data) {
                     if (data.success) {
-                        toastr.success('Sukses!');
+                        Swal.fire("Berhasil", "Data sukses ditambahkan", "success");
                         location.reload();
                         $("#addEvent").modal("hide");
                         $("#title").val('');
@@ -283,12 +241,9 @@ Ini adalah halaman kalender akademik untuk admin
                         $("#addEvent #start_clock").val("");
                         $("#addEvent #end_clock").val("");
                         $("#deleteEvent").html("");
-
                     }
-
                 },
             });
-
         }
     }
 
@@ -310,13 +265,11 @@ Ini adalah halaman kalender akademik untuk admin
 
                 setTimeout(function() {
                     $('#addEvent').modal('hide');
-
-                    toastr.success('Data berhasil diubah');
+                    Swal.fire("Berhasil", "Data sukses diupdate", "success");
                     location.reload();
                 }, 1000);
             }
         });
-
     }
 
     function del_event(id_event) {
@@ -336,7 +289,7 @@ Ini adalah halaman kalender akademik untuk admin
                             $('#confirmModal').modal('hide');
                             $('#addEvent').modal('hide');
                             // $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                             location.reload();
                         }, 1000);
                     }

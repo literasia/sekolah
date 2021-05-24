@@ -9,7 +9,7 @@
     Ini adalah halaman Leaderboard untuk admin
 @endsection
 
-@section('icon-l', 'ti-cup')
+@section('icon-l', 'fa fa-trophy')
 @section('icon-r', 'icon-home')
 
 @section('link')
