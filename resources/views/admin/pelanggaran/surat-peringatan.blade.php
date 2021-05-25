@@ -62,7 +62,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Surat Peringatan</th>
                                         <th>Poin</th>
                                         <th>Actions</th>
@@ -175,7 +175,7 @@
                         }
 
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#name').removeClass('is-invalid');
                             $('#form-surat-peringatan')[0].reset();
                             $('#action').val('add');
@@ -208,7 +208,7 @@
                             .removeClass('btn-success')
                             .addClass('btn-info')
                             .val('Update');
-                        $('#btn')
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
                             .val('Batal');

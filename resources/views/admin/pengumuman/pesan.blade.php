@@ -28,7 +28,7 @@ Ini adalah halaman pesan untuk admin
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Set Waktu</th>
                                     <th>Tanggal Upload</th>

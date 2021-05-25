@@ -15,7 +15,10 @@ class CalonController extends Controller
 { //
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $namaSiswa = Siswa::join('users', 'users.name', 'siswas.nama_lengkap')->where('id_sekolah', auth()->user()->id_sekolah)->get();
+        // $namaSiswa = Siswa::join('users', 'users.name', 'siswas.nama_lengkap')->where('id_sekolah', auth()->user()->id_sekolah)->get();
+        $namaSiswa = Siswa::whereIn('id', function($query){
+                            $query->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
+                        })->get();
         // dd($namaSiswa);
         if ($request->ajax()) {
             $data = Calon::where('sekolah_id', auth()->user()->id_sekolah)->get();

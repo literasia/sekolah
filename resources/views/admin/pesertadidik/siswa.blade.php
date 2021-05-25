@@ -172,6 +172,14 @@
                 $("#username").prop('required', true);
                 $("#password").prop('required', true);
                 $("#password_confirmation").prop('required', true);
+                $('#btn-submit')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .text('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                    .text('Batal');
                 $('#modal-siswa input[name=_method]').val("POST");
                 $('#modal-siswa').modal('show');
             });
