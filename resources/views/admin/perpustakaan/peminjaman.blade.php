@@ -22,7 +22,7 @@ Ini adalah halaman list peminjam untuk admin
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Nama Siswa</th>
                                     <th>Judul Buku</th>
                                     <th>Tipe</th>

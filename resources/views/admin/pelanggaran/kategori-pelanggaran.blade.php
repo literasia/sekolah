@@ -62,7 +62,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Kategori Pelanggaran</th>
                                         <th>Poin</th>
                                         <th>Actions</th>

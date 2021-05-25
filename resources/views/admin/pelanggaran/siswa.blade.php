@@ -28,7 +28,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Siswa</th>
                                         <th>Tanggal</th>
                                         <th>Pelanggaran</th>
@@ -112,6 +112,24 @@
 <script>
         $(document).ready(function () {
             $('#add').on('click', function () {
+                $('#action').val('add');
+                $('#siswa_id').select2('');
+                $('#tanggal_pelanggaran').val('');
+                $('#pelanggaran').val('');
+                $('#poin_lama').val('');
+                $('#poin').val('');
+                $('#sebab').val('');
+                $('#sanksi').val('');
+                $('#penanganan').val('');
+                $('#keterangan').val('');
+                $('#hidden_id').val('');
+                $('#btn')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .val('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
                 $('#modal-siswa').modal('show');
             });
             $('#siswa_id').select2();

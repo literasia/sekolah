@@ -54,7 +54,7 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Sanksi Pelanggaran</th>
                                     <th>Actions</th>
                                 </tr>
@@ -196,7 +196,7 @@
                             .val('Update');
                         $('#btn-cancel')
                             .removeClass('btn-outline-success')
-                            .addClass('btn-outline-success')
+                            .addClass('btn-outline-info')
                             .val('Batal');
                     }
                 });

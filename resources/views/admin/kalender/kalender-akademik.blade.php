@@ -142,7 +142,8 @@ Ini adalah halaman kalender akademik untuk admin
                 $("#addEvent #title").val("");
                 $("#addEvent form").attr("action", "tambah");
                 $("#addEvent form").removeAttr("data-id");
-                $("#addEvent #btnEvent").text("Simpan");
+                $("#addEvent #btnEvent").removeClass("btn-info").addClass("btn-success").text("Simpan");
+                $("#addEvent #btn-cancel").removeClass("btn-outline-info").addClass("btn-outline-success").text("Batal");
                 $("#start_date").val(moment(start).format());
                 $("#end_date").val(moment(end).format());
                 $("#addEvent #start_clock").val("");
@@ -153,13 +154,14 @@ Ini adalah halaman kalender akademik untuk admin
                 $("#addEvent").modal("show");
                 $("#addEvent .modal-title").text("Edit Event");
                 $("#addEvent form").attr("action", "update");
-                $("#addEvent #btnEvent").text("Update");
+                $("#addEvent #btnEvent").removeClass("btn-success").addClass("btn-info").text("Update");
+                $("#addEvent #btn-cancel").removeClass("btn-outline-success").addClass("btn-outline-info").text("Batal");
                 $("#addEvent #title").val(event.title);
                 $("#addEvent #start_date").val($.fullCalendar.formatDate(event.start, 'YYYY-MM-DD'));
                 $("#addEvent #end_date").val($.fullCalendar.formatDate(event.end, 'YYYY-MM-DD'));
                 $("#addEvent #start_clock").val(event.start.format("hh:mm"));
                 $("#addEvent #end_clock").val(event.end.format("hh:mm"));
-                var id_event = '<input type="hidden" id="id_event" name="id_event" value="' + event.id + '">';
+                var id_event ='<input type="hidden" id="id_event" name="id_event" value="' + event.id + '">';
                 $("#input_hidden").html(id_event);
                 var button_delete = '<button type="button" class="btn btn-sm btn-outline-danger" onclick=del_event(' + event.id + ')>Hapus Event</button>';
                 $("#deleteEvent").html(button_delete);

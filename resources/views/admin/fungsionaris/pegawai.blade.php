@@ -28,7 +28,7 @@
                             <table id="pegawai-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No.</th>
                                         <th>NIP</th>
                                         <th>Nama Lengkap</th>
                                         <th>No. HP</th>
