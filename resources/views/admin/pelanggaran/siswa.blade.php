@@ -113,6 +113,11 @@
             $('#siswa_id').select2();
             
             $('#add').on('click', function () {
+                $('#btn')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .val('Simpan');
+                $('#action').val('add');
                 $('#siswa_id').select2('destroy').val('').select2();
                 $('#form-pelanggaran-siswa')[0].reset();
                 $('#modal-siswa').modal('show');
@@ -182,7 +187,7 @@
             $('#form-pelanggaran-siswa').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
-                if ($('#siswa').val() == 'add') {
+                if ($('#action').val() == 'add') {
                     url = "{{ route('admin.pelanggaran.siswa') }}";
                 }
                 if ($('#action').val() == 'edit') {
