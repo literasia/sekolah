@@ -192,7 +192,7 @@
                 },
                 {
                     data: 'aktif',
-                    render: (data) =>  data == 1 ? 'Aktif' : 'Non Aktif'
+                    render: (data) =>  data == 1 ? `<label class="badge badge-success">Aktif</label>` : 'Non Aktif'
                 },
                 {
                     data: 'id',
