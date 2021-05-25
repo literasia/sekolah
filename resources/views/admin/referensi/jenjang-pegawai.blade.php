@@ -214,7 +214,7 @@
                 $.ajax({
                     url: '/admin/referensi/jenjang-pegawai/hapus/'+user_id,
                     beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
+                        $('#ok_button').text('Menghapus...'); //
                     }, success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');

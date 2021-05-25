@@ -214,7 +214,7 @@ Ini adalah halaman pesan untuk admin
                 success: function(data) {
                     var html = '';
                     if (data.errors) {
-                        // for (var count = 0; count <= data.errors.length; count++) {
+                        // for (var count = 0; count <= data.errors.length; cou nt++) {
                         html = data.errors[0];
                         // }
                         $('#judul').addClass('is-invalid');

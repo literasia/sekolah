@@ -267,7 +267,7 @@
                         // $("#kecamatan option").prop('selected', false);
                         // $('#provinsi option[value="'+data.provinsi+'"]').prop('selected', true);
                         // $('#kabupaten option[value="'+data.kabupaten+'"]').prop('selected', true);
-                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected', true);
+                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected',true);
                         if (data.siswa_orang_tua) {
                             const orangTua = data.siswa_orang_tua;
                             $('#status_anak').val(orangTua.status_anak);

@@ -196,7 +196,7 @@
                 });
             });
 
-            // $('#order-table').DataTable({
+            // $('#order-table').DataTable  ({
             //     processing: true,
             //     serverSide: true,
             //     ajax: {

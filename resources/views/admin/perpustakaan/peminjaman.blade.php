@@ -89,6 +89,6 @@ Ini adalah halaman list peminjam untuk admin
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
-    })
+    }) //
 </script>
 @endpush
