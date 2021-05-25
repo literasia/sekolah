@@ -110,10 +110,14 @@
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
         $(document).ready(function () {
+            $('#siswa_id').select2();
+            
             $('#add').on('click', function () {
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
                 $('#modal-siswa').modal('show');
             });
-            $('#siswa_id').select2();
+
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
