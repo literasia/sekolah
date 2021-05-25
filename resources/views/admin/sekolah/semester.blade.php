@@ -132,7 +132,7 @@
                     //  buttonsStyling: false,
                     //  confirmButtonClass: "btn btn-danger"
                     // }).then(function(){
-                    //  location.reload();
+                    //  location.reload(); //
                     // });
            //      }
         });

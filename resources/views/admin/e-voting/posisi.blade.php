@@ -181,7 +181,7 @@
                     }
                 });
             });
-
+//
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({

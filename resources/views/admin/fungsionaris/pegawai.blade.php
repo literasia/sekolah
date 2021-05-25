@@ -241,7 +241,7 @@
                         $('#password_lama').addClass('is-invalid');
                         $('#old-password-message').html('password lama tidak sama');
                     }
-                    // rules error message
+                    // rules error message.
                     if (data.error) {
                         data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
                         data.errors.nik ? $('#nik').addClass('is-invalid') : $('#nik').removeClass('is-invalid');

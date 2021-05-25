@@ -111,18 +111,11 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
         $(document).ready(function () {
+            $('#siswa_id').select2();
+
             $('#add').on('click', function () {
-                $('#action').val('add');
-                $('#siswa_id').select2('');
-                $('#tanggal_pelanggaran').val('');
-                $('#pelanggaran').val('');
-                $('#poin_lama').val('');
-                $('#poin').val('');
-                $('#sebab').val('');
-                $('#sanksi').val('');
-                $('#penanganan').val('');
-                $('#keterangan').val('');
-                $('#hidden_id').val('');
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
                 $('#btn')
                     .removeClass('btn-info')
                     .addClass('btn-success')
@@ -132,7 +125,7 @@
                     .addClass('btn-outline-success')
                 $('#modal-siswa').modal('show');
             });
-            $('#siswa_id').select2();
+            
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
@@ -292,7 +285,7 @@
         const pelanggaran = document.getElementById('pelanggaran');
         const poin = document.getElementById('poin');
         function setPoin(selected){
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poi n);
             poin.value = pelanggaran.options[pelanggaran.selectedIndex].dataset.poin;
         }
     </script>

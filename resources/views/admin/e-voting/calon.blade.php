@@ -259,7 +259,7 @@
 
         function setPoin(selected){
             console.log(selected)
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset. p oin);
             nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
             kelas_id.value = calon_id.options[calon_id.selectedIndex].dataset.kelas;
         }
