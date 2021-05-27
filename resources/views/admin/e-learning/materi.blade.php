@@ -30,8 +30,8 @@
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
-                                    <th>Materi</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -43,8 +43,8 @@
                                     <td>Bahasa Indonesia</td>
                                     <td>VII</td>
                                     <td>Mursilah</td>
-                                    <td></td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-success">Diterbitkan</label></td>
                                     <td></td>
                                 </tr>
@@ -54,8 +54,8 @@
                                     <td>Bahasa Indonesia</td>
                                     <td>VII</td>
                                     <td>Mursilah</td>
-                                    <td></td>
-                                    <td><small>Diperbarui, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-warning">Draf</label></td>
                                     <td></td>
                                 </tr>
@@ -151,7 +151,7 @@
    
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Kuis');
+            $('.modal-title').html('Tambah Materi');
             $('#modal-materi').modal('show');
         });
 

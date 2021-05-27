@@ -123,6 +123,12 @@
         $(document).ready(function () {
 
             $('#add').on('click', function () {
+                $('#action').val('add');
+                $('#nama_calon').val('');
+                $('#posisi').val('');
+                $('#start_date').val('');
+                $('#end_date').val('');
+                $('#hidden_id').val('');
                 $('#modal-pemilihan').modal('show');
             });
 
@@ -279,9 +285,13 @@
                             $('#form-pemilihan')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                                 location.reload();
                             // $('#order-table').DataTable().ajax.reload();
                         }
@@ -303,9 +313,13 @@
                         $('#end_date').val(data.end_date);
                         $('#hidden_id').val(data.pemilihan_id);
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                         $('#modal-pemilihan').modal('show');
                     }
                 });

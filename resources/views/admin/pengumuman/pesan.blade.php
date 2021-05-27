@@ -48,7 +48,7 @@ Ini adalah halaman pesan untuk admin
                                 <td>{{ $pesan->message_time }}</td>
                                 <td>{{ date("Y-m-d", strtotime($pesan->created_at)) }}</td>
                                 <td>{{ $pesan->start_date }}</td>
-                                <td>{{ $pesan->status }}</td>
+                                <td><label class="badge badge-success">{{ $pesan->status }}</label></td>
                                 <td>
                                     <button type="button" data-id="{{$pesan->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
                                     &nbsp;&nbsp;
@@ -171,9 +171,9 @@ Ini adalah halaman pesan untuk admin
             $('#start_date').val('');
             $('#end_date').val('');
             $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
+            $('#btn')
+                .removeClass('btn-success')
+                .addClass('btn-info')
                 .html('Simpan');
             $('#modal-pesan').modal('show');
         });
@@ -230,8 +230,8 @@ Ini adalah halaman pesan untuk admin
                         $('#form-pesan')[0].reset();
                         $('#form-pesan form').attr('action', 'edit');
                         $('#btn')
-                            .removeClass('btn-outline-info')
-                            .addClass('btn-outline-success')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
                             .val('Simpan');
                         $('#order-table').DataTable().ajax.reload();
                     }
@@ -257,9 +257,9 @@ Ini adalah halaman pesan untuk admin
                     $('#end_date').val(data.kelas.end_date);
                     $('#hidden_id').val(data.kelas.id);
                     $('#action').val('edit');
-                    $('#button')
-                        .removeClass('btn-outline-success add')
-                        .addClass('btn-outline-info edit')
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
                         .html('Update');
                     $('#modal-pesan').modal('show');
                 }

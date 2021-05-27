@@ -262,10 +262,10 @@ Ini adalah halaman Daftar Nilai untuk admin
                         nilai = "Prak";
                     }
 
-                    var buttons = '<button type="button" class="btn btn-danger btn-sm btn-just-icon" style="border-radius:0;" onclick="remove_cells(' + number + ')"><i class="fa fa-times"></i></button></th>';
+                    var buttons = '<button type="button" class="btn btn-danger btn-sm btn-just-icon" onclick="remove_cells(' + number + ')"><i class="fa fa-times"></i></button></th>';
 
                     //Penambahan Cell
-                    var cell = '<th id="cells_' + number + '" style="width:10%;">' + nilai + number;
+                    var cell = '<th id="cells_' + number + '" style="width:10%;">' + nilai + ' ' + number;
 
                     if (number == 2) {
                         cell += " " + buttons;
