@@ -16,16 +16,13 @@ Ini adalah halaman list peminjam untuk admin
 <div class="row">
     <div class="col-xl-12">
         <div class="card shadow">
-            <div class="card-header">
-                <h5>List Peminjam</h5>
-            </div>
             <div class="card-body">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Nama Siswa</th>
                                     <th>Judul Buku</th>
                                     <th>Tipe</th>
@@ -92,6 +89,6 @@ Ini adalah halaman list peminjam untuk admin
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
-    })
+    }) //
 </script>
 @endpush

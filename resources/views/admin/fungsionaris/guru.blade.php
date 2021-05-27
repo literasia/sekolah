@@ -24,17 +24,18 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
+                        <div class="dt-responsive table-responsive mt-3">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Guru</th>
                                         <th>Keterangan</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -44,7 +45,24 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.fungsionaris.modals._guru2')
+    @include('admin.fungsionaris.modals._guru')
+
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 {{-- addons css --}}
@@ -58,19 +76,19 @@
             margin-right: 0px;
         }
         .fileinput .thumbnail {
-    display: inline-block;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-align: center;ry
-    vertical-align: middle;
-    max-width: 250px;
-    box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-}
-.thumbnail {
-    border: 0 none;
-    border-radius: 4px;
-    padding: 0;
-}
+            display: inline-block;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-align: center;ry
+            vertical-align: middle;
+            max-width: 250px;
+            box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+        }
+        .thumbnail {
+            border: 0 none;
+            border-radius: 4px;
+            padding: 0;
+        }
     </style>
 @endpush
 
@@ -81,21 +99,11 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var modal = $('#modal-guru');
-
-            var form = $("#form_guru");
-
             //read
-            var table = $('#order-table').DataTable({
+            let table = $('#order-table').DataTable({
                 processing:true,
                 serverSide: true,
                 ajax: "{{ route('admin.fungsionaris.guru') }}?req=table",
@@ -105,20 +113,16 @@
                     {data: 'keterangan'},
                     {data: 'nama_status'},
                     {data: 'action'},
-                    // {data: 'id', render: (data) => {
-                    //     return  `<button data-id="${data}" type="button" class="btn-edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                    //                         &nbsp;&nbsp;
-                    //     <button data-id="${data}" type="button" class="btn-delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>`;
-                    // }},
                 ]
             });
 
             $('#add').on('click', function () {
-                //$("#id").val('');
-                $("#form_guru").find('input').val('');
-                $("#form_guru").find('select').val('');
-                $("#form_guru").find('textarea').val('');
-                modal.modal('show');
+                $('#modal-guru').modal('show');
+                $('.form-control').val('');
+                $('.modal-title').text('Tambah Guru');
+                $('#action').val('add');
+                $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
 
             $('#tanggal_lahir').dateDropper({
@@ -131,105 +135,93 @@
                 format: 'Y-m-d'
             });
 
-            $("#form_guru_submit").click(function(){
-                form.submit();
-            });
+            $('#form-guru').on('submit', function (e) {
+                event.preventDefault();
 
-            form.submit(ev => {
-                ev.preventDefault();
-                var formData = new FormData();
-                $.each($(this).find('input[type="file"]'), function (i, tag) {
-                    $.each($(tag)[0].files, function (i, file) {
-                        formData.append(tag.name, file);
-                    });
-                });
-                var params = $('#form_guru').serializeArray();
-                $.each(params, function (i, val) {
-                    formData.append(val.name, val.value);
-                });
+                var text = "Data sukses ditambahkan";
 
-                // write
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('admin.fungsionaris.guru.store') }}";
+                    text = "Data sukses ditambahkan";
+                }
+
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('admin.fungsionaris.guru.update') }}";
+                    text = "Data sukses diupdate";
+                }
+
                 $.ajax({
-                    url: "{{ route('admin.fungsionaris.guru.write') }}?req=write",
-                    cache: false,
-                    method: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
+                    url: url,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(this).serialize(),
                     success: function (data) {
-                        Swal.fire("Berhasil", "Data berhasil disimpan", "success");
-                        modal.modal('hide');
-                        table.ajax.reload();
-                    },
-                    error: function(data) {
-                        if(typeof data.responseJSON.message == 'string')
-                            return Swal.fire('Error', data.responseJSON.message, 'error');
-                        else if(typeof data.responseJSON == 'string')
-                            return Swal.fire('Error', data.responseJSON, 'error');
+                        var html = '';
 
+                        // rules error message
+                        if (data.error) {
+                            data.errors.pegawai_id ? $('#pegawai_id').addClass('is-invalid') : $('#pegawai_id').removeClass('is-invalid');
+                            data.errors.status_guru_id ? $('#status_guru_id').addClass('is-invalid') : $('#status_guru_id').removeClass('is-invalid');
+                            data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
+                            data.errors.keterangan ? $('#keterangan').addClass('is-invalid') : $('#keterangan').removeClass('is-invalid');
+                            toastr.error("data masih kosong");
+                        }
+
+                        // success success message
+                        if (data.success) {
+                            Swal.fire("Berhasil", text, "success");
+                            $('#modal-guru').modal('hide');
+                            $('#name').removeClass('is-invalid');
+                            $('#form-guru')[0].reset();
+                            $('#action').val('add');
+                            $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
+                            $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
                     }
                 });
-
-            });
-            //delete done
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {
-                var id = ev.currentTarget.getAttribute('data-id');
-                Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: "Apa anda yakin untuk menghapus data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('admin.fungsionaris.guru.write') }}?req=delete&id=" + id,
-                            cache: false,
-                            method: "POST",
-                            processData: false,
-                            contentType: false,
-                            success: function (data) {
-                                Swal.fire("Berhasil", "Data berhasil dihapus", "success");
-                                table.ajax.reload();
-                            },
-                            error: function(data) {
-                                if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
-                            }
-                        });
-                    }
-                    })
             });
 
-                //edit
-            // $("#order-table").on('click', '.btn-edit', function(ev, data) {
-            //     var id = ev.currentTarget.getAttribute('data-id');
-            //     $.get("{{route('admin.fungsionaris.guru')}}?req=single&id=" + id, function (data, status){
-            //         for(key in data) {
-            //             $(`#${key}`).val(data[key])
-            //         }
 
-            //         modal.modal('show');
-            //     });
-            // })
-
-            $(document).on('click', '.btn-edit', function () {
+            $(document).on('click', '.edit', function () {
                 var id = $(this).attr('data-id');
+                console.log(id);
                 $.ajax({
                     url: '/admin/fungsionaris/guru/edit/'+id,
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#pegawai_id').val(data.guru.pegawai_id);
-                        $('#status_guru_id').val(data.guru.status_guru_id);
-                        $('#keterangan').val(data.guru.keterangan);
-                        $('#id').val(data.guru.id);
-                        modal.modal('show');
+                        $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
+                        $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
+                        $('#pegawai_id').val(data.pegawai_id);
+                        $('#status_guru_id').val(data.status_guru_id);
+                        $('#keterangan').val(data.keterangan);
+                        $('#status').val(data.status);
+                        $('#hidden_id').val(data.id);
+                        $('#modal-guru').modal('show');
+                    }
+                });
+            });
+
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('data-id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
+            });
+
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: '/admin/fungsionaris/guru/delete/'+user_id,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, success: function (data) {
+                        setTimeout(function () {
+                            $('#confirmModal').modal('hide');
+                            $('#order-table').DataTable().ajax.reload();
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
+                        }, 1000);
                     }
                 });
             });

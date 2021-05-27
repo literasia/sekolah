@@ -44,8 +44,8 @@
                                 <div class="col">
                                     <input type="hidden" name="hidden_id" id="hidden_id">
                                     <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -61,7 +61,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Calon</th>
                                         <th>Actions</th>
                                     </tr>
@@ -128,9 +128,9 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#calon_id').select2();
@@ -161,14 +161,17 @@
                 event.preventDefault();
                 var id = $(this).val();
                 console.log($(this).serialize())
-
                 var url = '';
+
+                var text = "Data sukses ditambahkan";
                 if ($('#nama_calon').val() == 'add') {
                     url = "{{ route('admin.e-voting.calon') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.calon-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -185,14 +188,18 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#nama_calon').removeClass('is-invalid');
                             $('#form-calon-kandidat')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -210,9 +217,13 @@
                         $('#hidden_id').val(data.calon_id.id);
                         $('#action').val('edit');
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                     }
                 });
             });
@@ -233,7 +244,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
@@ -248,7 +259,7 @@
 
         function setPoin(selected){
             console.log(selected)
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset. p oin);
             nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
             kelas_id.value = calon_id.options[calon_id.selectedIndex].dataset.kelas;
         }

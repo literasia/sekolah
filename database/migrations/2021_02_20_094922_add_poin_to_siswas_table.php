@@ -10,7 +10,7 @@ class AddPoinToSiswasTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('siswas', function (Blueprint $table) {

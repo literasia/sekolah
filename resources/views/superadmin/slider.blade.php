@@ -28,7 +28,7 @@ Ini adalah halaman slider untuk Superadmin
                         <table id="slider-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Foto</th>
                                     <th>Keterangan</th>
@@ -96,7 +96,7 @@ Ini adalah halaman slider untuk Superadmin
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<!-- Select 2 js -->
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
@@ -239,7 +239,7 @@ Ini adalah halaman slider untuk Superadmin
 
                     // Succes
                     if (data.success) {
-                        toastr.success('Sukses!');
+                        Swal.fire("Berhasil", data.success, "success");
                         $('#modal-slider').modal('hide');
                         $('#judul').removeClass('is-invalid');
                         $('#form-slider')[0].reset();
@@ -297,7 +297,7 @@ Ini adalah halaman slider untuk Superadmin
                     setTimeout(function() {
                         $('#confirmModal').modal('hide');
                         $('#slider-table').DataTable().ajax.reload();
-                        toastr.success('Data berhasil dihapus');
+                        Swal.fire("Berhasil", data.success, "success");
                     }, 1000);
                 }
             });

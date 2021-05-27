@@ -25,12 +25,12 @@
                     <h5>Semester</h5>
                 </div>
                 <div class="card-body" style="margin-top: -20px">
-                    <div class="card-block">
+                    <div class="card-block px-0">
                         <div class="row">
                             <div class="col">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                   <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Ganjil'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
-                                  <label for="Ganjil">Ganjil</label>
+                                  <label for="Ganjil" class="mr-3">Ganjil</label>
 
                                   <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Genap'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
                                   <label for="Genap">Genap</label>
@@ -49,7 +49,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Semester</th>
                                         <th>Actions</th>
                                     </tr>
@@ -102,6 +102,8 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
+
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable();
@@ -130,7 +132,7 @@
                     //  buttonsStyling: false,
                     //  confirmButtonClass: "btn btn-danger"
                     // }).then(function(){
-                    //  location.reload();
+                    //  location.reload(); //
                     // });
            //      }
         });
@@ -165,12 +167,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.sekolah.semester') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.sekolah.semester-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -187,7 +193,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#semester').removeClass('is-invalid');
                             $('#form-semester')[0].reset();
                             $('#action').val('add');
@@ -235,7 +241,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

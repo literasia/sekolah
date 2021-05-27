@@ -81,7 +81,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-outline-success mt-3 btn-pindah">Simpan</button>
+                                        <button type="submit" class="btn btn-success mt-3 btn-pindah">Simpan</button>
 
                                     </div>
                                 </div>

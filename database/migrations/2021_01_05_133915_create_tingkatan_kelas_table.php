@@ -10,7 +10,7 @@ class CreateTingkatanKelasTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('tingkatan_kelas', function (Blueprint $table) {

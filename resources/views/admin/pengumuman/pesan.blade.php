@@ -28,7 +28,7 @@ Ini adalah halaman pesan untuk admin
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Set Waktu</th>
                                     <th>Tanggal Upload</th>
@@ -48,7 +48,7 @@ Ini adalah halaman pesan untuk admin
                                 <td>{{ $pesan->message_time }}</td>
                                 <td>{{ date("Y-m-d", strtotime($pesan->created_at)) }}</td>
                                 <td>{{ $pesan->start_date }}</td>
-                                <td>{{ $pesan->status }}</td>
+                                <td><label class="badge badge-success">{{ $pesan->status }}</label></td>
                                 <td>
                                     <button type="button" data-id="{{$pesan->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
                                     &nbsp;&nbsp;
@@ -115,6 +115,7 @@ Ini adalah halaman pesan untuk admin
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
         $('#order-table').DataTable({
@@ -170,9 +171,9 @@ Ini adalah halaman pesan untuk admin
             $('#start_date').val('');
             $('#end_date').val('');
             $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
+            $('#btn')
+                .removeClass('btn-success')
+                .addClass('btn-info')
                 .html('Simpan');
             $('#modal-pesan').modal('show');
         });
@@ -193,6 +194,7 @@ Ini adalah halaman pesan untuk admin
             event.preventDefault();
             var url = '';
             var atribut = $(this).attr("action");
+            var text = "Data sukses ditambahkan";
             console.log(atribut)
             if ($('#button').hasClass('add')) {
                 url = "{{ route('admin.pengumuman.pesan') }}";
@@ -212,7 +214,7 @@ Ini adalah halaman pesan untuk admin
                 success: function(data) {
                     var html = '';
                     if (data.errors) {
-                        // for (var count = 0; count <= data.errors.length; count++) {
+                        // for (var count = 0; count <= data.errors.length; cou nt++) {
                         html = data.errors[0];
                         // }
                         $('#judul').addClass('is-invalid');
@@ -221,15 +223,15 @@ Ini adalah halaman pesan untuk admin
                     }
 
                     if (data.success) {
-                        toastr.success('Data sukses ditambahkan');
+                        Swal.fire("Berhasil", text, "success");
                         $('#judul').removeClass('is-invalid');
                         $('#message').removeClass('is-invalid');
                         $('#modal-pesan').modal('hide');
                         $('#form-pesan')[0].reset();
                         $('#form-pesan form').attr('action', 'edit');
                         $('#btn')
-                            .removeClass('btn-outline-info')
-                            .addClass('btn-outline-success')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
                             .val('Simpan');
                         $('#order-table').DataTable().ajax.reload();
                     }
@@ -255,9 +257,9 @@ Ini adalah halaman pesan untuk admin
                     $('#end_date').val(data.kelas.end_date);
                     $('#hidden_id').val(data.kelas.id);
                     $('#action').val('edit');
-                    $('#button')
-                        .removeClass('btn-outline-success add')
-                        .addClass('btn-outline-info edit')
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
                         .html('Update');
                     $('#modal-pesan').modal('show');
                 }
@@ -282,7 +284,7 @@ Ini adalah halaman pesan untuk admin
                     setTimeout(function() {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
-                        toastr.success('Data berhasil dihapus');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });

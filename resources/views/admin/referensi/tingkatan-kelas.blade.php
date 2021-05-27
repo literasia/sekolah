@@ -54,8 +54,8 @@
                                 <div class="col">
                                     <input type="hidden" name="hidden_id" id="hidden_id">
                                     <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="reset" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -71,7 +71,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Tingkatan Kelas</th>
                                         <th>Actions</th>
                                     </tr>
@@ -124,6 +124,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -152,12 +153,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.referensi.tingkatan-kelas') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.referensi.tingkatan-kelas-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -174,14 +179,18 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#tingkat').removeClass('is-invalid');
                             $('#form-tingkat')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -199,9 +208,13 @@
                         $('#hidden_id').val(data.tingkat.id);
                         $('#action').val('edit');
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                     }
                 });
             });
@@ -222,7 +235,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

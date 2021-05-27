@@ -274,35 +274,6 @@ Route::namespace('Superadmin')
 
 Route::namespace('Admin')
     ->name('admin.')
-    ->prefix('admin')
-    ->middleware(['auth', 'auth.admin'])
-    ->group(function () {
-        // Route::get('/', 'AdminController@index')->name('index');
-        // Route::get('/siswa-by-tahun', 'AdminController@getSiswasByTahun')->name('siswa.by.tahun');
-
-        // Peserta Didik
-        // Route -> Admin/PesertaDidik
-        // url /admin/peserta-didik
-
-
-        // Fungsionaris
-        // Route -> Admin/Fungsionaris
-        // url /admin/fungsionaris
-        Route::namespace('Fungsionaris')
-            ->prefix('fungsionaris')
-            ->name('fungsionaris.')
-            ->group(function () {
-                // Route::resource('pegawai', 'PegawaiController');
-                // Route::get('getKabupaten/{id}', 'PegawaiController@getKabupatenKota');
-                // Route::get('getKecamatan/{id}', 'PegawaiController@getKecamatan');
-            });
-    });
-
-
-
-
-Route::namespace('Admin')
-    ->name('admin.')
     ->middleware(['auth', 'auth.admin'])
     ->group(__DIR__.'/web/admin.php');
 

@@ -28,7 +28,7 @@
                             <table id="berita-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No.</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
                                         <th>Thumbnail</th>
@@ -90,6 +90,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
 
@@ -191,7 +192,7 @@
 
                         // Succes
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", data.success, "success");
                             $('#modal-berita').modal('hide');
                             $('#judul').removeClass('is-invalid');
                             $('#form-berita')[0].reset();
@@ -247,7 +248,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#berita-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", data.success, "success");
                         }, 1000);
                     }
                 });

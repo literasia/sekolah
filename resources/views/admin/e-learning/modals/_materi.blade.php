@@ -1,4 +1,4 @@
-<div class="modal fade modal-flex p-0" id="modal-materi" tabindex="-1" role="dialog">
+<div class="modal fade modal-flex p-0" id="modal-materi" tabindex="-1" role="dialog"> 
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,7 +46,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="materi">Materi</label>
-                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
+                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Materi" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -70,14 +70,14 @@
                                     <div class="row" >
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="tanggal_terbit">Tanggal</label>
-                                                <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                                                <label for="publish_date">Tanggal</label>
+                                                <input type="text" name="publish_date" id="publish_date" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="jam">Jam</label>
-                                                <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                                                <label for="time">Jam</label>
+                                                <input type="text" name="time" id="time" class="form-control form-control-sm clockpicker" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -90,11 +90,12 @@
                         <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!--  -->

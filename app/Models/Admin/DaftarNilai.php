@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DaftarNilai extends Model
-{
+{ //
     use SoftDeletes;
 
     protected $table = 'daftar_nilai';

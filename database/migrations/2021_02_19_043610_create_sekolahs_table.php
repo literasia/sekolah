@@ -10,7 +10,7 @@ class CreateSekolahsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('sekolahs', function (Blueprint $table) {

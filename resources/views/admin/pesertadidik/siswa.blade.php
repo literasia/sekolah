@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
-                            <table id="siswa-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <div class="dt-responsive table-responsive mt-3">
+                            <table id="siswa-table" class="table table-striped table-bordered border nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>NIS</th>
@@ -43,13 +43,13 @@
                                         <tr>
                                             <td>{{ $siswa->nis }}</td>
                                             <td>{{ $siswa->nama_lengkap }}</td>
-                                            <td>{{ $siswa->kelas }}</td>
+                                            <td>{{ $siswa->kelas->name }}</td>
                                             <td>{{ $siswa->jk }}</td>
                                             <td>{{ $siswa->alamat_tinggal }}</td>
                                             <td>{{ $siswa->poin_sp}}</td>
                                             <td>
                                                 @if ($siswa->foto)
-                                                    <a target="_blank" href="{{ Storage::url($siswa->foto) }}">Lihat</a>
+                                                    <a target="_blank" href="{{ Storage::url($siswa->foto) }}"><label class="badge badge-warning">Lihat</label></a>
                                                 @else
                                                     -
                                                 @endif
@@ -67,7 +67,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr><td colspan="7" class="text-center">Tidak ada data</td></tr>
+                                        <tr><td colspan="8" class="text-center">Tidak ada data</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -118,26 +118,17 @@
             theme: 'leaf',
             format: 'd-m-Y'
         };
-
         $(document).ready(function () {
-
             // $('#siswa-table').DataTable();
-
             try {
                 $('#siswa-table').DataTable();
             } catch (error) {
             }
-
             $('#dropper-default').dateDropper(dateOptions);
-
             $('#tanggal_lahir').dateDropper(dateOptions);
-
             $('#tanggal_lahir_ayah').dateDropper(dateOptions);
-
             $('#tanggal_lahir_ibu').dateDropper(dateOptions);
-
             $('#tanggal_lahir_wali').dateDropper(dateOptions);
-
             $("#provinsi").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -155,7 +146,6 @@
                     }
                 });
             });
-
             $("#kabupaten").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -172,29 +162,33 @@
                     }
                 });
             });
-
             $('#add').on('click', function () {
                 clearDataSiswa(); clearDataOrtu(); clearDataWali();
                 $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
-                $('#btn-submit').text('Tambah');
-
+                $('#btn-submit').text('Simpan');
+                $('#btn-cancel').text('Batal');
                 $("#toggle-data-login").show();
                 $("#data-login").show();
                 $("#username").prop('required', true);
                 $("#password").prop('required', true);
                 $("#password_confirmation").prop('required', true);
-
+                $('#btn-submit')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .text('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                    .text('Batal');
                 $('#modal-siswa input[name=_method]').val("POST");
                 $('#modal-siswa').modal('show');
             });
         });
-
         $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
             const url = $(e.relatedTarget).data('url');
             const form = confirmDeleteModal.querySelector('#deleteForm');
             form.action = url;
         });
-
         const createForm = (e) => {
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("password_confirmation");
@@ -205,7 +199,6 @@
                 } else if (password.value.length < 6) {
                     errMsg = 'Password min. 6 karakter';
                 }
-
                 if (errMsg) {
                     toastr.error(errMsg);
                     e.preventDefault();
@@ -213,14 +206,12 @@
                 }
             }
         }
-
         document.addEventListener('submit', (e) => {
             const id = e.target.id;
             switch(e.target.id) {
                 case "createForm": createForm(e); break;
             }
         });
-
         $(document).on('click', '.edit', function () {
                 var id = $(this).data('id');
                 $("#toggle-data-login").hide();
@@ -252,7 +243,6 @@
                         $('#jarak_rumah_sekolah').val(data.jarak_rumah_sekolah);
                         $('#is_siswa_pindahan').val(data.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
                         $('#alamat_tinggal').val(data.alamat_tinggal);
-
                         // $.when($('#provinsi').val(data.provinsi).change()).then(function(){
                         //     $.when($('#kabupaten').val(data.kabupaten).change()).then(function(){
                         //         $('#kecamatan').val(data.kecamatan);
@@ -266,21 +256,18 @@
                             },500);
                         },500);
                         // $('#kecamatan').val(data.kecamatan);
-
                         $('#dusun').val(data.dusun);
                         $('#rt').val(data.rt);
                         $('#rw').val(data.rw);
                         $('#kode_pos').val(data.kode_pos);
                         $('#no_telepon').val(data.no_telepon);
                         $('#no_telepon_rumah').val(data.no_telepon_rumah);
-
                         // $("#provinsi option").prop('selected', false);
                         // $("#kabupaten option").prop('selected', false);
                         // $("#kecamatan option").prop('selected', false);
                         // $('#provinsi option[value="'+data.provinsi+'"]').prop('selected', true);
                         // $('#kabupaten option[value="'+data.kabupaten+'"]').prop('selected', true);
-                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected', true);
-
+                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected',true);
                         if (data.siswa_orang_tua) {
                             const orangTua = data.siswa_orang_tua;
                             $('#status_anak').val(orangTua.status_anak);
@@ -308,7 +295,6 @@
                         } else {
                             clearDataOrtu();
                         }
-
                         if (data.siswa_wali) {
                             const wali = data.siswa_wali;
                             $('#nama_wali').val(wali.nama_wali);
@@ -322,15 +308,20 @@
                         } else {
                             clearDataWali();
                         }
-
                         $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}/${id}`);
-                        $('#btn-submit').text('Ubah');
+                        $('#btn-submit')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .text('Update');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .text('Batal');
                         $('#modal-siswa input[name=_method]').val("PUT");
                         $('#modal-siswa').modal('show');
                     }
                 });
             });
-
             function clearDataSiswa() {
                 $('#nis').val("");
                 $('#nisn').val("");
@@ -365,7 +356,6 @@
                 $('#password').val("");
                 $('#password_confirmation').val("");
             }
-
             function clearDataOrtu() {
                 $('#status_anak').val("");
                 $('#anak_ke').val("");
@@ -390,7 +380,6 @@
                 $('#no_telepon_ayah').val("");
                 $('#no_telepon_ibu').val("");
             }
-
             function clearDataWali() {
                 $('#nama_wali').val("");
                 $('#tempat_lahir_wali').val("");

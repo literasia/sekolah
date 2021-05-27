@@ -10,7 +10,7 @@ class CreateSiswaWalisTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('siswa_walis', function (Blueprint $table) {

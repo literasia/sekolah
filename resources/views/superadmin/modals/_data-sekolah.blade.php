@@ -92,7 +92,7 @@
             <div class="col">
                 <div class="form-group">
                     <label for="file">Pilih File:</label>
-                    <input type="file" name="logo" id="logo" class="form-control">
+                    <input type="file" name="logo" id="logo">
                 </div>
             </div>
         </div>

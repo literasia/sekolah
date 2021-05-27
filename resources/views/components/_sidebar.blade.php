@@ -24,7 +24,7 @@
                 </li>
 
                 @if ($addons != null && $addons->referensi)
-                <li class="@if (request()->is('admin/referensi/bagian-pegawai') || request()->is('admin/referensi/semester') || request()->is('admin/referensi/status-guru') || request()->is('admin/referensi/pengaturan-hak-akses') || request()->is('admin/referensi/jenjang-pegawai') || request()->is('admin/referensi/tingkatan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/referensi/bagian-pegawai') || request()->is('admin/referensi/status-guru') || request()->is('admin/referensi/jenjang-pegawai') || request()->is('admin/referensi/pengaturan-hak-akses') || request()->is('admin/referensi/tingkatan-kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-list-alt"></i></span>
                         <span class="pcoded-mtext">Referensi</span>
@@ -60,7 +60,7 @@
                 @endif
 
                 @if ($addons != null && $addons->sekolah)
-                <li class="@if (request()->is('admin/sekolah/jam') || request()->is('admin/sekolah/jurusan') || request()->is('admin/sekolah/kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/sekolah/tahun-ajaran') || request()->is('admin/sekolah/semester') || request()->is('admin/sekolah/jam') || request()->is('admin/sekolah/jurusan') || request()->is('admin/sekolah/kelas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-school"></i></span>
                         <span class="pcoded-mtext">Sekolah</span>
@@ -103,7 +103,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/fungsionaris/pegawai') ? 'active' : '' }}">
-                            <a href="{{ route('admin.fungsionaris.pegawai.index') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('admin.fungsionaris.pegawai') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pegawai</span>
                             </a>
                         </li>
@@ -221,9 +221,24 @@
                                 <span class="pcoded-mtext">Soal</span>
                             </a>
                         </li>
+                        
                     </ul>
                 </li>
                 @endif
+
+                <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
+                        <span class="pcoded-mtext">Bank Soal</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/banksoal/soal') ? 'active' : '' }}">
+                            <a href="{{ route('admin.banksoal.soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Soal</span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
 
                 @if ($addons != null && $addons->daftar_nilai)
                 <li class="{{ request()->is('admin/daftar-nilai') ? 'active' : '' }}">
@@ -330,7 +345,6 @@
                 </li>
                 @endif
 
-                @if ($addons != null && $addons->pengumuman)
                 <li class="@if (request()->is('admin/pengumuman/pesan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-bell"></i></span>
@@ -342,6 +356,37 @@
                                 <span class="pcoded-mtext">Pesan</span>
                             </a>
                         </li>
+                    </ul>
+                </li>
+                
+                @if ($addons != null && $addons->leaderboard)
+                <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-trophy"></i></span>
+                        <span class="pcoded-mtext">Leaderboard</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/leaderboard/leaderboard') ? 'active' : '' }}">
+                            <a href="{{ route('admin.leaderboard.leaderboard') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Leaderboard</span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
+                @endif
+
+                @if ($addons != null && $addons->forum)
+                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
+                        <span class="pcoded-mtext">Forum</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/forum/forum') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.forum') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Forum Diskusi</span>
+                            </a>
+                        </li>                        
                     </ul>
                 </li>
                 @endif
@@ -381,3 +426,4 @@
         </div>
     </div>
 </nav>
+<!--  -->

@@ -24,11 +24,11 @@
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
+                        <div class="dt-responsive table-responsive mt-3">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Siswa</th>
                                         <th>Tanggal</th>
                                         <th>Pelanggaran</th>
@@ -108,20 +108,28 @@
     <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
         $(document).ready(function () {
-            $('#add').on('click', function () {
-                $('#modal-siswa').modal('show');
-            });
-
-
             $('#siswa_id').select2();
 
+            $('#add').on('click', function () {
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
+                $('#btn')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .val('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                $('#modal-siswa').modal('show');
+            });
+            
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
             });
-
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -179,19 +187,19 @@
                 }
                 ]
             });
-
             $('#form-pelanggaran-siswa').on('submit', function (event) {
                 event.preventDefault();
-
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#siswa').val() == 'add') {
                     url = "{{ route('admin.pelanggaran.siswa') }}";
+                    text = "Data sukses ditambahkan";
                 }
-
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.pelanggaran.siswa-update') }}";
+                    text = "Data sukses diupdate";
                 }
-
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -204,24 +212,26 @@
                             $('#siswa').addClass('is-invalid');
                             toastr.error(html);
                         }
-
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-siswa').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pelanggaran-siswa')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }
                 });
             });
-
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
@@ -229,33 +239,34 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
-                        $('#siswa_id').val(data.nama_siswa.siswa_id);
-                        $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
-                        $('#pelanggaran').val(data.pelanggaran.pelanggaran);
-                        $('#poin_lama').val(data.poin.poin);
-                        $('#poin').val(data.poin.poin);
-                        $('#sebab').val(data.sebab.sebab);
-                        $('#sanksi').val(data.sanksi.sanksi);
-                        $('#penanganan').val(data.penanganan.penanganan);
-                        $('#keterangan').val(data.keterangan.keterangan);
-                        $('#hidden_id').val(data.nama_siswa.id);
-                        $('#modal-siswa').modal('show');
+                        $('#siswa_id').select2('val', '1');
+                        $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran);
+                        $('#pelanggaran').val(data.pelanggaran);
+                        $('#poin_lama').val(data.poin);
+                        $('#poin').val(data.poin);
+                        $('#sebab').val(data.sebab);
+                        $('#sanksi').val(data.sanksi);
+                        $('#penanganan').val(data.penanganan);
+                        $('#keterangan').val(data.keterangan);
+                        $('#hidden_id').val(data.id);
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
+                        $('#modal-siswa').modal('show');
                     }
                 });
             });
-
             var user_id;
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('#ok_button').text('Hapus');
                 $('#confirmModal').modal('show');
             });
-
             $('#ok_button').click(function () {
                 $.ajax({
                     url: '/admin/pelanggaran/siswa/hapus/'+user_id,
@@ -265,23 +276,17 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
             });
         });
-
         const pelanggaran = document.getElementById('pelanggaran');
         const poin = document.getElementById('poin');
-
-
         function setPoin(selected){
-
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poi n);
             poin.value = pelanggaran.options[pelanggaran.selectedIndex].dataset.poin;
         }
-
-
     </script>
 @endpush

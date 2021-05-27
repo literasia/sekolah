@@ -6,7 +6,6 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
 use App\Models\Admin\Access;
-use App\Models\Superadmin\Addons;
+use App\Models\Superadmin\{Addons, Sekolah};
 
 class ListSekolahController extends Controller
 {
@@ -55,7 +54,7 @@ class ListSekolahController extends Controller
             'tahun_ajaran'  => 'required',
             'username'      => 'required|max:100|unique:users,username',
             'password'      => 'required',
-            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
+            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000 ']
         ];
 
         $message = [
@@ -73,7 +72,7 @@ class ListSekolahController extends Controller
         }
 
         // Add Sekolah
-        $sekolahId = Sekolah::create([
+        $sekolah = Sekolah::create([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
             'alamat'        => $data['alamat'],
@@ -82,14 +81,14 @@ class ListSekolahController extends Controller
             'jenjang'       => $data['jenjang'],
             'tahun_ajaran'  => $data['tahun_ajaran'],
             // 'logo'          => $data['logo']
-        ])->id;
+        ]);
     
         
         // Get Roles
         $adminRole = Role::where('name', 'admin')->first();
 
         $user = User::create([
-            'id_sekolah'    => $sekolahId,
+            'id_sekolah'    => $sekolah->id,
             'role_id'       => $adminRole->id,
             'name'          => $data['name'],
             'username'      => $data['username'],
@@ -102,7 +101,7 @@ class ListSekolahController extends Controller
         
         // Add Addons
         Addons::create([
-            'sekolah_id' => $sekolahId,
+            'sekolah_id' => $sekolah->id,
             'user_id' => $user->id,
             'referensi' => !empty($req->referensi) ? 1 : 0,
             'sekolah' => !empty($req->sekolah) ? 1 : 0,
@@ -118,6 +117,8 @@ class ListSekolahController extends Controller
             'kalender' => !empty($req->kalender) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
+            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
         ]);
 
         return response()
@@ -134,23 +135,29 @@ class ListSekolahController extends Controller
         // get Addons
         $addons = Addons::where('sekolah_id', $sekolah->id)->first();
 
+        // get User
+        $user = User::where('id_sekolah', $sekolah->id)->first();
+
         return response()
             ->json([                
                 'id'   => $sekolah->id,
                 'id_sekolah'   => $sekolah->id_sekolah,
+                'username' => $user->username,                
                 'name'   => $sekolah->name,
                 'alamat'   => $sekolah->alamat,
                 'provinsi'   => $provinsi->id,
                 'kabupaten'   => $kabupaten->id,
                 'jenjang'   => $sekolah->jenjang,
                 'tahun_ajaran'   => $sekolah->tahun_ajaran,
-                'user'      => User::where('id_sekolah', $sekolah->id)->get(),
+                'user'      =>  User::where('id_sekolah', $sekolah->id)->first(),
                 'referensi' => $addons->referensi,
                 'sekolah' => $addons->sekolah,
                 'fungsionaris' => $addons->fungsionaris,
                 'pelajaran' => $addons->pelajaran,
                 'peserta_didik' => $addons->peserta_didik,
                 'absensi' => $addons->absensi,
+                'forum' => $addons->forum,
+                'leaderboard' => $addons->leaderboard,
                 'e_learning' => $addons->e_learning,
                 'daftar_nilai' => $addons->daftar_nilai,
                 'e_rapor' => $addons->e_rapor,
@@ -211,9 +218,6 @@ class ListSekolahController extends Controller
             }
         }
 
-        // Update Sekolah
-        $sekolah = Sekolah::findOrFail($id);
-
         $sekolah->update([
             'id_sekolah'    => $data['id_sekolah'],
             'name'          => $data['name'],
@@ -227,8 +231,9 @@ class ListSekolahController extends Controller
 
         // Get Addons
         $addons = Addons::where('sekolah_id', $data['hidden_id'])->first();
+        
         // Get User
-        $user = User::where('id_sekolah', $data['hidden_id'])->first();
+        $user = User::where('id_sekolah', $sekolah->id)->first();
 
         // Update Addons Sekolah
         $addons->update([
@@ -248,6 +253,8 @@ class ListSekolahController extends Controller
             'kalender' => !empty($req->kalender) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
+            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
         ]);
 
         return response()

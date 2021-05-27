@@ -65,8 +65,8 @@
                               <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="id" id="id">
-                                    <button type="submit" class="btn btn-sm btn-outline-success">Simpan</button>
-                                    <button id="reset-form" type="button" class="btn btn-sm btn-danger">Batal</button>
+                                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                                    <button id="reset-form" type="button" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
                                 </div>
                             </div>
                           </form>
@@ -94,7 +94,7 @@
                             <div class="col">
                                 <div class="form-group">
                                   <input type="hidden" name="req" value="table">
-                                <input type="submit" class="btn btn-sm btn-outline-success" value="Tampil" id="tampil">
+                                <input type="submit" class="btn btn-sm btn-success" value="Tampil" id="tampil">
                             </div>
                             </div>
                         </div>
@@ -109,33 +109,48 @@
 
     <div class="row" id="showjpcard">
         <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Senin', 'data' => $data['senin'] ?? []])
+                </div>
+                <div class="col-md-4">
+                    @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Selasa', 'data' => $data['selasa'] ?? []])
+                </div>
+                <div class="col-md-4">
+                    @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Rabu', 'data' => $data['rabu'] ?? []])
+                </div>
+            </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Senin', 'data' => $data['senin'] ?? []])
-          </div>
-          <div class="col-md-4">
-            @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Selasa', 'data' => $data['selasa'] ?? []])
-          </div>
-          <div class="col-md-4">
-            @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Rabu', 'data' => $data['rabu'] ?? []])
-          </div>
+            <div class="row">
+                <div class="col-md-4">
+                    @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Kamis', 'data' => $data['kamis'] ?? []])
+                </div>
+                <div class="col-md-4">
+                    @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Jumat', 'data' => $data['jumat'] ?? []])
+                </div>
+                <div class="col-md-4">
+                    @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Sabtu', 'data' => $data['sabtu'] ?? []])
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Kamis', 'data' => $data['kamis'] ?? []])
-          </div>
-          <div class="col-md-4">
-            @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Jumat', 'data' => $data['jumat'] ?? []])
-          </div>
-          <div class="col-md-4">
-            @include('admin.sekolah.jam-pelajaran-table-hari', ['hari' => 'Sabtu', 'data' => $data['sabtu'] ?? []])
-          </div>
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
         </div>
-
-        </div>
-      </div>
+    </div>
 
     @endsection
 
@@ -160,7 +175,6 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-
     <script>
         $(document).ready(function () {
 
@@ -192,7 +206,7 @@
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        toastr.success('Data berhasil disimpan');
+                        Swal.fire("Berhasil", "Data sukses ditambahkan", "success");
                         resetForm();
                         window.location.reload();
                     },
@@ -205,43 +219,39 @@
                 });
             });
 
-            $("#showjpcard").on('click', '.btn-delete', function(ev, data) {
-                var id = ev.currentTarget.getAttribute('data-id');
-                Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: "Apa anda yakin untuk menghapus data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('admin.sekolah.jam.write') }}?req=delete&id=" + id,
-                            cache: false,
-                            method: "POST",
-                            processData: false,
-                            contentType: false,
-                            success: function (data) {
-                                toastr.success('Data berhasil dihapus');
-                                setTimeout(() => {
-                                 window.location.reload();
-                                }, 500)
-                            },
-                            error: function(data) {
-                                if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
-                            }
-                        });
-                    }
-                    })
+            var id;
+            $(document).on('click', '.delete', function () {
+                id = $(this).attr('data-id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
             });
 
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: "{{ route('admin.sekolah.jam.write') }}?req=delete&id=" + id,
+                    cache: false,
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, 
+                    success: function (data) {
+                        $('#confirmModal').modal('hide');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500)
+                    },
+                    error: function(data) {
+                        if(typeof data.responseJSON.message == 'string')
+                            return Swal.fire('Error', data.responseJSON.message, 'error');
+                        else if(typeof data.responseJSON == 'string')
+                            return Swal.fire('Error', data.responseJSON, 'error');
+                    }
+                });
+            });
             loadData();
-
         });
     </script>
 @endpush

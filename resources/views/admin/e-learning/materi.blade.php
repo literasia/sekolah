@@ -19,18 +19,9 @@
     <div class="col-xl-12">
         <div class="card shadow">
             <div class="card-body">
-
-                {{-- <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="materi">Materi</label>
-                            <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
@@ -39,8 +30,8 @@
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
-                                    <th>Materi</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -52,8 +43,8 @@
                                     <td>Bahasa Indonesia</td>
                                     <td>VII</td>
                                     <td>Mursilah</td>
-                                    <td></td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-success">Diterbitkan</label></td>
                                     <td></td>
                                 </tr>
@@ -63,8 +54,8 @@
                                     <td>Bahasa Indonesia</td>
                                     <td>VII</td>
                                     <td>Mursilah</td>
-                                    <td></td>
-                                    <td><small>Diperbarui, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-warning">Draf</label></td>
                                     <td></td>
                                 </tr>
@@ -84,45 +75,52 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-clockpicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
         margin-right: 0px;
     }
-
     .rotate{
         -moz-transition: all .2s linear;
         -webkit-transition: all 2s linear;
         transition: all .2s linear;
     }
-
     .rotate.down{
         -moz-transform:rotate(90deg);
         -webkit-transform:rotate(90deg);
         transform:rotate(90deg);
+    }
+    .modal-dialog {
+        margin-bottom: 6rem!important;
     }
 </style>
 @endpush
 
 {{-- addons js --}}
 @push('js')
+<script src="{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script> 
+<script src="{{ asset('assets/plugins/tinymce/tinymce.min.js')}}"></script>
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-<script type="text/javascript">
-  
-</script>
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
+        
+        var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         tinymce.init({
             external_plugins: {
                 'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
             },
             selector: '#materi',
+            height: 300,
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             imagetools_cors_hosts: ['picsum.photos'],
             menubar: 'file edit view insert format tools table help',
@@ -132,7 +130,7 @@
             // autosave_interval: '30s',
             // autosave_prefix: '{path}{query}-{id}-',
             // autosave_restore_when_empty: false,
-            // autosave_retention: '2m',
+            // autosave_retention: '2m', 
             image_advtab: true,
             importcss_append: true,
             template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
@@ -145,7 +143,6 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
 
-
         $(document).on('focusin', function(e) {
             if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
                 e.stopImmediatePropagation();
@@ -154,17 +151,18 @@
    
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Pesan');
-            $('#judul').val('');
-            $('#message').val('');
-            $('#start_date').val('');
-            $('#end_date').val('');
-            $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
+            $('.modal-title').html('Tambah Materi');
             $('#modal-materi').modal('show');
+        });
+
+        $('#publish_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+            autoclose: true
         });
 
         $(".rotate-collapse").click(function() {

@@ -10,7 +10,7 @@ class CreateBagianPegawai extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('bagian_pegawais', function (Blueprint $table) {

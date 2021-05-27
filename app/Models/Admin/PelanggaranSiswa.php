@@ -4,17 +4,15 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Siswa;
 
 class PelanggaranSiswa extends Model
-{
+{ //
     use SoftDeletes;
-    protected $fillable = [
-       'nama_siswa', 'siswa_id', 'tanggal_pelanggaran', 'pelanggaran', 'poin', 'sebab', 'sanksi', 'penanganan', 'keterangan'
-    ];
+    protected $guarded = ['id'];
     protected $table = "pelanggaran_siswas";
-    protected $guarded = [];
 
    public function siswa(){
-   		return $this->hasOne(Siswa::class);
+   		return $this->belongsTo(Siswa::class);
    }
 }

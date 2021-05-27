@@ -267,7 +267,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Ubah</button>
+                                <button type="submit" class="btn btn-sm btn-info">Ubah</button>
                             </div>
                         </form>
                     </div>

@@ -11,7 +11,7 @@ use App\Models\Admin\Voting;
 use App\Models\Superadmin\Addons;
 
 class VoteController extends Controller
-{
+{ //
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $names = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();

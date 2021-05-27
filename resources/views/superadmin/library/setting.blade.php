@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Library Setting')
+@section('title', 'Library | Library Setting')
 @section('title-2', 'Library Setting')
 @section('title-3', 'Library Setting')
 @section('describ')
@@ -95,6 +95,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('.btn-add').on('click', function (e) {

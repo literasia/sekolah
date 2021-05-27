@@ -95,7 +95,7 @@
                                     <input type="hidden" name="hidden_id" id="hidden_id">
                                     <input type="hidden" id="action" val="add">
                                     <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-outline-success">Batal</button>
+                                    <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -183,6 +183,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
 
@@ -206,6 +207,7 @@
             $('#form-kelas').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+                var text = "Data sukses ditambahkan";
 
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.sekolah.kelas') }}";
@@ -235,16 +237,20 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
+                            Swal.fire("Berhasil", text, "success");
                             $('#name').removeClass('is-invalid');
                             $('#tingkat').removeClass('is-invalid');
                             $('#jurusan').removeClass('is-invalid');
                             $('#form-kelas')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -268,9 +274,13 @@
                         $('#hidden_id').val(data.kelas.id);
                         $('#action').val('edit');
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                     }
                 });
             });
@@ -291,7 +301,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

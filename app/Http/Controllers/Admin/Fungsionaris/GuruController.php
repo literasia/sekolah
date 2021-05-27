@@ -3,42 +3,42 @@
 namespace App\Http\Controllers\Admin\Fungsionaris;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Http\Request;
-use App\Models\Pegawai;
-use App\Models\Guru;
-use DataTables;
-use App\Models\StatusGuru;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
+use App\{User, Role};
+use App\Models\{StatusGuru, Pegawai, Guru};
 use App\Models\Superadmin\Addons;
+use Illuminate\Support\Facades\Validator;
 
 class GuruController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 
         if ($request->ajax()) {
-            // $data = Guru::latest()->get();
-            $data = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
-                ->join('status_gurus', 'gurus.status_guru_id', 'status_gurus.id')
-                ->where('gurus.user_id', Auth::id())
-                // ->first(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status'])
-                ->get(['gurus.*', 'pegawais.name AS nama_pegawai', 'status_gurus.name AS nama_status']);
+            $data = Guru::whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" data-id="' . $data->id . '" class="btn-edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="btn-delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
+                })->addColumn('nama_pegawai', function($data){
+                    return $data->pegawai->name;
+                })->addColumn('nama_status', function($data){
+                    return $data->statusGuru->name;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
         // $pegawai = Pegawai::where('user_id', Auth::id())->latest()->get();
-        $user = User::sekolah();
+        // $user = User::sekolah();
         $pegawai = Pegawai::join('users', 'pegawais.user_id', 'users.id')
-            ->where('users.id_sekolah', $user->id)
+            ->where('users.id_sekolah', auth()->user()->id_sekolah)
             ->get(['pegawais.*']);
         $status = StatusGuru::where('user_id', Auth::id())->latest()->get();
         // return($pegawai);
@@ -46,44 +46,88 @@ class GuruController extends Controller
         return view('admin.fungsionaris.guru',['pegawai' => $pegawai, 'status' => $status, 'addons' => $addons ,'mySekolah' => User::sekolah()]);
     }
 
-    public function write(Request $request) {
-        if($request->req == 'write') {
+    public function store(Request $request) {
+        // Validation rules
+        $rules = [
+            'pegawai_id' => 'required',
+            'status_guru_id' => 'required',
+            'status' => 'required',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
 
-            $this->validate($request, [
-                'pegawai_id' => "required",
-                // isi validasi
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
             ]);
-
-            $obj = Guru::find($request->id);
-            // dd($obj);
-            if(!$obj) {
-                $obj = new Guru();
-            }
-
-            $obj->user_id = Auth::id();
-            $obj->pegawai_id = $request->pegawai_id;
-            $obj->status_guru_id = $request->status_guru_id;
-            $obj->keterangan = $request->keterangan;
-            $obj->status = $request->status;
-            $obj->save();
-
-            return response()->json(true);
         }
 
-        elseif($request->req == 'delete') {
-            $obj = Guru::find($request->id);
-            $obj->delete();
-            return response()->json(true);
-        }
+        // Get user id pegawai
+        $pegawai = Pegawai::findOrFail($request->pegawai_id);
+        $user_id = User::findOrFail($pegawai->user_id);
+
+        $request['user_id'] = $user_id->id;
+
+        // get Roles to attach user roles
+        $role = Role::where('name', 'guru')->first();
+
+        // attach
+        $user_id->roles()->attach($role->id);
+
+        // Create Guru
+        $guru = Guru::create($request->all());
+
+        // Respons Data
+        return response()->json(['success' => 'Data berhasil disimpan.']);
     }
 
     public function edit($id) {
-        $guru = Guru::find($id);
-        // dd($guru);
-
-        // return view('admin.fungsionaris.pegawai_edit', ['pegawai' => $pegawai, 'mySekolah' => User::sekolah(), 'provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'kecamatan' => $kecamatan, 'bagian' => $bagian, 'semester' => $semester]);
+        $guru = Guru::findOrFail($id);
         return response()->json([
-            'guru'  => $guru,
+            'id' => $guru->id,
+            'user_id' => $guru->user_id,
+            'pegawai_id' => $guru->pegawai_id,
+            'status_guru_id' => $guru->status_guru_id,
+            'keterangan' => $guru->keterangan,
+            'status' => $guru->status,
         ]);
+    }
+
+    public function update(Request $request) {
+        // Validation rules
+        $rules = [
+            'pegawai_id' => 'required',
+            'status_guru_id' => 'required',
+            'status' => 'required',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        // get Guru
+        $guru = Guru::findOrFail($request->hidden_id);  
+
+        // update guru
+        $guru->update($request->all());
+
+        // Respons Data
+        return response()->json(['success' => 'Data berhasil diubah.']);
+    }
+
+    public function destroy($id) {
+        // get guru
+        $guru = Guru::findOrFail($id);
+        // delete guru
+        $guru->delete();
+
+        // Respons Data
+        return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

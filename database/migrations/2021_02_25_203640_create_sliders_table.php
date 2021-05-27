@@ -10,7 +10,7 @@ class CreateSlidersTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('sliders', function (Blueprint $table) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use App\Models\Admin\{Kelas, DaftarNilai};
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ class Siswa extends Model
 {
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $casts =[
         'tanggal_masuk' => 'datetime:d-m-Y',
@@ -39,8 +40,16 @@ class Siswa extends Model
         return $this->hasMany(Absensi::class);
     }
 
-    public function nilai()
-    {
+    public function nilai(){
         return $this->hasMany(DaftarNilai::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function pelanggaranSiswa(){
+        return $this->hasMany(Siswa::class);
     }
 }

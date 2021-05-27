@@ -10,7 +10,7 @@ class AddUserIdInTingkatanKelasTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::table('tingkatan_kelas', function (Blueprint $table) {

@@ -10,7 +10,7 @@ class CreateRefKelasTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('ref_kelas', function (Blueprint $table) {

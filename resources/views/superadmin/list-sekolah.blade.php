@@ -22,11 +22,11 @@
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>ID Sekolah</th>
                                     <th>Nama Sekolah</th>
                                     <th>Jenjang</th>
@@ -157,7 +157,6 @@
                 }
                 ]
             });
-
             $("#provinsi").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -174,45 +173,44 @@
                     }
                 });
             });
-
-            $('#rest').on('click', function () {
+            $('#btn-cancel').on('click', function () {
                 $('#form-sekolah')[0].reset();
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
             $('.close').on('click', function () {
                 $('#form-sekolah')[0].reset();
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
             $('#add').on('click', function () {
                 $('#password-lama-group').css('display', 'none');
                 $('#password-baru-group').css('display', 'none');
                 $('#password-konfirmasi-group').css('display', 'none');
                 $('#modal-sekolah').modal('show');
+                $('.form-control').val('');
+                // console.log($('.add-ons-icon').children()[0]);
                 $('.modal-title').text('Tambah Sekolah');
                 $('#username').attr('readonly', false);
                 $('#password').attr('readonly', false);
                 $('#action').val('add');
-                $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
             $('#form-sekolah').on('submit', function (e) {
                 event.preventDefault();
-
                 if ($('#action').val() == 'add') {
                     url = "{{ route('superadmin.list-sekolah.store') }}";
                 }
-
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('superadmin.list-sekolah-update') }}";
                 }
-
                 $.ajax({
                     url: url,
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
+                    
                     success: function (data) {
                         var html = '';
                         // old password error message
@@ -233,10 +231,9 @@
                             data.errors.password ? $('#password').addClass('is-invalid') : $('#password').removeClass('is-invalid');
                             toastr.error("data masih kosong");
                         }
-
                         // success error message
                         if (data.success) {
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", data.success, "success");
                             $('#modal-sekolah').modal('hide');
                             $('#id_sekolah').removeClass('is-invalid');
                             $('#name').removeClass('is-invalid');
@@ -249,22 +246,32 @@
                             $('#password').removeClass('is-invalid');
                             $('#form-sekolah')[0].reset();
                             $('#action').val('add');
-                            $('#btn').removeClass('btn-outline-info').addClass('btn-outline-success').text('Simpan');
+                            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                            $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
                     }
                 });
             });
-
             $(document).on('click', '.edit', function () {
+                console.log('tes123');
                 var id = $(this).attr('id');
                 $.ajax({
                     url: '/superadmin/list-sekolah/'+id,
                     dataType: 'JSON',
+                    beforeSend: function (xhr) {
+                        var token = $('meta[name="csrf_token"]').attr('content');
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
                     success: function (data) {
+                        console.log('tes');
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').text('Update');
+                        $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
+                        $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
                         $('#id_sekolah').val(data.id_sekolah);
                         $('#name').val(data.name);
                         $('#jenjang').val(data.jenjang);
@@ -288,27 +295,27 @@
                         data.kalender == 1 ? $('#kalender').prop('checked', true) : $('#kalender').prop('checked', false);
                         data.import == 1 ? $('#import').prop('checked', true) : $('#import').prop('checked', false);
                         data.perpustakaan == 1 ? $('#perpustakaan').prop('checked', true) : $('#perpustakaan').prop('checked', false);
-
+                        data.pelanggaran == 1 ? $('#pelanggaran').prop('checked', true) : $('#pelanggaran').prop('checked', false);
+                        data.leaderboard == 1 ? $('#leaderboard').prop('checked', true) : $('#leaderboard').prop('checked', false);
+                        data.forum == 1 ? $('#forum').prop('checked', true) : $('#forum').prop('checked', false);
                         $('#password-lama-group').css('display', 'block');
                         $('#password-baru-group').css('display', 'block');
                         $('#password-konfirmasi-group').css('display', 'block');
                         $('#default-password-group').css('display', 'none');
                         
                         $('#hidden_id').val(data.id);
-                        $('#username').val(data.user[0].username).attr('readonly', true);
-                        $('#password').val(data.user[0].password).attr('readonly', true);
+                        $('#username').val(data.username).attr('readonly', true);
+                        $('#password').val(data.password).attr('readonly', true);
                         $('#modal-sekolah').modal('show');
                     }
                 });
             });
-
             var user_id;
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('#ok_button').text('Hapus');
                 $('#confirmModal').modal('show');
             });
-
             $('#ok_button').click(function () {
                 $.ajax({
                     url: '/superadmin/list-sekolah/hapus/'+user_id,
@@ -318,7 +325,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", data.success, "success");
                         }, 1000);
                     }
                 });

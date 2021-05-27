@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ //
     private const AGAMA_RULE = "Islam,Budha,Kristen Protestan,Hindu,Kristen Katolik,Konghuchu";
     private const KEWARGANEGARAAN_RULE = "WNI,WNA";
     private const PENDIDIKAN_RULE = "SD/Sederajat,SMP/MTs/Sederajat,SMA/MA/Sederajat,D1/D2/D3,S1,S2,S3";
@@ -70,23 +70,24 @@ class SiswaController extends Controller
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $sekolahId = auth()->user()->id_sekolah;
         $userId = auth()->user()->id;
-        $kelases = Kelas::where('user_id', $userId)->get();
-        $users = User::has('siswa')
-                ->where([
-                    ['id_sekolah', $sekolahId],
-                    ['role_id', 3]
-                ])->whereNotNull('siswa_id')
-                ->get();
+        $kelases = Kelas::where('user_id', auth()->user()->id)->get();
+        // $users = User::has('siswa')
+        //         ->where([
+        //             ['id_sekolah', $sekolahId],
+        //             ['role_id', 3]
+        //         ])->whereNotNull('siswa_id')
+        //         ->get();
+        $fetch_siswa = Siswa::whereIn('id', function($query){
+            $query->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
+        })->get();
 
         $provinsis = Provinsi::all();
         $poin_sp = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        
         $siswas = [];
+
         $i = 0;
-        foreach ($users as $user) {
-            $siswa = $user->siswa;
-            $siswa = $siswa::join('kelas', 'siswas.kelas_id', 'kelas.id')
-                        ->where('siswas.id', $siswa->id)
-                        ->first(['siswas.*', 'kelas.name AS kelas']);
+        foreach ($fetch_siswa as $siswa) {   
             $siswas[] = $siswa;
 
             foreach ($poin_sp as $psp) {
@@ -94,9 +95,9 @@ class SiswaController extends Controller
                     $siswas[$i]['poin_sp'] = $siswa['poin']."/".$psp['poin'];
                 }
             }
+            
             $i++;
         }
-
 
         return view('admin.pesertadidik.siswa', [
             'siswas' => $siswas,

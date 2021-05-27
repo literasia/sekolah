@@ -14,20 +14,25 @@ use App\Models\Admin\Sanksi;
 use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{
+{ 
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 
         if ($request->ajax()) {
-            $data = PelanggaranSiswa::join('siswas', 'siswas.id', 'pelanggaran_siswas.siswa_id')
-                                    ->join('users', 'users.siswa_id', 'siswas.id')
-                                    ->where('users.id_sekolah', auth()->user()->id_sekolah)
-                                    ->get();
+            $data = PelanggaranSiswa::whereHas('siswa', function($siswa){
+                $siswa->whereIn('id', function($user){
+                    $user->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
+                });
+            })->get();
+            
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
+                })
+                ->addColumn('nama_siswa', function($data){
+                    return $data->siswa->nama_lengkap;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
@@ -61,20 +66,20 @@ class SiswaController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
-        $siswa = Siswa::find($request->input('siswa_id'));
-        $siswa->poin += $request->input('poin');
+        $siswa = Siswa::find($request->siswa_id);
+        $siswa->poin += $request->poin;
         $siswa->save();
 
         $status = PelanggaranSiswa::create([
-            'siswa_id' => $request->input('siswa_id'),
+            'siswa_id' => $request->siswa_id,
             'nama_siswa' => $siswa->nama_lengkap,
-            'tanggal_pelanggaran' => $request->input('tanggal_pelanggaran'),
-            'pelanggaran' => $request->input('pelanggaran'),
-            'poin' => $request->input('poin'),
-            'sebab' => $request->input('sebab'),
-            'sanksi' => $request->input('sanksi'),
-            'penanganan' => $request->input('penanganan'),
-            'keterangan' => $request->input('keterangan')
+            'tanggal_pelanggaran' => $request->tanggal_pelanggaran,
+            'pelanggaran' => $request->pelanggaran,
+            'poin' => $request->poin,
+            'sebab' => $request->sebab,
+            'sanksi' => $request->sanksi,
+            'penanganan' => $request->penanganan,
+            'keterangan' => $request->keterangan
         ]);
 
 
@@ -85,27 +90,19 @@ class SiswaController extends Controller
     }
 
     public function edit($id) {
-        $siswa_id = PelanggaranSiswa::find($id);
-        $nama_siswa = PelanggaranSiswa::find($id);
-        $tanggal_pelanggaran = PelanggaranSiswa::find($id);
-        $pelanggaran = PelanggaranSiswa::find($id);
-        $poin = PelanggaranSiswa::find($id);
-        $sebab = PelanggaranSiswa::find($id);
-        $sanksi = PelanggaranSiswa::find($id);
-        $penanganan = PelanggaranSiswa::find($id);
-        $keterangan = PelanggaranSiswa::find($id);
-
+        $pelanggaran_siswa = PelanggaranSiswa::findOrFail($id);
         return response()
             ->json([
-                'siswa_id'  => $siswa_id,
-                'nama_siswa'  => $nama_siswa,
-                'tanggal_pelanggaran'  => $tanggal_pelanggaran,
-                'pelanggaran'  => $pelanggaran,
-                'poin'  => $poin,
-                'sebab'  => $sebab,
-                'sanksi'  => $sanksi,
-                'penanganan'  => $penanganan,
-                'keterangan'  => $keterangan
+                'id' => $pelanggaran_siswa->id,
+                'siswa_id'  => $pelanggaran_siswa->siswa_id,
+                'nama_siswa'  => $pelanggaran_siswa->nama_siswa,
+                'tanggal_pelanggaran'  => $pelanggaran_siswa->tanggal_pelanggaran,
+                'pelanggaran'  => $pelanggaran_siswa->pelanggaran,
+                'poin'  => $pelanggaran_siswa->poin,
+                'sebab'  => $pelanggaran_siswa->sebab,
+                'sanksi'  => $pelanggaran_siswa->sanksi,
+                'penanganan'  => $pelanggaran_siswa->penanganan,
+                'keterangan'  => $pelanggaran_siswa->keterangan
             ]);
         }
 
@@ -128,22 +125,14 @@ class SiswaController extends Controller
                 ]);
         }
 
-        $siswa = Siswa::find($request->input('siswa_id'));
-        $siswa->poin -= $request->input('poin_lama');
-        $siswa->poin += $request->input('poin');
+        $siswa = Siswa::find($request->siswa_id);
+        $siswa->poin -= $request->poin_lama;
+        $siswa->poin += $request->poin;
 
         $siswa->save();
-        $status = PelanggaranSiswa::whereId($request->input('hidden_id'))->update([
-            'siswa_id'              => $request->input('siswa_id'),
-            'nama_siswa'            => $siswa->nama_lengkap,
-            'tanggal_pelanggaran'   => $request->input('tanggal_pelanggaran'),
-            'pelanggaran'           => $request->input('pelanggaran'),
-            'poin'                  => $request->input('poin'),
-            'sebab'                 => $request->input('sebab'),
-            'sanksi'                => $request->input('sanksi'),
-            'penanganan'            => $request->input('penanganan'),
-            'keterangan'            => $request->input('keterangan')
-        ]);
+
+        $pelanggaran_siswa = PelanggaranSiswa::findOrFail($request->hidden_id);
+        $pelanggaran_siswa->update($request->all());
 
         return response()
             ->json([

@@ -18,41 +18,54 @@ use App\Models\Superadmin\Addons;
 
 class KelasController extends Controller
 {
-    //read
+    //readd
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 
         if ($request->ajax()) {
             // $data = Guru::latest()->get();
             $data = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
+                ->whereHas('user', function($query){
+                    $query->where('id_sekolah', auth()->user()->id_sekolah);
+                })
                 ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
-                ->where('kelas.user_id', Auth::id())
                 ->get(['kelas.*', 'pegawais.name AS wali_kelas', 'jurusans.name AS jurusan']);
             // $data = Kelas::all();
             // return($data);
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" data-id="' . $data->id . '" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="' . $data->id . '" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
+        
         $kelas = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
             ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
-            ->where('kelas.user_id', Auth::id())
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })
             ->get(['kelas.*', 'pegawais.name AS guru', 'jurusans.name AS jurusan']);
+            
+        
         $pegawai = Pegawai::join('gurus', 'pegawais.id', 'gurus.pegawai_id')
-            ->where('pegawais.user_id', Auth::id())
-            ->get();
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })->get();
         // $gurus = Guru::where('user_id', Auth::id())->get();
         $gurus = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
-            ->where('gurus.user_id', Auth::id())
-            ->get(['gurus.*', 'pegawais.name AS name']);
-        $tingkat = TingkatanKelas::where('user_id', Auth::id())->latest()->get();
-        $jurusan = Jurusan::where('user_id', Auth::id())->latest()->get();
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })->get(['gurus.*', 'pegawais.name AS name']);
+        $tingkat = TingkatanKelas::whereHas('user', function($query){
+            $query->where('id_sekolah', auth()->user()->id_sekolah);
+        })->latest()->get();
+        $jurusan = Jurusan::whereHas('user', function($query){
+            $query->where('id_sekolah', auth()->user()->id_sekolah);
+        })->latest()->get();
 
         // return($gurus);
 

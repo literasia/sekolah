@@ -80,8 +80,8 @@
                             <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="id" id="id">
-                                    <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-danger" id="reset">Batal</button>
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="reset" class="btn btn-sm btn-outline-success" id="reset">Batal</button>
                                 </div>
                             </div>
                         </form>
@@ -97,7 +97,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Pelajaran</th>
                                         <th>Guru</th>
                                         <th>Status</th>
@@ -192,7 +192,7 @@
                 },
                 {
                     data: 'aktif',
-                    render: (data) =>  data == 1 ? 'Aktif' : 'Non Aktif'
+                    render: (data) =>  data == 1 ? `<label class="badge badge-success">Aktif</label>` : `<label class="badge badge-danger">Nonaktif</label>`
                 },
                 {
                     data: 'id',
@@ -200,7 +200,7 @@
                         return `<button data-id="${id}" type="button" class="btn btn-edit btn-mini btn-info shadow-sm">
                                     <i class="fa fa-pencil-alt"></i>
                                 </button>&nbsp;&nbsp;
-                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
+                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm delete" data-toggle="modal" data-target="#confirmDeleteModal">
                                     <i class="fa fa-trash"></i>
                                 </button>`;
                     }
@@ -211,21 +211,31 @@
             $('#form-pelajaran').on('submit', function (event) {
                 event.preventDefault();
                 var url = "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=write";
+                var text = "Data sukses ditambahkan";
+
                 $.ajax({
                     url: url,
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        toastr.success('Data sukses ditambahkan');
+                        Swal.fire("Berhasil", text, "success");
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#reset')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .val('Batal');
                         resetForm();
                         table.ajax.reload();
                     },
                     error: function(data) {
                         if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
+                            return Swal.fire('Error', data.responseJSON.message, 'error');
+                        else if(typeof data.responseJSON == 'string')
+                            return Swal.fire('Error', data.responseJSON, 'error');
                     }
                 });
             });
@@ -239,7 +249,14 @@
                     $('input[name=keterangan]').val(data.keterangan);
                     $('input[name=aktif]').prop('checked', data.aktif == 1);
                     $('select[name=guru_id]').val(data.guru_id);
-                    $('#btn').val('Update');
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#reset')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .val('Batal');
                 });
             });
 
@@ -247,40 +264,63 @@
                 resetForm();
             });
 
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {
-                var id = ev.currentTarget.getAttribute('data-id');
-                Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: "Apa anda yakin untuk menghapus data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
-                            cache: false,
-                            method: "POST",
-                            processData: false,
-                            contentType: false,
-                            success: function (data) {
-                                toastr.success('Data berhasil dihapus');
-                                table.ajax.reload();
-                            },
-                            error: function(data) {
-                                if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
-                            }
-                        });
-                    }
-                    })
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('data-id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
             });
 
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + user_id,
+                    cache: false,
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, 
+                    success: function (data) {
+                        $('#confirmModal').modal('hide');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                        table.ajax.reload();
+                    }
+                });
+            });
 
+            // $("#order-table").on('click', '.btn-delete', function(ev, data) {
+            //     var id = ev.currentTarget.getAttribute('data-id');
+            //     Swal.fire({
+            //         title: 'Konfirmasi Hapus',
+            //         text: "Apa anda yakin untuk menghapus data?",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Delete'
+            //         }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $.ajax({
+            //                 url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
+            //                 cache: false,
+            //                 method: "POST",
+            //                 processData: false,
+            //                 contentType: false,
+            //                 success: function (data) {
+            //                     Swal.fire("Berhasil", "Data dihapus!", "success");
+            //                     table.ajax.reload();
+            //                 },
+            //                 error: function(data) {
+            //                     if(typeof data.responseJSON.message == 'string')
+            //                         return Swal.fire('Error', data.responseJSON.message, 'error');
+            //                     else if(typeof data.responseJSON == 'string')
+            //                         return Swal.fire('Error', data.responseJSON, 'error');
+            //                 }
+            //             });
+            //         }
+            //         })
+            // }); //
         });
     </script>
 @endpush

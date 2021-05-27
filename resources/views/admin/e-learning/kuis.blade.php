@@ -21,7 +21,7 @@
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
+                    <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
@@ -33,6 +33,7 @@
                                     <th>Soal</th>
                                     <th>Durasi</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -46,7 +47,8 @@
                                     <td>Mursilah</td>
                                     <td><label class="badge badge-primary py-2 px-3">1</label></td>
                                     <td>00:10:00</td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-success">Diterbitkan</label></td>
                                     <td></td>
                                 </tr>
@@ -58,7 +60,8 @@
                                     <td>Mursilah</td>
                                     <td><label class="badge badge-secondary disabled py-2 px-3">0</label></td>
                                     <td>00:10:00</td>
-                                    <td><small>Diperbarui, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-warning">Draf</label></td>
                                     <td></td>
                                 </tr>
@@ -78,30 +81,61 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-clockpicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
         margin-right: 0px;
     }
-
     .rotate{
         -moz-transition: all .2s linear;
         -webkit-transition: all 2s linear;
         transition: all .2s linear;
     }
-
     .rotate.down{
         -moz-transform:rotate(90deg);
         -webkit-transform:rotate(90deg);
         transform:rotate(90deg);
     }
-
     .badge-secondary {
         background-color: #6c757d6b;
     }
     .duration-option, .duration-option:focus {
         border: 1px solid #ced4da!important;
         background-color: #85ccff4a;
+    }
+    .quiz-modal-wrapper {
+        position: relative;
+    }
+
+    .quiz-modal-caption {
+        position: absolute; 
+        top: -35px; 
+        left: 20px; 
+        background: #fff;
+    }
+    .demo-content {
+        visibility: hidden;
+        display: none;
+        z-index: 9999999!important;
+        background: #fff;
+    }
+    .demo-wrapper a:hover + .demo-content, .demo-wrapper a:active + .demo-content, .demo-wrapper a:focus + .demo-content {
+        visibility: visible;
+        display: block;
+    }
+    .form-check-input-custom {
+        margin-left: -1rem!important;
+    }
+    .btn-next {
+        border-radius: 30px;
+    }
+    .border-bottom-custom {
+        border-bottom: 2px solid red;
+    }
+    .modal-dialog {
+        margin-bottom: 20rem!important;
     }
 </style>
 @endpush
@@ -113,6 +147,8 @@
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
     $('document').ready(function() {
         $('#order-table').DataTable();
@@ -129,6 +165,16 @@
             //     .addClass('btn-outline-info add')
             //     .html('Simpan');
             $('#modal-kuis').modal('show');
+        });
+
+        $('#publish_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+            autoclose: true
         });
     })
 </script>

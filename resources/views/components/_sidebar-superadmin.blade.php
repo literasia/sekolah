@@ -11,7 +11,7 @@
                         <span class="pcoded-mtext">Dashboard</span>
                     </a>
                 </li>
-                <li class="@if (request()->is('superadmin/berita') || request()->is('superadmin/library/setting')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('superadmin/berita') || request()->is('superadmin/berita/kategori-berita')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-newspaper"></i>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Superadmin\Addons;
 
 class AlumniController extends Controller
-{
+{ //
     public function index() {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 

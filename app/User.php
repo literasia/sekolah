@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function siswa()
     {
-        return $this->hasOne(Siswa::class, 'id', 'siswa_id');
+        return $this->hasOne(Siswa::class);
     }
 
     public function kelases() {
@@ -79,5 +79,13 @@ class User extends Authenticatable
 
     public function addons(){
         return $this->hasOne(Addons::class);
+    }
+
+    public function tingkatanKelas(){
+        return $this->hasMany(TingkatanKelas::class);
+    }
+
+    public function jurusan(){
+        return $this->hasMany(Jurusan::class);
     }
 }

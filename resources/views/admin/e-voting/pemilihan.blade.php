@@ -28,7 +28,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Kandidat</th>
                                         <th>Jenis Pemilihan</th>
                                         <th>Start Date</th>
@@ -52,9 +52,9 @@
                                         <td>{{ $dt->end_date }}</td>
                                         <td>
                                             <center>
-                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
                                             &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
                                             </center>
                                         </td>
                                     </tr>
@@ -116,13 +116,19 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
 
             $('#add').on('click', function () {
+                $('#action').val('add');
+                $('#nama_calon').val('');
+                $('#posisi').val('');
+                $('#start_date').val('');
+                $('#end_date').val('');
+                $('#hidden_id').val('');
                 $('#modal-pemilihan').modal('show');
             });
 
@@ -196,7 +202,7 @@
                 });
             });
 
-            // $('#order-table').DataTable({
+            // $('#order-table').DataTable  ({
             //     processing: true,
             //     serverSide: true,
             //     ajax: {
@@ -247,12 +253,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.e-voting.pemilihan') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.pemilihan-update') }}";
+                    text = "Data sukses diupdate";
                 }
                 console.log($(this).serialize());
                 $.ajax({
@@ -269,15 +279,19 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-pemilihan').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pemilihan')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                                 location.reload();
                             // $('#order-table').DataTable().ajax.reload();
                         }
@@ -299,9 +313,13 @@
                         $('#end_date').val(data.end_date);
                         $('#hidden_id').val(data.pemilihan_id);
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                         $('#modal-pemilihan').modal('show');
                     }
                 });
@@ -323,7 +341,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             // $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                             location.reload();
                         }, 1000);
                     }

@@ -10,7 +10,7 @@ class CreateKelasPemilihanIdTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ //
     public function up()
     {
         Schema::create('kelas_pemilihan_id', function (Blueprint $table) {

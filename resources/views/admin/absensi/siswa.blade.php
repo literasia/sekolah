@@ -80,9 +80,9 @@
                                             <td class="text-center"><input type="radio" name="status" value="L" required {{$obj->absensi && $obj->absensi->status == 'L' ? 'checked' : ''}}></td>
                                             <td id="submit_{{$obj->id}}" class="text-center">
                                                 @if($obj->absensi)
-                                                APPROVE
+                                                <label class="badge badge-success" id="approved">APPROVED</label>
                                                 @else
-                                                <input type="submit" class="btn btn-success" value="approve">
+                                                <input type="submit" class="btn btn-success" id="approve" value="approve">
                                                 @endif
                                             </td>
                                         </tr>
@@ -140,8 +140,10 @@
                 };
 
                 $.post("{{route('admin.absensi.siswa.write')}}", params).done(data => {
-                    toastr.success('Data berhasil disimpan');
-                    $(`#submit_${params.siswa_id}`).html("APPROVE");
+                    Swal.fire("Berhasil","Data sukses ditambahkan", "success");
+                    var approved = '<label class="badge badge-success" id="approved">APPROVED</label>'
+                    $('#approve').hide();
+                    $(`#submit_${params.siswa_id}`).append(approved);
                 }).fail((data) => {
                     if(typeof data.responseJSON.message == 'string')
                         return Swal.fire('Error', data.responseJSON.message, 'error');

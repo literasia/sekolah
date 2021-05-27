@@ -123,30 +123,27 @@ Ini adalah halaman Daftar Nilai untuk admin
                                     {{-- @endforeach --}}
                                     @php
                                     $totalNilai=0;
-                                    $nilai = $obj->nilai
-                                    ->where('kelas_id',request()->kelas_id)
-                                    ->where('mata_pelajaran_id',request()->mata_pelajaran_id)
-                                    ->where('tahun_ajaran',request()->tahun_ajaran)
-                                    ->where('semester',request()->semester)
-                                    ->where('kategori_nilai',request()->kategori_nilai);
-                                    // dd($obj->nilai
-                                    // ->where('kelas_id',request()->kelas_id)
-                                    // ->where('mata_pelajaran_id',request()->mata_pelajaran_id)
-                                    // ->where('tahun_ajaran',request()->tahun_ajaran)
-                                    // ->where('semester',request()->semester)
-                                    // ->where('kategori_nilai',request()->kategori_nilai)
-                                    // );
+                                    $nilai = $obj->nilai()
+                                                    ->where('kelas_id',request()->kelas_id)
+                                                    ->where('mata_pelajaran_id',request()->mata_pelajaran_id)
+                                                    ->where('tahun_ajaran',request()->tahun_ajaran)
+                                                    ->where('semester',request()->semester)
+                                                    ->where('kategori_nilai',request()->kategori_nilai)
+                                                    ->get();
                                     @endphp
-                                    @for ($j = 1; $j <= $jumlah_data; $j++) @php $totalNilai +=$nilai[$j-1]->nilai;
+                                    @for ($j = 1; $j <= $jumlah_data; $j++) 
+                                        @php 
+                                            $totalNilai += $nilai[$j-1]->nilai;
                                         @endphp
                                         <td id="cells_{{ $obj->id."_".$j }}"><input type="number" max="100" class="form-control" name="{{ "nilai_".$j."_".$obj->id }}" id="{{"nilai_".$j."_".$obj->id}}" onchange="nilai_changed('{{ $obj->id }}')" value="{{ $nilai[$j-1]->nilai??"" }}"></td>
-                                        {{-- <td><input type="number" id="nilai{{$obj->id}}" name="nilai[]" class="form-control form-control-sm" onchange="nilai_changed('{{ $obj->id }}')" value=""></td> --}}
-                                        @endfor
+                                    @endfor
 
-                                        @php
+                                    @php
                                         $total = $totalNilai / $jumlah_data;
-                                        @endphp
-                                        <td id="nr_cells_{{$obj->id}}"><input type="text" name="nilai_average_{{ $obj->id }}" class="form-control form-control-sm" disabled id="nilai_average_{{ $obj->id }}" value="{{ $total??"" }}"></td>
+                                    @endphp
+                                        <td id="nr_cells_{{$obj->id}}">
+                                            <input type="text" name="nilai_average_{{ $obj->id }}" class="form-control form-control-sm" disabled id="nilai_average_{{ $obj->id }}" value="{{ $total ?? "" }}">
+                                        </td>
                                         <td id="submit_{{$obj->id}}" class="text-center">
                                             {{-- @if($obj->nilai) --}}
                                             {{-- APPROVE --}}
@@ -265,10 +262,10 @@ Ini adalah halaman Daftar Nilai untuk admin
                         nilai = "Prak";
                     }
 
-                    var buttons = '<button type="button" class="btn btn-danger btn-sm btn-just-icon" style="border-radius:0;" onclick="remove_cells(' + number + ')"><i class="fa fa-times"></i></button></th>';
+                    var buttons = '<button type="button" class="btn btn-danger btn-sm btn-just-icon" onclick="remove_cells(' + number + ')"><i class="fa fa-times"></i></button></th>';
 
                     //Penambahan Cell
-                    var cell = '<th id="cells_' + number + '" style="width:10%;">' + nilai + number;
+                    var cell = '<th id="cells_' + number + '" style="width:10%;">' + nilai + ' ' + number;
 
                     if (number == 2) {
                         cell += " " + buttons;
