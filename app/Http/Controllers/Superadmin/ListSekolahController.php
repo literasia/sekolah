@@ -116,8 +116,9 @@ class ListSekolahController extends Controller
             'e_voting' => !empty($req->e_voting) ? 1 : 0,
             'kalender' => !empty($req->kalender) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
-            'forum' => !empty($req->forum) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
+            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
         ]);
 
         return response()
@@ -250,10 +251,10 @@ class ListSekolahController extends Controller
             'pelanggaran' => !empty($req->pelanggaran) ? 1 : 0,
             'e_voting' => !empty($req->e_voting) ? 1 : 0,
             'kalender' => !empty($req->kalender) ? 1 : 0,
-            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
-            'forum' => !empty($req->forum) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
+            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
         ]);
 
         return response()

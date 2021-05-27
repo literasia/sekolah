@@ -33,6 +33,7 @@
                                     <th>Soal</th>
                                     <th>Durasi</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -46,7 +47,8 @@
                                     <td>Mursilah</td>
                                     <td><label class="badge badge-primary py-2 px-3">1</label></td>
                                     <td>00:10:00</td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-success">Diterbitkan</label></td>
                                     <td></td>
                                 </tr>
@@ -58,7 +60,8 @@
                                     <td>Mursilah</td>
                                     <td><label class="badge badge-secondary disabled py-2 px-3">0</label></td>
                                     <td>00:10:00</td>
-                                    <td><small>Diperbarui, 2021/04/28 pukul 05:04 PM</small></td>
+                                    <td>2021/04/28</td>
+                                    <td>05:04 PM</td>
                                     <td><label class="badge badge-warning">Draf</label></td>
                                     <td></td>
                                 </tr>

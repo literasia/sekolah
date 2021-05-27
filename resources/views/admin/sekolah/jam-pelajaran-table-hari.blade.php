@@ -20,7 +20,7 @@
                      <td>{{$obj->jam_ke}}</td>
                      <td>{{ substr($obj->jam_mulai, 0, 5) }} - {{ substr($obj->jam_selesai, 0, 5) }}</td>
                      <td>
-                        <button data-id="{{$obj->id}}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
+                        <button data-id="{{$obj->id}}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm delete" data-toggle="modal" data-target="#confirmDeleteModal">
                             <i class="fa fa-trash"></i>
                         </button>
                      </td>
