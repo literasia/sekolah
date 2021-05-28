@@ -225,6 +225,8 @@ Route::namespace('ELearning')->group(function () {
         ->name('e-learning.kuis');
     Route::get('/admin/e-learning/soal', 'SoalController@index')
         ->name('e-learning.soal');
+    Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')
+        ->name('e-learning.butir-soal');
 });
 
 // Bank Soal

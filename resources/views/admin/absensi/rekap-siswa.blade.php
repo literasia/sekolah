@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-body">
                     <div class="card-block">
                         <h6>Pilih Kelas</h6>
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
