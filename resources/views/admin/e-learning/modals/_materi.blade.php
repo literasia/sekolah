@@ -10,7 +10,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-materi" action="" method="">
+                <form id="form-materi">
+                    @csrf @method("POST")
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -23,21 +24,36 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="mata_pelajaran">Mata Pelajaran</label>
-                                <input type="text" name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm" readonly>
+                                <label for="mata_pelajaran_id">Mata Pelajaran</label>
+                                <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                    <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($mata_pelajaran as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_pelajaran }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-group">
-                                <label for="kelas">Kelas</label>
-                                <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" readonly>
+                                <label for="kelas_id">Kelas</label>
+                                <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
+                                    <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($kelas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="guru">Nama Guru</label>
-                                <input type="text" name="guru" id="guru" class="form-control form-control-sm" readonly>
+                                <select name="guru_id" id="guru_id" class="form-control form-control-sm">
+                                    <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($guru as $item)
+                                        <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -46,7 +62,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="materi">Materi</label>
-                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Materi" required></textarea>
+                                <textarea name="materi" id="materi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Materi"></textarea>
                             </div>
                         </div>
                     </div>
@@ -57,8 +73,8 @@
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control form-control-sm">
                                     <option value="">-- Pilih --</option>
-                                    <option value="">Draf</option>
-                                    <option value="">Terbitkan</option>
+                                    <option value="Draf">Draf</option>
+                                    <option value="Terbitkan">Terbitkan</option>
                                 </select>
                             </div>
                         </div>
@@ -77,7 +93,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="jam">Jam</label>
-                                                <input type="text" name="tanggal_terbit" id="tanggal_terbit" class="form-control form-control-sm" readonly>
+                                                <input type="text" name="jam_terbit" id="jam_terbit" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -87,7 +103,6 @@
                     </div>
 
                     <div class="modal-footer mt-3">
-                        <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
                         <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">

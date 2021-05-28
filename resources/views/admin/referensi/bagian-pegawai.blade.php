@@ -154,9 +154,7 @@
                     success: function (data) {
                         var html = '';
                         if (data.errors) {
-                            // for (var count = 0; count <= data.errors.length; count++) {
                             html = data.errors[0];
-                            // }
                             $('#pegawai').addClass('is-invalid');
                             toastr.error(html);
                         }

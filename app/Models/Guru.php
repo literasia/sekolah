@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Pegawai;
 use App\Models\{JadwalPelajaran, MataPelajaran};
+use App\Models\Admin\Materi;
+
 class Guru extends Model
 {
     protected $guarded = ['id'];
@@ -32,5 +34,9 @@ class Guru extends Model
 
     public function statusGuru(){
         return $this->belongsTo(StatusGuru::class);
+    }
+
+    public function materi(){
+        return $this->hasMany(Materi::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Admin;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Admin\Materi;
 
 class Kelas extends Model
 { //
@@ -17,5 +18,9 @@ class Kelas extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function materi(){
+        return $this->hasMany(Materi::class);
     }
 }

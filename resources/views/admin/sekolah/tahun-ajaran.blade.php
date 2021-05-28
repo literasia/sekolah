@@ -82,23 +82,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <div id="confirmModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Konfirmasi</h4>
-                </div>
-                <div class="modal-body">
-                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 {{-- addons css --}}

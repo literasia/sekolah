@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\DaftarNilai;
+use App\Models\Admin\Materi;
+
 class MataPelajaran extends Model
 {
     public function guru() {
@@ -13,5 +15,9 @@ class MataPelajaran extends Model
     public function daftarNilai()
     {
     	return $this->hasMany(DaftarNilai::class);
+    }
+
+    public function materi(){
+        return $this->hasMany(Materi::class);
     }
 }

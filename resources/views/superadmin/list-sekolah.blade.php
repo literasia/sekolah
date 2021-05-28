@@ -266,7 +266,6 @@
                         }
                     },
                     success: function (data) {
-                        console.log(data);
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
                         $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
