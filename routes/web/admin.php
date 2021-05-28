@@ -235,6 +235,10 @@ Route::namespace('ELearning')->group(function () {
 
     // Soal
     Route::get('/admin/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
+    Route::post('/admin/e-learning/soal', 'SoalController@store')->name('e-learning.soal.store');
+    Route::get('/admin/e-learning/soal/{id}', 'SoalController@edit')->name('e-learning.soal.edit');
+    Route::post('/admin/e-learning/soal/update', 'SoalController@update')->name('e-learning.soal.update');
+    Route::get('/admin/e-learning/soal/hapus/{id}', 'SoalController@destroy')->name('e-learning.soal.delete');
 
     // Butir Soal
     Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
