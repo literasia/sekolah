@@ -83,7 +83,7 @@
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" value="add">
                         <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>
             </div>

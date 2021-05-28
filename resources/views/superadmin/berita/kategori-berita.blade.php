@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <form id="form-kategori-berita">
@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
@@ -136,12 +136,15 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
                 if ($('#action').val() == 'add') {
                     url = "{{ route('superadmin.berita.kategori-berita') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('superadmin.berita.kategori-berita-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -158,7 +161,7 @@
                         }
 
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#kategori_berita').removeClass('is-invalid');
                             $('#form-kategori-berita')[0].reset();
                             $('#action').val('add');
@@ -214,7 +217,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
