@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <form id="form-calon-kandidat">
@@ -54,14 +54,14 @@
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Calon</th>
                                         <th>Actions</th>
                                     </tr>
@@ -259,7 +259,7 @@
 
         function setPoin(selected){
             console.log(selected)
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset. p oin);
             nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
             kelas_id.value = calon_id.options[calon_id.selectedIndex].dataset.kelas;
         }

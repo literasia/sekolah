@@ -30,14 +30,13 @@
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
-                                    <th>Materi</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               
                             </tbody>
                         </table>
                     </div>
@@ -194,7 +193,7 @@
 
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Kuis');
+            $('.modal-title').html('Tambah Materi');
             $('#modal-materi').modal('show');
             $('.form-control').val('');
             tinymce.get('materi').setContent('');

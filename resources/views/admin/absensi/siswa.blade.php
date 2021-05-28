@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-body">
                     <div class="card-block">
                         <h6>Pilih Kelas</h6>
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
@@ -80,9 +80,9 @@
                                             <td class="text-center"><input type="radio" name="status" value="L" required {{$obj->absensi && $obj->absensi->status == 'L' ? 'checked' : ''}}></td>
                                             <td id="submit_{{$obj->id}}" class="text-center">
                                                 @if($obj->absensi)
-                                                APPROVE
+                                                <label class="badge badge-success" id="approved">APPROVED</label>
                                                 @else
-                                                <input type="submit" class="btn btn-success" value="approve">
+                                                <input type="submit" class="btn btn-success" id="approve" value="approve">
                                                 @endif
                                             </td>
                                         </tr>
@@ -141,7 +141,9 @@
 
                 $.post("{{route('admin.absensi.siswa.write')}}", params).done(data => {
                     Swal.fire("Berhasil","Data sukses ditambahkan", "success");
-                    $(`#submit_${params.siswa_id}`).html("APPROVE");
+                    var approved = '<label class="badge badge-success" id="approved">APPROVED</label>'
+                    $('#approve').hide();
+                    $(`#submit_${params.siswa_id}`).append(approved);
                 }).fail((data) => {
                     if(typeof data.responseJSON.message == 'string')
                         return Swal.fire('Error', data.responseJSON.message, 'error');

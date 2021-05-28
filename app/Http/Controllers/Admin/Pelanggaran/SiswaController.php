@@ -14,7 +14,7 @@ use App\Models\Admin\Sanksi;
 use App\Models\Superadmin\Addons;
 
 class SiswaController extends Controller
-{ //
+{ 
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 
@@ -27,8 +27,8 @@ class SiswaController extends Controller
             
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->addColumn('nama_siswa', function($data){

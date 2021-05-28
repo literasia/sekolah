@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <form id="updateForm" action="{{ route('admin.fungsionaris.pegawai.update', $pegawai->id) }}" method="POST" enctype="multipart/form-data">

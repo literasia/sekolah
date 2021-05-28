@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-header">
                     <h5>Semester</h5>
                 </div>
@@ -42,14 +42,14 @@
             </div>
         </div>
         {{-- <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Semester</th>
                                         <th>Actions</th>
                                     </tr>
@@ -132,7 +132,7 @@
                     //  buttonsStyling: false,
                     //  confirmButtonClass: "btn btn-danger"
                     // }).then(function(){
-                    //  location.reload();
+                    //  location.reload(); //
                     // });
            //      }
         });

@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -28,7 +28,7 @@
                             <table id="pegawai-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>#</th>
+                                        <th>No.</th>
                                         <th>NIP</th>
                                         <th>Nama Lengkap</th>
                                         <th>No. HP</th>
@@ -168,9 +168,44 @@
             });
 
             $('#add').on('click', function () {
+                $('#form-pegawai')[0].reset();
+                $('#action').val('add');
+                $('#name').val('');
+                $('#nik').val('');
+                $('#nip').val('');
+                $('#agama').val('');
+                $('#alamat_tinggal').val('');
+                $('#bagian_pegawai_id').val('');
+                $('#dusun').val('');
+                $('#email').val('');
+                $('#gelar_belakang').val('');
+                $('#gelar_depan').val('');
+                $('#is_menikah').val('');
+                $('#jenjang').val('');
+                $('#jk').val('');
+                $('#provinsi').val('');
+                $("#provinsi").change();
+                $('#kabupaten').val('');
+                $('#kecamatan').val('');
+                $('#kode_pos').val('');
+                $('#no_telepon').val('');
+                $('#no_telepon_rumah').val('');
+                $('#rt').val('');
+                $('#rw').val('');
+                $('#tahun_ajaran').val('');
+                $('#tanggal_mulai').val('');
+                $('#tempat_lahir').val('');
+                $('#tanggal_lahir').val('');
+                $('#semester').val('');
+                $('#default-password-group').css('display', 'block');
+                $('#username').attr('readonly', false);
+                $('#password').attr('readonly', false);
                 $('#password-lama-group').css('display', 'none');
                 $('#password-baru-group').css('display', 'none');
                 $('#password-konfirmasi-group').css('display', 'none');
+                $('#hidden_id').val('');
+                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
                 $('#modal-pegawai').modal('show');
             });
 
@@ -206,7 +241,7 @@
                         $('#password_lama').addClass('is-invalid');
                         $('#old-password-message').html('password lama tidak sama');
                     }
-                    // rules error message
+                    // rules error message.
                     if (data.error) {
                         data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
                         data.errors.nik ? $('#nik').addClass('is-invalid') : $('#nik').removeClass('is-invalid');

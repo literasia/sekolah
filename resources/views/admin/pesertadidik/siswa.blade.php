@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -172,6 +172,14 @@
                 $("#username").prop('required', true);
                 $("#password").prop('required', true);
                 $("#password_confirmation").prop('required', true);
+                $('#btn-submit')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .text('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                    .text('Batal');
                 $('#modal-siswa input[name=_method]').val("POST");
                 $('#modal-siswa').modal('show');
             });
@@ -259,7 +267,7 @@
                         // $("#kecamatan option").prop('selected', false);
                         // $('#provinsi option[value="'+data.provinsi+'"]').prop('selected', true);
                         // $('#kabupaten option[value="'+data.kabupaten+'"]').prop('selected', true);
-                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected', true);
+                        // $('#kecamatan option[value="'+data.kecamatan+'"]').prop('selected',true);
                         if (data.siswa_orang_tua) {
                             const orangTua = data.siswa_orang_tua;
                             $('#status_anak').val(orangTua.status_anak);

@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -28,7 +28,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Kandidat</th>
                                         <th>Jenis Pemilihan</th>
                                         <th>Start Date</th>
@@ -52,9 +52,9 @@
                                         <td>{{ $dt->end_date }}</td>
                                         <td>
                                             <center>
-                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
                                             &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
                                             </center>
                                         </td>
                                     </tr>
@@ -123,6 +123,12 @@
         $(document).ready(function () {
 
             $('#add').on('click', function () {
+                $('#action').val('add');
+                $('#nama_calon').val('');
+                $('#posisi').val('');
+                $('#start_date').val('');
+                $('#end_date').val('');
+                $('#hidden_id').val('');
                 $('#modal-pemilihan').modal('show');
             });
 
@@ -196,7 +202,7 @@
                 });
             });
 
-            // $('#order-table').DataTable({
+            // $('#order-table').DataTable  ({
             //     processing: true,
             //     serverSide: true,
             //     ajax: {
@@ -279,9 +285,13 @@
                             $('#form-pemilihan')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                                 location.reload();
                             // $('#order-table').DataTable().ajax.reload();
                         }
@@ -303,9 +313,13 @@
                         $('#end_date').val(data.end_date);
                         $('#hidden_id').val(data.pemilihan_id);
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                         $('#modal-pemilihan').modal('show');
                     }
                 });

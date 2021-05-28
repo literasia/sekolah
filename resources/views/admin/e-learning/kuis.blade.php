@@ -33,11 +33,11 @@
                                     <th>Durasi</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
                             </tbody>
                         </table>
                     </div>
@@ -109,6 +109,9 @@
     }
     .modal-dialog {
         margin-bottom: 20rem!important;
+    }
+    .nav-link.active {
+        font-weight: bold;
     }
 </style>
 @endpush

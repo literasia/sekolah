@@ -219,7 +219,6 @@ Route::namespace('ERapor')->group(function () {
 
 // E-Learning
 Route::namespace('ELearning')->group(function () {
-
     // Materi
     Route::get('/admin/e-learning/materi', 'MateriController@index')->name('e-learning.materi');
     Route::post('/admin/e-learning/materi', 'MateriController@store')->name('e-learning.materi.store');
@@ -232,6 +231,9 @@ Route::namespace('ELearning')->group(function () {
 
     // Soal
     Route::get('/admin/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
+
+    // Butir Soal
+    Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
 });
 
 // Bank Soal

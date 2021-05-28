@@ -192,7 +192,7 @@
                 },
                 {
                     data: 'aktif',
-                    render: (data) =>  data == 1 ? 'Aktif' : 'Non Aktif'
+                    render: (data) =>  data == 1 ? `<label class="badge badge-success">Aktif</label>` : `<label class="badge badge-danger">Nonaktif</label>`
                 },
                 {
                     data: 'id',
@@ -200,7 +200,7 @@
                         return `<button data-id="${id}" type="button" class="btn btn-edit btn-mini btn-info shadow-sm">
                                     <i class="fa fa-pencil-alt"></i>
                                 </button>&nbsp;&nbsp;
-                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
+                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm delete" data-toggle="modal" data-target="#confirmDeleteModal">
                                     <i class="fa fa-trash"></i>
                                 </button>`;
                     }
@@ -264,40 +264,63 @@
                 resetForm();
             });
 
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {
-                var id = ev.currentTarget.getAttribute('data-id');
-                Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: "Apa anda yakin untuk menghapus data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
-                            cache: false,
-                            method: "POST",
-                            processData: false,
-                            contentType: false,
-                            success: function (data) {
-                                Swal.fire("Berhasil", "Data dihapus!", "success");
-                                table.ajax.reload();
-                            },
-                            error: function(data) {
-                                if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
-                            }
-                        });
-                    }
-                    })
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('data-id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
             });
 
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + user_id,
+                    cache: false,
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, 
+                    success: function (data) {
+                        $('#confirmModal').modal('hide');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                        table.ajax.reload();
+                    }
+                });
+            });
 
+            // $("#order-table").on('click', '.btn-delete', function(ev, data) {
+            //     var id = ev.currentTarget.getAttribute('data-id');
+            //     Swal.fire({
+            //         title: 'Konfirmasi Hapus',
+            //         text: "Apa anda yakin untuk menghapus data?",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Delete'
+            //         }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $.ajax({
+            //                 url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
+            //                 cache: false,
+            //                 method: "POST",
+            //                 processData: false,
+            //                 contentType: false,
+            //                 success: function (data) {
+            //                     Swal.fire("Berhasil", "Data dihapus!", "success");
+            //                     table.ajax.reload();
+            //                 },
+            //                 error: function(data) {
+            //                     if(typeof data.responseJSON.message == 'string')
+            //                         return Swal.fire('Error', data.responseJSON.message, 'error');
+            //                     else if(typeof data.responseJSON == 'string')
+            //                         return Swal.fire('Error', data.responseJSON, 'error');
+            //                 }
+            //             });
+            //         }
+            //         })
+            // }); //
         });
     </script>
 @endpush

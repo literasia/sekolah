@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -28,7 +28,7 @@
                             <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
-                                        <th>No</th>
+                                        <th>No.</th>
                                         <th>Nama Siswa</th>
                                         <th>Tanggal</th>
                                         <th>Pelanggaran</th>
@@ -112,18 +112,34 @@
 <script>
         $(document).ready(function () {
             $('#siswa_id').select2();
+<<<<<<< HEAD
             
             $('#add').on('click', function () {
+=======
+
+            $('#add').on('click', function () {
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
+>>>>>>> e44905b7f17c69bbf8da47dd641b871eba121e8b
                 $('#btn')
                     .removeClass('btn-info')
                     .addClass('btn-success')
                     .val('Simpan');
+<<<<<<< HEAD
                 $('#action').val('add');
                 $('#siswa_id').select2('destroy').val('').select2();
                 $('#form-pelanggaran-siswa')[0].reset();
                 $('#modal-siswa').modal('show');
             });
 
+=======
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                $('#modal-siswa').modal('show');
+            });
+            
+>>>>>>> e44905b7f17c69bbf8da47dd641b871eba121e8b
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
@@ -287,7 +303,7 @@
         const pelanggaran = document.getElementById('pelanggaran');
         const poin = document.getElementById('poin');
         function setPoin(selected){
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poi n);
             poin.value = pelanggaran.options[pelanggaran.selectedIndex].dataset.poin;
         }
     </script>

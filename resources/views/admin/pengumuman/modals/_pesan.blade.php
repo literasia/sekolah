@@ -93,9 +93,9 @@
           <div class="row">
             <div class="col-md-12">
               <div class="text-right">
-                <button type="submit" class="btn btn-sm btn-outline-success" id="button">Simpan</button>
+                <button type="submit" class="btn btn-sm btn-success" id="btn">Simpan</button>
                 <button class="btn btn-sm btn-warning" type="reset" for="resetBtn">Reset</button>
-                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="btn-cancel">Batal</button>
               </div>
             </div>
           </div>

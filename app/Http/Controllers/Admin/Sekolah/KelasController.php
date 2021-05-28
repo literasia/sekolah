@@ -25,6 +25,9 @@ class KelasController extends Controller
         if ($request->ajax()) {
             // $data = Guru::latest()->get();
             $data = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
+                ->whereHas('user', function($query){
+                    $query->where('id_sekolah', auth()->user()->id_sekolah);
+                })
                 ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
                 ->get(['kelas.*', 'pegawais.name AS wali_kelas', 'jurusans.name AS jurusan']);
             // $data = Kelas::all();
@@ -39,12 +42,15 @@ class KelasController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+        
         $kelas = Kelas::join('pegawais', 'kelas.pegawai_id', 'pegawais.id')
             ->join('jurusans', 'kelas.jurusan_id', 'jurusans.id')
             ->whereHas('user', function($query){
                 $query->where('id_sekolah', auth()->user()->id_sekolah);
             })
             ->get(['kelas.*', 'pegawais.name AS guru', 'jurusans.name AS jurusan']);
+            
+        
         $pegawai = Pegawai::join('gurus', 'pegawais.id', 'gurus.pegawai_id')
             ->whereHas('user', function($query){
                 $query->where('id_sekolah', auth()->user()->id_sekolah);
