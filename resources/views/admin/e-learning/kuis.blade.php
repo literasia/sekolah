@@ -137,6 +137,9 @@
     .modal-dialog {
         margin-bottom: 20rem!important;
     }
+    .nav-link.active {
+        font-weight: bold;
+    }
 </style>
 @endpush
 

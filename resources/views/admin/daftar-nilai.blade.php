@@ -21,7 +21,7 @@ Ini adalah halaman Daftar Nilai untuk admin
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="card-block">
                     <h6>Filter</h6>
@@ -77,7 +77,7 @@ Ini adalah halaman Daftar Nilai untuk admin
             </div>
         </div>
 
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">

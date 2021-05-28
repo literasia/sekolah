@@ -20,7 +20,7 @@ Ini adalah halaman pesan untuk admin
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>

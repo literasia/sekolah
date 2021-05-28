@@ -19,11 +19,9 @@
 {{-- main content --}}
 @section('content')
 <div class="row">
-
     <div class="col-xl-12">
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow mb-4">
             <div class="card-body">
-
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card-block">
@@ -54,7 +52,6 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="card">
-
                                 <div class="card-body">
                                     @foreach($data as $d)
                                     <div class="form-check mb-2">
