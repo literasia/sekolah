@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin\ELearning;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Siswa, Guru, MataPelajaran};
+use App\Models\{Guru, MataPelajaran};
 use App\Models\Admin\{Kelas, Materi};
-use App\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;

@@ -1,8 +1,13 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
-            <label for="judul">Judul Kuis</label>
-            <input type="text" name="judul" id="judul" class="form-control form-control-sm" placeholder="Judul Kuis" >
+            <label for="soal_id">Soal</label>
+            <select name="soal_id" id="soal_id" class="form-control form-control-sm">
+                <option value="">-- Pilih --</option>
+                @foreach ($soal as $item)
+                    <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="col">
@@ -13,28 +18,6 @@
                 <option value="">Latihan</option>
                 <option value="">Ulangan</option>
             </select>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <div class="form-group">
-            <label for="mata_pelajaran">Mata Pelajaran</label>
-            <input type="text" name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm" readonly>
-        </div>
-    </div>
-
-    <div class="col">
-        <div class="form-group">
-            <label for="kelas">Kelas</label>
-            <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" readonly>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            <label for="guru">Nama Guru</label>
-            <input type="text" name="guru" id="guru" class="form-control form-control-sm" readonly>
         </div>
     </div>
 </div>

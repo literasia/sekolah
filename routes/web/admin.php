@@ -227,10 +227,11 @@ Route::namespace('ELearning')->group(function () {
     Route::post('/admin/e-learning/materi/update', 'MateriController@update')->name('e-learning.materi.update');
     Route::get('/admin/e-learning/materi/hapus/{id}', 'MateriController@destroy')->name('e-learning.materi.delete');
 
-    Route::get('/admin/e-learning/kuis', 'KuisController@index')
-        ->name('e-learning.kuis');
-    Route::get('/admin/e-learning/soal', 'SoalController@index')
-        ->name('e-learning.soal');
+    // Kuis
+    Route::get('/admin/e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
+
+    // Soal
+    Route::get('/admin/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
 });
 
 // Bank Soal

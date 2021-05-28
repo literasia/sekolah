@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Pegawai;
 use App\Models\{JadwalPelajaran, MataPelajaran};
-use App\Models\Admin\Materi;
+use App\Models\Admin\{Materi, Kuis};
 
 class Guru extends Model
 {
@@ -38,5 +38,9 @@ class Guru extends Model
 
     public function materi(){
         return $this->hasMany(Materi::class);
+    }
+
+    public function kuis(){
+        return $this->hasMany(Kuis::class);
     }
 }

@@ -26,42 +26,18 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Judul</th>
+                                    <th>Paket Soal</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
-                                    <th>Soal</th>
                                     <th>Durasi</th>
-                                    <th>Tanggal</th>
-                                    <th>Status</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Selesai</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mengidentifikasi Isi Pokok Cerita Hikayat dengan Bahasa Sendiri</td>
-                                    <td>Bahasa Indonesia</td>
-                                    <td>VII</td>
-                                    <td>Mursilah</td>
-                                    <td><label class="badge badge-primary py-2 px-3">1</label></td>
-                                    <td>00:10:00</td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
-                                    <td><label class="badge badge-success">Diterbitkan</label></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mengidentifikasi Ciri Teks Biografi Berdasarkan Isinya</td>
-                                    <td>Bahasa Indonesia</td>
-                                    <td>VII</td>
-                                    <td>Mursilah</td>
-                                    <td><label class="badge badge-secondary disabled py-2 px-3">0</label></td>
-                                    <td>00:10:00</td>
-                                    <td><small>Diperbarui, 2021/04/28 pukul 05:04 PM</small></td>
-                                    <td><label class="badge badge-warning">Draf</label></td>
-                                    <td></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -148,7 +124,51 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
     $('document').ready(function() {
-        $('#order-table').DataTable();
+        $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.e-learning.kuis') }}",
+            },
+            columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'paket_soal',
+                name: 'paket_soal'
+            },
+            {
+                data: 'mata_pelajaran',
+                name: 'mata_pelajaran'
+            },
+            {
+                data: 'kelas',
+                name: 'kelas'
+            },
+            {
+                data: 'guru',
+                name: 'guru'
+            },
+            {
+                data: 'durasi',
+                name: 'durasi'
+            },
+            {
+                data: 'tanggal_mulai',
+                name: 'tanggal_mulai'
+            },
+            {
+                data: 'tanggal_selesai',
+                name: 'tanggal_selesai'
+            },
+            {
+                data: 'action',
+                name: 'action'
+            }
+            ]
+        });
 
         $('#add').on('click', function() {
             // $('.modal-title').html('Tambah Pesan');

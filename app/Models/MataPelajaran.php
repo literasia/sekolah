@@ -20,4 +20,8 @@ class MataPelajaran extends Model
     public function materi(){
         return $this->hasMany(Materi::class);
     }
+
+    public function soal(){
+        return $this->hasMany(Soal::class);
+    }
 }

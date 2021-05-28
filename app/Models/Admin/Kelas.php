@@ -20,6 +20,10 @@ class Kelas extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function kelas(){
+        return $this->hasMany(Kelas::class);
+    }
+
     public function materi(){
         return $this->hasMany(Materi::class);
     }
