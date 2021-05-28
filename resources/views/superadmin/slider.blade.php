@@ -20,7 +20,7 @@ Ini adalah halaman slider untuk Superadmin
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -103,6 +103,22 @@ Ini adalah halaman slider untuk Superadmin
     $(document).ready(function() {
 
         $('#add').on('click', function() {
+            $('.modal-title').html('Edit Slider');
+            $('#judul').val('');
+            $('#kabupaten_kota').val('');
+            getSekolahKabupaten('');
+            $('#start_date').val('');
+            $('#end_date').val('');
+            $('#keterangan').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
+            $('#hidden_id').val('');
             $('#modal-slider').modal('show');
         });
 
@@ -205,12 +221,15 @@ Ini adalah halaman slider untuk Superadmin
             event.preventDefault();
 
             let url = '';
+            var text = "Data sukses ditambahkan";
             if ($('#action').val() == 'add') {
                 url = "{{ route('superadmin.slider.store') }}";
+                text = "Data sukses ditambahkan";
             }
 
             if ($('#action').val() == 'edit') {
                 url = "{{ route('superadmin.slider.update') }}";
+                text = "Data sukses diupdate";
             }
 
             var formData = new FormData($('#form-slider')[0]);
@@ -239,7 +258,7 @@ Ini adalah halaman slider untuk Superadmin
 
                     // Succes
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('#modal-slider').modal('hide');
                         $('#judul').removeClass('is-invalid');
                         $('#form-slider')[0].reset();
@@ -267,13 +286,21 @@ Ini adalah halaman slider untuk Superadmin
                 success: function (data) {
                     console.log(data);
                     $('#action').val('edit');
-                    $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').val('Update');
+                    $('.modal-title').html('Edit Slider');
                     $('#judul').val(data.judul);
                     $('#kabupaten_kota').val(data.kabupaten_kota_id);
                     getSekolahKabupaten(data.kabupaten_kota_id, data.sekolah);
                     $('#start_date').val(data.start_date);
                     $('#end_date').val(data.end_date);
                     $('#keterangan').val(data.keterangan);
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .val('Batal');
                     $('#hidden_id').val(data.id);
                     $('#modal-slider').modal('show');
                 }
@@ -297,7 +324,7 @@ Ini adalah halaman slider untuk Superadmin
                     setTimeout(function() {
                         $('#confirmModal').modal('hide');
                         $('#slider-table').DataTable().ajax.reload();
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });

@@ -23,7 +23,7 @@
     @foreach($pemilihans as $pemilihan)
     <div class="row container">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h5>Pemilihan {{ $pemilihan->posisi }}</h5>
                 </div>

@@ -15,7 +15,7 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-body">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
@@ -85,6 +85,10 @@
         
         div.update-container, .btn-cancel {
             display: none;
+        }
+
+        .nav-link.active {
+            font-weight: bold;
         }
     </style>
 @endpush

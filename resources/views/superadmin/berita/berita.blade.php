@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -31,14 +31,14 @@
                                         <th>No.</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
+                                        <th>Isi Berita</th>
                                         <th>Thumbnail</th>
                                         <th>Tanggal Rilis</th>
-                                        <th>Thumbnail</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -80,6 +80,12 @@
         .btn i {
             margin-right: 0px;
         }
+       /* .truncate {
+            width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }*/
     </style>
 @endpush
 
@@ -93,7 +99,6 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-
             $('#add').on('click', function () {
                 $('.modal-title').html('Tambah Berita');
                 $('#action').val('add');
@@ -116,6 +121,8 @@
                 theme: 'leaf',
                 format: 'd-m-Y'
             });
+
+            // $('td:nth-child(5)').addClass('truncate');
 
             $('#berita-table').DataTable({
                 processing: true,
@@ -158,13 +165,16 @@
             $('#form-berita').on('submit', function (e) {
                 event.preventDefault();
 
+                var text = "Data sukses ditambahkan";
                 let url = '';
                 if ($('#action').val() == 'add') {
                     url = "{{ route('superadmin.berita.berita.store') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('superadmin.berita.berita.update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 var formData = new FormData($('#form-berita')[0]);
@@ -192,7 +202,7 @@
 
                         // Succes
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-berita').modal('hide');
                             $('#judul').removeClass('is-invalid');
                             $('#form-berita')[0].reset();
@@ -219,12 +229,19 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').val('Update');
+                        $('.modal-title').html('Edit Berita');
                         $('#judul').val(data.judul);
                         $('#kategori').val(data.kategori);
                         $('#isi').val(data.isi);
                         $('#tanggal_rilis').val(data.tanggal_rilis);
-                        
+                        $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Batal');
                         $('#hidden_id').val(data.id);
                         $('#modal-berita').modal('show');
                     }
@@ -248,7 +265,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#berita-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

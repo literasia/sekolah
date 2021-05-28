@@ -24,7 +24,7 @@ Ini adalah halaman kalender akademik untuk admin
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <div class="row">

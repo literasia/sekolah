@@ -200,7 +200,7 @@
                 @endif
 
                 @if ($addons != null && $addons->e_learning)
-                <li class="@if (request()->is('admin/e-learning/materi') || request()->is('admin/e-learning/kuis') || request()->is('admin/e-learning/soal')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/e-learning/materi') || request()->is('admin/e-learning/kuis') || request()->is('admin/e-learning/soal') || request()->is('admin/e-learning/butir-soal')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-swatchbook"></i></span>
                         <span class="pcoded-mtext">E-Learning</span>
@@ -221,7 +221,11 @@
                                 <span class="pcoded-mtext">Soal</span>
                             </a>
                         </li>
-                        
+                        <li class="{{ request()->is('admin/e-learning/butir-soal') ? 'active' : '' }}">
+                            <a href="{{ route('admin.e-learning.butir-soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Butir Soal</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @endif
