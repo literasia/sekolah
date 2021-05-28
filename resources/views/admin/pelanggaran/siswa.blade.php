@@ -108,6 +108,7 @@
     <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
         $(document).ready(function () {
             $('#siswa_id').select2();
@@ -187,11 +188,19 @@
             $('#form-pelanggaran-siswa').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+<<<<<<< HEAD
                 if ($('#action').val() == 'add') {
+=======
+                var text = "Data sukses ditambahkan";
+
+                if ($('#siswa').val() == 'add') {
+>>>>>>> cf854dbcab32c860b3846e6574448a55b1796d1f
                     url = "{{ route('admin.pelanggaran.siswa') }}";
+                    text = "Data sukses ditambahkan";
                 }
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.pelanggaran.siswa-update') }}";
+                    text = "Data sukses diupdate";
                 }
                 $.ajax({
                     url: url,
@@ -206,7 +215,7 @@
                             toastr.error(html);
                         }
                         if (data.success) {
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-siswa').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pelanggaran-siswa')[0].reset();
@@ -269,7 +278,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

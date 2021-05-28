@@ -290,7 +290,7 @@
                 <div class="modal-footer">
                     <input type="hidden" name="hidden_id" id="hidden_id">
                     <input type="hidden" id="action">
-                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                    <button type="submit" class="btn btn-sm btn-success" id="btn">Simpan</button>
                     <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                 </div>
             </form>

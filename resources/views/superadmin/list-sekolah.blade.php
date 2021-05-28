@@ -210,6 +210,7 @@
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
+                    
                     success: function (data) {
                         var html = '';
                         // old password error message
@@ -232,7 +233,7 @@
                         }
                         // success error message
                         if (data.success) {
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", data.success, "success");
                             $('#modal-sekolah').modal('hide');
                             $('#id_sekolah').removeClass('is-invalid');
                             $('#name').removeClass('is-invalid');
@@ -254,6 +255,7 @@
                 });
             });
             $(document).on('click', '.edit', function () {
+                console.log('tes123');
                 var id = $(this).attr('id');
                 $.ajax({
                     url: '/superadmin/list-sekolah/'+id,
@@ -266,6 +268,10 @@
                         }
                     },
                     success: function (data) {
+<<<<<<< HEAD
+=======
+                        console.log('tes');
+>>>>>>> cf854dbcab32c860b3846e6574448a55b1796d1f
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
                         $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
@@ -322,7 +328,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", data.success, "success");
                         }, 1000);
                     }
                 });

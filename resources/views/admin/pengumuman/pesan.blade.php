@@ -115,6 +115,7 @@ Ini adalah halaman pesan untuk admin
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
         $('#order-table').DataTable({
@@ -193,6 +194,7 @@ Ini adalah halaman pesan untuk admin
             event.preventDefault();
             var url = '';
             var atribut = $(this).attr("action");
+            var text = "Data sukses ditambahkan";
             console.log(atribut)
             if ($('#button').hasClass('add')) {
                 url = "{{ route('admin.pengumuman.pesan') }}";
@@ -221,7 +223,7 @@ Ini adalah halaman pesan untuk admin
                     }
 
                     if (data.success) {
-                        toastr.success('Data sukses ditambahkan');
+                        Swal.fire("Berhasil", text, "success");
                         $('#judul').removeClass('is-invalid');
                         $('#message').removeClass('is-invalid');
                         $('#modal-pesan').modal('hide');
@@ -282,7 +284,7 @@ Ini adalah halaman pesan untuk admin
                     setTimeout(function() {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
-                        toastr.success('Data berhasil dihapus');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });

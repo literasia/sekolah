@@ -99,8 +99,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-    
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             //read
@@ -120,10 +119,9 @@
             $('#add').on('click', function () {
                 $('#modal-guru').modal('show');
                 $('.form-control').val('');
-                // console.log($('.add-ons-icon').children()[0]);
                 $('.modal-title').text('Tambah Guru');
                 $('#action').val('add');
-                $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
                 $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
 
@@ -140,12 +138,16 @@
             $('#form-guru').on('submit', function (e) {
                 event.preventDefault();
 
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.fungsionaris.guru.store') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.fungsionaris.guru.update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -167,12 +169,12 @@
 
                         // success success message
                         if (data.success) {
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-guru').modal('hide');
                             $('#name').removeClass('is-invalid');
                             $('#form-guru')[0].reset();
                             $('#action').val('add');
-                            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                            $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
                             $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
@@ -196,7 +198,6 @@
                         $('#status_guru_id').val(data.status_guru_id);
                         $('#keterangan').val(data.keterangan);
                         $('#status').val(data.status);
-                        
                         $('#hidden_id').val(data.id);
                         $('#modal-guru').modal('show');
                     }
@@ -219,7 +220,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

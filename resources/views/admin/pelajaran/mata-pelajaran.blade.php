@@ -211,13 +211,15 @@
             $('#form-pelajaran').on('submit', function (event) {
                 event.preventDefault();
                 var url = "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=write";
+                var text = "Data sukses ditambahkan";
+
                 $.ajax({
                     url: url,
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        toastr.success('Data sukses ditambahkan');
+                        Swal.fire("Berhasil", text, "success");
                         $('#btn')
                             .removeClass('btn-info')
                             .addClass('btn-success')
@@ -281,7 +283,7 @@
                             processData: false,
                             contentType: false,
                             success: function (data) {
-                                toastr.success('Data berhasil dihapus');
+                                Swal.fire("Berhasil", "Data dihapus!", "success");
                                 table.ajax.reload();
                             },
                             error: function(data) {

@@ -17,7 +17,7 @@ class KalenderAkademikController extends Controller
         $datas = [];
         $data = Kalender::where('sekolah_id', auth()->user()->id_sekolah)->orderBy('created_at')->get();
         foreach ($data as $d) {
-            $datas[] = (object) array('id' => $d->id, 'title' => $d->title, 'start' => $d->start_date . " " . $d->start_clock, 'end' => $d->end_date . " " . $d->end_clock, 'className' => $d->prioritas);
+            $datas[] = (object) array('id' => $d->id, 'title' => $d->title, 'start_date' => $d->start_date . ' ' . $d->start_clock, 'end_date' => $d->end_date . ' ' . $d->end_clock, 'prioritas' => $d->prioritas);
         }
 
         $events = json_encode($datas);

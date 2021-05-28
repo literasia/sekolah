@@ -105,6 +105,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -131,9 +132,11 @@
 
             $('#form-tahun-ajaran').on('submit', function (event) {
                 event.preventDefault();
+                var text = "Data sukses diupdate";
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.sekolah.tahun-ajaran-update') }}";
+                    var text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -150,7 +153,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#tahun_ajaran').removeClass('is-invalid');
                             $('#form-tahun-ajaran')[0].reset();
                             $('#action').val('add');

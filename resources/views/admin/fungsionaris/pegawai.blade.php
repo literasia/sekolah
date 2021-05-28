@@ -182,13 +182,16 @@
             event.preventDefault();
 
             let url;
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.fungsionaris.pegawai.store') }}";
+                text = "Data sukses ditambahkan";
             }
 
             if ($('#action').val() == 'edit') {
                 url = "{{ route('admin.fungsionaris.pegawai.update') }}";
+                text = "Data sukses diupdate";
             }
 
             $.ajax({
@@ -236,7 +239,7 @@
 
                     // success error message
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('#modal-pegawai').modal('hide');
                         $('.form-control').removeClass('is-invalid');
                         $('#form-pegawai')[0].reset();
@@ -257,7 +260,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                         $('#action').val('edit');
-                        $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
+                        $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
                         $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
                         $('#name').val(data.name);
                         $('#nik').val(data.nik);
@@ -318,7 +321,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#pegawai-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", data.success, "success");
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
