@@ -268,10 +268,6 @@
                         }
                     },
                     success: function (data) {
-<<<<<<< HEAD
-=======
-                        console.log('tes');
->>>>>>> cf854dbcab32c860b3846e6574448a55b1796d1f
                         $('#action').val('edit');
                         $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
                         $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');

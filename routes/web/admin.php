@@ -228,6 +228,10 @@ Route::namespace('ELearning')->group(function () {
 
     // Kuis
     Route::get('/admin/e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
+    Route::post('/admin/e-learning/kuis', 'KuisController@store')->name('e-learning.kuis.store');
+    Route::get('/admin/e-learning/kuis/{id}', 'KuisController@edit')->name('e-learning.kuis.edit');
+    Route::post('/admin/e-learning/kuis/update', 'KuisController@update')->name('e-learning.kuis.update');
+    Route::get('/admin/e-learning/kuis/hapus/{id}', 'KuisController@destroy')->name('e-learning.kuis.delete');
 
     // Soal
     Route::get('/admin/e-learning/soal', 'SoalController@index')->name('e-learning.soal');

@@ -47,6 +47,22 @@
     </div>
 </div>
 @include('admin.e-learning.modals._kuis')
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Konfirmasi</h4>
+            </div>
+            <div class="modal-body">
+                <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 {{-- addons css --}}
@@ -167,6 +183,10 @@
                 name: 'tanggal_selesai'
             },
             {
+                data: 'status',
+                name: 'status'
+            },
+            {
                 data: 'action',
                 name: 'action'
             }
@@ -174,17 +194,64 @@
         });
 
         $('#add').on('click', function() {
-            // $('.modal-title').html('Tambah Pesan');
-            // $('#judul').val('');
-            // $('#message').val('');
-            // $('#start_date').val('');
-            // $('#end_date').val('');
-            // $('#action').val('add');
-            // $('#button')
-            //     .removeClass('btn-outline-success edit')
-            //     .addClass('btn-outline-info add')
-            //     .html('Simpan');
+            $('.modal-title').html('Tambah Kuis');
+            $('.form-control').val('');
+            $('#action').val('add');
+            $('#button')
+                .removeClass('btn-outline-success edit')
+                .addClass('btn-outline-info add')
+                .html('Simpan');
             $('#modal-kuis').modal('show');
+        });
+
+        
+        $('#form-kuis').on('submit', function (event) {
+            event.preventDefault();
+            var url = '';
+
+            if ($('#action').val() == 'add') {
+                url = "{{ route('admin.e-learning.kuis.store') }}";
+                text = "Data sukses ditambahkan";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('admin.e-learning.kuis.update') }}";
+                text = "Data sukses diupdate";
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+                    var html = '';
+                    if (data.errors) {
+                        html = data.errors[0];
+                        $('#kode').addClass('is-invalid');
+                        $('#name').addClass('is-invalid');
+                        toastr.error(html);
+                    }
+
+                    if (data.success) {
+                        Swal.fire("Berhasil", data.success, "success");
+                        $('.form-control').removeClass('is-invalid');
+                        $('#form-kuis')[0].reset();
+                        $('#action').val('add');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .val('Batal');
+                        $('#order-table').DataTable().ajax.reload();
+                        $('#modal-kuis').modal('hide');
+                    }
+                    $('#form_result').html(html);
+                }
+            });
         });
 
         $('#publish_date').dateDropper({
@@ -195,6 +262,66 @@
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
+        });
+
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
+        });
+
+        $(document).on('click', '.edit', function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/admin/e-learning/kuis/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    $('#judul').val(data.judul);
+                    $('#hidden_id').val(data.id);
+                    $('#soal_id').val(data.soal_id);
+                    $('#guru_id').val(data.guru_id);
+                    $('#durasi').val(data.durasi);
+                    $('#jenis_kuis').val(data.jenis_kuis);
+                    $('#tanggal_mulai').val(data.tanggal_mulai);
+                    $('#tanggal_selesai').val(data.tanggal_selesai);
+                    $('#keterangan').val(data.keterangan);
+                    $('#status').val(data.status);
+
+                    $('#modal-kuis').modal('show');
+                    $('#action').val('edit');
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .val('Batal');
+                    $('#modal-kuis').modal('show');
+                }
+            });
+        });
+
+        var user_id;
+
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('data-id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: '/admin/e-learning/kuis/hapus/'+ user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", data.success, "success");
+                    }, 1000);
+                }
+            });
         });
     })
 </script>

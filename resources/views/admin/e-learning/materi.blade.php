@@ -250,6 +250,8 @@
                     $('#form_result').html(html);
                 }
             });
+        });
+
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'

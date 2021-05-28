@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin\ELearning;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal};
+use App\Models\Admin\{Kuis, Soal, PengaturanKuis};
+use App\Models\Guru;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
@@ -16,6 +17,10 @@ class KuisController extends Controller
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $soal = Soal::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $guru = Guru::whereHas('user', function($query){
+            $query->where('id_sekolah', auth()->user()->id_sekolah);
+        })->get();
+
         if ($request->ajax())
         {
             $kuis = Kuis::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
@@ -45,14 +50,28 @@ class KuisController extends Controller
         return view('admin.e-learning.kuis')
                                     ->with('mySekolah', User::sekolah())
                                     ->with('addons', $addons)
+                                    ->with('guru', $guru)
                                     ->with('soal', $soal);
     }
 
     public function store(Request $request){
-        $data = $request->all();
-        $data['sekolah_id'] = auth()->user()->id_sekolah;
+        $pengaturan_kuis = PengaturanKuis::create([
+            'is_hide_title' => 0,
+            'sekolah_id' => auth()->user()->id_sekolah,
+        ]);
 
-        Materi::create($data);
+        Kuis::create([
+            'sekolah_id' => auth()->user()->id_sekolah,
+            'soal_id' => $request->soal_id,
+            'pengaturan_kuis_id' => $pengaturan_kuis->id,
+            'durasi' => $request->durasi,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai,
+            'guru_id' => $request->guru_id,
+            'keterangan' => $request->keterangan,
+            'status' => $request->status,
+            'jenis_kuis' => $request->jenis_kuis,
+        ]);
     
         return response()
             ->json([
@@ -61,27 +80,27 @@ class KuisController extends Controller
     }
 
     public function edit($id){
-        $materi = Materi::findOrFail($id);
+        $kuis = Kuis::findOrFail($id);
 
         return response()
             ->json([                
-                'id'   => $materi->id,
-                'judul'   => $materi->judul,
-                'mata_pelajaran_id'   => $materi->mata_pelajaran_id,
-                'kelas_id'   => $materi->kelas_id,
-                'guru_id'   => $materi->guru_id,
-                'sekolah_id'   => $materi->sekolah_id,
-                'materi'   => $materi->materi,
-                'status'   => $materi->status,
-                'tanggal_terbit'   => $materi->tanggal_terbit,
-                'jam_terbit'   => $materi->jam_terbit,
+                'id'   => $kuis->id,
+                'soal_id'   => $kuis->soal_id,
+                'pengaturan_kuis_id'   => $kuis->pengaturan_kuis_id,
+                'durasi'   => $kuis->durasi,
+                'tanggal_mulai'   => $kuis->tanggal_mulai,
+                'tanggal_selesai'   =>  $kuis->tanggal_selesai,
+                'guru_id'   => $kuis->guru_id,
+                'status'   => $kuis->status,
+                'keterangan' => $kuis->keterangan,
+                'jenis_kuis' => $kuis->jenis_kuis
             ]);
-    }
+    }   
 
     public function update(Request $request){
-        $materi = Materi::findOrFail($request->hidden_id);
+        $kuis = Kuis::findOrFail($request->hidden_id);
         
-        $materi->update($request->all());
+        $kuis->update($request->all());
 
         return response()
             ->json([
@@ -90,9 +109,9 @@ class KuisController extends Controller
     }
 
     public function destroy($id, Request $request){
-        $materi = Materi::findOrFail($id);
+        $kuis = Kuis::findOrFail($id);
 
-        $materi->delete();
+        $kuis->delete();
 
         return response()
         ->json([
