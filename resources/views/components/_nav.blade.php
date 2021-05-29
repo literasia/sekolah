@@ -92,7 +92,6 @@
                             <li>
                                 <span id="profile" class="profile" role="button">
                                     <i class="icon-user"></i> Profile
-                                    @include('components.modals._profile-setting')
                                 </span>
                             </li>
                             <li>
@@ -111,3 +110,4 @@
         </div>
     </div>
 </nav>
+@include('components.modals._profile-setting')

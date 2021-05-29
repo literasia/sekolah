@@ -92,6 +92,7 @@ class SuratPeringatanController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
+<<<<<<< HEAD
 
         $sueratPerin
 
@@ -99,6 +100,13 @@ class SuratPeringatanController extends Controller
             'name'  => $request->input('name'),
             'poin'  => $request->input('poin'),
         ]);
+=======
+        
+    
+        $surat_peringatan = SuratPeringatan::findOrFail($request->hidden_id);
+        
+        $surat_peringatan->update($request->all());
+>>>>>>> 79f44726f6e6c6565ed914dd1265fd6a1b426be6
 
         return response()
             ->json([

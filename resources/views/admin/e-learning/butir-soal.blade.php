@@ -74,7 +74,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -84,7 +84,7 @@
     </div>
 </div>
 @include('admin.e-learning.modals._butir-soal')
-
+@include('admin.e-learning.modals._preview')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -101,7 +101,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 
@@ -168,6 +167,17 @@
             if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
                 e.stopImmediatePropagation();
             }
+        });
+
+
+        $('#add').on('click', function() {
+            $('.modal-title').html('Tambah Butir Soal');
+            $('#modal-butir-soal').modal('show');
+        });
+
+        $('.preview').on('click', function() {
+            $('.modal-title').html('Preview Soal');
+            $('#modal-preview-soal').modal('show');
         });
 
         $('#question_type').change(function(){
