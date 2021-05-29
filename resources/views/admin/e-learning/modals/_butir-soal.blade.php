@@ -52,7 +52,7 @@
                                             <input type="text" name="jawaban[]" id="jawaban0" class="form-control form-control-sm mb-3">
                                         </div>
                                         <div class="col-4">
-                                            <input type="checkbox" name="kunci_jawaban" value="a" class="d-inline-block">
+                                            <input type="radio" name="kunci_jawaban" value="a" class="d-inline-block">
                                             <p class="ml-2 d-inline-block">Jawaban yang benar</p>
                                         </div>
                                     </div>

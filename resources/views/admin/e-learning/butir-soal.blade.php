@@ -24,7 +24,7 @@
                     <form action="" method="GET">
                         <div class="row">
                             <div class="col-xl-4">
-                                <select name="kelas_id" id="pilih" class="form-control form-control-sm" required>
+                                <select name="kelas_id" id="pilih" class="form-control form-control-sm">
                                     <option value="">-- Kelas --</option>
                                     @foreach ($kelas as $item)
                                         <option value="{{ $item->id }}"
@@ -61,7 +61,9 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                    @if ($soal_id != "")
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                    @endif
                     <div class="dt-responsive table-responsive mt-3">
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
@@ -175,9 +177,36 @@
             $('#modal-butir-soal').modal('show');
         });
 
-        $('.preview').on('click', function() {
+        $(document).on('click', '.preview', function () {
             $('.modal-title').html('Preview Soal');
-            $('#modal-preview-soal').modal('show');
+            let id = $(this).attr('data-id');
+            $.ajax({
+                url: '/admin/e-learning/butir-soal/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#preview-pertanyaan').html(data.pertanyaan);
+                    
+                    let jawabans = data.jawaban;
+                    let alphabet = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+                    $('#preview-opsi-group').html('');
+
+                    for (let index = 0; index < jawabans.length; index++) {
+                        let previewPertanyaan =  `<div class="my-3">
+                            <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
+                            ${data.kunci_jawaban == alphabet[index] ? 
+                                '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
+                            }
+                            <div>
+                                ${jawabans[index]}
+                            </div>
+                        </div>`;
+                        $('#preview-opsi-group').append(previewPertanyaan);
+                    }
+
+                    $('#modal-preview-soal').modal('show');
+                }
+            });
         });
 
         $('#question_type').change(function(){
@@ -199,7 +228,7 @@
         let alphabet = ['a', 'b', 'c', 'd', 'e', 'f'];
         
         $("#addButton").click(function () {
-                
+            
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
                 return false;
@@ -211,7 +240,7 @@
                                                 <input type="text" name="jawaban[]" id="jawaban${counter}'" class="form-control form-control-sm mb-3">
                                             </div>
                                             <div class="col-4">
-                                                <input type="checkbox" name="kunci_jawaban" value="${alphabet[counter]}" class="d-inline-block">
+                                                <input type="radio" name="kunci_jawaban" value="${alphabet[counter]}" class="d-inline-block">
                                                 <p class="ml-2 d-inline-block">Jawaban yang benar</p>
                                             </div>
                                         </div>
@@ -328,7 +357,6 @@
                 url: '/admin/e-learning/butir-soal/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log(data);
                     $('#hidden_id').val(data.id);
                     tinymce.get('pertanyaan').setContent(data.pertanyaan);
 
@@ -349,7 +377,7 @@
                                                 <input type="text" name="jawaban[]" id="jawaban${counter}'" value="${jawabans[index]}" class="form-control form-control-sm mb-3">
                                             </div>
                                             <div class="col-4">
-                                                <input type="checkbox" name="kunci_jawaban" value="${alphabet[counter]}" ${data.kunci_jawaban == alphabet[counter] ? 'checked' : '' } class="d-inline-block">
+                                                <input type="radio" name="kunci_jawaban" value="${alphabet[counter]}" ${data.kunci_jawaban == alphabet[counter] ? 'checked' : '' } class="d-inline-block">
                                                 <p class="ml-2 d-inline-block">Jawaban yang benar</p>
                                             </div>
                                         </div>
@@ -358,9 +386,7 @@
                         $('#answer-group').append(newAnswerField);
                         counter++;
                     }
-
-                    console.log(counter);
-                    
+                
 
                     $('#modal-butir-soal').modal('show');
                     $('#action').val('edit');
