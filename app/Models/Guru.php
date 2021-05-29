@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Pegawai;
 use App\Models\{JadwalPelajaran, MataPelajaran};
+use App\Models\Admin\{Materi, Kuis, Soal};
+
 class Guru extends Model
 {
     protected $guarded = ['id'];
@@ -32,5 +34,17 @@ class Guru extends Model
 
     public function statusGuru(){
         return $this->belongsTo(StatusGuru::class);
+    }
+
+    public function materi(){
+        return $this->hasMany(Materi::class);
+    }
+
+    public function kuis(){
+        return $this->hasMany(Kuis::class);
+    }
+
+    public function soal(){
+        return $this->hasMany(Soal::class);
     }
 }

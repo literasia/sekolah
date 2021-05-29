@@ -219,14 +219,29 @@ Route::namespace('ERapor')->group(function () {
 
 // E-Learning
 Route::namespace('ELearning')->group(function () {
-    Route::get('/admin/e-learning/materi', 'MateriController@index')
-        ->name('e-learning.materi');
-    Route::get('/admin/e-learning/kuis', 'KuisController@index')
-        ->name('e-learning.kuis');
-    Route::get('/admin/e-learning/soal', 'SoalController@index')
-        ->name('e-learning.soal');
-    Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')
-        ->name('e-learning.butir-soal');
+    // Materi
+    Route::get('/admin/e-learning/materi', 'MateriController@index')->name('e-learning.materi');
+    Route::post('/admin/e-learning/materi', 'MateriController@store')->name('e-learning.materi.store');
+    Route::get('/admin/e-learning/materi/{id}', 'MateriController@edit')->name('e-learning.materi.edit');
+    Route::post('/admin/e-learning/materi/update', 'MateriController@update')->name('e-learning.materi.update');
+    Route::get('/admin/e-learning/materi/hapus/{id}', 'MateriController@destroy')->name('e-learning.materi.delete');
+
+    // Kuis
+    Route::get('/admin/e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
+    Route::post('/admin/e-learning/kuis', 'KuisController@store')->name('e-learning.kuis.store');
+    Route::get('/admin/e-learning/kuis/{id}', 'KuisController@edit')->name('e-learning.kuis.edit');
+    Route::post('/admin/e-learning/kuis/update', 'KuisController@update')->name('e-learning.kuis.update');
+    Route::get('/admin/e-learning/kuis/hapus/{id}', 'KuisController@destroy')->name('e-learning.kuis.delete');
+
+    // Soal
+    Route::get('/admin/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
+    Route::post('/admin/e-learning/soal', 'SoalController@store')->name('e-learning.soal.store');
+    Route::get('/admin/e-learning/soal/{id}', 'SoalController@edit')->name('e-learning.soal.edit');
+    Route::post('/admin/e-learning/soal/update', 'SoalController@update')->name('e-learning.soal.update');
+    Route::get('/admin/e-learning/soal/hapus/{id}', 'SoalController@destroy')->name('e-learning.soal.delete');
+
+    // Butir Soal
+    Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
 });
 
 // Bank Soal

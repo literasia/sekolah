@@ -271,7 +271,6 @@
                         }
                     },
                     success: function (data) {
-                        console.log('tes');
                         $('#action').val('edit');
                         $('.modal-title').text('Edit Sekolah');
                         $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
