@@ -112,20 +112,34 @@
 <script>
         $(document).ready(function () {
             $('#siswa_id').select2();
+<<<<<<< HEAD
+            
+            $('#add').on('click', function () {
+=======
 
             $('#add').on('click', function () {
                 $('#siswa_id').select2('destroy').val('').select2();
                 $('#form-pelanggaran-siswa')[0].reset();
+>>>>>>> e44905b7f17c69bbf8da47dd641b871eba121e8b
                 $('#btn')
                     .removeClass('btn-info')
                     .addClass('btn-success')
                     .val('Simpan');
+<<<<<<< HEAD
+                $('#action').val('add');
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
+                $('#modal-siswa').modal('show');
+            });
+
+=======
                 $('#btn-cancel')
                     .removeClass('btn-outline-info')
                     .addClass('btn-outline-success')
                 $('#modal-siswa').modal('show');
             });
             
+>>>>>>> e44905b7f17c69bbf8da47dd641b871eba121e8b
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
@@ -190,9 +204,13 @@
             $('#form-pelanggaran-siswa').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+<<<<<<< HEAD
+                if ($('#action').val() == 'add') {
+=======
                 var text = "Data sukses ditambahkan";
 
                 if ($('#siswa').val() == 'add') {
+>>>>>>> cf854dbcab32c860b3846e6574448a55b1796d1f
                     url = "{{ route('admin.pelanggaran.siswa') }}";
                     text = "Data sukses ditambahkan";
                 }

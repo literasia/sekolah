@@ -1,8 +1,24 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
-            <label for="judul">Judul Kuis</label>
-            <input type="text" name="judul" id="judul" class="form-control form-control-sm" placeholder="Judul Kuis" >
+            <label for="soal_id">Soal</label>
+            <select name="soal_id" id="soal_id" class="form-control form-control-sm">
+                <option value="">-- Pilih --</option>
+                @foreach ($soal as $item)
+                    <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="guru_id">Guru</label>
+            <select name="guru_id" id="guru_id" class="form-control form-control-sm">
+                <option value="">-- Pilih --</option>
+                @foreach ($guru as $item)
+                    <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="col">
@@ -10,31 +26,9 @@
             <label for="jenis_kuis">Jenis Kuis</label>
             <select name="jenis_kuis" id="jenis_kuis" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-                <option value="">Latihan</option>
-                <option value="">Ulangan</option>
+                <option value="latihan">Latihan</option>
+                <option value="ulangan">Ulangan</option>
             </select>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <div class="form-group">
-            <label for="mata_pelajaran">Mata Pelajaran</label>
-            <input type="text" name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm" readonly>
-        </div>
-    </div>
-
-    <div class="col">
-        <div class="form-group">
-            <label for="kelas">Kelas</label>
-            <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" readonly>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            <label for="guru">Nama Guru</label>
-            <input type="text" name="guru" id="guru" class="form-control form-control-sm" readonly>
         </div>
     </div>
 </div>
@@ -51,13 +45,28 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
-            <label for="duration">Durasi</label>
+            <label for="tanggal_mulai">Tanggal Mulai</label>
+            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="tanggal_selesai">Tanggal Selesai</label>
+            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="durasi"Durasi</label>
             <div class="row">
                 <div class="col-7 pr-0">
-                    <input type="number" value="1" name="duration" id="duration" class="form-control form-control-sm">
+                    <input type="number" value="1" name="durasi" id="durasi" class="form-control form-control-sm">
                 </div>
                 <div class="col-5 pl-0">
-                    <select name="duration" id="duration" class="form-control form-control-sm duration-option">
+                    <select  id="duration" class="form-control form-control-sm duration-option">
                         <option value="">Menit</option>
                         <option value="">Jam</option>
                         <option value="">Hari</option>
@@ -73,8 +82,8 @@
             <label for="status">Status</label>
             <select name="status" id="status" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-                <option value="">Draf</option>
-                <option value="">Terbitkan</option>
+                <option value="draf">Draf</option>
+                <option value="terbitkan">Terbitkan</option>
             </select>
         </div>
     </div>

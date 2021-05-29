@@ -128,22 +128,22 @@
                     url: "{{ route('admin.sekolah.jurusan') }}",
                 },
                 columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'kode',
-                    name: 'kode'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kode',
+                        name: 'kode'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
                 ]
             });
 
