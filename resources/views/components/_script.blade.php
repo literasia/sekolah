@@ -24,6 +24,20 @@
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
 <script type="text/javascript">
+        $(document).on('click', '.profile', function () {
+            $('.modal-title').html('Edit Profil');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
+            $('#profile').modal('show');
+        });
+</script>
+<script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 	(function(){
 		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
