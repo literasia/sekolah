@@ -1,4 +1,4 @@
-aw<nav class="navbar header-navbar pcoded-header">
+<nav class="navbar header-navbar pcoded-header">
     <div class="navbar-wrapper">
         <div class="navbar-logo">
             <a href="/admin">

@@ -76,7 +76,9 @@
                                     <td>2021/04/28</td>
                                     <td>05:04 PM</td>
                                     <td><label class="badge badge-success">Diterbitkan</label></td>
-                                    <td></td>
+                                    <td>
+                                        <button type="button" id="" class="preview btn btn-mini btn-primary shadow-sm">Preview</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
@@ -86,7 +88,9 @@
                                     <td>2021/04/28</td>
                                     <td>05:04 PM</td>
                                     <td><label class="badge badge-warning">Draf</label></td>
-                                    <td></td>
+                                    <td>
+                                        <button type="button" id="" class="preview btn btn-mini btn-primary shadow-sm">Preview</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -97,6 +101,7 @@
     </div>
 </div>
 @include('admin.e-learning.modals._butir-soal')
+@include('admin.e-learning.modals._preview')
 @endsection
 
 
@@ -173,6 +178,11 @@
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Butir Soal');
             $('#modal-butir-soal').modal('show');
+        });
+
+        $('.preview').on('click', function() {
+            $('.modal-title').html('Preview Soal');
+            $('#modal-preview-soal').modal('show');
         });
 
         $('#question_type').change(function(){
