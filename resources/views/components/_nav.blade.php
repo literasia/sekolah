@@ -90,9 +90,8 @@ aw<nav class="navbar header-navbar pcoded-header">
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a id="#profile" class="profile" role="button">
+                                <a id="#profile" class="profile">
                                     <i class="icon-user"></i> Profile
-                                    @include('components.modals._profile-setting')
                                 </a>
                             </li>
                             <li>
@@ -111,3 +110,4 @@ aw<nav class="navbar header-navbar pcoded-header">
         </div>
     </div>
 </nav>
+@include('components.modals._profile-setting')
