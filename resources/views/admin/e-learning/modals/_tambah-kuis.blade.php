@@ -60,7 +60,7 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
-            <label for="durasi"Durasi</label>
+            <label for="durasi">Durasi</label>
             <div class="row">
                 <div class="col-7 pr-0">
                     <input type="number" value="1" name="durasi" id="durasi" class="form-control form-control-sm">
