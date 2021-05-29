@@ -1,4 +1,4 @@
-<nav class="navbar header-navbar pcoded-header">
+aw<nav class="navbar header-navbar pcoded-header">
     <div class="navbar-wrapper">
         <div class="navbar-logo">
             <a href="/admin">
@@ -90,8 +90,9 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="#!">
+                                <a id="#profile" class="profile" role="button">
                                     <i class="icon-user"></i> Profile
+                                    @include('components.modals._profile-setting')
                                 </a>
                             </li>
                             <li>
