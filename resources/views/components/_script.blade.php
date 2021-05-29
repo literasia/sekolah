@@ -24,7 +24,7 @@
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
 <script type="text/javascript">
-        $(document).on('click', '.profile', function () {
+        $(document).on('click', 'profile', function () {
             $('.modal-title').html('Edit Profil');
             $('#btn')
                 .removeClass('btn-info')
@@ -34,7 +34,7 @@
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#profile').modal('show');
+            $('#modal-profile').modal('show');
         });
 </script>
 <script type="text/javascript">

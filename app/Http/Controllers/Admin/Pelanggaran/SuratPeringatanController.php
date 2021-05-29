@@ -15,7 +15,7 @@ class SuratPeringatanController extends Controller
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         if ($request->ajax()) {
-            $data = SuratPeringatan::latest()->get();
+            $data = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
@@ -92,6 +92,8 @@ class SuratPeringatanController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
+
+        $sueratPerin
 
         $status = SuratPeringatan::whereId($request->input('hidden_id'))->update([
             'name'  => $request->input('name'),
