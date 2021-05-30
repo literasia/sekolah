@@ -38,18 +38,6 @@
         //     $('#modal-profile').modal('show');
         // });
 // =======
-    $(document).on('click', '.profile', function () {
-        $('.modal-title').html('Edit Profil');
-        $('#btn')
-            .removeClass('btn-success')
-            .addClass('btn-info')
-            .val('Update');
-        $('#btn-cancel')
-            .removeClass('btn-outline-success')
-            .addClass('btn-outline-info')
-            .val('Batal');
-        $('#modal-profile').modal('show');
-    });
 
 </script>
 <script type="text/javascript">
@@ -62,6 +50,37 @@
 		s1.setAttribute('crossorigin','*');
 		s0.parentNode.insertBefore(s1,s0);
 	})();
+</script>
+
+<script>
+    $(document).on('click', '.profile', function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/admin/profile',
+            dataType: 'JSON',
+            success: function (data) {
+                $('#profile_id_sekolah').val(data.id_sekolah);
+                $('#profile_name').val(data.name);
+                $('#profile_alamat').val(data.address);
+                $('#profile_provinsi').val(data.provinsi);
+                $('#profile_kabupaten').val(data.kabupaten);
+                $('#profile_jenjang').val(data.jenjang);
+                $('#profile_tahun_ajaran').val(data.tahun_ajaran);
+                $('#profile_username').val(data.username);
+
+                $('.modal-title').html('Edit Profil');
+                $('#btn')
+                    .removeClass('btn-success')
+                    .addClass('btn-info')
+                    .val('Update');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-success')
+                    .addClass('btn-outline-info')
+                    .val('Batal');
+                $('#modal-profile').modal('show');
+            }
+        });
+    });
 </script>
 {{-- add ons JS --}}
 @stack('js')

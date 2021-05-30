@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Profile;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Superadmin\{Sekolah, Provinsi, KabupatenKota};
+use App\User;
+class ProfileController extends Controller
+{
+    public function index(){
+        $profile = Sekolah::findOrFail(auth()->user()->id_sekolah);
+        $provinsi = Provinsi::findOrFail($profile->provinsi);
+        $kabupaten = KabupatenKota::findOrFail($provinsi->id);
+        $user = User::where('id_sekolah', $profile->id)->first();
+
+        return response()->json([
+            'id_sekolah' => $profile->id_sekolah,
+            'name' => $profile->name,
+            'alamat' => $profile->alamat,
+            'jenjang' => $profile->jenjang,
+            'tahun_ajaran' => $profile->tahun_ajaran,
+            'provinsi' => $provinsi->name,
+            'kabupaten' => $kabupaten->name,
+            'username' => $user->username,
+        ]);
+    }
+}
