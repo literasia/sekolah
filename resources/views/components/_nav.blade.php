@@ -1,3 +1,10 @@
+@php
+    $profile = App\Models\Superadmin\Sekolah::findOrFail(auth()->user()->id_sekolah);
+    $provinsi = App\Models\Superadmin\Provinsi::findOrFail($profile->provinsi);
+    $kabupaten = App\Models\Superadmin\KabupatenKota::findOrFail($provinsi->id);
+    $user = App\User::where('id_sekolah', $profile->id)->first();
+@endphp
+
 <nav class="navbar header-navbar pcoded-header">
     <div class="navbar-wrapper">
         <div class="navbar-logo">
@@ -90,9 +97,9 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a id="#profile" class="profile">
+                                <span id="profile" class="profile" role="button">
                                     <i class="icon-user"></i> Profile
-                                </a>
+                                </span>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

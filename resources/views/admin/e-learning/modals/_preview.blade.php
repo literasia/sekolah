@@ -13,38 +13,15 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="font-weight-bold">Pertanyaan</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                        <p id="preview-pertanyaan"></p>
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
                         <h5 class="font-weight-bold">Jawaban</h5>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" disabled>
-                            <label class="form-check-label" for="">
-                                Jawaban Salah
-                            </label>
-                        </div>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" checked>
-                            <label class="form-check-label" for="">
-                                Jawaban Benar
-                            </label>
-                        </div>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" disabled>
-                            <label class="form-check-label" for="">
-                                Jawaban Salah
-                            </label>
-                        </div>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" disabled>
-                            <label class="form-check-label" for="">
-                                Jawaban Salah
-                            </label>
+                        <div id="preview-opsi-group">
+                           
                         </div>
                     </div>
                 </div>

@@ -25,4 +25,8 @@ class Soal extends Model
     public function guru(){
         return $this->belongsTo(Guru::class);
     }
+
+    public function butirSoal(){
+        return $this->hasMany(ButirSoal::class);
+    }
 }
