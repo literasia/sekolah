@@ -48,7 +48,7 @@ class MateriController extends Controller
         }
         
         return view('admin.e-learning.materi')
-                                    ->with('mySekolah', User::sekolah())
+                                    ->with('mySekolah', auth()->user()->sekolah())
                                     ->with('addons', $addons)
                                     ->with('guru', $guru)
                                     ->with('kelas', $kelas)

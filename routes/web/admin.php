@@ -217,6 +217,11 @@ Route::namespace('ERapor')->group(function () {
         ->name('e-rapor.kenaikan-kelas.add');
 });
 
+Route::namespace('Profile')->group(function(){
+    Route::get('/admin/profile', 'ProfileController@index')->name('profile.profile');
+    Route::post('/admin/profile/update', 'ProfileController@update')->name('profile.update');
+});
+
 // E-Learning
 Route::namespace('ELearning')->group(function () {
     // Materi
