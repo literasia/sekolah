@@ -1,7 +1,7 @@
 <div class="modal fade modal-flex p-0" id="modal-preview-soal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header p-4">
                 <h4 class="modal-title">
                     Preview Soal
                 </h4>
@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4">
                 <div class="row">
                     <div class="col">
                         <h5 class="font-weight-bold">Pertanyaan</h5>
