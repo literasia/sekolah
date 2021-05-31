@@ -46,13 +46,13 @@
     <div class="col">
         <div class="form-group">
             <label for="tanggal_mulai">Tanggal Mulai</label>
-            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm">
+            <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm" readonly>
         </div>
     </div>
     <div class="col">
         <div class="form-group">
             <label for="tanggal_selesai">Tanggal Selesai</label>
-            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm">
+            <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm" readonly>
         </div>
     </div>
 </div>

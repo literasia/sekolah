@@ -103,7 +103,7 @@ Ini adalah halaman slider untuk Superadmin
     $(document).ready(function() {
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Edit Slider');
+            $('.modal-title').html('Tambah Slider');
             $('#judul').val('');
             $('#kabupaten_kota').val('');
             getSekolahKabupaten('');
