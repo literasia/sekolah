@@ -128,7 +128,7 @@
         position: absolute; 
         top: -35px; 
         left: 20px; 
-        background: #fff;
+        background: rgb(255 255 255 / 57%);
     }
 </style>
 @endpush

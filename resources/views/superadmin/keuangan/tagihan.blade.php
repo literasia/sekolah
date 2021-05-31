@@ -13,7 +13,7 @@ Ini adalah halaman keuangan untuk superadmin
 @section('icon-r', 'icon-home')
 
 @section('link')
-{{ route('superadmin.keuangan.keuangan') }}
+{{ route('superadmin.keuangan.tagihan') }}
 @endsection
 
 {{-- main content --}}
