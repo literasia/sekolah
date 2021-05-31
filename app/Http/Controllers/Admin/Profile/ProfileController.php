@@ -29,7 +29,7 @@ class ProfileController extends Controller
     }
 
     public function changeProfile(Request $request){
-        
+
         $profile = Sekolah::findOrFail(auth()->user()->id_sekolah);
 
         $profile->update([
@@ -39,20 +39,29 @@ class ProfileController extends Controller
         if (!empty($request->password_lama)) {
             if(Hash::check($request->password_lama, auth()->user()->password)){
                 // If Password lama != password db
-                ]);
-                $user = User::findOrFail(auth()->user()->id);
-                $user->update([
-                    'password' => Hash::make($request->password_baru),
-                ]);
+                if($request->confirmation_password == $request->password_baru){
+                    $user = User::findOrFail(auth()->user()->id);
+                    $user->update([
+                        'password' => Hash::make($request->password_baru),
+                    ]);
+                    return response()->json([
+                        'success' => true,
+                        "message" => 'data berhasil diubah'
+                    ]);
+                }else{
+                    return response()->json([
+                        'success' => false,
+                        "message" => 'password tidak sama'
+                    ]);
+                }
             }else{
                 return response()->json([
-                    'password lama salah'
+                    'success' => false,
+                    "message" => 'password lama salah'
                 ]);
             }
         }
 
-        return response()->json([
-            'success' => 'Data terubah'
-        ]);
+
     }
 }

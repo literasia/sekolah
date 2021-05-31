@@ -23,6 +23,8 @@
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+
 <script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 	(function(){
@@ -75,17 +77,14 @@
                 data: $(this).serialize(),
                 success: function (data) {
                     console.log(data);
-                    if (data.errors) {
-                        // Code
-                    }
-
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", data.message, "success");
                         $('#form-profile')[0].reset();
-                        
                         $('#modal-profile').modal('hide');
+                    }else{
+                        Swal.fire("Gagal", data.message, "error");
                     }
-                }
+                },
             });
         });
 </script>
