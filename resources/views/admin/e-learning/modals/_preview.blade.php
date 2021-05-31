@@ -1,7 +1,7 @@
 <div class="modal fade modal-flex p-0" id="modal-preview-soal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header p-4">
                 <h4 class="modal-title">
                     Preview Soal
                 </h4>
@@ -9,42 +9,27 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4">
                 <div class="row">
                     <div class="col">
-                        <h5 class="font-weight-bold">Pertanyaan</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                        <div class="mt-2 family-modal-wrapper">
+                            <h5 class="font-weight-bold d-inline-block family-modal-caption mt-4 px-2">Pertanyaan</h5>
+                            <div class="border rounded p-3 bg-light">
+                                <p id="preview-pertanyaan"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row">
                     <div class="col">
-                        <h5 class="font-weight-bold">Jawaban</h5>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" disabled>
-                            <label class="form-check-label" for="">
-                                Jawaban Salah
-                            </label>
-                        </div>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" checked>
-                            <label class="form-check-label" for="">
-                                Jawaban Benar
-                            </label>
-                        </div>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" disabled>
-                            <label class="form-check-label" for="">
-                                Jawaban Salah
-                            </label>
-                        </div>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="radio" name="" id="" disabled>
-                            <label class="form-check-label" for="">
-                                Jawaban Salah
-                            </label>
+                        <div class="my-5 family-modal-wrapper">
+                            <h5 class="font-weight-bold d-inline-block family-modal-caption mt-4 px-2">Jawaban</h5>
+                            <div class="border rounded p-3 bg-light">
+                                <div id="preview-opsi-group">
+                                   
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

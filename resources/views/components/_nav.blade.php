@@ -90,9 +90,9 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a id="#profile" class="profile">
+                                <span id="profile" class="profile" role="button">
                                     <i class="icon-user"></i> Profile
-                                </a>
+                                </span>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -161,12 +161,21 @@ Route::namespace('Superadmin')
             Route::get('/superadmin/berita/kategori-berita/hapus/{id}', 'KategoriBeritaController@destroy');
         });
 
+        // Keuangan
+        Route::namespace('Keuangan')
+            ->group(function () {
+            Route::get('/superadmin/keuangan/keuangan', 'KeuanganController@index')->name('keuangan.keuangan');
+        });
+
         // List Sekolah
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store')->name('list-sekolah.store');
         Route::get('/superadmin/list-sekolah/{id}', 'ListSekolahController@edit');
         Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')->name('list-sekolah-update');
         Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy');
+
+        // Laporan
+        Route::get('/superadmin/laporan', 'LaporanController@index')->name('laporan');
 
         // Referensi
         Route::namespace('Referensi')
