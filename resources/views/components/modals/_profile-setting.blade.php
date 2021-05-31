@@ -10,7 +10,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-berita" enctype="multipart/form-data">
+                <form id="form-profile" enctype="multipart/form-data">
+                    @csrf @method('POST')
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
@@ -29,7 +30,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="alamat">Alamat Sekolah:</label>
-                                <textarea class="form-control form-control-sm" name="profile_alamat" id="alamat" rows="3" cols="10" placeholder="Alamat Sekolah" readonly></textarea>
+                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
                             </div>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <input type="text" name="username" id="profile_username" class="form-control form-control-sm" placeholder="Username">
+                                <input type="text" name="username" id="profile_username" class="form-control form-control-sm" placeholder="Username" disabled>
                             </div>
                         </div>
                         <div class="col">
@@ -97,8 +98,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-info" value="Update" id="btn">
+                        {{-- <input type="submit" class="btn btn-sm btn-info" value="Update" id="btn"> --}}
+                        <button type="submit" class="btn btn-sm btn-success">Simpan</button>
                         <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form> 

@@ -44,7 +44,7 @@
             success: function (data) {
                 $('#profile_id_sekolah').val(data.id_sekolah);
                 $('#profile_name').val(data.name);
-                $('#profile_alamat').val(data.address);
+                $('#profile_alamat').val(data.alamat);
                 $('#profile_provinsi').val(data.provinsi);
                 $('#profile_kabupaten').val(data.kabupaten);
                 $('#profile_jenjang').val(data.jenjang);
@@ -64,6 +64,30 @@
             }
         });
     });
+
+    $('#form-profile').on('submit', function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: `{{ route('admin.profile.change-profile') }}`,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (data.errors) {
+                        // Code
+                    }
+
+                    if (data.success) {
+                        Swal.fire("Berhasil", data.success, "success");
+                        $('#form-profile')[0].reset();
+                        
+                        $('#modal-profile').modal('hide');
+                    }
+                }
+            });
+        });
 </script>
 {{-- add ons JS --}}
 @stack('js')
