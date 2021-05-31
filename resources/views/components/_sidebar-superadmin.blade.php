@@ -112,6 +112,22 @@
                         </li>
                     </ul>
                 </li>
+                <li class="{{ request()->is('superadmin/keuangan.keuangan') ? 'active' : '' }}">
+                    <a href="{{ route('superadmin.keuangan.keuangan') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-money-check-alt"></i>
+                        </span>
+                        <span class="pcoded-mtext">Keuangan</span>
+                    </a>
+                </li>
+                <li class="{{ request()->is('superadmin/laporan') ? 'active' : '' }}">
+                    <a href="{{ route('superadmin.laporan') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-file-pdf"></i>
+                        </span>
+                        <span class="pcoded-mtext">Laporan</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
