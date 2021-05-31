@@ -110,4 +110,4 @@
         </div>
     </div>
 </nav>
-@include('components.modals._profile-setting')
+@include('components.modals._profile-setting-siswa')
