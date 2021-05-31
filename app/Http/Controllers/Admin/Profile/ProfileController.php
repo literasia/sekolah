@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Superadmin\{Sekolah, Provinsi, KabupatenKota};
 use App\User;
+use Illuminate\Support\Facades\Hash;
+
 class ProfileController extends Controller
 {
     public function index(){
@@ -23,6 +25,36 @@ class ProfileController extends Controller
             'provinsi' => $provinsi->name,
             'kabupaten' => $kabupaten->name,
             'username' => $user->username,
+        ]);
+    }
+
+    public function changeProfile(Request $request){
+        
+        $profile = Sekolah::findOrFail(auth()->user()->id_sekolah);
+
+        $profile->update([
+            'alamat' => $request->alamat
+        ]);
+
+        if (!empty($request->password_lama)) {
+            if(Hash::check($request->password_lama, auth()->user()->password)){
+                // If Password lama != password db
+                return response()->json([
+                    'password lama benar'
+                ]);
+                $user = User::findOrFail(auth()->user()->id);
+                $user->update([
+                    'password' => Hash::make($request->password_baru),
+                ]);
+            }else{
+                return response()->json([
+                    'password lama salah'
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => 'Data terubah'
         ]);
     }
 }

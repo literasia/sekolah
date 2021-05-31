@@ -219,7 +219,7 @@ Route::namespace('ERapor')->group(function () {
 
 Route::namespace('Profile')->group(function(){
     Route::get('/admin/profile', 'ProfileController@index')->name('profile.profile');
-    Route::post('/admin/profile/update', 'ProfileController@update')->name('profile.update');
+    Route::post('/admin/profile/update', 'ProfileController@changeProfile')->name('profile.change-profile');
 });
 
 // E-Learning
