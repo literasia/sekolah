@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Superadmin;
+namespace App\Http\Controllers\Superadmin\Keuangan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Superadmin\{KabupatenKota, Sekolah, Slider};
@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 
-class LaporanController extends Controller
+class TagihanController extends Controller
 {
     public function index(Request $request) { 
-        return view('superadmin.slider');
+        return view('superadmin.keuangan.tagihan');
     }
 }

@@ -112,21 +112,25 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{ request()->is('superadmin/keuangan.keuangan') ? 'active' : '' }}">
-                    <a href="{{ route('superadmin.keuangan.keuangan') }}" class="waves-effect waves-dark">
+                <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/laporan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-money-check-alt"></i>
+                            <i class="fa fa-newspaper"></i>
                         </span>
                         <span class="pcoded-mtext">Keuangan</span>
                     </a>
-                </li>
-                <li class="{{ request()->is('superadmin/laporan') ? 'active' : '' }}">
-                    <a href="{{ route('superadmin.laporan') }}" class="waves-effect waves-dark">
-                        <span class="pcoded-micon">
-                            <i class="fa fa-file-pdf"></i>
-                        </span>
-                        <span class="pcoded-mtext">Laporan</span>
-                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('superadmin/keuangan/tagihan') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.keuangan.tagihan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tagihan</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('superadmin/keuangan/laporan') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.keuangan.laporan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Laporan</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
