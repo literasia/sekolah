@@ -35,7 +35,7 @@
                                 </select>
                             </div>
                             <div class="col-xl-4">
-                                <select name="soal_id" id="soal_id" class="form-control form-control-sm">
+                                <select name="soal_id" id="soal_id" class="form-control form-control-sm" required>
                                     <option value="">-- Soal --</option>
                                     @foreach ($soal as $item)
                                         <option value="{{ $item->id }}"
@@ -61,7 +61,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
-                    @if ($soal_id != "")
+                    @if ($soal_id != "" || $kelas_id != "")
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     @endif
                     <div class="dt-responsive table-responsive mt-3">
@@ -286,12 +286,17 @@
 
         // ------
 
-        if (`{{ $kelas_id }}` != "") {
+        if (`{{ $kelas_id }}` != "" || `{{ $soal_id }}` != "") {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: "{{ route('admin.e-learning.butir-soal') }}",
+                    type: "GET",
+                    data: {
+                        'soal_id' : `{{ $soal_id }}`,
+                        'kelas_id' : `{{ $kelas_id }}`,
+                    }
                 },
                 columns: [
                 {
@@ -319,6 +324,14 @@
         }
             
         $('#add').on('click', function() {
+            $('.modal-title').html('Tambah Kuis');
+            $('.form-control').val('');
+            $('#point').val('');
+            $('#action').val('add');
+            $('#button')
+                .removeClass('btn-outline-success edit')
+                .addClass('btn-outline-info add')
+                .html('Simpan');
             tinymce.get('pertanyaan').setContent('');
             $('.modal-title').html('Tambah Butir Soal');
             $('#modal-butir-soal').modal('show');
@@ -345,7 +358,10 @@
                 data: $(this).serialize(),
                 success: function (data) {
                     if (data.errors) {
-                        toastr.error("data masih koosong");
+                        data.errors.poin ? $('#point').addClass('is-invalid') : $('#point').removeClass('is-invalid');
+                        data.errors.jenis_soal ? $('#question_type').addClass('is-invalid') : $('#question_type').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong!");
                     }
 
                     if (data.success) {
@@ -383,7 +399,7 @@
                     $('#answer-group').append(`<label>Jawaban</label>`);
                     
                     let jawabans = data.jawaban;
-                    let alphabet = ['a', 'b', 'c', 'd', 'e', 'f'];
+                    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
 
                     counter = 0;
 
