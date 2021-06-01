@@ -71,6 +71,24 @@ class ButirSoalController extends Controller
     }
 
     public function store(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'poin' => 'required',
+            'jenis_soal' => 'required',
+            'pertanyaan' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
 
         ButirSoal::create([
@@ -89,6 +107,24 @@ class ButirSoalController extends Controller
     }
 
     public function edit($id){
+        $data = $request->all();
+        
+        $rules = [
+            'poin' => 'required',
+            'jenis_soal' => 'required',
+            'pertanyaan' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $butir_soal = ButirSoal::findOrFail($id);
 
         $jawaban = explode('|literasia_sekolah|', $butir_soal->jawaban);

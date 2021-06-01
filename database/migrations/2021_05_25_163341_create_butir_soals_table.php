@@ -18,8 +18,8 @@ class CreateButirSoalsTable extends Migration
             $table->unsignedBigInteger('soal_id');
             $table->string('jenis_soal');
             $table->string('pertanyaan');
-            $table->string('jawaban');
-            $table->string('kunci_jawaban');
+            $table->string('jawaban')->nullable();
+            $table->string('kunci_jawaban')->nullable();
             $table->timestamps();
         });
     }

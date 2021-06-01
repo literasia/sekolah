@@ -40,7 +40,7 @@
                                 <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
                                     @foreach ($kelas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -87,13 +87,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="publish_date">Tanggal</label>
-                                                <input type="text" name="publish_date" id="publish_date" class="form-control form-control-sm" readonly>
+                                                <input type="text" name="tanggal_terbit" id="publish_date" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="time">Jam</label>
-                                                <input type="text" name="time" id="time" class="form-control form-control-sm clockpicker" readonly>
+                                                <input type="text" name="jam_terbit" id="time" class="form-control form-control-sm clockpicker" readonly>
                                             </div>
                                         </div>
                                     </div>

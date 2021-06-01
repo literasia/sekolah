@@ -46,6 +46,7 @@
         </div>
     </div>
 </div>
+
 @include('admin.e-learning.modals._kuis')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -225,12 +226,31 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    var html = '';
+                    console.log(data);
+                    if (data.single_choice) {
+                        Swal.fire("Gagal", data.message, "error");
+                    }
+
+                    if (data.multiple_choice) {
+                        Swal.fire("Gagal", data.message, "error");
+                    }
+
                     if (data.errors) {
-                        html = data.errors[0];
-                        $('#kode').addClass('is-invalid');
-                        $('#name').addClass('is-invalid');
-                        toastr.error(html);
+                        
+                        data.errors.soal_id ? $('#soal_id').addClass('is-invalid') : $('#soal_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+                        data.errors.jenis_kuis ? $('#jenis_kuis').addClass('is-invalid') : $('#jenis_kuis').removeClass('is-invalid');
+                        data.errors.keterangan ? $('#keterangan').addClass('is-invalid') : $('#keterangan').removeClass('is-invalid');
+                        data.errors.jumlah_soal_pg ? $('#jumlah_soal_pg').addClass('is-invalid') : $('#jumlah_soal_pg').removeClass('is-invalid');
+                        data.errors.jumlah_soal_essai ? $('#jumlah_soal_essai').addClass('is-invalid') : $('#jumlah_soal_essai').removeClass('is-invalid');
+                        data.errors.tanggal_mulai ? $('#tanggal_mulai').addClass('is-invalid') : $('#tanggal_mulai').removeClass('is-invalid');
+                        data.errors.tanggal_selesai ? $('#tanggal_selesai').addClass('is-invalid') : $('#tanggal_selesai').removeClass('is-invalid');
+                        data.errors.jam_mulai ? $('#jam_mulai').addClass('is-invalid') : $('#jam_mulai').removeClass('is-invalid');
+                        data.errors.jam_selesai ? $('#jam_selesai').addClass('is-invalid') : $('#jam_selesai').removeClass('is-invalid');
+                        data.errors.durasi ? $('#durasi').addClass('is-invalid') : $('#durasi').removeClass('is-invalid');
+                        data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong!");
                     }
 
                     if (data.success) {
@@ -249,7 +269,6 @@
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-kuis').modal('hide');
                     }
-                    $('#form_result').html(html);
                 }
             });
         });
@@ -274,15 +293,18 @@
                 url: '/admin/e-learning/kuis/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log(data);
-                    $('#judul').val(data.judul);
+                    
                     $('#hidden_id').val(data.id);
                     $('#soal_id').val(data.soal_id);
                     $('#guru_id').val(data.guru_id);
                     $('#durasi').val(data.durasi);
                     $('#jenis_kuis').val(data.jenis_kuis);
+                    $('#jumlah_soal_pg').val(data.jumlah_soal_pg);
+                    $('#jumlah_soal_essai').val(data.jumlah_soal_essai);
                     $('#tanggal_mulai').val(data.tanggal_mulai);
                     $('#tanggal_selesai').val(data.tanggal_selesai);
+                    $('#jam_mulai').val(data.jam_mulai);
+                    $('#jam_selesai').val(data.jam_selesai);
                     $('#keterangan').val(data.keterangan);
                     $('#status').val(data.status);
 

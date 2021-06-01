@@ -10,7 +10,7 @@ use App\User;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Facades\Validator;
 
 class SoalController extends Controller
 {
@@ -57,6 +57,25 @@ class SoalController extends Controller
     }
 
     public function store(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+        ];
+        
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         Soal::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'judul' => $request->judul,
@@ -90,9 +109,28 @@ class SoalController extends Controller
     }   
 
     public function update(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+        ];
+        
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $soal = Soal::findOrFail($request->hidden_id);
         
-        $soal->update($request->all());
+        $soal->update($data);
 
         return response()
             ->json([

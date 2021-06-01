@@ -39,9 +39,6 @@ class ProfileController extends Controller
         if (!empty($request->password_lama)) {
             if(Hash::check($request->password_lama, auth()->user()->password)){
                 // If Password lama != password db
-                return response()->json([
-                    'password lama benar'
-                ]);
                 $user = User::findOrFail(auth()->user()->id);
                 $user->update([
                     'password' => Hash::make($request->password_baru),

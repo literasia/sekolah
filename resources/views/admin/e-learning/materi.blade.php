@@ -173,12 +173,12 @@
                 name: 'guru'
             },
             {
-                data: 'materi',
-                name: 'materi'
-            },
-            {
                 data: 'tanggal_terbit',
                 name: 'tanggal_terbit'
+            },
+            {
+                data: 'jam_terbit',
+                name: 'jam_terbit'
             },
             {
                 data: 'status',
@@ -223,12 +223,14 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    var html = '';
                     if (data.errors) {
-                        html = data.errors[0];
-                        $('#kode').addClass('is-invalid');
-                        $('#name').addClass('is-invalid');
-                        toastr.error(html);
+                        data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
+                        data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
+                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+                        data.errors.materi ? $('#materi').addClass('is-invalid') : $('#materi').removeClass('is-invalid');
+                        data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
+                        toastr.error(data.error);
                     }
 
                     if (data.success) {
@@ -247,7 +249,6 @@
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-materi').modal('hide');
                     }
-                    $('#form_result').html(html);
                 }
             });
         });
@@ -278,6 +279,8 @@
                     $('#kelas_id').val(data.kelas_id);
                     $('#guru_id').val(data.guru_id);
                     $('#materi').html(data.materi);
+                    $('#publish_date').val(data.tanggal_terbit);
+                    $('#time').val(data.jam_terbit);
                     tinymce.get('materi').setContent(data.materi);
 
                     $(document).on('focusin', function(e) {

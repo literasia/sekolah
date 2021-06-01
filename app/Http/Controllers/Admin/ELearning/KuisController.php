@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin\ELearning;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, PengaturanKuis};
+use App\Models\Admin\{Kuis, Soal, PengaturanKuis, ButirSoal};
 use App\Models\Guru;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class KuisController extends Controller
 { 
@@ -55,22 +56,94 @@ class KuisController extends Controller
     }
 
     public function store(Request $request){
+        $data = $request->all();
+        
+        $rules = [
+            'soal_id' => 'required',
+            'guru_id' => 'required',
+            'jenis_kuis' => 'required',
+            'keterangan' => 'required',
+            'jumlah_soal_pg' => 'required',
+            'jumlah_soal_essai' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required',
+            'durasi' => 'required',
+            'status' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        // ambil data butir soal yang soal id nya telah dipilih (multiple choise) count
+        $multiple_choice = ButirSoal::where('soal_id', $request->soal_id)->where('jenis_soal', 'multiple-choice')->count();
+        
+        // ambil data butir soal yang soal id nya telah dipilih (pilihan ganda coise) count
+        $single_choice = ButirSoal::where('soal_id', $request->soal_id)->where('jenis_soal', 'single-choice')->count();
+
+        if ($request->jumlah_soal_pg > $multiple_choice) {
+            return response()->json([
+                'multiple_choice' => true,
+                'message' => 'Jumlah pilihan ganda melebihi maksimum butir soal'
+            ]);
+        }
+
+        if ($request->jumlah_soal_pg > $single_choice) {
+            return response()->json([
+                'single_choice' => true,
+                'message' => 'Jumlah essai melebihi maksimum butir soal'
+            ]);
+        }
+        
         $pengaturan_kuis = PengaturanKuis::create([
             'is_hide_title' => 0,
             'sekolah_id' => auth()->user()->id_sekolah,
         ]);
 
+        $data['tanggal_mulai'] = date('Y-m-d', strtotime($request->tanggal_mulai));
+        $data['tanggal_selesai'] = date('Y-m-d', strtotime($request->tanggal_selesai));
+
+        $data['jam_mulai'] = date('Y-m-d', strtotime($request->jam_mulai));
+        $data['jam_selesai'] = date('Y-m-d', strtotime($request->jam_selesai));
+
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+    
+        if (empty($data['tanggal_terbit'])) {
+            $data['tanggal_terbit'] = date('Y-m-d');    
+        }else{
+            $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+        }
+
+        if (empty($data['jam_terbit'])) {
+            $data['jam_terbit'] = date('h:i:s'); 
+        }else{
+            $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+        }
+
         Kuis::create([
             'sekolah_id' => auth()->user()->id_sekolah,
-            'soal_id' => $request->soal_id,
+            'soal_id' => $data->soal_id,
             'pengaturan_kuis_id' => $pengaturan_kuis->id,
-            'durasi' => $request->durasi,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_selesai' => $request->tanggal_selesai,
-            'guru_id' => $request->guru_id,
-            'keterangan' => $request->keterangan,
-            'status' => $request->status,
-            'jenis_kuis' => $request->jenis_kuis,
+            'durasi' => $data->durasi,
+            'tanggal_mulai' => $data->tanggal_mulai,
+            'tanggal_selesai' => $data->tanggal_selesai,
+            'jam_mulai' => $data->jam_mulai,
+            'jam_selesai' => $data->jam_selesai,
+            'jumlah_soal_pg' => $data->jumlah_soal_pg,
+            'jumlah_soal_essai' => $data->jumlah_soal_essai,
+            'guru_id' => $data->guru_id,
+            'keterangan' => $data->keterangan,
+            'status' => $data->status,
+            'jenis_kuis' => $data->jenis_kuis,
         ]);
     
         return response()
@@ -88,8 +161,12 @@ class KuisController extends Controller
                 'soal_id'   => $kuis->soal_id,
                 'pengaturan_kuis_id'   => $kuis->pengaturan_kuis_id,
                 'durasi'   => $kuis->durasi,
-                'tanggal_mulai'   => $kuis->tanggal_mulai,
-                'tanggal_selesai'   =>  $kuis->tanggal_selesai,
+                'jumlah_soal_pg' => $kuis->jumlah_soal_pg,
+                'jumlah_soal_essai' => $kuis->jumlah_soal_essai,
+                'tanggal_mulai' => $kuis->tanggal_mulai,
+                'tanggal_selesai' => $kuis->tanggal_selesai,
+                'jam_mulai' => $kuis->jam_mulai,
+                'jam_selesai' => $kuis->jam_selesai,
                 'guru_id'   => $kuis->guru_id,
                 'status'   => $kuis->status,
                 'keterangan' => $kuis->keterangan,
@@ -98,7 +175,49 @@ class KuisController extends Controller
     }   
 
     public function update(Request $request){
+        $data = $request->all();
+        
+        $rules = [
+            'soal_id' => 'required',
+            'guru_id' => 'required',
+            'jenis_kuis' => 'required',
+            'keterangan' => 'required',
+            'jumlah_soal_pg' => 'required',
+            'jumlah_soal_essai' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required',
+            'durasi' => 'required',
+            'status' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+        
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $kuis = Kuis::findOrFail($request->hidden_id);
+
+         // change zone time
+         date_default_timezone_set('Asia/Jakarta');
+        
+         if (empty($data['tanggal_terbit'])) {
+             $data['tanggal_terbit'] = date('Y-m-d');    
+         }else{
+             $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+         }
+ 
+         if (empty($data['jam_terbit'])) {
+             $data['jam_terbit'] = date('h:i:s'); 
+         }else{
+             $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+         }
         
         $kuis->update($request->all());
 

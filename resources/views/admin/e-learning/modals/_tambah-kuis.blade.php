@@ -37,7 +37,23 @@
     <div class="col">
         <div class="form-group">
             <label for="keterangan">Keterangan</label>
-            <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan" required></textarea>
+            <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan"></textarea>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="jumlah_soal_pg">Jumlah Soal PG</label>
+            <input type="text" id="jumlah_soal_pg" name="jumlah_soal_pg" class="form-control form-control-sm">
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group">
+            <label for="jumlah_soal_essai">Jumlah Soal Essai</label>
+            <input type="text" id="jumlah_soal_essai" name="jumlah_soal_essai" class="form-control form-control-sm">
         </div>
     </div>
 </div>
@@ -53,6 +69,21 @@
         <div class="form-group">
             <label for="tanggal_selesai">Tanggal Selesai</label>
             <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="jam_mulai">Jam Mulai</label>
+            <input type="time" name="jam_mulai" id="jam_mulai" class="form-control form-control-sm">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="jam_selesai">Jam Selesai</label>
+            <input type="time" name="jam_selesai" id="jam_selesai" class="form-control form-control-sm">
         </div>
     </div>
 </div>
