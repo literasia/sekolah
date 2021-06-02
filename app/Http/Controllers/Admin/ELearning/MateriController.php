@@ -12,7 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class MateriController extends Controller
-{ //
+{ 
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
@@ -37,7 +37,7 @@ class MateriController extends Controller
                     return $materi->mataPelajaran->nama_pelajaran;
                 })
                 ->addColumn('kelas', function($materi){
-                    return $materi->kelas->name;
+                    return $materi->kelas->tingkatanKelas->name." - ".$materi->kelas->name;
                 })
                 ->addColumn('guru', function($materi){
                     return $materi->guru->pegawai->name;
@@ -158,12 +158,6 @@ class MateriController extends Controller
         }else{
             $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
         }
-
-        $data['tanggal_mulai'] = date('Y-m-d', strtotime($request->tanggal_mulai));
-        $data['tanggal_selesai'] = date('Y-m-d', strtotime($request->tanggal_selesai));
-
-        $data['jam_mulai'] = date('Y-m-d', strtotime($request->jam_mulai));
-        $data['jam_selesai'] = date('Y-m-d', strtotime($request->jam_selesai));
         
         $materi->update($request->all());
 

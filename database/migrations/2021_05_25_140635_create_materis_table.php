@@ -21,7 +21,6 @@ class CreateMaterisTable extends Migration
             $table->unsignedBigInteger('guru_id');
             $table->unsignedBigInteger('sekolah_id');
             $table->text('materi');
-            $table->date('tanggal');
             $table->string('status');
             $table->foreign('mata_pelajaran_id')->references('id')->on('mata_pelajarans')->onDelete('cascade');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');

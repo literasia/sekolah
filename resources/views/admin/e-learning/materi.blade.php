@@ -194,18 +194,19 @@
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Materi');
-            $('#modal-materi').modal('show');
             $('.form-control').val('');
             tinymce.get('materi').setContent('');
             $('.modal-title').text('Tambah Materi');
             $('#action').val('add');
-            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+            $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
             $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
+            $('#modal-materi').modal('show');
         });
 
         $('#form-materi').on('submit', function (event) {
             event.preventDefault();
             var url = '';
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.materi.store') }}";
@@ -234,7 +235,7 @@
                     }
 
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
                         $('#form-materi')[0].reset();
                         $('#action').val('add');
@@ -245,7 +246,7 @@
                         $('#btn-cancel')
                             .removeClass('btn-outline-info')
                             .addClass('btn-outline-success')
-                            .val('Batal');
+                            .text('Batal');
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-materi').modal('hide');
                     }
@@ -253,7 +254,7 @@
             });
         });
 
-        $('#publish_date').dateDropper({
+        $('#tanggal_terbit').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
@@ -279,8 +280,6 @@
                     $('#kelas_id').val(data.kelas_id);
                     $('#guru_id').val(data.guru_id);
                     $('#materi').html(data.materi);
-                    $('#publish_date').val(data.tanggal_terbit);
-                    $('#time').val(data.jam_terbit);
                     tinymce.get('materi').setContent(data.materi);
 
                     $(document).on('focusin', function(e) {
@@ -301,7 +300,7 @@
                     $('#btn-cancel')
                         .removeClass('btn-outline-success')
                         .addClass('btn-outline-info')
-                        .val('Batal');
+                        .text('Batal');
                     $('#modal-materi').modal('show');
                 }
             });
@@ -324,7 +323,7 @@
                     setTimeout(function () {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });
