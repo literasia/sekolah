@@ -292,9 +292,7 @@
             counter--;       
             $("#answer-form" + counter).remove();    
         });
-
-        // ------
-
+        
         if (`{{ $kelas_id }}` != "" || `{{ $soal_id }}` != "") {
             $('#order-table').DataTable({
                 processing: true,
