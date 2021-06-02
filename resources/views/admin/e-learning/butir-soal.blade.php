@@ -228,7 +228,7 @@
         });
 
         let counter = 1;
-        let alphabet = ['a', 'b', 'c', 'd', 'e', 'f'];
+        let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
             
@@ -252,34 +252,6 @@
             
             $('#answer-group').append(newAnswerField);
             counter++;
-        });
-
-        $('#add').on('click', function() {
-            $('.form-control').val('');
-            $('#point').val(1);
-            
-            counter = 1;
-            $('#answer-group').html('');
-            
-            let newAnswerField =  `<div id="answer-form0">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <input type="text" name="jawaban[]" id="jawaban0" class="form-control form-control-sm mb-3">
-                                            </div>
-                                            <div class="col-4">
-                                                <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block">
-                                                <p class="ml-2 d-inline-block">Jawaban yang benar</p>
-                                            </div>
-                                        </div>
-                                    </div>`;
-
-            $('#answer-group').append(`<label>Jawaban</label>`);
-            $('#answer-group').append(newAnswerField);
-
-            $('.answer').hide();
-
-            $('.modal-title').html('Tambah Butir Soal');
-            $('#modal-butir-soal').modal('show');
         });
 
         $("#removeButton").click(function () {
@@ -330,23 +302,36 @@
             });
         }
             
-        $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Kuis');
-            $('.form-control').val('');
-            $('#point').val('');
-            $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
-            tinymce.get('pertanyaan').setContent('');
+        $('#add').on('click', function() {    
             $('.modal-title').html('Tambah Butir Soal');
+            $('.form-control').val('');
+            $('#point').val(1);
+
             $('#action').val('add');
             $('#hidden_id').val('');
+            
             tinymce.get('pertanyaan').setContent('');
             $('#question_type').val('');
+
             $('#answer-group').html('');
-            $('#answer-group').append('');
+
+            let newAnswerField =  `<label>Jawaban</label>
+                                    <div id="answer-form0">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <input type="text" name="jawaban[]" id="jawaban0" class="form-control form-control-sm mb-3">
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block">
+                                                <p class="ml-2 d-inline-block">Jawaban yang benar</p>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                            
+            $('#answer-group').append(newAnswerField);
+            $('.answer').hide();
+
+
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -416,10 +401,35 @@
                     $('#hidden_id').val(data.id);
                     tinymce.get('pertanyaan').setContent(data.pertanyaan);
 
-                    $('#question_type').val('multiple-choice');
-                    $('#multiple-choice').show();
+                    $('#question_type').val(data.jenis_soal);
                     $('#answer-group').html('');
-                    $('#answer-group').append(`<label>Jawaban</label>`);
+
+                    if (data.jenis_soal == "multiple-choice") {
+                        let jawabans = data.jawaban;
+                        let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+                        counter = 0;
+
+                        for (let index = 0; index < jawabans.length; index++) {
+                            let newAnswerField =  `<div id="answer-form${counter}">
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <input type="text" name="jawaban[]" id="jawaban${counter}" value="${jawabans[index]}" class="form-control form-control-sm mb-3">
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="radio" name="kunci_jawaban" value="${alphabet[counter]}" ${data.kunci_jawaban == alphabet[counter] ? 'checked' : '' } class="d-inline-block">
+                                                    <p class="ml-2 d-inline-block">Jawaban yang benar</p>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                            
+                            $('#answer-group').append(newAnswerField);
+                            counter++;
+                        }
+
+                        $('.answer').show();
+                    }
+
                     $('#action').val('edit');
                     $('#btn')
                         .removeClass('btn-success')
@@ -430,27 +440,6 @@
                         .addClass('btn-outline-info')
                         .text('Batal');
                     
-                    let jawabans = data.jawaban;
-                    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-                    counter = 0;
-
-                    for (let index = 0; index < jawabans.length; index++) {
-                        let newAnswerField =  `<div id="answer-form${counter}">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <input type="text" name="jawaban[]" id="jawaban${counter}'" value="${jawabans[index]}" class="form-control form-control-sm mb-3">
-                                            </div>
-                                            <div class="col-4">
-                                                <input type="radio" name="kunci_jawaban" value="${alphabet[counter]}" ${data.kunci_jawaban == alphabet[counter] ? 'checked' : '' } class="d-inline-block">
-                                                <p class="ml-2 d-inline-block">Jawaban yang benar</p>
-                                            </div>
-                                        </div>
-                                    </div>`;
-                        
-                        $('#answer-group').append(newAnswerField);
-                        counter++;
-                    }
                     $('#modal-butir-soal').modal('show');
                 }
             });
