@@ -232,8 +232,9 @@
         });
 
         
-        $('#form-kuis').on('submit', function (event) {
+        $('#form-kuis-ku').on('submit', function (event) {
             event.preventDefault();
+            console.log('ta');
             var url = '';
             var text = "Data sukses ditambahkan";
 
@@ -253,7 +254,6 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    console.log(data);
                     if (data.single_choice) {
                         Swal.fire("Gagal", data.message, "error");
                     }
@@ -263,7 +263,6 @@
                     }
 
                     if (data.errors) {
-                        
                         data.errors.soal_id ? $('#soal_id').addClass('is-invalid') : $('#soal_id').removeClass('is-invalid');
                         data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
                         data.errors.jenis_kuis ? $('#jenis_kuis').addClass('is-invalid') : $('#jenis_kuis').removeClass('is-invalid');
@@ -282,7 +281,7 @@
                     if (data.success) {
                         Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
-                        $('#form-kuis')[0].reset();
+                        $('#form-kuis-ku')[0].reset();
                         $('#action').val('add');
                         $('#btn')
                             .removeClass('btn-info')
