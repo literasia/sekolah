@@ -89,7 +89,11 @@ class ButirSoalController extends Controller
             ]);
         }
 
-        $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
+        $jawaban = null;
+
+        if (!empty($request->jawaban)) {
+            $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
+        }
 
         ButirSoal::create([
             'soal_id' => $request->soal_id,

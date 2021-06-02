@@ -113,8 +113,8 @@
             <label for="status">Status</label>
             <select name="status" id="status" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-                <option value="draf">Draf</option>
-                <option value="terbitkan">Terbitkan</option>
+                <option value="Draf">Draf</option>
+                <option value="Terbitkan">Terbitkan</option>
             </select>
         </div>
     </div>

@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form-kuis">
+            <form id="form-kuis-ku">
                 @csrf @method("POST")
                 <div class="modal-body">
                     <ul class="nav nav-tabs" role="tablist">
@@ -36,7 +36,7 @@
                     <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
                     <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

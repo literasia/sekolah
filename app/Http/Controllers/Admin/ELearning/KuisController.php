@@ -92,6 +92,7 @@ class KuisController extends Controller
         // ambil data butir soal yang soal id nya telah dipilih (pilihan ganda coise) count
         $single_choice = ButirSoal::where('soal_id', $request->soal_id)->where('jenis_soal', 'single-choice')->count();
 
+
         if ($request->jumlah_soal_pg > $multiple_choice) {
             return response()->json([
                 'multiple_choice' => true,
@@ -111,42 +112,43 @@ class KuisController extends Controller
             'sekolah_id' => auth()->user()->id_sekolah,
         ]);
 
-        $data['tanggal_mulai'] = date('Y-m-d', strtotime($request->tanggal_mulai));
-        $data['tanggal_selesai'] = date('Y-m-d', strtotime($request->tanggal_selesai));
+        $tanggal_mulai = date('Y-m-d', strtotime($request->tanggal_mulai));
+        $tanggal_selesai = date('Y-m-d', strtotime($request->tanggal_selesai));
 
-        $data['jam_mulai'] = date('Y-m-d', strtotime($request->jam_mulai));
-        $data['jam_selesai'] = date('Y-m-d', strtotime($request->jam_selesai));
+        $jam_mulai = date('H:i:s', strtotime($request->jam_mulai));
+        $jam_selesai = date('H:i:s', strtotime($request->jam_selesai));
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');
     
-        if (empty($data['tanggal_terbit'])) {
-            $data['tanggal_terbit'] = date('Y-m-d');    
-        }else{
-            $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+        $tanggal_terbit = date('Y-m-d');    
+
+        if (!empty($request->tanggal_terbit)) {
+            $tanggal_terbit = date('Y-m-d', strtotime($request->tanggal_terbit));   
         }
 
-        if (empty($data['jam_terbit'])) {
-            $data['jam_terbit'] = date('h:i:s'); 
-        }else{
-            $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+        $jam_terbit = date('h:i:s'); 
+        if (!empty($request->jam_terbit)) {
+            $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
 
         Kuis::create([
             'sekolah_id' => auth()->user()->id_sekolah,
-            'soal_id' => $data->soal_id,
+            'soal_id' => $request->soal_id,
             'pengaturan_kuis_id' => $pengaturan_kuis->id,
-            'durasi' => $data->durasi,
-            'tanggal_mulai' => $data->tanggal_mulai,
-            'tanggal_selesai' => $data->tanggal_selesai,
-            'jam_mulai' => $data->jam_mulai,
-            'jam_selesai' => $data->jam_selesai,
-            'jumlah_soal_pg' => $data->jumlah_soal_pg,
-            'jumlah_soal_essai' => $data->jumlah_soal_essai,
-            'guru_id' => $data->guru_id,
-            'keterangan' => $data->keterangan,
-            'status' => $data->status,
-            'jenis_kuis' => $data->jenis_kuis,
+            'durasi' => $request->durasi,
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_selesai' => $tanggal_selesai,
+            'jam_mulai' => $jam_mulai,
+            'jam_selesai' => $jam_selesai,
+            'jumlah_soal_pg' => $request->jumlah_soal_pg,
+            'jumlah_soal_essai' => $request->jumlah_soal_essai,
+            'guru_id' => $request->guru_id,
+            'keterangan' => $request->keterangan,
+            'status' => $request->status,
+            'jenis_kuis' => $request->jenis_kuis,
+            'jam_terbit' => $jam_terbit,
+            'tanggal_terbit' => $tanggal_terbit,
         ]);
     
         return response()
@@ -207,22 +209,45 @@ class KuisController extends Controller
 
         $kuis = Kuis::findOrFail($request->hidden_id);
 
-         // change zone time
-         date_default_timezone_set('Asia/Jakarta');
-        
-         if (empty($data['tanggal_terbit'])) {
-             $data['tanggal_terbit'] = date('Y-m-d');    
-         }else{
-             $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
-         }
- 
-         if (empty($data['jam_terbit'])) {
-             $data['jam_terbit'] = date('h:i:s'); 
-         }else{
-             $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
-         }
-        
-        $kuis->update($request->all());
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+
+        $tanggal_mulai = date('Y-m-d', strtotime($request->tanggal_mulai));
+        $tanggal_selesai = date('Y-m-d', strtotime($request->tanggal_selesai));
+
+        $jam_mulai = date('H:i:s', strtotime($request->jam_mulai));
+        $jam_selesai = date('H:i:s', strtotime($request->jam_selesai));
+
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+    
+        $tanggal_terbit = date('Y-m-d');    
+
+        if (!empty($request->tanggal_terbit)) {
+            $tanggal_terbit = date('Y-m-d', strtotime($request->tanggal_terbit));   
+        }
+
+        $jam_terbit = date('h:i:s'); 
+        if (!empty($request->jam_terbit)) {
+            $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
+        }
+
+        $kuis->update([
+            'soal_id' => $request->soal_id,
+            'durasi' => $request->durasi,
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_selesai' => $tanggal_selesai,
+            'jam_mulai' => $jam_mulai,
+            'jam_selesai' => $jam_selesai,
+            'jumlah_soal_pg' => $request->jumlah_soal_pg,
+            'jumlah_soal_essai' => $request->jumlah_soal_essai,
+            'guru_id' => $request->guru_id,
+            'keterangan' => $request->keterangan,
+            'status' => $request->status,
+            'jenis_kuis' => $request->jenis_kuis,
+            'jam_terbit' => $jam_terbit,
+            'tanggal_terbit' => $tanggal_terbit,
+        ]);
 
         return response()
             ->json([
