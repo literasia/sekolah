@@ -39,7 +39,7 @@
                                 <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
                                     @foreach ($kelas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -38,7 +38,7 @@ class SoalController extends Controller
                     return $soal->mataPelajaran->nama_pelajaran;
                 })
                 ->addColumn('kelas', function($soal){
-                    return $soal->kelas->name;
+                    return $soal->kelas->tingkatanKelas->name." - ".$soal->kelas->name;
                 })
                 ->addColumn('guru', function($soal){
                     return $soal->guru->pegawai->name;

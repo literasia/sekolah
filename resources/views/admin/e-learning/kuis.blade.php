@@ -27,12 +27,18 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Paket Soal</th>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Kelas</th>
                                     <th>Nama Guru</th>
+                                    <th>Jenis Kuis</th>
+                                    <th>Keterangan</th>
                                     <th>Durasi</th>
+                                    <th>Jumlah Pilihan Ganda</th>
+                                    <th>Jumlah Essai</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
+                                   <!--  <th>Tanggal Unggah</th>
+                                    <th>Jam Unggah</th> -->
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -160,20 +166,28 @@
                 name: 'paket_soal'
             },
             {
-                data: 'mata_pelajaran',
-                name: 'mata_pelajaran'
-            },
-            {
-                data: 'kelas',
-                name: 'kelas'
-            },
-            {
                 data: 'guru',
                 name: 'guru'
             },
             {
+                data: 'jenis_kuis',
+                name: 'jenis_kuis'
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan'
+            },
+            {
                 data: 'durasi',
                 name: 'durasi'
+            },
+            {
+                data: 'jumlah_soal_pg',
+                name: 'jumlah_soal_pg'
+            },
+            {
+                data: 'jumlah_soal_essai',
+                name: 'jumlah_soal_essai'
             },
             {
                 data: 'tanggal_mulai',
@@ -182,6 +196,14 @@
             {
                 data: 'tanggal_selesai',
                 name: 'tanggal_selesai'
+            },
+            {
+                data: 'tanggal_terbit',
+                name: 'tanggal_terbit'
+            },
+            {
+                data: 'jam_terbit',
+                name: 'jam_terbit'
             },
             {
                 data: 'status',
@@ -198,10 +220,14 @@
             $('.modal-title').html('Tambah Kuis');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
             $('#modal-kuis').modal('show');
         });
 
@@ -209,6 +235,7 @@
         $('#form-kuis').on('submit', function (event) {
             event.preventDefault();
             var url = '';
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.kuis.store') }}";
@@ -249,12 +276,11 @@
                         data.errors.jam_selesai ? $('#jam_selesai').addClass('is-invalid') : $('#jam_selesai').removeClass('is-invalid');
                         data.errors.durasi ? $('#durasi').addClass('is-invalid') : $('#durasi').removeClass('is-invalid');
                         data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
-
                         toastr.error("data masih kosong!");
                     }
 
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
                         $('#form-kuis')[0].reset();
                         $('#action').val('add');
@@ -273,7 +299,7 @@
             });
         });
 
-        $('#publish_date, #tanggal_mulai, #tanggal_selesai').dateDropper({
+        $('#tanggal_terbit, #tanggal_mulai, #tanggal_selesai').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });

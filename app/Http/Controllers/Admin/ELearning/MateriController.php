@@ -12,7 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class MateriController extends Controller
-{ //
+{ 
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
@@ -44,11 +44,11 @@ class MateriController extends Controller
                 })
                 ->editColumn('status', function($materi){
                     if ($materi->status == "Draf") {
-                        return '<label class="badge badge-info m-0">Draf</label>';
+                        return '<label class="badge badge-warning m-0">Draf</label>';
                     }
 
                     if ($materi->status == "Terbitkan") {
-                        return '<label class="badge badge-success m-0">Terbitkan</label>';
+                        return '<label class="badge badge-success m-0">Terbit</label>';
                     }
                 })
                 ->rawColumns(['action', 'status'])

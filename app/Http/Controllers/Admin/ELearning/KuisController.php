@@ -34,12 +34,6 @@ class KuisController extends Controller
                 ->addColumn('paket_soal', function($kuis){
                     return $kuis->soal->judul;
                 })
-                ->addColumn('mata_pelajaran', function($kuis){
-                    return $kuis->soal->mataPelajaran->nama_pelajaran;
-                })
-                ->addColumn('kelas', function($kuis){
-                    return $kuis->soal->kelas->name;
-                })
                 ->addColumn('guru', function($kuis){
                     return $kuis->guru->pegawai->name;
                 })
@@ -49,7 +43,7 @@ class KuisController extends Controller
                     }
 
                     if ($materi->status == "Terbitkan") {
-                        return '<label class="badge badge-success m-0">Terbitkan</label>';
+                        return '<label class="badge badge-success m-0">Terbit</label>';
                     }
                 })
                 ->rawColumns(['action', 'status'])
@@ -105,7 +99,7 @@ class KuisController extends Controller
             ]);
         }
 
-        if ($request->jumlah_soal_pg > $single_choice) {
+        if ($request->jumlah_soal_essai > $single_choice) {
             return response()->json([
                 'single_choice' => true,
                 'message' => 'Jumlah essai melebihi maksimum butir soal'

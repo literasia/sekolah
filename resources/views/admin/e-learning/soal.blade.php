@@ -131,10 +131,21 @@
             $('.modal-title').html('Tambah Soal');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
+            $('#hidden_id').val('');
+            $('#judul').val('');
+            $('#guru_id').val('');
+            $('#mata_pelajaran_id').val('');
+            $('#kelas_id').val('');
+            $('#jumlah_soal').val('');
+            $('#status').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
             $('#modal-soal').modal('show');
         });
 
@@ -151,6 +162,7 @@
         $('#form-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.soal.store') }}";
@@ -180,7 +192,7 @@
                     }
 
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
                         $('#form-soal')[0].reset();
                         $('#action').val('add');
@@ -228,8 +240,6 @@
                     $('#kelas_id').val(data.kelas_id);
                     $('#jumlah_soal').val(data.jumlah_soal);
                     $('#status').val(data.status);
-
-                    $('#modal-soal').modal('show');
                     $('#action').val('edit');
                     $('#btn')
                         .removeClass('btn-success')
@@ -261,7 +271,7 @@
                     setTimeout(function () {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });
