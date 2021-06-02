@@ -127,7 +127,7 @@ Ini adalah halaman keuangan untuk superadmin
         var biaya = document.getElementById('biaya').value;
         var ppn = 1.1;
         var pph = 1.015;
-        // var siplah = 1.025;
+        // ].var siplah = 1.025;
 
         var ppn_result = parseFloat(biaya) / ppn;
         if (!isNaN(ppn_result)) {

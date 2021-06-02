@@ -12,7 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class MateriController extends Controller
-{ 
+{ //
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();

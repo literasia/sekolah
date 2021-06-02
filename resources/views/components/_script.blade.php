@@ -73,7 +73,7 @@
                 success: function (data) {
                     console.log(data);
                     if (data.errors) {
-                        // Code
+                        // Codee
                     }
                     if (data.success) {
                         Swal.fire("Berhasil", data.success, "success");
