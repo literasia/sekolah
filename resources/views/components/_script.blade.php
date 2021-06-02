@@ -23,8 +23,6 @@
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
-<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-
 <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -35,9 +33,7 @@
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
     })();
-</script>
 
-<script>
     $(document).on('click', '.profile', function () {
         var id = $(this).attr('data-id');
         $.ajax({
