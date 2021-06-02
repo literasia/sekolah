@@ -69,12 +69,13 @@
 
     $('#form-profile').on('submit', function (event) {
             event.preventDefault();
-
+            let data = new FormData($(this)[0]);
             $.ajax({
                 url: `{{ route('siswa.profile.update') }}`,
-                method: 'POST',
-                dataType: 'JSON',
-                data: $(this).serialize(),
+                type: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     console.log(data);
                     if (data.success) {

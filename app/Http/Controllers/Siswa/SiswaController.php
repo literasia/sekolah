@@ -34,9 +34,12 @@ class SiswaController extends Controller
     }
 
     public function update(Request $request){
-
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        ]);
         $profile = Sekolah::findOrFail(auth()->user()->id_sekolah);
-
+        $image = $request->file("image");
+        $image->move(public_path('profile_images'),time()."-".$image->getClientOriginalName());
         $profile->update([
             'alamat' => $request->alamat
         ]);
@@ -66,5 +69,8 @@ class SiswaController extends Controller
                 ]);
             }
         }
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
