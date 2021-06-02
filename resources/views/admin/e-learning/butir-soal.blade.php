@@ -30,12 +30,12 @@
                                         <option value="{{ $item->id }}"
                                             @if ($item->id == $kelas_id)
                                                 selected
-                                            @endif>{{ $item->name }}</option>
+                                            @endif>{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-xl-4">
-                                <select name="soal_id" id="soal_id" class="form-control form-control-sm">
+                                <select name="soal_id" id="soal_id" class="form-control form-control-sm" required>
                                     <option value="">-- Soal --</option>
                                     @foreach ($soal as $item)
                                         <option value="{{ $item->id }}"
@@ -61,7 +61,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
-                    @if ($soal_id != "")
+                    @if ($soal_id != "" || $kelas_id != "")
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     @endif
                     <div class="dt-responsive table-responsive mt-3">
@@ -190,14 +190,14 @@
                     $('#preview-pertanyaan').html(data.pertanyaan);
                     
                     let jawabans = data.jawaban;
-                    let alphabet = ['a', 'b', 'c', 'd', 'e', 'f'];
+                    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
 
                     $('#preview-opsi-group').html('');
 
                     for (let index = 0; index < jawabans.length; index++) {
                         let previewPertanyaan =  `<div class="my-3">
                             <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
-                            ${data.kunci_jawaban == alphabet[index] ? 
+                            ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
                                 '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
                             }
                             <div>
@@ -240,7 +240,7 @@
             let newAnswerField =  `<div id="answer-form${counter}">
                                         <div class="row">
                                             <div class="col-8">
-                                                <input type="text" name="jawaban[]" id="jawaban${counter}'" class="form-control form-control-sm mb-3">
+                                                <input type="text" name="jawaban[]" id="jawaban${counter}" class="form-control form-control-sm mb-3">
                                             </div>
                                             <div class="col-4">
                                                 <input type="radio" name="kunci_jawaban" value="${alphabet[counter]}" class="d-inline-block">
@@ -254,6 +254,34 @@
             counter++;
         });
 
+        $('#add').on('click', function() {
+            $('.form-control').val('');
+            $('#point').val(1);
+            
+            counter = 1;
+            $('#answer-group').html('');
+            
+            let newAnswerField =  `<div id="answer-form0">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <input type="text" name="jawaban[]" id="jawaban0" class="form-control form-control-sm mb-3">
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block">
+                                                <p class="ml-2 d-inline-block">Jawaban yang benar</p>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+            $('#answer-group').append(`<label>Jawaban</label>`);
+            $('#answer-group').append(newAnswerField);
+
+            $('.answer').hide();
+
+            $('.modal-title').html('Tambah Butir Soal');
+            $('#modal-butir-soal').modal('show');
+        });
+
         $("#removeButton").click(function () {
         
             if(counter==1){
@@ -265,12 +293,19 @@
             $("#answer-form" + counter).remove();    
         });
 
-        if (`{{ $kelas_id }}` != "") {
+        // ------
+
+        if (`{{ $kelas_id }}` != "" || `{{ $soal_id }}` != "") {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: "{{ route('admin.e-learning.butir-soal') }}",
+                    type: "GET",
+                    data: {
+                        'soal_id' : `{{ $soal_id }}`,
+                        'kelas_id' : `{{ $kelas_id }}`,
+                    }
                 },
                 columns: [
                 {
@@ -298,6 +333,15 @@
         }
             
         $('#add').on('click', function() {
+            $('.modal-title').html('Tambah Kuis');
+            $('.form-control').val('');
+            $('#point').val('');
+            $('#action').val('add');
+            $('#button')
+                .removeClass('btn-outline-success edit')
+                .addClass('btn-outline-info add')
+                .html('Simpan');
+            tinymce.get('pertanyaan').setContent('');
             $('.modal-title').html('Tambah Butir Soal');
             $('#action').val('add');
             $('#hidden_id').val('');
@@ -337,13 +381,11 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    console.log(data);
-                    var html = '';
                     if (data.errors) {
-                        html = data.errors[0];
-                        $('#kode').addClass('is-invalid');
-                        $('#name').addClass('is-invalid');
-                        toastr.error(html);
+                        data.errors.poin ? $('#point').addClass('is-invalid') : $('#point').removeClass('is-invalid');
+                        data.errors.jenis_soal ? $('#question_type').addClass('is-invalid') : $('#question_type').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong!");
                     }
 
                     if (data.success) {
@@ -362,7 +404,6 @@
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-butir-soal').modal('hide');
                     }
-                    $('#form_result').html(html);
                 }
             });
         });
@@ -392,7 +433,7 @@
                         .text('Batal');
                     
                     let jawabans = data.jawaban;
-                    let alphabet = ['a', 'b', 'c', 'd', 'e', 'f'];
+                    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
 
                     counter = 0;
 

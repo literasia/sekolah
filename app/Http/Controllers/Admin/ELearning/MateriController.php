@@ -9,7 +9,7 @@ use App\Models\Admin\{Kelas, Materi};
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Facades\Validator;
 
 class MateriController extends Controller
 { //
@@ -57,7 +57,43 @@ class MateriController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
+
+        $rules = [
+            'id_sekolah'    => 'max:100',
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+            'materi' => 'required|',
+            'status' => 'required|max:100',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $data['sekolah_id'] = auth()->user()->id_sekolah;
+        
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+        
+        if (empty($data['tanggal_terbit'])) {
+            $data['tanggal_terbit'] = date('Y-m-d');    
+        }else{
+            $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+        }
+
+        if (empty($data['jam_terbit'])) {
+            $data['jam_terbit'] = date('h:i:s'); 
+        }else{
+            $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+        }
 
         Materi::create($data);
     
@@ -87,6 +123,47 @@ class MateriController extends Controller
 
     public function update(Request $request){
         $materi = Materi::findOrFail($request->hidden_id);
+
+        $rules = [
+            'id_sekolah'    => 'max:100',
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+            'materi' => 'required|',
+            'status' => 'required|max:100',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+
+        if (empty($data['tanggal_terbit'])) {
+            $data['tanggal_terbit'] = date('Y-m-d');    
+        }else{
+            $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+        }
+
+        if (empty($data['jam_terbit'])) {
+            $data['jam_terbit'] = date('h:i:s'); 
+        }else{
+            $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+        }
+
+        $data['tanggal_mulai'] = date('Y-m-d', strtotime($request->tanggal_mulai));
+        $data['tanggal_selesai'] = date('Y-m-d', strtotime($request->tanggal_selesai));
+
+        $data['jam_mulai'] = date('Y-m-d', strtotime($request->jam_mulai));
+        $data['jam_selesai'] = date('Y-m-d', strtotime($request->jam_selesai));
         
         $materi->update($request->all());
 

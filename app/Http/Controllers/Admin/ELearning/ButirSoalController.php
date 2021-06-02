@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class ButirSoalController extends Controller
 {
@@ -24,27 +25,26 @@ class ButirSoalController extends Controller
         })->get();
 
         $soal = Soal::where('sekolah_id', auth()->user()->id_sekolah)->get();
-
+        
         if ($request->ajax())
         {
             $butir_soal = ButirSoal::whereHas('soal', function($query){
                 $query->where('sekolah_id', auth()->user()->id_sekolah);
             });
     
-            if (!empty($kelas_id)) {
+            if (!empty($request->kelas_id)) {
+                $kelas_id = $request->kelas_id;
                 $butir_soal->whereHas('soal', function($query) use($kelas_id){
                     $query->where('kelas_id', $kelas_id);
                 });
             }
     
-            if (!empty($soal_id)) {
-                $butir_soal->whereHas('soal', function($query) use($soal_id){
-                    $query->where('soal_id', $soal_id);
-                });
+            if (!empty($request->soal_id)) {
+                $butir_soal->where('soal_id', $request->soal_id);
             }
 
             $butir_soal = $butir_soal->get();
-
+    
             return DataTables::of($butir_soal)
                 ->addColumn('action', function ($butir_soal) {
                     $button = '<button type="button" data-id="'.$butir_soal->id.'" class="preview btn btn-mini btn-warning shadow-sm"><i class="fa fa-eye"></i></button>';
@@ -71,6 +71,24 @@ class ButirSoalController extends Controller
     }
 
     public function store(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'poin' => 'required',
+            'jenis_soal' => 'required',
+            'pertanyaan' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
 
         ButirSoal::create([
@@ -105,6 +123,24 @@ class ButirSoalController extends Controller
     }
 
     public function update(Request $request){
+        $data = $request->all();
+        
+        $rules = [
+            'poin' => 'required',
+            'jenis_soal' => 'required',
+            'pertanyaan' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $butir_soal = ButirSoal::findOrFail($request->hidden_id);
         $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
         
