@@ -61,14 +61,44 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
+            <label for="jumlah_pilihanganda">Jumlah Pilihan Berganda</label>
+            <input type="number" name="jumlah_pilihanganda" id="jumlah_pilihanganda" class="form-control form-control-sm">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="jumlah_essai">Jumlah Essai</label>
+            <input type="number" name="jumlah_essai" id="jumlah_essai" class="form-control form-control-sm">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
             <label for="tanggal_mulai">Tanggal Mulai</label>
-            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm">
+            <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control form-control-sm" readonly>
         </div>
     </div>
     <div class="col">
         <div class="form-group">
             <label for="tanggal_selesai">Tanggal Selesai</label>
-            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm">
+            <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm" readonly>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="jam_mulai">Jam Mulai</label>
+            <input type="text" name="jam_mulai" id="jam_mulai" class="form-control form-control-sm clockpicker" readonly>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="jam_selesai">Jam Selesai</label>
+            <input type="text" name="jam_selesai" id="jam_selesai" class="form-control form-control-sm clockpicker" readonly>
         </div>
     </div>
 </div>

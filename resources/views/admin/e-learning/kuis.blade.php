@@ -273,7 +273,7 @@
             });
         });
 
-        $('#publish_date').dateDropper({
+        $('#publish_date, #tanggal_mulai, #tanggal_selesai').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
@@ -307,8 +307,6 @@
                     $('#jam_selesai').val(data.jam_selesai);
                     $('#keterangan').val(data.keterangan);
                     $('#status').val(data.status);
-
-                    $('#modal-kuis').modal('show');
                     $('#action').val('edit');
                     $('#btn')
                         .removeClass('btn-success')

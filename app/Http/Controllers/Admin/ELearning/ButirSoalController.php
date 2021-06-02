@@ -47,8 +47,8 @@ class ButirSoalController extends Controller
     
             return DataTables::of($butir_soal)
                 ->addColumn('action', function ($butir_soal) {
-                    $button = '<button type="button" data-id="'.$butir_soal->id.'" class="edit btn btn-mini btn-warning shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$butir_soal->id.'" class="preview btn btn-mini btn-info shadow-sm"><i class="fa fa-eye"></i></button>';
+                    $button = '<button type="button" data-id="'.$butir_soal->id.'" class="preview btn btn-mini btn-warning shadow-sm"><i class="fa fa-eye"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$butir_soal->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
                     $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$butir_soal->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })

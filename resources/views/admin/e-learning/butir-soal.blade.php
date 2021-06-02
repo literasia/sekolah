@@ -121,6 +121,15 @@
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
+    .family-modal-wrapper {
+        position: relative;
+    }
+    .family-modal-caption {
+        position: absolute; 
+        top: -35px; 
+        left: 20px; 
+        background: rgb(255 255 255 / 57%);
+    }
 </style>
 @endpush
 
@@ -283,9 +292,7 @@
             counter--;       
             $("#answer-form" + counter).remove();    
         });
-
-        // ------
-
+        
         if (`{{ $kelas_id }}` != "" || `{{ $soal_id }}` != "") {
             $('#order-table').DataTable({
                 processing: true,
@@ -334,12 +341,27 @@
                 .html('Simpan');
             tinymce.get('pertanyaan').setContent('');
             $('.modal-title').html('Tambah Butir Soal');
+            $('#action').val('add');
+            $('#hidden_id').val('');
+            tinymce.get('pertanyaan').setContent('');
+            $('#question_type').val('');
+            $('#answer-group').html('');
+            $('#answer-group').append('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .text('Batal');
             $('#modal-butir-soal').modal('show');
         });
 
         $('#form-butir-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
+            var text = 'Data sukses ditambahkan';
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.butir-soal.store') }}";
@@ -376,7 +398,7 @@
                         $('#btn-cancel')
                             .removeClass('btn-outline-info')
                             .addClass('btn-outline-success')
-                            .val('Batal');
+                            .text('Batal');
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-butir-soal').modal('hide');
                     }
@@ -390,6 +412,7 @@
                 url: '/admin/e-learning/butir-soal/'+id,
                 dataType: 'JSON',
                 success: function (data) {
+                    $('.modal-title').html('Edit Butir Soal');
                     $('#hidden_id').val(data.id);
                     tinymce.get('pertanyaan').setContent(data.pertanyaan);
 
@@ -397,6 +420,15 @@
                     $('#multiple-choice').show();
                     $('#answer-group').html('');
                     $('#answer-group').append(`<label>Jawaban</label>`);
+                    $('#action').val('edit');
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .text('Batal');
                     
                     let jawabans = data.jawaban;
                     let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -419,18 +451,6 @@
                         $('#answer-group').append(newAnswerField);
                         counter++;
                     }
-                
-
-                    $('#modal-butir-soal').modal('show');
-                    $('#action').val('edit');
-                    $('#btn')
-                        .removeClass('btn-success')
-                        .addClass('btn-info')
-                        .val('Update');
-                    $('#btn-cancel')
-                        .removeClass('btn-outline-success')
-                        .addClass('btn-outline-info')
-                        .val('Batal');
                     $('#modal-butir-soal').modal('show');
                 }
             });
