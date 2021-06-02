@@ -43,7 +43,16 @@ class KuisController extends Controller
                 ->addColumn('guru', function($kuis){
                     return $kuis->guru->pegawai->name;
                 })
-                ->rawColumns(['action'])
+                ->editColumn('status', function($materi){
+                    if ($materi->status == "Draf") {
+                        return '<label class="badge badge-info m-0">Draf</label>';
+                    }
+
+                    if ($materi->status == "Terbitkan") {
+                        return '<label class="badge badge-success m-0">Terbitkan</label>';
+                    }
+                })
+                ->rawColumns(['action', 'status'])
                 ->addIndexColumn()
                 ->make(true);
         }

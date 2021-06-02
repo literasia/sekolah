@@ -42,7 +42,16 @@ class MateriController extends Controller
                 ->addColumn('guru', function($materi){
                     return $materi->guru->pegawai->name;
                 })
-                ->rawColumns(['action'])
+                ->editColumn('status', function($materi){
+                    if ($materi->status == "Draf") {
+                        return '<label class="badge badge-info m-0">Draf</label>';
+                    }
+
+                    if ($materi->status == "Terbitkan") {
+                        return '<label class="badge badge-success m-0">Terbitkan</label>';
+                    }
+                })
+                ->rawColumns(['action', 'status'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -122,6 +131,7 @@ class MateriController extends Controller
     }
 
     public function update(Request $request){
+        $data = $request->all();
         $materi = Materi::findOrFail($request->hidden_id);
 
         $rules = [
