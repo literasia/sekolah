@@ -28,7 +28,7 @@ class BeritaController extends Controller
                     return $btnlink;
                 })
                 ->editColumn('isi', function($data){
-                    return substr(strip_tags($data->isi), 0, 20).'...';
+                    return strlen($data->isi) > 30 ? substr(strip_tags($data->isi), 0, 30)."..." : $data->isi;
                 })
                 ->rawColumns(['action', 'thumbnail'])
                 ->addIndexColumn()

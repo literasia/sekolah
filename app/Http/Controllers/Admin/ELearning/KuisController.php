@@ -38,11 +38,12 @@ class KuisController extends Controller
                     return $kuis->guru->pegawai->name;
                 })
                 ->addColumn('durasi', function($kuis){
-                    return $kuis->durasi.' Menit';
+                    $durasi = '<label class="badge badge-info m-1">'.$kuis->durasi.' Menit</label';
+                    return $durasi;
                 })
-                ->editColumn('status', function($materi){
-                    if ($materi->status == "Draf") {
-                        return '<label class="badge badge-info m-0">Draf</label>';
+                ->editColumn('status', function($kuis){
+                    if ($kuis->status == "Draf") {
+                        return '<label class="badge badge-warning m-0">Draf</label>';
                     }
 
                     if ($kuis->status == "Terbitkan") {
@@ -59,14 +60,17 @@ class KuisController extends Controller
                     }
                 })
                 ->editColumn('jumlah_soal_pg', function($kuis){
-                    $soal_pg = '<label class="badge badge-danger py-2 px-3">'.$kuis->jumlah_soal_pg.'</label';
+                    $soal_pg = '<center><label class="badge badge-danger py-2 px-3">'.$kuis->jumlah_soal_pg.'</label></center>';
                     return $soal_pg;
                 })
                 ->editColumn('jumlah_soal_essai', function($kuis){
-                    $soal_essai = '<label class="badge badge-warning py-2 px-3">'.$kuis->jumlah_soal_essai.'</label';
+                    $soal_essai = '<center><label class="badge badge-primary py-2 px-3">'.$kuis->jumlah_soal_essai.'</label></center>';
                     return $soal_essai;
                 })
-                ->rawColumns(['action', 'status', 'jenis_kuis', 'jumlah_soal_essai', 'jumlah_soal_pg'])
+                ->editColumn('keterangan', function($kuis){
+                    return strlen($kuis->keterangan) > 30 ? substr(strip_tags($kuis->keterangan), 0, 30)."..." : $kuis->keterangan;
+                })
+                ->rawColumns(['action', 'status', 'jenis_kuis', 'jumlah_soal_essai', 'jumlah_soal_pg', 'durasi'])
                 ->addIndexColumn()
                 ->make(true);
         }

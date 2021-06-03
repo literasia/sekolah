@@ -53,7 +53,7 @@ class ButirSoalController extends Controller
                     return $button;
                 })
                 ->editColumn('pertanyaan', function($butir_soal){
-                    return substr(strip_tags($butir_soal->pertanyaan), 0, 20).'...';
+                    return strlen(strip_tags($butir_soal->pertanyaan)) > 30 ? substr(strip_tags($butir_soal->pertanyaan), 0, 30)."..." : strip_tags($butir_soal->pertanyaan);
                 })
                 ->editColumn('jenis_soal', function($butir_soal){
                     if ($butir_soal->jenis_soal == "multiple-choice") {

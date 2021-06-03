@@ -25,7 +25,7 @@
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>

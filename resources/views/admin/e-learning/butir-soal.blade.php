@@ -68,7 +68,7 @@
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Pertanyaan</th>
                                     <th>Jenis Soal</th>
                                     <th>Poin</th>
@@ -189,16 +189,13 @@
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
                         $('#preview-opsi-group').html('');
                         for (let index = 0; index < jawabans.length; index++) {
-                            let previewPertanyaan =  `<div class="my-3">
-                                <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
-                                ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
-                                    '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
-                                }
-                                <div>
-                                    ${jawabans[index]}
-                                </div>
-                            </div>`;
-                            $('#preview-opsi-group').append(previewPertanyaan);
+                            let previewJawaban =    `<div class="form-check my-3">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">${jawabans[index]}${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
+                                                            '<label for="" class="label label-sm label-success ml-3">Jawaban yang Benar</label>' : ''
+                                                        }</label>
+                                                    </div>`;
+                            $('#preview-opsi-group').append(previewJawaban);
                         }
                         $('.preview-opsi-group').show();
                         $('#answer-row').show();
