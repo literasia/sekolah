@@ -237,7 +237,6 @@
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
-            
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
                 return false;
@@ -261,12 +260,10 @@
         });
 
         $("#removeButton").click(function () {
-        
             if(counter==1){
                 Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
                 return false;
             }      
-
             counter--;       
             $("#answer-form" + counter).remove();    
         });
@@ -336,7 +333,6 @@
                             
             $('#answer-group').append(newAnswerField);
             $('.answer').hide();
-
 
             $('#btn')
                 .removeClass('btn-info')
@@ -410,11 +406,11 @@
                     $('#question_type').val(data.jenis_soal);
                     $('#answer-group').html('');
 
+
+                    counter = 0;
                     if (data.jenis_soal == "multiple-choice") {
                         let jawabans = data.jawaban;
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-                        counter = 0;
 
                         for (let index = 0; index < jawabans.length; index++) {
                             let newAnswerField =  `<div id="answer-form${counter}">
