@@ -37,9 +37,12 @@ class KuisController extends Controller
                 ->addColumn('guru', function($kuis){
                     return $kuis->guru->pegawai->name;
                 })
-                ->editColumn('status', function($kuis){
-                    if ($kuis->status == "Draf") {
-                        return '<label class="badge badge-warning m-0">Draf</label>';
+                ->addColumn('durasi', function($kuis){
+                    return $kuis->durasi.' Menit';
+                })
+                ->editColumn('status', function($materi){
+                    if ($materi->status == "Draf") {
+                        return '<label class="badge badge-info m-0">Draf</label>';
                     }
 
                     if ($kuis->status == "Terbitkan") {
@@ -267,7 +270,7 @@ class KuisController extends Controller
         ]);
 
         return response()
-            ->json([
+            ->json([    
                 'success' => 'Data berhasil diubah.',
         ]);
     }
