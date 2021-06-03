@@ -190,7 +190,7 @@
                         $('#preview-opsi-group').html('');
                         for (let index = 0; index < jawabans.length; index++) {
                             let previewJawaban =    `<div class="form-check my-3">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <input class="form-check-input" ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 'checked' : ''} type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                                         <label class="form-check-label" for="flexRadioDefault2">${jawabans[index]}${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
                                                             '<label for="" class="label label-sm label-success ml-3">Jawaban yang Benar</label>' : ''
                                                         }</label>
