@@ -189,25 +189,31 @@
                 success: function (data) {
                     $('#preview-pertanyaan').html(data.pertanyaan);
                     
-                    let jawabans = data.jawaban;
-                    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
+                    // clear if new data or essai
                     $('#preview-opsi-group').html('');
 
-                    for (let index = 0; index < jawabans.length; index++) {
-                        let previewPertanyaan =  `<div class="my-3">
-                            <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
-                            ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
-                                '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
-                            }
-                            <div>
-                                ${jawabans[index]}
-                            </div>
-                        </div>`;
-                        $('#preview-opsi-group').append(previewPertanyaan);
+                    if (data.jenis_soal == "multiple-choice") {
+                        let jawabans = data.jawaban;
+                        let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+                        counter = 0;
+
+                        for (let index = 0; index < jawabans.length; index++) {
+                            let previewPertanyaan =  `<div class="my-3">
+                                <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
+                                ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
+                                    '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
+                                }
+                                <div>
+                                    ${jawabans[index]}
+                                </div>
+                            </div>`;
+                            $('#preview-opsi-group').append(previewPertanyaan);
+                        }
                     }
 
                     $('#modal-preview-soal').modal('show');
+
                 }
             });
         });
