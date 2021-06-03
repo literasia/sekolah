@@ -211,11 +211,6 @@
                                 <span class="pcoded-mtext">Materi</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/e-learning/kuis') ? 'active' : '' }}">
-                            <a href="{{ route('admin.e-learning.kuis') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Kuis</span>
-                            </a>
-                        </li>
                         <li class="{{ request()->is('admin/e-learning/soal') ? 'active' : '' }}">
                             <a href="{{ route('admin.e-learning.soal') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Soal</span>
@@ -224,6 +219,11 @@
                         <li class="{{ request()->is('admin/e-learning/butir-soal') ? 'active' : '' }}">
                             <a href="{{ route('admin.e-learning.butir-soal') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Butir Soal</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/e-learning/kuis') ? 'active' : '' }}">
+                            <a href="{{ route('admin.e-learning.kuis') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Kuis</span>
                             </a>
                         </li>
                     </ul>

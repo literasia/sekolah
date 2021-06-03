@@ -98,10 +98,10 @@
                 </div>
                 <div class="col-5 pl-0">
                     <select  id="duration" class="form-control form-control-sm duration-option">
-                        <option value="">Menit</option>
-                        <option value="">Jam</option>
-                        <option value="">Hari</option>
-                        <option value="">Minggu</option>
+                        <option value="menit">Menit</option>
+                        <option value="jam">Jam</option>
+                        <option value="hari">Hari</option>
+                        <option value="minggu">Minggu</option>
                     </select>
                 </div>
             </div>

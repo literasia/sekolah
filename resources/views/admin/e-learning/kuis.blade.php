@@ -37,8 +37,6 @@
                                     <th>Tanggal Selesai</th>
                                     <th>Jam Mulai</th>
                                     <th>Jam Selesai</th>
-                                   <!--  <th>Tanggal Unggah</th>
-                                    <th>Jam Unggah</th> -->
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -198,12 +196,12 @@
                 name: 'tanggal_selesai'
             },
             {
-                data: 'tanggal_terbit',
-                name: 'tanggal_terbit'
+                data: 'jam_mulai',
+                name: 'jam_mulai'
             },
             {
-                data: 'jam_terbit',
-                name: 'jam_terbit'
+                data: 'jam_selesai',
+                name: 'jam_selesai'
             },
             {
                 data: 'status',

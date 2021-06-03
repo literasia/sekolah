@@ -82,9 +82,7 @@ class SoalController extends Controller
             'mata_pelajaran_id' => $request->mata_pelajaran_id,
             'kelas_id' => $request->kelas_id,
             'guru_id' => $request->guru_id,
-            'jumlah_soal' => $request->jumlah_soal,
             'tanggal' => date('Y-m-d'),
-            'status' => $request->status,
         ]);
     
         return response()
@@ -103,8 +101,6 @@ class SoalController extends Controller
                 'mata_pelajaran_id' => $soal->mata_pelajaran_id,
                 'kelas_id' => $soal->kelas_id,
                 'guru_id' => $soal->guru_id,
-                'jumlah_soal' => $soal->jumlah_soal,
-                'status' => $soal->status,
             ]);
     }   
 

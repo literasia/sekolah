@@ -53,9 +53,18 @@ class ButirSoalController extends Controller
                     return $button;
                 })
                 ->editColumn('pertanyaan', function($butir_soal){
-                    return substr(strip_tags($butir_soal->pertanyaan), 0, 14).'...';
+                    return substr(strip_tags($butir_soal->pertanyaan), 0, 20).'...';
                 })
-                ->rawColumns(['action'])
+                ->editColumn('jenis_soal', function($butir_soal){
+                    if ($butir_soal->jenis_soal == "multiple-choice") {
+                        return '<p class="text-primary m-0">Multiple Choice</p>';
+                    }
+
+                    if ($butir_soal->jenis_soal == "single-choice") {
+                        return '<p class="text-success m-0">Single Choice</p>';
+                    }
+                })
+                ->rawColumns(['action', 'jenis_soal'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -106,7 +115,7 @@ class ButirSoalController extends Controller
     
         return response()
             ->json([
-                'success' => 'Data berhasil ditambah.',
+                'success' => 'Data sukses ditambahkan',
         ]);
     }
 
@@ -123,6 +132,7 @@ class ButirSoalController extends Controller
                 'pertanyaan'   => $butir_soal->pertanyaan,
                 'jawaban'   => $jawaban,
                 'kunci_jawaban'   => $butir_soal->kunci_jawaban,
+                'poin'  =>  $butir_soal->poin,
             ]);
     }
 
@@ -159,7 +169,7 @@ class ButirSoalController extends Controller
 
         return response()
             ->json([
-                'success' => 'Data berhasil diubah.',
+                'success' => 'Data sukses diupdate',
         ]);
     }
 
@@ -170,7 +180,7 @@ class ButirSoalController extends Controller
 
         return response()
         ->json([
-            'success' => 'Data berhasil dihapus.',
+            'success' => 'Data dihapus!',
         ]);
     }
 }

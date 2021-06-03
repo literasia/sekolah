@@ -27,6 +27,9 @@ class BeritaController extends Controller
                     $btnlink = '<a target="_blank" href="'.Storage::url($data->thumbnail).'" class="badge badge-warning">Lihat Foto</a>';
                     return $btnlink;
                 })
+                ->editColumn('isi', function($data){
+                    return substr(strip_tags($data->isi), 0, 20).'...';
+                })
                 ->rawColumns(['action', 'thumbnail'])
                 ->addIndexColumn()
                 ->make(true);

@@ -159,6 +159,10 @@
             autoclose: true
         });
 
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
+        });
+
         $('#form-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
@@ -203,27 +207,13 @@
                         $('#btn-cancel')
                             .removeClass('btn-outline-info')
                             .addClass('btn-outline-success')
-                            .val('Batal');
+                            .text('Batal');
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-soal').modal('hide');
                     }
                     $('#form_result').html(html);
                 }
             });
-        });
-
-        $('#publish_date').dateDropper({
-            theme: 'leaf',
-            format: 'd-m-Y'
-        });
-
-        $('.clockpicker').clockpicker({
-            donetext: 'Done',
-            autoclose: true
-        });
-
-        $(".rotate-collapse").click(function() {
-            $(".rotate").toggleClass("down"); 
         });
 
         $(document).on('click', '.edit', function () {
@@ -233,14 +223,14 @@
                 dataType: 'JSON',
                 success: function (data) {
                     console.log(data);
+                    $('.modal-title').html('Edit Soal');
+                    $('#action').val('edit');
                     $('#hidden_id').val(data.id);
                     $('#judul').val(data.judul);
                     $('#guru_id').val(data.guru_id);
                     $('#mata_pelajaran_id').val(data.mata_pelajaran_id);
                     $('#kelas_id').val(data.kelas_id);
-                    $('#jumlah_soal').val(data.jumlah_soal);
                     $('#status').val(data.status);
-                    $('#action').val('edit');
                     $('#btn')
                         .removeClass('btn-success')
                         .addClass('btn-info')
@@ -248,7 +238,7 @@
                     $('#btn-cancel')
                         .removeClass('btn-outline-success')
                         .addClass('btn-outline-info')
-                        .val('Batal');
+                        .text('Batal');
                     $('#modal-soal').modal('show');
                 }
             });

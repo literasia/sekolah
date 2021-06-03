@@ -17,8 +17,8 @@
 
                         <div class="col">
                             <div class="form-group">
-                                <label for="point">Poin</label>
-                                <input type="number" name="poin" id="point" class="form-control form-control-sm" value="1">
+                                <label for="poin">Poin</label>
+                                <input type="number" name="poin" id="poin" class="form-control form-control-sm" value="1">
                             </div>
                         </div>
 

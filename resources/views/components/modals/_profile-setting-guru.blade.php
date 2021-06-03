@@ -99,8 +99,8 @@
                     </div>
                     <div class="modal-footer">
                         {{-- <input type="submit" class="btn btn-sm btn-info" value="Update" id="btn"> --}}
-                        <button type="submit" class="btn btn-sm btn-success">Simpan</button>
-                        <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal" id="btn-cancel">Batal</button>
+                        <button type="submit" class="btn btn-sm btn-info" id="btnUpdate">Update</button>
+                        <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal" id="btnCancel">Batal</button>
                     </div>
                 </form> 
             </div>

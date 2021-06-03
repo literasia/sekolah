@@ -37,16 +37,33 @@ class KuisController extends Controller
                 ->addColumn('guru', function($kuis){
                     return $kuis->guru->pegawai->name;
                 })
-                ->editColumn('status', function($materi){
-                    if ($materi->status == "Draf") {
-                        return '<label class="badge badge-info m-0">Draf</label>';
+                ->editColumn('status', function($kuis){
+                    if ($kuis->status == "Draf") {
+                        return '<label class="badge badge-warning m-0">Draf</label>';
                     }
 
-                    if ($materi->status == "Terbitkan") {
+                    if ($kuis->status == "Terbitkan") {
                         return '<label class="badge badge-success m-0">Terbit</label>';
                     }
                 })
-                ->rawColumns(['action', 'status'])
+                ->editColumn('jenis_kuis', function($kuis){
+                    if ($kuis->jenis_kuis == "ulangan") {
+                        return '<p class="text-primary m-0">Ulangan</p>';
+                    }
+
+                    if ($kuis->jenis_kuis == "latihan") {
+                        return '<p class="text-success m-0">Latihan</p>';
+                    }
+                })
+                ->editColumn('jumlah_soal_pg', function($kuis){
+                    $soal_pg = '<label class="badge badge-danger py-2 px-3">'.$kuis->jumlah_soal_pg.'</label';
+                    return $soal_pg;
+                })
+                ->editColumn('jumlah_soal_essai', function($kuis){
+                    $soal_essai = '<label class="badge badge-warning py-2 px-3">'.$kuis->jumlah_soal_essai.'</label';
+                    return $soal_essai;
+                })
+                ->rawColumns(['action', 'status', 'jenis_kuis', 'jumlah_soal_essai', 'jumlah_soal_pg'])
                 ->addIndexColumn()
                 ->make(true);
         }

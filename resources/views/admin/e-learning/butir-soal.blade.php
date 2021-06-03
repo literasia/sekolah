@@ -70,8 +70,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Pertanyaan</th>
-                                    <th>Jenis</th>
-                                    <th>Kunci Jawaban</th>
+                                    <th>Jenis Soal</th>
+                                    <th>Poin</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -167,19 +167,15 @@
             contextmenu: 'link image imagetools table',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
         }
-
         tinymce.init({
             ...tinyMceObj,
             selector: '#pertanyaan',
         });
-
-
         $(document).on('focusin', function(e) {
             if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
                 e.stopImmediatePropagation();
             }
         });
-
         $(document).on('click', '.preview', function () {
             $('.modal-title').html('Preview Soal');
             let id = $(this).attr('data-id');
@@ -188,45 +184,44 @@
                 dataType: 'JSON',
                 success: function (data) {
                     $('#preview-pertanyaan').html(data.pertanyaan);
-                    
-                    let jawabans = data.jawaban;
-                    let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-                    $('#preview-opsi-group').html('');
-
-                    for (let index = 0; index < jawabans.length; index++) {
-                        let previewPertanyaan =  `<div class="my-3">
-                            <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
-                            ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
-                                '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
-                            }
-                            <div>
-                                ${jawabans[index]}
-                            </div>
-                        </div>`;
-                        $('#preview-opsi-group').append(previewPertanyaan);
+                    if (data.jenis_soal == "multiple-choice") {
+                        let jawabans = data.jawaban;
+                        let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
+                        $('#preview-opsi-group').html('');
+                        for (let index = 0; index < jawabans.length; index++) {
+                            let previewPertanyaan =  `<div class="my-3">
+                                <label for="" class="label label-sm label-info">Opsi ${alphabet[index]}</label>
+                                ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
+                                    '<label for="" class="label label-sm label-success">Jawaban Benar</label>' : ''
+                                }
+                                <div>
+                                    ${jawabans[index]}
+                                </div>
+                            </div>`;
+                            $('#preview-opsi-group').append(previewPertanyaan);
+                        }
+                        $('.preview-opsi-group').show();
+                        $('#answer-row').show();
+                    } else {
+                        $('.preview-opsi-group').hide();
+                        $('#answer-row').hide();
                     }
-
                     $('#modal-preview-soal').modal('show');
                 }
             });
         });
-
         $('#question_type').change(function(){
             $('.answer').hide();
             $('#' + $(this).val()).show();
         });
-
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
-
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
         });
-
         let counter = 1;
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
@@ -248,19 +243,16 @@
                                             </div>
                                         </div>
                                     </div>`;
-
             
             $('#answer-group').append(newAnswerField);
             counter++;
         });
-
         $("#removeButton").click(function () {
         
             if(counter==1){
                 Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
                 return false;
             }      
-
             counter--;       
             $("#answer-form" + counter).remove();    
         });
@@ -291,8 +283,8 @@
                     name: 'jenis_soal'
                 },
                 {
-                    data: 'kunci_jawaban',
-                    name: 'kunci_jawaban'
+                    data: 'poin',
+                    name: 'poin'
                 },
                 {
                     data: 'action',
@@ -306,15 +298,12 @@
             $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
             $('#point').val(1);
-
             $('#action').val('add');
             $('#hidden_id').val('');
             
             tinymce.get('pertanyaan').setContent('');
             $('#question_type').val('');
-
             $('#answer-group').html('');
-
             let newAnswerField =  `<label>Jawaban</label>
                                     <div id="answer-form0">
                                         <div class="row">
@@ -330,8 +319,6 @@
                             
             $('#answer-group').append(newAnswerField);
             $('.answer').hide();
-
-
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -342,7 +329,6 @@
                 .text('Batal');
             $('#modal-butir-soal').modal('show');
         });
-
         $('#form-butir-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
@@ -352,12 +338,10 @@
                 url = "{{ route('admin.e-learning.butir-soal.store') }}";
                 text = "Data sukses ditambahkan";
             }
-
             if ($('#action').val() == 'edit') {
                 url = "{{ route('admin.e-learning.butir-soal.update') }}";
                 text = "Data sukses diupdate";
             }
-
             $.ajax({
                 url: url,
                 method: 'POST',
@@ -367,12 +351,10 @@
                     if (data.errors) {
                         data.errors.poin ? $('#point').addClass('is-invalid') : $('#point').removeClass('is-invalid');
                         data.errors.jenis_soal ? $('#question_type').addClass('is-invalid') : $('#question_type').removeClass('is-invalid');
-
                         toastr.error("data masih kosong!");
                     }
-
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
                         $('#form-butir-soal')[0].reset();
                         $('#action').val('add');
@@ -400,16 +382,12 @@
                     $('.modal-title').html('Edit Butir Soal');
                     $('#hidden_id').val(data.id);
                     tinymce.get('pertanyaan').setContent(data.pertanyaan);
-
                     $('#question_type').val(data.jenis_soal);
                     $('#answer-group').html('');
-
                     if (data.jenis_soal == "multiple-choice") {
                         let jawabans = data.jawaban;
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
                         counter = 0;
-
                         for (let index = 0; index < jawabans.length; index++) {
                             let newAnswerField =  `<div id="answer-form${counter}">
                                             <div class="row">
@@ -426,10 +404,8 @@
                             $('#answer-group').append(newAnswerField);
                             counter++;
                         }
-
                         $('.answer').show();
                     }
-
                     $('#action').val('edit');
                     $('#btn')
                         .removeClass('btn-success')
@@ -438,21 +414,17 @@
                     $('#btn-cancel')
                         .removeClass('btn-outline-success')
                         .addClass('btn-outline-info')
-                        .text('Batal');
-                    
+                        .text('Batal');        
                     $('#modal-butir-soal').modal('show');
                 }
             });
         });
-
         var user_id;
-
         $(document).on('click', '.delete', function () {
             user_id = $(this).attr('data-id');
             $('#ok_button').text('Hapus');
             $('#confirmModal').modal('show');
         });
-
         $('#ok_button').click(function () {
             $.ajax({
                 url: '/admin/e-learning/butir-soal/hapus/'+ user_id,

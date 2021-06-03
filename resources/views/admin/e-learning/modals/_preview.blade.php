@@ -21,7 +21,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="answer-row">
                     <div class="col">
                         <div class="my-5 family-modal-wrapper">
                             <h5 class="font-weight-bold d-inline-block family-modal-caption mt-4 px-2">Jawaban</h5>

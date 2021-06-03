@@ -52,13 +52,12 @@
                 $('#profile_jenjang').val(data.jenjang);
                 $('#profile_tahun_ajaran').val(data.tahun_ajaran);
                 $('#profile_username').val(data.username);
-
                 $('.modal-title').html('Edit Profil');
-                $('#btn')
+                $('#btnUpdate')
                     .removeClass('btn-success')
                     .addClass('btn-info')
                     .val('Update');
-                $('#btn-cancel')
+                $('#btnCancel')
                     .removeClass('btn-outline-success')
                     .addClass('btn-outline-info')
                     .val('Batal');
