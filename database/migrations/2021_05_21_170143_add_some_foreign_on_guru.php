@@ -14,7 +14,7 @@ class AddSomeForeignOnGuru extends Migration
     public function up()
     {
         Schema::table('gurus', function (Blueprint $table) {
-            $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');
+            // $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');
             $table->foreign('status_guru_id')->references('id')->on('status_gurus')->onDelete('cascade');
         });
     }
@@ -27,7 +27,7 @@ class AddSomeForeignOnGuru extends Migration
     public function down()
     {
         Schema::table('gurus', function (Blueprint $table) {
-            $table->dropForeign(['pegawai_id']);
+            // $table->dropForeign(['pegawai_id']);
             $table->dropForeign(['status_guru_id']);
         });
     }

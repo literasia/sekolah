@@ -13,7 +13,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class KuisController extends Controller
-{ 
+{
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
@@ -21,6 +21,7 @@ class KuisController extends Controller
         $guru = Guru::whereHas('user', function($query){
             $query->where('id_sekolah', auth()->user()->id_sekolah);
         })->get();
+
 
         if ($request->ajax())
         {
@@ -74,7 +75,7 @@ class KuisController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
+
         return view('admin.e-learning.kuis')
                                     ->with('mySekolah', User::sekolah())
                                     ->with('addons', $addons)
@@ -84,7 +85,7 @@ class KuisController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-        
+        // return response()->json($data);
         $rules = [
             'soal_id' => 'required',
             'guru_id' => 'required',
@@ -102,7 +103,7 @@ class KuisController extends Controller
 
         $validator = Validator::make($data, $rules);
 
-        // Validation Rules 
+        // Validation Rules
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
@@ -112,7 +113,7 @@ class KuisController extends Controller
 
         // ambil data butir soal yang soal id nya telah dipilih (multiple choise) count
         $multiple_choice = ButirSoal::where('soal_id', $request->soal_id)->where('jenis_soal', 'multiple-choice')->count();
-        
+
         // ambil data butir soal yang soal id nya telah dipilih (pilihan ganda coise) count
         $single_choice = ButirSoal::where('soal_id', $request->soal_id)->where('jenis_soal', 'single-choice')->count();
 
@@ -130,10 +131,30 @@ class KuisController extends Controller
                 'message' => 'Jumlah essai melebihi maksimum butir soal'
             ]);
         }
-        
+
         $pengaturan_kuis = PengaturanKuis::create([
-            'is_hide_title' => 0,
             'sekolah_id' => auth()->user()->id_sekolah,
+            'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
+            'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
+            'random_question' => $request["random_question"] ? 1 : 0,
+            'random_option' => $request["random_option"] ? 1 : 0,
+            'statistic' => $request["statistic"] ? 1 : 0,
+            'take_quiz_only_once' => $request["take_quiz_only_once"] ? 1 : 0,
+            'only_show_specific_question' => $request["only_show_specific_question"] ? 1 : 0,
+            'many_questions_should_be_displayed' => $request["many_questions_should_be_displayed"] ?? 0,
+            'skip_question' => $request["skip_question"] ? 1 : 0,
+            'autostart' => $request["autostart"] ? 1 : 0,
+            'only_registered' => $request["only_registered"] ? 1 : 0,
+            'show_point' => $request["show_point"] ? 1 : 0,
+            'with_number_in_option' => $request["with_number_in_option"] ? 1 : 0,
+            'show_correct_option' => $request["show_correct_option"] ? 1 : 0,
+            'answer_mark' => $request["answer_mark"] ? 1 : 0,
+            'force_answer' => $request["force_answer"] ? 1 : 0,
+            'hide_numbering' => $request["hide_numbering"] ? 1 : 0,
+            'show_average_point' => $request["show_average_point"] ? 1 : 0,
+            'hide_correct_question' => $request["hide_correct_question"] ? 1 : 0,
+            'hide_quiz_time' => $request["hide_quiz_time"] ? 1 : 0,
+            'hide_quiz_score' => $request["hide_quiz_score"] ? 1 : 0,
         ]);
 
         $tanggal_mulai = date('Y-m-d', strtotime($request->tanggal_mulai));
@@ -144,14 +165,14 @@ class KuisController extends Controller
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');
-    
-        $tanggal_terbit = date('Y-m-d');    
+
+        $tanggal_terbit = date('Y-m-d');
 
         if (!empty($request->tanggal_terbit)) {
-            $tanggal_terbit = date('Y-m-d', strtotime($request->tanggal_terbit));   
+            $tanggal_terbit = date('Y-m-d', strtotime($request->tanggal_terbit));
         }
 
-        $jam_terbit = date('h:i:s'); 
+        $jam_terbit = date('h:i:s');
         if (!empty($request->jam_terbit)) {
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
@@ -174,7 +195,7 @@ class KuisController extends Controller
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
         ]);
-    
+
         return response()
             ->json([
                 'success' => 'Data berhasil ditambah.',
@@ -185,7 +206,7 @@ class KuisController extends Controller
         $kuis = Kuis::findOrFail($id);
 
         return response()
-            ->json([                
+            ->json([
                 'id'   => $kuis->id,
                 'soal_id'   => $kuis->soal_id,
                 'pengaturan_kuis_id'   => $kuis->pengaturan_kuis_id,
@@ -201,11 +222,11 @@ class KuisController extends Controller
                 'keterangan' => $kuis->keterangan,
                 'jenis_kuis' => $kuis->jenis_kuis
             ]);
-    }   
+    }
 
     public function update(Request $request){
         $data = $request->all();
-        
+
         $rules = [
             'soal_id' => 'required',
             'guru_id' => 'required',
@@ -222,8 +243,8 @@ class KuisController extends Controller
         ];
 
         $validator = Validator::make($data, $rules);
-        
-        // Validation Rules 
+
+        // Validation Rules
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
@@ -244,14 +265,14 @@ class KuisController extends Controller
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');
-    
-        $tanggal_terbit = date('Y-m-d');    
+
+        $tanggal_terbit = date('Y-m-d');
 
         if (!empty($request->tanggal_terbit)) {
-            $tanggal_terbit = date('Y-m-d', strtotime($request->tanggal_terbit));   
+            $tanggal_terbit = date('Y-m-d', strtotime($request->tanggal_terbit));
         }
 
-        $jam_terbit = date('h:i:s'); 
+        $jam_terbit = date('h:i:s');
         if (!empty($request->jam_terbit)) {
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
@@ -272,9 +293,35 @@ class KuisController extends Controller
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
         ]);
+        $pengaturan_kuis = PengaturanKuis::findOrFail($kuis->pengaturan_kuis_id);
+
+        $pengaturan_kuis->update([
+            'sekolah_id' => auth()->user()->id_sekolah,
+            'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
+            'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
+            'random_question' => $request["random_question"] ? 1 : 0,
+            'random_option' => $request["random_option"] ? 1 : 0,
+            'statistic' => $request["statistic"] ? 1 : 0,
+            'take_quiz_only_once' => $request["take_quiz_only_once"] ? 1 : 0,
+            'only_show_specific_question' => $request["only_show_specific_question"] ? 1 : 0,
+            'many_questions_should_be_displayed' => $request["many_questions_should_be_displayed"] ?? 0,
+            'skip_question' => $request["skip_question"] ? 1 : 0,
+            'autostart' => $request["autostart"] ? 1 : 0,
+            'only_registered' => $request["only_registered"] ? 1 : 0,
+            'show_point' => $request["show_point"] ? 1 : 0,
+            'with_number_in_option' => $request["with_number_in_option"] ? 1 : 0,
+            'show_correct_option' => $request["show_correct_option"] ? 1 : 0,
+            'answer_mark' => $request["answer_mark"] ? 1 : 0,
+            'force_answer' => $request["force_answer"] ? 1 : 0,
+            'hide_numbering' => $request["hide_numbering"] ? 1 : 0,
+            'show_average_point' => $request["show_average_point"] ? 1 : 0,
+            'hide_correct_question' => $request["hide_correct_question"] ? 1 : 0,
+            'hide_quiz_time' => $request["hide_quiz_time"] ? 1 : 0,
+            'hide_quiz_score' => $request["hide_quiz_score"] ? 1 : 0,
+        ]);
 
         return response()
-            ->json([    
+            ->json([
                 'success' => 'Data berhasil diubah.',
         ]);
     }
