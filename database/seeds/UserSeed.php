@@ -48,7 +48,7 @@ class UserSeed extends Seeder
             'name'      => 'Superadmin',
             'username'  => 'superadmin',
             'password'  => bcrypt('superadmin'),
-            'role_id'   => 1,php arti
+            'role_id'   => 1,
         ]);
 
         $admins = User::create([
