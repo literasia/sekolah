@@ -283,4 +283,34 @@ class ListSekolahController extends Controller
                 'success' => '👍 '.$sekolah->name.' berhasil dihapus!',
             ]);
     }
+
+    public function generate(){
+        $list_sekolah = Sekolah::get();
+
+        foreach ($list_sekolah as $item) {
+            $user = User::create([
+                'name' => 'admin-'.$item->name,
+                'username' => 'admin-'.$item->id_sekolah,
+                'email' => $item->name.'@gmail.com',
+                'id_sekolah' => $item->id,
+                'password' => Hash::make('admin-'.$item->id_sekolah),
+            ]);
+
+            $user_id = User::findOrFail($user->id);
+
+            // get Roles to attach user roles
+            $role = Role::where('name', 'admin')->first();
+
+            // attach
+            $user_id->roles()->attach($role->id);
+
+            $addons = Addons::where('sekolah_id', $item->id);
+
+            $addons->update([
+                'user_id' => $user->id,
+            ]);
+        }
+
+        return redirect()->back();
+    }
 }
