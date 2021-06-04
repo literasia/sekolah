@@ -1,5 +1,5 @@
 <div class="modal fade modal-flex" id="modal-profile" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document"> 
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -23,6 +23,14 @@
                             <div class="form-group">
                                 <label for="name">Nama Sekolah:</label>
                                 <input type="text" name="name" id="profile_name" class="form-control form-control-sm" placeholder="Nama Sekolah" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="alamat">Alamat Sekolah:</label>
+                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
                             </div>
                         </div>
                     </div>
@@ -51,14 +59,6 @@
                             <div class="form-group">
                                 <label for="tahun_ajaran">T.A:</label>
                                 <input type="text" name="tahun_ajaran" id="profile_tahun_ajaran" class="form-control form-control-sm" placeholder="Nama Sekolah" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="alamat">Alamat Sekolah:</label>
-                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
                             </div>
                         </div>
                     </div>

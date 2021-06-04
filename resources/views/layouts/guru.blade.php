@@ -44,6 +44,6 @@
     </div>
 
     {{-- Script --}}
-    @include('components._script')
+    @include('components._script-guru')
 </body>
 </html>

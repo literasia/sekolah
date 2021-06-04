@@ -23,21 +23,25 @@
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
 <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/script.min.js') }}"></script>
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/608138f662662a09efc0feb5/1f3scd0so';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-    })();
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
+<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+		s1.async=true;
+		s1.src='https://embed.tawk.to/608138f662662a09efc0feb5/1f3scd0so';
+		s1.charset='UTF-8';
+		s1.setAttribute('crossorigin','*');
+		s0.parentNode.insertBefore(s1,s0);
+	})();
+</script>
+
+<script>
     $(document).on('click', '.profile', function () {
         var id = $(this).attr('data-id');
         $.ajax({
-            url: '/admin/profile',
+            url: '/guru/profile',
             dataType: 'JSON',
             success: function (data) {
                 $('#profile_id_sekolah').val(data.id_sekolah);
@@ -52,19 +56,21 @@
                 $('#btnUpdate')
                     .removeClass('btn-success')
                     .addClass('btn-info')
-                    .text('Update');
+                    .val('Update');
                 $('#btnCancel')
                     .removeClass('btn-outline-success')
                     .addClass('btn-outline-info')
-                    .text('Batal');
+                    .val('Batal');
                 $('#modal-profile').modal('show');
             }
         });
     });
+
     $('#form-profile').on('submit', function (event) {
             event.preventDefault();
+
             $.ajax({
-                url: `{{ route('admin.profile.change-profile') }}`,
+                url: `{{ route('guru.profile.update') }}`,
                 method: 'POST',
                 dataType: 'JSON',
                 data: $(this).serialize(),

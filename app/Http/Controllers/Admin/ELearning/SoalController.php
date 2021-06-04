@@ -10,7 +10,7 @@ use App\User;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Facades\Validator;
 
 class SoalController extends Controller
 {
@@ -38,7 +38,7 @@ class SoalController extends Controller
                     return $soal->mataPelajaran->nama_pelajaran;
                 })
                 ->addColumn('kelas', function($soal){
-                    return $soal->kelas->name;
+                    return $soal->kelas->tingkatanKelas->name." - ".$soal->kelas->name;
                 })
                 ->addColumn('guru', function($soal){
                     return $soal->guru->pegawai->name;
@@ -57,15 +57,32 @@ class SoalController extends Controller
     }
 
     public function store(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+        ];
+        
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         Soal::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'judul' => $request->judul,
             'mata_pelajaran_id' => $request->mata_pelajaran_id,
             'kelas_id' => $request->kelas_id,
             'guru_id' => $request->guru_id,
-            'jumlah_soal' => $request->jumlah_soal,
             'tanggal' => date('Y-m-d'),
-            'status' => $request->status,
         ]);
     
         return response()
@@ -84,15 +101,32 @@ class SoalController extends Controller
                 'mata_pelajaran_id' => $soal->mata_pelajaran_id,
                 'kelas_id' => $soal->kelas_id,
                 'guru_id' => $soal->guru_id,
-                'jumlah_soal' => $soal->jumlah_soal,
-                'status' => $soal->status,
             ]);
     }   
 
     public function update(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+        ];
+        
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $soal = Soal::findOrFail($request->hidden_id);
         
-        $soal->update($request->all());
+        $soal->update($data);
 
         return response()
             ->json([

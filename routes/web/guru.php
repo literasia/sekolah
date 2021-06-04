@@ -3,6 +3,8 @@
 
 Route::get('/guru', 'GuruController@index')
 ->name('index');
+Route::get("/guru/profile", "GuruController@show")->name("show");
+Route::post("/guru/profile/update", "GuruController@update")->name("profile.update");
 
 // Pengumuman
 Route::namespace('Pengumuman')->group(function () {

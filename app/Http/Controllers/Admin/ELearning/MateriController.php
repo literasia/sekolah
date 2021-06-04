@@ -9,10 +9,10 @@ use App\Models\Admin\{Kelas, Materi};
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Facades\Validator;
 
 class MateriController extends Controller
-{ //
+{ 
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
@@ -37,12 +37,21 @@ class MateriController extends Controller
                     return $materi->mataPelajaran->nama_pelajaran;
                 })
                 ->addColumn('kelas', function($materi){
-                    return $materi->kelas->name;
+                    return $materi->kelas->tingkatanKelas->name." - ".$materi->kelas->name;
                 })
                 ->addColumn('guru', function($materi){
                     return $materi->guru->pegawai->name;
                 })
-                ->rawColumns(['action'])
+                ->editColumn('status', function($materi){
+                    if ($materi->status == "Draf") {
+                        return '<label class="badge badge-warning m-0">Draf</label>';
+                    }
+
+                    if ($materi->status == "Terbitkan") {
+                        return '<label class="badge badge-success m-0">Terbit</label>';
+                    }
+                })
+                ->rawColumns(['action', 'status'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -57,7 +66,43 @@ class MateriController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
+
+        $rules = [
+            'id_sekolah'    => 'max:100',
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+            'materi' => 'required|',
+            'status' => 'required|max:100',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $data['sekolah_id'] = auth()->user()->id_sekolah;
+        
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+        
+        if (empty($data['tanggal_terbit'])) {
+            $data['tanggal_terbit'] = date('Y-m-d');    
+        }else{
+            $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+        }
+
+        if (empty($data['jam_terbit'])) {
+            $data['jam_terbit'] = date('h:i:s'); 
+        }else{
+            $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+        }
 
         Materi::create($data);
     
@@ -86,7 +131,43 @@ class MateriController extends Controller
     }
 
     public function update(Request $request){
+        $data = $request->all();
         $materi = Materi::findOrFail($request->hidden_id);
+
+        $rules = [
+            'id_sekolah'    => 'max:100',
+            'judul' => 'required',
+            'mata_pelajaran_id' => 'required|max:100',
+            'kelas_id' => 'required|max:100',
+            'guru_id' => 'required|max:100',
+            'materi' => 'required|',
+            'status' => 'required|max:100',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        // change zone time
+        date_default_timezone_set('Asia/Jakarta');
+
+        if (empty($data['tanggal_terbit'])) {
+            $data['tanggal_terbit'] = date('Y-m-d');    
+        }else{
+            $data['tanggal_terbit'] = date('Y-m-d', strtotime($request->tanggal_terbit));
+        }
+
+        if (empty($data['jam_terbit'])) {
+            $data['jam_terbit'] = date('h:i:s'); 
+        }else{
+            $data['jam_terbit'] = date('h:i:s', strtotime($request->jam_terbit));
+        }
         
         $materi->update($request->all());
 

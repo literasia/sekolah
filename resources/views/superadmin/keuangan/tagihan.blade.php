@@ -28,7 +28,6 @@ Ini adalah halaman keuangan untuk superadmin
                         <table id="slider-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>No.</th>
                                     <th>Nama Sekolah</th>
                                     <th>Biaya</th>
                                     <th>PPN 10%</th>
@@ -39,7 +38,18 @@ Ini adalah halaman keuangan untuk superadmin
                                 </tr>
                             </thead>
                             <tbody class="text-left">
-                                
+                                <tr>
+                                    <td>SMK Negeri 2 Tebing Tinggi</td>
+                                    <td>50000000</td>
+                                    <td>5000000</td>
+                                    <td>75000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm"><i class="fa fa-pencil-alt"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -115,17 +125,18 @@ Ini adalah halaman keuangan untuk superadmin
 <script type="text/javascript">
     function calculate() {
         var biaya = document.getElementById('biaya').value;
-        var ppn = 10 / 100.0;
-        var pph = 1.5 / 100.0;
+        var ppn = 1.1;
+        var pph = 1.015;
+        // ].var siplah = 1.025;
 
-        var ppn_result = parseFloat(biaya) * ppn;
+        var ppn_result = parseFloat(biaya) / ppn;
         if (!isNaN(ppn_result)) {
-           document.getElementById('ppn').value = Math.ceil(ppn_result);
+           document.getElementById('ppn').value = ppn_result.toFixed(2);
         }
 
-        var pph_result =  ppn_result * pph;
+        var pph_result =  ppn_result / pph;
          if (!isNaN(pph_result)) {
-           document.getElementById('pph').value = Math.ceil(pph_result);
+           document.getElementById('pph').value = pph_result.toFixed(2);
         }
     }
 </script>

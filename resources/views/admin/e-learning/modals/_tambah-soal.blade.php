@@ -39,7 +39,7 @@
                                 <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
                                     @foreach ($kelas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -53,48 +53,6 @@
                                         <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="jumlah_soal">Jumlah Soal</label>
-                                <input type="number" name="jumlah_soal" id="jumlah_soal" class="form-control form-control-sm" value="1">
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select name="status" id="status" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                    <option value="draf">Draf</option>
-                                    <option value="terbitkan">Terbitkan</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <a class="text-info rotate-collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tanggal Terbit <i class="fa fa-chevron-right rotate ml-1"></i></a>
-                                <div class="collapse mt-2" id="collapseExample">
-                                    <div class="row" >
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="publish_date">Tanggal</label>
-                                                <input type="text" name="publish_date" id="publish_date" class="form-control form-control-sm" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="time">Jam</label>
-                                                <input type="text" name="time" id="time" class="form-control form-control-sm clockpicker" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

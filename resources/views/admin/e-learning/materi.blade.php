@@ -25,7 +25,7 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
@@ -173,12 +173,12 @@
                 name: 'guru'
             },
             {
-                data: 'materi',
-                name: 'materi'
-            },
-            {
                 data: 'tanggal_terbit',
                 name: 'tanggal_terbit'
+            },
+            {
+                data: 'jam_terbit',
+                name: 'jam_terbit'
             },
             {
                 data: 'status',
@@ -194,18 +194,19 @@
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Materi');
-            $('#modal-materi').modal('show');
             $('.form-control').val('');
             tinymce.get('materi').setContent('');
             $('.modal-title').text('Tambah Materi');
             $('#action').val('add');
-            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+            $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
             $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
+            $('#modal-materi').modal('show');
         });
 
         $('#form-materi').on('submit', function (event) {
             event.preventDefault();
             var url = '';
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.materi.store') }}";
@@ -223,16 +224,18 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    var html = '';
                     if (data.errors) {
-                        html = data.errors[0];
-                        $('#kode').addClass('is-invalid');
-                        $('#name').addClass('is-invalid');
-                        toastr.error(html);
+                        data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
+                        data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
+                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+                        data.errors.materi ? $('#materi').addClass('is-invalid') : $('#materi').removeClass('is-invalid');
+                        data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
+                        toastr.error(data.error);
                     }
 
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
                         $('#form-materi')[0].reset();
                         $('#action').val('add');
@@ -243,16 +246,15 @@
                         $('#btn-cancel')
                             .removeClass('btn-outline-info')
                             .addClass('btn-outline-success')
-                            .val('Batal');
+                            .text('Batal');
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-materi').modal('hide');
                     }
-                    $('#form_result').html(html);
                 }
             });
         });
 
-        $('#publish_date').dateDropper({
+        $('#tanggal_terbit').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
@@ -298,7 +300,7 @@
                     $('#btn-cancel')
                         .removeClass('btn-outline-success')
                         .addClass('btn-outline-info')
-                        .val('Batal');
+                        .text('Batal');
                     $('#modal-materi').modal('show');
                 }
             });
@@ -321,11 +323,12 @@
                     setTimeout(function () {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });
         });
     });
+//
 </script>
 @endpush

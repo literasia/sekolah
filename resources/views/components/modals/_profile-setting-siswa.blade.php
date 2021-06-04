@@ -1,5 +1,5 @@
 <div class="modal fade modal-flex" id="modal-profile" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document"> 
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -10,8 +10,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-profile" enctype="multipart/form-data">
-                    @csrf @method('POST')
+                <form id="form-profile" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
@@ -23,6 +23,14 @@
                             <div class="form-group">
                                 <label for="name">Nama Sekolah:</label>
                                 <input type="text" name="name" id="profile_name" class="form-control form-control-sm" placeholder="Nama Sekolah" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="alamat">Alamat Sekolah:</label>
+                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
                             </div>
                         </div>
                     </div>
@@ -55,24 +63,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="alamat">Alamat Sekolah:</label>
-                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <input type="text" name="username" id="profile_username" class="form-control form-control-sm" placeholder="Username" disabled>
+                                <input type="text" name="username" id="profile_username" class="form-control form-control-sm" placeholder="Username" readonly>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="file">Foto:</label>
-                                <input type="file" name="logo" id="logo" class="d-block">
+                                <input type="file" name="image" id="image" class="d-block">
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                         <button type="submit" class="btn btn-sm btn-info" id="btnUpdate">Update</button>
                         <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal" id="btnCancel">Batal</button>
                     </div>
-                </form> 
+                </form>
             </div>
         </div>
     </div>

@@ -25,14 +25,18 @@
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Paket Soal</th>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Kelas</th>
                                     <th>Nama Guru</th>
+                                    <th>Jenis Kuis</th>
+                                    <th>Keterangan</th>
                                     <th>Durasi</th>
+                                    <th>Jumlah Pilihan Ganda</th>
+                                    <th>Jumlah Essai</th>
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Selesai</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -46,6 +50,7 @@
         </div>
     </div>
 </div>
+
 @include('admin.e-learning.modals._kuis')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -159,20 +164,28 @@
                 name: 'paket_soal'
             },
             {
-                data: 'mata_pelajaran',
-                name: 'mata_pelajaran'
-            },
-            {
-                data: 'kelas',
-                name: 'kelas'
-            },
-            {
                 data: 'guru',
                 name: 'guru'
             },
             {
+                data: 'jenis_kuis',
+                name: 'jenis_kuis'
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan'
+            },
+            {
                 data: 'durasi',
                 name: 'durasi'
+            },
+            {
+                data: 'jumlah_soal_pg',
+                name: 'jumlah_soal_pg'
+            },
+            {
+                data: 'jumlah_soal_essai',
+                name: 'jumlah_soal_essai'
             },
             {
                 data: 'tanggal_mulai',
@@ -181,6 +194,14 @@
             {
                 data: 'tanggal_selesai',
                 name: 'tanggal_selesai'
+            },
+            {
+                data: 'jam_mulai',
+                name: 'jam_mulai'
+            },
+            {
+                data: 'jam_selesai',
+                name: 'jam_selesai'
             },
             {
                 data: 'status',
@@ -197,17 +218,23 @@
             $('.modal-title').html('Tambah Kuis');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
             $('#modal-kuis').modal('show');
         });
 
         
-        $('#form-kuis').on('submit', function (event) {
+        $('#form-kuis-ku').on('submit', function (event) {
             event.preventDefault();
+            console.log('ta');
             var url = '';
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.kuis.store') }}";
@@ -225,18 +252,34 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    var html = '';
+                    if (data.single_choice) {
+                        Swal.fire("Gagal", data.message, "error");
+                    }
+
+                    if (data.multiple_choice) {
+                        Swal.fire("Gagal", data.message, "error");
+                    }
+
                     if (data.errors) {
-                        html = data.errors[0];
-                        $('#kode').addClass('is-invalid');
-                        $('#name').addClass('is-invalid');
-                        toastr.error(html);
+                        data.errors.soal_id ? $('#soal_id').addClass('is-invalid') : $('#soal_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+                        data.errors.jenis_kuis ? $('#jenis_kuis').addClass('is-invalid') : $('#jenis_kuis').removeClass('is-invalid');
+                        data.errors.keterangan ? $('#keterangan').addClass('is-invalid') : $('#keterangan').removeClass('is-invalid');
+                        data.errors.jumlah_soal_pg ? $('#jumlah_soal_pg').addClass('is-invalid') : $('#jumlah_soal_pg').removeClass('is-invalid');
+                        data.errors.jumlah_soal_essai ? $('#jumlah_soal_essai').addClass('is-invalid') : $('#jumlah_soal_essai').removeClass('is-invalid');
+                        data.errors.tanggal_mulai ? $('#tanggal_mulai').addClass('is-invalid') : $('#tanggal_mulai').removeClass('is-invalid');
+                        data.errors.tanggal_selesai ? $('#tanggal_selesai').addClass('is-invalid') : $('#tanggal_selesai').removeClass('is-invalid');
+                        data.errors.jam_mulai ? $('#jam_mulai').addClass('is-invalid') : $('#jam_mulai').removeClass('is-invalid');
+                        data.errors.jam_selesai ? $('#jam_selesai').addClass('is-invalid') : $('#jam_selesai').removeClass('is-invalid');
+                        data.errors.durasi ? $('#durasi').addClass('is-invalid') : $('#durasi').removeClass('is-invalid');
+                        data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
+                        toastr.error("data masih kosong!");
                     }
 
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
-                        $('#form-kuis')[0].reset();
+                        $('#form-kuis-ku')[0].reset();
                         $('#action').val('add');
                         $('#btn')
                             .removeClass('btn-info')
@@ -249,12 +292,11 @@
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-kuis').modal('hide');
                     }
-                    $('#form_result').html(html);
                 }
             });
         });
 
-        $('#publish_date, #tanggal_mulai, #tanggal_selesai').dateDropper({
+        $('#tanggal_terbit, #tanggal_mulai, #tanggal_selesai').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
@@ -274,15 +316,18 @@
                 url: '/admin/e-learning/kuis/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log(data);
-                    $('#judul').val(data.judul);
+                    
                     $('#hidden_id').val(data.id);
                     $('#soal_id').val(data.soal_id);
                     $('#guru_id').val(data.guru_id);
                     $('#durasi').val(data.durasi);
                     $('#jenis_kuis').val(data.jenis_kuis);
+                    $('#jumlah_soal_pg').val(data.jumlah_soal_pg);
+                    $('#jumlah_soal_essai').val(data.jumlah_soal_essai);
                     $('#tanggal_mulai').val(data.tanggal_mulai);
                     $('#tanggal_selesai').val(data.tanggal_selesai);
+                    $('#jam_mulai').val(data.jam_mulai);
+                    $('#jam_selesai').val(data.jam_selesai);
                     $('#keterangan').val(data.keterangan);
                     $('#status').val(data.status);
                     $('#action').val('edit');

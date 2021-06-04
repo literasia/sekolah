@@ -25,12 +25,11 @@
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
-                                    <th>Jumlah Soal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -122,10 +121,6 @@
                 name: 'guru'
             },
             {
-                data: 'jumlah_soal',
-                name: 'jumlah_soal'
-            },
-            {
                 data: 'action',
                 name: 'action'
             }
@@ -136,10 +131,21 @@
             $('.modal-title').html('Tambah Soal');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#button')
-                .removeClass('btn-outline-success edit')
-                .addClass('btn-outline-info add')
-                .html('Simpan');
+            $('#hidden_id').val('');
+            $('#judul').val('');
+            $('#guru_id').val('');
+            $('#mata_pelajaran_id').val('');
+            $('#kelas_id').val('');
+            $('#jumlah_soal').val('');
+            $('#status').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
             $('#modal-soal').modal('show');
         });
 
@@ -153,9 +159,14 @@
             autoclose: true
         });
 
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
+        });
+
         $('#form-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
+            var text = "Data sukses ditambahkan";
 
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.e-learning.soal.store') }}";
@@ -173,16 +184,19 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
-                    var html = '';
                     if (data.errors) {
-                        html = data.errors[0];
-                        $('#kode').addClass('is-invalid');
-                        $('#name').addClass('is-invalid');
-                        toastr.error(html);
+                        
+                        data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
+                        data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
+                        data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
+                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong");
                     }
 
                     if (data.success) {
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
                         $('#form-soal')[0].reset();
                         $('#action').val('add');
@@ -193,27 +207,13 @@
                         $('#btn-cancel')
                             .removeClass('btn-outline-info')
                             .addClass('btn-outline-success')
-                            .val('Batal');
+                            .text('Batal');
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-soal').modal('hide');
                     }
                     $('#form_result').html(html);
                 }
             });
-        });
-
-        $('#publish_date').dateDropper({
-            theme: 'leaf',
-            format: 'd-m-Y'
-        });
-
-        $('.clockpicker').clockpicker({
-            donetext: 'Done',
-            autoclose: true
-        });
-
-        $(".rotate-collapse").click(function() {
-            $(".rotate").toggleClass("down"); 
         });
 
         $(document).on('click', '.edit', function () {
@@ -223,16 +223,14 @@
                 dataType: 'JSON',
                 success: function (data) {
                     console.log(data);
+                    $('.modal-title').html('Edit Soal');
+                    $('#action').val('edit');
                     $('#hidden_id').val(data.id);
                     $('#judul').val(data.judul);
                     $('#guru_id').val(data.guru_id);
                     $('#mata_pelajaran_id').val(data.mata_pelajaran_id);
                     $('#kelas_id').val(data.kelas_id);
-                    $('#jumlah_soal').val(data.jumlah_soal);
                     $('#status').val(data.status);
-
-                    $('#modal-soal').modal('show');
-                    $('#action').val('edit');
                     $('#btn')
                         .removeClass('btn-success')
                         .addClass('btn-info')
@@ -240,7 +238,7 @@
                     $('#btn-cancel')
                         .removeClass('btn-outline-success')
                         .addClass('btn-outline-info')
-                        .val('Batal');
+                        .text('Batal');
                     $('#modal-soal').modal('show');
                 }
             });
@@ -263,7 +261,7 @@
                     setTimeout(function () {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
-                        Swal.fire("Berhasil", data.success, "success");
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });

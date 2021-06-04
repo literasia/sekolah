@@ -48,6 +48,8 @@ Route::namespace('Siswa')
     ->group(function () {
         Route::get('/siswa', 'SiswaController@index')
             ->name('index');
+        Route::get("/siswa/profile", "SiswaController@show")->name("show");
+        Route::post("/siswa/profile/update", "SiswaController@update")->name("profile.update");
 
              Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@index')
              ->name('pelajaran.mata-pelajaran');
@@ -141,7 +143,7 @@ Route::namespace('Superadmin')
         Route::get('/superadmin/slider/edit/{id}', 'SliderController@edit')->name('slider.edit');
         Route::post('/superadmin/slider/update', 'SliderController@update')->name('slider.update');
         Route::get('/superadmin/slider/{id}', 'SliderController@destroy')->name('slider.destroy');
-        
+
         // Berita
         Route::namespace('Berita')
             ->group(function () {

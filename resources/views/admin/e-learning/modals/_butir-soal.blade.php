@@ -17,8 +17,8 @@
 
                         <div class="col">
                             <div class="form-group">
-                                <label for="point">Poin</label>
-                                <input type="number" name="poin" id="point" class="form-control form-control-sm" value="1">
+                                <label for="poin">Poin</label>
+                                <input type="number" name="poin" id="poin" class="form-control form-control-sm" value="1">
                             </div>
                         </div>
 
@@ -52,7 +52,7 @@
                                             <input type="text" name="jawaban[]" id="jawaban0" class="form-control form-control-sm mb-3">
                                         </div>
                                         <div class="col-4">
-                                            <input type="radio" name="kunci_jawaban" value="a" class="d-inline-block">
+                                            <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block">
                                             <p class="ml-2 d-inline-block">Jawaban yang benar</p>
                                         </div>
                                     </div>
