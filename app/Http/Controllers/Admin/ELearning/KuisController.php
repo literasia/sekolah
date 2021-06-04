@@ -81,7 +81,7 @@ class KuisController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-
+        // return response()->json($data);
         $rules = [
             'soal_id' => 'required',
             'guru_id' => 'required',
@@ -129,8 +129,28 @@ class KuisController extends Controller
         }
 
         $pengaturan_kuis = PengaturanKuis::create([
-            'is_hide_title' => 0,
             'sekolah_id' => auth()->user()->id_sekolah,
+            'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
+            'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
+            'random_question' => $request["random_question"] ? 1 : 0,
+            'random_option' => $request["random_option"] ? 1 : 0,
+            'statistic' => $request["statistic"] ? 1 : 0,
+            'take_quiz_only_once' => $request["take_quiz_only_once"] ? 1 : 0,
+            'only_show_specific_question' => $request["only_show_specific_question"] ? 1 : 0,
+            'many_questions_should_be_displayed' => $request["many_questions_should_be_displayed"] ?? 0,
+            'skip_question' => $request["skip_question"] ? 1 : 0,
+            'autostart' => $request["autostart"] ? 1 : 0,
+            'only_registered' => $request["only_registered"] ? 1 : 0,
+            'show_point' => $request["show_point"] ? 1 : 0,
+            'with_number_in_option' => $request["with_number_in_option"] ? 1 : 0,
+            'show_correct_option' => $request["show_correct_option"] ? 1 : 0,
+            'answer_mark' => $request["answer_mark"] ? 1 : 0,
+            'force_answer' => $request["force_answer"] ? 1 : 0,
+            'hide_numbering' => $request["hide_numbering"] ? 1 : 0,
+            'show_average_point' => $request["show_average_point"] ? 1 : 0,
+            'hide_correct_question' => $request["hide_correct_question"] ? 1 : 0,
+            'hide_quiz_time' => $request["hide_quiz_time"] ? 1 : 0,
+            'hide_quiz_score' => $request["hide_quiz_score"] ? 1 : 0,
         ]);
 
         $tanggal_mulai = date('Y-m-d', strtotime($request->tanggal_mulai));
@@ -268,6 +288,32 @@ class KuisController extends Controller
             'jenis_kuis' => $request->jenis_kuis,
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
+        ]);
+        $pengaturan_kuis = PengaturanKuis::findOrFail($kuis->pengaturan_kuis_id);
+
+        $pengaturan_kuis->update([
+            'sekolah_id' => auth()->user()->id_sekolah,
+            'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
+            'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
+            'random_question' => $request["random_question"] ? 1 : 0,
+            'random_option' => $request["random_option"] ? 1 : 0,
+            'statistic' => $request["statistic"] ? 1 : 0,
+            'take_quiz_only_once' => $request["take_quiz_only_once"] ? 1 : 0,
+            'only_show_specific_question' => $request["only_show_specific_question"] ? 1 : 0,
+            'many_questions_should_be_displayed' => $request["many_questions_should_be_displayed"] ?? 0,
+            'skip_question' => $request["skip_question"] ? 1 : 0,
+            'autostart' => $request["autostart"] ? 1 : 0,
+            'only_registered' => $request["only_registered"] ? 1 : 0,
+            'show_point' => $request["show_point"] ? 1 : 0,
+            'with_number_in_option' => $request["with_number_in_option"] ? 1 : 0,
+            'show_correct_option' => $request["show_correct_option"] ? 1 : 0,
+            'answer_mark' => $request["answer_mark"] ? 1 : 0,
+            'force_answer' => $request["force_answer"] ? 1 : 0,
+            'hide_numbering' => $request["hide_numbering"] ? 1 : 0,
+            'show_average_point' => $request["show_average_point"] ? 1 : 0,
+            'hide_correct_question' => $request["hide_correct_question"] ? 1 : 0,
+            'hide_quiz_time' => $request["hide_quiz_time"] ? 1 : 0,
+            'hide_quiz_score' => $request["hide_quiz_score"] ? 1 : 0,
         ]);
 
         return response()

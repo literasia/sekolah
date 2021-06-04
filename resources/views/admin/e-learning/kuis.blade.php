@@ -104,9 +104,9 @@
     }
 
     .quiz-modal-caption {
-        position: absolute; 
-        top: -35px; 
-        left: 20px; 
+        position: absolute;
+        top: -35px;
+        left: 20px;
         background: #fff;
     }
     .demo-content {
@@ -229,7 +229,7 @@
             $('#modal-kuis').modal('show');
         });
 
-        
+
         $('#form-kuis-ku').on('submit', function (event) {
             event.preventDefault();
             console.log('ta');
@@ -245,6 +245,8 @@
                 url = "{{ route('admin.e-learning.kuis.update') }}";
                 text = "Data sukses diupdate";
             }
+
+            console.log("fields ",$(this).serialize());
 
             $.ajax({
                 url: url,
@@ -307,7 +309,7 @@
         });
 
         $(".rotate-collapse").click(function() {
-            $(".rotate").toggleClass("down"); 
+            $(".rotate").toggleClass("down");
         });
 
         $(document).on('click', '.edit', function () {
@@ -316,7 +318,7 @@
                 url: '/admin/e-learning/kuis/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-                    
+
                     $('#hidden_id').val(data.id);
                     $('#soal_id').val(data.soal_id);
                     $('#guru_id').val(data.guru_id);

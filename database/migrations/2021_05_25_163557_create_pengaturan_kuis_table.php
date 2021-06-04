@@ -27,11 +27,12 @@ class CreatePengaturanKuisTable extends Migration
             $table->integer('skip_question')->default(0);
             $table->integer('autostart')->default(0);
             $table->integer('only_registered')->default(0);
-            $table->integer('show_poin')->default(0);
+            $table->integer('show_point')->default(0);
             $table->integer('with_number_in_option')->default(0);
             $table->integer('show_correct_option')->default(0);
-            $table->integer('each_question_mustbe_answer')->default(0);
-            $table->integer('hide_number_of_question')->default(0);
+            $table->integer('answer_mark')->default(0);
+            $table->integer('force_answer')->default(0);
+            $table->integer('hide_numbering')->default(0);
             $table->integer('show_average_point')->default(0);
             $table->integer('hide_correct_question')->default(0);
             $table->integer('hide_quiz_time')->default(0);
