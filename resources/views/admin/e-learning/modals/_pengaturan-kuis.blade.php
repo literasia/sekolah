@@ -5,7 +5,7 @@
 			<div class="col-md-12">
 				<h6 class="font-weight-bold">Sembunyikan judul kuis</h6>
 				<div class="custom-control custom-switch">
-		            <input type="checkbox" class="custom-control-input" name="is_hide_title" id="hide-quiz">
+		            <input type="checkbox" class="custom-control-input" name="is_hide_title" id="hide-quiz" >
 		            <label class="custom-control-label" for="hide-quiz">Aktifkan</label>
 		        </div>
 		    </div>

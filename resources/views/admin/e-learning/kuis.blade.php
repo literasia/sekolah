@@ -232,7 +232,7 @@
 
         $('#form-kuis-ku').on('submit', function (event) {
             event.preventDefault();
-            console.log('ta');
+            // console.log('ta');
             var url = '';
             var text = "Data sukses ditambahkan";
 
@@ -246,7 +246,7 @@
                 text = "Data sukses diupdate";
             }
 
-            console.log("fields ",$(this).serialize());
+            // console.log("fields ",$(this).serialize());
 
             $.ajax({
                 url: url,
@@ -318,7 +318,10 @@
                 url: '/admin/e-learning/kuis/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-
+                    // console.log(data);
+                    for (const peng in data.pengaturan) {
+                        $(`input[name="${peng}"]`).attr("checked", data.pengaturan[peng]?true:false);
+                    }
                     $('#hidden_id').val(data.id);
                     $('#soal_id').val(data.soal_id);
                     $('#guru_id').val(data.guru_id);

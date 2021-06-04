@@ -204,6 +204,7 @@ class KuisController extends Controller
 
     public function edit($id){
         $kuis = Kuis::findOrFail($id);
+        $pengaturan = PengaturanKuis::findOrFail($kuis->pengaturan_kuis_id);
 
         return response()
             ->json([
@@ -220,7 +221,8 @@ class KuisController extends Controller
                 'guru_id'   => $kuis->guru_id,
                 'status'   => $kuis->status,
                 'keterangan' => $kuis->keterangan,
-                'jenis_kuis' => $kuis->jenis_kuis
+                'jenis_kuis' => $kuis->jenis_kuis,
+                'pengaturan' => $pengaturan
             ]);
     }
 
