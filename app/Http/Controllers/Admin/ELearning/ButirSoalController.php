@@ -156,7 +156,12 @@ class ButirSoalController extends Controller
         }
 
         $butir_soal = ButirSoal::findOrFail($request->hidden_id);
-        $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
+        
+        if(!empty($request->jawaban)){
+            $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
+        }else{
+            $jawaban = null;
+        }
         
         $butir_soal->update([
             'soal_id' => $request->soal_id,
