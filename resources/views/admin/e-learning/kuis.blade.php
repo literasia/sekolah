@@ -336,6 +336,9 @@
                     $('#keterangan').val(data.keterangan);
                     $('#status').val(data.status);
                     $('#action').val('edit');
+                    if (data.is_hide_title == 1) {
+                        $('#hide-quiz').attr('checked', 'checked');
+                    } 
                     $('#btn')
                         .removeClass('btn-success')
                         .addClass('btn-info')
