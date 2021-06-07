@@ -170,8 +170,9 @@ Route::namespace('Superadmin')
         });
 
         // generate list sekolah
-        Route::get('/superadmin/list-sekolah/generate', 'ListSekolahController@generate')->name('list-sekolah.generate'); 
-        
+        // Route::get('/superadmin/list-sekolah/generate', 'ListSekolahController@generate')->name('list-sekolah.generate'); 
+        Route::get('/superadmin/list-sekolah/generate-siswa', 'ListSekolahController@generateSiswa')->name('list-sekolah.generate-siswa'); 
+
         // List Sekolah        
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store')->name('list-sekolah.store');
