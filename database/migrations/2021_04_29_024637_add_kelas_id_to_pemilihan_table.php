@@ -14,9 +14,7 @@ class AddKelasIdToPemilihanTable extends Migration
     public function up()
     {
         Schema::table('pemilihan', function (Blueprint $table) {
-            //
             $table->bigInteger('kelas_id')->nullable();
-
         });
     }
 

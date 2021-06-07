@@ -25,7 +25,7 @@ Ini adalah halaman library untuk superadmin
                                 <tr>
                                     <th>No.</th>
                                     <th>Judul</th>
-                                    <th>Deskripsi</th>
+                                    <th>Kategori</th>
                                     <th>Penulis</th>
                                     <th>Penerbit</th>
                                     <th>Tahun Terbit</th>

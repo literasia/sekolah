@@ -5,6 +5,8 @@ namespace App\Models\Admin;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Admin\Materi;
+use App\Models\TingkatanKelas;
 
 class Kelas extends Model
 { //
@@ -17,5 +19,17 @@ class Kelas extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function kelas(){
+        return $this->hasMany(Kelas::class);
+    }
+
+    public function materi(){
+        return $this->hasMany(Materi::class);
+    }
+
+    public function tingkatanKelas(){
+        return $this->belongsTo(TingkatanKelas::class);
     }
 }

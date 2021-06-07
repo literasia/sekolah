@@ -25,40 +25,16 @@
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No.</th>
+                                    <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
                                     <th>Nama Guru</th>
-                                    <th>Jumlah Soal</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Bahasa Indonesia</td>
-                                    <td>VII</td>
-                                    <td>Mursilah</td>
-                                    <td class="text-center"><label class="badge badge-primary py-2 px-3">1</label></td>
-                                    <td>2021/04/28</td>
-                                    <td>05:04 PM</td>
-                                    <td><label class="badge badge-success">Diterbitkan</label></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Bahasa Indonesia</td>
-                                    <td>VII</td>
-                                    <td>Mursilah</td>
-                                    <td class="text-center"><label class="badge badge-secondary disabled py-2 px-3">1</label></td>
-                                    <td>2021/04/28</td>
-                                    <td>05:04 PM</td>
-                                    <td><label class="badge badge-warning">Draf</label></td>
-                                    <td></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -68,6 +44,23 @@
     </div>
 </div>
 @include('admin.e-learning.modals._tambah-soal')
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Konfirmasi</h4>
+            </div>
+            <div class="modal-body">
+                <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 
@@ -100,10 +93,59 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable();
+        $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.e-learning.soal') }}",
+            },
+            columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'judul',
+                name: 'judul'
+            },
+            {
+                data: 'mata_pelajaran',
+                name: 'mata_pelajaran'
+            },
+            {
+                data: 'kelas',
+                name: 'kelas'
+            },
+            {
+                data: 'guru',
+                name: 'guru'
+            },
+            {
+                data: 'action',
+                name: 'action'
+            }
+            ]
+        });
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Soal');
+            $('.form-control').val('');
+            $('#action').val('add');
+            $('#hidden_id').val('');
+            $('#judul').val('');
+            $('#guru_id').val('');
+            $('#mata_pelajaran_id').val('');
+            $('#kelas_id').val('');
+            $('#jumlah_soal').val('');
+            $('#status').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
             $('#modal-soal').modal('show');
         });
 
@@ -115,6 +157,114 @@
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
+        });
+
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
+        });
+
+        $('#form-soal').on('submit', function (event) {
+            event.preventDefault();
+            var url = '';
+            var text = "Data sukses ditambahkan";
+
+            if ($('#action').val() == 'add') {
+                url = "{{ route('admin.e-learning.soal.store') }}";
+                text = "Data sukses ditambahkan";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('admin.e-learning.soal.update') }}";
+                text = "Data sukses diupdate";
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.errors) {
+                        
+                        data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
+                        data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
+                        data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
+                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong");
+                    }
+
+                    if (data.success) {
+                        Swal.fire("Berhasil", text, "success");
+                        $('.form-control').removeClass('is-invalid');
+                        $('#form-soal')[0].reset();
+                        $('#action').val('add');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .text('Batal');
+                        $('#order-table').DataTable().ajax.reload();
+                        $('#modal-soal').modal('hide');
+                    }
+                    $('#form_result').html(html);
+                }
+            });
+        });
+
+        $(document).on('click', '.edit', function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/admin/e-learning/soal/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    $('.modal-title').html('Edit Soal');
+                    $('#action').val('edit');
+                    $('#hidden_id').val(data.id);
+                    $('#judul').val(data.judul);
+                    $('#guru_id').val(data.guru_id);
+                    $('#mata_pelajaran_id').val(data.mata_pelajaran_id);
+                    $('#kelas_id').val(data.kelas_id);
+                    $('#status').val(data.status);
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .text('Batal');
+                    $('#modal-soal').modal('show');
+                }
+            });
+        });
+
+        var user_id;
+
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('data-id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: '/admin/e-learning/soal/hapus/'+ user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
         });
     });
 </script>

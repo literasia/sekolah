@@ -217,16 +217,40 @@ Route::namespace('ERapor')->group(function () {
         ->name('e-rapor.kenaikan-kelas.add');
 });
 
+Route::namespace('Profile')->group(function(){
+    Route::get('/admin/profile', 'ProfileController@index')->name('profile.profile');
+    Route::post('/admin/profile/update', 'ProfileController@changeProfile')->name('profile.change-profile');
+});
+
 // E-Learning
 Route::namespace('ELearning')->group(function () {
-    Route::get('/admin/e-learning/materi', 'MateriController@index')
-        ->name('e-learning.materi');
-    Route::get('/admin/e-learning/kuis', 'KuisController@index')
-        ->name('e-learning.kuis');
-    Route::get('/admin/e-learning/soal', 'SoalController@index')
-        ->name('e-learning.soal');
-    Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')
-        ->name('e-learning.butir-soal');
+    // Materi
+    Route::get('/admin/e-learning/materi', 'MateriController@index')->name('e-learning.materi');
+    Route::post('/admin/e-learning/materi', 'MateriController@store')->name('e-learning.materi.store');
+    Route::get('/admin/e-learning/materi/{id}', 'MateriController@edit')->name('e-learning.materi.edit');
+    Route::post('/admin/e-learning/materi/update', 'MateriController@update')->name('e-learning.materi.update');
+    Route::get('/admin/e-learning/materi/hapus/{id}', 'MateriController@destroy')->name('e-learning.materi.delete');
+
+    // Kuis
+    Route::get('/admin/e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
+    Route::post('/admin/e-learning/kuis', 'KuisController@store')->name('e-learning.kuis.store');
+    Route::get('/admin/e-learning/kuis/{id}', 'KuisController@edit')->name('e-learning.kuis.edit');
+    Route::post('/admin/e-learning/kuis/update', 'KuisController@update')->name('e-learning.kuis.update');
+    Route::get('/admin/e-learning/kuis/hapus/{id}', 'KuisController@destroy')->name('e-learning.kuis.delete');
+
+    // Soal
+    Route::get('/admin/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
+    Route::post('/admin/e-learning/soal', 'SoalController@store')->name('e-learning.soal.store');
+    Route::get('/admin/e-learning/soal/{id}', 'SoalController@edit')->name('e-learning.soal.edit');
+    Route::post('/admin/e-learning/soal/update', 'SoalController@update')->name('e-learning.soal.update');
+    Route::get('/admin/e-learning/soal/hapus/{id}', 'SoalController@destroy')->name('e-learning.soal.delete');
+
+    // Butir Soal
+    Route::get('/admin/e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
+    Route::post('/admin/e-learning/butir-soal', 'ButirSoalController@store')->name('e-learning.butir-soal.store');
+    Route::get('/admin/e-learning/butir-soal/{id}', 'ButirSoalController@edit')->name('e-learning.butir-soal.edit');
+    Route::post('/admin/e-learning/butir-soal/update', 'ButirSoalController@update')->name('e-learning.butir-soal.update');
+    Route::get('/admin/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('e-learning.butir-soal.delete');
 });
 
 // Bank Soal
@@ -281,25 +305,21 @@ Route::namespace('Referensi')->group(function () {
 
 // Kalender
 Route::namespace('Kalender')->group(function () {
-    Route::get('/admin/kalender/kalender-akademik', 'KalenderAkademikController@index')
-        ->name('kalender.kalender-akademik');
+    Route::get('/admin/kalender/kalender-akademik', 'KalenderAkademikController@index')->name('kalender.kalender-akademik');
 });
 
 // Pengumuman
 Route::namespace('Pengumuman')->group(function () {
-    Route::get('/admin/pengumuman/pesan', 'PesanController@index')
-        ->name('pengumuman.pesan');
+    Route::get('/admin/pengumuman/pesan', 'PesanController@index')->name('pengumuman.pesan');
     Route::post('/admin/pengumuman/pesan', 'PesanController@store');
     Route::get('/admin/pengumuman/pesan/{id}', 'PesanController@edit');
-    Route::post('/admin/pengumuman/pesan/update', 'PesanController@update')
-        ->name('pengumuman.pesan-update');
+    Route::post('/admin/pengumuman/pesan/update', 'PesanController@update')->name('pengumuman.pesan-update');
     Route::get('/admin/pengumuman/pesan/hapus/{id}', 'PesanController@destroy');
 
 });
 // Forum diskusi
 Route::namespace('Forum')->group(function () {
-    Route::get('/admin/forum/forum', 'ForumController@index')
-        ->name('forum.forum');
+    Route::get('/admin/forum/forum', 'ForumController@index')->name('forum.forum');
     Route::post('/admin/forum/forum', 'ForumController@store');
     Route::get('/admin/forum/forum/{id}', 'ForumController@edit');
     Route::post('/admin/forum/forum/update', 'ForumController@update')

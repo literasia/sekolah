@@ -48,6 +48,8 @@ Route::namespace('Siswa')
     ->group(function () {
         Route::get('/siswa', 'SiswaController@index')
             ->name('index');
+        Route::get("/siswa/profile", "SiswaController@show")->name("show");
+        Route::post("/siswa/profile/update", "SiswaController@update")->name("profile.update");
 
              Route::get('/siswa/pelajaran', 'Pelajaran\MataPelajaranSiswaController@index')
              ->name('pelajaran.mata-pelajaran');
@@ -141,7 +143,7 @@ Route::namespace('Superadmin')
         Route::get('/superadmin/slider/edit/{id}', 'SliderController@edit')->name('slider.edit');
         Route::post('/superadmin/slider/update', 'SliderController@update')->name('slider.update');
         Route::get('/superadmin/slider/{id}', 'SliderController@destroy')->name('slider.destroy');
-        
+
         // Berita
         Route::namespace('Berita')
             ->group(function () {
@@ -160,12 +162,24 @@ Route::namespace('Superadmin')
             Route::get('/superadmin/berita/kategori-berita/hapus/{id}', 'KategoriBeritaController@destroy');
         });
 
-        // List Sekolah
+        // Keuangan
+        Route::namespace('Keuangan')
+            ->group(function () {
+            Route::get('/superadmin/keuangan/tagihan', 'TagihanController@index')->name('keuangan.tagihan');
+            Route::get('/superadmin/keuangan/laporan', 'LaporanController@index')->name('keuangan.laporan');
+        });
+
+        // generate list sekolah
+        Route::get('/superadmin/list-sekolah/generate', 'ListSekolahController@generate')->name('list-sekolah.generate'); 
+        
+        // List Sekolah        
         Route::get('/superadmin/list-sekolah', 'ListSekolahController@index')->name('list-sekolah');
         Route::post('/superadmin/list-sekolah', 'ListSekolahController@store')->name('list-sekolah.store');
         Route::get('/superadmin/list-sekolah/{id}', 'ListSekolahController@edit');
         Route::post('/superadmin/list-sekolah/update', 'ListSekolahController@update')->name('list-sekolah-update');
-        Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy');
+        Route::get('/superadmin/list-sekolah/hapus/{id}', 'ListSekolahController@destroy'); 
+        
+
 
         // Referensi
         Route::namespace('Referensi')

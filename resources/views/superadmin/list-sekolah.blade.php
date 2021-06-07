@@ -22,6 +22,9 @@
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                    <a href="{{ route('superadmin.list-sekolah.generate') }}">
+                        <button class="btn btn-outline-warning">Generate</button>
+                    </a>
                     <div class="dt-responsive table-responsive mt-3">
                         <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
@@ -271,7 +274,6 @@
                         }
                     },
                     success: function (data) {
-                        console.log('tes');
                         $('#action').val('edit');
                         $('.modal-title').text('Edit Sekolah');
                         $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');

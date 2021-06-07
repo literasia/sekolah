@@ -9,8 +9,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form-materi" action="" method="">
-
+            <form id="form-kuis-ku">
+                @csrf @method("POST")
                 <div class="modal-body">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -31,13 +31,12 @@
                 </div>
                     
                 <div class="modal-footer mt-3">
-                    <input type="hidden" name="poin_lama" id="poin_lama">
                     <input type="hidden" name="hidden_id" id="hidden_id">
                     <input type="hidden" id="action" val="add">
                     <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
                     <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

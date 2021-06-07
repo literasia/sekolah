@@ -11,7 +11,7 @@
     <div class="loader-bg">
         <div class="loader-bar"></div>
     </div>
-    
+
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
@@ -42,8 +42,8 @@
             </div>
         </div>
     </div>
-    
+
     {{-- Script --}}
-    @include('components._script')
+    @include('components._script-siswa')
 </body>
 </html>

@@ -15,7 +15,7 @@ class UserSeed extends Seeder
      */ //
     public function run()
     {
-        User::truncate();
+        // User::truncate();
         DB::table('role_user')->truncate();
 
         $superadmin = Role::where('name', 'superadmin')->first();
@@ -52,7 +52,7 @@ class UserSeed extends Seeder
         ]);
 
         $admins = User::create([
-            'id_sekolah' => $sekolah->id_sekolah,
+            'id_sekolah' => $sekolah->id,
             'name'      => 'Admin',
             'username'  => 'admin',
             'password'  => bcrypt('admin'),

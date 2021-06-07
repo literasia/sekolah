@@ -10,67 +10,49 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-soal" action="" method="">
+                <form id="form-soal">
+                    @csrf @method("POST")
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="judul">Judul</label>
+                                <input type="text" name="judul" id="judul" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="mata_pelajaran">Mata Pelajaran</label>
-                                <input type="text" name="mata_pelajaran" id="mata_pelajaran" class="form-control form-control-sm" readonly>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="kelas">Kelas</label>
-                                <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="guru">Nama Guru</label>
-                                <input type="text" name="guru" id="guru" class="form-control form-control-sm" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="jumlah_soal">Jumlah Soal</label>
-                                <input type="number" name="jumlah_soal" id="jumlah_soal" class="form-control form-control-sm" value="1">
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select name="status" id="status" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                    <option value="">Draf</option>
-                                    <option value="">Terbitkan</option>
+                                <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                    <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($mata_pelajaran as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_pelajaran }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <a class="text-info rotate-collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tanggal Terbit <i class="fa fa-chevron-right rotate ml-1"></i></a>
-                                <div class="collapse mt-2" id="collapseExample">
-                                    <div class="row" >
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="publish_date">Tanggal</label>
-                                                <input type="text" name="publish_date" id="publish_date" class="form-control form-control-sm" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="time">Jam</label>
-                                                <input type="text" name="time" id="time" class="form-control form-control-sm clockpicker" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <label for="kelas">Kelas</label>
+                                <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
+                                    <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($kelas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="guru">Nama Guru</label>
+                                <select name="guru_id" id="guru_id" class="form-control form-control-sm">
+                                    <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($guru as $item)
+                                        <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

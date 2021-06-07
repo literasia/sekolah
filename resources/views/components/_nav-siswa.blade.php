@@ -33,7 +33,7 @@
                 </a>
                 </li>
             </ul>
-            
+
             {{-- Nav Right --}}
             <ul class="nav-right">
                 <li class="header-notification">
@@ -90,7 +90,7 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="#!">
+                                <a id="#profile" class="profile">
                                     <i class="icon-user"></i> Profile
                                 </a>
                             </li>
@@ -110,3 +110,4 @@
         </div>
     </div>
 </nav>
+@include('components.modals._profile-setting-siswa')
