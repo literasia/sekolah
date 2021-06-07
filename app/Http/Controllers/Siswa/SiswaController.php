@@ -47,10 +47,7 @@ class SiswaController extends Controller
             $user->update([
                 'image' => $filename
             ]);
-        }else{
-            return response()->json("gada file");
         }
-
 
         if (!empty($request->password_lama)) {
             if(Hash::check($request->password_lama, auth()->user()->password)){

@@ -45,8 +45,18 @@ class GuruController extends Controller
             'alamat' => $request->alamat
         ]);
 
-        $image = $request->file("image");
-        $image->move(public_path('profile_images'),time()."-".$image->getClientOriginalName());
+
+
+        if($request->hasFile("image")){
+            $image = $request->file("image");
+            $filename = time()."-".$image->getClientOriginalName();
+            $image->move(public_path('profile_images'),$filename);
+            $user = User::findOrFail(auth()->user()->id);
+            $user->update([
+                'image' => $filename
+            ]);
+
+        }
 
         if (!empty($request->password_lama)) {
             if(Hash::check($request->password_lama, auth()->user()->password)){
@@ -73,5 +83,9 @@ class GuruController extends Controller
                 ]);
             }
         }
+        return response()->json([
+            'success' => true,
+            "message" => 'data berhasil diubah'
+        ]);
     }
 }
