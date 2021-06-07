@@ -38,7 +38,7 @@ class SiswaController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
         $user = User::findOrFail(auth()->user()->id);
-
+        $filename = null;
         if($request->hasFile("image")){
             $image = $request->file("image");
             $filename = time()."-".$image->getClientOriginalName();
@@ -75,6 +75,7 @@ class SiswaController extends Controller
         }
         return response()->json([
             'success' => true,
+            "image" => $request->hasFile("image") ? $filename : ""
         ]);
     }
 }

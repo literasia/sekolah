@@ -46,7 +46,7 @@ class GuruController extends Controller
         ]);
 
 
-
+        $filename = null;
         if($request->hasFile("image")){
             $image = $request->file("image");
             $filename = time()."-".$image->getClientOriginalName();
@@ -85,7 +85,8 @@ class GuruController extends Controller
         }
         return response()->json([
             'success' => true,
-            "message" => 'data berhasil diubah'
+            "message" => 'data berhasil diubah',
+            "image" => $request->hasFile("image") ? $filename : ""
         ]);
     }
 }
