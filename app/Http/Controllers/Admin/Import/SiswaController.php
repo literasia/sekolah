@@ -22,9 +22,10 @@ class SiswaController extends Controller
     public function import_excel(Request $request){
     	$data = $request->all();
     	// validasi
-		$this->validate($request, [
-		'file' => 'required|mimes:csv,xls,xlsx'
-		]);
+		// $this->validate($request, [
+		// 	'file' => 'required|mimes:csv,xls,xlsx'
+		// ]);
+
 
 		// menangkap file excel
 		// $file = $request->file('file');
