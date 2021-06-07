@@ -23,6 +23,7 @@ class SiswaController extends Controller
     	$data = $request->all();
     	// validasi
 		// $this->validate($request, [
+
 		// 'file' => 'required|mimes:csv,xls,xlsx'
 		// ]);
 		// menangkap file excel
