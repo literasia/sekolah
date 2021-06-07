@@ -23,10 +23,8 @@ class SiswaController extends Controller
     	$data = $request->all();
     	// validasi
 		// $this->validate($request, [
-		// 	'file' => 'required|mimes:csv,xls,xlsx'
+		// 'file' => 'required|mimes:csv,xls,xlsx'
 		// ]);
-
-
 		// menangkap file excel
 		// $file = $request->file('file');
 		$data['file'] = null;
@@ -39,7 +37,6 @@ class SiswaController extends Controller
 
 		// upload ke folder file_siswa di dalam folder public
 		// $file->move('file_siswa',$nama_file);
-
 
 		// import data
 		// Excel::import(new SiswaImport, public_path('/file_siswa/'.$nama_file));
