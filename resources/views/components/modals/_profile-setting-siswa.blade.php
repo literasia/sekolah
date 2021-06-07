@@ -30,7 +30,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="alamat">Alamat Sekolah:</label>
-                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah"></textarea>
+                                <textarea class="form-control form-control-sm" name="alamat" id="profile_alamat" rows="3" cols="10" placeholder="Alamat Sekolah" readonly></textarea>
                             </div>
                         </div>
                     </div>
