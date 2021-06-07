@@ -36,12 +36,17 @@ class GuruController extends Controller
     }
 
     public function update(Request $request){
-
         $profile = Sekolah::findOrFail(auth()->user()->id_sekolah);
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        ]);
 
         $profile->update([
             'alamat' => $request->alamat
         ]);
+
+        $image = $request->file("image");
+        $image->move(public_path('profile_images'),time()."-".$image->getClientOriginalName());
 
         if (!empty($request->password_lama)) {
             if(Hash::check($request->password_lama, auth()->user()->password)){

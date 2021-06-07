@@ -18,7 +18,7 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
-    protected $fillable = ['siswa_id', 'id_sekolah', 'name', 'username', 'nis', 'password', 'role_id'];
+    protected $fillable = ['siswa_id', 'id_sekolah', 'name', 'username', 'nis', 'password', 'role_id', 'image'];
 
     protected $guarded = [];
 

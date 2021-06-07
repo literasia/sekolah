@@ -11,7 +11,7 @@ use App\User;
 use App\Models\Superadmin\Addons;
 
 class SuratPeringatanController extends Controller
-{ 
+{
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         if ($request->ajax()) {
@@ -26,7 +26,7 @@ class SuratPeringatanController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        
+
         return view('admin.pelanggaran.surat-peringatan', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
@@ -92,21 +92,11 @@ class SuratPeringatanController extends Controller
                     'errors' => $validator->errors()->all()
                 ]);
         }
-<<<<<<< HEAD
 
-        $sueratPerin
 
-        $status = SuratPeringatan::whereId($request->input('hidden_id'))->update([
-            'name'  => $request->input('name'),
-            'poin'  => $request->input('poin'),
-        ]);
-=======
-        
-    
         $surat_peringatan = SuratPeringatan::findOrFail($request->hidden_id);
-        
+
         $surat_peringatan->update($request->all());
->>>>>>> 79f44726f6e6c6565ed914dd1265fd6a1b426be6
 
         return response()
             ->json([

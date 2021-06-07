@@ -37,18 +37,25 @@ class SiswaController extends Controller
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
-        $profile = Sekolah::findOrFail(auth()->user()->id_sekolah);
-        $image = $request->file("image");
-        $image->move(public_path('profile_images'),time()."-".$image->getClientOriginalName());
-        $profile->update([
-            'alamat' => $request->alamat
-        ]);
+        $user = User::findOrFail(auth()->user()->id);
+
+        if($request->hasFile("image")){
+            $image = $request->file("image");
+            $filename = time()."-".$image->getClientOriginalName();
+            $image->move(public_path('profile_images'),$filename);
+            $user = User::findOrFail(auth()->user()->id);
+            $user->update([
+                'image' => $filename
+            ]);
+        }else{
+            return response()->json("gada file");
+        }
+
 
         if (!empty($request->password_lama)) {
             if(Hash::check($request->password_lama, auth()->user()->password)){
                 // If Password lama != password db
                 if($request->confirmation_password == $request->password_baru){
-                    $user = User::findOrFail(auth()->user()->id);
                     $user->update([
                         'password' => Hash::make($request->password_baru),
                     ]);
