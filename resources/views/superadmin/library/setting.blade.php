@@ -25,13 +25,16 @@
                         <a class="nav-link" data-toggle="tab" href="#kategori" role="tab">Kategori</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#sub-kategori" role="tab">Sub Kategori</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tingkat" role="tab">Tingkat</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#penulis" role="tab">Penulis</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#penerbit" role="tab">Penerbit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tingkat" role="tab">Tingkat</a>
                     </li>
                 </ul>
                 <div class="tab-content modal-body">
@@ -44,6 +47,16 @@
                     <div class="tab-pane" id="kategori" role="tabpanel">
                         @include('superadmin.library.tabs._kategori')
                     </div>
+
+                    {{-- Sub Kategori --}}
+                    <div class="tab-pane" id="sub-kategori" role="tabpanel">
+                        @include('superadmin.library.tabs._sub-kategori')
+                    </div>
+
+                    {{-- Tingkat --}}
+                    <div class="tab-pane" id="tingkat" role="tabpanel">
+                        @include('superadmin.library.tabs._tingkat')
+                    </div>
                     
                     {{-- Penulis --}}
                     <div class="tab-pane" id="penulis" role="tabpanel">
@@ -53,11 +66,6 @@
                     {{-- Penerbit --}}
                     <div class="tab-pane" id="penerbit" role="tabpanel">
                         @include('superadmin.library.tabs._penerbit')
-                    </div>
-
-                    {{-- Tingkat --}}
-                    <div class="tab-pane" id="tingkat" role="tabpanel">
-                        @include('superadmin.library.tabs._tingkat')
                     </div>
                 </div>
             </div>
