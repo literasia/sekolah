@@ -275,6 +275,7 @@
                         data.errors.durasi ? $('#durasi').addClass('is-invalid') : $('#durasi').removeClass('is-invalid');
                         data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
                         toastr.error("data masih kosong!");
+                        console.log(data.errors);
                     }
 
                     if (data.success) {
