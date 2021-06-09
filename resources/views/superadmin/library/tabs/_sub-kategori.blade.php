@@ -23,7 +23,7 @@
                                         <option value="">-- Pilih Kategori --</option>
                                         <option value=""></option>
                                     </select>                                    
-                                    <span class="text-danger" id="sub_kategori_result"></span>
+                                    <span class="text-danger" id="kategori_result"></span>
                                 </div>
                             </div>
 

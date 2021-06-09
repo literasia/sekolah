@@ -110,6 +110,39 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
+            $("#kelas").children('option:gt(0)').show();
+            $('#unit').change(function () {
+                $('#row-kelas').hide();
+                $('.'+$(this).val()).show();
+                if($(this).val() == 'umum') {
+                   $('#row-kelas').hide(); 
+                }
+                $('#kelas').children('option').hide();
+
+                if($(this).val() == 'smp') {
+                    $('#kelas').children('option[value=""]').show();
+                    $('#kelas').children('option[value="1"]').show();
+                    $('#kelas').children('option[value="2"]').show();
+                    $('#kelas').children('option[value="3"]').show();
+                    $('#kelas').children('option[value="4"]').hide();
+                    $('#kelas').children('option[value="5"]').hide();
+                    $('#kelas').children('option[value="6"]').hide();
+                }
+
+                else if($(this).val() == 'sma') {
+                    $('#kelas').children('option[value=""]').show();
+                    $('#kelas').children('option[value="1"]').show();
+                    $('#kelas').children('option[value="2"]').show();
+                    $('#kelas').children('option[value="3"]').show();
+                    $('#kelas').children('option[value="4"]').hide();
+                    $('#kelas').children('option[value="5"]').hide();
+                    $('#kelas').children('option[value="6"]').hide();
+                }
+                else {
+                    $('#kelas').children('option').show();
+                }
+            });
+
             $('.btn-add').on('click', function (e) {
                 const addContainer = e.target.nextElementSibling;
                 $(addContainer).toggle(500);
