@@ -212,14 +212,17 @@
             $('.answer').hide();
             $('#' + $(this).val()).show();
         });
+
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
+
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
         });
+        
         let counter = 1;
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
