@@ -52,8 +52,8 @@
 			<div class="col-md-12">
 				<h6 class="font-weight-bold">Kerjakan kuis hanya sekali</h6>
 				<div class="custom-control custom-switch">
-		            <input type="checkbox" class="custom-control-input" name="once-quiz" id="take_quiz_only_once">
-		            <label class="custom-control-label" for="once-quiz">Aktifkan</label>
+		            <input type="checkbox" class="custom-control-input" name="take_quiz_only_once" id="take_quiz_only_once">
+		            <label class="custom-control-label" for="take_quiz_only_once">Aktif</label>
 		        </div>
 		        <small class="d-block mt-2">Jika mengaktifkan pilihan ini, pengguna dapat melengkapi kuis hanya sekli saja. Setelah itu, kuis akan diblokir untuk pengguna tersebut.</small>
 			</div>
