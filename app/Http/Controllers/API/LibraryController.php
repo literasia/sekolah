@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Superadmin\{Kategori, SubKategori, Library, Tingkat};
+use App\Models\Superadmin\{Kategori, SubKategori, Sekolah, Library, Tingkat};
 use App\Models\Pinjam;
 use App\Models\UserLibraryLike;
 use App\Utils\ApiResponse;
@@ -213,21 +213,25 @@ class LibraryController extends Controller
         return response()->json(ApiResponse::success(['kategori' => $kategori]));
     }
 
-    public function getKelas(){
+    public function getTingkat(){
         $tingkat = Tingkat::get();
         
         return response()->json(ApiResponse::success(['tingkat' => $tingkat]));
     }
 
-    public function getSubKategori(){
-        $sub_kategori = SubKategori::where('kategori_id', 1);
+    public function getSubKategori(Kategori $kategori){
+        $sub_kategori = SubKategori::where('kategori_id', $kategori->id)->get();
 
         return response()->json(ApiResponse::success(['sub_kategori' => $sub_kategori]));
     }
 
-    public function getBuku(Request $request){
-        $library = Library::where('tingkatan_kelas_buku_id', 1)
-                          ->where('sub_kategori_id', 1)
+    public function getBuku(SubKategori $sub_kategori, Tingkat $tingkat, $sekolah_id, Request $request){
+        $library = Library::where(function ($query) use($sekolah_id){
+                                $query->where('sekolah_id', $sekolah_id)
+                                      ->orWhereNull('sekolah_id');
+                          })
+                          ->where('tingkat_id', $tingkat->id)
+                          ->where('sub_kategori_id', $sub_kategori->id)
                           ->get();
 
         return response()->json(ApiResponse::success(['library' => $library]));
