@@ -45,7 +45,7 @@
                         <!--</div>-->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="kategori_id">Kategori:</label>
+                                <label for="sub_kategori_id">Sub Kategori:</label>
                                 <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" required>
                                     <option value="">-- Kategori --</option>
                                     @foreach ($kategoris as $kategori)
@@ -62,6 +62,23 @@
                                     @for ($year = 1975; $year <= date('Y'); $year++)
                                         <option value="{{ $year }}" {{ date('Y') ? 'selected' : '' }}>{{ $year }}</option>
                                     @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" id="row-unit">
+                            <div class="form-group">
+                                <label for="unit">Unit</label>
+                                <select name="unit" id="unit" class="form-control form-control-sm" required>
+                                    <option value="">-- Unit --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" id="row-kelas">
+                            <div class="form-group">
+                                <label for="unit">Kelas</label>
+                                <select name="unit" id="unit" class="form-control form-control-sm" required>
+                                    <option value="">-- Kelas --</option>
+                                        <option value=""></option>
                                 </select>
                             </div>
                         </div>

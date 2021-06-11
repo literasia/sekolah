@@ -264,7 +264,6 @@
 
                     if (data.errors) {
                         data.errors.soal_id ? $('#soal_id').addClass('is-invalid') : $('#soal_id').removeClass('is-invalid');
-                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
                         data.errors.jenis_kuis ? $('#jenis_kuis').addClass('is-invalid') : $('#jenis_kuis').removeClass('is-invalid');
                         data.errors.keterangan ? $('#keterangan').addClass('is-invalid') : $('#keterangan').removeClass('is-invalid');
                         data.errors.jumlah_soal_pg ? $('#jumlah_soal_pg').addClass('is-invalid') : $('#jumlah_soal_pg').removeClass('is-invalid');
@@ -276,6 +275,7 @@
                         data.errors.durasi ? $('#durasi').addClass('is-invalid') : $('#durasi').removeClass('is-invalid');
                         data.errors.status ? $('#status').addClass('is-invalid') : $('#status').removeClass('is-invalid');
                         toastr.error("data masih kosong!");
+                        console.log(data.errors);
                     }
 
                     if (data.success) {

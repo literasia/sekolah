@@ -230,46 +230,24 @@
                 </li>
                 @endif
 
-                
-                <li class="@if (request()->is('admin/cbt/kuis') || request()->is('admin/cbt/soal') || request()->is('admin/cbt/butir-soal')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="fa fa-swatchbook"></i></span>
-                        <span class="pcoded-mtext">Computer Based Test</span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('admin/cbt/soal') ? 'active' : '' }}">
-                            <a href="{{ route('admin.cbt.soal') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Soal</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('admin/cbt/butir-soal') ? 'active' : '' }}">
-                            <a href="{{ route('admin.cbt.butir-soal') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Butir Soal</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('admin/cbt/kuis') ? 'active' : '' }}">
-                            <a href="{{ route('admin.cbt.kuis') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Kuis</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('admin/cbt/penilaian') ? 'active' : '' }}">
-                            <a href="{{ route('admin.cbt.penilaian') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Penilaian</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('admin/cbt/ranking') ? 'active' : '' }}">
-                            <a href="{{ route('admin.cbt.ranking') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Ranking</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-             
-
                 <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
                         <span class="pcoded-mtext">Bank Soal</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/banksoal/soal') ? 'active' : '' }}">
+                            <a href="{{ route('admin.banksoal.soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Soal</span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
+
+                <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-desktop"></i></span>
+                        <span class="pcoded-mtext">Computer Based Test</span>
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('admin/banksoal/soal') ? 'active' : '' }}">

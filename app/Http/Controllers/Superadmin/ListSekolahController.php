@@ -15,6 +15,7 @@ use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
 use App\Models\Admin\Access;
 use App\Models\Superadmin\{Addons, Sekolah};
+use App\Models\Siswa;
 
 class ListSekolahController extends Controller
 {
@@ -286,20 +287,21 @@ class ListSekolahController extends Controller
 
     public function generate(){
         $list_sekolah = Sekolah::get();
-
+        
         foreach ($list_sekolah as $item) {
+            // get Roles to attach user roles
+            $role = Role::where('name', 'admin')->first();
+
             $user = User::create([
-                'name' => 'admin-'.$item->name,
-                'username' => 'admin-'.$item->id_sekolah,
-                'email' => $item->name.'@gmail.com',
-                'id_sekolah' => $item->id,
-                'password' => Hash::make('admin-'.$item->id_sekolah),
+                'role_id' => $role->id,
+                'name' => 'admin-'.$item->name, //admin-smkn2
+                'username' => 'admin-'.$item->id_sekolah, //admin-0941231 
+                'email' => $item->name.'@gmail.com', // smk2@gmail.com
+                'id_sekolah' => $item->id, // sekolah_id
+                'password' => Hash::make('belajarterus'), //admin-0941231 (admin-idsekolah)
             ]);
 
             $user_id = User::findOrFail($user->id);
-
-            // get Roles to attach user roles
-            $role = Role::where('name', 'admin')->first();
 
             // attach
             $user_id->roles()->attach($role->id);
@@ -313,4 +315,33 @@ class ListSekolahController extends Controller
 
         return redirect()->back();
     }
+
+    public function generateSiswa(){
+        $sekolah = Sekolah::get();
+        
+        foreach ($sekolah as $data_sekolah) {
+            foreach ($siswa as $item) {
+                // get Roles to attach user roles
+                $role = Role::where('name', 'siswa')->first();
+
+                $user = User::create([
+                    'role_id' => $role->id,
+                    'siswa_id' => $item->id,
+                    'name' => $item->nama_lengkap, //admin-smkn2
+                    'username' => $item->nisn, 
+                    'nis' => $item->nis,//admin-0941231 
+                    'id_sekolah' => $data_sekolah->id, // sekolah_id
+                    'password' => Hash::make('belajarterus'), //admin-0941231 (admin-idsekolah)
+                ]);
+
+                $user_id = User::findOrFail($user->id);
+                // attach
+                $user_id->roles()->attach($role->id);
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    
 }

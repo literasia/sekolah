@@ -79,6 +79,7 @@
                     console.log(data);
                     if (data.success) {
                         Swal.fire("Berhasil", data.message, "success");
+                        $("#foto-profile").attr("src", "/profile_images/"+data.image)
                         $('#form-profile')[0].reset();
                         $('#modal-profile').modal('hide');
                     }else{
