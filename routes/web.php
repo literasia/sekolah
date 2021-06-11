@@ -284,6 +284,7 @@ Route::namespace('Superadmin')
                 Route::resource('library-penulis', 'PenulisController');
                 Route::resource('library-penerbit', 'PenerbitController');
                 Route::resource('library-tingkat', 'TingkatController');
+                Route::resource('library-subkategori', 'SubKategoriController');
             });
     });
 

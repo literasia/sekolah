@@ -8,6 +8,8 @@
                 {{-- Form tambah --}}
                 <div id="add-tingkat-container" class="add-container">
                     <form id="form-tingkat" method="POST" action="{{ route('superadmin.library-tingkat.index') }}">
+                        @method('POST')
+                        @csrf
                         <div class="row">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                                 <div class="form-group">
@@ -19,19 +21,19 @@
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                                <div class="form-group">
-                                    <select name="unit" id="unit" class="form-control form-control-sm unit">
+                                    <select name="name" id="unit" class="form-control form-control-sm unit">
                                         <option value="">-- Pilih Unit --</option>
-                                        <option value="sd" class="unit-sd">SD</option>
-                                        <option value="smp" class="unit-smp">SMP</option>
-                                        <option value="sma" class="unit-sma">SMA</option>
-                                        <option value="umum" class="unit-umum">Umum</option>
+                                        <option value="SD" class="unit-sd">SD</option>
+                                        <option value="SMP" class="unit-smp">SMP</option>
+                                        <option value="SMA" class="unit-sma">SMA</option>
+                                        <option value="Umum" class="unit-umum">Umum</option>
                                     </select>                                    
                                     <span class="text-danger" id="sub_kategori_result"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row row-kelas sd smp sma umum" id="row-kelas" style="display: none;">
+                        <div class="row row-kelas SD SMP SMA Umum" id="row-kelas" style="display: none;">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                                 <div class="form-group">
                                     <label for="sub-kategori" class="mt-1">
@@ -42,7 +44,7 @@
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                                <div class="form-group">
-                                    <select name="kelas" id="kelas" class="form-control form-control-sm kelas">
+                                    <select name="tingkat" id="kelas" class="form-control form-control-sm kelas">
                                         <option value="">-- Pilih Unit --</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
