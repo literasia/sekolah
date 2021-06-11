@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 
-@section('title', 'Computer Based Test | Penilaian')
-@section('title-2', 'Penilaian')
-@section('title-3', 'Penilaian')
+@section('title', 'Computer Based Test | Soal Ujian')
+@section('title-2', 'Soal Ujian')
+@section('title-3', 'Soal Ujian')
 
 @section('describ')
-    Ini adalah halaman Penilaian untuk admin
+    Ini adalah halaman Soal Ujian untuk admin
 @endsection
 
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('admin.cbt.penilaian') }}
+    {{ route('admin.cbt.soal-ujian') }}
 @endsection
 
 @section('content')
@@ -26,10 +26,10 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Penilaian</th>
-                                    <th>Poin Jika Benar</th>
-                                    <th>Poin Jika Salah</th>
-                                    <th>Poin Jika Tidak Dijawab</th>
+                                    <th>Judul Ujian</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Kelas</th>
+                                    <th>Nama Guru</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-@include('admin.cbt.modals._tambah-penilaian')
+@include('admin.cbt.modals._tambah-soal-ujian')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -97,7 +97,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.cbt.penilaian') }}",
+                url: "{{ route('admin.cbt.soal-ujian') }}",
             },
             columns: [
             {
@@ -105,20 +105,20 @@
                 name: 'DT_RowIndex'
             },
             {
-                data: 'nama_penilaian',
-                name: 'nama_penilaian'
+                data: 'judul_ujian',
+                name: 'judul_ujian'
             },
             {
-                data: 'poin_jika_benar',
-                name: 'poin_jika_benar'
+                data: 'mata_pelajaran',
+                name: 'mata_pelajaran'
             },
             {
-                data: 'poin_jika_salah',
-                name: 'poin_jika_salah'
+                data: 'kelas',
+                name: 'kelas'
             },
             {
-                data: 'poin_jika_tidak_jawab',
-                name: 'poin_jika_tidak_jawab'
+                data: 'guru',
+                name: 'guru'
             },
             {
                 data: 'action',
@@ -128,14 +128,16 @@
         });
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Penilaian');
+            $('.modal-title').html('Tambah Soal Ujian');
             $('.form-control').val('');
             $('#action').val('add');
             $('#hidden_id').val('');
-            $('#nama_penilaian').val('');
-            $('#poin_jika_benar').val('');
-            $('#poin_jika_salah').val('');
-            $('#poin_jika_tidak_jawab').val('');
+            $('#judul_ujian').val('');
+            $('#guru_id').val('');
+            $('#mata_pelajaran_id').val('');
+            $('#kelas_id').val('');
+            $('#jumlah_soal').val('');
+            $('#status').val('');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')

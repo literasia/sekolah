@@ -12,15 +12,16 @@ use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class PenilaianController extends Controller
+class SoalUjianController extends Controller
 {
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         
-        return view('admin.cbt.penilaian')
+        
+        return view('admin.cbt.soal-ujian')
                                     ->with('mySekolah', User::sekolah())
-                                    ->with('addons', $addons);  
+                                    ->with('addons', $addons);
     }
 
     public function store(Request $request){
@@ -29,13 +30,13 @@ class PenilaianController extends Controller
 
     public function edit($id){
         //
-    }
+    }   
 
     public function update(Request $request){
         //
     }
 
-    public function destroy($id, Request $request){
+    public function destroy($id){
         //
     }
 }

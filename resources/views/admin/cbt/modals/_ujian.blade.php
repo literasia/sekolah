@@ -3,7 +3,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Kuis
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -14,18 +13,18 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tambah-kuis" role="tab">Keterangan Kuis</a>
+                            <a class="nav-link active" data-toggle="tab" href="#tambah-ujian" role="tab">Keterangan Ujian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#pengaturan-kuis" role="tab">Pengaturan</a>
+                            <a class="nav-link" data-toggle="tab" href="#pengaturan-ujian" role="tab">Pengaturan</a>
                         </li>
                     </ul>
                     <div class="tab-content modal-body">
-                        <div class="tab-pane active" id="tambah-kuis" role="tabpanel">
-                            @include('admin.cbt.modals._tambah-kuis')
+                        <div class="tab-pane active" id="tambah-ujian" role="tabpanel">
+                            @include('admin.cbt.modals._tambah-ujian')
                         </div>
-                        <div class="tab-pane" id="pengaturan-kuis" role="tabpanel">
-                            @include('admin.cbt.modals._pengaturan-kuis')
+                        <div class="tab-pane" id="pengaturan-ujian" role="tabpanel">
+                            @include('admin.cbt.modals._pengaturan-ujian')
                         </div>
                     </div> 
                 </div>

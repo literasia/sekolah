@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 
-@section('title', 'Computer Based Test | Penilaian')
-@section('title-2', 'Penilaian')
-@section('title-3', 'Penilaian')
+@section('title', 'Computer Based Test | Ujian')
+@section('title-2', 'Ujian')
+@section('title-3', 'Ujian')
 
 @section('describ')
-    Ini adalah halaman Penilaian untuk admin
+    Ini adalah halaman Ujian untuk admin
 @endsection
 
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('admin.cbt.penilaian') }}
+    {{ route('admin.cbt.ujian') }}
 @endsection
 
 @section('content')
@@ -22,19 +22,25 @@
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                       <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Penilaian</th>
-                                    <th>Poin Jika Benar</th>
-                                    <th>Poin Jika Salah</th>
-                                    <th>Poin Jika Tidak Dijawab</th>
+                                    <th>Paket Soal</th>
+                                    <th>Nama Guru</th>
+                                    <th>Keterangan</th>
+                                    <th>Durasi</th>
+                                    <th>Jumlah Pilihan Ganda</th>
+                                    <th>Jumlah Essai</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Selesai</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
                             </tbody>
                         </table>
                     </div>
@@ -43,7 +49,8 @@
         </div>
     </div>
 </div>
-@include('admin.cbt.modals._tambah-penilaian')
+
+@include('admin.cbt.modals._ujian')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -60,9 +67,7 @@
         </div>
     </div>
 </div>
-
 @endsection
-
 
 {{-- addons css --}}
 @push('css')
@@ -76,8 +81,57 @@
     .btn i {
         margin-right: 0px;
     }
+    .rotate{
+        -moz-transition: all .2s linear;
+        -webkit-transition: all 2s linear;
+        transition: all .2s linear;
+    }
+    .rotate.down{
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+        transform:rotate(90deg);
+    }
+    .badge-secondary {
+        background-color: #6c757d6b;
+    }
+    .duration-option, .duration-option:focus {
+        border: 1px solid #ced4da!important;
+        background-color: #85ccff4a;
+    }
+    .quiz-modal-wrapper {
+        position: relative;
+    }
+
+    .quiz-modal-caption {
+        position: absolute;
+        top: -35px;
+        left: 20px;
+        background: #fff;
+    }
+    .demo-content {
+        visibility: hidden;
+        display: none;
+        z-index: 9999999!important;
+        background: #fff;
+    }
+    .demo-wrapper a:hover + .demo-content, .demo-wrapper a:active + .demo-content, .demo-wrapper a:focus + .demo-content {
+        visibility: visible;
+        display: block;
+    }
+    .form-check-input-custom {
+        margin-left: -1rem!important;
+    }
+    .btn-next {
+        border-radius: 30px;
+    }
+    .border-bottom-custom {
+        border-bottom: 2px solid red;
+    }
     .modal-dialog {
-        margin-bottom: 6rem!important;
+        margin-bottom: 20rem!important;
+    }
+    .nav-link.active {
+        font-weight: bold;
     }
 </style>
 @endpush
@@ -91,13 +145,13 @@
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-<script type="text/javascript">
+<script>
     $('document').ready(function() {
         $('#order-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.cbt.penilaian') }}",
+                url: "{{ route('admin.cbt.ujian') }}",
             },
             columns: [
             {
@@ -105,20 +159,48 @@
                 name: 'DT_RowIndex'
             },
             {
-                data: 'nama_penilaian',
-                name: 'nama_penilaian'
+                data: 'paket_soal',
+                name: 'paket_soal'
             },
             {
-                data: 'poin_jika_benar',
-                name: 'poin_jika_benar'
+                data: 'guru',
+                name: 'guru'
             },
             {
-                data: 'poin_jika_salah',
-                name: 'poin_jika_salah'
+                data: 'keterangan',
+                name: 'keterangan'
             },
             {
-                data: 'poin_jika_tidak_jawab',
-                name: 'poin_jika_tidak_jawab'
+                data: 'durasi',
+                name: 'durasi'
+            },
+            {
+                data: 'jumlah_soal_pg',
+                name: 'jumlah_soal_pg'
+            },
+            {
+                data: 'jumlah_soal_essai',
+                name: 'jumlah_soal_essai'
+            },
+            {
+                data: 'tanggal_mulai',
+                name: 'tanggal_mulai'
+            },
+            {
+                data: 'tanggal_selesai',
+                name: 'tanggal_selesai'
+            },
+            {
+                data: 'jam_mulai',
+                name: 'jam_mulai'
+            },
+            {
+                data: 'jam_selesai',
+                name: 'jam_selesai'
+            },
+            {
+                data: 'status',
+                name: 'status'
             },
             {
                 data: 'action',
@@ -128,14 +210,9 @@
         });
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Penilaian');
+            $('.modal-title').html('Tambah Ujian');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#hidden_id').val('');
-            $('#nama_penilaian').val('');
-            $('#poin_jika_benar').val('');
-            $('#poin_jika_salah').val('');
-            $('#poin_jika_tidak_jawab').val('');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -144,8 +221,8 @@
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-soal').modal('show');
+            $('#modal-kuis').modal('show');
         });
-    });
+    })
 </script>
 @endpush
