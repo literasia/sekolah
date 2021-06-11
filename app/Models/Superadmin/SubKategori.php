@@ -11,4 +11,8 @@ class SubKategori extends Model
     public function kategori(){
         return $this->belongsTo(Kategori::class);
     }
+
+    public function library(){
+        return $this->hasMany(Library::class);
+    }
 }
