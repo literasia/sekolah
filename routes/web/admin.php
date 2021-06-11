@@ -366,10 +366,18 @@ Route::namespace('Forum')->group(function () {
         ->name('forum.forum-update');
     Route::get('/admin/forum/forum/hapus/{id}', 'ForumController@destroy');
 
+    Route::get('/admin/forum/pengguna', 'PenggunaController@index')->name('forum.pengguna');
+    Route::post('/admin/forum/pengguna', 'PenggunaController@store');
+    Route::get('/admin/forum/pengguna/{id}', 'PenggunaController@edit');
+    Route::post('/admin/forum/pengguna/update', 'PenggunaController@update')
+        ->name('forum.pengguna-update');
+    Route::get('/admin/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
+});
+    
 // //Aktifitas
 //     Route::get('/admin/forum/ aktifitas', 'AktifitasController@index')
 //         -name('forum.aktifitas');  
-});
+
 
 //Leaderboard
 // Forum
