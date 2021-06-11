@@ -83,7 +83,7 @@
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                                <div class="form-group">
-                                    <select name="name" id="unit" class="form-control form-control-sm unit">
+                                    <select name="name" id="unit-update" class="form-control form-control-sm unit">
                                         <option value="">-- Pilih Unit --</option>
                                         <option value="SD" class="unit-sd">SD</option>
                                         <option value="SMP" class="unit-smp">SMP</option>
@@ -106,8 +106,8 @@
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                                <div class="form-group">
-                                    <select name="tingkat" id="tingkat-update" class="form-control form-control-sm kelas">
-                                        <option value="">-- Pilih tingkat --</option>
+                                    <select name="tingkat" id="kelas" class="form-control form-control-sm kelas">
+                                        <option value="">-- Pilih Unit --</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -134,6 +134,7 @@
                     <thead class="text-center">
                         <tr>
                             <th>No.</th>
+                            <th>Unit</th>
                             <th>Tingkat</th>
                             <th>Actions</th>
                         </tr>
@@ -143,6 +144,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $tingkat->name }}</td>
+                                <td>{{ $tingkat->tingkat }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-info shadow-sm" id="edit-tingkat" data-id="{{ $tingkat->id }}"><i class="fa fa-pencil-alt"></i></button>
                                     <button type="button" class="btn btn-sm btn-danger shadow-sm" id="delete-tingkat"

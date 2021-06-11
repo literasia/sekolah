@@ -15,7 +15,6 @@ class TingkatController extends Controller
     ];
     private $validationAdd = [
         'name' => ['required'],
-        'tingkat' => ['required']
     ];
     public function index()
     {

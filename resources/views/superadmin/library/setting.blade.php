@@ -300,9 +300,8 @@
                     url: '/superadmin/library-tingkat/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#row-kelas').show();
                         formUpdateTingkat.action = `/superadmin/library-tingkat/${id}`;
-                        $('#tingkat-update').val(data.tingkat.name);
+                        $('#unit-update').val(data.tingkat.name);
                         $(updateTingkatContainer).show(500);
                         $(addTingkatContainer).hide();
                         if ($(addTingkatBtn).text() == 'Batal') {
