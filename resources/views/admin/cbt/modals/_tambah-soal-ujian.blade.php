@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="judul">Judul</label>
+                                <label for="judul">Judul Ujian</label>
                                 <input type="text" name="judul" id="judul" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -26,9 +26,6 @@
                                 <label for="mata_pelajaran">Mata Pelajaran</label>
                                 <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
-                                    @foreach ($mata_pelajaran as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama_pelajaran }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -38,9 +35,6 @@
                                 <label for="kelas">Kelas</label>
                                 <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
-                                    @foreach ($kelas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -49,9 +43,6 @@
                                 <label for="guru">Nama Guru</label>
                                 <select name="guru_id" id="guru_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
-                                    @foreach ($guru as $item)
-                                        <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>

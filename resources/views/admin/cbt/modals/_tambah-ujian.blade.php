@@ -4,9 +4,6 @@
             <label for="soal_id">Soal</label>
             <select name="soal_id" id="soal_id" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-                @foreach ($soal as $item)
-                    <option value="{{ $item->id }}">{{ $item->judul }}</option>
-                @endforeach
             </select>
         </div>
     </div>
@@ -15,19 +12,6 @@
             <label for="guru_id">Guru</label>
             <select name="guru_id" id="guru_id" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-                @foreach ($guru as $item)
-                    <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            <label for="jenis_kuis">Jenis Kuis</label>
-            <select name="jenis_kuis" id="jenis_kuis" class="form-control form-control-sm">
-                <option value="">-- Pilih --</option>
-                <option value="latihan">Latihan</option>
-                <option value="ulangan">Ulangan</option>
             </select>
         </div>
     </div>
@@ -50,6 +34,12 @@
         </div>
     </div>
 
+    <div class="col">
+        <div class="form-group">
+            <label for="jumlah_soal_essai">Jumlah Soal Essai</label>
+            <input type="number" id="jumlah_soal_essai" name="jumlah_soal_essai" class="form-control form-control-sm">
+        </div>
+    </div>
 </div>
 
 <div class="row">

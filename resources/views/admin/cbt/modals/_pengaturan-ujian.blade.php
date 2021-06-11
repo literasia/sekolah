@@ -3,7 +3,7 @@
    <div class="border rounded p-3">
 		<div class="row mt-2 mb-4">
 			<div class="col-md-12">
-				<h6 class="font-weight-bold">Sembunyikan judul kuis</h6>
+				<h6 class="font-weight-bold">Sembunyikan judul ujian</h6>
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="is_hide_title" id="hide-quiz" >
 		            <label class="custom-control-label" for="hide-quiz">Aktifkan</label>
@@ -12,17 +12,17 @@
 		</div>
 		<div class="row mb-4">
 			<div class="col-md-12">
-				<h6 class="font-weight-bold">Sembunyikan tombol "Mulai ulang kuis"</h6>
+				<h6 class="font-weight-bold">Sembunyikan tombol "Mulai ulang ujian"</h6>
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="restart_quiz" id="restart-quiz">
 		            <label class="custom-control-label" for="restart-quiz">Aktifkan</label>
 		        </div>
-		        <small class="d-block mt-2">Sembunyikan tombol "Mulai ulang kuis" pada tampilan aplikasi</small>
+		        <small class="d-block mt-2">Sembunyikan tombol "Mulai ulang ujian" pada tampilan aplikasi</small>
 			</div>
 		</div>
 		<div class="row mb-4">
 			<div class="col-md-12">
-				<h6 class="font-weight-bold">Tampilkan kuis secara acak</h6>
+				<h6 class="font-weight-bold">Tampilkan ujian secara acak</h6>
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="random_question" id="random-quiz" checked>
 		            <label class="custom-control-label" for="random-quiz">Aktif</label>
@@ -45,17 +45,17 @@
 		            <input type="checkbox" class="custom-control-input" name="statistic" id="quiz-statistic" checked>
 		            <label class="custom-control-label" for="quiz-statistic">Aktif</label>
 		        </div>
-		        <small class="d-block mt-2">Statistik mengenai jawaban benar dan salah. Statistik akan disimpan saat kuis selesai, bukan setelah setiap pertanyaan.</small>
+		        <small class="d-block mt-2">Statistik mengenai jawaban benar dan salah. Statistik akan disimpan saat ujian selesai, bukan setelah setiap pertanyaan.</small>
 			</div>
 		</div>
 		<div class="row mb-4">
 			<div class="col-md-12">
-				<h6 class="font-weight-bold">Kerjakan kuis hanya sekali</h6>
+				<h6 class="font-weight-bold">Kerjakan ujian hanya sekali</h6>
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="once-quiz" id="take_quiz_only_once">
 		            <label class="custom-control-label" for="once-quiz">Aktifkan</label>
 		        </div>
-		        <small class="d-block mt-2">Jika mengaktifkan pilihan ini, pengguna dapat melengkapi kuis hanya sekli saja. Setelah itu, kuis akan diblokir untuk pengguna tersebut.</small>
+		        <small class="d-block mt-2">Jika mengaktifkan pilihan ini, pengguna dapat melengkapi ujian hanya sekali saja. Setelah itu, ujian akan diblokir untuk pengguna tersebut.</small>
 			</div>
 		</div>
 		<div class="row mb-4">
@@ -87,17 +87,17 @@
 		            <input type="checkbox" class="custom-control-input" name="autostart" id="autostart">
 		            <label class="custom-control-label" for="autostart">Aktifkan</label>
 		        </div>
-		        <small class="d-block mt-2">Jika memilih pilihan ini, kuis kan dimulai secara otomatis setelah halaman tampil.</small>
+		        <small class="d-block mt-2">Jika memilih pilihan ini, ujian kan dimulai secara otomatis setelah halaman tampil.</small>
 			</div>
 		</div>
 		<div class="row mb-4">
 			<div class="col-md-12">
-				<h6 class="font-weight-bold">Hanya pengguna terdaftar yang bisa memulai kuis</h6>
+				<h6 class="font-weight-bold">Hanya pengguna terdaftar yang bisa memulai ujian</h6>
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="only_registered" id="registered-user" checked="">
 		            <label class="custom-control-label" for="registered-user">Aktif</label>
 		        </div>
-		        <small class="d-block mt-2">Jika memilih pilihan ini, hanya pengguna terdaftar yang dapat memulai kuis.</small>
+		        <small class="d-block mt-2">Jika memilih pilihan ini, hanya pengguna terdaftar yang dapat memulai ujian.</small>
 			</div>
 		</div>
 	</div>
@@ -113,7 +113,7 @@
 		            <input type="checkbox" class="custom-control-input" name="show_point" id="show-point">
 		            <label class="custom-control-label" for="show-point">Aktifkan</label>
 		        </div>
-		        <small class="d-block mt-2">Tampilkan di kuis, berapa banyak poin untuk masing-masing pertanyaan.</small>
+		        <small class="d-block mt-2">Tampilkan di ujian, berapa banyak poin untuk masing-masing pertanyaan.</small>
 		    </div>
 		</div>
 		<div class="row mb-4 ">
@@ -433,7 +433,7 @@
 		        	<div class="demo-content position-absolute p-3 shadow rounded">
 		        		<div class="row p-2">
 		        			<div class="col-md-12">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p>Waktu kamu: 00:00:07</p>
@@ -491,7 +491,7 @@
 		        					</div>
 		        				</div>
 		        				<div class="mt-3">
-		        					<button class="d-inline-block btn btn-info btn-next">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next">Lihat pertanyaan</button>
 		        				</div>
 		        			</div>
@@ -513,7 +513,7 @@
 		        	<div class="demo-content position-absolute p-3 shadow rounded">
 		        		<div class="row p-2">
 		        			<div class="col-md-6 border p-3">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2 border-bottom-custom">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p>Waktu kamu: 00:00:07</p>
@@ -571,13 +571,13 @@
 		        					</div>
 		        				</div>
 		        				<div class="my-3">
-		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
 		        				</div>
 		        				<h5 class="font-weight-bold mt-4">Normal</h5>
 		        			</div>
 		        			<div class="col-md-6 border p-3">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2 invisible">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p>Waktu kamu: 00:00:07</p>
@@ -635,7 +635,7 @@
 		        					</div>
 		        				</div>
 		        				<div class="my-3">
-		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
 		        				</div>
 		        				<h5 class="font-weight-bold mt-4">Diaktifkan</h5>
@@ -647,18 +647,18 @@
 		</div>
 		<div class="row mb-4">
 			<div class="col-md-12">
-				<h6 class="font-weight-bold">Sembunyikan tampilan waktu kuis</h6>
+				<h6 class="font-weight-bold">Sembunyikan tampilan waktu ujian</h6>
 				<div class="custom-control custom-switch">
 		            <input type="checkbox" class="custom-control-input" name="hide_quiz_time" id="hide-quiz-time">
 		            <label class="custom-control-label" for="hide-quiz-time">Aktifkan</label>
 		        </div>
-		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, maka waktu untuk menyelesaikan kuis ini tidak akan ditampilkan.</small>
+		        <small class="d-block mt-2">Jika pilihan ini diaktifkan, maka waktu untuk menyelesaikan ujian ini tidak akan ditampilkan.</small>
 		        <div class="demo-wrapper position-relative">
 		        	<a href="#" class="text-info"><u>Demo</u></a>
 		        	<div class="demo-content position-absolute p-3 shadow rounded">
 		        		<div class="row p-2">
 		        			<div class="col-md-6 border p-3">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p class="border-bottom-custom">Waktu kamu: 00:00:07</p>
@@ -716,13 +716,13 @@
 		        					</div>
 		        				</div>
 		        				<div class="my-3">
-		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
 		        				</div>
 		        				<h5 class="font-weight-bold mt-4">Normal</h5>
 		        			</div>
 		        			<div class="col-md-6 border p-3">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p class="invisible">Waktu kamu: 00:00:07</p>
@@ -780,7 +780,7 @@
 		        					</div>
 		        				</div>
 		        				<div class="my-3">
-		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
 		        				</div>
 		        				<h5 class="font-weight-bold mt-4">Diaktifkan</h5>
@@ -803,7 +803,7 @@
 		        	<div class="demo-content position-absolute p-3 shadow rounded">
 		        		<div class="row p-2">
 		        			<div class="col-md-6 border p-3">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p>Waktu kamu: 00:00:07</p>
@@ -861,13 +861,13 @@
 		        					</div>
 		        				</div>
 		        				<div class="my-3">
-		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
 		        				</div>
 		        				<h5 class="font-weight-bold mt-4">Normal</h5>
 		        			</div>
 		        			<div class="col-md-6 border p-3">
-		        				<h5 class="font-weight-bold">Kuis Tes</h5>
+		        				<h5 class="font-weight-bold">Ujian Tes</h5>
 		        				<h6 class="font-weight-bold">Hasil</h6>
 		        				<p class="mb-2">1 dari 11 pertanyaan terjawab dengan benar</p>
 		        				<p>Waktu kamu: 00:00:07</p>
@@ -925,7 +925,7 @@
 		        					</div>
 		        				</div>
 		        				<div class="my-3">
-		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang kuis</button>
+		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Mulai ulang ujian</button>
 		        					<button class="d-inline-block btn btn-info btn-next btn-sm">Lihat pertanyaan</button>
 		        				</div>
 		        				<h5 class="font-weight-bold mt-4">Diaktifkan</h5>
