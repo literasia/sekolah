@@ -84,4 +84,5 @@ Route::namespace('API')
         Route::get('library/get-sub-kategori/{kategori}', 'LibraryController@getSubKategori');
         Route::get('library/get-tingkat', 'LibraryController@getTingkat');
         Route::get('library/get-buku/{sub_kategori}/{tingkat}/{sekolah_id}', 'LibraryController@getBuku');
+
     });
