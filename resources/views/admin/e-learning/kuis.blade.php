@@ -104,9 +104,9 @@
     }
 
     .quiz-modal-caption {
-        position: absolute; 
-        top: -35px; 
-        left: 20px; 
+        position: absolute;
+        top: -35px;
+        left: 20px;
         background: #fff;
     }
     .demo-content {
@@ -229,10 +229,10 @@
             $('#modal-kuis').modal('show');
         });
 
-        
+
         $('#form-kuis-ku').on('submit', function (event) {
             event.preventDefault();
-            console.log('ta');
+            // console.log('ta');
             var url = '';
             var text = "Data sukses ditambahkan";
 
@@ -245,6 +245,8 @@
                 url = "{{ route('admin.e-learning.kuis.update') }}";
                 text = "Data sukses diupdate";
             }
+
+            // console.log("fields ",$(this).serialize());
 
             $.ajax({
                 url: url,
@@ -262,7 +264,6 @@
 
                     if (data.errors) {
                         data.errors.soal_id ? $('#soal_id').addClass('is-invalid') : $('#soal_id').removeClass('is-invalid');
-                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
                         data.errors.jenis_kuis ? $('#jenis_kuis').addClass('is-invalid') : $('#jenis_kuis').removeClass('is-invalid');
                         data.errors.keterangan ? $('#keterangan').addClass('is-invalid') : $('#keterangan').removeClass('is-invalid');
                         data.errors.jumlah_soal_pg ? $('#jumlah_soal_pg').addClass('is-invalid') : $('#jumlah_soal_pg').removeClass('is-invalid');
@@ -308,7 +309,7 @@
         });
 
         $(".rotate-collapse").click(function() {
-            $(".rotate").toggleClass("down"); 
+            $(".rotate").toggleClass("down");
         });
 
         $(document).on('click', '.edit', function () {
@@ -317,7 +318,10 @@
                 url: '/admin/e-learning/kuis/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-                    
+                    // console.log(data);
+                    for (const peng in data.pengaturan) {
+                        $(`input[name="${peng}"]`).attr("checked", data.pengaturan[peng]?true:false);
+                    }
                     $('#hidden_id').val(data.id);
                     $('#soal_id').val(data.soal_id);
                     $('#guru_id').val(data.guru_id);
@@ -332,6 +336,9 @@
                     $('#keterangan').val(data.keterangan);
                     $('#status').val(data.status);
                     $('#action').val('edit');
+                    if (data.is_hide_title == 1) {
+                        $('#hide-quiz').attr('checked', 'checked');
+                    } 
                     $('#btn')
                         .removeClass('btn-success')
                         .addClass('btn-info')

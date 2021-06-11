@@ -46,10 +46,10 @@
                         <div class="col">
                             <div class="form-group m-0" id="answer-group">
                                 <label>Jawaban</label>
-                                <div id="answer-form0">
+                                <div id="answer-form">
                                     <div class="row">
                                         <div class="col-8">
-                                            <input type="text" name="jawaban[]" id="jawaban0" class="form-control form-control-sm mb-3">
+                                            <input type="text" name="jawaban[]" id="jawaban" class="form-control form-control-sm mb-3">
                                         </div>
                                         <div class="col-4">
                                             <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block">

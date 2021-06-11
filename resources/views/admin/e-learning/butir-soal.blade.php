@@ -212,14 +212,17 @@
             $('.answer').hide();
             $('#' + $(this).val()).show();
         });
+
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
+
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
         });
+        
         let counter = 1;
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
@@ -345,7 +348,7 @@
                 data: $(this).serialize(),
                 success: function (data) {
                     if (data.errors) {
-                        data.errors.poin ? $('#point').addClass('is-invalid') : $('#point').removeClass('is-invalid');
+                        data.errors.poin ? $('#poin').addClass('is-invalid') : $('#poin').removeClass('is-invalid');
                         data.errors.jenis_soal ? $('#question_type').addClass('is-invalid') : $('#question_type').removeClass('is-invalid');
                         toastr.error("data masih kosong!");
                     }
@@ -379,8 +382,12 @@
                     $('#hidden_id').val(data.id);
                     tinymce.get('pertanyaan').setContent(data.pertanyaan);
                     $('#question_type').val(data.jenis_soal);
+                    $('#poin').val(data.poin);
                     $('#answer-group').html('');
-
+                    if (data.jenis_soal == "single-choice") {
+                        $('#addButton').hide();
+                        $('#removeButton').hide();
+                    }
 
                     counter = 0;
                     if (data.jenis_soal == "multiple-choice") {

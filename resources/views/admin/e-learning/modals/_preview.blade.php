@@ -15,7 +15,7 @@
                         <div class="mt-2 family-modal-wrapper">
                             <h5 class="font-weight-bold d-inline-block family-modal-caption mt-4 px-2">Pertanyaan</h5>
                             <div class="border rounded p-3 bg-light">
-                                <p id="preview-pertanyaan"></p>
+                                <p id="preview-pertanyaan" class="mt-3"></p>
                             </div>
                         </div>
                     </div>

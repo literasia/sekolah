@@ -15,8 +15,8 @@ class CreatePengaturanKuisTable extends Migration
     {
         Schema::create('pengaturan_kuis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('is_hide_title')->default(0);
             $table->unsignedBigInteger('sekolah_id');
+            $table->integer('is_hide_title')->default(0);
             $table->foreign('sekolah_id')->references('id')->on('sekolahs')->onDelete('cascade');
             $table->timestamps();
         });
