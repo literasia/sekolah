@@ -267,6 +267,35 @@
                     </ul>
                 </li>
                 @endif
+
+                <li class="@if (request()->is('guru/e-learning/materi') || request()->is('guru/e-learning/kuis') || request()->is('guru/e-learning/soal') || request()->is('guru/e-learning/butir-soal')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-swatchbook"></i></span>
+                        <span class="pcoded-mtext">E-Learning</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('guru/e-learning/materi') ? 'active' : '' }}">
+                            <a href="{{ route('guru.e-learning.materi') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Materi</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('guru/e-learning/soal') ? 'active' : '' }}">
+                            <a href="{{ route('guru.e-learning.soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Soal</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('guru/e-learning/butir-soal') ? 'active' : '' }}">
+                            <a href="{{ route('guru.e-learning.butir-soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Butir Soal</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('guru/e-learning/kuis') ? 'active' : '' }}">
+                            <a href="{{ route('guru.e-learning.kuis') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Kuis</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

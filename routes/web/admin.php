@@ -253,46 +253,6 @@ Route::namespace('ELearning')->group(function () {
     Route::get('/admin/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('e-learning.butir-soal.delete');
 });
 
-// Computer Based Test
-Route::namespace('cbt')->group(function () {
-
-    // Kuis
-    Route::get('/admin/cbt/kuis', 'KuisController@index')->name('cbt.kuis');
-    Route::post('/admin/cbt/kuis', 'KuisController@store')->name('cbt.kuis.store');
-    Route::get('/admin/cbt/kuis/{id}', 'KuisController@edit')->name('cbt.kuis.edit');
-    Route::post('/admin/cbt/kuis/update', 'KuisController@update')->name('cbt.kuis.update');
-    Route::get('/admin/cbt/kuis/hapus/{id}', 'KuisController@destroy')->name('cbt.kuis.delete');
-
-    // Soal
-    Route::get('/admin/cbt/soal', 'SoalController@index')->name('cbt.soal');
-    Route::post('/admin/cbt/soal', 'SoalController@store')->name('cbt.soal.store');
-    Route::get('/admin/cbt/soal/{id}', 'SoalController@edit')->name('cbt.soal.edit');
-    Route::post('/admin/cbt/soal/update', 'SoalController@update')->name('cbt.soal.update');
-    Route::get('/admin/cbt/soal/hapus/{id}', 'SoalController@destroy')->name('cbt.soal.delete');
-
-    // Butir Soal
-    Route::get('/admin/cbt/butir-soal', 'ButirSoalController@index')->name('cbt.butir-soal');
-    Route::post('/admin/cbt/butir-soal', 'ButirSoalController@store')->name('cbt.butir-soal.store');
-    Route::get('/admin/cbt/butir-soal/{id}', 'ButirSoalController@edit')->name('cbt.butir-soal.edit');
-    Route::post('/admin/cbt/butir-soal/update', 'ButirSoalController@update')->name('cbt.butir-soal.update');
-    Route::get('/admin/cbt/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('cbt.butir-soal.delete');
-
-    // Penilaian
-    Route::get('/admin/cbt/penilaian', 'penilaianController@index')->name('cbt.penilaian');
-    Route::post('/admin/cbt/penilaian', 'penilaianController@store')->name('cbt.penilaian.store');
-    Route::get('/admin/cbt/penilaian/{id}', 'penilaianController@edit')->name('cbt.penilaian.edit');
-    Route::post('/admin/cbt/penilaian/update', 'penilaianController@update')->name('cbt.penilaian.update');
-    Route::get('/admin/cbt/penilaian/hapus/{id}', 'penilaianController@destroy')->name('cbt.penilaian.delete');
-
-    // Ranking
-    Route::get('/admin/cbt/ranking', 'rankingController@index')->name('cbt.ranking');
-    Route::post('/admin/cbt/ranking', 'rankingController@store')->name('cbt.ranking.store');
-    Route::get('/admin/cbt/ranking/{id}', 'rankingController@edit')->name('cbt.ranking.edit');
-    Route::post('/admin/cbt/ranking/update', 'rankingController@update')->name('cbt.ranking.update');
-    Route::get('/admin/cbt/ranking/hapus/{id}', 'rankingController@destroy')->name('cbt.ranking.delete');
-});
-
-
 // Bank Soal
 Route::namespace('BankSoal')->group(function () {
     Route::get('/admin/banksoal/soal', 'SoalController@index')

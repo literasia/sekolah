@@ -19,11 +19,9 @@ class SiswaImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row[0]);exit();
-
         $siswaId = Siswa::create([
             'nama_lengkap' => $row['nama'],
-            'nis' => $row['nis'], 
+            'nis' => $row['nis'],
             'nisn' => $row['nisn'],
             'poin' => $row['poin'],
             'kelas_id' => $row['kelas_id'],
@@ -46,7 +44,6 @@ class SiswaImport implements ToModel, WithHeadingRow
         return $siswaOrtu = new SiswaOrangTua([
             'id_siswa' => $siswaId,
         ]);
-
 
     }
 }

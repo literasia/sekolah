@@ -123,6 +123,19 @@ Ini adalah halaman library untuk superadmin
         });
     });
 
+    $('#unit').change(function () {
+        if($(this).val() == 'umum') {
+            $('#row-kelas').hide(); 
+            $('#row-unit').removeClass('col-xl-6');
+            $('#row-unit').removeClass('col-lg-6');
+        }
+        else {
+            $('#row-kelas').show(); 
+            $('#row-unit').addClass('col-xl-6');
+            $('#row-unit').addClass('col-lg-6');
+        }
+    });
+
     $("#confirmDeleteModal").on('shown.bs.modal', function(e) {
         const url = $(e.relatedTarget).data('url');
         const form = confirmDeleteModal.querySelector('#deleteForm');

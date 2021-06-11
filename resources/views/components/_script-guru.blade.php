@@ -68,16 +68,18 @@
 
     $('#form-profile').on('submit', function (event) {
             event.preventDefault();
-
+            let data = new FormData($(this)[0]);
             $.ajax({
                 url: `{{ route('guru.profile.update') }}`,
                 method: 'POST',
-                dataType: 'JSON',
-                data: $(this).serialize(),
+                data: data,
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     console.log(data);
                     if (data.success) {
                         Swal.fire("Berhasil", data.message, "success");
+                        $("#foto-profile").attr("src", "/profile_images/"+data.image)
                         $('#form-profile')[0].reset();
                         $('#modal-profile').modal('hide');
                     }else{
