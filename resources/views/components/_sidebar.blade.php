@@ -394,7 +394,7 @@
                 @endif
 
                 @if ($addons != null && $addons->forum)
-                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/pengguna') ) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
                         <span class="pcoded-mtext">Forum</span>
@@ -403,6 +403,11 @@
                         <li class="{{ request()->is('admin/forum/forum') ? 'active' : '' }}">
                             <a href="{{ route('admin.forum.forum') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Forum Diskusi</span>
+                            </a>
+                        </li> 
+                        <li class="{{ request()->is('admin/forum/pengguna') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.pengguna') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Pengguna</span>
                             </a>
                         </li>                        
                     </ul>
