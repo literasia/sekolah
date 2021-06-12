@@ -147,67 +147,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
     $('document').ready(function() {
-        $('#order-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.cbt.ujian') }}",
-            },
-            columns: [
-            {
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'paket_soal',
-                name: 'paket_soal'
-            },
-            {
-                data: 'guru',
-                name: 'guru'
-            },
-            {
-                data: 'keterangan',
-                name: 'keterangan'
-            },
-            {
-                data: 'durasi',
-                name: 'durasi'
-            },
-            {
-                data: 'jumlah_soal_pg',
-                name: 'jumlah_soal_pg'
-            },
-            {
-                data: 'jumlah_soal_essai',
-                name: 'jumlah_soal_essai'
-            },
-            {
-                data: 'tanggal_mulai',
-                name: 'tanggal_mulai'
-            },
-            {
-                data: 'tanggal_selesai',
-                name: 'tanggal_selesai'
-            },
-            {
-                data: 'jam_mulai',
-                name: 'jam_mulai'
-            },
-            {
-                data: 'jam_selesai',
-                name: 'jam_selesai'
-            },
-            {
-                data: 'status',
-                name: 'status'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-            ]
-        });
+        $('#order-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Ujian');

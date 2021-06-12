@@ -132,45 +132,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.cbt.butir-soal-ujian') }}",
-                    type: "GET",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'ranking',
-                    name: 'ranking'
-                },
-                {
-                    data: 'nama_siswa',
-                    name: 'nama_siswa'
-                },
-                {
-                    data: 'waktu_mulai',
-                    name: 'waktu_mulai'
-                },
-                {
-                    data: 'waktu_selesai',
-                    name: 'waktu_selesai'
-                },
-                {
-                    data: 'nilai',
-                    name: 'nilai'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                },
-                ]
-            });
-        
+        $('#order-table').DataTable();
     });
 </script>
 @endpush
