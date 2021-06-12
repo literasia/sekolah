@@ -174,6 +174,7 @@
                     url: '/superadmin/library/setting/tipe/'+id,
                     dataType: 'JSON',
                     success: function (data) {
+                        $('#tipe-id-update').val(data.tipe.id);
                         $('#tipe-update').val(data.tipe.name);
                         $(updateTipeContainer).show(500);
                         $(addTipeContainer).hide();
