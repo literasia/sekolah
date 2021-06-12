@@ -9,6 +9,7 @@ use App\Models\Superadmin\Kategori;
 use App\Models\Superadmin\Penerbit;
 use App\Models\Superadmin\Penulis;
 use App\Models\Superadmin\Tingkat;
+use App\Models\Superadmin\SubKategori;
 
 class SettingController extends Controller
 { //
@@ -18,7 +19,8 @@ class SettingController extends Controller
             'kategoris' => Kategori::orderBy('name')->get(),
             'penulises' => Penulis::orderBy('name')->get(),
             'penerbits' => Penerbit::orderBy('penerbit')->get(),
-            'tingkats' => Tingkat::orderBy('name')->get()
+            'tingkats' => Tingkat::orderBy('name')->get(),
+            'subkategoris' => SubKategori::orderBy('title')->get()
         ]);
     }
 
@@ -59,10 +61,14 @@ class SettingController extends Controller
             'tipe.required'  => 'kolom tidak boleh kososng'
         ]);
 
-        Tipe::whereId($request->input('hidden_id'))->update([
-            'name'   => $request->input('tipe'),
+        $tipe = Tipe::findOrFail($request->hidden_id);
+        $tipe->update([
+            'name' => $request->tipe,
         ]);
 
+        // Tipe::whereId($request->input('hidden_id'))->update([
+        //     'name'   => $request->input('tipe'),
+        // ]);
         $notification = [
             'message' => '👍 '.$request->input('tipe').' berhasil diupdate', 
             'alert-type' => 'success'

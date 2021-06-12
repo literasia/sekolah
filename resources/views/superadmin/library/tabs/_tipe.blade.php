@@ -39,6 +39,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <input type="hidden" name="hidden_id" value="" id="tipe-id-update">
                                 <input type="submit" value="Update" class="btn btn-sm btn-info btn-block shadow-sm">
                             </div>
                         </div>

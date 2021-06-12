@@ -32,11 +32,11 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="kategori_id">Kategori:</label>
-                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" autocomplete="off">
+                                <label for="sub_kategori_id">Kategori:</label>
+                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" autocomplete="off">
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($kategoris as $kategori)
-                                        <option value="{{ $kategori->id }}" {{ $library->kategori_id == $kategori->id ? "selected" : "" }}>{{ $kategori->name }}</option>
+                                    @foreach ($sub_kategoris as $sub_kategori)
+                                        <option value="{{ $sub_kategori->id }}" {{ $library->sub_kategori_id == $sub_kategori->id ? "selected" : "" }}>{{ $sub_kategori->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -49,6 +49,17 @@
                                     @for ($year = 1975; $year <= date('Y'); $year++)
                                         <option value="{{ $year }}" {{ $library->tahun_terbit == $year ? 'selected' : date('Y') }}>{{ $year }}</option>
                                     @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="row-unit">
+                            <div class="form-group">
+                                <label for="tingkat_id">Tingkat</label>
+                                <select name="tingkat_id" id="tingkat_id" class="form-control form-control-sm" required>
+                                    <option value="">-- Tingkat --</option>
+                                    @foreach ($tingkats as $tingkat)
+                                        <option value="{{ $tingkat->id }}" {{ $tingkat->id == $library->tingkat_id ? 'selected' : '' }}>{{ $tingkat->name }} - {{ $tingkat->tingkat }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

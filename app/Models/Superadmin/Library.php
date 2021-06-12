@@ -29,4 +29,12 @@ class Library extends Model
     public function pinjams() {
         return $this->hasMany(Pinjam::class);
     }
+
+    public function subKategori(){
+        return $this->belongsTo(SubKategori::class);
+    }
+
+    public function tingkat(){
+        return $this->belongsTo(Tingkat::class);
+    }
 }

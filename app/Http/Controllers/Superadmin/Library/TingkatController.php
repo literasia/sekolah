@@ -13,20 +13,23 @@ class TingkatController extends Controller
     private $validationRules = [
         'name' => ['required']
     ];
-
+    private $validationAdd = [
+        'name' => ['required'],
+    ];
     public function index()
     {
     }
 
     public function store(Request $req) {
         $data = $req->all();
-        $validator = Validator::make($data, $this->validationRules);
+        $validator = Validator::make($data, $this->validationAdd);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->all())->with(CRUDResponse::errorInputNotif("tingkat"));
         }
 
         Tingkat::create([
-            'name' => $data['name']
+            'name' => $data['name'],
+            'tingkat' => $data['tingkat']
         ]);
 
         return back()->with(CRUDResponse::successCreateNotif("tingkat " . $data['name']));
