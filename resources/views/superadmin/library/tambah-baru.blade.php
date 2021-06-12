@@ -26,6 +26,7 @@ Ini adalah halaman library untuk superadmin
                                     <th>No.</th>
                                     <th>Judul</th>
                                     <th>Kategori</th>
+                                    <th>Tingkat</th>
                                     <th>Penulis</th>
                                     <th>Penerbit</th>
                                     <th>Tahun Terbit</th>
@@ -86,8 +87,12 @@ Ini adalah halaman library untuk superadmin
                     name: 'name'
                 },
                 {
-                    data: 'deskripsi',
-                    name: 'deskripsi'
+                    data: 'sub_kategori',
+                    name: 'sub_kategori'
+                },
+                {
+                    data: 'tingkat',
+                    name: 'tingkat'
                 },
                 {
                     data: 'penulis',

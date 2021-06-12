@@ -210,6 +210,32 @@
                     }
                 });
             });
+
+            const addSubKategoriContainer = document.getElementById('add-sub-kategori-container');
+            const updateSubKategoriContainer = document.getElementById('update-sub-kategori-container');
+            const addSubKategoriBtn = document.getElementById('add-sub-kategori-btn');
+            const cancelSubKategoriBtn = document.getElementById('cancel-sub-kategori-btn');
+            const formSubUpdateKategori = document.getElementById('form-sub-kategori-update');
+
+            $(document).on('click', '#edit-sub-kategori', function () {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: '/superadmin/library-subkategori/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        formSubUpdateKategori.action = `/superadmin/library-subkategori/${id}`;
+                        $('#kategori-id-update').val(data.sub_kategori.kategori_id);
+                        $('#title-sub-kategori-update').val(data.sub_kategori.title);
+                        $(updateSubKategoriContainer).show(500);
+                        $(addSubKategoriContainer).hide();
+                        if ($(addSubKategoriBtn).text() == 'Batal') {
+                            $(addSubKategoriBtn).text('Tambah').removeClass('btn-danger').addClass('btn-primary');
+                        }
+                        $(addSubKategoriBtn).hide();
+                        $(cancelKategoriBtn).show();
+                    }
+                });
+            });
             
             const addPenulisContainer = document.getElementById('add-penulis-container');
             const updatePenulisContainer = document.getElementById('update-penulis-container');
@@ -275,7 +301,7 @@
                     dataType: 'JSON',
                     success: function (data) {
                         formUpdateTingkat.action = `/superadmin/library-tingkat/${id}`;
-                        $('#tingkat-update').val(data.tingkat.name);
+                        $('#unit-update').val(data.tingkat.name);
                         $(updateTingkatContainer).show(500);
                         $(addTingkatContainer).hide();
                         if ($(addTingkatBtn).text() == 'Batal') {

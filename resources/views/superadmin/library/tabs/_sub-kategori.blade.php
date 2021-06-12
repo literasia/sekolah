@@ -70,14 +70,31 @@
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                                <div class="form-group">
-                                    <input type="text" name="sub-kategori" id="sub-kategori-update" class="form-control" placeholder="Kategori">
-                                    <span class="text-danger"></span>
+                                    <select name="kategori_id" id="kategori-id-update" class="form-control form-control-sm">
+                                        <option value="">-- Pilih Kategori --</option>
+                                        @foreach ($kategoris as $kategori)
+                                            <option value="{{ $kategori->id }}" >{{ $kategori->name }}</option>
+                                        @endforeach
+                                    </select>                                    
+                                    <span class="text-danger" id="kategori_result"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="sub-kategori" class="mt-1">
+                                        Sub Kategori:
+                                    </label>
                                 </div>
                             </div>
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
-                                <input type="file" class="form-control form-control-sm" name="thumbnail" id="thumbnail-sub-kategori-update" accept="image/*" value="" autocomplete="off">
+                               <div class="form-group">
+                                    <input type="text" name="title" id="title-sub-kategori-update" class="form-control" placeholder="Sub Kategori">
+                                    <span class="text-danger" id="sub_kategori_result"></span>
+                                </div>
                             </div>
+
 
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                                 <input type="submit" value="Update" class="btn btn-sm btn-info btn-block shadow-sm">

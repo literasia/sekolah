@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Superadmin\Library;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Superadmin\Library;
-use App\Models\Superadmin\Sekolah;
+use App\Models\Superadmin\{SubKategori, Sekolah, Tingkat};
 use App\Http\Controllers\Controller;
 use App\Models\Superadmin\Kategori;
 use App\Models\Superadmin\Penerbit;
@@ -33,7 +33,7 @@ class TambahController extends Controller
         if ($request->ajax()) {
             // datatable error
             // $data = Library::with(['penerbit', 'penulis'])->orderBy('name')->get();
-            $data = Library::all();
+            $data = Library::latest()->get();
             foreach ($data as $d) {
                 $penulis = Penulis::find($d['penulis_id']);
                 $penerbit = Penerbit::find($d['penerbit_id']);
@@ -65,6 +65,20 @@ class TambahController extends Controller
 
                     return $icon;
                 })
+                ->addColumn('sub_kategori', function($data){
+                    if(empty($data->subKategori->title)){
+                        return "-";
+                    }else{
+                        return $data->subKategori->title;
+                    }
+                })
+                ->addColumn('tingkat', function($data){
+                    if(empty($data->tingkat->name)){
+                        return "-";
+                    }else{
+                        return $data->tingkat->name;
+                    }
+                })
                 ->escapeColumns('status')
                 ->addColumn('action', function ($data) {
                     $deleteUrl = route('superadmin.library.destroy', $data['id']);
@@ -80,11 +94,13 @@ class TambahController extends Controller
 
         return view('superadmin.library.tambah-baru', [
             'sekolahs'  => Sekolah::latest()->get(),
-            'kategoris'     => Kategori::latest()->get(),
+            'kategoris'     => Kategori::get(),
             'sekolahs'  => Sekolah::orderBy('name')->get(),
             'kategoris' => Kategori::orderBy('name')->get(),
             'penulises' => Penulis::orderBy('name')->get(),
-            'penerbits' => Penerbit::orderBy('penerbit')->get()
+            'penerbits' => Penerbit::orderBy('penerbit')->get(),
+            'sub_kategoris'     => SubKategori::latest()->get(),
+            'tingkats' => Tingkat::get()
         ]);
     }
 
@@ -104,8 +120,8 @@ class TambahController extends Controller
         Library::create([
             'name' => $data['name'],
             'sekolah_id' => 1,
-            'kategori_id' => $data['kategori_id'],
-            'tingkat' => 'smk',
+            'sub_kategori_id' => $data['sub_kategori_id'],
+            'tingkat_id' => $data['tingkat_id'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],
@@ -127,7 +143,9 @@ class TambahController extends Controller
             'sekolahs'  => Sekolah::orderBy('name')->get(),
             'kategoris' => Kategori::orderBy('name')->get(),
             'penulises' => Penulis::orderBy('name')->get(),
-            'penerbits' => Penerbit::orderBy('penerbit')->get()
+            'penerbits' => Penerbit::orderBy('penerbit')->get(),
+            'sub_kategoris'     => SubKategori::latest()->get(),
+            'tingkats' => Tingkat::get()
         ]);
     }
 
@@ -148,7 +166,6 @@ class TambahController extends Controller
 
         Library::whereId($id)->update([
             'name' => $data['name'],
-            'kategori_id' => $data['kategori_id'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],
@@ -156,7 +173,9 @@ class TambahController extends Controller
             'link_audio' => $data['link_audio'],
             'link_ebook' => $data['link_ebook'],
             'deskripsi' => $data['deskripsi'],
-            'thumbnail' => $data['thumbnail'] ?? $library->thumbnail
+            'thumbnail' => $data['thumbnail'] ?? $library->thumbnail,
+            'sub_kategori_id' => $data['sub_kategori_id'],
+            'tingkat_id' => $data['tingkat_id'],
         ]);
 
         if ($req->file('thumbnail') && $library->thumbnail && Storage::disk('public')->exists($library->thumbnail)) {
