@@ -12,17 +12,6 @@
     </div>
     <div class="col">
         <div class="form-group">
-            <label for="guru">Nama Guru</label>
-            <select name="guru_id" id="guru_id" class="form-control form-control-sm">
-                <option value="">-Silahkan Pilih-</option>
-                @foreach ($guru as $item)
-                <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
             <label for="jenis_kuis">Jenis Kuis</label>
             <select name="jenis_kuis" id="jenis_kuis" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
