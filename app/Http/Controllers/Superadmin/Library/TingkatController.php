@@ -50,6 +50,7 @@ class TingkatController extends Controller
         }
 
         $tingkat->name = $data['name'];
+        $tingkat->tingkat = $data['tingkat'];
         $tingkat->save();
 
         return back()->with(CRUDResponse::successUpdateNotif("tingkat " . $data['name']));

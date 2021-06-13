@@ -296,63 +296,53 @@
             const cancelTingkatBtn = document.getElementById('cancel-tingkat-btn');
             const formUpdateTingkat = document.getElementById('form-tingkat-update');
 
+            $('#unit-update').change(function () {
+                $('#row-kelas-updates').show();
+                $('.'+$(this).val()).show();
+                if($(this).val() == 'Umum') {
+                    $('#row-kelas-updates').hide(); 
+                }
+
+                $('#kelas-updates').children('option').hide();
+
+                if($(this).val() == 'SMP') {
+                    $('#kelas-updates').children('option[value=""]').show();
+                    $('#kelas-updates').children('option[value="1"]').show();
+                    $('#kelas-updates').children('option[value="2"]').show();
+                    $('#kelas-updates').children('option[value="3"]').show();
+                    $('#kelas-updates').children('option[value="4"]').hide();
+                    $('#kelas-updates').children('option[value="5"]').hide();
+                    $('#kelas-updates').children('option[value="6"]').hide();
+                }
+
+                else if($(this).val() == 'SMA') {
+                    $('#kelas-updates').children('option[value=""]').show();
+                    $('#kelas-updates').children('option[value="1"]').show();
+                    $('#kelas-updates').children('option[value="2"]').show();
+                    $('#kelas-updates').children('option[value="3"]').show();
+                    $('#kelas-updates').children('option[value="4"]').hide();
+                    $('#kelas-updates').children('option[value="5"]').hide();
+                    $('#kelas-updates').children('option[value="6"]').hide();
+                }
+                else {
+                    $('#kelas-updates').children('option').show();
+                }
+            });
+
             $(document).on('click', '#edit-tingkat', function () {
                 $("#kelas-update").children('option:gt(0)').show();
-                $('#edit-tingkat').change(function () {
-                    $('#row-kelas-update').show(); 
-                });
-                $('#unit-update').change(function () {
-                    $('#row-kelas-update').show();
-                    $('.'+$(this).val()).show();
-                    if($(this).val() == 'Umum') {
-                       $('#row-kelas-update').hide(); 
-                    }
+                $('#row-kelas-updates').show(); 
 
-                    $('#kelas-update').children('option').hide();
-
-                    if($(this).val() == 'SMP') {
-                        $('#kelas-update').children('option[value=""]').show();
-                        $('#kelas-update').children('option[value="1"]').show();
-                        $('#kelas-update').children('option[value="2"]').show();
-                        $('#kelas-update').children('option[value="3"]').show();
-                        $('#kelas-update').children('option[value="4"]').hide();
-                        $('#kelas-update').children('option[value="5"]').hide();
-                        $('#kelas-update').children('option[value="6"]').hide();
-                    }
-
-                    else if($(this).val() == 'SMA') {
-                        $('#kelas-update').children('option[value=""]').show();
-                        $('#kelas-update').children('option[value="1"]').show();
-                        $('#kelas-update').children('option[value="2"]').show();
-                        $('#kelas-update').children('option[value="3"]').show();
-                        $('#kelas-update').children('option[value="4"]').hide();
-                        $('#kelas-update').children('option[value="5"]').hide();
-                        $('#kelas-update').children('option[value="6"]').hide();
-                    }
-                    else {
-                        $('#kelas-update').children('option').show();
-                    }
-                });
                 var id = $(this).attr('data-id');
                 $.ajax({
                     url: '/superadmin/library-tingkat/'+id,
                     dataType: 'JSON',
                     success: function (data) {
+                        
                         formUpdateTingkat.action = `/superadmin/library-tingkat/${id}`;
                         $('#unit-update').val(data.tingkat.name);
-                        $('#kelas-update').val(data.tingkat.tingkat);
-                        if($('#unit-update').val(data.tingkat.name) == 'SD') {
-                            $('#row-kelas-update').show(); 
-                        }
-                        else if($('#unit-update').val(data.tingkat.name) == 'SMP') {
-                            $('#row-kelas-update').show(); 
-                        }
-                        else if($('#unit-update').val(data.tingkat.name) == 'SMA') {
-                            $('#row-kelas-update').show(); 
-                        }
-                        else {
-                            $('#row-kelas-update').hide(); 
-                        }
+                        $('#kelas-updates').val(data.tingkat.tingkat);
+
                         $(updateTingkatContainer).show(500);
                         $(addTingkatContainer).hide();
                         if ($(addTingkatBtn).text() == 'Batal') {
