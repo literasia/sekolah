@@ -95,7 +95,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-kelas SD SMP SMA Umum" id="row-kelas-update" style="display: none;">
+                        <div class="row row-kelas SD SMP SMA Umum" id="row-kelas-updates">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                                 <div class="form-group">
                                     <label for="sub-kategori" class="mt-1">
@@ -106,7 +106,7 @@
 
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                                <div class="form-group">
-                                    <select name="tingkat" id="kelas-update" class="form-control form-control-sm kelas">
+                                    <select name="tingkat" id="kelas-updates" class="form-control form-control-sm kelas">
                                         <option value="">-- Pilih Unit --</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
