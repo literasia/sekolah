@@ -58,7 +58,13 @@
                                 <select name="tingkat_id" id="tingkat_id" class="form-control form-control-sm" required>
                                     <option value="">-- Tingkat --</option>
                                     @foreach ($tingkats as $tingkat)
-                                        <option value="{{ $tingkat->id }}" {{ $tingkat->id == $library->tingkat_id ? 'selected' : '' }}>{{ $tingkat->name }} - {{ $tingkat->tingkat }}</option>
+                                        <option value="{{ $tingkat->id }}" {{ $tingkat->id == $library->tingkat_id ? 'selected' : '' }}>
+                                            @if ($tingkat->name == 'Umum')
+                                                {{ $tingkat->name }}
+                                            @else
+                                                {{ $tingkat->name }} - {{ $tingkat->tingkat }}
+                                            @endif
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
