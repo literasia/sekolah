@@ -298,9 +298,6 @@
 
             $(document).on('click', '#edit-tingkat', function () {
                 $("#kelas-update").children('option:gt(0)').show();
-                $('#edit-tingkat').change(function () {
-                    $('#row-kelas-update').show(); 
-                });
                 $('#unit-update').change(function () {
                     $('#row-kelas-update').show();
                     $('.'+$(this).val()).show();
@@ -350,8 +347,12 @@
                         else if($('#unit-update').val(data.tingkat.name) == 'SMA') {
                             $('#row-kelas-update').show(); 
                         }
-                        else {
+
+                        else if($('#unit-update').val(data.tingkat.name) == 'Umum') {
                             $('#row-kelas-update').hide(); 
+                        }
+                        else {
+                            $('#row-kelas-update').show(); 
                         }
                         $(updateTingkatContainer).show(500);
                         $(addTingkatContainer).hide();

@@ -95,7 +95,7 @@
                             </div>
                         </div>
 
-                        <div class="row row-kelas SD SMP SMA Umum" id="row-kelas-update">
+                        <div class="row row-kelas SD SMP SMA Umum" id="row-kelas-update" style="display: none;">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                                 <div class="form-group">
                                     <label for="sub-kategori" class="mt-1">
