@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, ButirSoal};
+use App\Models\Admin\{Kuis, Soal, ButirSoal, PengaturanKuis};
 use App\Models\{Guru, Siswa};
 
 class KuisController extends Controller
@@ -69,9 +69,13 @@ class KuisController extends Controller
             // push to butir_soal
             array_push($butir_soal, $items);
         }
+
+        $pengaturan_kuis = PengaturanKuis::findOrFail($kuis->pengaturan_kuis_id);
         
         return response()->json([
             'success' => true,
+            'kuis' => $kuis,
+            'pengaturan_kuis' => $pengaturan_kuis,
             'soal' => $soal,
             'butir_soal' => $butir_soal
         ]);
