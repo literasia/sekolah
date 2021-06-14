@@ -225,7 +225,7 @@ class LibraryController extends Controller
         return response()->json(ApiResponse::success(['sub_kategori' => $sub_kategori]));
     }
 
-    public function getBuku(SubKategori $sub_kategori, Tingkat $tingkat, $sekolah_id, Request $req){
+    public function getBuku(SubKategori $sub_kategori, Tingkat $tingkat, Request $req){
         $data = $req->all();
         $userId = $req->query('user_id');
 
@@ -238,17 +238,21 @@ class LibraryController extends Controller
         }
 
 
-        $libraries = Library::where(function ($query) use($sekolah_id){
-                                $query->where('sekolah_id', $sekolah_id)
-                                      ->orWhereNull('sekolah_id');
-                          })
-                          ->where('tingkat_id', $tingkat->id)
+        $libraries = Library::where('tingkat_id', $tingkat->id)
                           ->where('sub_kategori_id', $sub_kategori->id)
                           ->with(['penulis', 'subKategori']);
 
+        // $libraries = Library::where(function ($query) use($sekolah_id){
+        //                     $query->where('sekolah_id', $sekolah_id)
+        //                           ->orWhereNull('sekolah_id');
+        //               })
+        //               ->where('tingkat_id', $tingkat->id)
+        //               ->where('sub_kategori_id', $sub_kategori->id)
+        //               ->with(['penulis', 'subKategori']);
+
         // Search By Sekolah
         $sekolahId = $req->query('sekolah_id');
-        $libraries->when($sekolahId, function($query) use ($sekolahId) {
+        $libraries->where(function($query) use ($sekolahId) {
             return $query->where('sekolah_id', $sekolahId)
                 ->orWhereNull('sekolah_id');
         });
