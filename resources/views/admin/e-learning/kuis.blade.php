@@ -272,121 +272,165 @@
         });
 
         $("input[type='checkbox']").click(function() {
-            $('#label-hide-quiz').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#hide-quiz').change(function(){
+                if ($("#hide-quiz").is(':checked')){
+                    $('#label-hide-quiz').text("Aktif");
+                } else {
+                    $('#label-hide-quiz').text("Aktifkan");
+                }
+            });
 
-            $('#label-restart-quiz').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#restart-quiz').change(function(){
+                if ($("#restart-quiz").is(':checked')){
+                    $('#label-restart-quiz').text("Aktif");
+                } else {
+                    $('#label-restart-quiz').text("Aktifkan");
+                }
+            });
 
-            $('#label-random-option').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#random-question').change(function(){
+                if ($("#random-question").is(':checked')){
+                    $('#label-random-question').text("Aktif");
+                } else {
+                    $('#label-random-question').text("Aktifkan");
+                }
+            });
 
-            $('#label-statistic').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#random-option').change(function(){
+                if ($("#random-option").is(':checked')){
+                    $('#label-random-option').text("Aktif");
+                } else {
+                    $('#label-random-option').text("Aktifkan");
+                }
+            });
 
-            $('#label-once-quiz').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#statistic').change(function(){
+                if ($("#statistic").is(':checked')){
+                    $('#label-statistic').text("Aktif");
+                } else {
+                    $('#label-statistic').text("Aktifkan");
+                }
+            });
 
-            $('#label-specific-number').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#once-quiz').change(function(){
+                if ($("#once-quiz").is(':checked')){
+                    $('#label-once-quiz').text("Aktif");
+                } else {
+                    $('#label-once-quiz').text("Aktifkan");
+                }
+            });
 
-            $('#label-skip-question').text('Nonaktifkan');
-            if(this.checked){
-                $(this).next().text('Dinonaktifkan');
-            } else {
-                $(this).next().text('Nonaktifkan');
-            }
+            $('#specific-number').change(function(){
+                if ($("#specific-number").is(':checked')){
+                    $('#label-specific-number').text("Aktif");
+                } else {
+                    $('#label-specific-number').text("Aktifkan");
+                }
+            });
 
-            $('#label-autostart').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#skip-question').change(function(){
+                if ($("#skip-question").is(':checked')){
+                    $('#label-skip-question').text("Dinonaktifkan");
+                } else {
+                    $('#label-skip-question').text("Nonaktifkan");
+                }
+            });
 
-            $('#label-registered-user').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#autostart').change(function(){
+                if ($("#autostart").is(':checked')){
+                    $('#label-autostart').text("Aktif");
+                } else {
+                    $('#label-autostart').text("Aktifkan");
+                }
+            });
 
-            $('#label-show-point').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#registered-user').change(function(){
+                if ($("#registered-user").is(':checked')){
+                    $('#label-registered-user').text("Aktif");
+                } else {
+                    $('#label-registered-user').text("Aktifkan");
+                }
+            });
 
-            $('#label-number-answers').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#show-point').change(function(){
+                if ($("#show-point").is(':checked')){
+                    $('#label-show-point').text("Aktif");
+                } else {
+                    $('#label-show-point').text("Aktifkan");
+                }
+            });
 
-            $('#label-hide-message').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#number-answers').change(function(){
+                if ($("#number-answers").is(':checked')){
+                    $('#label-number-answers').text("Aktif");
+                } else {
+                    $('#label-number-answers').text("Aktifkan");
+                }
+            });
 
-            $('#label-answer-mark').text('Dinonaktifkan');
-            if(this.checked){
-                $(this).next().text('Dinonaktifkan');
-            } else {
-                $(this).next().text('Nonaktifkan');
-            }
+            $('#hide-message').change(function(){
+                if ($("#hide-message").is(':checked')){
+                    $('#label-hide-message').text("Aktif");
+                } else {
+                    $('#label-hide-message').text("Aktifkan");
+                }
+            });
 
-            $('#label-force-answer').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#answer-mark').change(function(){
+                if ($("#answer-mark").is(':checked')){
+                    $('#label-answer-mark').text("Dinonaktifkan");
+                } else {
+                    $('#label-answer-mark').text("Nonaktifkan");
+                }
+            });
 
-            $('#label-hide-numbering').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#force-answer').change(function(){
+                if ($("#force-answer").is(':checked')){
+                    $('#label-force-answer').text("Aktif");
+                } else {
+                    $('#label-force-answer').text("Aktifkan");
+                }
+            });
 
-            $('#label-average-point').text('Aktif');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            } else {
-                $(this).next().text('Aktifkan');
-            }
+            $('#hide-numbering').change(function(){
+                if ($("#hide-numbering").is(':checked')){
+                    $('#label-hide-numbering').text("Aktif");
+                } else {
+                    $('#label-hide-numbering').text("Aktifkan");
+                }
+            });
 
-            $('#label-hide-correct-question').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#average-point').change(function(){
+                if ($("#average-point").is(':checked')){
+                    $('#label-average-point').text("Aktif");
+                } else {
+                    $('#label-average-point').text("Aktifkan");
+                }
+            });
 
-            $('#label-hide-quiz-time').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#hide-correct-question').change(function(){
+                if ($("#hide-correct-question").is(':checked')){
+                    $('#label-hide-correct-question').text("Aktif");
+                } else {
+                    $('#label-hide-correct-question').text("Aktifkan");
+                }
+            });
 
-            $('#label-hide-score').text('Aktifkan');
-            if(this.checked){
-                $(this).next().text('Aktif');
-            }
+            $('#hide-quiz-time').change(function(){
+                if ($("#hide-quiz-time").is(':checked')){
+                    $('#label-hide-quiz-time').text("Aktif");
+                } else {
+                    $('#label-hide-quiz-time').text("Aktifkan");
+                }
+            });
 
+            $('#hide-score').change(function(){
+                if ($("#hide-score").is(':checked')){
+                    $('#label-hide-score').text("Aktif");
+                } else {
+                    $('#label-hide-score').text("Aktifkan");
+                }
+            });
         });
 
         $('#form-kuis-ku').on('submit', function (event) {

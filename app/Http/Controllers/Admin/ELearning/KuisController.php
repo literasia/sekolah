@@ -88,7 +88,6 @@ class KuisController extends Controller
         // return response()->json($data);
         $rules = [
             'soal_id' => 'required',
-            'guru_id' => 'required',
             'jenis_kuis' => 'required',
             'keterangan' => 'required',
             'jumlah_soal_pg' => 'required',
@@ -177,6 +176,8 @@ class KuisController extends Controller
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
 
+
+
         Kuis::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'soal_id' => $request->soal_id,
@@ -231,7 +232,6 @@ class KuisController extends Controller
 
         $rules = [
             'soal_id' => 'required',
-            'guru_id' => 'required',
             'jenis_kuis' => 'required',
             'keterangan' => 'required',
             'jumlah_soal_pg' => 'required',
@@ -278,6 +278,8 @@ class KuisController extends Controller
         if (!empty($request->jam_terbit)) {
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
+
+
 
         $kuis->update([
             'soal_id' => $request->soal_id,
