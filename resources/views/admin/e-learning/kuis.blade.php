@@ -275,11 +275,15 @@
             $('#label-hide-quiz').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-restart-quiz').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-random-option').text('Aktif');
@@ -320,6 +324,8 @@
             $('#label-autostart').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-registered-user').text('Aktif');
@@ -332,11 +338,15 @@
             $('#label-show-point').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-number-answers').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-hide-message').text('Aktif');
@@ -356,6 +366,8 @@
             $('#label-force-answer').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-hide-numbering').text('Aktif');
@@ -375,18 +387,23 @@
             $('#label-hide-correct-question').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-hide-quiz-time').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
 
             $('#label-hide-score').text('Aktifkan');
             if(this.checked){
                 $(this).next().text('Aktif');
+            } else {
+                $(this).next().text('Aktifkan');
             }
-
         });
 
         $('#form-kuis-ku').on('submit', function (event) {

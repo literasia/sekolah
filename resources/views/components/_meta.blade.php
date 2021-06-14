@@ -24,7 +24,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
 <link rel="manifest" href="{{ asset('mix-manifest.json') }}">
 <link rel="manifest" href="/manifest.json">
-
 {{-- Google font--}}
 <link href="{{ asset('fonts.googleapis.com/css0f7c.css?family=Open+Sans:300,400,600,700,800') }}" rel="stylesheet">
 <link href="{{ asset('fonts.googleapis.com/css1180.css?family=Quicksand:500,700') }}" rel="stylesheet">
