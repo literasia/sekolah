@@ -84,7 +84,7 @@
 
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('profile_images/'.auth()->user()->image) }}" id="foto-profile" class="img-radius" alt="no photo">
+                            <img src="{{ asset('profile_images/'.auth()->user()->image) }}" onerror="this.src='{{ asset('img/default-image.png')}}'" id="foto-profile" class="img-radius" alt="no photo">
                             <span>{{ auth()->user()->name }}</span>
                             <i class="feather icon-chevron-down"></i>
                         </div>

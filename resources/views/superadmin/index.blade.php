@@ -98,24 +98,35 @@
         </div>
     </div> --}}
 
-    <div class="col-md-4">
-        <div class="card comp-card">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h6>Siswa</h6>
-                        <h5 class="m-b-30 f-w-700">{{ $siswa }}</h5>
-                        <div class="progress">
-                            <div class="progress-bar bg-c-red" style="width:{{$persentase_siswa}}%"></div>
+    <div class="col-md-4 demo-wrapper position-relative">
+        <a href=""> 
+            <div class="card comp-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6>Siswa</h6>
+                            <h5 class="m-b-30 f-w-700">{{ $siswa }}</h5>
+                            <div class="progress">
+                                <div class="progress-bar bg-c-red" style="width:{{$persentase_siswa}}%"></div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user bg-c-blue"></i>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-user bg-c-blue"></i>
-                    </div>
+                </div>
+            </div>
+        </a>
+
+        <div class="col-md-12 demo-content position-absolute">
+            <div class="card">
+                <div class="card-body card-collapse">
+                    y
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col-md-4">
         <div class="card comp-card">
             <div class="card-body">
@@ -152,8 +163,6 @@
             </div>
         </div>
     </div>
-
-
 
     {{-- Sekolah SD SMP SMA SMK --}}
     <div class="col-md-3">
@@ -299,4 +308,34 @@
 
 @push('js')
     <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
+@endpush
+
+@push('css')
+    <style>
+        .demo-content {
+            visibility: hidden;
+            display: none;
+            z-index: 9999999!important;
+            background: #fff;
+        }
+        .demo-wrapper a:active + .demo-content, .demo-wrapper a:focus + .demo-content {
+            visibility: visible;
+            display: block;
+        }
+        .card-collapse:before {
+            content: "";
+            border: 10px solid transparent;
+            border-left-color: #fff;
+            border-top-color: #fff;
+            position: absolute;
+            border-radius: 3px;
+            top: -8px;
+            right: 50%;
+            -webkit-box-shadow: -5px -5px 12px -2px rgb(0 0 0 / 30%);
+            box-shadow: -5px -5px 12px -2px rgb(0 0 0 / 30%);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            z-index: 1002
+        }
+    </style>
 @endpush

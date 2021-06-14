@@ -15,7 +15,6 @@ class TingkatController extends Controller
     ];
     private $validationAdd = [
         'name' => ['required'],
-        'tingkat' => ['required']
     ];
     public function index()
     {
@@ -51,6 +50,7 @@ class TingkatController extends Controller
         }
 
         $tingkat->name = $data['name'];
+        $tingkat->tingkat = $data['tingkat'];
         $tingkat->save();
 
         return back()->with(CRUDResponse::successUpdateNotif("tingkat " . $data['name']));

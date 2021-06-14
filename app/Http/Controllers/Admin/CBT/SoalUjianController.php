@@ -17,11 +17,7 @@ class SoalUjianController extends Controller
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        
-        
-        return view('admin.cbt.soal-ujian')
-                                    ->with('mySekolah', User::sekolah())
-                                    ->with('addons', $addons);
+        return view('admin.cbt.soal-ujian',['mySekolah' => User::sekolah(), 'addons' => $addons]); 
     }
 
     public function store(Request $request){

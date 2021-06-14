@@ -86,9 +86,7 @@
                     <input type="number" value="1" name="durasi" id="durasi" class="form-control form-control-sm">
                 </div>
                 <div class="col-5 pl-0">
-                    <select  id="duration" class="form-control form-control-sm duration-option" disabled>
-                        <option value="menit">Menit</option>
-\                    </select>
+                    <label class="ml-2 mb-0">Menit</label>
                 </div>
             </div>
         </div>

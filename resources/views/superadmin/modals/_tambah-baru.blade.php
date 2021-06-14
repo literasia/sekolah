@@ -46,10 +46,10 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="sub_kategori_id">Sub Kategori:</label>
-                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" required>
+                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" required>
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($kategoris as $kategori)
-                                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                                    @foreach ($sub_kategoris as $sub_kategori)
+                                        <option value="{{ $sub_kategori->id }}">{{ $sub_kategori->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -65,20 +65,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" id="row-unit">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="row-unit">
                             <div class="form-group">
-                                <label for="unit">Unit</label>
-                                <select name="unit" id="unit" class="form-control form-control-sm" required>
-                                    <option value="">-- Unit --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" id="row-kelas">
-                            <div class="form-group">
-                                <label for="unit">Kelas</label>
-                                <select name="unit" id="unit" class="form-control form-control-sm" required>
-                                    <option value="">-- Kelas --</option>
-                                        <option value=""></option>
+                                <label for="tingkat_id">Tingkat</label>
+                                <select name="tingkat_id" id="tingkat_id" class="form-control form-control-sm" required>
+                                    <option value="">-- Tingkat --</option>
+                                    @foreach ($tingkats as $tingkat)
+                                        <option value="{{ $tingkat->id }}">
+                                            @if ($tingkat->name == 'Umum')
+                                                {{ $tingkat->name }}
+                                            @else
+                                                {{ $tingkat->name }} - {{ $tingkat->tingkat }}
+                                            @endif
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

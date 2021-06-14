@@ -93,39 +93,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.cbt.soal-ujian') }}",
-            },
-            columns: [
-            {
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'judul_ujian',
-                name: 'judul_ujian'
-            },
-            {
-                data: 'mata_pelajaran',
-                name: 'mata_pelajaran'
-            },
-            {
-                data: 'kelas',
-                name: 'kelas'
-            },
-            {
-                data: 'guru',
-                name: 'guru'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-            ]
-        });
+        $('#order-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Soal Ujian');

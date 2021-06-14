@@ -12,11 +12,11 @@
     </div>
     <div class="col">
         <div class="form-group">
-            <label for="guru_id">Guru</label>
+            <label for="guru">Guru</label>
             <select name="guru_id" id="guru_id" class="form-control form-control-sm">
-                <option value="">-- Pilih --</option>
+                <option value="">-Silahkan Pilih-</option>
                 @foreach ($guru as $item)
-                    <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
+                <option value="{{ $item->id }}">{{ $item->pegawai->name }}</option>
                 @endforeach
             </select>
         </div>

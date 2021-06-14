@@ -280,6 +280,7 @@ Route::namespace('Superadmin')
         Route::resource('library', 'Library\TambahController');
         Route::namespace('Library')
             ->group(function () {
+                // Route::resource('library-tipe', 'KategoriController');
                 Route::resource('library-kategori', 'KategoriController');
                 Route::resource('library-penulis', 'PenulisController');
                 Route::resource('library-penerbit', 'PenerbitController');

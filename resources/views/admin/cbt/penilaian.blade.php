@@ -93,39 +93,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.cbt.penilaian') }}",
-            },
-            columns: [
-            {
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'nama_penilaian',
-                name: 'nama_penilaian'
-            },
-            {
-                data: 'poin_jika_benar',
-                name: 'poin_jika_benar'
-            },
-            {
-                data: 'poin_jika_salah',
-                name: 'poin_jika_salah'
-            },
-            {
-                data: 'poin_jika_tidak_jawab',
-                name: 'poin_jika_tidak_jawab'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-            ]
-        });
+        $('#order-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Penilaian');

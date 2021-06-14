@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubKategorisTable extends Migration
+class DropColumnTingkatOnLibraries extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateSubKategorisTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_kategoris', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('title');
-            $table->timestamps();
+        Schema::table('libraries', function (Blueprint $table) {
+            $table->dropColumn('tingkat');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateSubKategorisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_kategoris');
+        Schema::table('libraries', function (Blueprint $table) {
+            $table->string('tingkat');
+        });
     }
 }

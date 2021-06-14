@@ -61,10 +61,14 @@ class SettingController extends Controller
             'tipe.required'  => 'kolom tidak boleh kososng'
         ]);
 
-        Tipe::whereId($request->input('hidden_id'))->update([
-            'name'   => $request->input('tipe'),
+        $tipe = Tipe::findOrFail($request->hidden_id);
+        $tipe->update([
+            'name' => $request->tipe,
         ]);
 
+        // Tipe::whereId($request->input('hidden_id'))->update([
+        //     'name'   => $request->input('tipe'),
+        // ]);
         $notification = [
             'message' => '👍 '.$request->input('tipe').' berhasil diupdate', 
             'alert-type' => 'success'

@@ -62,6 +62,11 @@ class SubKategoriController extends Controller
         ]);
     }
 
+    public function show($id) {
+        $sub_kategori = SubKategori::find($id);
+        return response()->json(['sub_kategori' => $sub_kategori]);
+    }
+
     public function store(Request $req)
     {
         $kategori = Kategori::all();
@@ -101,11 +106,12 @@ class SubKategoriController extends Controller
 
         $subkategori = SubKategori::findOrFail($id);
 
-        Library::whereId($id)->update([
-            'title' => $data['title']
+        $subkategori->update([
+            'title' => $req->title,
+            'kategori_id' => $req->kategori_id
         ]);
 
-        return redirect()->route('superadmin.library.index')->with(CRUDResponse::successUpdate("title " . $subkategori->title));
+        return back()->with(CRUDResponse::successUpdateNotif("sub-kategori " . $req['title']));
     }
 
     public function destroy($id)
