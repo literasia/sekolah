@@ -57,13 +57,13 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
-                                        <input type="text" name="semester" id="semester" class="form-control form-control-sm" readonly>
+                                        <input type="text" name="semester" id="semester" value="{{ $sekolah->semester }}" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="tahun_ajaran">Tahun Ajaran</label>
-                                        <input type="text" name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm" readonly>
+                                        <input type="text" name="tahun_ajaran" id="tahun_ajaran" value="{{ $sekolah->tahun_ajaran }}" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -81,16 +81,15 @@
                                         <div class="col px-0">
                                             <div class="form-group p-3">
                                                 <label>Jam Ke</label>
-                                                <select name="jam_pelajaran" id="jam_pelajaran" class="form-control form-control-sm">
-                                                    <option value="">-- Jam Ke --</option>
-                                                    <option value=""></option>
+                                                <select name="jam_pelajaran_id[]" id="jam_pelajaran" class="form-control form-control-sm">
+                                                    <option value="">Pilih hari terlebih dahulu</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col px-0">
                                             <div class="form-group p-3">
                                                 <label for="pelajaran">Pelajaran</label>
-                                                <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                                <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
                                                     <option value="">-- Pelajaran --</option>
                                                     @foreach($pelajaran as $obj)
                                                     <option value="{{$obj->id}}">{{$obj->name}}</option>
@@ -248,11 +247,12 @@
                     Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
                     return false;
                 } 
+
                 let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
                                             <div class="col px-0">
                                                 <div class="form-group p-3">
                                                     <label>Jam Ke</label>
-                                                    <select name="jam_pelajaran" id="jam_pelajaran" class="form-control form-control-sm">
+                                                    <select name="jam_pelajaran_id[]" id="jam_pelajaran_${counter}" class="form-control form-control-sm">
                                                         <option value="">-- Jam Ke --</option>
                                                         <option value=""></option>
                                                     </select>
@@ -261,7 +261,7 @@
                                             <div class="col px-0">
                                                 <div class="form-group p-3">
                                                     <label for="pelajaran">Pelajaran</label>
-                                                    <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                                    <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
                                                         <option value="">-- Pelajaran --</option>
                                                         @foreach($pelajaran as $obj)
                                                         <option value="{{$obj->id}}">{{$obj->name}}</option>
@@ -272,7 +272,26 @@
                                         </div>`;
                 
                 $('#subject-wrapper').append(newSubjectField);
-                counter++;
+
+                $.ajax({
+                    url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
+                    method: 'POST',
+                    data: {hari: $('#hari').val()},
+                    success: function (data) {
+                        let jam_pelajarans = data;
+                        console.log(`#jam_pelajaran_${counter}`)
+                        $(`#jam_pelajaran_${counter}`).html("");
+                        $(`#jam_pelajaran_${counter}`).append(`<option value="">-- Jam Ke --</option>`);
+                        jam_pelajarans.forEach(data => {
+                            let jam_mulai = data.jam_mulai.split(":");
+                            let jam_selesai = data.jam_selesai.split(":");
+                            $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
+                                ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
+                        });
+
+                        counter++;
+                    }
+                });
             });
             $("#removeButton").click(function () {
                 if(counter==1){
@@ -293,6 +312,7 @@
             @if(request()->req == 'table')
             table.show();
             @endif
+            
             $("#hari").change(function(){
                 _this = $(this);
                 $.ajax({
@@ -300,7 +320,16 @@
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
-                        $('#jam_pelajaran').html(data);
+                        let jam_pelajarans = data;
+                        $('#jam_pelajaran').html("");
+                        $('#jam_pelajaran').append(`<option value="">-- Jam Ke --</option>`);
+                        jam_pelajarans.forEach(data => {
+                            let jam_mulai = data.jam_mulai.split(":");
+                            let jam_selesai = data.jam_selesai.split(":");
+                            $('#jam_pelajaran').append(`<option value='${data.id}'>
+                                ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
+                        });
+                        console.log(data);
                     }
                 });
             })
@@ -329,6 +358,7 @@
                     // dataType: 'JSON',
                     data: $("#form-jadwal-pelajaran").serialize(),
                     success: function (data) {
+                        console.log(data);
                         Swal.fire("Berhasil", text, "success");
                         resetForm();
                         table.hide();
