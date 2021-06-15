@@ -71,8 +71,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label class="d-block mb-3">Mata Pelajaran</label>
-                                    <input type='button' value='Tambah Mata Pelajaran' id='addButton' class="btn btn-primary btn-mini">
-                                    <input type='button' value='Hapus Mata Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini">
+                                    <input type='button' value='Tambah Mata Pelajaran' id='addButton' class="btn btn-primary btn-mini" disabled>
+                                    <input type='button' value='Hapus Mata Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini" disabled>
                                 </div>
                             </div>
                             <div class="row">
@@ -293,6 +293,7 @@
                     }
                 });
             });
+
             $("#removeButton").click(function () {
                 if(counter==1){
                     Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
@@ -312,6 +313,13 @@
             @if(request()->req == 'table')
             table.show();
             @endif
+
+            // $('#addButton').change(function () {
+            //                 if($('#hari').val(data.hari)) {
+            //                     $('#addButton').removeProp('disabled', true);
+            //                     $('#removeButton').removeProp('disabled', true);
+            //                 }
+            //             });
             
             $("#hari").change(function(){
                 _this = $(this);
@@ -320,6 +328,11 @@
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
+                        if($('#hari').val(data)) {
+                            $('#addButton').removeAttr('disabled');
+                            $('#removeButton').removeAttr('disabled');
+                        } 
+
                         let jam_pelajarans = data;
                         $('#jam_pelajaran').html("");
                         $('#jam_pelajaran').append(`<option value="">-- Jam Ke --</option>`);
@@ -329,7 +342,7 @@
                             $('#jam_pelajaran').append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
-                        console.log(data);
+                        // console.log(data);
                     }
                 });
             })
