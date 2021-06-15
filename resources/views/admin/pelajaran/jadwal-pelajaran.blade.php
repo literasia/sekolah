@@ -314,24 +314,18 @@
             table.show();
             @endif
 
-            // $('#addButton').change(function () {
-            //                 if($('#hari').val(data.hari)) {
-            //                     $('#addButton').removeProp('disabled', true);
-            //                     $('#removeButton').removeProp('disabled', true);
-            //                 }
-            //             });
-            
+
             $("#hari").change(function(){
                 _this = $(this);
+                $('#addButton').removeAttr('disabled');
+                $('#removeButton').removeAttr('disabled');
+
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
-                        if($('#hari').val(data)) {
-                            $('#addButton').removeAttr('disabled');
-                            $('#removeButton').removeAttr('disabled');
-                        } 
+
 
                         let jam_pelajarans = data;
                         $('#jam_pelajaran').html("");
