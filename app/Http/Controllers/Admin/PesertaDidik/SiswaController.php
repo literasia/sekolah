@@ -110,7 +110,11 @@ class SiswaController extends Controller
 
     public function show($id) {
         $siswa = Siswa::with(['siswaOrangTua', 'siswaWali'])->find($id);
-        return response()->json($siswa);
+        $user = User::where('siswa_id', $siswa->id)->first();
+        return response()->json([
+                        'siswa' => $siswa,
+                        'user' => $user,
+        ]);
     }
 
     public function store(Request $req) {

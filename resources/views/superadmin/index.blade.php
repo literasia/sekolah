@@ -98,37 +98,42 @@
         </div>
     </div> --}}
 
-    <div class="col-md-4 demo-wrapper position-relative">
-        <a href=""> 
-            <div class="card comp-card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6>Siswa</h6>
-                            <h5 class="m-b-30 f-w-700">{{ $siswa }}</h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-c-red" style="width:{{$persentase_siswa}}%"></div>
-                            </div>
+    <div class="col-md-4 card-wrapper">
+        <a data-toggle="collapse" href="#card-link1" role="button" aria-expanded="false" aria-controls="card-link1"> 
+        <div class="col-md-12 card comp-card p-0">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6>Siswa</h6>
+                        <h5 class="m-b-30 f-w-700">{{ $siswa }}</h5>
+                        <div class="progress">
+                            <div class="progress-bar bg-c-red" style="width:{{$persentase_siswa}}%"></div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user bg-c-blue"></i>
-                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user bg-c-blue"></i>
                     </div>
                 </div>
             </div>
+        </div>
         </a>
 
-        <div class="col-md-12 demo-content position-absolute">
-            <div class="card">
+        <div class="col-md-12 card-content p-0 collapse" id="card-link1">
+            <div class="card rounded">
                 <div class="card-body card-collapse">
-                    y
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex border-0">
+                            
+                        </li>
+                    </ul>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card comp-card">
+    <div class="col-md-4 card-wrapper" id="card-wrapper">
+        <a data-toggle="collapse" href="#card-link2" role="button" aria-expanded="false" aria-controls="card-link2">
+        <div class="col-md-12 card comp-card p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
@@ -144,9 +149,24 @@
                 </div>
             </div>
         </div>
+        </a>
+
+        <div class="col-md-12 card-content p-0 collapse" id="card-link2">
+            <div class="card rounded">
+                <div class="card-body card-collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex border-0">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+        </div>
     </div>
-    <div class="col-md-4">
-        <div class="card comp-card">
+
+    <div class="col-md-4 card-wrapper">
+        <a data-toggle="collapse" href="#card-link3" role="button" aria-expanded="false" aria-controls="card-link3">
+        <div class="col-md-12 card comp-card p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
@@ -161,6 +181,19 @@
                     </div>
                 </div>
             </div>
+        </div>
+        </a>
+
+        <div class="col-md-12 card-content p-0 collapse" id="card-link3">
+            <div class="card rounded">
+                <div class="card-body card-collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex border-0">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>        
         </div>
     </div>
 
@@ -308,19 +341,15 @@
 
 @push('js')
     <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
+    
 @endpush
 
 @push('css')
     <style>
-        .demo-content {
-            visibility: hidden;
-            display: none;
-            z-index: 9999999!important;
-            background: #fff;
-        }
-        .demo-wrapper a:active + .demo-content, .demo-wrapper a:focus + .demo-content {
-            visibility: visible;
-            display: block;
+        .card-collapse {
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 15rem;
         }
         .card-collapse:before {
             content: "";
@@ -337,5 +366,4 @@
             transform: rotate(45deg);
             z-index: 1002
         }
-    </style>
 @endpush
