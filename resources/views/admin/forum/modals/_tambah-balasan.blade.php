@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label for="status_id">Status</label>
                                 <select name="status_id" id="status_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="topik_id">Topik</label>
                                 <select name="topik_id" id="topik_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>

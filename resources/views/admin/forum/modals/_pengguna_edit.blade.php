@@ -15,10 +15,10 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="pf">Peran Form</label>
-                                <select name="pf" id="pf" class="form-control form-control-sm">
-                                    <option value="">-- Peran Form --</option>
-                                    <option value="Key_master">Key master</option>
+                                <label for="forum_role">Peran</label>
+                                <select name="forum_role" id="forum_role" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="Key_master">Key Master</option>
                                     <option value="Moderator">Moderator</option>
                                     <option value="Participant">Participant</option>
                                     <option value="Blocked">Blocked</option>

@@ -110,7 +110,7 @@
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
-                .val('Tambah');
+                .val('Simpan');
             $('#btn-cancel')
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')

@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="type">Type</label>
                                     <select name="type" id="type" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                     <option value="Forum">Forum</option>                                                               
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                     <option value="Terbuka">Terbuka</option>
                                     <option value="Terbuka">Tertutup</option>                                    
                                     </select>
@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label for="visibility">Visibility</label>
                                     <select name="visibility" id="visibility" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                     <option value="Public">Public</option>
                                     <option value="Private">Private</option>
                                     <option value="Hidden">Hidden</option>
@@ -62,7 +62,7 @@
                             <div class="form-group">
                                 <label for="Parent">Parent</label>
                                 <select name="Parent" id="Parent" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>

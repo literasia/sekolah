@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label for="type_id">Type</label>
                                 <select name="type_id" id="type_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="status_id">Status</label>
                                 <select name="status_id" id="status_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label for="forum_id">Forum</label>
                                 <select name="forum_id" id="forum_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>

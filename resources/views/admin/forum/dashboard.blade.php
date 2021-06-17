@@ -34,7 +34,7 @@
                                             <th>Balasan</th>
                                             <th>Moderator</th>
                                             <th>Penulis</th>
-                                            <th>Dibuat pada</th>
+                                            <th>Dibuat Pada</th>
                                             <th>Postingan Terakhir</th>
                                             <th>Action</th>
 
@@ -109,7 +109,7 @@
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
-                .val('Tambah');
+                .val('Simpan');
             $('#btn-cancel')
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
