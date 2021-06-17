@@ -20,6 +20,9 @@ class SiswaController extends Controller
         // dd($kelas);
         $data = [];
 
+        $tanggal = $request->tanggal;
+        $kelas_id = $request->kelas_id;
+
         if($request->req == 'table') {
             $data = Siswa::with(['kelas',
                                  'absensi' => function($q) use($request){
@@ -32,7 +35,7 @@ class SiswaController extends Controller
         }
 
 
-        return view('admin.absensi.siswa', compact('kelas', 'data', 'addons'), ['mySekolah' => User::sekolah()]);
+        return view('admin.absensi.siswa', compact('kelas','kelas_id', 'data', 'addons', 'tanggal'), ['mySekolah' => User::sekolah()]);
     }
 
     public function write(Request $request) {
@@ -54,5 +57,160 @@ class SiswaController extends Controller
 
             return response()->json($obj);
         }
+    }
+
+    public function approveAll(Request $request){
+        $hadir = explode(';', $request->hadir_collect);
+        $absen = explode(';', $request->absen_collect);
+        $sakit = explode(';', $request->sakit_collect);
+        $izin = explode(';', $request->izin_collect);
+        $lainnya = explode(';', $request->lainnya_collect);
+
+        if (count($hadir) > 0) {
+            for ($i=0; $i < count($hadir); $i++) { 
+                if ($hadir[$i] != "") {     
+                    $absensi = Absensi::where('kelas_id', $request->kelas_id)
+                                      ->where('siswa_id', $hadir[$i])
+                                      ->where('tanggal', date('Y-m-d', strtotime($request->tanggal)))
+                                      ->first();
+    
+                    if ($absensi == null) {
+                        Absensi::create([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $hadir[$i],
+                            'status' => "H",
+                            'editor_id' => $request->user()->id
+                        ]);   
+                    }else{
+                        $absensi->update([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $hadir[$i],
+                            'status' => "H",
+                            'editor_id' => $request->user()->id
+                        ]);
+                    }
+                }
+            }
+        }
+
+        if (count($absen) > 0) {
+            for ($i=0; $i < count($absen); $i++) { 
+                if ($absen[$i] != "") {
+                    $absensi = Absensi::where('kelas_id', $request->kelas_id)
+                                      ->where('siswa_id', $absen[$i])
+                                      ->where('tanggal', date('Y-m-d', strtotime($request->tanggal)))
+                                      ->first();
+    
+                    if ($absensi == null) {
+                        Absensi::create([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $absen[$i],
+                            'status' => "A",
+                            'editor_id' => $request->user()->id
+                        ]);   
+                    }else{
+                        $absensi->update([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $absen[$i],
+                            'status' => "A",
+                            'editor_id' => $request->user()->id
+                        ]);
+                    }
+                }
+            }
+        }
+
+        if (count($sakit) > 0) {
+            for ($i=0; $i < count($sakit); $i++) { 
+                if ($sakit[$i] != "") {
+                    $absensi = Absensi::where('kelas_id', $request->kelas_id)
+                                      ->where('siswa_id', $sakit[$i])
+                                      ->where('tanggal', date('Y-m-d', strtotime($request->tanggal)))
+                                      ->first();
+    
+                    if ($absensi == null) {
+                        Absensi::create([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $sakit[$i],
+                            'status' => "S",
+                            'editor_id' => $request->user()->id
+                        ]);   
+                    }else{
+                        $absensi->update([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $sakit[$i],
+                            'status' => "S",
+                            'editor_id' => $request->user()->id
+                        ]);
+                    }
+                }
+            }
+        }
+
+        if (count($izin) > 0) {
+            for ($i=0; $i < count($izin); $i++) { 
+                if ($izin[$i] != "") {
+                    $absensi = Absensi::where('kelas_id', $request->kelas_id)
+                                      ->where('siswa_id', $izin[$i])
+                                      ->where('tanggal', date('Y-m-d', strtotime($request->tanggal)))
+                                      ->first();
+    
+                    if ($absensi == null) {
+                        Absensi::create([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $izin[$i],
+                            'status' => "I",
+                            'editor_id' => $request->user()->id
+                        ]);   
+                    }else{
+                        $absensi->update([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $izin[$i],
+                            'status' => "I",
+                            'editor_id' => $request->user()->id
+                        ]);
+                    }
+                }
+            }
+        }
+
+        if (count($lainnya) > 0) {
+            for ($i=0; $i < count($lainnya); $i++) { 
+                if ($lainnya[$i] != "") {
+                    $absensi = Absensi::where('kelas_id', $request->kelas_id)
+                                      ->where('siswa_id', $lainnya[$i])
+                                      ->where('tanggal', date('Y-m-d', strtotime($request->tanggal)))
+                                      ->first();
+    
+                    if ($absensi == null) {
+                        Absensi::create([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $lainnya[$i],
+                            'status' => "L",
+                            'editor_id' => $request->user()->id
+                        ]);   
+                    }else{
+                        $absensi->update([
+                            'kelas_id' => $request->kelas_id,
+                            'tanggal' => $request->tanggal,
+                            'siswa_id' => $lainnya[$i],
+                            'status' => "L",
+                            'editor_id' => $request->user()->id
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return redirect()->back();
     }
 }
