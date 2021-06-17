@@ -98,136 +98,31 @@
 <script src="{{ asset('js/toastr.min.js') }}"></script>
 
 <script>
-        $(document).ready(function () {
-
-          $('#add').on('click', function () {
-                $('.modal-title').html('Tambah Forum');
-               $('#action').val('add');
-              $('#title').val('');
-              $('#category').val('');
-              $('#content').val('');
-              $('#create_date').val('');
-              $('#btn')
-                  .removeClass('btn-info')
-                  .addClass('btn-success')
-                  .val('Tambah');
-              $('#modal-forum').modal('show');
-          });
-
-            $('#create_date').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
-
-            $('#order-table').DataTable();
-
-            $('#dashboard-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.forum.dashboard') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'forum',
-                    name: 'forum'
-                },
-                {
-                    data: 'topic',
-                    name: 'topic'
-                },
-                {
-                    data: 'reply',
-                    name: 'reply'
-                },
-                {
-                    data: 'moderator',
-                    name: 'moderator'
-                },
-                {
-                    data: 'writer',
-                    name: 'writer'
-                },
-                {
-                    data: 'date',
-                    name: 'date'
-                },
-                {
-                    data: 'last_post',
-                    name: 'last_post'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
-                ]
-            });
-
-            $('#form-news').on('submit', function (event) {
-                event.preventDefault();
-
-                var url = '';
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.forum.dashboard') }}";
-                }
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.forum.dashboard-update') }}";
-                }
-
-                var formData = new FormData($('#form-news')[0]);
-
-                $('#btn').prop('disabled', true);
-            });
-
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('id');
-                $.ajax({
-                    url: '/admin/forum/dashboard/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        $('#action').val('edit');
-                        $('#title').val(data.name);
-                        $('#category').val(data.category);
-                        $('#content').val(data.content);
-                        $('#create_date').val(data.create_date);
-                        $('#hidden_id').val(data.id);
-                        $('#btn')
-                            .removeClass('btn-success')
-                            .addClass('btn-info')
-                            .val('Update');
-                        $('#modal-forum').modal('show');
-                    }
-                });
-            });
-
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
-
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/forum/dashboard/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#dashboard-table').DataTable().ajax.reload();
-                            // toastr.success('Data berhasil dihapus');
-                            Swal.fire('Sukses!', 'Data berhasi dihapus!', 'success');
-                        }, 1000);
-                    }
-                });
-            });
-
+    $(document).ready(function () {
+        $('#add').on('click', function () {
+            $('.modal-title').html('Tambah Forum');
+            $('#action').val('add');
+            $('#title').val('');
+            $('#category').val('');
+            $('#content').val('');
+            $('#create_date').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Tambah');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
+            $('#modal-forum').modal('show');
         });
-    </script>
+
+        $('#create_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('#dashboard-table').DataTable();
+    });
+</script>
 @endpush

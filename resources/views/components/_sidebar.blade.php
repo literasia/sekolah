@@ -419,7 +419,7 @@
                 @endif
 
                 @if ($addons != null && $addons->forum)
-                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/topik')) || request()->is('admin/forum/dashboard')) || request()->is('admin/forum/tautan')) || request()->is('admin/forum/pengguna')) || request()->is('admin/forum/balasan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/forum/dashboard') || request()->is('admin/forum/topik')) || request()->is('admin/forum/tautan')) || request()->is('admin/forum/pengguna')) || request()->is('admin/forum/balasan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
                         <span class="pcoded-mtext">Forum</span>

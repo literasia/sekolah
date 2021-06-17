@@ -11,8 +11,7 @@
             </div>
             <form id="form-pengguna" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                    @method("POST")
-                    @csrf
+
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -29,8 +28,8 @@
                     </div>
                 <div class="modal-footer">
                     <input type="hidden" name="hidden_id" id="hidden_id">
-                    <input type="hidden" id="action">
-                    <button type="submit" class="btn btn-sm btn-success" id="btn">Simpan</button>
+                    <input type="hidden" id="action" val="add">
+                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
                     <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                 </div>
             </form>

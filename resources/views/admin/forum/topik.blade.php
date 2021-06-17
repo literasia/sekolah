@@ -95,59 +95,12 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.forum.topik') }}",
-            },
-            columns: [
-            {
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'judul_topik',
-                name: 'judul_topik'
-            },
-            {
-                data: 'forum',
-                name: 'forum'
-            },
-            {
-                data: 'balasan',
-                name: 'balasan'
-            },
-            {
-                data: 'penulis',
-                name: 'penulis'
-            },
-            {
-                data: 'dibuat_pada',
-                name: 'dibuat_pada'
-            },
-            {
-                data: 'postingan_terakhir',
-                name: 'postingan_terakhir'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-            ]
-        });
+        $('#order-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Topik');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#hidden_id').val('');
-            $('#judul_topik').val('');
-            $('#forum_id').val('');
-            $('#balasan').val('');
-            $('#penulis_id').val('');
-            $('#dibuat_pada').val('');
-            $('#status').val('');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -156,7 +109,7 @@
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-soal').modal('show');
+            $('#modal-topik').modal('show');
         });
     });
 </script>
