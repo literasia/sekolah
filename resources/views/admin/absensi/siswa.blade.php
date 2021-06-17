@@ -6,7 +6,7 @@
 @section('title-3', 'Absesnsi Siswa')
 
 @section('describ')
-    Ini adalah halaman absensi siswa per kelas untuk admin
+    Ini adalah halaman Absensi Siswa untuk admin
 @endsection
 
 @section('icon-l', 'fa fa-clipboard-list')
@@ -142,8 +142,10 @@
                 $.post("{{route('admin.absensi.siswa.write')}}", params).done(data => {
                     Swal.fire("Berhasil","Data sukses ditambahkan", "success");
                     var approved = '<label class="badge badge-success" id="approved">APPROVED</label>'
-                    $('#approve').hide();
-                    $(`#submit_${params.siswa_id}`).append(approved);
+                    $('#approve').click(function(){
+                        $(`#submit_${params.siswa_id}`).append(approved);
+                        $('#approve').hide();
+                    });
                 }).fail((data) => {
                     if(typeof data.responseJSON.message == 'string')
                         return Swal.fire('Error', data.responseJSON.message, 'error');
@@ -151,7 +153,7 @@
                         return Swal.fire('Error', data.responseText, 'error');
                 })
 
-                //console.log(`#submit_${data.siswa_id}`);
+                // console.log(`#submit_${params.siswa_id}`);
             })
         });
     </script>

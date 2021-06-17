@@ -9,7 +9,7 @@
     Ini adalah halaman rekap siswa untuk admin
 @endsection
 
-@section('icon-l', 'fa fa-clipboard-check')
+@section('icon-l', 'fa fa-clipboard-list')
 @section('icon-r', 'icon-home')
 
 @section('link')

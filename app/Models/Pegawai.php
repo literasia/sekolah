@@ -6,6 +6,7 @@ use App\User;
 use App\Models\Admin\Access;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Admin\Kelas;
 
 class Pegawai extends Model
 {
@@ -32,5 +33,9 @@ class Pegawai extends Model
 
     public function guru(){
         return $this->hasOne(Guru::class);
+    }
+    
+    public function kelas(){
+        return $this->hasMany(Kelas::class);
     }
 }

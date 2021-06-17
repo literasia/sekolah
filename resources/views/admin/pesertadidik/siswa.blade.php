@@ -167,6 +167,8 @@
                 $('#createForm').attr('action', `{{ route('admin.pesertadidik.siswa.index') }}`);
                 $('#btn-submit').text('Simpan');
                 $('#btn-cancel').text('Batal');
+                $("#password-group").show();
+                $("#username").prop('disabled', false);
                 $("#toggle-data-login").show();
                 $("#data-login").show();
                 $("#username").prop('required', true);
@@ -215,7 +217,9 @@
         $(document).on('click', '.edit', function () {
                 var id = $(this).data('id');
                 $("#toggle-data-login").hide();
-                $("#data-login").hide();
+                $("#data-login").show();
+                $("#username").prop('disabled', true);
+                $("#password-group").hide();
                 $("#username").prop('required', false);
                 $("#password").prop('required', false);
                 $("#password_confirmation").prop('required', false);
@@ -223,26 +227,28 @@
                     url: '/admin/peserta-didik/siswa/'+id,
                     dataType: 'JSON',
                     success: function (data) {
-                        $('#nis').val(data.nis);
-                        $('#nisn').val(data.nisn);
-                        $('input[name=tanggal_masuk').val(data.tanggal_masuk);
-                        $('#kelas').val(data.kelas_id);
-                        $('input[name=nama_lengkap]').val(data.nama_lengkap);
-                        $('#nama_panggilan').val(data.nama_panggilan);
-                        $('#jk').val(data.jk);
-                        $('#agama').val(data.agama);
-                        $('#suku').val(data.suku);
-                        $('#ktp').val(data.ktp);
-                        $('#tempat_lahir').val(data.tempat_lahir);
-                        $('#tanggal_lahir').val(data.tanggal_lahir);
-                        $('#berat_badan').val(data.berat_badan);
-                        $('#tinggi_badan').val(data.tinggi_badan);
-                        $('#hobi').val(data.hobi);
-                        $('#riwayat_penyakit').val(data.riwayat_penyakit);
-                        $('#moda_transportasi').val(data.moda_transportasi);
-                        $('#jarak_rumah_sekolah').val(data.jarak_rumah_sekolah);
-                        $('#is_siswa_pindahan').val(data.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
-                        $('#alamat_tinggal').val(data.alamat_tinggal);
+                        $('#nis').val(data.siswa.nis);
+                        $('#nisn').val(data.siswa.nisn);
+                        $('input[name=tanggal_masuk').val(data.siswa.tanggal_masuk);
+                        $('#kelas').val(data.siswa.kelas_id);
+                        $('input[name=nama_lengkap]').val(data.siswa.nama_lengkap);
+                        $('#nama_panggilan').val(data.siswa.nama_panggilan);
+                        $('#jk').val(data.siswa.jk);
+                        $('#agama').val(data.siswa.agama);
+                        $('#suku').val(data.siswa.suku);
+                        $('#ktp').val(data.siswa.ktp);
+                        $('#tempat_lahir').val(data.siswa.tempat_lahir);
+                        $('#tanggal_lahir').val(data.siswa.tanggal_lahir);
+                        $('#berat_badan').val(data.siswa.berat_badan);
+                        $('#tinggi_badan').val(data.siswa.tinggi_badan);
+                        $('#hobi').val(data.siswa.hobi);
+                        $('#riwayat_penyakit').val(data.siswa.riwayat_penyakit);
+                        $('#moda_transportasi').val(data.siswa.moda_transportasi);
+                        $('#jarak_rumah_sekolah').val(data.siswa.jarak_rumah_sekolah);
+                        $('#is_siswa_pindahan').val(data.siswa.is_siswa_pindahan == 1 ? 'Ya' : 'Tidak');
+                        $('#alamat_tinggal').val(data.siswa.alamat_tinggal);
+                        $('#alamat_tinggal').val(data.siswa.alamat_tinggal);
+                        $('#username').val(data.user.username);
                         // $.when($('#provinsi').val(data.provinsi).change()).then(function(){
                         //     $.when($('#kabupaten').val(data.kabupaten).change()).then(function(){
                         //         $('#kecamatan').val(data.kecamatan);

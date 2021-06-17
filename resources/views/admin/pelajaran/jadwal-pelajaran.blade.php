@@ -39,17 +39,6 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="pelajaran">Pelajaran</label>
-                                        <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
-                                            <option value="">-- Pelajaran --</option>
-                                            @foreach($pelajaran as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
                                             <option value="">-- Hari --</option>
@@ -68,43 +57,47 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
-                                        <select name="semester" id="semester" class="form-control form-control-sm">
-                                            <option value="">-- Semester --</option>
-                                            <option value="Ganjil">Ganjil</option>
-                                            <option value="Genap">Genap</option>
-                                        </select>
+                                        <input type="text" name="semester" id="semester" value="{{ $sekolah->semester }}" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="tahun_ajaran">Tahun Ajaran</label>
-                                        <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
-                                            <option value="">-- Tahun Ajaran --</option>
-                                            <option value="2018/2019">2018/2019</option>
-                                            <option value="2019/2020">2019/2020</option>
-                                            <option value="2020/2021">2020/2021</option>
-                                            <option value="2021/2022">2021/2022</option>
-                                            <option value="2022/2023">2022/2023</option>
-                                            <option value="2023/2024">2023/2024</option>
-                                            <option value="2024/2025">2024/2025</option>
-                                            <option value="2025/2026">2025/2026</option>
-                                            <option value="2026/2027">2026/2027</option>
-                                            <option value="2027/2028">2027/2028</option>
-                                        </select>
+                                        <input type="text" name="tahun_ajaran" id="tahun_ajaran" value="{{ $sekolah->tahun_ajaran }}" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                      <label>Jam Ke</label>
+                                <div class="col-12">
+                                    <label class="d-block mb-3">Mata Pelajaran</label>
+                                    <input type='button' value='Tambah Mata Pelajaran' id='addButton' class="btn btn-primary btn-mini" disabled>
+                                    <input type='button' value='Hapus Mata Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="subject-wrapper">
+                                    <div class="row border rounded mata-pelajaran mt-3" id="subject-group">
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label>Jam Ke</label>
+                                                <select name="jam_pelajaran_id[]" id="jam_pelajaran" class="form-control form-control-sm">
+                                                    <option value="">Pilih hari terlebih dahulu</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="pelajaran">Pelajaran</label>
+                                                <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                                    <option value="">-- Pelajaran --</option>
+                                                    @foreach($pelajaran as $obj)
+                                                    <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                  </div>
-                                  <div class="row" style="margin-top: -10px;" id="jam_pelajaran">
-
-                                  </div>
                                 </div>
                             </div>
 
@@ -247,6 +240,69 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            let counter = 1;
+            
+            $("#addButton").click(function () {   
+                if(counter >= 15){
+                    Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
+                    return false;
+                } 
+
+                let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label>Jam Ke</label>
+                                                    <select name="jam_pelajaran_id[]" id="jam_pelajaran_${counter}" class="form-control form-control-sm">
+                                                        <option value="">-- Jam Ke --</option>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="pelajaran">Pelajaran</label>
+                                                    <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                                        <option value="">-- Pelajaran --</option>
+                                                        @foreach($pelajaran as $obj)
+                                                        <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                
+                $('#subject-wrapper').append(newSubjectField);
+
+                $.ajax({
+                    url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
+                    method: 'POST',
+                    data: {hari: $('#hari').val()},
+                    success: function (data) {
+                        let jam_pelajarans = data;
+                        console.log(`#jam_pelajaran_${counter}`)
+                        $(`#jam_pelajaran_${counter}`).html("");
+                        $(`#jam_pelajaran_${counter}`).append(`<option value="">-- Jam Ke --</option>`);
+                        jam_pelajarans.forEach(data => {
+                            let jam_mulai = data.jam_mulai.split(":");
+                            let jam_selesai = data.jam_selesai.split(":");
+                            $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
+                                ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
+                        });
+
+                        counter++;
+                    }
+                });
+            });
+
+            $("#removeButton").click(function () {
+                if(counter==1){
+                    Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
+                    return false;
+                }      
+                counter--;       
+                $("#subject-group" + counter).remove();    
+            });
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -257,14 +313,30 @@
             @if(request()->req == 'table')
             table.show();
             @endif
+
+
             $("#hari").change(function(){
                 _this = $(this);
+                $('#addButton').removeAttr('disabled');
+                $('#removeButton').removeAttr('disabled');
+
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
-                        $('#jam_pelajaran').html(data);
+
+
+                        let jam_pelajarans = data;
+                        $('#jam_pelajaran').html("");
+                        $('#jam_pelajaran').append(`<option value="">-- Jam Ke --</option>`);
+                        jam_pelajarans.forEach(data => {
+                            let jam_mulai = data.jam_mulai.split(":");
+                            let jam_selesai = data.jam_selesai.split(":");
+                            $('#jam_pelajaran').append(`<option value='${data.id}'>
+                                ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
+                        });
+                        // console.log(data);
                     }
                 });
             })
@@ -293,6 +365,7 @@
                     // dataType: 'JSON',
                     data: $("#form-jadwal-pelajaran").serialize(),
                     success: function (data) {
+                        console.log(data);
                         Swal.fire("Berhasil", text, "success");
                         resetForm();
                         table.hide();
