@@ -4,14 +4,9 @@
             <label for="soal_id">Soal</label>
             <select name="soal_id" id="soal_id" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-            </select>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            <label for="guru_id">Guru</label>
-            <select name="guru_id" id="guru_id" class="form-control form-control-sm">
-                <option value="">-- Pilih --</option>
+                @foreach ($soal as $item)
+                    <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                @endforeach
             </select>
         </div>
     </div>

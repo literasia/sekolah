@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\CBT;
+namespace App\Http\Controllers\Admin\BankSoal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use App\Models\Admin\{Soal, ButirSoal, Kelas};
-use App\Models\Admin\{CbtSoal,CbtButirSoal};
+use App\Models\Admin\{BankSoal,BankButirSoal};
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -14,12 +14,10 @@ use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class ButirSoalUjianController extends Controller
+class ButirSoalController extends Controller
 {
     public function index(Request $request)
     {
-        // $addons = Addons::where('user_id', auth()->user()->id)->first();
-        // return view('admin.cbt.butir-soal-ujian',['mySekolah' => User::sekolah(), 'addons' => $addons]);
         $kelas_id = $request->kelas_id;
         $soal_id = $request->soal_id;
         $addons = Addons::where('user_id', auth()->user()->id)->first();
@@ -27,11 +25,11 @@ class ButirSoalUjianController extends Controller
             $query->where('id_sekolah', auth()->user()->id_sekolah);
         })->get();
 
-        $cbt_soal = CbtSoal::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $banksoal_soal = BankSoal::where('sekolah_id', auth()->user()->id_sekolah)->get();
         
         if ($request->ajax())
         {
-            $butir_soal = CbtButirSoal::whereHas('soal', function($query){
+            $butir_soal = BankButirSoal::whereHas('soal', function($query){
                 $query->where('sekolah_id', auth()->user()->id_sekolah);
             });
     
@@ -73,13 +71,13 @@ class ButirSoalUjianController extends Controller
         }
 
     
-        return view('admin.cbt.butir-soal-ujian')
+        return view('admin.banksoal.butir-soal')
                                     ->with('mySekolah', User::sekolah())
                                     ->with('kelas', $kelas)
-                                    ->with('cbt_soals', $cbt_soal)
+                                    ->with('bank_soals', $banksoal_soal)
                                     ->with('kelas_id', $kelas_id)
                                     ->with('soal_id', $soal_id)
-                                    ->with('addons', $addons);
+                                    ->with('addons', $addons);  
     }
 
     public function store(Request $request){
@@ -107,7 +105,7 @@ class ButirSoalUjianController extends Controller
             $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
         }
 
-        CbtButirSoal::create([
+        BankButirSoal::create([
             'soal_id' => $request->soal_id,
             'pertanyaan' => $request->pertanyaan,
             'jawaban' => $jawaban,
@@ -123,7 +121,7 @@ class ButirSoalUjianController extends Controller
     }
 
     public function edit($id){
-        $butir_soal = CbtButirSoal::findOrFail($id);
+        $butir_soal = BankButirSoal::findOrFail($id);
 
         $jawaban = explode('|literasia_sekolah|', $butir_soal->jawaban);
 
@@ -158,7 +156,7 @@ class ButirSoalUjianController extends Controller
             ]);
         }
 
-        $butir_soal = CbtButirSoal::findOrFail($request->hidden_id);
+        $butir_soal = BankButirSoal::findOrFail($request->hidden_id);
         
         if(!empty($request->jawaban)){
             $jawaban = implode('|literasia_sekolah|' ,$request->jawaban);
@@ -182,7 +180,7 @@ class ButirSoalUjianController extends Controller
     }
 
     public function destroy($id, Request $request){
-        $butir_soal = CbtButirSoal::findOrFail($id);
+        $butir_soal = BankButirSoal::findOrFail($id);
 
         $butir_soal->delete();
 
