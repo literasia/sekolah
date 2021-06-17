@@ -1,43 +1,67 @@
 @extends('layouts.admin')
 
 {{-- config 1 --}}
-@section('title', 'Forum | Pengguna')
-@section('title-2', 'Pengguna')
-@section('title-3', 'Pengguna')
+@section('title', 'Forum | Tautan')
+@section('title-2', 'Tautan')
+@section('title-3', 'Tautan')
 
 @section('describ')
-    Ini adalah halaman pengguna untuk admin
+    Ini adalah halaman tautan untuk admin
 @endsection
 
-@section('icon-l', 'icon-people')
+@section('icon-l', 'fa fa-list-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.forum.pengguna') }}
+    {{ route('admin.forum.tautan') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
             <div class="card shadow">
                 <div class="card-body">
                     <div class="card-block">
-                        <div class="dt-responsive table-responsive mt-3">
-                            <table id="pengguna-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <form id="form-tautan">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <label for="tautan">Tautan</label>
+                                        <input type="text" name="tautan" id="tautan" class="form-control form-control-sm" placeholder="Tautan">
+                                        <span id="form_result" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="hidden" name="hidden_id" id="hidden_id">
+                                    <input type="hidden" id="action" val="add">
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="dt-responsive table-responsive">
+                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                 <thead class="text-left">
                                     <tr>
                                         <th>No.</th>
-                                        <th>Username</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Kelas</th>
-                                        <th>Peran Aplikasi</th>
-                                        <th>Peran Forum</th>
-                                        <th>Postingan</th>
+                                        <th>Tautan</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody class="text-left">
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -45,9 +69,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Modal --}}
-    @include('admin.forum.modals._pengguna_edit')
 
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -72,24 +93,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     <style>
         .btn i {
             margin-right: 0px;
-        }
-        .fileinput .thumbnail {
-            display: inline-block;
-            margin-bottom: 10px;
-            overflow: hidden;
-            text-align: center;ry
-            vertical-align: middle;
-            max-width: 250px;
-            box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-        }
-        .thumbnail {
-            border: 0 none;
-            border-radius: 4px;
-            padding: 0;
         }
     </style>
 @endpush
@@ -100,26 +107,9 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-            $('#pengguna-table').DataTable();
-
-            $('#add').on('click', function () {
-                $('.modal-title').html('Tambah Pengguna');
-                $('#action').val('add');
-                $('#btn')
-                    .removeClass('btn-info')
-                    .addClass('btn-success')
-                    .val('Simpan');
-                $('#btn-cancel')
-                    .removeClass('btn-outline-info')
-                    .addClass('btn-outline-success')
-                    .text('Batal');
-                $('#modal-pengguna').modal('show');
-            });
-
-        });
+            $('#order-table').DataTable();
     </script>
 @endpush

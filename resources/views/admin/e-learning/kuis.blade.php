@@ -17,33 +17,35 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive mt-3">
-                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Paket Soal</th>
-                                    <th>Nama Guru</th>
-                                    <th>Jenis Kuis</th>
-                                    <th>Keterangan</th>
-                                    <th>Durasi</th>
-                                    <th>Jumlah Pilihan Ganda</th>
-                                    <th>Jumlah Essai</th>
-                                    <th>Tanggal Mulai</th>
-                                    <th>Tanggal Selesai</th>
-                                    <th>Jam Mulai</th>
-                                    <th>Jam Selesai</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                        <div class="dt-responsive table-responsive mt-3">
+                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Paket Soal</th>
+                                        <th>Nama Guru</th>
+                                        <th>Jenis Kuis</th>
+                                        <th>Keterangan</th>
+                                        <th>Durasi</th>
+                                        <th>Jumlah Pilihan Ganda</th>
+                                        <th>Jumlah Essai</th>
+                                        <th>Tanggal Mulai</th>
+                                        <th>Tanggal Selesai</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,6 +83,13 @@
 <style>
     .btn i {
         margin-right: 0px;
+    }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
     .rotate{
         -moz-transition: all .2s linear;

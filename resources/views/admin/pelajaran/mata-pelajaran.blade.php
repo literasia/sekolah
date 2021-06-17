@@ -20,94 +20,98 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <form id="form-pelajaran">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="nama_pelajaran">Nama Pelajaran</label>
-                                        <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran" required>
-                                        <span id="form_result" class="text-danger"></span>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form id="form-pelajaran">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="nama_pelajaran">Nama Pelajaran</label>
+                                            <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran" required>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="kode_pelajaran">Kode Pelajaran</label>
-                                        <input type="text" name="kode_pelajaran" id="kode_pelajaran" class="form-control form-control-sm" placeholder="Kode Pelajaran" required>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="kode_pelajaran">Kode Pelajaran</label>
+                                            <input type="text" name="kode_pelajaran" id="kode_pelajaran" class="form-control form-control-sm" placeholder="Kode Pelajaran" required>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="guru_id">Guru Bidang Studi/Pengajar</label>
-                                        <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
-                                        <select name="guru_id" id="guru" class="form-control form-control-sm" required>
-                                            <option value="">-- Guru Bidang Studi/Pengajar --</option>
-                                            @foreach($guru as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="guru_id">Guru Bidang Studi/Pengajar</label>
+                                            <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
+                                            <select name="guru_id" id="guru" class="form-control form-control-sm" required>
+                                                <option value="">-- Guru Bidang Studi/Pengajar --</option>
+                                                @foreach($guru as $obj)
+                                                <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="keterangan">Keterangan</label>
-                                        <input type="text" name="keterangan" id="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="keterangan">Keterangan</label>
+                                            <input type="text" name="keterangan" id="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" name="aktif" id="aktif" checked>
-                                        <label class="custom-control-label" for="aktif">Aktif</label>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" name="aktif" id="aktif" checked>
+                                            <label class="custom-control-label" for="aktif">Aktif</label>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="id" id="id">
-                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-outline-success" id="reset">Batal</button>
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id" id="id">
+                                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                        <button type="reset" class="btn btn-sm btn-outline-success" id="reset">Batal</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama Pelajaran</th>
-                                        <th>Guru</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Pelajaran</th>
+                                            <th>Guru</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,6 +146,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush

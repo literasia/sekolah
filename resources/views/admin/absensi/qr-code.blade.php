@@ -1,44 +1,47 @@
 @extends('layouts.admin')
 
 {{-- config 1 --}}
-@section('title', 'Forum | Pengguna')
-@section('title-2', 'Pengguna')
-@section('title-3', 'Pengguna')
+@section('title', 'Absensi | Absensi QR Code')
+@section('title-2', 'Absensi QR Code')
+@section('title-3', 'Absensi QR Code')
 
 @section('describ')
-    Ini adalah halaman pengguna untuk admin
+    Ini adalah halaman Absensi QR Code untuk admin
 @endsection
 
-@section('icon-l', 'icon-people')
+@section('icon-l', 'fa fa-clipboard-list')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.forum.pengguna') }}
+    {{ route('admin.absensi.qr-code') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive mt-3">
-                            <table id="pengguna-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Username</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Kelas</th>
-                                        <th>Peran Aplikasi</th>
-                                        <th>Peran Forum</th>
-                                        <th>Postingan</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                            <div class="dt-responsive table-responsive mt-3">
+                                <table id="qr-code-table" class="table table-striped nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>NIP</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>No. HP</th>
+                                            <th>Alamat</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,8 +50,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.forum.modals._pengguna_edit')
-
+    @include('admin.absensi.modals._qr-code')
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -73,23 +75,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
-    <style>
+    <style type="text/css">
         .btn i {
             margin-right: 0px;
         }
-        .fileinput .thumbnail {
-            display: inline-block;
-            margin-bottom: 10px;
-            overflow: hidden;
-            text-align: center;ry
-            vertical-align: middle;
-            max-width: 250px;
-            box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-        }
-        .thumbnail {
-            border: 0 none;
-            border-radius: 4px;
-            padding: 0;
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush
@@ -101,25 +96,19 @@
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#pengguna-table').DataTable();
+            $('#qr-code-table').DataTable();
 
             $('#add').on('click', function () {
-                $('.modal-title').html('Tambah Pengguna');
+                $('#modal-qr-code').modal('show');
+                $('.form-control').val('');
+                $('.modal-title').text('Tambah QR Code');
                 $('#action').val('add');
-                $('#btn')
-                    .removeClass('btn-info')
-                    .addClass('btn-success')
-                    .val('Simpan');
-                $('#btn-cancel')
-                    .removeClass('btn-outline-info')
-                    .addClass('btn-outline-success')
-                    .text('Batal');
-                $('#modal-pengguna').modal('show');
+                $('#btn').removeClass('btn-info').addClass('btn-success').val('Simpan');
+                $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
             });
-
         });
     </script>
 @endpush

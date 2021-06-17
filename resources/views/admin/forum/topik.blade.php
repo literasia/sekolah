@@ -1,51 +1,51 @@
 @extends('layouts.admin')
 
-@section('title', 'Computer Based Test | Penilaian')
-@section('title-2', 'Penilaian')
-@section('title-3', 'Penilaian')
+@section('title', 'Forum | Topik')
+@section('title-2', 'Topik')
+@section('title-3', 'Topik')
 
 @section('describ')
-    Ini adalah halaman Penilaian untuk admin
+    Ini adalah halaman Topik untuk admin
 @endsection
 
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('admin.cbt.penilaian') }}
+    {{ route('admin.forum.topik') }}
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
-            <div class=" col-xl-12 card shadow mb-0 p-0">
-                <div class="card-body">
-                    <div class="card-block">
-                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive mt-3">
-                           <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama Penilaian</th>
-                                        <th>Poin Jika Benar</th>
-                                        <th>Poin Jika Salah</th>
-                                        <th>Poin Jika Tidak Dijawab</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="card-block">
+                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                    <div class="dt-responsive table-responsive mt-3">
+                       <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Topik</th>
+                                    <th>Forum</th>
+                                    <th>Balasan</th>
+                                    <th>Penulis</th>
+                                    <th>Dibuat Pada</th>
+                                    <th>Postingan Terakhir</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@include('admin.cbt.modals._tambah-penilaian')
+@include('admin.forum.modals._tambah-topik')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -78,13 +78,6 @@
     .btn i {
         margin-right: 0px;
     }
-    .glass-card {
-        background: rgba( 255, 255, 255, 0.40 );
-        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
-        backdrop-filter: blur( 17.5px );
-        -webkit-backdrop-filter: blur( 17.5px );
-        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
-    }
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
@@ -105,14 +98,9 @@
         $('#order-table').DataTable();
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Penilaian');
+            $('.modal-title').html('Tambah Topik');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#hidden_id').val('');
-            $('#nama_penilaian').val('');
-            $('#poin_jika_benar').val('');
-            $('#poin_jika_salah').val('');
-            $('#poin_jika_tidak_jawab').val('');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -121,7 +109,7 @@
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-soal').modal('show');
+            $('#modal-topik').modal('show');
         });
     });
 </script>
