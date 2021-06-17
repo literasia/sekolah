@@ -171,12 +171,19 @@ Route::namespace('Pelajaran')->group(function () {
 
 // Absensi
 Route::namespace('Absensi')->group(function () {
+    // Siswa
     Route::get('/admin/absensi/siswa', 'SiswaController@index')
         ->name('absensi.siswa');
     Route::post('/admin/absensi/siswa', 'SiswaController@write')
         ->name('absensi.siswa.write');
+
+    // Rekap Siswa
     Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')
         ->name('absensi.rekap-siswa');
+
+    //QR Code
+    Route::get('/admin/absensi/qr-code', 'QRCodeController@index')
+        ->name('absensi.qr-code');
 });
 
 // Daftar Nilai

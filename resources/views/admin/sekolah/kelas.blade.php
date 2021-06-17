@@ -53,7 +53,13 @@
                                         <select name="wali_kelas" id="wali_kelas" class="form-control form-control-sm">
                                             <option value="">-- Wali Kelas --</option>
                                             @foreach($gurus as $guru)
-                                            <option value="{{$guru->pegawai_id}}">{{$guru->pegawai->name}}</option>
+                                            <option value="{{$guru->pegawai_id}}">
+                                                @if(!empty($guru->pegawai->name))
+                                                    {{ $guru->pegawai->name }}
+                                                @else 
+                                                    "Data Pegawai Tidak Ditemukan"
+                                                @endif
+                                            </option>
                                             @endforeach
                                         </select>
                                         <span id="form_result" class="text-danger"></span>
@@ -121,22 +127,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
-                                    {{-- @forelse($data ?? '' as $kelas)
-                                        <tr>
-                                            <td>{{ $kelas->name }}</td>
-                                            <td>{{ $kelas->wali_kelas }}</td>
-                                            <td>{{ $kelas->kapasitas }}</td>
-                                            <td>{{ $kelas->jurusan }}</td>
-                                            <td>{{ $kelas->keterangan }}</td>
-                                            <td>
-                                                <button type="button" data-id="{{$kelas->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
-                                                &nbsp;&nbsp;
-                                                <button type="button" data-id="{{$kelas->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
-                                    @endforelse --}}
+                                    
                                 </tbody>
                             </table>
                         </div>
