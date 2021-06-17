@@ -17,27 +17,29 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <h6>Filter</h6>
-                    <form action="" method="GET">
-                        <div class="row">
-                            <div class="col-xl-4">
-                                <select name="kelas_id" id="pilih" class="form-control form-control-sm">
-                                    <option value="">-- Kelas --</option>
-                                </select>
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <h6>Filter</h6>
+                        <form action="" method="GET">
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <select name="kelas_id" id="pilih" class="form-control form-control-sm">
+                                        <option value="">-- Kelas --</option>
+                                    </select>
+                                </div>
+                                <div class="col-xl-4">
+                                    <select name="soal_id" id="soal_id" class="form-control form-control-sm" required>
+                                        <option value="">-- Soal --</option>
+                                    </select>
+                                </div>
+                                <div class="col-xl-2">
+                                    <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
+                                </div>
                             </div>
-                            <div class="col-xl-4">
-                                <select name="soal_id" id="soal_id" class="form-control form-control-sm" required>
-                                    <option value="">-- Soal --</option>
-                                </select>
-                            </div>
-                            <div class="col-xl-2">
-                                <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,6 +109,13 @@
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
+    .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
     .family-modal-wrapper {
         position: relative;
     }

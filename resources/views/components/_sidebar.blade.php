@@ -311,17 +311,12 @@
                 @endif
 
                 @if ($addons != null && $addons->pelanggaran)
-                <li class="@if (request()->is('admin/pelanggaran/siswa') || request()->is('admin/pelanggaran/sanksi') || request()->is('admin/pelanggaran/kategori-pelanggaran') || request()->is('admin/pelanggaran/surat-peringatan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/pelanggaran/sanksi') || request()->is('admin/pelanggaran/kategori-pelanggaran') || request()->is('admin/pelanggaran/surat-peringatan') || request()->is('admin/pelanggaran/siswa')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-exclamation-triangle"></i></span>
                         <span class="pcoded-mtext">Pelanggaran</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('admin/pelanggaran/siswa') ? 'active' : '' }}">
-                            <a href="{{ route('admin.pelanggaran.siswa') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Siswa</span>
-                            </a>
-                        </li>
                         <li class="{{ request()->is('admin/pelanggaran/sanksi') ? 'active' : '' }}">
                             <a href="{{ route('admin.pelanggaran.sanksi') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Sanksi</span>
@@ -337,6 +332,11 @@
                                 <span class="pcoded-mtext">Surat Peringatan</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('admin/pelanggaran/siswa') ? 'active' : '' }}">
+                            <a href="{{ route('admin.pelanggaran.siswa') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Siswa</span>
+                            </a>
+                        </li>                        
                     </ul>
                 </li>
                 @endif
