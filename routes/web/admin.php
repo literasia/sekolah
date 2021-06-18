@@ -200,8 +200,8 @@ Route::namespace('Pelajaran')->group(function () {
 // Absensi
 Route::namespace('Absensi')->group(function () {
     Route::get('/admin/absensi/siswa', 'SiswaController@index')->name('absensi.siswa');
-    Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@write')->name('absensi.siswa.write');
-    Route::post('/admin/absensi/siswa', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
+    Route::post('/admin/absensi/siswa/approve', 'SiswaController@approve')->name('absensi.siswa.approve');
+    Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
     Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')->name('absensi.rekap-siswa');
     Route::get('/admin/absensi/qr-code', 'SiswaController@index')->name('absensi.qr-code');
 });

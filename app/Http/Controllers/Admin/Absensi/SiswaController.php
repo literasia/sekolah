@@ -38,25 +38,17 @@ class SiswaController extends Controller
         return view('admin.absensi.siswa', compact('kelas','kelas_id', 'data', 'addons', 'tanggal'), ['mySekolah' => User::sekolah()]);
     }
 
-    public function write(Request $request) {
-        if($request->req == 'write') {
-            $this->validate($request, [
-                'tanggal' => 'required|date',
-                'kelas_id' => 'required',
-                'siswa_id' => 'required',
-                'status' => 'required'
-            ]);
+    public function approve(Request $request) {
+        
+        Absensi::create([
+            'kelas_id' => $request->kelas_id,
+            'tanggal' => $request->tanggal,
+            'siswa_id' => $request->siswa_id,
+            'status' => $request->status,
+            'editor_id' => $request->user()->id
+        ]);
 
-            $obj = Absensi::create([
-                'kelas_id' => $request->kelas_id,
-                'tanggal' => $request->tanggal,
-                'siswa_id' => $request->siswa_id,
-                'status' => $request->status,
-                'editor_id' => $request->user()->id
-            ]);
-
-            return response()->json($obj);
-        }
+        return redirect()->back();
     }
 
     public function approveAll(Request $request){
