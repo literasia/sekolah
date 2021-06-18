@@ -56,13 +56,13 @@
                             <form action="{{ route('admin.absensi.siswa.approve-all') }}" method="POST">
                                 @csrf @method('POST')
                                 <button type="submit" class="btn btn-success" id="approve-all">Simpan Semua</button>
-                                <input type="hidden" name="kelas_id" value="{{ $kelas_id }}">
-                                <input type="hidden" name="tanggal" value="{{ $tanggal }}">
-                                <input type="hidden" name="hadir_collect" id="hadir-collect" value="">
-                                <input type="hidden" name="absen_collect" id="absen-collect" value="">
-                                <input type="hidden" name="sakit_collect" id="sakit-collect" value="">
-                                <input type="hidden" name="izin_collect" id="izin-collect" value="">
-                                <input type="hidden" name="lainnya_collect" id="lainnya-collect" value="">
+                                <input type="text" name="kelas_id" value="{{ $kelas_id }}">
+                                <input type="text" name="tanggal" value="{{ $tanggal }}">
+                                <input type="text" name="hadir_collect" id="hadir-collect" value="">
+                                <input type="text" name="absen_collect" id="absen-collect" value="">
+                                <input type="text" name="sakit_collect" id="sakit-collect" value="">
+                                <input type="text" name="izin_collect" id="izin-collect" value="">
+                                <input type="text" name="lainnya_collect" id="lainnya-collect" value="">
                             </form>
 
                             <p></p>
