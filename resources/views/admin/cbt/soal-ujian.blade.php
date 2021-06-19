@@ -22,14 +22,13 @@
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                       <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                       <table id="ujian-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Judul Ujian</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
-                                    <th>Nama Guru</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -93,15 +92,42 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable();
+        $('#ujian-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.cbt.soal-ujian') }}",
+            },
+            columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'judul_ujian',
+                name: 'judul_ujian'
+            },
+            {
+                data: 'mata_pelajaran',
+                name: 'mata_pelajaran'
+            },
+            {
+                data: 'kelas',
+                name: 'kelas'
+            },
+            {
+                data: 'action',
+                name: 'action'
+            }
+            ]
+        });
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Soal Ujian');
             $('.form-control').val('');
             $('#action').val('add');
             $('#hidden_id').val('');
-            $('#judul_ujian').val('');
-            $('#guru_id').val('');
+            $('#judul').val('');
             $('#mata_pelajaran_id').val('');
             $('#kelas_id').val('');
             $('#jumlah_soal').val('');
@@ -115,6 +141,113 @@
                 .addClass('btn-outline-success')
                 .val('Batal');
             $('#modal-soal').modal('show');
+        });
+
+        $('#publish_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+            autoclose: true
+        });
+
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
+        });
+
+        $('#form-soal').on('submit', function (event) {
+            event.preventDefault();
+            var url = '';
+            var text = "Data sukses ditambahkan";
+
+            if ($('#action').val() == 'add') {
+                url = "{{ route('admin.cbt.soal-ujian.store') }}";
+                text = "Data sukses ditambahkan";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('admin.cbt.soal-ujian.update') }}";
+                text = "Data sukses diupdate";
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+
+                    if (data.success) {
+                        Swal.fire("Berhasil", text, "success");
+                        $('.form-control').removeClass('is-invalid');
+                        $('#form-soal')[0].reset();
+                        $('#action').val('add');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .text('Batal');
+                        $('#ujian-table').DataTable().ajax.reload();
+                        $('#modal-soal').modal('hide');
+                    }
+                    $('#form_result').html(html);
+                }
+            });
+        });
+
+        $(document).on('click', '.edit', function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/admin/cbt/soal-ujian/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    $('.modal-title').html('Edit Soal Ujian');
+                    $('#action').val('edit');
+                    $('#hidden_id').val(data.id);
+                    $('#judul').val(data.judul);
+                    $('#mata_pelajaran_id').val(data.mata_pelajaran_id);
+                    $('#kelas_id').val(data.kelas_id);
+                    $('#status').val(data.status);
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .text('Batal');
+                    $('#modal-soal').modal('show');
+                }
+            });
+        });
+
+        var user_id;
+
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('data-id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: '/admin/cbt/soal-ujian/hapus/'+ user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#ujian-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
         });
     });
 </script>

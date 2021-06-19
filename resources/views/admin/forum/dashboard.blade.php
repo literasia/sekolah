@@ -29,6 +29,7 @@
                                 <table id="dashboard-table" class="table table-striped nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
+                                            <th>No.</th>
                                             <th>Forum</th>
                                             <th>Topik</th>
                                             <th>Balasan</th>
@@ -118,8 +119,6 @@
                 theme: 'leaf',
                 format: 'd-m-Y'
             });
-
-            $('#order-table').DataTable();
 
             $('#dashboard-table').DataTable({
                 processing: true,
