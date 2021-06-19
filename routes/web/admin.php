@@ -260,6 +260,10 @@ Route::namespace('CBT')->group(function () {
 
     // Soal
     Route::get('/admin/cbt/soal-ujian', 'SoalUjianController@index')->name('cbt.soal-ujian');
+    Route::post('/admin/cbt/soal-ujian', 'SoalUjianController@store')->name('cbt.soal-ujian.store');
+    Route::get('/admin/cbt/soal-ujian/{id}', 'SoalUjianController@edit')->name('cbt.soal-ujian.edit');
+    Route::post('/admin/cbt/soal-ujian/update', 'SoalUjianController@update')->name('cbt.soal-ujian.update');
+    Route::get('/admin/cbt/soal-ujian/hapus/{id}', 'SoalUjianController@destroy')->name('cbt.soal-ujian.delete');
 
     // Butir Soal
     Route::get('/admin/cbt/butir-soal-ujian', 'ButirSoalUjianController@index')->name('cbt.butir-soal-ujian');

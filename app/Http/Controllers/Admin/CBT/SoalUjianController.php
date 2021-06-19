@@ -21,7 +21,12 @@ class SoalUjianController extends Controller
     }
 
     public function store(Request $request){
-        //
+        $data = $request->all();
+
+        return response()
+            ->json([
+                'success' => 'Data berhasil ditambah.',
+        ]);
     }
 
     public function edit($id){
