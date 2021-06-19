@@ -39,14 +39,28 @@ class SiswaController extends Controller
     }
 
     public function approve(Request $request) {
-        
-        Absensi::create([
-            'kelas_id' => $request->kelas_id,
-            'tanggal' => $request->tanggal,
-            'siswa_id' => $request->siswa_id,
-            'status' => $request->status,
-            'editor_id' => $request->user()->id
-        ]);
+        $absensi = Absensi::where('kelas_id', $request->kelas_id)
+                            ->where('siswa_id', $request->siswa_id)
+                            ->where('tanggal', date('Y-m-d', strtotime($request->tanggal)))
+                            ->first();
+
+        if ($absensi == null) {
+            Absensi::create([
+                'kelas_id' => $request->kelas_id,
+                'tanggal' => $request->tanggal,
+                'siswa_id' => $request->siswa_id,
+                'status' => $request->status,
+                'editor_id' => $request->user()->id
+            ]);
+        }else{
+            $absensi->update([
+                'kelas_id' => $request->kelas_id,
+                'tanggal' => $request->tanggal,
+                'siswa_id' => $request->siswa_id,
+                'status' => $request->status,
+                'editor_id' => $request->user()->id
+            ]);
+        }
 
         return redirect()->back();
     }
