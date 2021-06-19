@@ -263,12 +263,14 @@
     let radioAbsenAll = document.getElementById('radio-absen-all');
     let radioLainnyaAll = document.getElementById('radio-lainnya-all');
 
-    const enabledApproveButton = () => {
+    // Enable Button when checkbox on checked
+    const enabledAllApproveButton = () => {
         Array.from(approveButton).forEach(function(obj){
             obj.removeAttribute('disabled');
         });
     }
 
+    // uncheck another checkbox when another toggle all checkbox has checked
     const uncheckMultipleCheckbox = (toggleAllCheckbox, el) => {
         toggleAllCheckbox.checked = false;
 
@@ -277,6 +279,7 @@
         });
     }
 
+    // clear all value collection
     const clearItems = () => {
         document.getElementById('hadir-collect').value = "";
         document.getElementById('absen-collect').value = "";
@@ -285,15 +288,27 @@
         document.getElementById('lainnya-collect').value = "";
     }
 
+    // clear all checkbox item per column
+    const clearAllCheckboxItem = (obj, absensiCheckbox) => {
+        if(obj.checked == false){
+            Array.from(absensiCheckbox).forEach(function(obj){
+                clearItems();
+                obj.checked = false;
+            }); 
+        }
+    }
+
     // Toggle All Hadir
-    const toggleAllHadir = () => {
+    const toggleAllHadir = (obj) => {
         clearItems();
         Array.from(radioHadir).forEach(function(obj){
             obj.checked = true;
             addItems(obj.getAttribute('data-id').toString(), document.getElementById('hadir-collect'));
         });
 
-        enabledApproveButton();
+        clearAllCheckboxItem(obj, radioHadir);
+
+        enabledAllApproveButton();
         
         uncheckMultipleCheckbox(radioLainnyaAll, radioLainnya);
         uncheckMultipleCheckbox(radioAbsenAll, radioAbsen);
@@ -302,14 +317,17 @@
     }
 
     // Toggle All Absen
-    const toggleAllAbsen = () => {
+    const toggleAllAbsen = (obj) => {
         clearItems();
+
+        // Add Items
         Array.from(radioAbsen).forEach(function(obj){
             obj.checked = true;
             addItems(obj.getAttribute('data-id').toString(), document.getElementById('absen-collect'));
         });
 
-        enabledApproveButton();
+        clearAllCheckboxItem(obj, radioAbsen);
+        enabledAllApproveButton();
         
         uncheckMultipleCheckbox(radioLainnyaAll, radioLainnya);
         uncheckMultipleCheckbox(radioHadirAll, radioHadir);
@@ -318,14 +336,17 @@
     }
 
     // Toggle All Sakit
-    const toggleAllSakit = () => {
+    const toggleAllSakit = (obj) => {
         clearItems();
+
+        // Add Items
         Array.from(radioSakit).forEach(function(obj){
             obj.checked = true;
             addItems(obj.getAttribute('data-id').toString(), document.getElementById('sakit-collect'));
         });
 
-        enabledApproveButton();
+        clearAllCheckboxItem(obj, radioSakit);
+        enabledAllApproveButton();
         
         uncheckMultipleCheckbox(radioLainnyaAll, radioLainnya);
         uncheckMultipleCheckbox(radioAbsenAll, radioAbsen);
@@ -334,14 +355,17 @@
     }
 
     // Toggle All Izin
-    const toggleAllIzin = () => {
+    const toggleAllIzin = (obj) => {
         clearItems();
+
+        // Add Items
         Array.from(radioIzin).forEach(function(obj){
             obj.checked = true;
             addItems(obj.getAttribute('data-id').toString(), document.getElementById('izin-collect'));
         });
 
-        enabledApproveButton();
+        clearAllCheckboxItem(obj, radioIzin);
+        enabledAllApproveButton();
 
         uncheckMultipleCheckbox(radioLainnyaAll, radioLainnya);
         uncheckMultipleCheckbox(radioAbsenAll, radioAbsen);
@@ -350,14 +374,17 @@
     }
 
     // Toggle All Lainnya
-    const toggleAllLainnya = () => {
+    const toggleAllLainnya = (obj) => {
         clearItems();
+
+        // Add Items
         Array.from(radioLainnya).forEach(function(obj){
             obj.checked = true;
             addItems(obj.getAttribute('data-id').toString(), document.getElementById('lainnya-collect'));
         });
 
-        enabledApproveButton();
+        clearAllCheckboxItem(obj, radioLainnya);
+        enabledAllApproveButton();
 
         uncheckMultipleCheckbox(radioHadirAll, radioHadir);
         uncheckMultipleCheckbox(radioAbsenAll, radioAbsen);
@@ -365,6 +392,8 @@
         uncheckMultipleCheckbox(radioIzinAll, radioIzin);
     }
 
+
+    // Add Items to input when checkbox has checked
     const addItems = (newId, el) => {
         if (el.value == "") {
             el.value = newId;
@@ -373,6 +402,7 @@
         }
     }
 
+    // delete item when checkbox has unchecked
     const deleteItems = (newId, el) => {
         let itemIdCollect = el.value;
         let oldValues = itemIdCollect.split(';');
@@ -383,6 +413,7 @@
         el.value = removeData.join('');
     }
 
+    // unchecked another checkbox when another checbox has checked
     const uncheckedSingleItem = (itemChecked, newItem) => {
         Array.from(itemChecked).forEach(function(item){
             if(item.getAttribute('data-id') == newItem){
@@ -391,15 +422,8 @@
         });
     }
 
-    const toggleHadir = (obj) => {
-        let newId = obj.getAttribute('data-id');
-
-        uncheckedSingleItem(radioAbsen, newId);
-        uncheckedSingleItem(radioIzin, newId);
-        uncheckedSingleItem(radioSakit, newId);
-        uncheckedSingleItem(radioLainnya, newId);
-        
-        // Defuse Button
+    // eabled singgle approve button when single checbox has checked
+    const enabledSingleApproveButton = (obj, newId) => {
         Array.from(approveButton).forEach(function(objButton){
             if (obj.checked == true) {
                 if (objButton.getAttribute('data-id').toString() == newId.toString()) {
@@ -411,8 +435,19 @@
                 }   
             }
         });
+    }
 
+    // Toggle Hadir
+    const toggleHadir = (obj) => {
+        let newId = obj.getAttribute('data-id');
 
+        uncheckedSingleItem(radioAbsen, newId);
+        uncheckedSingleItem(radioIzin, newId);
+        uncheckedSingleItem(radioSakit, newId);
+        uncheckedSingleItem(radioLainnya, newId);
+        
+        enabledSingleApproveButton(obj, newId);
+        
         deleteItems(newId, document.getElementById('absen-collect'));
         deleteItems(newId, document.getElementById('sakit-collect'));
         deleteItems(newId, document.getElementById('izin-collect'));
@@ -435,18 +470,7 @@
         uncheckedSingleItem(radioSakit, newId);
         uncheckedSingleItem(radioLainnya, newId);
 
-        // Defuse Button
-        Array.from(approveButton).forEach(function(objButton){
-            if (obj.checked == true) {
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.removeAttribute('disabled');
-                }
-            }else{
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.setAttribute('disabled', true);
-                }   
-            }
-        });
+        enabledSingleApproveButton(obj, newId);
 
         deleteItems(newId, document.getElementById('hadir-collect'));
         deleteItems(newId, document.getElementById('sakit-collect'));
@@ -470,18 +494,7 @@
         uncheckedSingleItem(radioAbsen, newId);
         uncheckedSingleItem(radioLainnya, newId);
 
-        // Defuse Button
-        Array.from(approveButton).forEach(function(objButton){
-            if (obj.checked == true) {
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.removeAttribute('disabled');
-                }
-            }else{
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.setAttribute('disabled', true);
-                }   
-            }
-        });
+        enabledSingleApproveButton(obj, newId);
 
         deleteItems(newId, document.getElementById('absen-collect'));
         deleteItems(newId, document.getElementById('hadir-collect'));
@@ -505,18 +518,7 @@
         uncheckedSingleItem(radioSakit, newId);
         uncheckedSingleItem(radioLainnya, newId);
 
-        // Defuse Button
-        Array.from(approveButton).forEach(function(objButton){
-            if (obj.checked == true) {
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.removeAttribute('disabled');
-                }
-            }else{
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.setAttribute('disabled', true);
-                }   
-            }
-        });
+        enabledSingleApproveButton(obj, newId);
 
         deleteItems(newId, document.getElementById('absen-collect'));
         deleteItems(newId, document.getElementById('sakit-collect'));
@@ -540,18 +542,7 @@
         uncheckedSingleItem(radioSakit, newId);
         uncheckedSingleItem(radioAbsen, newId);
 
-        // Defuse Button
-        Array.from(approveButton).forEach(function(objButton){
-            if (obj.checked == true) {
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.removeAttribute('disabled');
-                }
-            }else{
-                if (objButton.getAttribute('data-id').toString() == newId.toString()) {
-                    objButton.setAttribute('disabled', true);
-                }   
-            }
-        });
+        enabledSingleApproveButton(obj, newId);
    
         deleteItems(newId, document.getElementById('absen-collect'));
         deleteItems(newId, document.getElementById('sakit-collect'));
