@@ -3,8 +3,8 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Guru;
-use App\Models\CbtSoal;
+// use App\Models\Guru;
+use App\Models\Admin\CbtSoal;
 
 class Ujian extends Model
 {
@@ -14,7 +14,7 @@ class Ujian extends Model
         return $this->belongsTo(CbtSoal::class);
     }
 
-    public function guru(){
-        return $this->belongsTo(Guru::class);
-    }
+    // public function guru(){
+    //     return $this->belongsTo(Guru::class);
+    // }
 }
