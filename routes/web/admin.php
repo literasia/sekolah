@@ -288,6 +288,10 @@ Route::namespace('CBT')->group(function () {
 
     // Penilaian
     Route::get('/admin/cbt/penilaian', 'PenilaianController@index')->name('cbt.penilaian');
+    Route::post('/admin/cbt/penilaian', 'PenilaianController@store')->name('cbt.penilaian.store');
+    Route::get('/admin/cbt/penilaian/{id}', 'PenilaianController@edit')->name('cbt.penilaian.edit');
+    Route::post('/admin/cbt/penilaian/update', 'PenilaianController@update')->name('cbt.penilaian.update');
+    Route::get('/admin/cbt/penilaian/hapus/{id}', 'PenilaianController@destroy')->name('cbt.penilaian.delete');
 
     // Ranking
     Route::get('/admin/cbt/ranking', 'RankingController@index')->name('cbt.ranking');
