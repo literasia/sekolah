@@ -424,17 +424,32 @@
                 @endif
 
                 @if ($addons != null && $addons->forum)
-                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/pengguna') ) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/forum/forum') || request()->is('admin/forum/topik')) || request()->is('admin/forum/dashboard')) || request()->is('admin/forum/tautan')) || request()->is('admin/forum/pengguna')) || request()->is('admin/forum/balasan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
                         <span class="pcoded-mtext">Forum</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('admin/forum/forum') ? 'active' : '' }}">
-                            <a href="{{ route('admin.forum.forum') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Forum Diskusi</span>
+                        <li class="{{ request()->is('admin/forum/dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.dashboard') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Dashboard</span>
                             </a>
-                        </li> 
+                        </li>
+                        <li class="{{ request()->is('admin/forum/topik') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.topik') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Topik</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/forum/balasan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.balasan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Balasan</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/forum/tautan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.tautan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tautan</span>
+                            </a>
+                        </li>
                         <li class="{{ request()->is('admin/forum/pengguna') ? 'active' : '' }}">
                             <a href="{{ route('admin.forum.pengguna') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pengguna</span>

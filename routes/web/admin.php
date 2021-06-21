@@ -372,18 +372,45 @@ Route::namespace('Pengumuman')->group(function () {
 });
 // Forum diskusi
 Route::namespace('Forum')->group(function () {
-    Route::get('/admin/forum/forum', 'ForumController@index')->name('forum.forum');
-    Route::post('/admin/forum/forum', 'ForumController@store');
-    Route::get('/admin/forum/forum/{id}', 'ForumController@edit');
-    Route::post('/admin/forum/forum/update', 'ForumController@update')
-        ->name('forum.forum-update');
-    Route::get('/admin/forum/forum/hapus/{id}', 'ForumController@destroy');
+    // Dashboard
+    Route::get('/admin/forum/dashboard', 'DashboardController@index')
+    ->name('forum.dashboard');
+    Route::post('/admin/forum/dashboard', 'DashboardController@store');
+    Route::get('/admin/forum/dashboard/{id}', 'DashboardController@edit');
+    Route::post('/admin/forum/dashboard/update', 'DashboardController@update')
+    ->name('forum.dashboard-update');
+    Route::get('/admin/forum/dashboard/hapus/{id}', 'DashboardController@destroy');
 
+    // Topik
+    Route::get('/admin/forum/topik', 'TopikController@index')->name('forum.topik');
+    Route::post('/admin/forum/topik', 'TopikController@store');
+    Route::get('/admin/forum/topik/{id}', 'TopikController@edit');
+    Route::post('/admin/forum/topik/update', 'TopikController@update')
+        ->name('forum.topik-update');
+    Route::get('/admin/forum/topik/hapus/{id}', 'TopikController@destroy');
+
+    // Balasan
+    Route::get('/admin/forum/balasan', 'BalasanController@index')->name('forum.balasan');
+    Route::post('/admin/forum/balasan', 'BalasanController@store');
+    Route::get('/admin/forum/balasan/{id}', 'BalasanController@edit');
+    Route::post('/admin/forum/balasan/update', 'BalasanController@update')
+        ->name('forum.balasan-update');
+    Route::get('/admin/forum/balasan/hapus/{id}', 'BalasanController@destroy');
+
+    // Tautan
+    Route::get('/admin/forum/tautan', 'TautanController@index')->name('forum.tautan');
+    Route::post('/admin/forum/tautan', 'TautanController@store');
+    Route::get('/admin/forum/tautan/{id}', 'TautanController@edit');
+    Route::post('/admin/forum/tautan/update', 'TautanController@update')
+        ->name('forum.tautan-update');
+    Route::get('/admin/forum/topik/hapus/{id}', 'TautanController@destroy');
+
+    // Pengguna
     Route::get('/admin/forum/pengguna', 'PenggunaController@index')->name('forum.pengguna');
     Route::post('/admin/forum/pengguna', 'PenggunaController@store');
     Route::get('/admin/forum/pengguna/{id}', 'PenggunaController@edit');
     Route::post('/admin/forum/pengguna/update', 'PenggunaController@update')
-        ->name('forum.pengguna-update');
+        ->name('forum.pengguna.update');
     Route::get('/admin/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
 });
     
