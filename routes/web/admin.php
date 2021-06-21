@@ -169,21 +169,11 @@ Route::namespace('Pelajaran')->group(function () {
     Route::post('/admin/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')->name('pelajaran.jadwal-pelajaran.write');
 });
 
-// Absensi
 Route::namespace('Absensi')->group(function () {
-    // Siswa
-    Route::get('/admin/absensi/siswa', 'SiswaController@index')
-        ->name('absensi.siswa');
-    Route::post('/admin/absensi/siswa', 'SiswaController@write')
-        ->name('absensi.siswa.write');
-
-    // Rekap Siswa
-    Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')
-        ->name('absensi.rekap-siswa');
-
-    //QR Code
-    Route::get('/admin/absensi/qr-code', 'QRCodeController@index')
-        ->name('absensi.qr-code');
+    Route::get('/admin/absensi/siswa', 'SiswaController@index')->name('absensi.siswa');
+    Route::post('/admin/absensi/siswa/approve', 'SiswaController@approve')->name('absensi.siswa.approve');
+    Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
+    Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')->name('absensi.rekap-siswa');
 });
 
 // Daftar Nilai
