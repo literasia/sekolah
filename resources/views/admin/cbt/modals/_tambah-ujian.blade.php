@@ -4,14 +4,9 @@
             <label for="soal_id">Soal</label>
             <select name="soal_id" id="soal_id" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
-            </select>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            <label for="guru_id">Guru</label>
-            <select name="guru_id" id="guru_id" class="form-control form-control-sm">
-                <option value="">-- Pilih --</option>
+                @foreach ($soal as $item)
+                    <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                @endforeach
             </select>
         </div>
     </div>
@@ -81,12 +76,13 @@
                     <input type="number" value="1" name="durasi" id="durasi" class="form-control form-control-sm">
                 </div>
                 <div class="col-5 pl-0">
-                    <select  id="duration" class="form-control form-control-sm duration-option">
+                     <label class="ml-2 mb-0">Menit</label>
+                    <!-- <select  id="duration" class="form-control form-control-sm duration-option">
                         <option value="menit">Menit</option>
                         <option value="jam">Jam</option>
                         <option value="hari">Hari</option>
                         <option value="minggu">Minggu</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
         </div>

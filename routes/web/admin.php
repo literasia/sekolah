@@ -309,16 +309,28 @@ Route::namespace('ELearning')->group(function () {
 // CBT
 Route::namespace('CBT')->group(function () {
     // Ujian
-    Route::get('/admin/cbt/ujian', 'UjianController@index')
-        ->name('cbt.ujian');
+    // Route::get('/admin/cbt/ujian', 'UjianController@index')->name('cbt.ujian');
+    Route::get('/admin/cbt/ujian', 'UjianController@index')->name('cbt.ujian');
+    Route::post('/admin/cbt/ujian', 'UjianController@store')->name('cbt.ujian.store');
+    Route::get('/admin/cbt/ujian/{id}', 'UjianController@edit')->name('cbt.ujian.edit');
+    Route::post('/admin/cbt/ujian/update', 'UjianController@update')->name('cbt.ujian.update');
+    Route::get('/admin/cbt/ujian/hapus/{id}', 'UjianController@destroy')->name('cbt.ujian.delete');
 
     // Soal
-    Route::get('/admin/cbt/soal-ujian', 'SoalUjianController@index')
-        ->name('cbt.soal-ujian');
+    // Route::get('/admin/cbt/soal-ujian', 'SoalUjianController@index')->name('cbt.soal-ujian');
+    Route::get('/admin/cbt/soal-ujian', 'SoalUjianController@index')->name('cbt.soal-ujian');
+    Route::post('/admin/cbt/soal-ujian', 'SoalUjianController@store')->name('cbt.soal-ujian.store');
+    Route::get('/admin/cbt/soal-ujian/{id}', 'SoalUjianController@edit')->name('cbt.soal-ujian.edit');
+    Route::post('/admin/cbt/soal-ujian/update', 'SoalUjianController@update')->name('cbt.soal-ujian.update');
+    Route::get('/admin/cbt/soal-ujian/hapus/{id}', 'SoalUjianController@destroy')->name('cbt.soal-ujian.delete');
 
     // Butir Soal
-    Route::get('/admin/cbt/butir-soal-ujian', 'ButirSoalUjianController@index')
-        ->name('cbt.butir-soal-ujian');
+    // Route::get('/admin/cbt/butir-soal-ujian', 'ButirSoalUjianController@index')->name('cbt.butir-soal-ujian');
+    Route::get('/admin/cbt/butir-soal-ujian', 'ButirSoalUjianController@index')->name('cbt.butir-soal-ujian');
+    Route::post('/admin/cbt/butir-soal-ujian', 'ButirSoalUjianController@store')->name('cbt.butir-soal-ujian.store');
+    Route::get('/admin/cbt/butir-soal-ujian/{id}', 'ButirSoalUjianController@edit')->name('cbt.butir-soal-ujian.edit');
+    Route::post('/admin/cbt/butir-soal-ujian/update', 'ButirSoalUjianController@update')->name('cbt.butir-soal-ujian.update');
+    Route::get('/admin/cbt/butir-soal-ujian/hapus/{id}', 'ButirSoalUjianController@destroy')->name('cbt.butir-soal-ujian.delete');
 
     // Penilaian
     Route::get('/admin/cbt/penilaian', 'PenilaianController@index')
@@ -331,8 +343,21 @@ Route::namespace('CBT')->group(function () {
 
 // Bank Soal
 Route::namespace('BankSoal')->group(function () {
-    Route::get('/admin/banksoal/soal', 'SoalController@index')
-        ->name('banksoal.soal');
+    // Route::get('/admin/banksoal/soal', 'SoalController@index')
+    //     ->name('banksoal.soal');
+    //Soal
+    Route::get('/admin/banksoal/soal', 'SoalController@index')->name('banksoal.soal');
+    Route::post('/admin/banksoal/soal', 'SoalController@store')->name('banksoal.soal.store');
+    Route::get('/admin/banksoal/soal/{id}', 'SoalController@edit')->name('banksoal.soal.edit');
+    Route::post('/admin/banksoal/soal/update', 'SoalController@update')->name('banksoal.soal.update');
+    Route::get('/admin/banksoal/soal/hapus/{id}', 'SoalController@destroy')->name('banksoal.soal.delete');
+    
+    //Butir Soal
+    Route::get('/admin/banksoal/butir-soal', 'ButirSoalController@index')->name('banksoal.butir-soal');
+    Route::post('/admin/banksoal/butir-soal', 'ButirSoalController@store')->name('banksoal.butir-soal.store');
+    Route::get('/admin/banksoal/butir-soal/{id}', 'ButirSoalController@edit')->name('banksoal.butir-soal.edit');
+    Route::post('/admin/banksoal/butir-soal/update', 'ButirSoalController@update')->name('banksoal.butir-soal.update');
+    Route::get('/admin/banksoal/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('banksoal.butir-soal.delete');
 });
 
 // Referensi
