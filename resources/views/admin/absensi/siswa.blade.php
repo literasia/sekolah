@@ -502,7 +502,7 @@
         deleteItems(newId, document.getElementById('lainnya-collect'));
 
         if (obj.checked == true) {
-            addItems(newId, document.getElementById('sakit-collect'));
+            addItems(newId, document.getElement ById('sakit-collect'));
         }
 
         if (obj.checked == false) {
