@@ -11,25 +11,13 @@
                         <span class="pcoded-mtext">Dashboard</span>
                     </a>
                 </li>
-                <li class="@if (request()->is('superadmin/kategori-berita') || request()->is('superadmin/berita/berita')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="#" class="waves-effect waves-dark">
+                <li class="{{ request()->is('superadmin/list-sekolah') ? 'active' : '' }}">
+                    <a href="{{ route('superadmin.list-sekolah') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-newspaper"></i>
+                            <i class="fa fa-school"></i>
                         </span>
-                        <span class="pcoded-mtext">Berita</span>
+                        <span class="pcoded-mtext">List Sekolah</span>
                     </a>
-                    <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('superadmin/berita/kategori-berita') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.berita.kategori-berita') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Kategori</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('superadmin/berita/berita') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.berita.berita') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Berita</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="{{ request()->is('superadmin/slider') ? 'active' : '' }}">
                     <a href="{{ route('superadmin.slider') }}" class="waves-effect waves-dark">
@@ -37,14 +25,6 @@
                             <i class="fa fa-images"></i>
                         </span>
                         <span class="pcoded-mtext">Slider</span>
-                    </a>
-                </li>
-                <li class="{{ request()->is('superadmin/list-sekolah') ? 'active' : '' }}">
-                    <a href="{{ route('superadmin.list-sekolah') }}" class="waves-effect waves-dark">
-                        <span class="pcoded-micon">
-                            <i class="fa fa-school"></i>
-                        </span>
-                        <span class="pcoded-mtext">List Sekolah</span>
                     </a>
                 </li>
                 <li class="@if (request()->is('superadmin/library') || request()->is('superadmin/library/setting')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
@@ -67,6 +47,27 @@
                         </li>
                     </ul>
                 </li>
+                <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/laporan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="#" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-newspaper"></i>
+                        </span>
+                        <span class="pcoded-mtext">Keuangan</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('superadmin/keuangan/tagihan') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.keuangan.tagihan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tagihan</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('superadmin/keuangan/laporan') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.keuangan.laporan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Laporan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+               
                 <li class="@if (request()->is('superadmin/referensi/jenis-kelamin') || request()->is('superadmin/referensi/agama') || request()->is('superadmin/referensi/status-nikah') || request()->is('superadmin/referensi/provinsi') || request()->is('superadmin/referensi/kabupaten-kota') || request()->is('superadmin/referensi/kecamatan') || request()->is('superadmin/referensi/suku')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
@@ -112,22 +113,23 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/laporan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                
+                <li class="@if (request()->is('superadmin/kategori-berita') || request()->is('superadmin/berita/berita')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-newspaper"></i>
                         </span>
-                        <span class="pcoded-mtext">Keuangan</span>
+                        <span class="pcoded-mtext">Berita</span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('superadmin/keuangan/tagihan') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.keuangan.tagihan') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Tagihan</span>
+                        <li class="{{ request()->is('superadmin/berita/kategori-berita') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.berita.kategori-berita') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Kategori</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('superadmin/keuangan/laporan') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.keuangan.laporan') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Laporan</span>
+                        <li class="{{ request()->is('superadmin/berita/berita') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.berita.berita') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Berita</span>
                             </a>
                         </li>
                     </ul>
