@@ -227,24 +227,13 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="tahun_ajaran">Tahun Ajaran</label>
-                                <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
-                                    <option value="">-- Tahun Ajaran --</option>
-                                    <option value="2017/2018">2017/2018</option>
-                                    <option value="2018/2019">2018/2019</option>
-                                    <option value="2019/2020">2019/2020</option>
-                                    <option value="2020/2021">2020/2021</option>
-                                </select>
+                                    <input type="text" name="tahun_ajaran"  value="{{ $sekolah->tahun_ajaran }}" class="form-control form-control-sm" readonly></input>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="semester">Semester</label>
-                                <select name="semester" id="semester" class="form-control form-control-sm">
-                                    <option value="">-- Semester --</option>
-                                    @foreach($semester as $sem)
-                                    <option value="{{ $sem->semester }}">{{ $sem->semester }}</option>
-                                    @endforeach
-                                </select>
+                                    <input type="text" name="semester" value="{{ $sekolah->semester }}" class="form-control form-control-sm" readonly></input>
                             </div>
                         </div>
                     </div>
