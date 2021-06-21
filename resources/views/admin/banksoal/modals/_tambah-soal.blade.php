@@ -15,13 +15,13 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="judul">Judul Ujian</label>
+                                <label for="judul">Judul</label>
                                 <input type="text" name="judul" id="judul" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="mata_pelajaran">Mata Pelajaran</label>
                                 <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kelas">Kelas</label>
                                 <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
@@ -44,6 +44,7 @@
                                 </select>
                             </div>
                         </div>
+                        
                     </div>
 
                     <div class="modal-footer mt-3">

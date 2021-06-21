@@ -279,6 +279,11 @@
                             <a href="{{ route('admin.banksoal.soal') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Soal</span>
                             </a>
+                        </li>
+                        <li class="{{ request()->is('admin/banksoal/butir-soal') ? 'active' : '' }}">
+                            <a href="{{ route('admin.banksoal.butir-soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Butir Soal</span>
+                            </a>
                         </li>                        
                     </ul>
                 </li>

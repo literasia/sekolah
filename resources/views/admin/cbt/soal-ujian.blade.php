@@ -92,6 +92,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
+        $('#order-table').DataTable({
         $('#ujian-table').DataTable({
             processing: true,
             serverSide: true,
@@ -104,6 +105,8 @@
                 name: 'DT_RowIndex'
             },
             {
+                data: 'judul',
+                name: 'judul'
                 data: 'judul_ujian',
                 name: 'judul_ujian'
             },
@@ -127,6 +130,7 @@
             $('.form-control').val('');
             $('#action').val('add');
             $('#hidden_id').val('');
+            $('#judul_ujian').val('');
             $('#judul').val('');
             $('#mata_pelajaran_id').val('');
             $('#kelas_id').val('');
@@ -178,6 +182,15 @@
                 dataType: 'JSON',
                 data: $(this).serialize(),
                 success: function (data) {
+                    if (data.errors) {
+                        
+                        data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
+                        data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
+                        data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
+                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong");
+                    }
 
                     if (data.success) {
                         Swal.fire("Berhasil", text, "success");
@@ -192,6 +205,7 @@
                             .removeClass('btn-outline-info')
                             .addClass('btn-outline-success')
                             .text('Batal');
+                        $('#order-table').DataTable().ajax.reload();
                         $('#ujian-table').DataTable().ajax.reload();
                         $('#modal-soal').modal('hide');
                     }
@@ -207,6 +221,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     console.log(data);
+                    $('.modal-title').html('Edit Soal');
                     $('.modal-title').html('Edit Soal Ujian');
                     $('#action').val('edit');
                     $('#hidden_id').val(data.id);
@@ -243,6 +258,7 @@
                 }, success: function (data) {
                     setTimeout(function () {
                         $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
                         $('#ujian-table').DataTable().ajax.reload();
                         Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
