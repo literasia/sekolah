@@ -23,6 +23,6 @@ class Sekolah extends Model
 
     public function sliders()
     {
-    	return $this->belongsToMany(Slider::class)->orderBy('no_urut', 'asc');
+    	return $this->belongsToMany(Slider::class);
     }
 }

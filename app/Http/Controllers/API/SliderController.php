@@ -13,6 +13,6 @@ class SliderController extends Controller
     {
     	$sekolah = Sekolah::findOrFail($sekolah_id);
         
-    	return response()->json(ApiResponse::success($sekolah->sliders));
+    	return response()->json(ApiResponse::success($sekolah->sliders()->orderBy('no_urut', 'asc')->get()));
     }
 }
