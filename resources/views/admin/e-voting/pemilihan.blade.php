@@ -20,47 +20,49 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="card-block">
-                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Kandidat</th>
-                                        <th>Jenis Pemilihan</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                    @foreach($data_pemilihan as $dt)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <ol>
-                                                @foreach($dt->calons as $nk)
-                                                <li>{{ $nk->name }}</li>
-                                                @endforeach
-                                            </ol>
-                                        </td>
-                                        <td>{{ $dt->posisi }}</td>
-                                        <td>{{ $dt->start_date }}</td>
-                                        <td>{{ $dt->end_date }}</td>
-                                        <td>
-                                            <center>
-                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
-                                            &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
-                                            </center>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Kandidat</th>
+                                            <th>Jenis Pemilihan</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
+                                        @foreach($data_pemilihan as $dt)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <ol>
+                                                    @foreach($dt->calons as $nk)
+                                                    <li>{{ $nk->name }}</li>
+                                                    @endforeach
+                                                </ol>
+                                            </td>
+                                            <td>{{ $dt->posisi }}</td>
+                                            <td>{{ $dt->start_date }}</td>
+                                            <td>{{ $dt->end_date }}</td>
+                                            <td>
+                                                <center>
+                                                <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                                &nbsp;
+                                                <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +104,13 @@
         .btn i {
             margin-right: 0px;
         }
-
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
         .select2-container {
             width: 100% !important;
             padding: 0;

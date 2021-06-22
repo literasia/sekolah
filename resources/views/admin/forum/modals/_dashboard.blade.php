@@ -9,7 +9,6 @@
             </div>
             <div class="modal-body">
                 <form id="form-forum" enctype="multipart/form-data">
-                    @csrf
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -31,7 +30,7 @@
                             <div class="form-group">
                                 <label for="type">Type</label>
                                     <select name="type" id="type" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                     <option value="Forum">Forum</option>                                                               
                                 </select>
                             </div>
@@ -40,7 +39,7 @@
                             <div class="form-group">
                                 <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                     <option value="Terbuka">Terbuka</option>
                                     <option value="Terbuka">Tertutup</option>                                    
                                     </select>
@@ -50,7 +49,7 @@
                             <div class="form-group">
                                 <label for="visibility">Visibility</label>
                                     <select name="visibility" id="visibility" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                     <option value="Public">Public</option>
                                     <option value="Private">Private</option>
                                     <option value="Hidden">Hidden</option>
@@ -63,7 +62,7 @@
                             <div class="form-group">
                                 <label for="Parent">Parent</label>
                                 <select name="Parent" id="Parent" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -80,7 +79,10 @@
                     </div> 
                     </form>
                     <div class="modal-footer">                        
-                        <input type="add" class="btn btn-sm btn-success" value="Tambah" id="btn">
+                        <input type="hidden" name="hidden_id" id="hidden_id">
+                        <input type="hidden" id="action" val="add">
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>                   
                 </form>               
             </div>

@@ -13,7 +13,7 @@
                 <form id="form-butir-soal">
                     @csrf @method("POST")
                     <div class="row">
-                        <input type="hidden" name="" value="">
+                        <input type="hidden" name="soal_id" value="{{ $soal_id }}">
 
                         <div class="col">
                             <div class="form-group">

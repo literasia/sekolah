@@ -94,43 +94,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#reply-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.forum.balasan') }}",
-            },
-            columns: [
-            {
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'balasan',
-                name: 'balasan'
-            },
-            {
-                data: 'forum',
-                name: 'forum'
-            },
-            {
-                data: 'topik',
-                name: 'topik'
-            },
-            {
-                data: 'penulis',
-                name: 'penulis'
-            },
-            {
-                data: 'dibuat_pada',
-                name: 'dibuat_pada'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-            ]
-        });
+        $('#reply-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Balasan');
@@ -146,12 +110,12 @@
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
-                .val('Tambah');
+                .val('Simpan');
             $('#btn-cancel')
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-soal').modal('show');
+            $('#modal-balasan').modal('show');
         });
     });
 </script>

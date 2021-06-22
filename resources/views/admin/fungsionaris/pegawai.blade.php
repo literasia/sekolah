@@ -77,7 +77,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
-
     <style>
         .btn i {
             margin-right: 0px;

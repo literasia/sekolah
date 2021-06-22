@@ -24,13 +24,15 @@ Ini adalah halaman kalender akademik untuk admin
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-xl-12 col-md-12 col-sm-12">
-                            <div id="calendar">
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 col-sm-12">
+                                <div id="calendar">
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,6 +74,13 @@ Ini adalah halaman kalender akademik untuk admin
 <style>
     .btn i {
         margin-right: 0px;
+    }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 </style>
 @endpush

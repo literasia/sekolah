@@ -24,7 +24,6 @@
                 <div class="card-body">
                     <div class="card-block">
                         <form id="form-tautan">
-                            @csrf
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="form-group">
@@ -111,44 +110,6 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.forum.tautan') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'tautan',
-                    name: 'tautan'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
-                ]
-            });
-
-            $('#form-tautan').on('submit', function (event) {
-                event.preventDefault();
-                var url = '';
-
-                var text = "Data sukses ditambahkan";
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.forum.tautan') }}";
-                    text = "Data sukses ditambahkan";
-                }
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.forum.tautan-update') }}";
-                    text = "Data sukses diupdate";
-                }
-
-            });
-        });
+            $('#order-table').DataTable();
     </script>
 @endpush

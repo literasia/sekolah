@@ -20,51 +20,53 @@ Ini adalah halaman pesan untuk admin
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive">
-                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                            <thead class="text-left">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Judul</th>
-                                    <th>Set Waktu</th>
-                                    <th>Tanggal Upload</th>
-                                    <th>Tampil Pada</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-left">
-                                {{-- @php
-                                        $i = 1;
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                        <div class="dt-responsive table-responsive">
+                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                <thead class="text-left">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Judul</th>
+                                        <th>Set Waktu</th>
+                                        <th>Tanggal Upload</th>
+                                        <th>Tampil Pada</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-left">
+                                    {{-- @php
+                                            $i = 1;
+                                        @endphp
+                                        @forelse($data as $pesan)
+                                            <tr>
+                                                <td>{{ $i }}</td>
+                                    <td>{{ $pesan->judul }}</td>
+                                    <td>{{ $pesan->message_time }}</td>
+                                    <td>{{ date("Y-m-d", strtotime($pesan->created_at)) }}</td>
+                                    <td>{{ $pesan->start_date }}</td>
+                                    <td><label class="badge badge-success">{{ $pesan->status }}</label></td>
+                                    <td>
+                                        <button type="button" data-id="{{$pesan->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                        &nbsp;&nbsp;
+                                        <button type="button" data-id="{{$pesan->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                    </td>
+                                    </tr>
+                                    @php
+                                    $i++;
                                     @endphp
-                                    @forelse($data as $pesan)
-                                        <tr>
-                                            <td>{{ $i }}</td>
-                                <td>{{ $pesan->judul }}</td>
-                                <td>{{ $pesan->message_time }}</td>
-                                <td>{{ date("Y-m-d", strtotime($pesan->created_at)) }}</td>
-                                <td>{{ $pesan->start_date }}</td>
-                                <td><label class="badge badge-success">{{ $pesan->status }}</label></td>
-                                <td>
-                                    <button type="button" data-id="{{$pesan->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
-                                    &nbsp;&nbsp;
-                                    <button type="button" data-id="{{$pesan->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
-                                </td>
-                                </tr>
-                                @php
-                                $i++;
-                                @endphp
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="text-center">Tidak ada data</td>
-                                </tr>
-                                @endforelse --}}
-                            </tbody>
-                        </table>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">Tidak ada data</td>
+                                    </tr>
+                                    @endforelse --}}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,6 +106,13 @@ Ini adalah halaman pesan untuk admin
 <style>
     .btn i {
         margin-right: 0px;
+    }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 </style>
 @endpush
