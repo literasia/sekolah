@@ -11,7 +11,8 @@ class SliderController extends Controller
 {
     public function index($sekolah_id)
     {
-    	$sekolah    = Sekolah::findOrFail($sekolah_id);
+    	$sekolah = Sekolah::findOrFail($sekolah_id);
+        
     	return response()->json(ApiResponse::success($sekolah->sliders));
     }
 }
