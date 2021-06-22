@@ -197,13 +197,14 @@ Route::namespace('Pelajaran')->group(function () {
         ->name('pelajaran.jadwal-pelajaran.write');
 });
 
-// Absensi
 Route::namespace('Absensi')->group(function () {
     Route::get('/admin/absensi/siswa', 'SiswaController@index')->name('absensi.siswa');
     Route::post('/admin/absensi/siswa/approve', 'SiswaController@approve')->name('absensi.siswa.approve');
     Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
     Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')->name('absensi.rekap-siswa');
+
     Route::get('/admin/absensi/qr-code', 'SiswaController@index')->name('absensi.qr-code');
+
 });
 
 // Daftar Nilai
@@ -333,8 +334,12 @@ Route::namespace('CBT')->group(function () {
     Route::get('/admin/cbt/butir-soal-ujian/hapus/{id}', 'ButirSoalUjianController@destroy')->name('cbt.butir-soal-ujian.delete');
 
     // Penilaian
-    Route::get('/admin/cbt/penilaian', 'PenilaianController@index')
-        ->name('cbt.penilaian');
+    Route::get('/admin/cbt/penilaian', 'PenilaianController@index')->name('cbt.penilaian');
+    Route::post('/admin/cbt/penilaian', 'PenilaianController@store')->name('cbt.penilaian.store');
+    Route::get('/admin/cbt/penilaian/{id}', 'PenilaianController@edit')->name('cbt.penilaian.edit');
+    Route::post('/admin/cbt/penilaian/update', 'PenilaianController@update')->name('cbt.penilaian.update');
+    Route::get('/admin/cbt/penilaian/hapus/{id}', 'PenilaianController@destroy')->name('cbt.penilaian.delete');
+
 
     // Ranking
     Route::get('/admin/cbt/ranking', 'RankingController@index')
