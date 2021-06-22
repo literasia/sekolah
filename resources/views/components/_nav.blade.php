@@ -40,14 +40,14 @@
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon-bell"></i>
-                            {{-- <span class="badge bg-c-red">0</span> --}}
+                            <span class="badge bg-c-red">0</span>
                         </div>
                         <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
                                 <h6>Notifications</h6>
                                 <label class="label label-danger">New</label>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <div class="media">
                                     <img class="img-radius" src="{{ asset('assets/images/avatar-4.jpg') }}" alt="Generic placeholder image">
                                     <div class="media-body">
@@ -76,7 +76,7 @@
                                         <span class="notification-time">30 minutes ago</span>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </li>
@@ -84,7 +84,6 @@
 
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- <img src="{{ asset('assets/images/avatar-4.jpg') }}" class="img-radius" alt="User-Profile-Image"> -->
                             <img src="{{ asset('img/default-image.png') }}" class="img-radius" alt="User-Profile-Image">
                             <span>{{$mySekolah->name ?? 'John Doe'}}</span>
                             <i class="feather icon-chevron-down"></i>

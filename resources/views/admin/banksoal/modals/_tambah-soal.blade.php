@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="judul">Judul Ujian</label>
+                                <label for="judul">Judul</label>
                                 <input type="text" name="judul" id="judul" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -44,6 +44,7 @@
                                 </select>
                             </div>
                         </div>
+                        
                     </div>
 
                     <div class="modal-footer mt-3">

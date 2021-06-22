@@ -1,17 +1,17 @@
-@extends('layouts.guru')
+@extends('layouts.admin')
 
-@section('title', 'E-Learning | Butir Soal')
+@section('title', 'Bank Soal | Butir Soal')
 @section('title-2', 'Butir Soal')
 @section('title-3', 'Butir Soal')
 
 @section('describ')
-    Ini adalah halaman Butir Soal untuk guru
+    Ini adalah halaman Butir Soal untuk admin
 @endsection
 
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('guru.e-learning.butir-soal') }}
+    {{ route('admin.banksoal.butir-soal') }}
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@
                     <form action="" method="GET">
                         <div class="row">
                             <div class="col-xl-4">
-                                <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
+                                <select name="kelas_id" id="pilih" class="form-control form-control-sm">
                                     <option value="">-- Kelas --</option>
                                     @foreach ($kelas as $item)
                                         <option value="{{ $item->id }}"
@@ -37,7 +37,7 @@
                             <div class="col-xl-4">
                                 <select name="soal_id" id="soal_id" class="form-control form-control-sm" required>
                                     <option value="">-- Soal --</option>
-                                    @foreach ($soal as $item)
+                                    @foreach ($bank_soals as $item)
                                         <option value="{{ $item->id }}"
                                             @if ($item->id == $soal_id)
                                                 selected
@@ -85,8 +85,8 @@
         </div>
     </div>
 </div>
-@include('guru.e-learning.modals._butir-soal')
-@include('guru.e-learning.modals._preview')
+@include('admin.banksoal.modals._butir-soal')
+@include('admin.banksoal.modals._preview')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -180,7 +180,7 @@
             $('.modal-title').html('Preview Soal');
             let id = $(this).attr('data-id');
             $.ajax({
-                url: '/guru/e-learning/butir-soal/'+id,
+                url: '/admin/banksoal/butir-soal/'+id,
                 dataType: 'JSON',
                 success: function (data) {
                     $('#preview-pertanyaan').html(data.pertanyaan);
@@ -204,7 +204,6 @@
                         $('#answer-row').hide();
                     }
                     $('#modal-preview-soal').modal('show');
-
                 }
             });
         });
@@ -220,12 +219,11 @@
             donetext: 'Done',
             autoclose: true
         });
+        
         let counter = 1;
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
-            counter = 1;
-            
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
                 return false;
@@ -260,7 +258,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('guru.e-learning.butir-soal') }}",
+                    url: "{{ route('admin.banksoal.butir-soal') }}",
                     type: "GET",
                     data: {
                         'soal_id' : `{{ $soal_id }}`,
@@ -295,8 +293,6 @@
         $('#add').on('click', function() {    
             $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
-            $('#kelas_id').val(`{{ $kelas_id }}`);
-            $('#soal_id').val(`{{ $soal_id }}`);
             $('#point').val(1);
             $('#action').val('add');
             $('#hidden_id').val('');
@@ -333,13 +329,12 @@
             event.preventDefault();
             var url = '';
             var text = 'Data sukses ditambahkan';
-
             if ($('#action').val() == 'add') {
-                url = "{{ route('guru.e-learning.butir-soal.store') }}";
+                url = "{{ route('admin.banksoal.butir-soal.store') }}";
                 text = "Data sukses ditambahkan";
             }
             if ($('#action').val() == 'edit') {
-                url = "{{ route('guru.e-learning.butir-soal.update') }}";
+                url = "{{ route('admin.banksoal.butir-soal.update') }}";
                 text = "Data sukses diupdate";
             }
             $.ajax({
@@ -349,7 +344,7 @@
                 data: $(this).serialize(),
                 success: function (data) {
                     if (data.errors) {
-                        data.errors.poin ? $('#point').addClass('is-invalid') : $('#point').removeClass('is-invalid');
+                        data.errors.poin ? $('#poin').addClass('is-invalid') : $('#poin').removeClass('is-invalid');
                         data.errors.jenis_soal ? $('#question_type').addClass('is-invalid') : $('#question_type').removeClass('is-invalid');
                         toastr.error("data masih kosong!");
                     }
@@ -372,25 +367,26 @@
                 }
             });
         });
-
         $(document).on('click', '.edit', function () {
             var id = $(this).attr('data-id');
             $.ajax({
-                url: '/guru/e-learning/butir-soal/'+id,
+                url: '/admin/banksoal/butir-soal/'+id,
                 dataType: 'JSON',
                 success: function (data) {
                     $('.modal-title').html('Edit Butir Soal');
                     $('#hidden_id').val(data.id);
                     tinymce.get('pertanyaan').setContent(data.pertanyaan);
                     $('#question_type').val(data.jenis_soal);
+                    $('#poin').val(data.poin);
                     $('#answer-group').html('');
-
-
+                    if (data.jenis_soal == "single-choice") {
+                        $('#addButton').hide();
+                        $('#removeButton').hide();
+                    }
                     counter = 0;
                     if (data.jenis_soal == "multiple-choice") {
                         let jawabans = data.jawaban;
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
                         for (let index = 0; index < jawabans.length; index++) {
                             let newAnswerField =  `<div id="answer-form${counter}">
                                             <div class="row">
@@ -430,7 +426,7 @@
         });
         $('#ok_button').click(function () {
             $.ajax({
-                url: '/guru/e-learning/butir-soal/hapus/'+ user_id,
+                url: '/admin/banksoal/butir-soal/hapus/'+ user_id,
                 beforeSend: function () {
                     $('#ok_button').text('Menghapus...');
                 }, success: function (data) {
