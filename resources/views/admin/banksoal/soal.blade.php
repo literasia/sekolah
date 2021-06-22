@@ -121,7 +121,6 @@
             }
             ]
         });
-
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Soal');
             $('.form-control').val('');
@@ -141,36 +140,29 @@
                 .val('Batal');
             $('#modal-soal').modal('show');
         });
-
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
-
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
         });
-
         $(".rotate-collapse").click(function() {
             $(".rotate").toggleClass("down"); 
         });
-
         $('#form-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
             var text = "Data sukses ditambahkan";
-
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.banksoal.soal.store') }}";
                 text = "Data sukses ditambahkan";
             }
-
             if ($('#action').val() == 'edit') {
                 url = "{{ route('admin.banksoal.soal.update') }}";
                 text = "Data sukses diupdate";
             }
-
             $.ajax({
                 url: url,
                 method: 'POST',
@@ -183,10 +175,8 @@
                         data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
                         data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
                         data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
-
                         toastr.error("data masih kosong");
                     }
-
                     if (data.success) {
                         Swal.fire("Berhasil", text, "success");
                         $('.form-control').removeClass('is-invalid');
@@ -207,7 +197,6 @@
                 }
             });
         });
-
         $(document).on('click', '.edit', function () {
             var id = $(this).attr('data-id');
             $.ajax({
@@ -234,15 +223,12 @@
                 }
             });
         });
-
         var user_id;
-
         $(document).on('click', '.delete', function () {
             user_id = $(this).attr('data-id');
             $('#ok_button').text('Hapus');
             $('#confirmModal').modal('show');
         });
-
         $('#ok_button').click(function () {
             $.ajax({
                 url: '/admin/banksoal/soal/hapus/'+ user_id,

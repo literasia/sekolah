@@ -204,7 +204,6 @@
                         $('#answer-row').hide();
                     }
                     $('#modal-preview-soal').modal('show');
-
                 }
             });
         });
@@ -212,12 +211,10 @@
             $('.answer').hide();
             $('#' + $(this).val()).show();
         });
-
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
-
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
@@ -332,7 +329,6 @@
             event.preventDefault();
             var url = '';
             var text = 'Data sukses ditambahkan';
-
             if ($('#action').val() == 'add') {
                 url = "{{ route('admin.banksoal.butir-soal.store') }}";
                 text = "Data sukses ditambahkan";
@@ -371,7 +367,6 @@
                 }
             });
         });
-
         $(document).on('click', '.edit', function () {
             var id = $(this).attr('data-id');
             $.ajax({
@@ -388,12 +383,10 @@
                         $('#addButton').hide();
                         $('#removeButton').hide();
                     }
-
                     counter = 0;
                     if (data.jenis_soal == "multiple-choice") {
                         let jawabans = data.jawaban;
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
                         for (let index = 0; index < jawabans.length; index++) {
                             let newAnswerField =  `<div id="answer-form${counter}">
                                             <div class="row">
