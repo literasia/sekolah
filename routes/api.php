@@ -79,6 +79,7 @@ Route::namespace('API')
         Route::get('elearning/get-materi/{id}', 'MateriController@getMateri');
         Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
         Route::get('elearning/get-kuis/{kuis}', 'KuisController@getKuis');
+        Route::get('elearning/jawaban-siswa/{kuis}', 'KuisController@getKuis');
 
         // New Library
         Route::get('library/get-kategori', 'LibraryController@getKategori');
