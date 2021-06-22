@@ -24,7 +24,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="no_urut">Nomor Urut</label>
-                                <input type="text" name="no_urut" id="no_urut" class="form-control form-control-sm">
+                                <input type="number" name="no_urut" id="no_urut" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
