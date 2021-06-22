@@ -66,7 +66,6 @@
                                     <th>Waktu Selesai</th>
                                     <th>Nilai</th>
                                     <th>Action</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>

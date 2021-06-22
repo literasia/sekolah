@@ -29,6 +29,7 @@ Ini adalah halaman slider untuk Superadmin
                             <thead class="text-left">
                                 <tr>
                                     <th>No.</th>
+                                    <th>No Urut</th>
                                     <th>Judul</th>
                                     <th>Foto</th>
                                     <th>Keterangan</th>
@@ -146,6 +147,10 @@ Ini adalah halaman slider untuk Superadmin
                     name: 'DT_RowIndex'
                 },
                 {
+                    data: 'no_urut',
+                    name: 'no_urut'
+                },
+                {
                     data: 'judul',
                     name: 'judul'
                 },
@@ -174,6 +179,24 @@ Ini adalah halaman slider untuk Superadmin
                     name: 'action'
                 }
             ],
+        });
+
+        $("#provinsi").change(function(){
+            _this = $(this);
+            $.ajax({
+                url: `{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}`,
+                dataType: 'JSON',
+                data: {provinsi_id:_this.val()},
+                success: function (data) {
+                    $("#kabupaten_kota").html("");
+                    var options = "";
+                    for (let key in data) {
+                        options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                    }
+                    $("#kabupaten_kota").html(options);
+                    $("#kabupaten_kota").change();
+                }
+            });
         });
 
         $("#kabupaten_kota").change(function() {
@@ -288,6 +311,9 @@ Ini adalah halaman slider untuk Superadmin
                     $('#action').val('edit');
                     $('.modal-title').html('Edit Slider');
                     $('#judul').val(data.judul);
+                    $('#kabupaten_kota').val(data.kabupaten_kota_id);
+                    $('#no_urut').val(data.no_urut);
+                    $('#provinsi').val(data.provinsi_id);
                     $('#kabupaten_kota').val(data.kabupaten_kota_id);
                     getSekolahKabupaten(data.kabupaten_kota_id, data.sekolah);
                     $('#start_date').val(data.start_date);

@@ -22,7 +22,7 @@
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                       <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                       <table id="ujian-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -75,6 +75,13 @@
     .btn i {
         margin-right: 0px;
     }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
@@ -93,6 +100,7 @@
 <script type="text/javascript">
     $('document').ready(function() {
         $('#order-table').DataTable({
+        $('#ujian-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
@@ -106,6 +114,8 @@
             {
                 data: 'judul',
                 name: 'judul'
+                data: 'judul_ujian',
+                name: 'judul_ujian'
             },
             {
                 data: 'mata_pelajaran',
@@ -128,6 +138,7 @@
             $('#action').val('add');
             $('#hidden_id').val('');
             $('#judul_ujian').val('');
+            $('#judul').val('');
             $('#mata_pelajaran_id').val('');
             $('#kelas_id').val('');
             $('#jumlah_soal').val('');
@@ -202,6 +213,7 @@
                             .addClass('btn-outline-success')
                             .text('Batal');
                         $('#order-table').DataTable().ajax.reload();
+                        $('#ujian-table').DataTable().ajax.reload();
                         $('#modal-soal').modal('hide');
                     }
                     $('#form_result').html(html);
@@ -217,6 +229,7 @@
                 success: function (data) {
                     console.log(data);
                     $('.modal-title').html('Edit Soal');
+                    $('.modal-title').html('Edit Soal Ujian');
                     $('#action').val('edit');
                     $('#hidden_id').val(data.id);
                     $('#judul').val(data.judul);
@@ -253,6 +266,7 @@
                     setTimeout(function () {
                         $('#confirmModal').modal('hide');
                         $('#order-table').DataTable().ajax.reload();
+                        $('#ujian-table').DataTable().ajax.reload();
                         Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }

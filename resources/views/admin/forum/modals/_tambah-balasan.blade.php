@@ -1,9 +1,9 @@
-<div class="modal fade modal-flex p-0" id="modal-soal" tabindex="-1" role="dialog">
+<div class="modal fade modal-flex p-0" id="modal-balasan" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Topik
+                    Tambah Balasan
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -11,7 +11,6 @@
             </div>
             <div class="modal-body">
                 <form id="form-reply">
-                    @csrf @method("POST")
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -33,7 +32,7 @@
                             <div class="form-group">
                                 <label for="status_id">Status</label>
                                 <select name="status_id" id="status_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
@@ -41,16 +40,15 @@
                             <div class="form-group">
                                 <label for="topik_id">Topik</label>
                                 <select name="topik_id" id="topik_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                    <option value="">-- Pilih --</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer mt-3">
-                        <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-success" value="Tambah" id="btn">
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
                         <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>

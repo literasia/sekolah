@@ -15,6 +15,17 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
+            <label for="penilaian_id">Penilaian</label>
+            <select name="penilaian_id" id="penilaian_id" class="form-control form-control-sm">
+                <option value="">-- Pilih --</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
             <label for="keterangan">Keterangan</label>
             <textarea name="keterangan" id="keterangan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan"></textarea>
         </div>
@@ -76,7 +87,7 @@
                     <input type="number" value="1" name="durasi" id="durasi" class="form-control form-control-sm">
                 </div>
                 <div class="col-5 pl-0">
-                     <label class="ml-2 mb-0">Menit</label>
+                     <label class="ml-2 mt-1">Menit</label>
                     <!-- <select  id="duration" class="form-control form-control-sm duration-option">
                         <option value="menit">Menit</option>
                         <option value="jam">Jam</option>

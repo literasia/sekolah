@@ -24,8 +24,8 @@
                     <div class="modal-footer">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>
