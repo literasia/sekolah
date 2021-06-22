@@ -59,7 +59,7 @@ class RankingController extends Controller
                     return $ranking->siswa->nama;
                 })
                 ->addColumn('ujian', function ($ranking){
-                    return $ranking->ujians->wak;
+                    return $ranking->ujians->waktu_selesai;
                 })
                 
                 ->rawColumns(['action', 'jenis_soal'])

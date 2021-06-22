@@ -17,8 +17,8 @@ class CreateCbtButirSoalsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('soal_id');
             $table->string('jenis_soal');
-            $table->string('pertanyaan');
-            $table->string('jawaban')->nullable();
+            $table->text('pertanyaan');
+            $table->text('jawaban')->nullable();
             $table->string('kunci_jawaban')->nullable();
             $table->integer('poin');
             $table->foreign('soal_id')->references('id')->on('cbt_soals')->onDelete('cascade');
