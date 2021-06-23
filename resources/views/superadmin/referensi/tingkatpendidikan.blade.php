@@ -120,5 +120,6 @@
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable();
+        });
     </script>
 @endpush
