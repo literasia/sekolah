@@ -13,44 +13,22 @@
                 <form id="form-library" method="POST" action="{{ route('superadmin.library.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="name">Sekolah:</label>
-                                <select name="sekolah" id="sekolah" class="form-control form-control-sm" multiple>
+                                <label for="nama_sekolah">Sekolah:</label>
+                                <select name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm">
                                     <option value="">-- Pilih Sekolah --</option>
                                 </select>
                             </div>
                         </div>
-                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="sekolah_id">Nama Sekolah:</label>-->
-                        <!--        <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">-->
-                        <!--            <option value="">-- Nama Sekolah --</option>-->
-                        <!--            @foreach ($sekolahs as $sekolah)-->
-                        <!--                <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>-->
-                        <!--            @endforeach-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="tingkat">Tingakt:</label>-->
-                        <!--        <select name="tingkat" id="tingkat" class="form-control form-control-sm">-->
-                        <!--            <option value="">-- Tingkat --</option>-->
-                        <!--            <option value="SD">SD</option>-->
-                        <!--            <option value="SMP">SMP</option>-->
-                        <!--            <option value="SMA">SMA</option>-->
-                        <!--            <option value="SMK">SMK</option>-->
-                        <!--            <option value="Umum">Umum</option>-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--</div>-->
+                    </div>
+                    <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="sub_kategori_id">Sub Kategori:</label>
@@ -73,6 +51,8 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="row-unit">
                             <div class="form-group">
                                 <label for="tingkat_id">Tingkat</label>
@@ -90,12 +70,16 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="deskripsi">Deskripsi:</label>
                                 <textarea name="deskripsi" id="deskripsi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Deskripsi"></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -111,6 +95,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -128,6 +114,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -145,6 +133,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -162,6 +152,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="penulis_id">Penulis:</label>

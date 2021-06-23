@@ -62,6 +62,15 @@ Ini adalah halaman library untuk superadmin
     .btn i {
         margin-right: 0px;
     }
+    .select2-container {
+        width: 100% !important;
+        padding: 0;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        background-color: transparent; 
+        color: #000;
+        padding: 0px 30px 0px 10px; 
+    }
 </style>
 @endpush
 
@@ -75,6 +84,8 @@ Ini adalah halaman library untuk superadmin
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
+        $('#nama_sekolah').select2();
+
         $('#order-table').DataTable({
             processing: true,
             serverSide: true,
