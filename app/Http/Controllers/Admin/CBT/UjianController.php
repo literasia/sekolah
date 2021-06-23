@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class UjianController extends Controller
 {
     public function index(Request $request)
-    {
+    { //
         // $addons = Addons::where('user_id', auth()->user()->id)->first();
         // return view('admin.cbt.ujian',['mySekolah' => User::sekolah(), 'addons' => $addons]); 
         $addons = Addons::where('user_id', auth()->user()->id)->first();
