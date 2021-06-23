@@ -55,6 +55,8 @@ Ini adalah halaman library untuk superadmin
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
@@ -69,6 +71,7 @@ Ini adalah halaman library untuk superadmin
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
