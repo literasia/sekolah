@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class PenilaianController extends Controller
 {
     public function index(Request $request)
-    {
+    { //
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $penilaian = Penilaian::all();
         if ($request->ajax()) {
