@@ -45,6 +45,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-xl-2">
+                                <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -233,7 +236,6 @@
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
-            counter = 1;
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
                 return false;

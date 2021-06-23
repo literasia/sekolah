@@ -25,6 +25,6 @@ class DeleteColumKuisOnKuis extends Migration
      */
     public function down()
     {
-        //
+        $table->string('kuis');
     }
 }

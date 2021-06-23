@@ -28,7 +28,6 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Paket Soal</th>
-                                        <th>Nama Guru</th>
                                         <th>Keterangan</th>
                                         <th>Durasi</th>
                                         <th>Jumlah Pilihan Ganda</th>
@@ -524,6 +523,7 @@
                     $('.modal-title').html('Edit Kuis');
                     $('#hidden_id').val(data.id);
                     $('#soal_id').val(data.soal_id);
+                    $('#penilaian_id').val(data.penilaian_id);
                     $('#durasi').val(data.durasi);
                     $('#jumlah_soal_pg').val(data.jumlah_soal_pg);
                     $('#jumlah_soal_essai').val(data.jumlah_soal_essai);

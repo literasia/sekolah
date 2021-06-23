@@ -23,6 +23,25 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="no_urut">Nomor Urut</label>
+                                <input type="number" name="no_urut" id="no_urut" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="provinsi">Provinsi</label>
+                                <select name="provinsi" id="provinsi" class="form-control form-control-sm">
+                                    <option value="">Pilih</option>
+                                    @foreach ($provinsi as $data_provinsi)
+                                        <option value="{{ $data_provinsi->id }}">{{ $data_provinsi->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="posisi">Kabupaten / Kota</label>
                                 <select name="kabupaten_kota" id="kabupaten_kota" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
