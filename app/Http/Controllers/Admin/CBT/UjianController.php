@@ -193,7 +193,7 @@ class UjianController extends Controller
     public function edit($id){
         $ujian = Ujian::findOrFail($id);
         $pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
-        // $penilaian = Penilaian::findOrFail($id);
+        $penilaian = Penilaian::findOrFail($ujian->penilaian_id);
 
         return response()
             ->json([
@@ -210,7 +210,7 @@ class UjianController extends Controller
                 'status'   => $ujian->status,
                 'keterangan' => $ujian->keterangan,
                 'pengaturan' => $pengaturan,
-                // 'penilaian_id' => $ujian->penilaian_id,
+                'penilaian_id' => $ujian->penilaian_id,
             ]);
     }
     public function update(Request $request){
@@ -240,7 +240,7 @@ class UjianController extends Controller
         }
 
         $ujian = Ujian::findOrFail($request->hidden_id);
-        // $penilaian = Penilaian::findOrFail($request->hidden_id);
+        $penilaian = Penilaian::findOrFail($ujian->penilaian_id);
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');
@@ -280,6 +280,7 @@ class UjianController extends Controller
             'status' => $request->status,
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
+            'penilaian_id' => $penilaian,
         ]);
         $cbt_pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
 
