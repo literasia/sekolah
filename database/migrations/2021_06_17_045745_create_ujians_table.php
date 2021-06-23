@@ -26,7 +26,7 @@ class CreateUjiansTable extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->foreign('soal_id')->references('id')->on('cbt_soals')->onDelete('cascade');
-            $table->foreign('pengaturan_kuis_id')->references('id')->on('pengaturan_kuis')->onDelete('cascade');
+            $table->foreign('pengaturan_kuis_id')->references('id')->on('cbt_pengaturans')->onDelete('cascade');
             $table->foreign('sekolah_id')->references('id')->on('sekolahs')->onDelete('cascade');
             $table->timestamps();
         });

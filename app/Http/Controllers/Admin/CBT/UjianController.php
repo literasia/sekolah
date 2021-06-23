@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\CBT;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\PengaturanKuis;
+use App\Models\Admin\CbtPengaturan;
 use App\Models\Admin\Penilaian;
 use App\Models\Admin\{CbtSoal,CbtButirSoal,Ujian};
 use App\User;
@@ -119,7 +119,7 @@ class UjianController extends Controller
             ]);
         }
 
-        $pengaturan_kuis = PengaturanKuis::create([
+        $cbt_pengaturan = CbtPengaturan::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
             'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
@@ -169,7 +169,7 @@ class UjianController extends Controller
         Ujian::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'soal_id' => $request->soal_id,
-            'pengaturan_kuis_id' => $pengaturan_kuis->id,
+            'pengaturan_kuis_id' => $cbt_pengaturan->id,
             'durasi' => $request->durasi,
             'tanggal_mulai' => $tanggal_mulai,
             'tanggal_selesai' => $tanggal_selesai,
@@ -192,7 +192,7 @@ class UjianController extends Controller
 
     public function edit($id){
         $ujian = Ujian::findOrFail($id);
-        $pengaturan = PengaturanKuis::findOrFail($ujian->pengaturan_kuis_id);
+        $pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
         // $penilaian = Penilaian::findOrFail($id);
 
         return response()
@@ -281,9 +281,9 @@ class UjianController extends Controller
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
         ]);
-        $pengaturan_kuis = PengaturanKuis::findOrFail($ujian->pengaturan_kuis_id);
+        $cbt_pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
 
-        $pengaturan_kuis->update([
+        $cbt_pengaturan->update([
             'sekolah_id' => auth()->user()->id_sekolah,
             'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
             'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
