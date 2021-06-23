@@ -119,7 +119,7 @@ class TambahController extends Controller
 
         Library::create([
             'name' => $data['name'],
-            'sekolah_id' => 1,
+            'sekolah_id' => $data['sekolah_id'],
             'sub_kategori_id' => $data['sub_kategori_id'],
             'tingkat_id' => $data['tingkat_id'],
             'tahun_terbit' => $data['tahun_terbit'],
@@ -166,6 +166,7 @@ class TambahController extends Controller
 
         Library::whereId($id)->update([
             'name' => $data['name'],
+            'sekolah_id' => $data['sekolah_id'],
             'tahun_terbit' => $data['tahun_terbit'],
             'penulis_id' => $data['penulis_id'],
             'penerbit_id' => $data['penerbit_id'],

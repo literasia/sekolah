@@ -13,23 +13,23 @@
                 <form id="form-library" method="POST" action="{{ route('superadmin.library.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
                             </div>
                         </div>
-                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="sekolah_id">Nama Sekolah:</label>-->
-                        <!--        <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">-->
-                        <!--            <option value="">-- Nama Sekolah --</option>-->
-                        <!--            @foreach ($sekolahs as $sekolah)-->
-                        <!--                <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>-->
-                        <!--            @endforeach-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--</div>-->
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                           <div class="form-group">
+                               <label for="sekolah_id">Nama Sekolah:</label>
+                               <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">
+                                   <option value="">-- Nama Sekolah --</option>
+                                   @foreach ($sekolahs as $sekolah)
+                                       <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>
+                                   @endforeach
+                               </select>
+                           </div>
+                        </div>
                         <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
                         <!--    <div class="form-group">-->
                         <!--        <label for="tingkat">Tingakt:</label>-->
