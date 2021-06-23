@@ -86,4 +86,7 @@ Route::namespace('API')
         Route::get('library/get-tingkat', 'LibraryController@getTingkat');
         Route::get('library/get-buku/{sub_kategori}/{tingkat}', 'LibraryController@getBuku');
 
+        Route::get('banksoal/get-soal/{id}', 'BankSoalController@getBankSoal');
+        Route::get('butirsoal/get-butirsoal/{bank_soal}', 'BankSoalController@getButirSoal' );
+
     });
