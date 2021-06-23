@@ -30,7 +30,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pengali_jika_benar">pengali jika benar</label>
+                                <label for="pengali_jika_benar">Dikali (jika benar)</label>
                                 <input type="number" name="pengali_jk_benar" id="pengali_jk_benar" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pengali_jika_salah">pengali jika salah</label>
+                                <label for="pengali_jika_salah">DIkali (jika salah)</label>
                                 <input type="number" name="pengali_jk_salah" id="pengali_jk_salah" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pengali_jika_tidak_dijawab">pengali jika tidak dijawab</label>
+                                <label for="pengali_jika_tidak_dijawab">DIkali (jika tidak dijawab)</label>
                                 <input type="number" name="pengali_jk_kosong" id="pengali_jk_kosong" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -79,4 +79,3 @@
         </div>
     </div>
 </div>
-<!--  -->

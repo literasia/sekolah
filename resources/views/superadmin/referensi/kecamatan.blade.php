@@ -24,7 +24,7 @@
                             <div class="col-xl-12">
                                 <span id="form_result" class="text-danger"></span>
                                 <div class="form-group">
-                                    <label for="kabupaten_kota_id">Kabupaten/Kota:</label>
+                                    <label for="kabupaten_kota_id">Kabupaten/Kota</label>
                                     <select name="kabupaten_kota_id" id="kabupaten_kota_id" class="form-control form-control-sm">
                                         <option value="">-- Kabupaten/Kota --</option>
                                         @foreach ($kabupatenKotas as $kabupatenKota)
