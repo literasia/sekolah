@@ -19,6 +19,14 @@
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
                             </div>
                         </div>
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <label for="name">Sekolah:</label>
+                                <select name="sekolah" id="sekolah" class="form-control form-control-sm" multiple>
+                                    <option value="">-- Pilih Sekolah --</option>
+                                </select>
+                            </div>
+                        </div>
                         <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
                         <!--    <div class="form-group">-->
                         <!--        <label for="sekolah_id">Nama Sekolah:</label>-->
