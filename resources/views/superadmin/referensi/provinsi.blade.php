@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="provinsi">Nama Provinsi:</label>
+                                    <label for="provinsi">Nama Provinsi</label>
                                     <input type="text" name="provinsi" id="provinsi" class="form-control form-control-sm" placeholder="Nama Provinsi">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>

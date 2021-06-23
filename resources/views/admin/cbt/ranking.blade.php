@@ -26,6 +26,12 @@
                             <div class="col-xl-4">
                                 <select name="kelas_id" id="pilih" class="form-control form-control-sm">
                                     <option value="">-- Kelas --</option>
+                                    @foreach ($kelas as $item)
+                                    <option value="{{ $item->id }}"
+                                            @if ($item->id == $kelas_id)
+                                                selected
+                                            @endif>{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-xl-4">

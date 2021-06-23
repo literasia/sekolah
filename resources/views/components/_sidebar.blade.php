@@ -196,7 +196,7 @@
                             </a>
                         </li>
                         <li class="{{ request()->is('admin/absensi/qr-code') ? 'active' : '' }}">
-                            <a href="{{ route('admin.absensi.qr-code') }}" class="waves-effect waves-dark">
+                            <a href="" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">QR Code</span>
                             </a>
                         </li>
@@ -235,7 +235,7 @@
                 </li>
                 @endif
 
-                <li class="@if (request()->is('admin/cbt/soal-ujian') || request()->is('admin/cbt/butir-soal')) || request()->is('admin/cbt/ujian')) || request()->is('admin/cbt/penilaian') || request()->is('admin/cbt/ranking') pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/cbt/soal-ujian') || request()->is('admin/cbt/butir-soal-ujian')) || request()->is('admin/cbt/ujian')) || request()->is('admin/cbt/penilaian') || request()->is('admin/cbt/ranking') pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-desktop"></i></span>
                         <span class="pcoded-mtext">Computer Based Test</span>
@@ -251,14 +251,14 @@
                                 <span class="pcoded-mtext">Butir Soal Ujian</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/cbt/ujian') ? 'active' : '' }}">
-                            <a href="{{ route('admin.cbt.ujian') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Ujian</span>
-                            </a>
-                        </li>
                         <li class="{{ request()->is('admin/cbt/penilaian') ? 'active' : '' }}">
                             <a href="{{ route('admin.cbt.penilaian') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Penilaian</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/cbt/ujian') ? 'active' : '' }}">
+                            <a href="{{ route('admin.cbt.ujian') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Ujian</span>
                             </a>
                         </li>
                         <li class="{{ request()->is('admin/cbt/ranking') ? 'active' : '' }}">

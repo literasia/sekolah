@@ -1,24 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Admin\CBT;
+namespace App\Http\Controllers\Superadmin\BankSoal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Guru, MataPelajaran, Siswa};
-use App\Models\Admin\Kelas;
-use App\Models\Admin\CbtSoal;
+use App\Models\Siswa;
+use App\Models\MataPelajaran;
+use App\Models\Superadmin\Kelas;
+use App\Models\Superadmin\BankSoal;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class SoalUjianController extends Controller
-{
+class SoalController extends Controller
+{ //
     // public function index(Request $request)
     // {
     //     $addons = Addons::where('user_id', auth()->user()->id)->first();
-    //     return view('admin.cbt.soal-ujian',['mySekolah' => User::sekolah(), 'addons' => $addons]); 
+    //     return view('admin.banksoal.soal', ['mySekolah' => User::sekolah(), 'addons' => $addons]);  
     // }
 
     public function index(Request $request)
@@ -31,18 +33,18 @@ class SoalUjianController extends Controller
 
         if ($request->ajax())
         {
-            $cbt_soal = CbtSoal::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
-            return DataTables::of($cbt_soal)
-                ->addColumn('action', function ($cbt_soal) {
-                    $button = '<button type="button" data-id="'.$cbt_soal->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$cbt_soal->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+            $bank_soal = BankSoal::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
+            return DataTables::of($bank_soal)
+                ->addColumn('action', function ($bank_soal) {
+                    $button = '<button type="button" data-id="'.$bank_soal->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$bank_soal->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
-                ->addColumn('mata_pelajaran', function($cbt_soal){
-                    return $cbt_soal->mataPelajaran->nama_pelajaran;
+                ->addColumn('mata_pelajaran', function($bank_soal){
+                    return $bank_soal->mataPelajaran->nama_pelajaran;
                 })
-                ->addColumn('kelas', function($cbt_soal){
-                    return $cbt_soal->kelas->tingkatanKelas->name." - ".$cbt_soal->kelas->name;
+                ->addColumn('kelas', function($bank_soal){
+                    return $bank_soal->kelas->tingkatanKelas->name." - ".$bank_soal->kelas->name;
                 })
                 
                 ->rawColumns(['action'])
@@ -50,7 +52,7 @@ class SoalUjianController extends Controller
                 ->make(true);
         }
         
-        return view('admin.cbt.soal-ujian')
+        return view('superadmin.banksoal.soal')
                                     ->with('kelas', $kelas)
                                     ->with('mata_pelajaran', $mata_pelajaran)
                                     ->with('mySekolah', User::sekolah())
@@ -76,7 +78,7 @@ class SoalUjianController extends Controller
             ]);
         }
 
-        CbtSoal::create([
+        BankSoal::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'judul' => $request->judul,
             'mata_pelajaran_id' => $request->mata_pelajaran_id,
@@ -91,14 +93,14 @@ class SoalUjianController extends Controller
     }
 
     public function edit($id){
-        $cbt_soal = CbtSoal::findOrFail($id);
+        $bank_soal = BankSoal::findOrFail($id);
 
         return response()
             ->json([                
-                'id'   => $cbt_soal->id,
-                'judul' => $cbt_soal->judul,
-                'mata_pelajaran_id' => $cbt_soal->mata_pelajaran_id,
-                'kelas_id' => $cbt_soal->kelas_id,
+                'id'   => $bank_soal->id,
+                'judul' => $bank_soal->judul,
+                'mata_pelajaran_id' => $bank_soal->mata_pelajaran_id,
+                'kelas_id' => $bank_soal->kelas_id,
             ]);
     }   
 
@@ -121,9 +123,9 @@ class SoalUjianController extends Controller
             ]);
         }
 
-        $cbt_soal = CbtSoal::findOrFail($request->hidden_id);
+        $bank_soal = BankSoal::findOrFail($request->hidden_id);
         
-        $cbt_soal->update($data);
+        $bank_soal->update($data);
 
         return response()
             ->json([
@@ -132,9 +134,9 @@ class SoalUjianController extends Controller
     }
 
     public function destroy($id){
-        $cbt_soal = CbtSoal::findOrFail($id);
+        $bank_soal = BankSoal::findOrFail($id);
 
-        $cbt_soal->delete();
+        $bank_soal->delete();
 
         return response()
         ->json([

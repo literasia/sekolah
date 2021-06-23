@@ -1,17 +1,17 @@
-@extends('layouts.admin')
+@extends('layouts.superadmin')
 
-@section('title', 'Computer Based Test | Butir Soal Ujian')
-@section('title-2', 'Butir Soal Ujian')
-@section('title-3', 'Butir Soal Ujian')
+@section('title', 'Bank Soal | Butir Soal')
+@section('title-2', 'Butir Soal')
+@section('title-3', 'Butir Soal')
 
 @section('describ')
-    Ini adalah halaman Butir Soal Ujian untuk admin
+    Ini adalah halaman Butir Soal untuk superadmin
 @endsection
 
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
 @section('link')
-    {{ route('admin.cbt.butir-soal-ujian') }}
+    {{ route('superadmin.banksoal.butir-soal') }}
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
                             <div class="col-xl-4">
                                 <select name="soal_id" id="soal_id" class="form-control form-control-sm" required>
                                     <option value="">-- Soal --</option>
-                                    @foreach ($cbt_soals as $item)
+                                    @foreach ($bank_soals as $item)
                                         <option value="{{ $item->id }}"
                                             @if ($item->id == $soal_id)
                                                 selected
@@ -48,8 +48,8 @@
                             <div class="col-xl-2">
                                 <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="card-body">
                 <div class="card-block">
                     @if ($soal_id != "" || $kelas_id != "")
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     @endif
                     <div class="dt-responsive table-responsive mt-3">
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
@@ -85,8 +85,8 @@
         </div>
     </div>
 </div>
-@include('admin.cbt.modals._butir-soal-ujian')
-@include('admin.cbt.modals._preview-ujian')
+@include('superadmin.banksoal.modals._butir-soal')
+@include('superadmin.banksoal.modals._preview')
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -121,13 +121,6 @@
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
-    .glass-card {
-            background: rgba( 255, 255, 255, 0.40 );
-            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
-            backdrop-filter: blur( 17.5px );
-            -webkit-backdrop-filter: blur( 17.5px );
-            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
-        }
     .family-modal-wrapper {
         position: relative;
     }
@@ -183,12 +176,11 @@
                 e.stopImmediatePropagation();
             }
         });
-
         $(document).on('click', '.preview', function () {
             $('.modal-title').html('Preview Soal');
             let id = $(this).attr('data-id');
             $.ajax({
-                url: '/admin/cbt/butir-soal-ujian/'+id,
+                url: '/superadmin/banksoal/butir-soal/'+id,
                 dataType: 'JSON',
                 success: function (data) {
                     $('#preview-pertanyaan').html(data.pertanyaan);
@@ -212,21 +204,17 @@
                         $('#answer-row').hide();
                     }
                     $('#modal-preview-soal').modal('show');
-
                 }
             });
         });
-
         $('#question_type').change(function(){
             $('.answer').hide();
             $('#' + $(this).val()).show();
         });
-
         $('#publish_date').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });
-
         $('.clockpicker').clockpicker({
             donetext: 'Done',
             autoclose: true
@@ -264,13 +252,13 @@
             counter--;       
             $("#answer-form" + counter).remove();    
         });
-
+        
         if (`{{ $kelas_id }}` != "" || `{{ $soal_id }}` != "") {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.cbt.butir-soal-ujian') }}",
+                    url: "{{ route('superadmin.banksoal.butir-soal') }}",
                     type: "GET",
                     data: {
                         'soal_id' : `{{ $soal_id }}`,
@@ -303,7 +291,7 @@
         }
             
         $('#add').on('click', function() {    
-            $('.modal-title').html('Tambah Butir Soal Ujian');
+            $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
             $('#point').val(1);
             $('#action').val('add');
@@ -337,18 +325,16 @@
                 .text('Batal');
             $('#modal-butir-soal').modal('show');
         });
-        
         $('#form-butir-soal').on('submit', function (event) {
             event.preventDefault();
             var url = '';
             var text = 'Data sukses ditambahkan';
-
             if ($('#action').val() == 'add') {
-                url = "{{ route('admin.cbt.butir-soal-ujian.store') }}";
+                url = "{{ route('superadmin.banksoal.butir-soal.store') }}";
                 text = "Data sukses ditambahkan";
             }
             if ($('#action').val() == 'edit') {
-                url = "{{ route('admin.cbt.butir-soal-ujian.update') }}";
+                url = "{{ route('superadmin.banksoal.butir-soal.update') }}";
                 text = "Data sukses diupdate";
             }
             $.ajax({
@@ -378,14 +364,13 @@
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-butir-soal').modal('hide');
                     }
-                } 
+                }
             });
         });
-
         $(document).on('click', '.edit', function () {
             var id = $(this).attr('data-id');
             $.ajax({
-                url: '/admin/cbt/butir-soal-ujian/'+id,
+                url: '/superadmin/banksoal/butir-soal/'+id,
                 dataType: 'JSON',
                 success: function (data) {
                     $('.modal-title').html('Edit Butir Soal');
@@ -398,12 +383,10 @@
                         $('#addButton').hide();
                         $('#removeButton').hide();
                     }
-
                     counter = 0;
                     if (data.jenis_soal == "multiple-choice") {
                         let jawabans = data.jawaban;
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
-
                         for (let index = 0; index < jawabans.length; index++) {
                             let newAnswerField =  `<div id="answer-form${counter}">
                                             <div class="row">
@@ -443,7 +426,7 @@
         });
         $('#ok_button').click(function () {
             $.ajax({
-                url: '/admin/cbt/butir-soal-ujian/hapus/'+ user_id,
+                url: '/superadmin/banksoal/butir-soal/hapus/'+ user_id,
                 beforeSend: function () {
                     $('#ok_button').text('Menghapus...');
                 }, success: function (data) {
@@ -455,6 +438,7 @@
                 }
             });
         });
+        
     });
 </script>
 @endpush

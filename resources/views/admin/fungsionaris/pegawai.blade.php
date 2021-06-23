@@ -302,51 +302,67 @@
             $.ajax({
                 url: '/admin/fungsionaris/pegawai/edit/'+id,
                 dataType: 'JSON',
-                success: function (data) {
-                        $('#action').val('edit');
-                        $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
-                        $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
-                        $('#name').val(data.name);
-                        $('#nik').val(data.nik);
-                        $('#nip').val(data.nip);
-                        $('#agama').val(data.agama);
-                        $('#alamat_tinggal').val(data.alamat_tinggal);
-                        $('#bagian_pegawai_id').val(data.bagian_pegawai_id);
-                        $('#dusun').val(data.dusun);
-                        $('#email').val(data.email);
-                        $('#gelar_belakang').val(data.gelar_belakang);
-                        $('#gelar_depan').val(data.gelar_depan);
-                        $('#is_menikah').val(data.is_menikah);
-                        $('#jenjang').val(data.jenjang);
-                        $('#jk').val(data.jk);
-                        $('#provinsi').val(data.provinsi_id);
-                        // Auto Change Provinsi
-                        $("#provinsi").change();
-                        $('#kabupaten').val(data.kabupaten_kota_id);
-                        $('#kecamatan').val(data.kecamatan_id);
-                        $('#kode_pos').val(data.kode_pos);
-                        $('#no_telepon').val(data.no_telepon);
-                        $('#no_telepon_rumah').val(data.no_telepon_rumah);
-                        $('#rt').val(data.rt);
-                        $('#rw').val(data.rw);
-                        $('#tahun_ajaran').val(data.tahun_ajaran);
-                        $('#tanggal_mulai').val(data.tanggal_mulai);
-                        $('#tempat_lahir').val(data.tempat_lahir);
-                        $('#tanggal_lahir').val(data.tanggal_lahir);
-                        $('#semester').val(data.semester);
+                success: function (datas) {
+                    $('#action').val('edit');
+                    $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
+                    $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
+                    $('#name').val(datas.name);
+                    $('#nik').val(datas.nik);
+                    $('#nip').val(datas.nip);
+                    $('#agama').val(datas.agama);
+                    $('#alamat_tinggal').val(datas.alamat_tinggal);
+                    $('#bagian_pegawai_id').val(datas.bagian_pegawai_id);
+                    $('#dusun').val(datas.dusun);
+                    $('#email').val(datas.email);
+                    $('#gelar_belakang').val(datas.gelar_belakang);
+                    $('#gelar_depan').val(datas.gelar_depan);
+                    $('#is_menikah').val(datas.is_menikah);
+                    $('#jenjang').val(datas.jenjang);
+                    $('#jk').val(datas.jk);
+                    $('#provinsi').val(datas.provinsi_id);
+                    
+                    $.ajax({
+                        url: '{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}',
+                        dataType: 'JSON',
+                        data: {provinsi_id: datas.provinsi_id},
+                        success: function (data) {
+                            $("#kabupaten").html("");
+                            var options = "";
+                            for (let key in data) {
+                                options += `<option value="${data[key].id}" ${data[key].id == datas.kabupaten_kota_id ? 'selected' : ''}>${data[key].name}</option>`;
+                            }
+                            $("#kabupaten").html(options);
+                            $("#kabupaten").change();
+                        }
+                    });
+                    // Auto Change Provinsi
+                    // $("#provinsi").change();
+                    // $('#kabupaten').val(data.kabupaten_kota_id);
+                    $('#kecamatan').val(datas.kecamatan_id);
+                    $('#kode_pos').val(datas.kode_pos);
+                    $('#no_telepon').val(datas.no_telepon);
+                    $('#no_telepon_rumah').val(datas.no_telepon_rumah);
+                    $('#rt').val(datas.rt);
+                    $('#rw').val(datas.rw);
+                    $('#tahun_ajaran').val(datas.tahun_ajaran);
+                    $('#tanggal_mulai').val(datas.tanggal_mulai);
+                    $('#tempat_lahir').val(datas.tempat_lahir);
+                    $('#tanggal_lahir').val(datas.tanggal_lahir);
+                    $('#semester').val(datas.semester);
 
-                        $('#password-lama-group').css('display', 'block');
-                        $('#password-baru-group').css('display', 'block');
-                        $('#password-konfirmasi-group').css('display', 'block');
-                        $('#default-password-group').css('display', 'none');
-                        
-                        $('#hidden_id').val(data.id);
-                        $('#username').val(data.username).attr('readonly', true);
-                        $('#password').val(data.password).attr('readonly', true);
-                        $('#modal-pegawai').modal('show');
-                    }
-                });
+                    $('#password-lama-group').css('display', 'block');
+                    $('#password-baru-group').css('display', 'block');
+                    $('#password-konfirmasi-group').css('display', 'block');
+                    $('#default-password-group').css('display', 'none');
+                    
+                    $('#hidden_id').val(datas.id);
+                    $('#username').val(datas.username).attr('readonly', true);
+                    $('#password').val(datas.password).attr('readonly', true);
+                    $('#modal-pegawai').modal('show');
+                }
             });
+        });
+
 
             let user_id;
             $(document).on('click', '.delete', function () {

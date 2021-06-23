@@ -122,7 +122,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="kabupaten">Kabupaten / Kota</label>
-                                <select name="kabupaten_id" id="kabupaten" class="form-control form-control-sm">
+                                <select name="kabupaten_kota_id" id="kabupaten" class="form-control form-control-sm">
                                     <option value="">-- Kabupaten / Kota --</option>
                                     {{-- @foreach($kabupaten as $kab) --}}
                                     {{-- <option value="{{ $kab->id }}">{{ $kab->name }}</option> --}}
