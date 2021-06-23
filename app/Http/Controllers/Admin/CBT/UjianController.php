@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\CBT;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\PengaturanKuis;
+use App\Models\Admin\Penilaian;
 use App\Models\Admin\{CbtSoal,CbtButirSoal,Ujian};
 use App\User;
 use Illuminate\Support\Facades\Redirect;
@@ -20,7 +21,7 @@ class UjianController extends Controller
         // return view('admin.cbt.ujian',['mySekolah' => User::sekolah(), 'addons' => $addons]); 
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $soal = CbtSoal::where('sekolah_id', auth()->user()->id_sekolah)->get();
-
+        $penilaian = Penilaian::all();
 
         if ($request->ajax())
         {
@@ -66,7 +67,8 @@ class UjianController extends Controller
         return view('admin.cbt.ujian')
                                     ->with('mySekolah', User::sekolah())
                                     ->with('addons', $addons)
-                                    ->with('soal', $soal);
+                                    ->with('soal', $soal)
+                                    ->with('penilaians', $penilaian);
     }
 
     public function store(Request $request){
@@ -83,6 +85,7 @@ class UjianController extends Controller
             'jam_selesai' => 'required',
             'durasi' => 'required',
             'status' => 'required',
+            'penilaian_id' => 'required',
         ];
 
         $validator = Validator::make($data, $rules);
@@ -178,6 +181,7 @@ class UjianController extends Controller
             'status' => $request->status,
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
+            'penilaian_id' => $request->penilaian_id,
         ]);
 
         return response()
@@ -189,6 +193,7 @@ class UjianController extends Controller
     public function edit($id){
         $ujian = Ujian::findOrFail($id);
         $pengaturan = PengaturanKuis::findOrFail($ujian->pengaturan_kuis_id);
+        // $penilaian = Penilaian::findOrFail($id);
 
         return response()
             ->json([
@@ -204,7 +209,8 @@ class UjianController extends Controller
                 'jam_selesai' => $ujian->jam_selesai,
                 'status'   => $ujian->status,
                 'keterangan' => $ujian->keterangan,
-                'pengaturan' => $pengaturan
+                'pengaturan' => $pengaturan,
+                // 'penilaian_id' => $ujian->penilaian_id,
             ]);
     }
     public function update(Request $request){
@@ -234,6 +240,7 @@ class UjianController extends Controller
         }
 
         $ujian = Ujian::findOrFail($request->hidden_id);
+        // $penilaian = Penilaian::findOrFail($request->hidden_id);
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');

@@ -196,7 +196,7 @@
                             </a>
                         </li>
                         <li class="{{ request()->is('admin/absensi/qr-code') ? 'active' : '' }}">
-                            <a href="{{ route('admin.absensi.qr-code') }}" class="waves-effect waves-dark">
+                            <a href="" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">QR Code</span>
                             </a>
                         </li>

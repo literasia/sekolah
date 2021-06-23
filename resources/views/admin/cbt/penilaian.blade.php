@@ -102,17 +102,52 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable();
+        $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.cbt.penilaian') }}",
+            },
+            columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'nama',
+                name: 'nama'
+            },
+            {
+                data: 'poin_jk_benar',
+                name: 'poin_jk_benar'
+            },
+            {
+                data: 'poin_jk_salah',
+                name: 'poin_jk_salah'
+            },
+            {
+                data: 'poin_jk_kosong',
+                name: 'poin_jk_kosong'
+            },
+            {
+                data: 'action',
+                name: 'action'
+            }
+            ]
+        });
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Penilaian');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#hidden_id').val('');
-            $('#nama_penilaian').val('');
-            $('#poin_jika_benar').val('');
-            $('#poin_jika_salah').val('');
-            $('#poin_jika_tidak_jawab').val('');
+            // $('#hidden_id').val('');
+            $('#nama').val('');
+            $('#poin_jk_benar').val('');
+            $('#poin_jk_salah').val('');
+            $('#poin_jk_kosong').val('');
+            $('#pengali_jk_benar').val('');
+            $('#pengali_jk_salah').val('');
+            $('#pengali_jk_kosong').val('');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -122,6 +157,115 @@
                 .addClass('btn-outline-success')
                 .val('Batal');
             $('#modal-soal').modal('show');
+        });
+
+        $('#form-soal').on('submit', function (event) {
+            event.preventDefault();
+            var url = '';
+            var text = "Data sukses ditambahkan";
+
+            if ($('#action').val() == 'add') {
+                url = "{{ route('admin.cbt.penilaian.store') }}";
+                text = "Data sukses ditambahkan";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('admin.cbt.penilaian.update') }}";
+                text = "Data sukses diupdate";
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.errors) {
+                        
+                        data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
+                        data.errors.nama ? $('#nama').addClass('is-invalid') : $('#nama').removeClass('is-invalid');
+                        data.errors.poin_jk_benar ? $('#poin_jk_benar').addClass('is-invalid') : $('#poin_jk_benar').removeClass('is-invalid');
+                        data.errors.poin_jk_salah ? $('#poin_jk_salah').addClass('is-invalid') : $('#poin_jk_salah').removeClass('is-invalid');
+                        data.errors.poin_jk_salah ? $('#poin_jk_kosong').addClass('is-invalid') : $('#poin_jk_kosong').removeClass('is-invalid');
+                        data.errors.poin_jk_salah ? $('#pengali_jk_benar').addClass('is-invalid') : $('#pengali_jk_benar').removeClass('is-invalid');
+                        data.errors.poin_jk_salah ? $('#pengali_jk_salah').addClass('is-invalid') : $('#pengali_jk_salah').removeClass('is-invalid');
+                        data.errors.poin_jk_salah ? $('#pengali_jk_kosong').addClass('is-invalid') : $('#pengali_jk_kosong').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong");
+                    }
+
+                    if (data.success) {
+                        Swal.fire("Berhasil", text, "success");
+                        $('.form-control').removeClass('is-invalid');
+                        $('#form-soal')[0].reset();
+                        $('#action').val('add');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .text('Batal');
+                        $('#order-table').DataTable().ajax.reload();
+                        $('#modal-soal').modal('hide');
+                    }
+                    $('#form_result').html(html);
+                }
+            });
+        });
+
+        $(document).on('click', '.edit', function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/admin/cbt/penilaian/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    $('.modal-title').html('Edit Soal');
+                    $('#action').val('edit');
+                    $('#hidden_id').val(data.id);
+                    $('#nama').val(data.nama);
+                    $('#poin_jk_benar').val(data.poin_jk_benar);
+                    $('#poin_jk_salah').val(data.poin_jk_salah);
+                    $('#poin_jk_kosong').val(data.poin_jk_kosong);
+                    $('#pengali_jk_benar').val(data.pengali_jk_benar);
+                    $('#pengali_jk_salah').val(data.pengali_jk_salah);
+                    $('#pengali_jk_kosong').val(data.pengali_jk_kosong);
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .text('Batal');
+                    $('#modal-soal').modal('show');
+                }
+            });
+        });
+
+        var user_id;
+
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('data-id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: '/admin/cbt/penilaian/hapus/'+ user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
         });
     });
 </script>

@@ -45,6 +45,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-xl-2">
+                                <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
+                            </div>
                         </form>
                     </div>
                 </div>

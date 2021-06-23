@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\CBT;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Guru, MataPelajaran, Siswa};
-use App\Models\Admin\{Kelas, Soal};
+use App\Models\Admin\Kelas;
 use App\Models\Admin\CbtSoal;
 use App\User;
 use Illuminate\Support\Facades\Redirect;

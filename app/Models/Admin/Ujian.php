@@ -5,6 +5,7 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
 // use App\Models\Guru;
 use App\Models\Admin\CbtSoal;
+use App\Models\Admin\Penilaian;
 
 class Ujian extends Model
 {
@@ -14,7 +15,7 @@ class Ujian extends Model
         return $this->belongsTo(CbtSoal::class);
     }
 
-    // public function guru(){
-    //     return $this->belongsTo(Guru::class);
-    // }
+    public function penilaian(){
+        return $this->belongsTo(Penilaian::class);
+    }
 }
