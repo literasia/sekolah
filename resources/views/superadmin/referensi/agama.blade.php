@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="agama">Agama:</label>
+                                    <label for="agama">Agama</label>
                                     <select name="agama" id="agama" class="form-control form-control-sm">
                                         <option value="">-- Agama --</option>
                                         <option value="Islam">Islam</option>

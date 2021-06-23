@@ -24,7 +24,7 @@
                             <div class="col-xl-12">
                                 <span id="form_result" class="text-danger"></span>
                                 <div class="form-group">
-                                    <label for="provinsi_id">Provinsi:</label>
+                                    <label for="provinsi_id">Provinsi</label>
                                     <select name="provinsi_id" id="provinsi_id" class="form-control form-control-sm">
                                         <option value="">-- Provinsi --</option>
                                         @foreach ($provinsis as $provinsi)

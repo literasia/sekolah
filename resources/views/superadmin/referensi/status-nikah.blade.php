@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="status_nikah">Status Nikah:</label>
+                                    <label for="status_nikah">Status Nikah</label>
                                     <input type="text" name="status_nikah" id="status_nikah" class="form-control form-control-sm" placeholder="Status Nikah">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>

@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="suku">Nama Suku:</label>
+                                    <label for="suku">Nama Suku</label>
                                     <input type="text" name="suku" id="suku" class="form-control form-control-sm" placeholder="Nama Suku">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>
