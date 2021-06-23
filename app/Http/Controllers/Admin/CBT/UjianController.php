@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\CBT;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\PengaturanKuis;
+use App\Models\Admin\CbtPengaturan;
 use App\Models\Admin\Penilaian;
 use App\Models\Admin\{CbtSoal,CbtButirSoal,Ujian};
 use App\User;
@@ -119,7 +119,7 @@ class UjianController extends Controller
             ]);
         }
 
-        $pengaturan_kuis = PengaturanKuis::create([
+        $cbt_pengaturan = CbtPengaturan::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
             'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
@@ -169,7 +169,7 @@ class UjianController extends Controller
         Ujian::create([
             'sekolah_id' => auth()->user()->id_sekolah,
             'soal_id' => $request->soal_id,
-            'pengaturan_kuis_id' => $pengaturan_kuis->id,
+            'pengaturan_kuis_id' => $cbt_pengaturan->id,
             'durasi' => $request->durasi,
             'tanggal_mulai' => $tanggal_mulai,
             'tanggal_selesai' => $tanggal_selesai,
@@ -192,8 +192,8 @@ class UjianController extends Controller
 
     public function edit($id){
         $ujian = Ujian::findOrFail($id);
-        $pengaturan = PengaturanKuis::findOrFail($ujian->pengaturan_kuis_id);
-        // $penilaian = Penilaian::findOrFail($id);
+        $pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
+        $penilaian = Penilaian::findOrFail($ujian->penilaian_id);
 
         return response()
             ->json([
@@ -210,7 +210,7 @@ class UjianController extends Controller
                 'status'   => $ujian->status,
                 'keterangan' => $ujian->keterangan,
                 'pengaturan' => $pengaturan,
-                // 'penilaian_id' => $ujian->penilaian_id,
+                'penilaian_id' => $ujian->penilaian_id,
             ]);
     }
     public function update(Request $request){
@@ -240,7 +240,7 @@ class UjianController extends Controller
         }
 
         $ujian = Ujian::findOrFail($request->hidden_id);
-        // $penilaian = Penilaian::findOrFail($request->hidden_id);
+        $penilaian = Penilaian::findOrFail($ujian->penilaian_id);
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');
@@ -280,10 +280,11 @@ class UjianController extends Controller
             'status' => $request->status,
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
+            'penilaian_id' => $penilaian,
         ]);
-        $pengaturan_kuis = PengaturanKuis::findOrFail($ujian->pengaturan_kuis_id);
+        $cbt_pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
 
-        $pengaturan_kuis->update([
+        $cbt_pengaturan->update([
             'sekolah_id' => auth()->user()->id_sekolah,
             'is_hide_title' => $request["is_hide_title"] ? 1 : 0,
             'restart_quiz' => $request["restart_quiz"] ? 1 : 0,
