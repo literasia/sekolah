@@ -227,6 +227,7 @@ class UjianController extends Controller
             'jam_selesai' => 'required',
             'durasi' => 'required',
             'status' => 'required',
+            'penilaian_id' => 'required',
         ];
 
         $validator = Validator::make($data, $rules);
@@ -240,7 +241,7 @@ class UjianController extends Controller
         }
 
         $ujian = Ujian::findOrFail($request->hidden_id);
-        $penilaian = Penilaian::findOrFail($ujian->penilaian_id);
+        // $penilaian = Penilaian::findOrFail($ujian->penilaian_id);
 
         // change zone time
         date_default_timezone_set('Asia/Jakarta');
@@ -280,7 +281,7 @@ class UjianController extends Controller
             'status' => $request->status,
             'jam_terbit' => $jam_terbit,
             'tanggal_terbit' => $tanggal_terbit,
-            'penilaian_id' => $penilaian,
+            'penilaian_id' => $request->penilaian_id,
         ]);
         $cbt_pengaturan = CbtPengaturan::findOrFail($ujian->pengaturan_kuis_id);
 
