@@ -56,7 +56,7 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Topik</th>
-                                        <th>Pengikut</th>
+                                        <th>Popularitas</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
