@@ -207,28 +207,6 @@
                 });
             });
 
-            // var user_id;
-            // $(document).on('click', '.delete', function () {
-            //     user_id = $(this).attr('id');
-            //     $('#ok_button').text('Hapus');
-            //     $('#confirmModal').modal('show');
-            // });
-
-            // $('#ok_button').click(function () {
-            //     $.ajax({
-            //         url: '/admin/e-voting/posisi/hapus/'+user_id,
-            //         beforeSend: function () {
-            //             $('#ok_button').text('Menghapus...');
-            //         }, success: function (data) {
-            //             setTimeout(function () {
-            //                 $('#confirmModal').modal('hide');
-            //                 $('#order-table').DataTable().ajax.reload();
-            //                 toastr.success('Data berhasil dihapus');
-            //             }, 1000);
-            //         }
-            //     });
-            // });
-
         });
     </script>
 @endpush

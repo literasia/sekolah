@@ -82,14 +82,14 @@ class ListSekolahController extends Controller
             'jenjang'       => $data['jenjang'],
             'tahun_ajaran'  => $data['tahun_ajaran'],
             // 'logo'          => $data['logo']
-        ]);
+        ])->id;
     
         
         // Get Roles
         $adminRole = Role::where('name', 'admin')->first();
 
         $user = User::create([
-            'id_sekolah'    => $sekolah->id_sekolah,
+            'id_sekolah'    => $sekolah,
             'role_id'       => $adminRole->id,
             'name'          => $data['name'],
             'username'      => $data['username'],
