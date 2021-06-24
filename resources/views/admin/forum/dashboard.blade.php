@@ -24,21 +24,18 @@
                 <div class=" col-xl-12 card shadow mb-0 p-0">
                     <div class="card-body">
                         <div class="card-block p-2">
-                        <button id="add" class="btn btn-outline-primary shadow-sm my-3"><i class="fa fa-plus"></i></button>
                             <div class="dt-responsive table-responsive">
                                 <table id="dashboard-table" class="table table-striped nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
                                             <th>No.</th>
-                                            <th>Forum</th>
+                                            <th>Judul</th>
                                             <th>Topik</th>
-                                            <th>Balasan</th>
-                                            <th>Moderator</th>
+                                            <th>Total Balasan</th>
                                             <th>Penulis</th>
                                             <th>Dibuat Pada</th>
-                                            <th>Postingan Terakhir</th>
+                                            <th>Privasi</th>
                                             <th>Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
@@ -69,9 +66,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Modal --}}
-    @include('admin.forum.modals._dashboard')
 @endsection
 
 {{-- addons css --}}

@@ -31,9 +31,7 @@
                                         <th>Username</th>
                                         <th>Nama Lengkap</th>
                                         <th>Kelas</th>
-                                        <th>Peran Aplikasi</th>
-                                        <th>Peran Forum</th>
-                                        <th>Postingan</th>
+                                        <th>Total Postingan</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -47,7 +45,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.forum.modals._pengguna_edit')
+    @include('admin.forum.modals._mute')
 
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -106,9 +104,9 @@
         $(document).ready(function () {
             $('#pengguna-table').DataTable();
 
-            $('#add').on('click', function () {
+            $('#mute').on('click', function () {
                 $('.modal-title').html('Tambah Pengguna');
-                $('#action').val('add');
+                $('#action').val('mute');
                 $('#btn')
                     .removeClass('btn-info')
                     .addClass('btn-success')
@@ -117,7 +115,7 @@
                     .removeClass('btn-outline-info')
                     .addClass('btn-outline-success')
                     .text('Batal');
-                $('#modal-pengguna').modal('show');
+                $('#modal-mute').modal('show');
             });
 
         });
