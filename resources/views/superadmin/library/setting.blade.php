@@ -15,7 +15,7 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-body">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
@@ -25,13 +25,13 @@
                         <a class="nav-link" data-toggle="tab" href="#kategori" role="tab">Kategori</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#sub-kategori" role="tab">Sub Kategori</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#penulis" role="tab">Penulis</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#penerbit" role="tab">Penerbit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tingkat" role="tab">Tingkat</a>
                     </li>
                 </ul>
                 <div class="tab-content modal-body">
@@ -44,6 +44,11 @@
                     <div class="tab-pane" id="kategori" role="tabpanel">
                         @include('superadmin.library.tabs._kategori')
                     </div>
+
+                    {{-- Sub Kategori --}}
+                    <div class="tab-pane" id="sub-kategori" role="tabpanel">
+                        @include('superadmin.library.tabs._sub-kategori')
+                    </div>
                     
                     {{-- Penulis --}}
                     <div class="tab-pane" id="penulis" role="tabpanel">
@@ -53,11 +58,6 @@
                     {{-- Penerbit --}}
                     <div class="tab-pane" id="penerbit" role="tabpanel">
                         @include('superadmin.library.tabs._penerbit')
-                    </div>
-
-                    {{-- Tingkat --}}
-                    <div class="tab-pane" id="tingkat" role="tabpanel">
-                        @include('superadmin.library.tabs._tingkat')
                     </div>
                 </div>
             </div>
@@ -86,6 +86,10 @@
         div.update-container, .btn-cancel {
             display: none;
         }
+
+        .nav-link.active {
+            font-weight: bold;
+        }
     </style>
 @endpush
 
@@ -95,8 +99,43 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
+            $("#kelas").children('option:gt(0)').show();
+            $('#unit').change(function () {
+                $('#row-kelas').hide();
+                $('.'+$(this).val()).show();
+                if($(this).val() == 'Umum') {
+                   $('#row-kelas').hide(); 
+                }
+
+                $('#kelas').children('option').hide();
+
+                if($(this).val() == 'SMP') {
+                    $('#kelas').children('option[value=""]').show();
+                    $('#kelas').children('option[value="1"]').show();
+                    $('#kelas').children('option[value="2"]').show();
+                    $('#kelas').children('option[value="3"]').show();
+                    $('#kelas').children('option[value="4"]').hide();
+                    $('#kelas').children('option[value="5"]').hide();
+                    $('#kelas').children('option[value="6"]').hide();
+                }
+
+                else if($(this).val() == 'SMA') {
+                    $('#kelas').children('option[value=""]').show();
+                    $('#kelas').children('option[value="1"]').show();
+                    $('#kelas').children('option[value="2"]').show();
+                    $('#kelas').children('option[value="3"]').show();
+                    $('#kelas').children('option[value="4"]').hide();
+                    $('#kelas').children('option[value="5"]').hide();
+                    $('#kelas').children('option[value="6"]').hide();
+                }
+                else {
+                    $('#kelas').children('option').show();
+                }
+            });
+
             $('.btn-add').on('click', function (e) {
                 const addContainer = e.target.nextElementSibling;
                 $(addContainer).toggle(500);
@@ -128,6 +167,7 @@
                     url: '/superadmin/library/setting/tipe/'+id,
                     dataType: 'JSON',
                     success: function (data) {
+                        $('#tipe-id-update').val(data.tipe.id);
                         $('#tipe-update').val(data.tipe.name);
                         $(updateTipeContainer).show(500);
                         $(addTipeContainer).hide();
@@ -160,6 +200,32 @@
                             $(addKategoriBtn).text('Tambah').removeClass('btn-danger').addClass('btn-primary');
                         }
                         $(addKategoriBtn).hide();
+                        $(cancelKategoriBtn).show();
+                    }
+                });
+            });
+
+            const addSubKategoriContainer = document.getElementById('add-sub-kategori-container');
+            const updateSubKategoriContainer = document.getElementById('update-sub-kategori-container');
+            const addSubKategoriBtn = document.getElementById('add-sub-kategori-btn');
+            const cancelSubKategoriBtn = document.getElementById('cancel-sub-kategori-btn');
+            const formSubUpdateKategori = document.getElementById('form-sub-kategori-update');
+
+            $(document).on('click', '#edit-sub-kategori', function () {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: '/superadmin/library-subkategori/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        formSubUpdateKategori.action = `/superadmin/library-subkategori/${id}`;
+                        $('#kategori-id-update').val(data.sub_kategori.kategori_id);
+                        $('#title-sub-kategori-update').val(data.sub_kategori.title);
+                        $(updateSubKategoriContainer).show(500);
+                        $(addSubKategoriContainer).hide();
+                        if ($(addSubKategoriBtn).text() == 'Batal') {
+                            $(addSubKategoriBtn).text('Tambah').removeClass('btn-danger').addClass('btn-primary');
+                        }
+                        $(addSubKategoriBtn).hide();
                         $(cancelKategoriBtn).show();
                     }
                 });
@@ -215,32 +281,7 @@
                     }
                 });
             });
-            
-            const addTingkatContainer = document.getElementById('add-tingkat-container');
-            const updateTingkatContainer = document.getElementById('update-tingkat-container');
-            const addTingkatBtn = document.getElementById('add-tingkat-btn');
-            const cancelTingkatBtn = document.getElementById('cancel-tingkat-btn');
-            const formUpdateTingkat = document.getElementById('form-tingkat-update');
-
-            $(document).on('click', '#edit-tingkat', function () {
-                var id = $(this).attr('data-id');
-                $.ajax({
-                    url: '/superadmin/library-tingkat/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        formUpdateTingkat.action = `/superadmin/library-tingkat/${id}`;
-                        $('#tingkat-update').val(data.tingkat.name);
-                        $(updateTingkatContainer).show(500);
-                        $(addTingkatContainer).hide();
-                        if ($(addTingkatBtn).text() == 'Batal') {
-                            $(addTingkatBtn).text('Tambah').removeClass('btn-danger').addClass('btn-primary');
-                        }
-                        $(addTingkatBtn).hide();
-                        $(cancelTingkatBtn).show();
-                    }
-                });
-            });
-
+        
             @if (Session::has('message'))
                 const type = "{{ Session::get('alert-type', 'info') }}";
                 console.log(type)

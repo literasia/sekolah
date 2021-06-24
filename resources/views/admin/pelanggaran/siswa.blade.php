@@ -20,30 +20,32 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive mt-3">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Siswa</th>
-                                        <th>Tanggal</th>
-                                        <th>Pelanggaran</th>
-                                        <th>Poin</th>
-                                        <th>Sebab</th>
-                                        <th>Sanksi</th>
-                                        <th>Penanganan</th>
-                                        <th>Keterangan</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                            <div class="dt-responsive table-responsive mt-3">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Tanggal</th>
+                                            <th>Pelanggaran</th>
+                                            <th>Poin</th>
+                                            <th>Sebab</th>
+                                            <th>Sanksi</th>
+                                            <th>Penanganan</th>
+                                            <th>Keterangan</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,16 +87,21 @@
         .btn i {
             margin-right: 0px;
         }
-
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
         .select2-container {
             width: 100% !important;
             padding: 0;
         }
-
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            background-color: transparent; 
+            background-color: transparent;
             color: #000;
-            padding: 0px 30px 0px 10px; 
+            padding: 0px 30px 0px 10px;
         }
     </style>
 @endpush
@@ -108,12 +115,29 @@
     <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script>
         $(document).ready(function () {
-            $('#add').on('click', function () {
-                $('#modal-siswa').modal('show');
-            });
             $('#siswa_id').select2();
+
+
+            $('#add').on('click', function () {
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
+                $('#btn')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .val('Simpan');
+                $('#action').val('add');
+                $('#siswa_id').select2('destroy').val('').select2();
+                $('#form-pelanggaran-siswa')[0].reset();
+                $('#modal-siswa').modal('show');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+            });
+
+
             $('#tanggal_pelanggaran').dateDropper({
                 theme: 'leaf',
                 format: 'd-m-Y'
@@ -178,11 +202,13 @@
             $('#form-pelanggaran-siswa').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
-                if ($('#siswa').val() == 'add') {
+                if ($('#action').val() == 'add') {
                     url = "{{ route('admin.pelanggaran.siswa') }}";
+                    text = "Data sukses ditambahkan";
                 }
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.pelanggaran.siswa-update') }}";
+                    text = "Data sukses diupdate";
                 }
                 $.ajax({
                     url: url,
@@ -197,7 +223,7 @@
                             toastr.error(html);
                         }
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-siswa').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pelanggaran-siswa')[0].reset();
@@ -223,16 +249,16 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
-                        $('#siswa_id').val(data.nama_siswa.siswa_id);
-                        $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran.tanggal_pelanggaran);
-                        $('#pelanggaran').val(data.pelanggaran.pelanggaran);
-                        $('#poin_lama').val(data.poin.poin);
-                        $('#poin').val(data.poin.poin);
-                        $('#sebab').val(data.sebab.sebab);
-                        $('#sanksi').val(data.sanksi.sanksi);
-                        $('#penanganan').val(data.penanganan.penanganan);
-                        $('#keterangan').val(data.keterangan.keterangan);
-                        $('#hidden_id').val(data.nama_siswa.id);
+                        $('#siswa_id').select2('val', '1');
+                        $('#tanggal_pelanggaran').val(data.tanggal_pelanggaran);
+                        $('#pelanggaran').val(data.pelanggaran);
+                        $('#poin_lama').val(data.poin);
+                        $('#poin').val(data.poin);
+                        $('#sebab').val(data.sebab);
+                        $('#sanksi').val(data.sanksi);
+                        $('#penanganan').val(data.penanganan);
+                        $('#keterangan').val(data.keterangan);
+                        $('#hidden_id').val(data.id);
                         $('#btn')
                             .removeClass('btn-success')
                             .addClass('btn-info')
@@ -260,7 +286,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
@@ -269,7 +295,7 @@
         const pelanggaran = document.getElementById('pelanggaran');
         const poin = document.getElementById('poin');
         function setPoin(selected){
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poi n);
             poin.value = pelanggaran.options[pelanggaran.selectedIndex].dataset.poin;
         }
     </script>

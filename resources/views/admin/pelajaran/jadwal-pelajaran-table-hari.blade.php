@@ -17,9 +17,13 @@
           <tbody id="{{$hari}}">
             @foreach($data as $key => $obj)
                 <tr>
-                     <td>{{$obj->jamPelajaran->jam_ke}}</td>
-                     <td>{{$obj->mataPelajaran->nama_pelajaran ?? ''}}</td>
-                     <td>
+                    <td>
+                      @if(!empty($obj->jamPelajaran->jam_ke))
+                        {{$obj->jamPelajaran->jam_ke}}
+                      @endif
+                    </td>
+                    <td>{{$obj->mataPelajaran->nama_pelajaran ?? ''}}</td>
+                    <td>
                         <button data-id="{{$obj->id}}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
                             <i class="fa fa-trash"></i>
                         </button>

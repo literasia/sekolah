@@ -20,125 +20,120 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <form id="form-kelas">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <label for="name">Nama Kelas</label>
-                                        <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Nama Kelas">
-                                        <span id="form_result" class="text-danger"></span>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form id="form-kelas">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label for="name">Nama Kelas</label>
+                                            <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Nama Kelas">
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label for="tingkat">Tingkat</label>
+                                            <select name="tingkat" id="tingkat" class="form-control form-control-sm">
+                                                <option value="">-- Tingkat --</option>
+                                                @foreach($tingkat as $obj)
+                                                <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <label for="tingkat">Tingkat</label>
-                                        <select name="tingkat" id="tingkat" class="form-control form-control-sm">
-                                            <option value="">-- Tingkat --</option>
-                                            @foreach($tingkat as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="wali_kelas">Wali Kelas</label>
+                                            <select name="wali_kelas" id="wali_kelas" class="form-control form-control-sm">
+                                                <option value="">-- Wali Kelas --</option>
+                                                @foreach($gurus as $guru)
+                                                <option value="{{$guru->pegawai_id}}">
+                                                    @if(!empty($guru->pegawai->name))
+                                                        {{ $guru->pegawai->name }}
+                                                    @else 
+                                                        "Data Pegawai Tidak Ditemukan"
+                                                    @endif
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="wali_kelas">Wali Kelas</label>
-                                        <select name="wali_kelas" id="wali_kelas" class="form-control form-control-sm">
-                                            <option value="">-- Wali Kelas --</option>
-                                            @foreach($gurus as $guru)
-                                            <option value="{{$guru->pegawai_id}}">{{$guru->pegawai->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label for="jurusan">Jurusan</label>
+                                            <select name="jurusan" id="jurusan" class="form-control form-control-sm">
+                                                <option value="">-- Jurusan --</option>
+                                                @foreach($jurusan as $obj)
+                                                <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label for="kapasitas">Kapasitas</label>
+                                            <input type="number" name="kapasitas" id="kapasitas" class="form-control form-control-sm" placeholder="Kapasitas">
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <label for="jurusan">Jurusan</label>
-                                        <select name="jurusan" id="jurusan" class="form-control form-control-sm">
-                                            <option value="">-- Jurusan --</option>
-                                            @foreach($jurusan as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="keterangan">Keterangan</label>
+                                            <textarea id="keterangan" name="keterangan" class="form-control form-control-sm"></textarea>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <label for="kapasitas">Kapasitas</label>
-                                        <input type="number" name="kapasitas" id="kapasitas" class="form-control form-control-sm" placeholder="Kapasitas">
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="hidden_id" id="hidden_id">
+                                        <input type="hidden" id="action" val="add">
+                                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                        <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="keterangan">Keterangan</label>
-                                        <textarea id="keterangan" name="keterangan" class="form-control form-control-sm"></textarea>
-                                        <span id="form_result" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>Kelas</th>
-                                        <th>ID Kelas</th>
-                                        <th>Wali Kelas</th>
-                                        <th>Kapasitas</th>
-                                        <th>Jurusan</th>
-                                        <th>Keterangan</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                    {{-- @forelse($data ?? '' as $kelas)
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
                                         <tr>
-                                            <td>{{ $kelas->name }}</td>
-                                            <td>{{ $kelas->wali_kelas }}</td>
-                                            <td>{{ $kelas->kapasitas }}</td>
-                                            <td>{{ $kelas->jurusan }}</td>
-                                            <td>{{ $kelas->keterangan }}</td>
-                                            <td>
-                                                <button type="button" data-id="{{$kelas->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
-                                                &nbsp;&nbsp;
-                                                <button type="button" data-id="{{$kelas->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
-                                            </td>
+                                            <th>Kelas</th>
+                                            <th>ID Kelas</th>
+                                            <th>Wali Kelas</th>
+                                            <th>Kapasitas</th>
+                                            <th>Jurusan</th>
+                                            <th>Keterangan</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    @empty
-                                        <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
-                                    @endforelse --}}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody class="text-left">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,6 +169,13 @@
         .btn i {
             margin-right: 0px;
         }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
     </style>
 @endpush
 
@@ -183,6 +185,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
 
@@ -206,6 +209,7 @@
             $('#form-kelas').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+                var text = "Data sukses ditambahkan";
 
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.sekolah.kelas') }}";
@@ -235,7 +239,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
+                            Swal.fire("Berhasil", text, "success");
                             $('#name').removeClass('is-invalid');
                             $('#tingkat').removeClass('is-invalid');
                             $('#jurusan').removeClass('is-invalid');
@@ -299,7 +303,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

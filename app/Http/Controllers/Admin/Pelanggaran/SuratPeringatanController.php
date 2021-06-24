@@ -11,22 +11,22 @@ use App\User;
 use App\Models\Superadmin\Addons;
 
 class SuratPeringatanController extends Controller
-{ //
+{
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         if ($request->ajax()) {
-            $data = SuratPeringatan::latest()->get();
+            $data = SuratPeringatan::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
-        
+
         return view('admin.pelanggaran.surat-peringatan', ['mySekolah' => User::sekolah(), 'addons' => $addons]);
     }
 
@@ -93,10 +93,10 @@ class SuratPeringatanController extends Controller
                 ]);
         }
 
-        $status = SuratPeringatan::whereId($request->input('hidden_id'))->update([
-            'name'  => $request->input('name'),
-            'poin'  => $request->input('poin'),
-        ]);
+
+        $surat_peringatan = SuratPeringatan::findOrFail($request->hidden_id);
+
+        $surat_peringatan->update($request->all());
 
         return response()
             ->json([

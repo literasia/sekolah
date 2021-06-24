@@ -20,7 +20,7 @@ Ini adalah halaman slider untuk Superadmin
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
@@ -29,6 +29,7 @@ Ini adalah halaman slider untuk Superadmin
                             <thead class="text-left">
                                 <tr>
                                     <th>No.</th>
+                                    <th>No Urut</th>
                                     <th>Judul</th>
                                     <th>Foto</th>
                                     <th>Keterangan</th>
@@ -96,13 +97,29 @@ Ini adalah halaman slider untuk Superadmin
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<!-- Select 2 js -->
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
     $(document).ready(function() {
 
         $('#add').on('click', function() {
+            $('.modal-title').html('Tambah Slider');
+            $('#judul').val('');
+            $('#kabupaten_kota').val('');
+            getSekolahKabupaten('');
+            $('#start_date').val('');
+            $('#end_date').val('');
+            $('#keterangan').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
+            $('#hidden_id').val('');
             $('#modal-slider').modal('show');
         });
 
@@ -128,6 +145,10 @@ Ini adalah halaman slider untuk Superadmin
                 {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
+                },
+                {
+                    data: 'no_urut',
+                    name: 'no_urut'
                 },
                 {
                     data: 'judul',
@@ -158,6 +179,24 @@ Ini adalah halaman slider untuk Superadmin
                     name: 'action'
                 }
             ],
+        });
+
+        $("#provinsi").change(function(){
+            _this = $(this);
+            $.ajax({
+                url: `{{ route('superadmin.referensi.provinsi-getKabupatenKota') }}`,
+                dataType: 'JSON',
+                data: {provinsi_id:_this.val()},
+                success: function (data) {
+                    $("#kabupaten_kota").html("");
+                    var options = "";
+                    for (let key in data) {
+                        options += `<option value="${data[key].id}">${data[key].name}</option>`;
+                    }
+                    $("#kabupaten_kota").html(options);
+                    $("#kabupaten_kota").change();
+                }
+            });
         });
 
         $("#kabupaten_kota").change(function() {
@@ -205,12 +244,15 @@ Ini adalah halaman slider untuk Superadmin
             event.preventDefault();
 
             let url = '';
+            var text = "Data sukses ditambahkan";
             if ($('#action').val() == 'add') {
                 url = "{{ route('superadmin.slider.store') }}";
+                text = "Data sukses ditambahkan";
             }
 
             if ($('#action').val() == 'edit') {
                 url = "{{ route('superadmin.slider.update') }}";
+                text = "Data sukses diupdate";
             }
 
             var formData = new FormData($('#form-slider')[0]);
@@ -239,7 +281,7 @@ Ini adalah halaman slider untuk Superadmin
 
                     // Succes
                     if (data.success) {
-                        toastr.success('Sukses!');
+                        Swal.fire("Berhasil", text, "success");
                         $('#modal-slider').modal('hide');
                         $('#judul').removeClass('is-invalid');
                         $('#form-slider')[0].reset();
@@ -267,13 +309,24 @@ Ini adalah halaman slider untuk Superadmin
                 success: function (data) {
                     console.log(data);
                     $('#action').val('edit');
-                    $('#btn').removeClass('btn-outline-success').addClass('btn-outline-info').val('Update');
+                    $('.modal-title').html('Edit Slider');
                     $('#judul').val(data.judul);
+                    $('#kabupaten_kota').val(data.kabupaten_kota_id);
+                    $('#no_urut').val(data.no_urut);
+                    $('#provinsi').val(data.provinsi_id);
                     $('#kabupaten_kota').val(data.kabupaten_kota_id);
                     getSekolahKabupaten(data.kabupaten_kota_id, data.sekolah);
                     $('#start_date').val(data.start_date);
                     $('#end_date').val(data.end_date);
                     $('#keterangan').val(data.keterangan);
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .val('Batal');
                     $('#hidden_id').val(data.id);
                     $('#modal-slider').modal('show');
                 }
@@ -297,7 +350,7 @@ Ini adalah halaman slider untuk Superadmin
                     setTimeout(function() {
                         $('#confirmModal').modal('hide');
                         $('#slider-table').DataTable().ajax.reload();
-                        toastr.success('Data berhasil dihapus');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
                     }, 1000);
                 }
             });

@@ -23,6 +23,23 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="nomor_urut">Nomor Urut</label>
+                                <input type="text" name="nomor_urut" id="nomor_urut" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="provinsi">Provinsi</label>
+                                <select name="provinsi" id="provinsi" class="form-control form-control-sm">
+                                    <option value="">Pilih</option>
+                                        <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="posisi">Kabupaten / Kota</label>
                                 <select name="kabupaten_kota" id="kabupaten_kota" class="form-control form-control-sm">
                                     <option value="">Pilih</option>
@@ -83,7 +100,7 @@
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" value="add">
                         <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>
             </div>

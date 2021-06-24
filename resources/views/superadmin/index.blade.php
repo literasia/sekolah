@@ -98,8 +98,9 @@
         </div>
     </div> --}}
 
-    <div class="col-md-4">
-        <div class="card comp-card">
+    <div class="col-md-4 card-wrapper">
+        <a data-toggle="collapse" href="#card-link1" role="button" aria-expanded="false" aria-controls="card-link1"> 
+        <div class="col-md-12 card comp-card p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
@@ -115,9 +116,24 @@
                 </div>
             </div>
         </div>
+        </a>
+
+        <div class="col-md-12 card-content p-0 collapse" id="card-link1">
+            <div class="card rounded">
+                <div class="card-body card-collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex border-0">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+        </div>
     </div>
-    <div class="col-md-4">
-        <div class="card comp-card">
+
+    <div class="col-md-4 card-wrapper" id="card-wrapper">
+        <a data-toggle="collapse" href="#card-link2" role="button" aria-expanded="false" aria-controls="card-link2">
+        <div class="col-md-12 card comp-card p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
@@ -133,9 +149,24 @@
                 </div>
             </div>
         </div>
+        </a>
+
+        <div class="col-md-12 card-content p-0 collapse" id="card-link2">
+            <div class="card rounded">
+                <div class="card-body card-collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex border-0">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+        </div>
     </div>
-    <div class="col-md-4">
-        <div class="card comp-card">
+
+    <div class="col-md-4 card-wrapper">
+        <a data-toggle="collapse" href="#card-link3" role="button" aria-expanded="false" aria-controls="card-link3">
+        <div class="col-md-12 card comp-card p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
@@ -151,9 +182,20 @@
                 </div>
             </div>
         </div>
+        </a>
+
+        <div class="col-md-12 card-content p-0 collapse" id="card-link3">
+            <div class="card rounded">
+                <div class="card-body card-collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex border-0">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>        
+        </div>
     </div>
-
-
 
     {{-- Sekolah SD SMP SMA SMK --}}
     <div class="col-md-3">
@@ -299,4 +341,29 @@
 
 @push('js')
     <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
+    
+@endpush
+
+@push('css')
+    <style>
+        .card-collapse {
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 15rem;
+        }
+        .card-collapse:before {
+            content: "";
+            border: 10px solid transparent;
+            border-left-color: #fff;
+            border-top-color: #fff;
+            position: absolute;
+            border-radius: 3px;
+            top: -8px;
+            right: 50%;
+            -webkit-box-shadow: -5px -5px 12px -2px rgb(0 0 0 / 30%);
+            box-shadow: -5px -5px 12px -2px rgb(0 0 0 / 30%);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            z-index: 1002
+    </style>
 @endpush

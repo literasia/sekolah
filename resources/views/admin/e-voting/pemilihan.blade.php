@@ -20,47 +20,49 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Kandidat</th>
-                                        <th>Jenis Pemilihan</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                    @foreach($data_pemilihan as $dt)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <ol>
-                                                @foreach($dt->calons as $nk)
-                                                <li>{{ $nk->name }}</li>
-                                                @endforeach
-                                            </ol>
-                                        </td>
-                                        <td>{{ $dt->posisi }}</td>
-                                        <td>{{ $dt->start_date }}</td>
-                                        <td>{{ $dt->end_date }}</td>
-                                        <td>
-                                            <center>
-                                            <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
-                                            &nbsp;
-                                            <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
-                                            </center>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Kandidat</th>
+                                            <th>Jenis Pemilihan</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
+                                        @foreach($data_pemilihan as $dt)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <ol>
+                                                    @foreach($dt->calons as $nk)
+                                                    <li>{{ $nk->name }}</li>
+                                                    @endforeach
+                                                </ol>
+                                            </td>
+                                            <td>{{ $dt->posisi }}</td>
+                                            <td>{{ $dt->start_date }}</td>
+                                            <td>{{ $dt->end_date }}</td>
+                                            <td>
+                                                <center>
+                                                <button type="button" id="{{$dt->id}}" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>
+                                                &nbsp;
+                                                <button type="button" id="{{$dt->id}}" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +104,13 @@
         .btn i {
             margin-right: 0px;
         }
-
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
         .select2-container {
             width: 100% !important;
             padding: 0;
@@ -116,13 +124,19 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
 
             $('#add').on('click', function () {
+                $('#action').val('add');
+                $('#nama_calon').val('');
+                $('#posisi').val('');
+                $('#start_date').val('');
+                $('#end_date').val('');
+                $('#hidden_id').val('');
                 $('#modal-pemilihan').modal('show');
             });
 
@@ -196,7 +210,7 @@
                 });
             });
 
-            // $('#order-table').DataTable({
+            // $('#order-table').DataTable  ({
             //     processing: true,
             //     serverSide: true,
             //     ajax: {
@@ -247,12 +261,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.e-voting.pemilihan') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.pemilihan-update') }}";
+                    text = "Data sukses diupdate";
                 }
                 console.log($(this).serialize());
                 $.ajax({
@@ -269,15 +287,19 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#modal-pemilihan').modal('hide');
                             $('#siswa').removeClass('is-invalid');
                             $('#form-pemilihan')[0].reset();
                             $('#action').val('add');
                             $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Simpan');
+                                .val('Batal');
                                 location.reload();
                             // $('#order-table').DataTable().ajax.reload();
                         }
@@ -299,9 +321,13 @@
                         $('#end_date').val(data.end_date);
                         $('#hidden_id').val(data.pemilihan_id);
                         $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Update');
+                            .val('Batal');
                         $('#modal-pemilihan').modal('show');
                     }
                 });
@@ -323,7 +349,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             // $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                             location.reload();
                         }, 1000);
                     }

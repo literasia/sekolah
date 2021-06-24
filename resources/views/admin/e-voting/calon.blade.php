@@ -20,56 +20,60 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <form id="form-calon-kandidat">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <input type="hidden" name="nama_calon" id="nama_calon" placeholder  ="tes">
-                                        <input type="hidden" name="kelas_id" id="kelas_id" placeholder="tes">
-                                        <label for="calon_id">Nama Calon</label>
-                                        <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
-                                            <option value="">-- Pilih --</option>
-                                            @foreach($namaSiswa as $ns)
-                                            <option data-kelas="{{ $ns->kelas_id }}" data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
-                                            @endforeach
-                                        </select>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form id="form-calon-kandidat">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <input type="hidden" name="nama_calon" id="nama_calon" placeholder  ="tes">
+                                            <input type="hidden" name="kelas_id" id="kelas_id" placeholder="tes">
+                                            <label for="calon_id">Nama Calon</label>
+                                            <select name="calon_id" id="calon_id" class="form-control form-control-sm" onchange="setPoin(this)">
+                                                <option value="">-- Pilih --</option>
+                                                @foreach($namaSiswa as $ns)
+                                                <option data-kelas="{{ $ns->kelas_id }}" data-poin="{{ $ns->nama_lengkap }}" value="{{ $ns->id }}">{{ $ns->nama_lengkap }} - {{ $ns->nis }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="hidden_id" id="hidden_id">
+                                        <input type="hidden" id="action" val="add">
+                                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                        <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Calon</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                    
-                                </tbody>
-                            </table>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Calon</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,12 +112,17 @@
         .btn i {
             margin-right: 0px;
         }
-
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
         .select2-container {
             width: 100% !important;
             padding: 0;
         }
-
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             background-color: transparent; 
             color: #000;
@@ -128,9 +137,9 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <!-- Select 2 js -->
     <script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#calon_id').select2();
@@ -161,14 +170,17 @@
                 event.preventDefault();
                 var id = $(this).val();
                 console.log($(this).serialize())
-
                 var url = '';
+
+                var text = "Data sukses ditambahkan";
                 if ($('#nama_calon').val() == 'add') {
                     url = "{{ route('admin.e-voting.calon') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.e-voting.calon-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -185,7 +197,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#nama_calon').removeClass('is-invalid');
                             $('#form-calon-kandidat')[0].reset();
                             $('#action').val('add');
@@ -241,7 +253,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });
@@ -256,7 +268,7 @@
 
         function setPoin(selected){
             console.log(selected)
-            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset.poin);
+            // console.log(pelanggaran.options[pelanggaran.selectedIndex].dataset. p oin);
             nama_calon.value = calon_id.options[calon_id.selectedIndex].dataset.poin;
             kelas_id.value = calon_id.options[calon_id.selectedIndex].dataset.kelas;
         }

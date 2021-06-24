@@ -10,4 +10,8 @@ class Tingkat extends Model
     use SoftDeletes;
     
     protected $guarded = [];
+
+    public function library(){
+        return $this->hasMany(Library::class);
+    }
 }

@@ -13,43 +13,29 @@
                 <form id="form-library" method="POST" action="{{ route('superadmin.library.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
                             </div>
                         </div>
-                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="sekolah_id">Nama Sekolah:</label>-->
-                        <!--        <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">-->
-                        <!--            <option value="">-- Nama Sekolah --</option>-->
-                        <!--            @foreach ($sekolahs as $sekolah)-->
-                        <!--                <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>-->
-                        <!--            @endforeach-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="tingkat">Tingakt:</label>-->
-                        <!--        <select name="tingkat" id="tingkat" class="form-control form-control-sm">-->
-                        <!--            <option value="">-- Tingkat --</option>-->
-                        <!--            <option value="SD">SD</option>-->
-                        <!--            <option value="SMP">SMP</option>-->
-                        <!--            <option value="SMA">SMA</option>-->
-                        <!--            <option value="SMK">SMK</option>-->
-                        <!--            <option value="Umum">Umum</option>-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--</div>-->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
-                                <label for="kategori_id">Kategori:</label>
-                                <select name="kategori_id" id="kategori_id" class="form-control form-control-sm" required>
+                                <label for="nama_sekolah">Sekolah:</label>
+                                <select name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm">
+                                    <option value="">-- Pilih Sekolah --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="sub_kategori_id">Sub Kategori:</label>
+                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" required>
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($kategoris as $kategori)
-                                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                                    @foreach ($sub_kategoris as $sub_kategori)
+                                        <option value="{{ $sub_kategori->id }}">{{ $sub_kategori->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -65,12 +51,35 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="row-unit">
+                            <div class="form-group">
+                                <label for="tingkat_id">Tingkat</label>
+                                <select name="tingkat_id" id="tingkat_id" class="form-control form-control-sm" required>
+                                    <option value="">-- Tingkat --</option>
+                                    @foreach ($tingkats as $tingkat)
+                                        <option value="{{ $tingkat->id }}">
+                                            @if ($tingkat->name == 'Umum')
+                                                {{ $tingkat->name }}
+                                            @else
+                                                {{ $tingkat->name }} - {{ $tingkat->tingkat }}
+                                            @endif
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="deskripsi">Deskripsi:</label>
                                 <textarea name="deskripsi" id="deskripsi" cols="10" rows="3" class="form-control form-control-sm" placeholder="Deskripsi"></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -86,6 +95,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -103,6 +114,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -120,6 +133,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -137,6 +152,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="penulis_id">Penulis:</label>

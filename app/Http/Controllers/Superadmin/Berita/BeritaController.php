@@ -19,13 +19,16 @@ class BeritaController extends Controller
             $data = Berita::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->addColumn('thumbnail', function ($data) {
                     $btnlink = '<a target="_blank" href="'.Storage::url($data->thumbnail).'" class="badge badge-warning">Lihat Foto</a>';
                     return $btnlink;
+                })
+                ->editColumn('isi', function($data){
+                    return strlen($data->isi) > 30 ? substr(strip_tags($data->isi), 0, 30)."..." : $data->isi;
                 })
                 ->rawColumns(['action', 'thumbnail'])
                 ->addIndexColumn()

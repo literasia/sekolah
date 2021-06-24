@@ -27,7 +27,9 @@ class MataPelajaranController extends Controller
         }
 
         $guru = Guru::join('pegawais', 'gurus.pegawai_id', 'pegawais.id')
-            ->where('gurus.user_id', Auth::id())
+            ->whereHas('user', function($query){
+                $query->where('id_sekolah', auth()->user()->id_sekolah);
+            })
             ->get(['gurus.*', 'pegawais.name AS nama_guru']);
         //TODO: GURU BELUM FILTER BY SEKOLAH //
 

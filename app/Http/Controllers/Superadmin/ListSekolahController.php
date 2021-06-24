@@ -6,7 +6,6 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Superadmin\Sekolah;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
@@ -15,7 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Superadmin\Provinsi;
 use App\Models\Superadmin\KabupatenKota;
 use App\Models\Admin\Access;
-use App\Models\Superadmin\Addons;
+use App\Models\Superadmin\{Addons, Sekolah};
+use App\Models\Siswa;
 
 class ListSekolahController extends Controller
 {
@@ -55,7 +55,7 @@ class ListSekolahController extends Controller
             'tahun_ajaran'  => 'required',
             'username'      => 'required|max:100|unique:users,username',
             'password'      => 'required',
-            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000']
+            // 'logo'          => ['nullable', 'mimes:jpeg,jpg,png,svg', 'max:2000 ']
         ];
 
         $message = [
@@ -89,7 +89,7 @@ class ListSekolahController extends Controller
         $adminRole = Role::where('name', 'admin')->first();
 
         $user = User::create([
-            'id_sekolah'    => $sekolah,
+            'id_sekolah'    => $sekolah->id,
             'role_id'       => $adminRole->id,
             'name'          => $data['name'],
             'username'      => $data['username'],
@@ -117,8 +117,9 @@ class ListSekolahController extends Controller
             'e_voting' => !empty($req->e_voting) ? 1 : 0,
             'kalender' => !empty($req->kalender) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
-            'forum' => !empty($req->forum) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
+            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
         ]);
 
         return response()
@@ -136,7 +137,7 @@ class ListSekolahController extends Controller
         $addons = Addons::where('sekolah_id', $sekolah->id)->first();
 
         // get User
-        $user = User::where('id_sekolah', $sekolah->id_sekolah)->first();
+        $user = User::where('id_sekolah', $sekolah->id)->first();
 
         return response()
             ->json([                
@@ -251,10 +252,10 @@ class ListSekolahController extends Controller
             'pelanggaran' => !empty($req->pelanggaran) ? 1 : 0,
             'e_voting' => !empty($req->e_voting) ? 1 : 0,
             'kalender' => !empty($req->kalender) ? 1 : 0,
-            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
             'import' => !empty($req->import) ? 1 : 0,
-            'forum' => !empty($req->forum) ? 1 : 0,
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
+            'forum' => !empty($req->forum) ? 1 : 0,
+            'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
         ]);
 
         return response()
@@ -283,4 +284,64 @@ class ListSekolahController extends Controller
                 'success' => '👍 '.$sekolah->name.' berhasil dihapus!',
             ]);
     }
+
+    public function generate(){
+        $list_sekolah = Sekolah::get();
+        
+        foreach ($list_sekolah as $item) {
+            // get Roles to attach user roles
+            $role = Role::where('name', 'admin')->first();
+
+            $user = User::create([
+                'role_id' => $role->id,
+                'name' => 'admin-'.$item->name, //admin-smkn2
+                'username' => 'admin-'.$item->id_sekolah, //admin-0941231 
+                'email' => $item->name.'@gmail.com', // smk2@gmail.com
+                'id_sekolah' => $item->id, // sekolah_id
+                'password' => Hash::make('belajarterus'), //admin-0941231 (admin-idsekolah)
+            ]);
+
+            $user_id = User::findOrFail($user->id);
+
+            // attach
+            $user_id->roles()->attach($role->id);
+
+            $addons = Addons::where('sekolah_id', $item->id);
+
+            $addons->update([
+                'user_id' => $user->id,
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function generateSiswa(){
+        $sekolah = Sekolah::get();
+        
+        foreach ($sekolah as $data_sekolah) {
+            foreach ($siswa as $item) {
+                // get Roles to attach user roles
+                $role = Role::where('name', 'siswa')->first();
+
+                $user = User::create([
+                    'role_id' => $role->id,
+                    'siswa_id' => $item->id,
+                    'name' => $item->nama_lengkap, //admin-smkn2
+                    'username' => $item->nisn, 
+                    'nis' => $item->nis,//admin-0941231 
+                    'id_sekolah' => $data_sekolah->id, // sekolah_id
+                    'password' => Hash::make('belajarterus'), //admin-0941231 (admin-idsekolah)
+                ]);
+
+                $user_id = User::findOrFail($user->id);
+                // attach
+                $user_id->roles()->attach($role->id);
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    
 }

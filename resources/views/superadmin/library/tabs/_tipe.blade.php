@@ -39,6 +39,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                <input type="hidden" name="hidden_id" value="" id="tipe-id-update">
                                 <input type="submit" value="Update" class="btn btn-sm btn-info btn-block shadow-sm">
                             </div>
                         </div>
@@ -49,33 +50,35 @@
             {{-- Table --}}
             <div class="col-xl-12">
                 <hr>
-                <table class="table table-sm table-bordered" id="table-tipe">
-                    <thead class="text-center">
-                        <tr>
-                            <th>No.</th>
-                            <th>Tipe</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        @forelse ($tipes as $key => $tipe)
+                <div class="dt-responsive table-responsive">
+                    <table class="table table-sm table-bordered" id="table-tipe">
+                        <thead class="text-center">
                             <tr>
-                                <td>{{ ++$key }}</td>
-                                <td>{{ $tipe->name }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-info shadow-sm" id="edit-tipe" data-id="{{ $tipe->id }}"><i class="fa fa-pencil-alt"></i></button>
-                                    <button type="button" class="btn btn-sm btn-danger shadow-sm" id="delete-tipe"
-                                        data-url="{{ route('superadmin.library-tipe-delete', $tipe->id) }}" 
-                                        data-toggle="modal" data-target="#confirmDeleteModal">
-                                            <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
+                                <th>No.</th>
+                                <th>Tipe</th>
+                                <th>Actions</th>
                             </tr>
-                        @empty
-                            <tr><td colspan="4">Tidak ada data</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="text-center">
+                            @forelse ($tipes as $key => $tipe)
+                                <tr>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $tipe->name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info shadow-sm" id="edit-tipe" data-id="{{ $tipe->id }}"><i class="fa fa-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger shadow-sm" id="delete-tipe"
+                                            data-url="{{ route('superadmin.library-tipe-delete', $tipe->id) }}" 
+                                            data-toggle="modal" data-target="#confirmDeleteModal">
+                                                <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="4">Tidak ada data</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

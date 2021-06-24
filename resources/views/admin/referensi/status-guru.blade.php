@@ -20,49 +20,53 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <form id="form-status">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="status_guru">Status Guru</label>
-                                        <input type="text" name="status_guru" id="status_guru" class="form-control form-control-sm" placeholder="Status Guru">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form id="form-status">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="status_guru">Status Guru</label>
+                                            <input type="text" name="status_guru" id="status_guru" class="form-control form-control-sm" placeholder="Status Guru">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="hidden_id" id="hidden_id">
+                                        <input type="hidden" id="action" val="add">
+                                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                        <button type="reset" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Status Guru</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Status Guru</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,6 +102,13 @@
         .btn i {
             margin-right: 0px;
         }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
     </style>
 @endpush
 
@@ -107,6 +118,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -135,12 +147,16 @@
                 event.preventDefault();
 
                 var url = '';
+                var text = "Data sukses ditambahkan";
+
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.referensi.status-guru') }}";
+                    text = "Data sukses ditambahkan";
                 }
 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('admin.referensi.status-guru-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -157,7 +173,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Sukses!');
+                            Swal.fire("Berhasil", text, "success");
                             $('#status_guru').removeClass('is-invalid');
                             $('#form-status')[0].reset();
                             $('#action').val('add');
@@ -213,7 +229,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

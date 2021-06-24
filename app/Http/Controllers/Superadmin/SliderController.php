@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Superadmin\{KabupatenKota, Sekolah, Slider};
+use App\Models\Superadmin\{KabupatenKota, Provinsi, Sekolah, Slider};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -27,12 +27,14 @@ class SliderController extends Controller
     public function index(Request $request)
     { //
         $cities = KabupatenKota::all();
+        $provinsi = Provinsi::get();
+
         if ($request->ajax()) {
             $data = Slider::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm">Edit</button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->addColumn('foto', function ($data) {
@@ -46,7 +48,8 @@ class SliderController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('superadmin.slider', compact(['cities']));
+
+        return view('superadmin.slider', compact(['cities', 'provinsi']));
     }
 
     public function store(Request $request)
@@ -78,6 +81,8 @@ class SliderController extends Controller
 
         $slider = Slider::create([
             'judul'             => $request->judul,
+            'no_urut'           => $request->no_urut,
+            'provinsi_id'       => $request->provinsi,
             'kabupaten_kota_id' => $request->kabupaten_kota,
             'keterangan'        => $request->keterangan,
             'start_date'        => date("Y-m-d", strtotime($request->start_date)),
@@ -106,6 +111,8 @@ class SliderController extends Controller
         return response()->json([
             'id' => $slider->id,
             'judul' => $slider->judul,
+            'no_urut' => $slider->no_urut,
+            'provinsi_id' => $slider->provinsi_id,
             'kabupaten_kota_id' => $slider->kabupaten_kota_id,
             'keterangan' => $slider->keterangan,
             'start_date' => $slider->start_date,
@@ -132,6 +139,8 @@ class SliderController extends Controller
 
         $slider->update([
             'judul' => $data['judul'],
+            'no_urut' => $data['no_urut'],
+            'provinsi_id' => $data['provinsi'],
             'kabupaten_kota_id' => $data['kabupaten_kota'],
             'keterangan' => $data['keterangan'],
             'start_date' => $data['start_date'],

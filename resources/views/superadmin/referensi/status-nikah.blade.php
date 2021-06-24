@@ -15,7 +15,7 @@
 @section('content')
 <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <form id="form-status-nikah">
@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="status_nikah">Status Nikah:</label>
+                                    <label for="status_nikah">Status Nikah</label>
                                     <input type="text" name="status_nikah" id="status_nikah" class="form-control form-control-sm" placeholder="Status Nikah">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">
@@ -103,6 +103,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -130,13 +131,16 @@
             $('#form-status-nikah').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+                var text = "Data sukses ditambahkan";
 
                 if ($('#action').val() == 'add') {
                     url = "{{ route('superadmin.referensi.status-nikah') }}";
+                    text = "Data sukses ditambahkan";
                 }
                 
                 if ($('#action').val() == 'edit') {
                     url = "{{ route('superadmin.referensi.status-nikah-update') }}";
+                    text = "Data sukses diupdate";
                 }
 
                 $.ajax({
@@ -147,15 +151,13 @@
                     success: function (data) {
                         var html = '';
                         if (data.errors) {
-                            // for (var count = 0; count <= data.errors.length; count++) {
                             html = data.errors[0];
-                            // }
                             $('#status_nikah').addClass('is-invalid');
                             toastr.error(html);
                         }
 
                         if (data.success) {
-                            toastr.success(data.success);
+                            Swal.fire("Berhasil", text, "success");
                             $('#status_nikah').removeClass('is-invalid');
                             $('#form-status-nikah')[0].reset();
                             $('#action').val('add');
@@ -166,7 +168,7 @@
                             $('#btn-cancel')
                                 .removeClass('btn-outline-info')
                                 .addClass('btn-outline-success')
-                                .val('Batal');
+                                .text('Batal');
                             $('#order-table').DataTable().ajax.reload();
                         }
                         $('#form_result').html(html);
@@ -190,7 +192,7 @@
                         $('#btn-cancel')
                             .removeClass('btn-outline-success')
                             .addClass('btn-outline-info')
-                            .val('Batal');
+                            .text('Batal');
                     }
                 });
             });
@@ -211,7 +213,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

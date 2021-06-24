@@ -17,53 +17,28 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive mt-3">
-                       <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Pertanyaan</th>
-                                    <th>Jenis</th>
-                                    <th>Kuis</th>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Kelas</th>
-                                    <th>Nama Guru</th>
-                                    <th>Tanggal</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mengidentifikasi Isi Pokok Cerita Hikayat dengan Bahasa Sendiri</td>
-                                    <td class="text-primary">Multiple choice</td>
-                                    <td>Bahasa Indonesia Semester Ganjil</td>
-                                    <td>Bahasa Indonesia</td>
-                                    <td>VII</td>
-                                    <td>Mursilah</td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
-                                    <td><label class="badge badge-success">Diterbitkan</label></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mengidentifikasi Ciri Teks Biografi Berdasarkan Isinya</td>
-                                    <td class="text-success">Single choice</td>
-                                    <td>Bahasa Indonesia Semester Ganjil</td>
-                                    <td>Bahasa Indonesia</td>
-                                    <td>VII</td>
-                                    <td>Mursilah</td>
-                                    <td><small>Telah Terbit, 2021/04/28 pukul 05:04 PM</small></td>
-                                    <td><label class="badge badge-warning">Draf</label></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                        <div class="dt-responsive table-responsive mt-3">
+                           <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Judul</th>
+                                        <th>Mata Pelajaran</th>
+                                        <th>Kelas</th>
+                                        <th>Nama Guru</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,6 +46,23 @@
     </div>
 </div>
 @include('admin.e-learning.modals._tambah-soal')
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Konfirmasi</h4>
+            </div>
+            <div class="modal-body">
+                <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 
@@ -79,10 +71,22 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-clockpicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
         margin-right: 0px;
+    }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+    .modal-dialog {
+        margin-bottom: 6rem!important;
     }
 </style>
 @endpush
@@ -93,128 +97,183 @@
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('bower_components/tinymce/tinymce.min.js')}}"></script>
-<script src="{{ asset('bower_components/tinymce/jquery.tinymce.min.js')}}"></script>
-<script src="{{ asset('http://127.0.0.1:8000/bower_components/tinymce/plugins/tiny_mce_wiris/integration/WIRISplugins.js?viewer=image')}}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
-    tinymce.init({
-            external_plugins: {
-                'tiny_mce_wiris' : 'http://127.0.0.1:8000/bower_components/tinymce/plugins/tiny_mce_wiris/plugin.min.js'
-            },
-            selector: 'textarea#materi',
-            height: 200,
-            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-            imagetools_cors_hosts: ['picsum.photos'],
-            menubar: 'file edit view insert format tools table help',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
-            toolbar_sticky: true,
-            autosave_ask_before_unload: true,
-            autosave_interval: '30s',
-            autosave_prefix: '{path}{query}-{id}-',
-            autosave_restore_when_empty: false,
-            autosave_retention: '2m',  
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-            noneditable_noneditable_class: 'mceNonEditable',
-            toolbar_mode: 'sliding',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
-</script>
-<script>
     $('document').ready(function() {
-        $('#order-table').DataTable();
-
-        var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        tinymce.init({
-            external_plugins: {
-                'tiny_mce_wiris' : `{{ asset('assets/plugins/tinymce/plugins/tiny_mce_wiris/plugin.min.js') }}`,
+        $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.e-learning.soal') }}",
             },
-            selector: '#questions',
-            height: 300,
-            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-            imagetools_cors_hosts: ['picsum.photos'],
-            menubar: 'file edit view insert format tools table help',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl | tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry',
-            toolbar_sticky: true,
-            // autosave_ask_before_unload: true,
-            // autosave_interval: '30s',
-            // autosave_prefix: '{path}{query}-{id}-',
-            // autosave_restore_when_empty: false,
-            // autosave_retention: '2m',
-            image_advtab: true,
-            importcss_append: true,
-            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-            noneditable_noneditable_class: 'mceNonEditable',
-            toolbar_mode: 'sliding',
-            contextmenu: 'link image imagetools table',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
-
-        $(document).on('focusin', function(e) {
-            if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root, .wrs_modal_dialogContainer").length) {
-                e.stopImmediatePropagation();
+            columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'judul',
+                name: 'judul'
+            },
+            {
+                data: 'mata_pelajaran',
+                name: 'mata_pelajaran'
+            },
+            {
+                data: 'kelas',
+                name: 'kelas'
+            },
+            {
+                data: 'guru',
+                name: 'guru'
+            },
+            {
+                data: 'action',
+                name: 'action'
             }
+            ]
         });
 
         $('#add').on('click', function() {
-            // $('.modal-title').html('Tambah Pesan');
-            // $('#judul').val('');
-            // $('#message').val('');
-            // $('#start_date').val('');
-            // $('#end_date').val('');
-            // $('#action').val('add');
-            // $('#button')
-            //     .removeClass('btn-outline-success edit')
-            //     .addClass('btn-outline-info add')
-            //     .html('Simpan'); ;
+            $('.modal-title').html('Tambah Soal');
+            $('.form-control').val('');
+            $('#action').val('add');
+            $('#hidden_id').val('');
+            $('#judul').val('');
+            $('#guru_id').val('');
+            $('#mata_pelajaran_id').val('');
+            $('#kelas_id').val('');
+            $('#jumlah_soal').val('');
+            $('#status').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
             $('#modal-soal').modal('show');
         });
 
-        $('#question_type').change(function(){
-            $('.answer').hide();
-            $('#' + $(this).val()).show();
+        $('#publish_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
         });
 
-        var counter = 2;
-        
-        $("#addButton").click(function () {
-                
-            if(counter>6){
-                Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
-                return false;
-            }   
-        
-            var newQuestionsForm =  '<div id="questions-form'+counter+'">' +
-                                        '<div class="row">' +
-                                            '<div class="col-8">' +
-                                                '<input type="text" name="point" id="point'+counter+'" class="form-control form-control-sm mb-3">' +
-                                            '</div>' +
-                                            '<div class="col-4">' +
-                                                '<input type="checkbox" name="" class="d-inline-block">' +
-                                                '<p class="ml-2 d-inline-block">Jawaban yang benar</p>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>';
-
-            
-            $('#questions-group').append(newQuestionsForm);
-            counter++;
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+            autoclose: true
         });
 
-        $("#removeButton").click(function () {
-        
-            if(counter==1){
-                Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
-                return false;
-            }      
+        $(".rotate-collapse").click(function() {
+            $(".rotate").toggleClass("down"); 
+        });
 
-            counter--;       
-            $("#questions-form" + counter).remove();    
+        $('#form-soal').on('submit', function (event) {
+            event.preventDefault();
+            var url = '';
+            var text = "Data sukses ditambahkan";
+
+            if ($('#action').val() == 'add') {
+                url = "{{ route('admin.e-learning.soal.store') }}";
+                text = "Data sukses ditambahkan";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('admin.e-learning.soal.update') }}";
+                text = "Data sukses diupdate";
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.errors) {
+                        
+                        data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
+                        data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
+                        data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
+                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+                        data.errors.guru_id ? $('#guru_id').addClass('is-invalid') : $('#guru_id').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong");
+                    }
+
+                    if (data.success) {
+                        Swal.fire("Berhasil", text, "success");
+                        $('.form-control').removeClass('is-invalid');
+                        $('#form-soal')[0].reset();
+                        $('#action').val('add');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-info')
+                            .addClass('btn-outline-success')
+                            .text('Batal');
+                        $('#order-table').DataTable().ajax.reload();
+                        $('#modal-soal').modal('hide');
+                    }
+                    $('#form_result').html(html);
+                }
+            });
+        });
+
+        $(document).on('click', '.edit', function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/admin/e-learning/soal/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    $('.modal-title').html('Edit Soal');
+                    $('#action').val('edit');
+                    $('#hidden_id').val(data.id);
+                    $('#judul').val(data.judul);
+                    $('#guru_id').val(data.guru_id);
+                    $('#mata_pelajaran_id').val(data.mata_pelajaran_id);
+                    $('#kelas_id').val(data.kelas_id);
+                    $('#status').val(data.status);
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .val('Update');
+                    $('#btn-cancel')
+                        .removeClass('btn-outline-success')
+                        .addClass('btn-outline-info')
+                        .text('Batal');
+                    $('#modal-soal').modal('show');
+                }
+            });
+        });
+
+        var user_id;
+
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('data-id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: '/admin/e-learning/soal/hapus/'+ user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
         });
     });
 </script>

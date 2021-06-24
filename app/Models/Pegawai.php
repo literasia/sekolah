@@ -6,6 +6,7 @@ use App\User;
 use App\Models\Admin\Access;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Admin\Kelas;
 
 class Pegawai extends Model
 {
@@ -18,7 +19,7 @@ class Pegawai extends Model
     //     'no_telepon', 'tanggal_mulai', 'bagian_pegawai_id', 'tahun_ajaran', 'semester_id', 'foto'
     // ];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function user()
     {
@@ -28,5 +29,13 @@ class Pegawai extends Model
     public function access()
     {
         return $this->hasOne(Access::class);
+    }
+
+    public function guru(){
+        return $this->hasOne(Guru::class);
+    }
+    
+    public function kelas(){
+        return $this->hasMany(Kelas::class);
     }
 }

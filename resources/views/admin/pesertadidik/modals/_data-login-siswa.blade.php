@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="password-group">
             <div class="col">
                 <div class="form-group">
                     <label for="password">Password</label>

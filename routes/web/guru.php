@@ -3,6 +3,8 @@
 
 Route::get('/guru', 'GuruController@index')
 ->name('index');
+Route::get("/guru/profile", "GuruController@show")->name("show");
+Route::post("/guru/profile/update", "GuruController@update")->name("profile.update");
 
 // Pengumuman
 Route::namespace('Pengumuman')->group(function () {
@@ -247,4 +249,35 @@ Route::namespace('EVoting')->group(function () {
     Route::post('/guru/e-voting/vote/update', 'VoteController@update')
         ->name('e-voting.vote-update');
     Route::get('/guru/e-voting/vote/hapus/{id}', 'VoteController@destroy');
+});
+
+// E-learning
+Route::namespace('ELearning')->group(function () {
+    // Materi
+    Route::get('/guru/e-learning/materi', 'MateriController@index')->name('e-learning.materi');
+    Route::post('/guru/e-learning/materi', 'MateriController@store')->name('e-learning.materi.store');
+    Route::get('/guru/e-learning/materi/{id}', 'MateriController@edit')->name('e-learning.materi.edit');
+    Route::post('/guru/e-learning/materi/update', 'MateriController@update')->name('e-learning.materi.update');
+    Route::get('/guru/e-learning/materi/hapus/{id}', 'MateriController@destroy')->name('e-learning.materi.delete');
+
+    // Kuis
+    Route::get('/guru/e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
+    Route::post('/guru/e-learning/kuis', 'KuisController@store')->name('e-learning.kuis.store');
+    Route::get('/guru/e-learning/kuis/{id}', 'KuisController@edit')->name('e-learning.kuis.edit');
+    Route::post('/guru/e-learning/kuis/update', 'KuisController@update')->name('e-learning.kuis.update');
+    Route::get('/guru/e-learning/kuis/hapus/{id}', 'KuisController@destroy')->name('e-learning.kuis.delete');
+
+    // Soal
+    Route::get('/guru/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
+    Route::post('/guru/e-learning/soal', 'SoalController@store')->name('e-learning.soal.store');
+    Route::get('/guru/e-learning/soal/{id}', 'SoalController@edit')->name('e-learning.soal.edit');
+    Route::post('/guru/e-learning/soal/update', 'SoalController@update')->name('e-learning.soal.update');
+    Route::get('/guru/e-learning/soal/hapus/{id}', 'SoalController@destroy')->name('e-learning.soal.delete');
+
+    // Butir Soal
+    Route::get('/guru/e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
+    Route::post('/guru/e-learning/butir-soal', 'ButirSoalController@store')->name('e-learning.butir-soal.store');
+    Route::get('/guru/e-learning/butir-soal/{id}', 'ButirSoalController@edit')->name('e-learning.butir-soal.edit');
+    Route::post('/guru/e-learning/butir-soal/update', 'ButirSoalController@update')->name('e-learning.butir-soal.update');
+    Route::get('/guru/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('e-learning.butir-soal.delete');
 });

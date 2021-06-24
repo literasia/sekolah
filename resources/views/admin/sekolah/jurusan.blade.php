@@ -20,60 +20,64 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <form id="form-jurusan">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="kode">Kode</label>
-                                        <input type="text" name="kode" id="kode" class="form-control form-control-sm" placeholder="Kode">
-                                        <span id="form_result" class="text-danger"></span>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form id="form-jurusan">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="kode">Kode</label>
+                                            <input type="text" name="kode" id="kode" class="form-control form-control-sm" placeholder="Kode">
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="name">Jurusan </label>
-                                        <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Jurusan">
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="name">Jurusan </label>
+                                            <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Jurusan">
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="hidden" id="action" val="add">
-                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="hidden_id" id="hidden_id">
+                                        <input type="hidden" id="action" val="add">
+                                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                        <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Kode</th>
-                                        <th>Jurusan</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Kode</th>
+                                            <th>Jurusan</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,6 +113,13 @@
         .btn i {
             margin-right: 0px;
         }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
     </style>
 @endpush
 
@@ -118,6 +129,7 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
@@ -127,28 +139,29 @@
                     url: "{{ route('admin.sekolah.jurusan') }}",
                 },
                 columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'kode',
-                    name: 'kode'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kode',
+                        name: 'kode'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
                 ]
             });
 
             $('#form-jurusan').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
+                var text = "Data sukses ditambahkan";
 
                 if ($('#action').val() == 'add') {
                     url = "{{ route('admin.sekolah.jurusan') }}";
@@ -177,7 +190,7 @@
                         }
 
                         if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
+                            Swal.fire("Berhasil", text, "success");
                             $('#kode').removeClass('is-invalid');
                             $('#name').removeClass('is-invalid');
                             $('#form-jurusan')[0].reset();
@@ -236,7 +249,7 @@
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
                         }, 1000);
                     }
                 });

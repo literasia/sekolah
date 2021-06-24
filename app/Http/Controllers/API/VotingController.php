@@ -45,6 +45,8 @@ class VotingController extends Controller
 
         $ketuaKelas = Pemilihan::where('sekolah_id', $req->sekolah_id)->where('kelas_id', $req->kelas_id)->get();
         $ketuaOsis = Pemilihan::where('sekolah_id', $req->sekolah_id)->where('posisi', "Ketua Osis")->get();
+        
+        $ketua = $ketuaKelas->merge($ketuaOsis);
 
         return response()->json(ApiResponse::success($ketua));
     }

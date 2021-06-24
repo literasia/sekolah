@@ -33,7 +33,7 @@
                 </a>
                 </li>
             </ul>
-            
+
             {{-- Nav Right --}}
             <ul class="nav-right">
                 <li class="header-notification">
@@ -84,13 +84,13 @@
 
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('assets/images/avatar-4.jpg') }}" class="img-radius" alt="User-Profile-Image">
+                            <img src="{{ asset('profile_images/'.auth()->user()->image) }}" onerror="this.src='{{ asset('img/default-image.png')}}'" id="foto-profile" class="img-radius" alt="no photo">
                             <span>{{ auth()->user()->name }}</span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="#!">
+                                <a class="profile">
                                     <i class="icon-user"></i> Profile
                                 </a>
                             </li>
@@ -110,3 +110,4 @@
         </div>
     </div>
 </nav>
+@include('components.modals._profile-setting-guru')

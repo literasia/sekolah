@@ -20,94 +20,98 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <form id="form-pelajaran">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="nama_pelajaran">Nama Pelajaran</label>
-                                        <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran" required>
-                                        <span id="form_result" class="text-danger"></span>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form id="form-pelajaran">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="nama_pelajaran">Nama Pelajaran</label>
+                                            <input type="text" name="nama_pelajaran" id="nama_pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran" required>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="kode_pelajaran">Kode Pelajaran</label>
-                                        <input type="text" name="kode_pelajaran" id="kode_pelajaran" class="form-control form-control-sm" placeholder="Kode Pelajaran" required>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="kode_pelajaran">Kode Pelajaran</label>
+                                            <input type="text" name="kode_pelajaran" id="kode_pelajaran" class="form-control form-control-sm" placeholder="Kode Pelajaran" required>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="guru_id">Guru Bidang Studi/Pengajar</label>
-                                        <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
-                                        <select name="guru_id" id="guru" class="form-control form-control-sm" required>
-                                            <option value="">-- Guru Bidang Studi/Pengajar --</option>
-                                            @foreach($guru as $obj)
-                                            <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="guru_id">Guru Bidang Studi/Pengajar</label>
+                                            <!-- <input type="text" name="pelajaran" id="pelajaran" class="form-control form-control-sm" placeholder="Nama Pelajaran"> -->
+                                            <select name="guru_id" id="guru" class="form-control form-control-sm" required>
+                                                <option value="">-- Guru Bidang Studi/Pengajar --</option>
+                                                @foreach($guru as $obj)
+                                                <option value="{{$obj->id}}">{{$obj->nama_guru}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label for="keterangan">Keterangan</label>
-                                        <input type="text" name="keterangan" id="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label for="keterangan">Keterangan</label>
+                                            <input type="text" name="keterangan" id="keterangan" class="form-control form-control-sm" placeholder="Keterangan">
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" name="aktif" id="aktif" checked>
-                                        <label class="custom-control-label" for="aktif">Aktif</label>
-                                        <span id="form_result" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" name="aktif" id="aktif" checked>
+                                            <label class="custom-control-label" for="aktif">Aktif</label>
+                                            <span id="form_result" class="text-danger"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="id" id="id">
-                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
-                                    <button type="reset" class="btn btn-sm btn-outline-success" id="reset">Batal</button>
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id" id="id">
+                                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                        <button type="reset" class="btn btn-sm btn-outline-success" id="reset">Batal</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama Pelajaran</th>
-                                        <th>Guru</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Pelajaran</th>
+                                            <th>Guru</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,6 +146,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush
@@ -192,7 +203,7 @@
                 },
                 {
                     data: 'aktif',
-                    render: (data) =>  data == 1 ? 'Aktif' : 'Non Aktif'
+                    render: (data) =>  data == 1 ? `<label class="badge badge-success">Aktif</label>` : `<label class="badge badge-danger">Nonaktif</label>`
                 },
                 {
                     data: 'id',
@@ -200,7 +211,7 @@
                         return `<button data-id="${id}" type="button" class="btn btn-edit btn-mini btn-info shadow-sm">
                                     <i class="fa fa-pencil-alt"></i>
                                 </button>&nbsp;&nbsp;
-                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
+                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm delete" data-toggle="modal" data-target="#confirmDeleteModal">
                                     <i class="fa fa-trash"></i>
                                 </button>`;
                     }
@@ -211,13 +222,15 @@
             $('#form-pelajaran').on('submit', function (event) {
                 event.preventDefault();
                 var url = "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=write";
+                var text = "Data sukses ditambahkan";
+
                 $.ajax({
                     url: url,
                     method: 'POST',
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        toastr.success('Data sukses ditambahkan');
+                        Swal.fire("Berhasil", text, "success");
                         $('#btn')
                             .removeClass('btn-info')
                             .addClass('btn-success')
@@ -262,40 +275,63 @@
                 resetForm();
             });
 
-            $("#order-table").on('click', '.btn-delete', function(ev, data) {
-                var id = ev.currentTarget.getAttribute('data-id');
-                Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: "Apa anda yakin untuk menghapus data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
-                            cache: false,
-                            method: "POST",
-                            processData: false,
-                            contentType: false,
-                            success: function (data) {
-                                toastr.success('Data berhasil dihapus');
-                                table.ajax.reload();
-                            },
-                            error: function(data) {
-                                if(typeof data.responseJSON.message == 'string')
-                                    return Swal.fire('Error', data.responseJSON.message, 'error');
-                                else if(typeof data.responseJSON == 'string')
-                                    return Swal.fire('Error', data.responseJSON, 'error');
-                            }
-                        });
-                    }
-                    })
+            var user_id;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('data-id');
+                $('#ok_button').text('Hapus');
+                $('#confirmModal').modal('show');
             });
 
+            $('#ok_button').click(function () {
+                $.ajax({
+                    url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + user_id,
+                    cache: false,
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        $('#ok_button').text('Menghapus...');
+                    }, 
+                    success: function (data) {
+                        $('#confirmModal').modal('hide');
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                        table.ajax.reload();
+                    }
+                });
+            });
 
+            // $("#order-table").on('click', '.btn-delete', function(ev, data) {
+            //     var id = ev.currentTarget.getAttribute('data-id');
+            //     Swal.fire({
+            //         title: 'Konfirmasi Hapus',
+            //         text: "Apa anda yakin untuk menghapus data?",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Delete'
+            //         }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $.ajax({
+            //                 url: "{{ route('admin.pelajaran.mata-pelajaran.write') }}?req=delete&id=" + id,
+            //                 cache: false,
+            //                 method: "POST",
+            //                 processData: false,
+            //                 contentType: false,
+            //                 success: function (data) {
+            //                     Swal.fire("Berhasil", "Data dihapus!", "success");
+            //                     table.ajax.reload();
+            //                 },
+            //                 error: function(data) {
+            //                     if(typeof data.responseJSON.message == 'string')
+            //                         return Swal.fire('Error', data.responseJSON.message, 'error');
+            //                     else if(typeof data.responseJSON == 'string')
+            //                         return Swal.fire('Error', data.responseJSON, 'error');
+            //                 }
+            //             });
+            //         }
+            //         })
+            // }); //
         });
     </script>
 @endpush
