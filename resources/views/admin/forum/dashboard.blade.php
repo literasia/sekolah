@@ -24,21 +24,18 @@
                 <div class=" col-xl-12 card shadow mb-0 p-0">
                     <div class="card-body">
                         <div class="card-block p-2">
-                        <button id="add" class="btn btn-outline-primary shadow-sm my-3"><i class="fa fa-plus"></i></button>
                             <div class="dt-responsive table-responsive">
                                 <table id="dashboard-table" class="table table-striped nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
                                             <th>No.</th>
-                                            <th>Forum</th>
+                                            <th>Judul</th>
                                             <th>Topik</th>
-                                            <th>Balasan</th>
-                                            <th>Moderator</th>
+                                            <th>Total Balasan</th>
                                             <th>Penulis</th>
-                                            <th>Dibuat pada</th>
-                                            <th>Postingan Terakhir</th>
+                                            <th>Dibuat Pada</th>
+                                            <th>Privasi</th>
                                             <th>Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
@@ -69,9 +66,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Modal --}}
-    @include('admin.forum.modals._dashboard')
 @endsection
 
 {{-- addons css --}}
@@ -84,6 +78,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush
@@ -99,134 +100,31 @@
 <script src="{{ asset('js/toastr.min.js') }}"></script>
 
 <script>
-        $(document).ready(function () {
-
-          $('#add').on('click', function () {
-                $('.modal-title').html('Tambah Forum');
-               $('#action').val('add');
-              $('#title').val('');
-              $('#category').val('');
-              $('#content').val('');
-              $('#create_date').val('');
-              $('#btn')
-                  .removeClass('btn-info')
-                  .addClass('btn-success')
-                  .val('Tambah');
-              $('#modal-forum').modal('show');
-          });
-
-            $('#create_date').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
-
-            $('#dashboard-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.forum.dashboard') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'forum',
-                    name: 'forum'
-                },
-                {
-                    data: 'topic',
-                    name: 'topic'
-                },
-                {
-                    data: 'reply',
-                    name: 'reply'
-                },
-                {
-                    data: 'moderator',
-                    name: 'moderator'
-                },
-                {
-                    data: 'writer',
-                    name: 'writer'
-                },
-                {
-                    data: 'date',
-                    name: 'date'
-                },
-                {
-                    data: 'last_post',
-                    name: 'last_post'
-                },
-                {
-                    data: 'action',
-                    name: 'action'
-                }
-                ]
-            });
-
-            $('#form-news').on('submit', function (event) {
-                event.preventDefault();
-
-                var url = '';
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.forum.dashboard') }}";
-                }
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.forum.dashboard-update') }}";
-                }
-
-                var formData = new FormData($('#form-news')[0]);
-
-                $('#btn').prop('disabled', true);
-            });
-
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('id');
-                $.ajax({
-                    url: '/admin/forum/dashboard/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        $('#action').val('edit');
-                        $('#title').val(data.name);
-                        $('#category').val(data.category);
-                        $('#content').val(data.content);
-                        $('#create_date').val(data.create_date);
-                        $('#hidden_id').val(data.id);
-                        $('#btn')
-                            .removeClass('btn-success')
-                            .addClass('btn-info')
-                            .val('Update');
-                        $('#modal-forum').modal('show');
-                    }
-                });
-            });
-
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
-
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/forum/dashboard/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#dashboard-table').DataTable().ajax.reload();
-                            // toastr.success('Data berhasil dihapus');
-                            Swal.fire('Sukses!', 'Data berhasi dihapus!', 'success');
-                        }, 1000);
-                    }
-                });
-            });
-
+    $(document).ready(function () {
+        $('#add').on('click', function () {
+            $('.modal-title').html('Tambah Forum');
+            $('#action').val('add');
+            $('#title').val('');
+            $('#category').val('');
+            $('#content').val('');
+            $('#create_date').val('');
+            $('#btn')
+                .removeClass('btn-info')
+                .addClass('btn-success')
+                .val('Simpan');
+            $('#btn-cancel')
+                .removeClass('btn-outline-info')
+                .addClass('btn-outline-success')
+                .val('Batal');
+            $('#modal-forum').modal('show');
         });
-    </script>
+
+        $('#create_date').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('#dashboard-table').DataTable();
+    });
+</script>
 @endpush

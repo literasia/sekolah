@@ -20,20 +20,22 @@
 @section('content')
     <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h5>Semester</h5>
-                </div>
-                <div class="card-body" style="margin-top: -20px">
-                    <div class="card-block px-0">
-                        <div class="row">
-                            <div class="col">
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                  <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Ganjil'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
-                                  <label for="Ganjil" class="mr-3">Ganjil</label>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-header">
+                        <h5>Semester</h5>
+                    </div>
+                    <div class="card-body" style="margin-top: -20px">
+                        <div class="card-block px-0">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                      <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Ganjil'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
+                                      <label for="Ganjil" class="mr-3">Ganjil</label>
 
-                                  <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Genap'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
-                                  <label for="Genap">Genap</label>
+                                      <input type="radio" class="btn-check" name="radioBtn" id="semester" autocomplete="off" {{ $semester[0]->semester=='Genap'?"checked":"" }} onclick="check('{{ $semester[0]->id }}', '#semester', 'semester');">
+                                      <label for="Genap">Genap</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -92,6 +94,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush

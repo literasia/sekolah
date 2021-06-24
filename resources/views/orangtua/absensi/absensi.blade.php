@@ -18,8 +18,6 @@
 
 {{-- main content --}}
 @section('content')
-
-
     {{-- Modal --}}
     @include('admin.pengumuman.modals._pesan')
 @endsection

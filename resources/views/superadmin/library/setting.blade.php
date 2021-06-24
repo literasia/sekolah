@@ -28,9 +28,6 @@
                         <a class="nav-link" data-toggle="tab" href="#sub-kategori" role="tab">Sub Kategori</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tingkat" role="tab">Tingkat</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#penulis" role="tab">Penulis</a>
                     </li>
                     <li class="nav-item">
@@ -51,11 +48,6 @@
                     {{-- Sub Kategori --}}
                     <div class="tab-pane" id="sub-kategori" role="tabpanel">
                         @include('superadmin.library.tabs._sub-kategori')
-                    </div>
-
-                    {{-- Tingkat --}}
-                    <div class="tab-pane" id="tingkat" role="tabpanel">
-                        @include('superadmin.library.tabs._tingkat')
                     </div>
                     
                     {{-- Penulis --}}
@@ -289,71 +281,7 @@
                     }
                 });
             });
-            
-            const addTingkatContainer = document.getElementById('add-tingkat-container');
-            const updateTingkatContainer = document.getElementById('update-tingkat-container');
-            const addTingkatBtn = document.getElementById('add-tingkat-btn');
-            const cancelTingkatBtn = document.getElementById('cancel-tingkat-btn');
-            const formUpdateTingkat = document.getElementById('form-tingkat-update');
-
-            $('#unit-update').change(function () {
-                $('#row-kelas-updates').show();
-                $('.'+$(this).val()).show();
-                if($(this).val() == 'Umum') {
-                    $('#row-kelas-updates').hide(); 
-                }
-
-                $('#kelas-updates').children('option').hide();
-
-                if($(this).val() == 'SMP') {
-                    $('#kelas-updates').children('option[value=""]').show();
-                    $('#kelas-updates').children('option[value="1"]').show();
-                    $('#kelas-updates').children('option[value="2"]').show();
-                    $('#kelas-updates').children('option[value="3"]').show();
-                    $('#kelas-updates').children('option[value="4"]').hide();
-                    $('#kelas-updates').children('option[value="5"]').hide();
-                    $('#kelas-updates').children('option[value="6"]').hide();
-                }
-
-                else if($(this).val() == 'SMA') {
-                    $('#kelas-updates').children('option[value=""]').show();
-                    $('#kelas-updates').children('option[value="1"]').show();
-                    $('#kelas-updates').children('option[value="2"]').show();
-                    $('#kelas-updates').children('option[value="3"]').show();
-                    $('#kelas-updates').children('option[value="4"]').hide();
-                    $('#kelas-updates').children('option[value="5"]').hide();
-                    $('#kelas-updates').children('option[value="6"]').hide();
-                }
-                else {
-                    $('#kelas-updates').children('option').show();
-                }
-            });
-
-            $(document).on('click', '#edit-tingkat', function () {
-                $("#kelas-update").children('option:gt(0)').show();
-                $('#row-kelas-updates').show(); 
-
-                var id = $(this).attr('data-id');
-                $.ajax({
-                    url: '/superadmin/library-tingkat/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        
-                        formUpdateTingkat.action = `/superadmin/library-tingkat/${id}`;
-                        $('#unit-update').val(data.tingkat.name);
-                        $('#kelas-updates').val(data.tingkat.tingkat);
-
-                        $(updateTingkatContainer).show(500);
-                        $(addTingkatContainer).hide();
-                        if ($(addTingkatBtn).text() == 'Batal') {
-                            $(addTingkatBtn).text('Tambah').removeClass('btn-danger').addClass('btn-primary');
-                        }
-                        $(addTingkatBtn).hide();
-                        $(cancelTingkatBtn).show();
-                    }
-                });
-            });
-
+        
             @if (Session::has('message'))
                 const type = "{{ Session::get('alert-type', 'info') }}";
                 console.log(type)

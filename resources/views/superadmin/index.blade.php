@@ -365,5 +365,5 @@
             -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
             z-index: 1002
-        }
+    </style>
 @endpush

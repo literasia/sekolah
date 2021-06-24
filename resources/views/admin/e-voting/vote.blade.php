@@ -20,23 +20,25 @@
 @section('content')
 
 
-    @foreach($pemilihans as $pemilihan)
+@foreach($pemilihans as $pemilihan)
     <div class="row container">
-        <div class="col-md-12">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h5>Pemilihan {{ $pemilihan->posisi }}</h5>
-                </div>
-                <div class="card-block">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Hasil Voting</h5>
-                                    <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                                </div>
-                                <div class="card-block">
-                                    <canvas id="myChart{{ $pemilihan->id }}" width="284" height="284" style="display: block; width: 284px; height: 284px;"></canvas>
+        <div class="col-xl-12">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-header">
+                        <h5>Pemilihan {{ $pemilihan->posisi }}</h5>
+                    </div>
+                    <div class="card-block">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Hasil Voting</h5>
+                                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                                    </div>
+                                    <div class="card-block">
+                                        <canvas id="myChart{{ $pemilihan->id }}" width="284" height="284" style="display: block; width: 284px; height: 284px;"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +47,7 @@
             </div>
         </div>
     </div>
-    @endforeach
+@endforeach
 
 
 @endsection
@@ -59,6 +61,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush

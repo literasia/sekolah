@@ -16,36 +16,62 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive mt-3">
-                       <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Topik</th>
-                                    <th>Forum</th>
-                                    <th>Balasan</th>
-                                    <th>Penulis</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Postingan Terakhir</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                        </table>
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <form id="form-topik">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <label for="topik">Topik</label>
+                                        <input type="text" name="topik" id="topik" class="form-control form-control-sm" placeholder="Topik Forum">
+                                        <span id="form_result" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="hidden" name="hidden_id" id="hidden_id">
+                                    <input type="hidden" id="action" val="add">
+                                    <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
+                                    <button type="reset" class="btn btn-sm btn-outline-success" id="btn-cancel">Batal</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="dt-responsive table-responsive">
+                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                <thead class="text-left">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Topik</th>
+                                        <th>Pengikut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-left">
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@include('admin.forum.modals._tambah-topik')
+
 <div id="confirmModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -95,68 +121,21 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.forum.topik') }}",
-            },
-            columns: [
-            {
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex'
-            },
-            {
-                data: 'judul_topik',
-                name: 'judul_topik'
-            },
-            {
-                data: 'forum',
-                name: 'forum'
-            },
-            {
-                data: 'balasan',
-                name: 'balasan'
-            },
-            {
-                data: 'penulis',
-                name: 'penulis'
-            },
-            {
-                data: 'dibuat_pada',
-                name: 'dibuat_pada'
-            },
-            {
-                data: 'postingan_terakhir',
-                name: 'postingan_terakhir'
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-            ]
-        });
+        $('#order-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Topik');
             $('.form-control').val('');
             $('#action').val('add');
-            $('#hidden_id').val('');
-            $('#judul_topik').val('');
-            $('#forum_id').val('');
-            $('#balasan').val('');
-            $('#penulis_id').val('');
-            $('#dibuat_pada').val('');
-            $('#status').val('');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
-                .val('Tambah');
+                .val('Simpan');
             $('#btn-cancel')
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-soal').modal('show');
+            $('#modal-topik').modal('show');
         });
     });
 </script>

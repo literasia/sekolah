@@ -48,8 +48,8 @@
                             <div class="col-xl-2">
                                 <input type="submit" value="Pilih" class="btn btn-block btn-sm btn-primary shadow-sm">
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,6 +121,13 @@
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
+    .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
     .family-modal-wrapper {
         position: relative;
     }

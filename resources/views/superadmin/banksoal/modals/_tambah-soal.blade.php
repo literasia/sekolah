@@ -3,54 +3,67 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Topik
+                    Tambah Soal
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-reply">
+                <form id="form-soal">
                     @csrf @method("POST")
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="judul_balasan">Judul Balasan</label>
-                                <input type="text" name="judul_balasan" id="judul_balasan" class="form-control form-control-sm">
+                                <label for="judul">Judul</label>
+                                <input type="text" name="judul" id="judul" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <textarea name="keterangan_balasan" id="keterangan_balasan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan"></textarea>
+                                <label for="mata_pelajaran">Mata Pelajaran</label>
+                                <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                    @foreach ($mata_pelajaran as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_pelajaran }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <hr>
+
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status_id">Status</label>
-                                <select name="status_id" id="status_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
+                                <label for="tingkat">Tingkat Pendidikan</label>
+                                <select name="tingkat" id="tingkat" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="SD">SD</option>
+                                    <option value="SMP">SMP</option>
+                                    <option value="SMA">SMA</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="topik_id">Topik</label>
-                                <select name="topik_id" id="topik_id" class="form-control form-control-sm">
+                                <label for="kelas">Kelas</label>
+                                <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
                                     <option value="">-Silahkan Pilih-</option>
+                                    @foreach ($kelas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer mt-3">
                         <input type="hidden" name="poin_lama" id="poin_lama">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" val="add">
-                        <input type="submit" class="btn btn-sm btn-success" value="Tambah" id="btn">
+                        <input type="submit" class="btn btn-sm btn-success" value="Simpan" id="btn">
                         <button type="button" class="btn btn-sm btn-outline-success" data-dismiss="modal" id="btn-cancel">Batal</button>
                     </div>
                 </form>

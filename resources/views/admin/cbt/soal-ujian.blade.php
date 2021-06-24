@@ -75,6 +75,13 @@
     .btn i {
         margin-right: 0px;
     }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
@@ -92,7 +99,6 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable({
         $('#ujian-table').DataTable({
             processing: true,
             serverSide: true,
@@ -107,8 +113,6 @@
             {
                 data: 'judul',
                 name: 'judul'
-                data: 'judul_ujian',
-                name: 'judul_ujian'
             },
             {
                 data: 'mata_pelajaran',
@@ -130,7 +134,6 @@
             $('.form-control').val('');
             $('#action').val('add');
             $('#hidden_id').val('');
-            $('#judul_ujian').val('');
             $('#judul').val('');
             $('#mata_pelajaran_id').val('');
             $('#kelas_id').val('');

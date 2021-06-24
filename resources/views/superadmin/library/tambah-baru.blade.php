@@ -55,10 +55,21 @@ Ini adalah halaman library untuk superadmin
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <style>
     .btn i {
         margin-right: 0px;
+    }
+    .select2-container {
+        width: 100% !important;
+        padding: 0;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        background-color: transparent; 
+        color: #000;
+        padding: 0px 30px 0px 10px; 
     }
 </style>
 @endpush
@@ -69,9 +80,12 @@ Ini adalah halaman library untuk superadmin
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
+        $('#nama_sekolah').select2();
+
         $('#order-table').DataTable({
             processing: true,
             serverSide: true,

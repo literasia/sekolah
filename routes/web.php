@@ -248,6 +248,13 @@ Route::namespace('Superadmin')
                 Route::post('/superadmin/referensi/suku/update', 'SukuController@update')
                     ->name('referensi.suku-update');
                 Route::get('/superadmin/referensi/suku/hapus/{id}', 'SukuController@destroy');
+
+                // Mata Pelajaran
+                Route::get('/superadmin/referensi/matapelajaran', 'MataPelajaranController@index')
+                    ->name('referensi.matapelajaran');
+
+                Route::get('/superadmin/referensi/tingkatpendidikan', 'TingkatPendidikanController@index')
+                    ->name('referensi.tingkatpendidikan');
             });
 
         // Library Setting
@@ -265,6 +272,24 @@ Route::namespace('Superadmin')
 
                 Route::get('/superadmin/library', 'TambahController@index')
                     ->name('library');
+            });
+
+        // Bank Soal
+        Route::namespace('BankSoal')
+            ->group(function () {
+                //Soal
+                Route::get('/superadmin/banksoal/soal', 'SoalController@index')->name('banksoal.soal');
+                Route::post('/superadmin/banksoal/soal', 'SoalController@store')->name('banksoal.soal.store');
+                Route::get('/superadmin/banksoal/soal/{id}', 'SoalController@edit')->name('banksoal.soal.edit');
+                Route::post('/superadmin/banksoal/soal/update', 'SoalController@update')->name('banksoal.soal.update');
+                Route::get('/superadmin/banksoal/soal/hapus/{id}', 'SoalController@destroy')->name('banksoal.soal.delete');
+                
+                //Butir Soal
+                Route::get('/superadmin/banksoal/butir-soal', 'ButirSoalController@index')->name('banksoal.butir-soal');
+                Route::post('/superadmin/banksoal/butir-soal', 'ButirSoalController@store')->name('banksoal.butir-soal.store');
+                Route::get('/superadmin/banksoal/butir-soal/{id}', 'ButirSoalController@edit')->name('banksoal.butir-soal.edit');
+                Route::post('/superadmin/banksoal/butir-soal/update', 'ButirSoalController@update')->name('banksoal.butir-soal.update');
+                Route::get('/superadmin/banksoal/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('banksoal.butir-soal.delete');
             });
     });
 

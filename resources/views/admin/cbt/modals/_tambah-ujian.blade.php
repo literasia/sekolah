@@ -18,6 +18,9 @@
             <label for="penilaian_id">Penilaian</label>
             <select name="penilaian_id" id="penilaian_id" class="form-control form-control-sm">
                 <option value="">-- Pilih --</option>
+                @foreach ($penilaians as $item)
+                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
             </select>
         </div>
     </div>

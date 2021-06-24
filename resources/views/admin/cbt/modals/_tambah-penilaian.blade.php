@@ -16,7 +16,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="judul">Nama Penilaian</label>
-                                <input type="text" name="nama_penilaian" id="nama_penilaian" class="form-control form-control-sm">
+                                <input type="text" name="nama" id="nama" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
@@ -25,13 +25,13 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="poin_jika_benar">Poin jika benar</label>
-                                <input type="number" name="poin_jika_benar" id="poin_jika_benar" class="form-control form-control-sm">
+                                <input type="number" name="poin_jk_benar" id="poin_jk_benar" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pengali_jika_benar">pengali jika benar</label>
-                                <input type="number" name="pengali_jika_benar" id="pengali_jika_benar" class="form-control form-control-sm">
+                                <label for="pengali_jika_benar">Dikali (jika benar)</label>
+                                <input type="number" name="pengali_jk_benar" id="pengali_jk_benar" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="poin_jika_salah">Poin jika salah</label>
-                                <input type="number" name="poin_jika_salah" id="poin_jika_salah" class="form-control form-control-sm">
+                                <input type="number" name="poin_jk_salah" id="poin_jk_salah" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pengali_jika_salah">pengali jika salah</label>
-                                <input type="number" name="pengali_jika_salah" id="pengali_jika_salah" class="form-control form-control-sm">
+                                <label for="pengali_jika_salah">DIkali (jika salah)</label>
+                                <input type="number" name="pengali_jk_salah" id="pengali_jk_salah" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
@@ -55,13 +55,13 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="poin_jika_tidak_dijawab">Poin jika tidak dijawab</label>
-                                <input type="number" name="poin_jika_tidak_dijawab" id="poin_jika_tidak_dijawab" class="form-control form-control-sm">
+                                <input type="number" name="poin_jk_kosong" id="poin_jk_kosong" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pengali_jika_tidak_dijawab">pengali jika tidak dijawab</label>
-                                <input type="number" name="pengali_jika_tidak_dijawab" id="pengali_jika_tidak_dijawab" class="form-control form-control-sm">
+                                <label for="pengali_jika_tidak_dijawab">DIkali (jika tidak dijawab)</label>
+                                <input type="number" name="pengali_jk_kosong" id="pengali_jk_kosong" class="form-control form-control-sm">
                             </div>
                         </div>
                     </div>
@@ -79,4 +79,3 @@
         </div>
     </div>
 </div>
-<!--  -->

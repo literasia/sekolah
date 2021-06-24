@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label for="jenis_kelamin">Jenis Kelamin:</label>
+                                    <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <select name="jenis_kelamin" id="jenis_kelamin" class="form-control form-control-sm">
                                         <option value="">-- Jenis Kelamin --</option>
                                         <option value="L">Laki-Laki</option>

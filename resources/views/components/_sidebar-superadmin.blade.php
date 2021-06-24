@@ -111,6 +111,16 @@
                                 <span class="pcoded-mtext">Suku</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('superadmin/referensi/matapelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.referensi.matapelajaran') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Mata Pelajaran</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('superadmin/referensi/tingkatpendidikan') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.referensi.tingkatpendidikan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tingkat Pendidikan</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 
@@ -131,7 +141,25 @@
                             <a href="{{ route('superadmin.berita.berita') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Berita</span>
                             </a>
+                        </li>    
+                    </ul>
+                </li>
+                <li class="@if (request()->is('superadmin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
+                        <span class="pcoded-mtext">Bank Soal</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('superadmin/banksoal/soal') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.banksoal.soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Soal</span>
+                            </a>
                         </li>
+                        <li class="{{ request()->is('superadmin/banksoal/butir-soal') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.banksoal.butir-soal') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Butir Soal</span>
+                            </a>
+                        </li>                        
                     </ul>
                 </li>
             </ul>

@@ -31,9 +31,7 @@
                                         <th>Username</th>
                                         <th>Nama Lengkap</th>
                                         <th>Kelas</th>
-                                        <th>Peran Aplikasi</th>
-                                        <th>Peran Forum</th>
-                                        <th>Postingan</th>
+                                        <th>Total Postingan</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -47,7 +45,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.forum.modals._pengguna_edit')
+    @include('admin.forum.modals._mute')
 
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -104,70 +102,20 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-            //read
-            let table = $('#pengguna-table').DataTable({
-                processing:true,
-                serverSide: true,
-                ajax: "{{ route('admin.forum.pengguna') }}?req=table",
-                columns:[
-                    {data: 'DT_RowIndex'},
-                    {data: 'username'},
-                    {data: 'nama_lengkap'},
-                    {data: 'kelas'},
-                    {data: 'peran_aplikasi'},
-                    {data: 'peran_form'},
-                    {data: 'postingan'},
-                    {data: 'action'},
-                ]
-            });
+            $('#pengguna-table').DataTable();
 
-            $('#form-pengguna').on('submit', function (e) {
-                event.preventDefault();
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.forum.pengguna.update') }}";
-                    text = "Data sukses diupdate";
-                }
-            });
-
-
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('data-id');
-                console.log(id);
-                $.ajax({
-                    url: '/admin/forum/pengguna/edit/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        $('#action').val('edit');
-                        $('#btn').removeClass('btn-success').addClass('btn-info').val('Update');
-                        $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
-                        $('#username_id').val(data.username_id);
-                        $('#hidden_id').val(data.id);
-                        $('#modal-pengguna').modal('show');
-                    }
-                });
-            });
-
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('data-id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
-
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/admin/forum/pengguna/delete/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#pengguna-table').DataTable().ajax.reload();
-                            Swal.fire("Berhasil", "Data dihapus!", "success");
-                        }, 1000);
-                    }
-                });
+            $('#mute').on('click', function () {
+                $('.modal-title').html('Tambah Pengguna');
+                $('#action').val('mute');
+                $('#btn')
+                    .removeClass('btn-info')
+                    .addClass('btn-success')
+                    .val('Simpan');
+                $('#btn-cancel')
+                    .removeClass('btn-outline-info')
+                    .addClass('btn-outline-success')
+                    .text('Batal');
+                $('#modal-mute').modal('show');
             });
 
         });
