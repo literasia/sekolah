@@ -252,9 +252,17 @@ Route::namespace('Superadmin')
                 // Mata Pelajaran
                 Route::get('/superadmin/referensi/matapelajaran', 'MataPelajaranController@index')
                     ->name('referensi.matapelajaran');
+                Route::post('/superadmin/referensi/matapelajaran', 'MataPelajaranController@write')
+                    ->name('referensi.matapelajaran.write');
+
 
                 Route::get('/superadmin/referensi/tingkatpendidikan', 'TingkatPendidikanController@index')
                     ->name('referensi.tingkatpendidikan');
+                Route::post('/superadmin/referensi/tingkatpendidikan', 'TingkatPendidikanController@store');
+                Route::get('/superadmin/referensi/tingkatpendidikan/{id}', 'TingkatPendidikanController@edit');
+                Route::post('/superadmin/referensi/tingkatpendidikan/update', 'TingkatPendidikanController@update')
+                    ->name('referensi.tingkatpendidikan-update');
+                Route::get('/superadmin/referensi/tingkatpendidikan/hapus/{id}', 'TingkatPendidikanController@destroy');
             });
 
         // Library Setting
