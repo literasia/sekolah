@@ -24,6 +24,9 @@
                                 <label for="nama_sekolah">Sekolah:</label>
                                 <select name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm">
                                     <option value="">-- Pilih Sekolah --</option>
+                                    @foreach ($sekolahs as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
