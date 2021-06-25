@@ -17,11 +17,7 @@ class CreateBankSoalsTable extends Migration
             $table->bigIncrements('id');
             $table->text('judul');
             $table->unsignedBigInteger('kelas_id');
-            $table->unsignedBigInteger('mata_pelajaran_id');
-            $table->unsignedBigInteger('sekolah_id');
-            $table->foreign('mata_pelajaran_id')->references('id')->on('mata_pelajarans')->onDelete('cascade');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
-            $table->foreign('sekolah_id')->references('id')->on('sekolahs')->onDelete('cascade');
             $table->date('tanggal');
             $table->timestamps();
         });

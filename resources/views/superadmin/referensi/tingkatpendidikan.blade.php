@@ -19,6 +19,7 @@
             <div class="card-body">
                 <div class="card-block">
                     <form id="form-tingkatpendidikan">
+                    @csrf
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="form-group">
@@ -37,7 +38,7 @@
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label for="kelas">Kelas</label>
-                                    <input type="text" name="kelas" class="form-control form-control-sm" placeholder="Kelas">
+                                    <input type="text" id ="kelas" name="kelas" class="form-control form-control-sm" placeholder="Kelas">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>
                             </div>
@@ -171,7 +172,7 @@
                             // for (var count = 0; count <= data.errors.length; count++) {
                             html = data.errors[0];
                             // }
-                            $('#agama').addClass('is-invalid');
+                            $('#tingkat').addClass('is-invalid');
                             toastr.error(html);
                         }
 

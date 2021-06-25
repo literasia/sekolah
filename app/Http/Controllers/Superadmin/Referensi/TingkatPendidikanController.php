@@ -29,7 +29,7 @@ class TingkatPendidikanController extends Controller
 
     }
 
-    public function store(Request $req) {
+    public function store(Request $request) {
         $rules = [
             'tingkat'  => 'required',
             'kelas'  => 'required',
@@ -66,7 +66,7 @@ class TingkatPendidikanController extends Controller
         return response()
             ->json([
                 'tingkat' => $tingkat,
-                'kelas' => $kelas
+                'kelas' => $tingkat->kelas
             ]);
     }
 

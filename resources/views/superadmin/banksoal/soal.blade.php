@@ -29,7 +29,7 @@
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Tingkat Pendidikan</th>
-                                    <th>Kelas</th>
+                                    <!-- <th>Kelas</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -113,9 +113,13 @@
                 name: 'mata_pelajaran'
             },
             {
-                data: 'kelas',
-                name: 'kelas'
+                data: 'tingkat',
+                name: 'tingkat'
             },
+            // {
+            //     data: 'kelas',
+            //     name: 'kelas'
+            // },
             {
                 data: 'action',
                 name: 'action'
@@ -129,7 +133,7 @@
             $('#hidden_id').val('');
             $('#judul').val('');
             $('#mata_pelajaran_id').val('');
-            $('#kelas_id').val('');
+            $('#tingkat_id').val('');
             $('#status').val('');
             $('#btn')
                 .removeClass('btn-info')
@@ -172,10 +176,10 @@
                 success: function (data) {
                     if (data.errors) {
                         
-                        data.errors.id_sekolah ? $('#id_sekolah').addClass('is-invalid') : $('#id_sekolah').removeClass('is-invalid');
                         data.errors.judul ? $('#judul').addClass('is-invalid') : $('#judul').removeClass('is-invalid');
                         data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
-                        data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
+                        data.errors.tingkat_id ? $('#tingkat_id').addClass('is-invalid') : $('#tingkat_id').removeClass('is-invalid');
+                        // data.errors.kelas_id ? $('#kelas_id').addClass('is-invalid') : $('#kelas_id').removeClass('is-invalid');
                         toastr.error("data masih kosong");
                     }
                     if (data.success) {
@@ -210,7 +214,7 @@
                     $('#hidden_id').val(data.id);
                     $('#judul').val(data.judul);
                     $('#mata_pelajaran_id').val(data.mata_pelajaran_id);
-                    $('#kelas_id').val(data.kelas_id);
+                    $('#tingkat_id').val(data.tingkat_id);
                     $('#status').val(data.status);
                     $('#btn')
                         .removeClass('btn-success')
