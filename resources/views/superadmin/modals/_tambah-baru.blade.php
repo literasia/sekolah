@@ -24,6 +24,9 @@
                                 <label for="nama_sekolah">Sekolah:</label>
                                 <select name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm">
                                     <option value="">-- Pilih Sekolah --</option>
+                                    @foreach ($sekolahs as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -33,7 +36,7 @@
                             <div class="form-group">
                                 <label for="sub_kategori_id">Sub Kategori:</label>
                                 <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" required>
-                                    <option value="">-- Kategori --</option>
+                                    <option value="">-- Sub Kategori --</option>
                                     @foreach ($sub_kategoris as $sub_kategori)
                                         <option value="{{ $sub_kategori->id }}">{{ $sub_kategori->title }}</option>
                                     @endforeach

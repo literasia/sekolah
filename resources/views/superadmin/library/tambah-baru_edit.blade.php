@@ -24,13 +24,13 @@
                     @method('PUT')
                     @csrf
                     <div class="row">
-                        <div class="col-xl-6">
+                        <div class="col-xl-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" value="{{ $library->name }}" required>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="nama_sekolah">Sekolah:</label>
                                 <select name="sekolah_id" id="nama_sekolah" class="form-control form-control-sm">
@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <label for="sub_kategori_id">Kategori:</label>
                                 <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" autocomplete="off">
-                                    <option value="">-- Kategori --</option>
+                                    <option value="">-- Sub Kategori --</option>
                                     @foreach ($sub_kategoris as $sub_kategori)
                                         <option value="{{ $sub_kategori->id }}" {{ $library->sub_kategori_id == $sub_kategori->id ? "selected" : "" }}>{{ $sub_kategori->title }}</option>
                                     @endforeach
