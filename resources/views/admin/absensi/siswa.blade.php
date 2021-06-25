@@ -56,13 +56,13 @@
                             <form action="{{ route('admin.absensi.siswa.approve-all') }}" method="POST">
                                 @csrf @method('POST')
                                 <button type="submit" class="btn btn-success" id="approve-all">Simpan Semua</button>
-                                <input type="text" name="kelas_id" value="{{ $kelas_id }}">
-                                <input type="text" name="tanggal" value="{{ $tanggal }}">
-                                <input type="text" name="hadir_collect" id="hadir-collect" value="">
-                                <input type="text" name="absen_collect" id="absen-collect" value="">
-                                <input type="text" name="sakit_collect" id="sakit-collect" value="">
-                                <input type="text" name="izin_collect" id="izin-collect" value="">
-                                <input type="text" name="lainnya_collect" id="lainnya-collect" value="">
+                                <input type="hidden" name="kelas_id" value="{{ $kelas_id }}">
+                                <input type="hidden" name="tanggal" value="{{ $tanggal }}">
+                                <input type="hidden" name="hadir_collect" id="hadir-collect" value="">
+                                <input type="hidden" name="absen_collect" id="absen-collect" value="">
+                                <input type="hidden" name="sakit_collect" id="sakit-collect" value="">
+                                <input type="hidden" name="izin_collect" id="izin-collect" value="">
+                                <input type="hidden" name="lainnya_collect" id="lainnya-collect" value="">
                             </form>
 
                             <p></p>
@@ -119,8 +119,8 @@
                                     <form class="form-absensi" action="{{ route('admin.absensi.siswa.approve') }}" method="post">
                                         @csrf @method('POST')
                                         <input type="hidden" name="siswa_id" value="{{$obj->id}}">
-                                        <input type="hidden" name="kelas_id" value="{{ request()->kelas_id }}">
-                                        <input type="hidden" name="tanggal" value="{{ request()->tanggal }}">
+                                        <input type="hidden" name="kelas_id" value="{{ $obj->kelas_id }}">
+                                        <input type="hidden" name="tanggal" value="{{ $tanggal }}">
                                         <tr>
                                             <td>{{ $obj->nama_lengkap}}</td>
                                             <td class="text-center">{{ $obj->kelas->name ?? ''}}</td>
@@ -461,7 +461,7 @@
         deleteItems(newId, document.getElementById('izin-collect'));
         deleteItems(newId, document.getElementById('lainnya-collect'));
         if (obj.checked == true) {
-            addItems(newId, document.getElement ById('sakit-collect'));
+            addItems(newId, document.getElementById('sakit-collect'));
         }
         if (obj.checked == false) {
             deleteItems(newId, document.getElementById('sakit-collect'));
