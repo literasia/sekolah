@@ -31,9 +31,9 @@ class SiswaController extends Controller
                          ->where('kelas_id', $request->kelas_id)
                          ->orderBy('nama_lengkap')
                          ->get();
+
             // return response()->json($data);
         }
-
 
         return view('admin.absensi.siswa', compact('kelas','kelas_id', 'data', 'addons', 'tanggal'), ['mySekolah' => User::sekolah()]);
     }
