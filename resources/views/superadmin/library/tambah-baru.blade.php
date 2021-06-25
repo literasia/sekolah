@@ -47,7 +47,22 @@ Ini adalah halaman library untuk superadmin
 
 {{-- Modal --}}
 @include('superadmin.modals._tambah-baru')
-@include('components.modals._confirm-delete-modal')
+<div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 {{-- addons css --}}
@@ -138,6 +153,7 @@ Ini adalah halaman library untuk superadmin
         });
 
         $('#add').on('click', function() {
+            $("#action").val("add")
             $('#modal-library').modal('show');
         });
     });
@@ -160,5 +176,108 @@ Ini adalah halaman library untuk superadmin
         const form = confirmDeleteModal.querySelector('#deleteForm');
         form.action = url;
     });
+
+    $(document).on('click', '.edit', function () {
+            var id = $(this).attr('id');
+            $.ajax({
+                url: 'library/show/'+id,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data)
+                    $('#action').val('edit');
+                    $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
+                    $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
+                    $('#name').val(data.library.name);
+                    $('#sekolah_id').val(data.library.sekolah_id);
+                    $('#sub_kategori_id').val(data.library.sub_kategori_id);
+                    $('#tingkat_id').val(data.library.tingkat_id);
+                    $('#link_audio').val(data.library.link_audio);
+                    $('#link_ebook').val(data.library.link_ebook);
+                    $('#link_video').val(data.library.link_video);
+                    $('#deskripsi').val(data.library.Deskripsi);
+                    $('#penulis_id').val(data.library.penulis_id);
+                    $('#penerbit_id').val(data.library.penerbit_id);
+                    $('#tahun_terbit').val(data.library.tahun_terbit); 
+                    $('#hidden_id').val(data.library.id);
+                    $('#modal-library').modal('show');
+                }
+            });
+        });
+
+        let user_id;
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: 'library/delete/'+user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
+        });
+
+
+        $('#form-library').on('submit', function (e) {
+            event.preventDefault();
+            let url;
+            var text = "Data sukses ditambahkan";
+
+            if ($('#action').val() == 'add') {
+                url = "{{ route('superadmin.library.store') }}";
+                text = "Data sukses ditambahkan";
+            }
+
+            if ($('#action').val() == 'edit') {
+                url = "{{ route('superadmin.library.update') }}";
+                text = "Data sukses diupdate";
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function (data) {
+                    var html = '';
+                    // rules error message.
+                    if (data.error) {
+                        console.log(data)
+                        data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
+                        data.errors.tingkat_id ? $('#tingkat_id').addClass('is-invalid') : $('#tingkat_id').removeClass('is-invalid');
+                        data.errors.sub_kategori_id ? $('#sub_kategori_id').addClass('is-invalid') : $('#sub_kategori_id').removeClass('is-invalid');
+                        data.errors.tahun_terbit ? $('#tahun_terbit').addClass('is-invalid') : $('#tahun_terbit').removeClass('is-invalid');
+                        data.errors.penulis_id ? $('#penulis_id').addClass('is-invalid') : $('#penulis_id').removeClass('is-invalid');
+                        data.errors.penerbit_id ? $('#penerbit_id').addClass('is-invalid') : $('#penerbit_id').removeClass('is-invalid');
+
+                        toastr.error("data masih kosong");
+                    }
+
+                    // success error message
+                    if (data.success) { 
+                        Swal.fire("Berhasil", text, "success");
+                        $('#modal-library').modal('hide');
+                        $('.form-control').removeClass('is-invalid');
+                        $('#form-library')[0].reset();
+                        $('#action').val('add');
+                        $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
+                        $('#btn-cancel').removeClass('btn-outline-info').addClass('btn-outline-success').text('Batal');
+                        $('#order-table').DataTable().ajax.reload();
+                    }
+                    $('#form_result').html(html);
+                }
+            });
+        }); 
+
+        
 </script>
 @endpush

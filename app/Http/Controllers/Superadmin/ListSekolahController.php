@@ -39,8 +39,11 @@ class ListSekolahController extends Controller
 
         $provinsis = Provinsi::all();
         $kabupaten = KabupatenKota::all();
+        $sekolah = Sekolah::all();
+$tahun_ajaran = $request->tahun_ajaran;
 
-        return view('superadmin.list-sekolah', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten]);
+
+        return view('superadmin.list-sekolah',compact('sekolah', 'tahun_ajaran'), ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'sekolahs' => $sekolah]);
     }
 
     public function store(Request $req) {
