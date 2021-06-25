@@ -10,20 +10,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-library" method="POST" action="{{ route('superadmin.library.store') }}" enctype="multipart/form-data">
+                <form id="form-library" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
-                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" required>
+                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" >
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="nama_sekolah">Sekolah:</label>
-                                <select name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm">
+                                <select name="sekolah_id" id="nama_sekolah" class="form-control form-control-sm">
                                     <option value="">-- Pilih Sekolah --</option>
+                                    @foreach ($sekolahs as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -32,7 +35,7 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="sub_kategori_id">Sub Kategori:</label>
-                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" required>
+                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" >
                                     <option value="">-- Kategori --</option>
                                     @foreach ($sub_kategoris as $sub_kategori)
                                         <option value="{{ $sub_kategori->id }}">{{ $sub_kategori->title }}</option>
@@ -56,7 +59,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="row-unit">
                             <div class="form-group">
                                 <label for="tingkat_id">Tingkat</label>
-                                <select name="tingkat_id" id="tingkat_id" class="form-control form-control-sm" required>
+                                <select name="tingkat_id" id="tingkat_id" class="form-control form-control-sm" >
                                     <option value="">-- Tingkat --</option>
                                     @foreach ($tingkats as $tingkat)
                                         <option value="{{ $tingkat->id }}">

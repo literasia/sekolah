@@ -40,14 +40,22 @@ class PegawaiController extends Controller
                 ->make(true);
         }
 
+        $sekolah = Sekolah::findOrFail(auth()->user()->id_sekolah);
+        $tahun_ajaran = $request->tahun_ajaran;
+        $kelas_id = $request->kelas_id;
+
         $provinsis = Provinsi::all();
         $kabupaten = KabupatenKota::all();
         $kecamatan  = Kecamatan::all();
         $bagian = BagianPegawai::where('user_id', Auth::id())->get();
         $semester = Sekolah::where('id', auth()->user()->id_sekolah)->get();
 
-        return view('admin.fungsionaris.pegawai', ['provinsis' => $provinsis, 
+        
+
+        return view('admin.fungsionaris.pegawai',  compact('sekolah', 'tahun_ajaran'), ['provinsis' => $provinsis, 
                                                 'addons' => $addons , 
+                                                'tahun_ajaran' => $sekolah,
+                                                'sekolah' => $sekolah,
                                                 'kabupaten' => $kabupaten, 
                                                 'kecamatan' => $kecamatan,
                                                 'bagian' => $bagian, 
