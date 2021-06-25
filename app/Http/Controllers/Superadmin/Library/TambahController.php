@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\Validator;
 
 class TambahController extends Controller
 { //
-    private $rules = [
-        'name' => ['required'],
-        'sekolah_id' => ['nullable', 'exists:sekolahs,id'],
-        'tingkat' => ['nullable', 'in:SD,SMP,SMA,SMK,Umum'],
-        'kategori_id' => ['nullable', 'exists:kategoris,id'],
-        'tahun_terbit' => ['nullable', 'numeric'],
-        'penulis_id' => ['nullable', 'exists:penulises,id'],
-        'penerbit_id' => ['nullable', 'exists:penerbits,id'],
-        'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
-    ];
+    // private $rules = [
+    //     'name' => ['required'],
+    //     'sekolah_id' => ['nullable', 'exists:sekolahs,id'],
+    //     'tingkat' => ['nullable', 'in:SD,SMP,SMA,SMK,Umum'],
+    //     'kategori_id' => ['nullable', 'exists:kategoris,id'],
+    //     'tahun_terbit' => ['nullable', 'numeric'],
+    //     'penulis_id' => ['nullable', 'exists:penulises,id'],
+    //     'penerbit_id' => ['nullable', 'exists:penerbits,id'],
+    //     'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
+    // ];
 
     public function index(Request $request)
     {
@@ -83,9 +83,9 @@ class TambahController extends Controller
                 ->addColumn('action', function ($data) {
                     $deleteUrl = route('superadmin.library.destroy', $data['id']);
                     // $button = '<button type="button" id="'.$data['id'].'" class="edit btn btn-mini btn-info shadow-sm" onclick="editBtnClicked(event);"><i class="fa fa-pencil-alt"></i></button>';
-                    $button = '<a class="edit btn btn-mini btn-info shadow-sm" href=' . route('superadmin.library.edit', $data['id']) . '><i class="fa fa-pencil-alt"></i></a>';
-                    $button .= "<button type='button' class='ml-2 delete btn btn-mini btn-danger shadow-sm' data-url='$deleteUrl' 
-                                    data-toggle='modal' data-target='#confirmDeleteModal'><i class='fa fa-trash'></i></button>";
+                    // $button = '<a class="edit btn btn-mini btn-info shadow-sm" href=' . route('superadmin.library.edit', $data['id']) . '><i class="fa fa-pencil-alt"></i></a>';
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -106,10 +106,25 @@ class TambahController extends Controller
 
     public function store(Request $req)
     {
+        $rules = [
+            'name' => ['required'],
+            'sekolah_id' => ['nullable'],
+            'tingkat_id' => ['required'],
+            'sub_kategori_id' => ['required'],
+            'tahun_terbit' => ['required'],
+            'penulis_id' => ['required'],
+            'penerbit_id' => ['required'],
+            'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
+        ];
+
         $data = $req->all();
-        $validator = Validator::make($data, $this->rules);
+      
+        $validator = Validator::make($data, $rules);
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors()->all())->withInput();
+            return response()->json([
+                'error' => "Data masih kosong",
+                'errors' => $validator->errors()
+            ]);
         }
 
         $data['thumbnail'] = null;
@@ -132,7 +147,16 @@ class TambahController extends Controller
             'thumbnail' => $data['thumbnail']
         ]);
 
-        return back()->with(CRUDResponse::successCreate("perpustakaan " . $data['name']));
+        return response()->json(["massage" => "Data berhasil disimpan", "success" => true]);
+    }
+
+    public function show($id)
+    {
+        $library = Library::findOrFail($id);
+        return response()
+            ->json([                
+                'library'   => $library,
+            ]);
     }
 
     public function edit($id)
@@ -144,27 +168,39 @@ class TambahController extends Controller
             'kategoris' => Kategori::orderBy('name')->get(),
             'penulises' => Penulis::orderBy('name')->get(),
             'penerbits' => Penerbit::orderBy('penerbit')->get(),
+            'deskripsis' => Deskripsi::orderBy('name')->get(),
             'sub_kategoris'     => SubKategori::latest()->get(),
             'tingkats' => Tingkat::get()
         ]);
     }
 
-    public function update($id, Request $req)
+    public function update(Request $req)
     {
         $data = $req->all();
 
-        $validator = Validator::make($data, $this->rules);
+        $rules = [
+            'name' => ['required'],
+            'sekolah_id' => ['nullable'],
+            'tingkat_id' => ['required'],
+            'sub_kategori_id' => ['required'],
+            'tahun_terbit' => ['required'],
+            'penulis_id' => ['required'],
+            'penerbit_id' => ['required'],
+            'thumbnail' => ['nullable', 'mimes:jpeg,jpg,png', 'max:3000']
+        ];
+
+        $validator = Validator::make($data, $rules);
         if ($validator->fails()) {
             return back()->withErrors($validator->errors()->all())->withInput();
         }
 
-        $library = Library::findOrFail($id);
+        $library = Library::findOrFail($req->hidden_id);
         $data['thumbnail'] = null;
         if ($req->file('thumbnail')) {
             $data['thumbnail'] = $req->file('thumbnail')->store('libraries', 'public');
         }
 
-        Library::whereId($id)->update([
+        $library->update([
             'name' => $data['name'],
             'sekolah_id' => $data['sekolah_id'],
             'tahun_terbit' => $data['tahun_terbit'],
@@ -183,7 +219,8 @@ class TambahController extends Controller
             Storage::disk('public')->delete($library->thumbnail);
         }
 
-        return redirect()->route('superadmin.library.index')->with(CRUDResponse::successUpdate("perpustakaan " . $library->name));
+        return response()->json(["massage" => "Data berhasil diubah", "success" => true]);
+        
     }
 
     public function destroy($id)
