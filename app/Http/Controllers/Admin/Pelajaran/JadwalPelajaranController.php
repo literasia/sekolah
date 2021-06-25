@@ -36,13 +36,10 @@ class JadwalPelajaranController extends Controller
         }
 
         $kelas = Kelas::where('user_id', $request->user()->id)->get();
-
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
                                     ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
                                     ->where('sekolah_id', $request->user()->id_sekolah)
                                     ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
-
-
 
         return view('admin.pelajaran.jadwal-pelajaran', compact('kelas_id', 'sekolah', 'semester', 'kelas', 'tahun_ajaran', 'addons', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
     }

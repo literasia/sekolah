@@ -24,7 +24,7 @@
                     @method('PUT')
                     @csrf
                     <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="name">Judul:</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Judul" value="{{ $library->name }}" required>
@@ -37,6 +37,17 @@
                                     <option value="">-- Pilih Sekolah --</option>
                                     @foreach ($sekolahs as $item)
                                         <option value="{{ $item->id }}" {{ $library->sekolah_id == $item->id ? "selected" : "" }}>{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="name">Sekolah :</label>
+                                <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm" autocomplete="off">
+                                    <option value="">-- Nama Sekolah --</option>
+                                    @foreach ($sekolahs as $sekolah)
+                                        <option value="{{ $sekolah->id }}" {{ $library->sekolah_id == $sekolah->id ? "selected" : "" }}>{{ $sekolah->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
