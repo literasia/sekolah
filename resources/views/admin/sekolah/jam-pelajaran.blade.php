@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.sekolah.jam') }}
+    {{ route('admin.sekolah.jam-pelajaran') }}
 @endsection
 
 {{-- main content --}}
@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Hari --</option>
+                                            <option value="">-- Hari --</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>
@@ -41,22 +41,35 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="hari">Jam ke</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke">
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="d-block mb-3">Jam Pelajaran</label>
+                                    <input type='button' value='Tambah Jam Pelajaran' id='addButton' class="btn btn-primary btn-mini" disabled>
+                                    <input type='button' value='Hapus Jam Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini" disabled>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="jam_mulai">Jam Mulai</label>
-                                        <input id="jam_mulai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai" required readonly>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="hari">Jam Selesai</label>
-                                        <input type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai" required readonly>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="subject-wrapper">
+                                    <div class="row border rounded jam-pelajaran mt-3" id="subject-group">
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="jam_pelajaran">Jam ke</label>
+                                                <input id="jam_pelajaran" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
+                                            </div>
+                                        </div>
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="jam_mulai">Jam Mulai</label>
+                                                <input id="jam_mulai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai[]" required readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="jam_selesai">Jam Selesai</label>
+                                                <input id="jam_selesai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai[]" required readonly>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -177,6 +190,80 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            let counter =1;
+
+            $("#addButton").click(function () {   
+                if(counter >= 12){
+                    Swal.fire('Perhatian!', 'Hanya boleh 12 jam pelajaran saja! Silahkan isi kembali nanti.', 'warning');
+                    return false;
+                } 
+
+                let newSubjectField =  `<div class="row border rounded jam-pelajaran mt-3" id="subject-group${counter}">
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="jam_pelajaran">Jam ke</label>
+                                                    <input id="jam_pelajaran_${counter}" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
+                                                </div>
+                                            </div>
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="jam_mulai">Jam Mulai</label>
+                                                    <input id="jam_mulai_${counter}" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai[]" required readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="jam_selesai">Jam Selesai</label>
+                                                    <input id="jam_selesai_${counter}" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai[]" required readonly>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                
+                $('#subject-wrapper').append(newSubjectField);
+
+            });
+
+            $("#removeButton").click(function () {
+                if(counter==1){
+                    Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
+                    return false;
+                }      
+                counter--;       
+                $("#subject-group" + counter).remove();    
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var table = $('#showjpcard');
+            table.hide();
+            @if(request()->req == 'table')
+            table.show();
+            @endif
+
+
+            $("#hari").change(function(){
+                _this = $(this);
+                $('#addButton').removeAttr('disabled');
+                $('#removeButton').removeAttr('disabled');
+
+                $.ajax({
+                    url: "{{ route('admin.sekolah.jam-pelajaran.getJamPelajaran') }}",
+                    method: 'POST',
+                    data: {hari:_this.val()},
+                    success: function (data) {
+
+
+                        let jam_pelajarans = data;
+                        $('#jam_pelajaran').html("");
+                        $('#jam_pelajaran').append(`<input id="jam_pelajaran" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke">`);
+                        });
+                        // console.log(data);
+                    }
+                });
+            })
 
             $('.clockpicker').clockpicker({donetext: 'Done', autoclose: true});
 
@@ -199,7 +286,7 @@
 
             $('#form-jam-pelajaran').on('submit', function (event) {
                 event.preventDefault();
-                var url = "{{ route('admin.sekolah.jam.write') }}?req=write";
+                var url = "{{ route('admin.sekolah.jam-pelajaran.write') }}?req=write";
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -228,7 +315,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{ route('admin.sekolah.jam.write') }}?req=delete&id=" + id,
+                    url: "{{ route('admin.sekolah.jam-pelajaran.write') }}?req=delete&id=" + id,
                     cache: false,
                     method: "POST",
                     processData: false,

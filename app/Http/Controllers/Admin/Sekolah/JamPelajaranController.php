@@ -15,6 +15,7 @@ class JamPelajaranController extends Controller
 { //
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
+        $kelas_id = $request->kelas_id;
 
         if($request->req == 'single') {
             return response()->json(JamPelajaran::findOrFail($request->id));
@@ -26,38 +27,48 @@ class JamPelajaranController extends Controller
 
         $data = $data->groupBy('hari');
 
-        return view('admin.sekolah.jam-pelajaran', compact('data', 'addons'), ['mySekolah' => User::sekolah()]);
+        return view('admin.sekolah.jam-pelajaran', compact('data', 'addons', 'kelas_id'), ['mySekolah' => User::sekolah()]);
+    }
+
+    public function getJamPelajaran(Request $request)
+    {
+
+        $jam_pelajarans = JamPelajaran::where([
+            'sekolah_id'=>auth()->user()->sekolah()->id,
+            'hari'=>$request->hari
+        ])->orderBy('jam_mulai')->get();
+        
+        return response()->json($jam_pelajarans);
     }
 
     public function write(Request $request) {
         if($request->req == 'write') {
-            $this->validate($request, [
-                'hari' => 'required',
-                'jam_ke' => "required",
-                'jam_mulai' => 'required',
-                'jam_selesai' => "required"
-            ]);
+            $jam_ke_ids = $request->jam_ke;
+            $jam_mulai_ids = $request->jam_mulai;
+            $jam_selesai_ids = $request->jam_selesai;
 
-            $obj = JamPelajaran::find($request->id);
-
-            if(!$obj){
-                $obj = new JamPelajaran();
+            for ($i=0; $i < count($jam_ke_ids); $i++) {
+                $obj = JamPelajaran::find($request->id);
+                if(!$obj){
+                    $obj = new JamPelajaran();
+                }
+                $obj->sekolah_id = $request->user()->id_sekolah;
+                $obj->hari = $request->hari;
+                $obj->jam_ke = $request->jam_ke_ids[$i];
+                $obj->jam_mulai = $request->jam_mulai_ids[$i];
+                $obj->jam_selesai = $request->jam_selesai_ids[$i];
+                $obj->istirahat = $request->istirahat ?? false;
+                $obj->editor_id = $request->user()->id;
+                $obj->save();
             }
-
-            $obj->sekolah_id = $request->user()->id_sekolah;
-            $obj->hari = $request->hari;
-            $obj->jam_ke = $request->jam_ke;
-            $obj->jam_mulai = $request->jam_mulai;
-            $obj->jam_selesai = $request->jam_selesai;
-            $obj->istirahat = $request->istirahat ?? false;
-            $obj->editor_id = $request->user()->id;
-            $obj->save();
+            
             return response()->json($obj);
-
 
         }
         elseif($request->req == 'delete') {
-            JamPelajaran::find($request->id)->delete();
+            $obj = JamPelajaran::findOrfail($request->id);
+            return response()->json($obj->delete());
+            // JamPelajaran::find($request->id)->delete();
         }
     }
 }
