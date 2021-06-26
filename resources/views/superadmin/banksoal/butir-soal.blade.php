@@ -30,7 +30,7 @@
                                         <option value="{{ $item->id }}"
                                             @if ($item->id == $tingkat_id)
                                                 selected
-                                            @endif>{{ $item->tingkat }} - {{ $item->kelas }}</option>
+                                            @endif>{{ $item->tingkat }} - {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

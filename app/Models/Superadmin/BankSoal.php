@@ -7,7 +7,7 @@ use App\Models\Superadmin\ReferensiMataPelajaran;
 use App\Models\Superadmin\Kelas;
 use App\Models\Superadmin\Kuis;
 use App\Models\Superadmin\BankButirSoal;
-use App\Models\Superadmin\TingkatPendidikan;
+use App\Models\Superadmin\Tingkat;
 
 class BankSoal extends Model
 {
@@ -24,6 +24,6 @@ class BankSoal extends Model
     }
 
     public function tingkat(){
-        return $this->belongsTo(TingkatPendidikan::class);
+        return $this->belongsTo(Tingkat::class);
     }
 }

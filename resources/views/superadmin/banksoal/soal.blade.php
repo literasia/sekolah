@@ -29,7 +29,6 @@
                                     <th>Judul</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Tingkat Pendidikan</th>
-                                    <!-- <th>Kelas</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>

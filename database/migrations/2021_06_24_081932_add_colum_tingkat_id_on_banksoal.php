@@ -15,7 +15,7 @@ class AddColumTingkatIdOnBanksoal extends Migration
     {
         Schema::table('bank_soals', function (Blueprint $table) {
             $table->unsignedBigInteger('tingkat_id');
-            $table->foreign('tingkat_id')->references('id')->on('tingkat_pendidikans')->onDelete('cascade');
+            $table->foreign('tingkat_id')->references('id')->on('tingkats')->onDelete('cascade');
         });
     }
 

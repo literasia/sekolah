@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Superadmin\BankSoal;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
-use App\Models\Superadmin\{Soal, ButirSoal, TingkatPendidikan};
+use App\Models\Superadmin\{Soal, ButirSoal, Tingkat};
 use App\Models\Superadmin\{BankSoal,BankButirSoal};
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,7 @@ class ButirSoalController extends Controller
         $tingkat_id = $request->tingkat_id;
         $soal_id = $request->soal_id;
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $tingkat = TingkatPendidikan::all();
+        $tingkat = Tingkat::all();
 
         $banksoal_soal = BankSoal::all();
 

@@ -8,7 +8,7 @@ use App\Models\Siswa;
 use App\Models\Superadmin\ReferensiMataPelajaran;
 use App\Models\Superadmin\Kelas;
 use App\Models\Superadmin\BankSoal;
-use App\Models\Superadmin\TingkatPendidikan;
+use App\Models\Superadmin\Tingkat;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -28,8 +28,9 @@ class SoalController extends Controller
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $mata_pelajaran = ReferensiMataPelajaran::all();
-        $tingkat = TingkatPendidikan::all();
+        $tingkat = Tingkat::all();
 
+        // dd($tingkat);
         if ($request->ajax())
         {
             $bank_soal = BankSoal::all();
