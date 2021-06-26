@@ -13,8 +13,6 @@ class BankSoal extends Model
 {
     protected $guarded = ['id'];
 
-    
-
     public function mataPelajaran(){
         return $this->belongsTo(ReferensiMataPelajaran::class);
     }

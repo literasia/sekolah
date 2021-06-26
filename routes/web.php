@@ -250,12 +250,13 @@ Route::namespace('Superadmin')
                 Route::get('/superadmin/referensi/suku/hapus/{id}', 'SukuController@destroy');
 
                 // Mata Pelajaran
+                // Mata Pelajaran
                 Route::get('/superadmin/referensi/matapelajaran', 'MataPelajaranController@index')
-                    ->name('referensi.matapelajaran');
+                     ->name('referensi.matapelajaran');
                 Route::post('/superadmin/referensi/matapelajaran', 'MataPelajaranController@store');
                 Route::get('/superadmin/referensi/matapelajaran/{id}', 'MataPelajaranController@edit');
                 Route::post('/superadmin/referensi/matapelajaran/update', 'MataPelajaranController@update')
-                    ->name('referensi.matapelajaran-update');
+                     ->name('referensi.matapelajaran-update');
                 Route::get('/superadmin/referensi/matapelajaran/hapus/{id}', 'MataPelajaranController@destroy');
 
 

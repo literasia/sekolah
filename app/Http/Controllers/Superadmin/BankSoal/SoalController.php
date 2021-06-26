@@ -44,7 +44,7 @@ class SoalController extends Controller
                     return $bank_soal->mataPelajaran->nama_pelajaran;
                 })
                 ->addColumn('tingkat', function($bank_soal){
-                    return $bank_soal->tingkat->tingkat;
+                    return $bank_soal->tingkat->tingkat.' - '.$bank_soal->tingkat->name;
                 })
                 
                 ->rawColumns(['action'])

@@ -32,9 +32,6 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tingkat">Tingkat Pendidikan</label>
@@ -45,19 +42,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <!-- <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kelas">Kelas</label>
-                                <select name="kelas_id" id="kelas_id" class="form-control form-control-sm">
-                                    <option value="">-Silahkan Pilih-</option>
-                                    @foreach ($tingkat as $item)
-                                        <option value="{{ $item->id }}">{{ $item->kelas }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div> -->
                     </div>
+
+                 
 
                     <div class="modal-footer mt-3">
                         <input type="hidden" name="poin_lama" id="poin_lama">
