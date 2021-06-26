@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use App\Models\Superadmin\TingkatPendidikan;
+use App\Models\Superadmin\Tingkat;
 use App\Utils\CRUDResponse;
 
 class TingkatPendidikanController extends Controller
 {
     public function index(Request $request) { 
         if ($request->ajax()) {
-            $data = TingkatPendidikan::latest()->get();
+            $data = Tingkat::latest()->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
@@ -29,15 +29,15 @@ class TingkatPendidikanController extends Controller
 
     }
 
-    public function store(Request $req) {
+    public function store(Request $request) {
         $rules = [
+            'name'  => 'required',
             'tingkat'  => 'required',
-            'kelas'  => 'required',
         ];
 
         $message = [
             'tingkat.required' => 'Kolom ini gaboleh kosong',
-            'kelas.required' => 'Kolom ini gaboleh kosong',
+            'name.required' => 'Kolom ini gaboleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -49,9 +49,9 @@ class TingkatPendidikanController extends Controller
                 ]);
         }
 
-        $tingkat = TingkatPendidikan::create([
+        $tingkat = Tingkat::create([
             'tingkat'  => $request->input('tingkat'),
-            'kelas'  => $request->input('kelas'),
+            'name'  => $request->input('name'),
         ]);
 
         return response()
@@ -61,12 +61,12 @@ class TingkatPendidikanController extends Controller
     }
 
     public function edit($id) {
-        $tingkat = TingkatPendidikan::find($id);
+        $tingkat = Tingkat::find($id);
 
         return response()
             ->json([
                 'tingkat' => $tingkat,
-                'kelas' => $kelas
+                'name' => $tingkat->name
             ]);
     }
 
@@ -74,12 +74,12 @@ class TingkatPendidikanController extends Controller
         // validasi
         $rules = [
            'tingkat'  => 'required',
-           'kelas'  => 'required',
+           'name'  => 'required',
        ];
 
        $message = [
            'tingkat.required' => 'Kolom ini gaboleh kosong',
-           'kelas.required' => 'Kolom ini gaboleh kosong',
+           'name.required' => 'Kolom ini gaboleh kosong',
        ];
 
        $validator = Validator::make($request->all(), $rules, $message);
@@ -91,9 +91,9 @@ class TingkatPendidikanController extends Controller
                ]);
        }
 
-       TingkatPendidikan::whereId($request->input('hidden_id'))->update([
+       Tingkat::whereId($request->input('hidden_id'))->update([
            'tingkat'  => $request->input('tingkat'),
-           'kelas'  => $request->input('kelas'),
+           'name'  => $request->input('name'),
        ]);
 
        return response()
@@ -103,9 +103,9 @@ class TingkatPendidikanController extends Controller
     }
 
     public function destroy($id) {
-        $tingkat = TingkatPendidikan::findOrFail($id);
+        $tingkat = Tingkat::findOrFail($id);
         $tingkat->delete();
 
-        return back()->with(CRUDResponse::successDeleteNotif("tingkat " . $tingkat->tingkat));
+        return back()->with(CRUDResponse::successDeleteNotif("name " . $tingkat->name));
     }
 }
