@@ -24,7 +24,7 @@ class MateriController extends Controller
         // get day this day
         $day = date('l'); // ex : Monday
         $jadwal_pelajaran = new JadwalPelajaran;
-        $getHari = $jadwal_pelajaran->getHariAttribute($day); // transform eng day to indo
+        $getHari = $jadwal_pelajaran->getHari($day); // transform eng day to indo
 
         // ambil mata pelajaran yang id nya ada di jadwal pelajaran pada hari ini dan kelas yang dimiliki siswa saat nii
         $mata_pelajaran = MataPelajaran::whereIn('id', function($query) use($getHari, $kelas){
