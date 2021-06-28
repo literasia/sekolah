@@ -61,18 +61,8 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                 <div class="form-group">
-                    <label for="tahun_ajaran">T.A:</label>
-                    <select name="tahun_ajaran" id="tahun_ajaran" class="form-control form-control-sm">
-                        <option value="">-- T.A --</option>
-                        <option value="2020-2021">2020/2021</option>
-                        <option value="2021-2022">2021/2022</option>
-                        <option value="2022-2023">2022/2023</option>
-                        <option value="2023-2024">2023/2024</option>
-                        <option value="2024-2025">2024/2025</option>
-                        <option value="2025-2026">2025/2026</option>
-                        <option value="2026-2027">2026/2027</option>
-                        <option value="2027-2028">2027/2028</option>
-                    </select>
+                    <label for="tahun_ajaran">Tahun Ajaran</label>
+                    <input type="text" name="tahun_ajaran" id="tahun_ajaran" value="#" class="form-control" readonly></input>
                 </div>
             </div>
         </div>

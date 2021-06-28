@@ -205,6 +205,8 @@ Route::namespace('Absensi')->group(function () {
     Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
     Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')->name('absensi.rekap-siswa');
 
+    Route::get('/admin/absensi/qr-code', 'SiswaController@index')->name('absensi.qr-code');
+
 });
 
 // Daftar Nilai
@@ -446,25 +448,7 @@ Route::namespace('Forum')->group(function () {
     Route::post('/admin/forum/topik/update', 'TopikController@update')
         ->name('forum.topik-update');
     Route::get('/admin/forum/topik/hapus/{id}', 'TopikController@destroy');
-
-    // Balasan
-    Route::get('/admin/forum/balasan', 'BalasanController@index')
-        ->name('forum.balasan');
-    Route::post('/admin/forum/balasan', 'BalasanController@store');
-    Route::get('/admin/forum/balasan/{id}', 'BalasanController@edit');
-    Route::post('/admin/forum/balasan/update', 'BalasanController@update')
-        ->name('forum.balasan-update');
-    Route::get('/admin/forum/balasan/hapus/{id}', 'BalasanController@destroy');
-
-    // Tautan
-    Route::get('/admin/forum/tautan', 'TautanController@index')
-        ->name('forum.tautan');
-    Route::post('/admin/forum/tautan', 'TautanController@store');
-    Route::get('/admin/forum/tautan/{id}', 'TautanController@edit');
-    Route::post('/admin/forum/tautan/update', 'TautanController@update')
-        ->name('forum.tautan-update');
-    Route::get('/admin/forum/topik/hapus/{id}', 'TautanController@destroy');
-
+    
     // Pengguna
     Route::get('/admin/forum/pengguna', 'PenggunaController@index')
         ->name('forum.pengguna');
