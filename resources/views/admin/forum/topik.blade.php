@@ -57,7 +57,6 @@
                                         <th>No.</th>
                                         <th>Topik</th>
                                         <th>Popularitas</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-left">
@@ -121,8 +120,29 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
-        $('#order-table').DataTable();
+        $('#order-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.forum.topik') }}",
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'judul',
+                        name: 'judul'
+                    },
+                    {
+                        data: 'popularitas',
+                        name: 'popularitas'
+                    }
+                ],
+            });
 
+      
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Topik');
             $('.form-control').val('');
