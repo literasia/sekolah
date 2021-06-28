@@ -16,45 +16,90 @@ use App\Models\Superadmin\Addons;
 class MataPelajaranController extends Controller
 {
     public function index(Request $request) { 
-        $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $mapel = ReferensiMataPelajaran::all();
-        if ($request->ajax()){
-            $mapel = ReferensiMataPelajaran::latest()->get();
-            return DataTables::of($mapel)
-                ->addIndexColumn()
-                ->addColumn('action', function($mapel){
-                    $button = '<button type="button" data-id="'.$mapel->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$mapel->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+        if ($request->ajax()) {
+            $data = ReferensiMataPelajaran::latest()->get();
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" data-id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
                 })
-                ->addColumn('nama_pelajaran', function($mapel){
-                    return $mapel->nama_pelajaran;
-                })
                 ->rawColumns(['action'])
-                    ->make(true);
+                ->addIndexColumn()
+                ->make(true);
         }
-        return view('superadmin.referensi.matapelajaran')
-                                                ->with('mySekolah', User::sekolah())
-                                                ->with('addons', $addons)
-                                                ->with('mapel',$mapel);
+        return view('superadmin.referensi.matapelajaran');
     }
 
-    public function write(Request $request) {
-        if($request->req == 'write') {
-            $obj = ReferensiMataPelajaran::find($request->id);
+    public function store(Request $request) {
+        $rules = [
+            'nama_pelajaran'  => 'required',
+        ];
 
-            if(!$obj){
-                $obj = new ReferensiMataPelajaran();
-            }
+        $message = [
+            'nama_pelajaran.required' => 'Kolom ini gaboleh kosong',
+        ];
 
-            $obj->nama_pelajaran = $request->nama_pelajaran;
-            $obj->save();
-            return response()->json($obj);
+        $validator = Validator::make($request->all(), $rules, $message);
 
-
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
         }
-        elseif($request->req == 'delete') {
-            ReferensiMataPelajaran::find($request->id)->delete();
-        }
+
+        $mapel = ReferensiMataPelajaran::create([
+            'nama_pelajaran'  => $request->input('nama_pelajaran'),
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data berhasil ditambahkan.',
+            ]);
+    }
+
+    public function edit($id) {
+        $mapel = ReferensiMataPelajaran::find($id);
+
+        return response()
+            ->json([
+                'id' => $mapel->id,
+                'nama_pelajaran' => $mapel->nama_pelajaran
+            ]);
+    }
+
+    public function update(Request $request) {
+        // validasi
+        $rules = [
+           'nama_pelajaran'  => 'required',
+       ];
+
+       $message = [
+           'nama_pelajaran.required' => 'Kolom ini gaboleh kosong',
+       ];
+
+       $validator = Validator::make($request->all(), $rules, $message);
+
+       if ($validator->fails()) {
+           return response()
+               ->json([
+                   'errors' => $validator->errors()->all()
+               ]);
+       }
+
+       ReferensiMataPelajaran::whereId($request->input('hidden_id'))->update([
+           'nama_pelajaran'  => $request->input('nama_pelajaran'),
+       ]);
+
+       return response()
+           ->json([
+               'success' => 'Data berhasil diupdate.',
+           ]);
+    }
+
+    public function destroy($id) {
+        $mapel = ReferensiMataPelajaran::find($id);
+        $mapel->delete();
     }
 }

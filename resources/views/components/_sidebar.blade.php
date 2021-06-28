@@ -86,8 +86,8 @@
                                 <span class="pcoded-mtext">Kelas</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/sekolah/jam') ? 'active' : '' }}">
-                            <a href="{{ route('admin.sekolah.jam') }}" class="waves-effect waves-dark">
+                        <li class="{{ request()->is('admin/sekolah/jam-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sekolah.jam-pelajaran') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Jam Pelajaran</span>
                             </a>
                         </li>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Superadmin\BankSoal;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
-use App\Models\Superadmin\{Soal, ButirSoal, Kelas};
+use App\Models\Superadmin\{Soal, ButirSoal, Tingkat};
 use App\Models\Superadmin\{BankSoal,BankButirSoal};
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -18,25 +18,21 @@ class ButirSoalController extends Controller
 {
     public function index(Request $request)
     {
-        $kelas_id = $request->kelas_id;
+        $tingkat_id = $request->tingkat_id;
         $soal_id = $request->soal_id;
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $kelas = Kelas::whereHas('user', function($query){
-            $query->where('id_sekolah', auth()->user()->id_sekolah);
-        })->get();
+        $tingkat = Tingkat::all();
 
-        $banksoal_soal = BankSoal::where('sekolah_id', auth()->user()->id_sekolah)->get();
-        
+        $banksoal_soal = BankSoal::all();
+
         if ($request->ajax())
         {
-            $butir_soal = BankButirSoal::whereHas('soal', function($query){
-                $query->where('sekolah_id', auth()->user()->id_sekolah);
-            });
-    
-            if (!empty($request->kelas_id)) {
-                $kelas_id = $request->kelas_id;
-                $butir_soal->whereHas('soal', function($query) use($kelas_id){
-                    $query->where('kelas_id', $kelas_id);
+            $butir_soal = new BankButirSoal;
+            
+            if (!empty($request->tingkat_id)) {
+                $tingkat_id = $request->tingkat_id;
+                $butir_soal->where('soal', function($query) use($tingkat_id){
+                    $query->where('tingkat_id', $tingkat_id);
                 });
             }
     
@@ -73,9 +69,9 @@ class ButirSoalController extends Controller
     
         return view('superadmin.banksoal.butir-soal')
                                     ->with('mySekolah', User::sekolah())
-                                    ->with('kelas', $kelas)
+                                    ->with('tingkat', $tingkat)
                                     ->with('bank_soals', $banksoal_soal)
-                                    ->with('kelas_id', $kelas_id)
+                                    ->with('tingkat_id', $tingkat_id)
                                     ->with('soal_id', $soal_id)
                                     ->with('addons', $addons);  
     }

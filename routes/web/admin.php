@@ -174,10 +174,12 @@ Route::namespace('Sekolah')->group(function () {
     Route::get('/admin/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
 
     // Jam Pelajaran
-    Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
-        ->name('sekolah.jam');
-    Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
-        ->name('sekolah.jam.write');
+    Route::get('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@index')
+        ->name('sekolah.jam-pelajaran');
+    Route::post('/admin/sekolah/jam-pelajaran/getJamPelajaran', 'JamPelajaranController@getJamPelajaran')
+    ->name('sekolah.jam-pelajaran.getJamPelajaran');
+    Route::post('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@write')
+        ->name('sekolah.jam-pelajaran.write');
  });
 
 // Pelajaran

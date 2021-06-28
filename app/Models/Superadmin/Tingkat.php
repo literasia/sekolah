@@ -4,6 +4,7 @@ namespace App\Models\Superadmin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Superadmin\BankSoal;
 
 class Tingkat extends Model
 { //
@@ -13,5 +14,9 @@ class Tingkat extends Model
 
     public function library(){
         return $this->hasMany(Library::class);
+    }
+
+    public function bankSoal(){
+        return $this->hasMany(BankSoal::class);
     }
 }

@@ -154,6 +154,10 @@ Ini adalah halaman library untuk superadmin
 
         $('#add').on('click', function() {
             $("#action").val("add")
+            $('#modal-title').html('Tambah Buku');
+            $('.form-control').val('');
+            $('#btn').html('Simpan');
+            $('#btn').removeClass('btn-info').addClass('btn-success').text('Simpan');
             $('#modal-library').modal('show');
         });
     });
@@ -183,7 +187,7 @@ Ini adalah halaman library untuk superadmin
                 url: 'library/show/'+id,
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log(data)
+                    $('#modal-title').html('Edit Buku');
                     $('#action').val('edit');
                     $('#btn').removeClass('btn-success').addClass('btn-info').text('Update');
                     $('#btn-cancel').removeClass('btn-outline-success').addClass('btn-outline-info').text('Batal');
