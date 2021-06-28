@@ -225,6 +225,8 @@
         
         $("#addButton").click(function () {
             alert(counter);
+
+            counter =1;
             
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
