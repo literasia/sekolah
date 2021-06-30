@@ -49,8 +49,8 @@ class MateriController extends Controller
         $materi = Materi::where('kelas_id', $kelas->id)->where('mata_pelajaran_id', $mata_pelajaran->id)->get();
 
         // ambil data kuis yang kelasnya dimiliki siswa
-        $kuis = Kuis::whereHas('soal', function($query) use($kelas){
-            $query->where('kelas_id', 1480);
+        $kuis = Kuis::whereHas('soal', function($query) use($kelas, $mata_pelajaran){
+            $query->where('kelas_id', $kelas->id)->where('mata_pelajaran_id', $mata_pelajaran->id);
         })->get();
 
         // push materi to elearning collections : type(materi)
