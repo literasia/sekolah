@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Superadmin\BankSoal;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
-use App\Models\MataPelajaran;
+use App\Models\Superadmin\ReferensiMataPelajaran;
 use App\Models\Superadmin\Kelas;
 use App\Models\Superadmin\BankSoal;
+use App\Models\Superadmin\Tingkat;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -26,14 +27,14 @@ class SoalController extends Controller
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $mata_pelajaran = MataPelajaran::where('sekolah_id', auth()->user()->id_sekolah)->get();
-        $kelas = Kelas::whereHas('user', function($query){
-            $query->where('id_sekolah', auth()->user()->id_sekolah);
-        })->get();
+        $mata_pelajaran = ReferensiMataPelajaran::all();
+        $tingkat = Tingkat::all();
 
+    
+        // dd($tingkat);
         if ($request->ajax())
         {
-            $bank_soal = BankSoal::where('sekolah_id', auth()->user()->id_sekolah)->latest()->get();
+            $bank_soal = BankSoal::all();
             return DataTables::of($bank_soal)
                 ->addColumn('action', function ($bank_soal) {
                     $button = '<button type="button" data-id="'.$bank_soal->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
@@ -43,8 +44,8 @@ class SoalController extends Controller
                 ->addColumn('mata_pelajaran', function($bank_soal){
                     return $bank_soal->mataPelajaran->nama_pelajaran;
                 })
-                ->addColumn('kelas', function($bank_soal){
-                    return $bank_soal->kelas->tingkatanKelas->name." - ".$bank_soal->kelas->name;
+                ->addColumn('tingkat', function($bank_soal){
+                    return $bank_soal->tingkat->tingkat.' - '.$bank_soal->tingkat->name;
                 })
                 
                 ->rawColumns(['action'])
@@ -53,21 +54,21 @@ class SoalController extends Controller
         }
         
         return view('superadmin.banksoal.soal')
-                                    ->with('kelas', $kelas)
+                                    ->with('tingkat', $tingkat)
                                     ->with('mata_pelajaran', $mata_pelajaran)
                                     ->with('mySekolah', User::sekolah())
                                     ->with('addons', $addons);
     }
 
     public function store(Request $request){
-        $data = $request->all();
+        
 
         $rules = [
             'judul' => 'required',
             'mata_pelajaran_id' => 'required|max:100',
-            'kelas_id' => 'required|max:100',
+            'tingkat_id'=> 'required',
         ];
-        
+        $data = $request->all();
         $validator = Validator::make($data, $rules);
 
         // Validation Rules 
@@ -79,10 +80,9 @@ class SoalController extends Controller
         }
 
         BankSoal::create([
-            'sekolah_id' => auth()->user()->id_sekolah,
             'judul' => $request->judul,
             'mata_pelajaran_id' => $request->mata_pelajaran_id,
-            'kelas_id' => $request->kelas_id,
+            'tingkat_id'=>$request->tingkat_id,
             'tanggal' => date('Y-m-d'),
         ]);
     
@@ -100,7 +100,7 @@ class SoalController extends Controller
                 'id'   => $bank_soal->id,
                 'judul' => $bank_soal->judul,
                 'mata_pelajaran_id' => $bank_soal->mata_pelajaran_id,
-                'kelas_id' => $bank_soal->kelas_id,
+                'tingkat_id' => $bank_soal->tingkat_id
             ]);
     }   
 
@@ -110,7 +110,7 @@ class SoalController extends Controller
         $rules = [
             'judul' => 'required',
             'mata_pelajaran_id' => 'required|max:100',
-            'kelas_id' => 'required|max:100',
+            'tingkat_id'=> 'required',
         ];
         
         $validator = Validator::make($data, $rules);

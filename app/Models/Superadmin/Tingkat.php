@@ -14,4 +14,8 @@ class Tingkat extends Model
     public function library(){
         return $this->hasMany(Library::class);
     }
+
+    public function bankSoal(){
+        return $this->hasMany(BankSoal::class);
+    }
 }

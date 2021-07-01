@@ -106,54 +106,42 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var resetForm = () => {
-                $('input[name=id]').val('');
-                $('input[name=nama_pelajaran]').val('');
-                $('#btn').val('Simpan');
+            $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('superadmin.referensi.matapelajaran') }}",
+            },
+            columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'nama_pelajaran',
+                name: 'nama_pelajaran'
+            },
+            {
+                data: 'action',
+                name: 'action'
             }
-
-            var form = $('#form-mapel');
-
-
-            var table = $('#order-table').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: {
-                        url: "{{ route('superadmin.referensi.matapelajaran') }}",
-                    },
-                    columns: [
-                    {
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'nama_pelajaran',
-                        name: 'nama_pelajaran'
-                    },
-                    {
-                        data: 'id',
-                        render: (id) => {
-                        return `<button data-id="${id}" type="button" class="btn btn-edit btn-mini btn-info shadow-sm">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>&nbsp;&nbsp;
-                                <button data-id="${id}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm delete" data-toggle="modal" data-target="#confirmDeleteModal">
-                                    <i class="fa fa-trash"></i>
-                                </button>`;
-                        }
-                    }
-                    ]
-                });
-            
-                $('#form-mapel').on('submit', function (event) {
+            ]
+        });
+        
+        $('#form-mapel').on('submit', function (event) {
                 event.preventDefault();
-                var url = "{{ route('superadmin.referensi.matapelajaran.write') }}?req=write";
+                var url = '';
                 var text = "Data sukses ditambahkan";
+
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('superadmin.referensi.matapelajaran') }}";
+                    text = "Data sukses ditambahkan";
+                }
+                
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('superadmin.referensi.matapelajaran-update') }}";
+                    text = "Data sukses diupdate";
+                }
 
                 $.ajax({
                     url: url,
@@ -161,74 +149,78 @@
                     dataType: 'JSON',
                     data: $(this).serialize(),
                     success: function (data) {
-                        Swal.fire("Berhasil", text, "success");
-                        $('#btn')
-                            .removeClass('btn-info')
-                            .addClass('btn-success')
-                            .val('Simpan');
-                        $('#reset')
-                            .removeClass('btn-outline-info')
-                            .addClass('btn-outline-success')
-                            .val('Batal');
-                        resetForm();
-                        table.ajax.reload();
-                    },
-                    error: function(data) {
-                        if(typeof data.responseJSON.message == 'string')
-                            return Swal.fire('Error', data.responseJSON.message, 'error');
-                        else if(typeof data.responseJSON == 'string')
-                            return Swal.fire('Error', data.responseJSON, 'error');
+                        var html = '';
+                        if (data.errors) {
+                            // for (var count = 0; count <= data.errors.length; count++) {
+                            html = data.errors[0];
+                            // }
+                            $('#nama_pelajaran').addClass('is-invalid');
+                            toastr.error(html);
+                        }
+
+                        if (data.success) {
+                            Swal.fire("Berhasil", text, "success");
+                            $('#nama_pelajaran').removeClass('is-invalid');
+                            $('#form-mapel')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .val('Batal');
+                            $('#order-table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
                     }
                 });
             });
 
-            $('#order-table').on('click', '.btn-edit', function (ev, data) {
-                
-                var id = ev.currentTarget.getAttribute('data-id');
-                // console.log(id);
-                $.get("{{route('superadmin.referensi.matapelajaran')}}?req=single&id=" + id, function (data, status){
-                    $('input[name=id]').val(data.id);
-                    $('input[name=nama_pelajaran]').val(data.nama_pelajaran);
-                    $('#btn')
-                        .removeClass('btn-success')
-                        .addClass('btn-info')
-                        .val('Update');
-                    $('#reset')
-                        .removeClass('btn-outline-success')
-                        .addClass('btn-outline-info')
-                        .val('Batal');
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: '/superadmin/referensi/matapelajaran/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        // console.log(data);
+                        $('#nama_pelajaran').val(data.nama_pelajaran);
+                        $('#hidden_id').val(data.id);
+                        $('#action').val('edit');
+                        $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .val('Batal');
+                    }
                 });
-            });
-
-            $('#reset').click(() => {
-                resetForm();
             });
 
             var user_id;
             $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('data-id');
+                user_id = $(this).attr('id');
                 $('#ok_button').text('Hapus');
                 $('#confirmModal').modal('show');
             });
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{ route('superadmin.referensi.matapelajaran.write') }}?req=delete&id=" + user_id,
-                    cache: false,
-                    method: "POST",
-                    processData: false,
-                    contentType: false,
+                    url: '/superadmin/referensi/matapelajaran/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
-                    }, 
-                    success: function (data) {
-                        $('#confirmModal').modal('hide');
-                        Swal.fire("Berhasil", "Data dihapus!", "success");
-                        table.ajax.reload();
+                    }, success: function (data) {
+                        setTimeout(function () {
+                            $('#confirmModal').modal('hide');
+                            $('#order-table').DataTable().ajax.reload();
+                            Swal.fire("Berhasil", "Data dihapus!", "success");
+                        }, 1000);
                     }
                 });
             });
-
         });
     </script>
 @endpush

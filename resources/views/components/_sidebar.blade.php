@@ -86,8 +86,8 @@
                                 <span class="pcoded-mtext">Kelas</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/sekolah/jam') ? 'active' : '' }}">
-                            <a href="{{ route('admin.sekolah.jam') }}" class="waves-effect waves-dark">
+                        <li class="{{ request()->is('admin/sekolah/jam-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sekolah.jam-pelajaran') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Jam Pelajaran</span>
                             </a>
                         </li>
@@ -235,6 +235,7 @@
                 </li>
                 @endif
 
+                @if ($addons != null && $addons->cbt)
                 <li class="@if (request()->is('admin/cbt/soal-ujian') || request()->is('admin/cbt/butir-soal-ujian')) || request()->is('admin/cbt/ujian')) || request()->is('admin/cbt/penilaian') || request()->is('admin/cbt/ranking') pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-desktop"></i></span>
@@ -268,6 +269,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif 
 
                 <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
@@ -393,6 +395,7 @@
                 </li>
                 @endif
 
+                @if ($addons != null && $addons->pengumuman) 
                 <li class="@if (request()->is('admin/pengumuman/pesan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-bell"></i></span>
@@ -406,6 +409,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif 
                 
                 @if ($addons != null && $addons->leaderboard)
                 <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">

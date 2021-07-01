@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.sekolah.jam') }}
+    {{ route('admin.sekolah.jam-pelajaran') }}
 @endsection
 
 {{-- main content --}}
@@ -199,7 +199,7 @@
 
             $('#form-jam-pelajaran').on('submit', function (event) {
                 event.preventDefault();
-                var url = "{{ route('admin.sekolah.jam.write') }}?req=write";
+                var url = "{{ route('admin.sekolah.jam-pelajaran.write') }}?req=write";
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -228,7 +228,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{ route('admin.sekolah.jam.write') }}?req=delete&id=" + id,
+                    url: "{{ route('admin.sekolah.jam-pelajaran.write') }}?req=delete&id=" + id,
                     cache: false,
                     method: "POST",
                     processData: false,
