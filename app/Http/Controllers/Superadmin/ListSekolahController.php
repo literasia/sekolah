@@ -123,6 +123,8 @@ $tahun_ajaran = $request->tahun_ajaran;
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
             'forum' => !empty($req->forum) ? 1 : 0,
             'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
+            'cbt' => !empty($req->cbt) ? 1 : 0,
+            'pengumuman' => !empty($req->pengumuman) ? 1 : 0,
         ]);
 
         return response()
@@ -170,6 +172,8 @@ $tahun_ajaran = $request->tahun_ajaran;
                 'kalender' => $addons->kalender,
                 'import' => $addons->import,
                 'perpustakaan' => $addons->perpustakaan,
+                'cbt' => $addons->cbt,
+                'pengumuman' => $addons->pengumuman,
             ]);
     }
 
@@ -259,6 +263,8 @@ $tahun_ajaran = $request->tahun_ajaran;
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
             'forum' => !empty($req->forum) ? 1 : 0,
             'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
+            'cbt' => !empty($req->cbt) ? 1 : 0,
+            'pengumuman' => !empty($req->pengumuman) ? 1 : 0,
         ]);
 
         return response()
