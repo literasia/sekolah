@@ -224,7 +224,7 @@
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
-            alert(counter);
+            // alert(counter);
             
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
