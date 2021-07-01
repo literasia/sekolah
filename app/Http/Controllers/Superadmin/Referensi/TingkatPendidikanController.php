@@ -31,13 +31,13 @@ class TingkatPendidikanController extends Controller
 
     public function store(Request $request) {
         $rules = [
-            'name'  => 'required',
             'tingkat'  => 'required',
+            'name'  => 'required',
         ];
 
         $message = [
-            'tingkat.required' => 'Kolom ini gaboleh kosong',
-            'name.required' => 'Kolom ini gaboleh kosong',
+            'tingkat.required' => 'Kolom ini tidak boleh kosong',
+            'name.required' => 'Kolom ini tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -78,8 +78,8 @@ class TingkatPendidikanController extends Controller
        ];
 
        $message = [
-           'tingkat.required' => 'Kolom ini gaboleh kosong',
-           'name.required' => 'Kolom ini gaboleh kosong',
+           'tingkat.required' => 'Kolom ini tidak boleh kosong',
+           'name.required' => 'Kolom ini tidak boleh kosong',
        ];
 
        $validator = Validator::make($request->all(), $rules, $message);

@@ -224,9 +224,11 @@
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
+            // alert(counter);
+            
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
-                return false;
+                return false;   
             }   
         
             let newAnswerField =  `<div id="answer-form${counter}">
@@ -291,6 +293,7 @@
         }
             
         $('#add').on('click', function() {    
+            counter = 1;
             $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
             $('#point').val(1);
