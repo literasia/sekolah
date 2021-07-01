@@ -99,6 +99,16 @@
                             <span><i class="fa fa-exclamation-triangle add-ons-icon mb-2"></i></span>
                             <p class="m-0">Pelanggaran</p>
                         </div>
+                        <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
+                            <input type="checkbox" id="cbt" name="cbt" value="1" class="d-block checkbox">
+                            <span><i class="fa fa-desktop add-ons-icon mb-2"></i></span>
+                            <p class="m-0">Computer Based Test</p>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 my-2 p-2 card rounded card-hover">
+                            <input type="checkbox" id="pengumuman" name="pengumuman" value="1" class="d-block checkbox">
+                            <span><i class="fa fa fa-bell add-ons-icon mb-2"></i></span>
+                            <p class="m-0">Pengumuman</p>
+                        </div>
                     </div>
                 </div>
             </div>
