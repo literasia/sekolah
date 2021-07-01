@@ -38,7 +38,7 @@
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label for="kelas">Kelas</label>
-                                    <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" placeholder="Kelas">
+                                    <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Kelas">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>
                             </div>
