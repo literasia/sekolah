@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-materi">
+                <form id="form-materi" method="POST" enctype="multipart/form-data">
                     @csrf @method("POST")
                     <div class="row">
                         <div class="col">
@@ -65,6 +65,13 @@
                                     <option value="Draf">Draf</option>
                                     <option value="Terbitkan">Terbitkan</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="media">Media</label>
+                                <input type="file" name="media" id="media">
                             </div>
                         </div>
 
