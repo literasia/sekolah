@@ -14,8 +14,8 @@ class AddColumnTingkatOnBankSoal extends Migration
     public function up()
     {
         Schema::table('bank_soals', function (Blueprint $table) {
-            $table->dropForeign(['kelas_id']);
-            $table->dropColumn('kelas_id');
+            // $table->dropForeign(['kelas_id']);
+            // $table->dropColumn('kelas_id');
             $table->unsignedBigInteger('tingkat_id');
             $table->foreign('tingkat_id')->references('id')->on('tingkats')->onDelete('cascade');
         });
@@ -29,8 +29,8 @@ class AddColumnTingkatOnBankSoal extends Migration
     public function down()
     {
         Schema::table('bank_soals', function (Blueprint $table) {
-            $table->unsignedBigInteger('kelas_id');
-            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
+            // $table->unsignedBigInteger('kelas_id');
+            // $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->dropForeign(['tingkat_id']);
             $table->dropColumn('tingkat_id');
         });
