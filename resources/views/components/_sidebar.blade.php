@@ -234,13 +234,8 @@
                     </ul>
                 </li>
                 @endif
-<<<<<<< HEAD
-                
-                <!-- @if ($addons != null && $addons->cbt) -->
-=======
 
                 @if ($addons != null && $addons->cbt)
->>>>>>> 9df20e1092449042398c9981220fa4ac40dceb27
                 <li class="@if (request()->is('admin/cbt/soal-ujian') || request()->is('admin/cbt/butir-soal-ujian')) || request()->is('admin/cbt/ujian')) || request()->is('admin/cbt/penilaian') || request()->is('admin/cbt/ranking') pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-desktop"></i></span>
@@ -274,13 +269,8 @@
                         </li>
                     </ul>
                 </li>
-<<<<<<< HEAD
-                <!-- @endif -->
-                
-=======
                 @endif 
 
->>>>>>> 9df20e1092449042398c9981220fa4ac40dceb27
                 <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
