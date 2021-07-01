@@ -12,9 +12,6 @@ class BankSoal extends Model
 {
     protected $guarded = ['id'];
 
-    public function kuis(){
-        return $this->hasMany(Kuis::class);
-    }
 
     public function kelas(){
         return $this->belongsTo(Kelas::class);
