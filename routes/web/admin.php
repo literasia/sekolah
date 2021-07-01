@@ -176,8 +176,6 @@ Route::namespace('Sekolah')->group(function () {
     // Jam Pelajaran
     Route::get('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@index')
         ->name('sekolah.jam-pelajaran');
-    Route::post('/admin/sekolah/jam-pelajaran/getJamPelajaran', 'JamPelajaranController@getJamPelajaran')
-    ->name('sekolah.jam-pelajaran.getJamPelajaran');
     Route::post('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@write')
         ->name('sekolah.jam-pelajaran.write');
  });
