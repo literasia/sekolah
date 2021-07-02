@@ -203,8 +203,6 @@ Route::namespace('Absensi')->group(function () {
     Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
     Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')->name('absensi.rekap-siswa');
 
-    Route::get('/admin/absensi/qr-code', 'SiswaController@index')->name('absensi.qr-code');
-
 });
 
 // Daftar Nilai
