@@ -188,82 +188,8 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-    <script>
+     <script>
         $(document).ready(function () {
-            let counter =1;
-
-            $("#addButton").click(function () {   
-                if(counter >= 12){
-                    Swal.fire('Perhatian!', 'Hanya boleh 12 jam pelajaran saja! Silahkan isi kembali nanti.', 'warning');
-                    return false;
-                } 
-
-                let newSubjectField =  `<div class="row border rounded jam-pelajaran mt-3" id="subject-group${counter}">
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label for="jam_pelajaran">Jam ke</label>
-                                                    <input id="jam_pelajaran_${counter}" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
-                                                </div>
-                                            </div>
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label for="jam_mulai">Jam Mulai</label>
-                                                    <input id="jam_mulai_${counter}" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai[]" required readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label for="jam_selesai">Jam Selesai</label>
-                                                    <input id="jam_selesai_${counter}" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai[]" required readonly>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                
-                $('#subject-wrapper').append(newSubjectField);
-
-            });
-
-            $("#removeButton").click(function () {
-                if(counter==1){
-                    Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
-                    return false;
-                }      
-                counter--;       
-                $("#subject-group" + counter).remove();    
-            });
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var table = $('#showjpcard');
-            table.hide();
-            @if(request()->req == 'table')
-            table.show();
-            @endif
-
-
-            $("#hari").change(function(){
-                _this = $(this);
-                $('#addButton').removeAttr('disabled');
-                $('#removeButton').removeAttr('disabled');
-
-                $.ajax({
-                    url: "{{ route('admin.sekolah.jam-pelajaran.getJamPelajaran') }}",
-                    method: 'POST',
-                    data: {hari:_this.val()},
-                    success: function (data) {
-
-
-                        let jam_pelajarans = data;
-                        $('#jam_pelajaran').html("");
-                        $('#jam_pelajaran').append(`<input id="jam_pelajaran" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke">`);
-                        });
-                        // console.log(data);
-                    }
-                });
-            })
 
             $('.clockpicker').clockpicker({donetext: 'Done', autoclose: true});
 

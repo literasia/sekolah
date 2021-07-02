@@ -51,9 +51,9 @@
 			                        	<div class="col-md-12">
 				                        	<h6 class="font-weight-bold">Spam</h6>
                                         	<div class="form-check mb-2" action="/action_page.php">
-                                            	<input class="form-check-input" type="checkbox" name="nonaktif_spam" id="" checked>
-												<label class="form-check-label">       
-                                                	Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1" type="text" name="batas_waktu" id="batas-waktu">  detik setelah memposting
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox" name="nonaktif_spam" id="" checked> 
+                                                		Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1 form-control-sm form-control d-inline-block" type="number" name="batas_waktu" id="batas-waktu">  detik setelah memposting
                                             	</label>
                                         	</div>
                                         	<small class="d-block mb-2">Gunakan ini untuk mencegah pengguna mengirim spam ke forum Anda.</small>
@@ -63,9 +63,9 @@
 			                        	<div class="col-md-12">
 				                        	<h6 class="font-weight-bold">Edit Forum</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
-                                            	<input class="form-check-input" type="checkbox" name="edit_forum" id="" checked>       
 												<label class="form-check-label">
-                                                	Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1" type="text" name="batas_waktu" id="batas-waktu"> menit setelah memposting
+                                            		<input class="form-check-input" type="checkbox" name="edit_forum" id="" checked>
+                                                		Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1 form-control form-control-sm d-inline-block" type="number" name="batas_waktu" id="batas-waktu"> menit setelah memposting
                                             	</label>
                                         	</div>
                                         	<small class="d-block mb-2">Jika dicentang, pengaturan ke "0 menit" memungkinkan pengeditan selamanya.</small>
@@ -110,7 +110,7 @@
 														<label class="form-check-label"> Aktifkan balasan berulir (bersarang) sedalam</label>
 													</div>
 													<div class="col-auto">
-														<select name="level" id="level" class="form-control-sm">
+														<select name="level" id="level" class="form-control-sm form-control d-inline-block">
 															<option value="">--Pilih Level--</option>
                                                 			<option value="2">2 level</option>
                                                     		<option value="3">3 level</option>
@@ -235,7 +235,7 @@
 				                        	<h6 class="font-weight-bold">Topics</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">       
-                                                	<div><input class="col-3" type="text" name="halaman_topik" id="batas-topik"> per halaman</div> 
+                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="halaman_topik" id="batas-topik"> per halaman</div> 
                                             	</label>
                                         	</div>
 			                        	</div>
@@ -245,7 +245,7 @@
 				                        	<h6 class="font-weight-bold">Balasan</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">       
-                                                	<div><input class="col-3" type="text" name="halaman_balasan" id="batas-balasan"> per halaman</div> 
+                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="halaman_balasan" id="batas-balasan"> per halaman</div> 
                                             	</label>
                                         	</div>
 			                        	</div>
