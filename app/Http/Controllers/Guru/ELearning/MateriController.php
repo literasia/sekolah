@@ -193,15 +193,15 @@ class MateriController extends Controller
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
 
-        $data['media'] = $pegawai->media;
+        $data['media'] = $materi->media;
 
         // Request new photo
         if ($request->file('media')) {
             // Insert new photo
             $data['media'] = $request->file('media')->store('media_materi', 'public');
             // if exist same file photo delete it
-            if ($request->file('media') && $currFoto && Storage::disk('public')->exists($currFoto)) {
-                Storage::disk('public')->delete($currFoto);
+            if ($request->file('media') && Storage::disk('public')->exists($materi->media)) {
+                Storage::disk('public')->delete($materi->media);
             }
         } 
         
