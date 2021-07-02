@@ -52,7 +52,7 @@
 				                        	<h6 class="font-weight-bold">Spam</h6>
                                         	<div class="form-check mb-2" action="/action_page.php">
 												<label class="form-check-label">
-													<input class="form-check-input" type="checkbox" name="nonaktif_spam" id="" checked> 
+													<input class="form-check-input mt-2" type="checkbox" name="nonaktif_spam" id="" checked> 
                                                 		Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1 form-control-sm form-control d-inline-block" type="number" name="batas_waktu" id="batas-waktu">  detik setelah memposting
                                             	</label>
                                         	</div>
@@ -64,7 +64,7 @@
 				                        	<h6 class="font-weight-bold">Edit Forum</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
 												<label class="form-check-label">
-                                            		<input class="form-check-input" type="checkbox" name="edit_forum" id="" checked>
+                                            		<input class="form-check-input mt-2" type="checkbox" name="edit_forum" id="" checked>
                                                 		Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1 form-control form-control-sm d-inline-block" type="number" name="batas_waktu" id="batas-waktu"> menit setelah memposting
                                             	</label>
                                         	</div>
