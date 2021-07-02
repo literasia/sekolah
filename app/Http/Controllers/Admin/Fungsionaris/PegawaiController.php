@@ -77,7 +77,7 @@ class PegawaiController extends Controller
             'agama' => ['nullable', 'in:' . PegawaiController::AGAMA_RULE],
             'is_menikah' => ['nullable', 'boolean'],
             'tanggal_mulai' => ['nullable', 'date'],
-            'foto' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2000']
+            'foto' => ['nullable', 'mimes:jpeg,jpg,png']
         ];
         
         $validator = Validator::make($request->all(), $rules);
@@ -109,18 +109,20 @@ class PegawaiController extends Controller
         // $user_id->roles()->attach($role->id);
 
         // Add Photo to public
-        $request['foto'] = null;
-        if ($request->file('foto')) {
+        $data = $request->all();
+
+        // $request->foto = null;
+        // if ($request->file('foto')) {
             $data['foto'] = $request->file('foto')->store('pegawais', 'public');
-        }
+        // }
 
         // Change Date Type
-        $request['tanggal_lahir'] = Carbon::parse($request['tanggal_lahir'])->format('Y-m-d');
-        $request['tanggal_mulai'] = Carbon::parse($request['tanggal_mulai'])->format('Y-m-d');
-        $request['user_id'] = $user->id;
+        $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
+        $data['tanggal_mulai'] = Carbon::parse($data['tanggal_mulai'])->format('Y-m-d');
+        $data['user_id'] = $user->id;
 
         // Create Pegawai
-        $pegawai = Pegawai::create($request->all());
+        $pegawai = Pegawai::create($data);
 
         // Create Accesses
         $access = Access::create([
@@ -208,14 +210,21 @@ class PegawaiController extends Controller
         $data['name'] = $data['name'];
 
         // Request new photo
-        if ($request->file('foto')) {
-            // Insert new photo
-            $data['foto'] = $request->file('foto')->store('pegawais', 'public');
-            // if exist same file photo delete it
-            if ($request->file('foto') && $currFoto && Storage::disk('public')->exists($currFoto)) {
-                Storage::disk('public')->delete($currFoto);
+        // if ($request->file('foto')) {
+        //     // Insert new photo
+        //     $data['foto'] = $request->file('foto')->store('pegawais', 'public');
+        //     // if exist same file photo delete it
+        //     if ($request->file('foto') && $currFoto && Storage::disk('public')->exists($currFoto)) {
+        //         Storage::disk('public')->delete($currFoto);
+        //     }
+        // } 
+
+        if($request->file('foto')){
+            if(Storage::disk('public')->exists($pegawai->foto)){
+                Storage::disk('public')->delete($pegawai->foto);
             }
-        } 
+            $data['foto'] = $request->file('foto')->store('pegawais','public');
+        }
 
         // Change User Password
         // get user
@@ -245,7 +254,11 @@ class PegawaiController extends Controller
         $access = $pegawai->access->delete();
         $pegawai->delete();
 
-        if ($pegawai->foto && Storage::disk('public')->exists($pegawai->foto)) {
+        // if ($pegawai->foto && Storage::disk('public')->exists($pegawai->foto)) {
+        //     Storage::disk('public')->delete($pegawai->foto);
+        // }
+
+        if(Storage::disk('public')->exists($pegawai->foto)){
             Storage::disk('public')->delete($pegawai->foto);
         }
 
