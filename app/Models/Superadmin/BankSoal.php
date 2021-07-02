@@ -3,20 +3,21 @@
 namespace App\Models\Superadmin;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\MataPelajaran;
+use App\Models\Superadmin\ReferensiMataPelajaran;
 use App\Models\Superadmin\Kelas;
 use App\Models\Superadmin\Kuis;
 use App\Models\Superadmin\BankButirSoal;
+use App\Models\Superadmin\Tingkat;
 
 class BankSoal extends Model
 {
     protected $guarded = ['id'];
 
     public function mataPelajaran(){
-        return $this->belongsTo(MataPelajaran::class);
+        return $this->belongsTo(ReferensiMataPelajaran::class);
     }
 
-    public function butirSoal(){
+    public function bankButirSoal(){
         return $this->hasMany(BankButirSoal::class);
     }
 

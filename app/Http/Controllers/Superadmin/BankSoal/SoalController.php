@@ -30,7 +30,6 @@ class SoalController extends Controller
         $mata_pelajaran = ReferensiMataPelajaran::all();
         $tingkat = Tingkat::all();
 
-    
         // dd($tingkat);
         if ($request->ajax())
         {

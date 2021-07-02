@@ -294,7 +294,8 @@
             });
         }
             
-        $('#add').on('click', function() {    
+        $('#add').on('click', function() {   
+            counter = 1; 
             $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
             $('#point').val(1);

@@ -4,6 +4,7 @@ namespace App\Models\Superadmin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Superadmin\BankSoal;
 
 class Tingkat extends Model
 { //

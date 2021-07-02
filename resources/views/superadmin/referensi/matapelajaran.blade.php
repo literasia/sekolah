@@ -127,7 +127,6 @@
             }
             ]
         });
-        
         $('#form-mapel').on('submit', function (event) {
                 event.preventDefault();
                 var url = '';
