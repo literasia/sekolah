@@ -81,7 +81,7 @@
                                         <div class="col px-0">
                                             <div class="form-group p-3">
                                                 <label>Jam Ke</label>
-                                                <select name="jam_pelajaran_id[]" id="jam_pelajaran_" class="form-control form-control-sm">
+                                                <select name="jam_pelajaran_id[]" id="jam_pelajaran" class="form-control form-control-sm">
                                                     <option value="">Pilih hari terlebih dahulu</option>
                                                 </select>
                                             </div>
@@ -89,7 +89,7 @@
                                         <div class="col px-0">
                                             <div class="form-group p-3">
                                                 <label for="pelajaran">Pelajaran</label>
-                                                <select name="mata_pelajaran_id[]" id="mata_pelajaran_id_" class="form-control form-control-sm">
+                                                <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
                                                     <option value="">-- Pelajaran --</option>
                                                     @foreach($pelajaran as $obj)
                                                     <option value="{{$obj->id}}">{{$obj->name}}</option>
@@ -247,8 +247,7 @@
                     Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
                     return false;
                 } 
-
-                let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group">
+                let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
                                             <div class="col px-0">
                                                 <div class="form-group p-3">
                                                     <label>Jam Ke</label>
@@ -261,7 +260,7 @@
                                             <div class="col px-0">
                                                 <div class="form-group p-3">
                                                     <label for="pelajaran">Pelajaran</label>
-                                                    <select name="mata_pelajaran_id[]" id="mata_pelajaran_id_${counter}" class="form-control form-control-sm">
+                                                    <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
                                                         <option value="">-- Pelajaran --</option>
                                                         @foreach($pelajaran as $obj)
                                                         <option value="{{$obj->id}}">{{$obj->name}}</option>
@@ -272,13 +271,13 @@
                                         </div>`;
                 
                 $('#subject-wrapper').append(newSubjectField);
-
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari: $('#hari').val()},
                     success: function (data) {
                         let jam_pelajarans = data;
+                        console.log(`#jam_pelajaran_${counter}`)
                         $(`#jam_pelajaran_${counter}`).html("");
                         $(`#jam_pelajaran_${counter}`).append(`<option value="">-- Jam Ke --</option>`);
                         jam_pelajarans.forEach(data => {
@@ -287,21 +286,18 @@
                             $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
-
                         counter++;
                     }
                 });
             });
-
-            $("#removeButton").click(function (e) {
-                if(counter < 1){
+            $("#removeButton").click(function () {
+                if(counter==1){
                     Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
                     return false;
-                }
-                counter--;
-                $('#subject-group' + counter).remove();    
+                }      
+                counter--;       
+                $("#subject-group" + counter).remove();    
             });
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -312,27 +308,22 @@
             @if(request()->req == 'table')
             table.show();
             @endif
-
-
             $("#hari").change(function(){
                 _this = $(this);
                 $('#addButton').removeAttr('disabled');
                 $('#removeButton').removeAttr('disabled');
-
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
-
-
                         let jam_pelajarans = data;
-                        $('#jam_pelajaran_0').html("");
-                        $('#jam_pelajaran_0').append(`<option value="">-- Jam Ke --</option>`);
+                        $('#jam_pelajaran').html("");
+                        $('#jam_pelajaran').append(`<option value="">-- Jam Ke --</option>`);
                         jam_pelajarans.forEach(data => {
                             let jam_mulai = data.jam_mulai.split(":");
                             let jam_selesai = data.jam_selesai.split(":");
-                            $('#jam_pelajaran_0').append(`<option value='${data.id}'>
+                            $('#jam_pelajaran').append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
                         // console.log(data);
