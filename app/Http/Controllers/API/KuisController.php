@@ -105,7 +105,18 @@ class KuisController extends Controller
             'pengaturan_kuis' => $pengaturan_kuis,
             'soal' => $soal,
             'butir_soal' => $butir_soal
-        ]);
+        ]);        
+    }
+
+    public function updateJawaban(User $user, Kuis $kuis){
+        // ambil data jawaban siswa dimana kuisnya yang sedang dikerjakan
         
+        // check apakah jawaban siswa tersebut sudah ada di table?
+
+        // jika belum create
+
+        // ambil kembali data jawaban siswa dimana kuisnya yang sedang dikerjakan
+
+        // update jawaban nya 
     }
 }

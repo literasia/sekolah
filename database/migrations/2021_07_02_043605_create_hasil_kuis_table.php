@@ -17,7 +17,7 @@ class CreateHasilKuisTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBiginteger('kuis_id');
             $table->unsignedBiginteger('siswa_id');
-            $table->integer("jumlah_benar");
+            $table->integer('jumlah_benar');
             $table->integer('jumlah_salah');
             $table->float('nilai');
             $table->foreign('kuis_id')->references('id')->on('kuis')->onDelete('cascade');
