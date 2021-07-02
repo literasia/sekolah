@@ -100,6 +100,13 @@ class MateriController extends Controller
 
         $guru = Guru::where('user_id', auth()->user()->id)->first();
 
+        // Add Photo to public
+        $request['media'] = null;
+        if ($request->file('media')) {
+            $data['media'] = $request->file('media')->store('media_materi', 'public');
+        }
+  
+
         Materi::create([
             'judul' => $request->judul,
             'mata_pelajaran_id' => $request->mata_pelajaran_id,
@@ -110,6 +117,7 @@ class MateriController extends Controller
             'status' => $request->status,
             'tanggal_terbit' => $tanggal_terbit,
             'jam_terbit' => $jam_terbit,
+            'media' => $request['media'],
         ]);
     
         return response()
@@ -171,6 +179,18 @@ class MateriController extends Controller
         if (empty($data['jam_terbit'])) {
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
+
+        $data['media'] = $pegawai->media;
+
+        // Request new photo
+        if ($request->file('media')) {
+            // Insert new photo
+            $data['media'] = $request->file('media')->store('media_materi', 'public');
+            // if exist same file photo delete it
+            if ($request->file('media') && $currFoto && Storage::disk('public')->exists($currFoto)) {
+                Storage::disk('public')->delete($currFoto);
+            }
+        } 
         
         $materi->update([
             'judul' => $request->judul,
@@ -181,6 +201,7 @@ class MateriController extends Controller
             'status' => $request->status,
             'tanggal_terbit' => $tanggal_terbit,
             'jam_terbit' => $jam_terbit,
+            'media' => $data['media'],
         ]);
 
         return response()
