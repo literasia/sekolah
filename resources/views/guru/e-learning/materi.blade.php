@@ -31,6 +31,7 @@
                                     <th>Kelas</th>
                                     <th>Tanggal</th>
                                     <th>Jam</th>
+                                    <th>Media</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -174,6 +175,10 @@
             {
                 data: 'jam_terbit',
                 name: 'jam_terbit'
+            },
+            {
+                data: 'media',
+                name: 'media'
             },
             {
                 data: 'status',
