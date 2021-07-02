@@ -176,8 +176,6 @@ Route::namespace('Sekolah')->group(function () {
     // Jam Pelajaran
     Route::get('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@index')
         ->name('sekolah.jam-pelajaran');
-    Route::post('/admin/sekolah/jam-pelajaran/getJamPelajaran', 'JamPelajaranController@getJamPelajaran')
-    ->name('sekolah.jam-pelajaran.getJamPelajaran');
     Route::post('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@write')
         ->name('sekolah.jam-pelajaran.write');
  });
@@ -204,8 +202,6 @@ Route::namespace('Absensi')->group(function () {
     Route::post('/admin/absensi/siswa/approve', 'SiswaController@approve')->name('absensi.siswa.approve');
     Route::post('/admin/absensi/siswa/approve-all', 'SiswaController@approveAll')->name('absensi.siswa.approve-all');
     Route::get('/admin/absensi/rekap-siswa', 'RekapSiswaController@index')->name('absensi.rekap-siswa');
-
-    Route::get('/admin/absensi/qr-code', 'SiswaController@index')->name('absensi.qr-code');
 
 });
 
@@ -307,6 +303,10 @@ Route::namespace('ELearning')->group(function () {
         ->name('e-learning.butir-soal.update');
     Route::get('/admin/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')
         ->name('e-learning.butir-soal.delete');
+
+    // Nilai
+    Route::get('/admin/e-learning/nilai', 'NilaiController@index')
+        ->name('e-learning.nilai');
 });
 
 // CBT
@@ -457,6 +457,14 @@ Route::namespace('Forum')->group(function () {
     Route::post('/admin/forum/pengguna/update', 'PenggunaController@update')
         ->name('forum.pengguna.update');
     Route::get('/admin/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
+
+    // Balasan
+    Route::get('/admin/forum/balasan', 'BalasanController@index')
+        ->name('forum.balasan');
+
+    // Tautan
+    Route::get('/admin/forum/tautan', 'TautanController@index')
+        ->name('forum.tautan');
 });
     
 
