@@ -82,6 +82,7 @@ class MateriController extends Controller
             'kelas_id' => 'required|max:100',
             'materi' => 'required|',
             'status' => 'required|max:100',
+            'keterangan' => 'required|',
         ];
 
         $validator = Validator::make($data, $rules);
@@ -126,6 +127,7 @@ class MateriController extends Controller
             'sekolah_id' => auth()->user()->id_sekolah,
             'materi' => $request->materi,
             'status' => $request->status,
+            'keterangan' => $request->keterangan,
             'tanggal_terbit' => $tanggal_terbit,
             'jam_terbit' => $jam_terbit,
             'media' => $request->media,

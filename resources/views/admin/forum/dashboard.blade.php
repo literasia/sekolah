@@ -101,6 +101,49 @@
 
 <script>
     $(document).ready(function () {
+        $('#dashboard-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.forum.dashboard') }}",
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'judul',
+                        name: 'judul'
+                    },
+                    {
+                        data: 'topik_id',
+                        name: 'topik_id'
+                    },
+                    {
+                        data: 'total_balasan',
+                        name: 'total_balasan'
+                    },
+                    {
+                        data: 'user_id',
+                        name: 'user_id'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'privasi',
+                        name: 'privasi'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
+
+                ],
+            });
+        
         $('#add').on('click', function () {
             $('.modal-title').html('Tambah Forum');
             $('#action').val('add');

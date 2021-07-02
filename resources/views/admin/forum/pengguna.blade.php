@@ -102,7 +102,40 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
-            $('#pengguna-table').DataTable();
+            $('#pengguna-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.forum.pengguna') }}",
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'username',
+                        name: 'username'
+                    },
+                    {
+                        data: 'user_id',
+                        name: 'user_id'
+                    },
+                    {
+                        data: 'kelas_id',
+                        name: 'kelas_id'
+                    },
+                    {
+                        data: 'total_postingan',
+                        name: 'total_postingan'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
+                ],
+            });
+            
 
             $('#mute').on('click', function () {
                 $('.modal-title').html('Tambah Pengguna');
