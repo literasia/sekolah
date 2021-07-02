@@ -247,7 +247,6 @@
                     Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
                     return false;
                 } 
-
                 let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
                                             <div class="col px-0">
                                                 <div class="form-group p-3">
@@ -272,7 +271,6 @@
                                         </div>`;
                 
                 $('#subject-wrapper').append(newSubjectField);
-
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
@@ -288,12 +286,10 @@
                             $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
-
                         counter++;
                     }
                 });
             });
-
             $("#removeButton").click(function () {
                 if(counter==1){
                     Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
@@ -302,7 +298,6 @@
                 counter--;       
                 $("#subject-group" + counter).remove();    
             });
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -313,20 +308,15 @@
             @if(request()->req == 'table')
             table.show();
             @endif
-
-
             $("#hari").change(function(){
                 _this = $(this);
                 $('#addButton').removeAttr('disabled');
                 $('#removeButton').removeAttr('disabled');
-
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
-
-
                         let jam_pelajarans = data;
                         $('#jam_pelajaran').html("");
                         $('#jam_pelajaran').append(`<option value="">-- Jam Ke --</option>`);

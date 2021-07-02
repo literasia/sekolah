@@ -90,10 +90,4 @@ Route::namespace('API')
         Route::get('library/get-tingkat', 'LibraryController@getTingkat');
         Route::get('library/get-buku/{sub_kategori}/{tingkat}', 'LibraryController@getBuku');
 
-        Route::get('banksoal/get-soal/{id}', 'BankSoalController@getBankSoal');
-        Route::get('banksoal/get-butirsoal/{bank_soal}', 'BankSoalController@getButirSoal' );
-
-        Route::get('cbt/get-soal-ujian/{id}', 'CBTController@getSoalUjian');
-        Route::get('cbt/get-butir-soal-ujian/{cbt_soal}', 'CBTController@getButirSoal');
-
     });

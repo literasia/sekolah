@@ -38,7 +38,7 @@
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label for="kelas">Kelas</label>
-                                    <input type="text" name="kelas" id="kelas" class="form-control form-control-sm" placeholder="Kelas">
+                                    <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Kelas">
                                     <span id="form_result" class="text-danger"></span>
                                 </div>
                             </div>
@@ -112,6 +112,7 @@
     </style>
 @endpush
 
+
 {{-- addons js --}}
 @push('js')
     <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
@@ -137,8 +138,8 @@
                 name: 'tingkat'
             },
             {
-                data: 'kelas',
-                name: 'kelas'
+                data: 'name',
+                name: 'name'
             },
             {
                 data: 'action',
@@ -172,14 +173,14 @@
                             // for (var count = 0; count <= data.errors.length; count++) {
                             html = data.errors[0];
                             // }
-                            $('#agama').addClass('is-invalid');
+                            $('#tingkat').addClass('is-invalid');
                             toastr.error(html);
                         }
 
                         if (data.success) {
                             Swal.fire("Berhasil", text, "success");
                             $('#tingkat').removeClass('is-invalid');
-                            $('#kelas').removeClass('is-invalid');
+                            $('#name').removeClass('is-invalid');
                             $('#form-tingkatpendidikan')[0].reset();
                             $('#action').val('add');
                             $('#btn')
@@ -204,7 +205,7 @@
                     dataType: 'JSON',
                     success: function (data) {
                         $('#tingkat').val(data.tingkat.tingkat);
-                        $('#kelas').val(data.tingkat.kelas);
+                        $('#name').val(data.tingkat.name);
                         $('#hidden_id').val(data.tingkat.id);
                         $('#action').val('edit');
                         $('#btn')
