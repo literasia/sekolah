@@ -242,42 +242,42 @@
         $(document).ready(function () {
             let counter = 1;
             
-            $("#addButton").click(function () {   
-                if(counter >= 15){
-                    Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
-                    return false;
-                } 
-                let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label>Jam Ke</label>
-                                                    <select name="jam_pelajaran_id[]" id="jam_pelajaran_${counter}" class="form-control form-control-sm">
-                                                        <option value="">-- Jam Ke --</option>
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label for="pelajaran">Pelajaran</label>
-                                                    <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
-                                                        <option value="">-- Pelajaran --</option>
-                                                        @foreach($pelajaran as $obj)
-                                                        <option value="{{$obj->id}}">{{$obj->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                
-                $('#subject-wrapper').append(newSubjectField);
+            $("#addButton").click(function () {                   
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari: $('#hari').val()},
                     success: function (data) {
+                        if(counter >= 15){
+                            Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
+                            return false;
+                        } 
+                        let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
+                                                    <div class="col px-0">
+                                                        <div class="form-group p-3">
+                                                            <label>Jam Ke</label>
+                                                            <select name="jam_pelajaran_id[]" id="jam_pelajaran_${counter}" class="form-control form-control-sm">
+                                                                <option value="">-- Jam Ke --</option>
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <div class="form-group p-3">
+                                                            <label for="pelajaran">Pelajaran</label>
+                                                            <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                                                <option value="">-- Pelajaran --</option>
+                                                                @foreach($pelajaran as $obj)
+                                                                <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                        
+                        $('#subject-wrapper').append(newSubjectField);
+
                         let jam_pelajarans = data;
-                        console.log(`#jam_pelajaran_${counter}`)
                         $(`#jam_pelajaran_${counter}`).html("");
                         $(`#jam_pelajaran_${counter}`).append(`<option value="">-- Jam Ke --</option>`);
                         jam_pelajarans.forEach(data => {
@@ -286,9 +286,11 @@
                             $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
+
                         counter++;
                     }
                 });
+
             });
             $("#removeButton").click(function () {
                 if(counter==1){
