@@ -9,6 +9,7 @@ use App\Models\Admin\Materi;
 use App\Models\TingkatanKelas;
 use App\Models\Pegawai;
 use App\Models\Admin\Jurusan;
+use App\Models\Admin\Forum;
 
 class Kelas extends Model
 { //
@@ -41,5 +42,8 @@ class Kelas extends Model
     
     public function jurusan(){
         return $this->belongsTo(Jurusan::class);
+    }
+    public function penggunaforum(){
+        return $this->hasMany(PenggunaForum::class);
     }
 }
