@@ -4,9 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, ButirSoal, PengaturanKuis};
+use App\Models\Admin\{Kuis, Soal, ButirSoal, PengaturanKuis, JawabanKuisSiswa};
 use App\Models\{Guru, Siswa};
 use App\Utils\ApiResponse;
+use App\User;
 
 class KuisController extends Controller
 {
@@ -108,15 +109,83 @@ class KuisController extends Controller
         ]);        
     }
 
-    public function updateJawaban(User $user, Kuis $kuis){
+    public function updateJawaban(User $user, Kuis $kuis, Request $request){
+        // get siswa
+        $siswa = Siswa::findOrFail($user->siswa_id);
+
         // ambil data jawaban siswa dimana kuisnya yang sedang dikerjakan
-        
+        $jawaban_kuis = JawabanKuisSiswa::where('siswa_id', $siswa->id)
+                                   ->where('kuis_id', $kuis->id)
+                                   ->where('butir_soal_id', $request->butir_soal_id)->first();
+
+        $data = [
+            'siswa_id' => $siswa->id,
+            'kuis_id' => $kuis->id,
+            'butir_soal_id' => $request->butir_soal_id, 
+            'jawaban' => $request->jawaban != "" ? null : strtoupper($request->jawaban),
+        ];
+
         // check apakah jawaban siswa tersebut sudah ada di table?
+        if ($jawaban_kuis == null) {
+            // jika belum create
+            JawabanKuisSiswa::create($data);
+        }else{
+            $jawaban_kuis->update($data);
+        }
 
-        // jika belum create
+        return response()->json(ApiResponse::success(['siswa_id' => $siswa->id,
+                                                      'kuis_id' => $kuis->id,
+                                                      'butir_soal_id' => $request->butir_soal_id, 
+                                                      'jawaban' => strtoupper($request->jawaban),
+                                                    ]));
+    }
 
-        // ambil kembali data jawaban siswa dimana kuisnya yang sedang dikerjakan
+    public function generateHasilKuis(User $user, Kuis $kuis){
+        // get siswa
+        $siswa = Siswa::findOrFail($user->siswa_id);
 
-        // update jawaban nya 
+        // get jawaban kuis siswa
+        $jawaban_kuis_siswa = JawabanKuisSiswa::where('siswa_id', $siswa->id)
+                                    ->where('kuis_id', $kuis->id)
+                                    ->whereHas('butirSoal', function($query){
+                                        $query->where('jenis_soal', 'multiple-choice');
+                                    })
+                                    ->where('butir_soal_id', $request->butir_soal_id)->get();
+
+        // get butir soal where multiple choice : (yang dinilai cuma multiple choice)
+        $butir_soal = ButirSoal::where('jenis_soal', 'multiple-choice')->whereIn('id', function($query){
+            $query->select('butir_soal_id')->from('jawaban_kuis_siswas')->where('kuis_id', $kuis->id);
+        })->get();
+
+        $jawaban_benar = 0;
+        $jawaban_salah = 0;
+
+        foreach ($butir_soal as $item) {
+            if ($item->kunci_jawaban == $jawaban_kuis->jawaban) {
+                $jawaban_benar += 1;
+            }else{
+                $jawaban_salah += 1;
+            }
+        }
+
+        $nilai = $jawaban_benar;
+        $hasil_kuis = HasilKuis::where('kuis_id', $kuis->id)->where('user_id', $user->id)->first();
+        $get_jumlah_soal_pg = $jawaban_kuis_siswa->count();
+
+        return response()->json($get_jumlah_soal_pg);
+
+        $data = [
+            'kuis_id' => $kuis->id,
+            'siswa_id' => $siswa->id,
+            'jumlah_benar' => $jawaban_benar,
+            'jumlah_salah' => $jawaban_salah,
+            'nilai' => $nilai,
+        ];
+
+        if ($hasil_kuis == null) {
+            HasilKuis::create($data);
+        }else{
+            $hasil_kuis->update($data);
+        }
     }
 }
