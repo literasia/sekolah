@@ -137,8 +137,8 @@
                         name: 'privasi'
                     },
                     {
-                        data: 'created_at',
-                        name: 'created_at'
+                        data: 'action',
+                        name: 'action'
                     }
 
                 ],

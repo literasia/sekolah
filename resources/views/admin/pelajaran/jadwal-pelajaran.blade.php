@@ -81,7 +81,7 @@
                                         <div class="col px-0">
                                             <div class="form-group p-3">
                                                 <label>Jam Ke</label>
-                                                <select name="jam_pelajaran_id[]" id="jam_pelajaran_" class="form-control form-control-sm">
+                                                <select name="jam_pelajaran_id[]" id="jam_pelajaran" class="form-control form-control-sm">
                                                     <option value="">Pilih hari terlebih dahulu</option>
                                                 </select>
                                             </div>
@@ -89,7 +89,7 @@
                                         <div class="col px-0">
                                             <div class="form-group p-3">
                                                 <label for="pelajaran">Pelajaran</label>
-                                                <select name="mata_pelajaran_id[]" id="mata_pelajaran_id_" class="form-control form-control-sm">
+                                                <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
                                                     <option value="">-- Pelajaran --</option>
                                                     @foreach($pelajaran as $obj)
                                                     <option value="{{$obj->id}}">{{$obj->name}}</option>
@@ -242,42 +242,40 @@
         $(document).ready(function () {
             let counter = 1;
             
-            $("#addButton").click(function () {   
-                if(counter >= 15){
-                    Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
-                    return false;
-                } 
-
-                let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group">
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label>Jam Ke</label>
-                                                    <select name="jam_pelajaran_id[]" id="jam_pelajaran_${counter}" class="form-control form-control-sm">
-                                                        <option value="">-- Jam Ke --</option>
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col px-0">
-                                                <div class="form-group p-3">
-                                                    <label for="pelajaran">Pelajaran</label>
-                                                    <select name="mata_pelajaran_id[]" id="mata_pelajaran_id_${counter}" class="form-control form-control-sm">
-                                                        <option value="">-- Pelajaran --</option>
-                                                        @foreach($pelajaran as $obj)
-                                                        <option value="{{$obj->id}}">{{$obj->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                
-                $('#subject-wrapper').append(newSubjectField);
-
+            $("#addButton").click(function () {                   
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari: $('#hari').val()},
                     success: function (data) {
+                        if(counter >= 15){
+                            Swal.fire('Perhatian!', 'Hanya boleh 15 mata pelajaran saja! Silahkan isi kembali nanti.', 'warning');
+                            return false;
+                        } 
+                        let newSubjectField =  `<div class="row border rounded mata-pelajaran mt-3" id="subject-group${counter}">
+                                                    <div class="col px-0">
+                                                        <div class="form-group p-3">
+                                                            <label>Jam Ke</label>
+                                                            <select name="jam_pelajaran_id[]" id="jam_pelajaran_${counter}" class="form-control form-control-sm">
+                                                                <option value="">-- Jam Ke --</option>
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col px-0">
+                                                        <div class="form-group p-3">
+                                                            <label for="pelajaran">Pelajaran</label>
+                                                            <select name="mata_pelajaran_id[]" id="mata_pelajaran_id" class="form-control form-control-sm">
+                                                                <option value="">-- Pelajaran --</option>
+                                                                @foreach($pelajaran as $obj)
+                                                                <option value="{{$obj->id}}">{{$obj->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                        
+                        $('#subject-wrapper').append(newSubjectField);
                         let jam_pelajarans = data;
                         $(`#jam_pelajaran_${counter}`).html("");
                         $(`#jam_pelajaran_${counter}`).append(`<option value="">-- Jam Ke --</option>`);
@@ -287,19 +285,18 @@
                             $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
-
                         counter++;
                     }
                 });
             });
 
-            $("#removeButton").click(function (e) {
-                if(counter < 1){
+            $("#removeButton").click(function () {
+                if(counter==1){
                     Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
                     return false;
-                }
-                counter--;
-                $('#subject-group' + counter).remove();    
+                }      
+                counter--;       
+                $("#subject-group" + counter).remove();    
             });
 
             $.ajaxSetup({
@@ -307,38 +304,35 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             var table = $('#showjpcard');
             table.hide();
             @if(request()->req == 'table')
             table.show();
             @endif
 
-
             $("#hari").change(function(){
                 _this = $(this);
                 $('#addButton').removeAttr('disabled');
                 $('#removeButton').removeAttr('disabled');
-
                 $.ajax({
                     url: "{{ route('admin.pelajaran.jadwal-pelajaran.getJamPelajaran') }}",
                     method: 'POST',
                     data: {hari:_this.val()},
                     success: function (data) {
-
-
                         let jam_pelajarans = data;
-                        $('#jam_pelajaran_0').html("");
-                        $('#jam_pelajaran_0').append(`<option value="">-- Jam Ke --</option>`);
+                        $('#jam_pelajaran').html("");
+                        $('#jam_pelajaran').append(`<option value="">-- Jam Ke --</option>`);
                         jam_pelajarans.forEach(data => {
                             let jam_mulai = data.jam_mulai.split(":");
                             let jam_selesai = data.jam_selesai.split(":");
-                            $('#jam_pelajaran_0').append(`<option value='${data.id}'>
+                            $('#jam_pelajaran').append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
-                        // console.log(data);
                     }
                 });
             })
+
             var resetForm = () => {
               $('select[name=kelas_id]').val("{{ $kelas[0] ?? null }}");
               $('select[name=mata_pelajaran_id]').val("{{ $mata_pelajaran[0]->id ?? null }}");
@@ -350,9 +344,11 @@
               $radios.prop('checked', false);
               $radios.filter('[value=1]').prop('checked', true);
             };
+
             $("#reset-form").click(() => {
               resetForm();
             });
+
             $('#form-jadwal-pelajaran').on('submit', function (event) {
                 console.log('tes');
                 event.preventDefault();
@@ -377,6 +373,7 @@
                     }
                 });
             });
+
             $("#showjpcard").on('click', '.btn-delete', function(ev, data) {
                 var id = ev.currentTarget.getAttribute('data-id');
                 Swal.fire({
@@ -409,7 +406,7 @@
                             }
                         });
                     }
-                    })
+                })
             });
         });
     </script>

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Superadmin\Addons;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class MateriController extends Controller
 { 
@@ -49,7 +50,17 @@ class MateriController extends Controller
                         return '<label class="badge badge-success m-0">Terbit</label>';
                     }
                 })
-                ->rawColumns(['action', 'status'])
+                ->addColumn('media', function ($data) {
+                    if (!empty($data->media)) {
+                        $btnlink = '<a target="_blank" href="'.Storage::url('media_materi/wLVJVgmhOqwdzCFwLYrYjKpo2wAOchXTuMU9rwYJ.webp').'" class="badge badge-warning">Lihat Media</a>';
+                        return $btnlink;
+                    }
+
+                    return "-";
+                    
+                    return $data->media;
+                })
+                ->rawColumns(['action', 'status', 'media'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -71,6 +82,7 @@ class MateriController extends Controller
             'kelas_id' => 'required|max:100',
             'materi' => 'required|',
             'status' => 'required|max:100',
+            'keterangan' => 'required|',
         ];
 
         $validator = Validator::make($data, $rules);
@@ -101,9 +113,9 @@ class MateriController extends Controller
         $guru = Guru::where('user_id', auth()->user()->id)->first();
 
         // Add Photo to public
-        $request['media'] = null;
+        $request->media = null;
         if ($request->file('media')) {
-            $data['media'] = $request->file('media')->store('media_materi', 'public');
+            $request->media = $request->file('media')->store('media_materi', 'public');
         }
   
 
@@ -115,9 +127,10 @@ class MateriController extends Controller
             'sekolah_id' => auth()->user()->id_sekolah,
             'materi' => $request->materi,
             'status' => $request->status,
+            'keterangan' => $request->keterangan,
             'tanggal_terbit' => $tanggal_terbit,
             'jam_terbit' => $jam_terbit,
-            'media' => $request['media'],
+            'media' => $request->media,
         ]);
     
         return response()
@@ -180,15 +193,15 @@ class MateriController extends Controller
             $jam_terbit = date('h:i:s', strtotime($request->jam_terbit));
         }
 
-        $data['media'] = $pegawai->media;
+        $data['media'] = $materi->media;
 
         // Request new photo
         if ($request->file('media')) {
             // Insert new photo
             $data['media'] = $request->file('media')->store('media_materi', 'public');
             // if exist same file photo delete it
-            if ($request->file('media') && $currFoto && Storage::disk('public')->exists($currFoto)) {
-                Storage::disk('public')->delete($currFoto);
+            if ($request->file('media') && Storage::disk('public')->exists($materi->media)) {
+                Storage::disk('public')->delete($materi->media);
             }
         } 
         

@@ -303,6 +303,10 @@ Route::namespace('ELearning')->group(function () {
         ->name('e-learning.butir-soal.update');
     Route::get('/admin/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')
         ->name('e-learning.butir-soal.delete');
+
+    // Nilai
+    Route::get('/admin/e-learning/nilai', 'NilaiController@index')
+        ->name('e-learning.nilai');
 });
 
 // CBT
@@ -453,6 +457,14 @@ Route::namespace('Forum')->group(function () {
     Route::post('/admin/forum/pengguna/update', 'PenggunaController@update')
         ->name('forum.pengguna.update');
     Route::get('/admin/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
+
+    // Balasan
+    Route::get('/admin/forum/balasan', 'BalasanController@index')
+        ->name('forum.balasan');
+
+    // Tautan
+    Route::get('/admin/forum/tautan', 'TautanController@index')
+        ->name('forum.tautan');
 
     // Pengaturan
     Route::get('/admin/forum/pengaturan-forum', 'PengaturanController@index')
