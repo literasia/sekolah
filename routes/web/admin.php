@@ -465,6 +465,18 @@ Route::namespace('Forum')->group(function () {
     // Tautan
     Route::get('/admin/forum/tautan', 'TautanController@index')
         ->name('forum.tautan');
+
+    // Pengaturan
+    Route::get('/admin/forum/pengaturan-forum', 'PengaturanController@index')
+        ->name('forum.pengaturan-forum');
+    Route::post('/admin/forum/pengaturan-forum', 'PengaturanController@store')
+        ->name('forum.pengaturan-forum.store');
+    Route::get('/admin/forum/pengaturan-forum/{id}', 'PengaturanController@edit')
+        ->name('forum.pengaturan-forum.edit');
+    Route::post('/admin/forum/pengaturan-forum/update', 'PengaturanController@update')
+        ->name('forum.pengaturan-forum.update');
+    Route::get('/admin/forum/pengaturan-forum/hapus/{id}', 'PengaturanController@destroy')
+        ->name('forum.pengaturan-forum.delete');
 });
     
 
