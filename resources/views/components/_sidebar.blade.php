@@ -433,7 +433,7 @@
                 @endif
 
                 @if ($addons != null && $addons->forum)
-                <li class="@if (request()->is('admin/forum/dashboard') || request()->is('admin/forum/topik') || request()->is('admin/forum/pengguna')) || request()->is('admin/forum/pengaturan-forum')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/forum/dashboard') || request()->is('admin/forum/topik') || request()->is('admin/forum/pengguna')) || request()->is('admin/forum/balasan') || request()->is('admin/forum/tautan') || request()->is('admin/forum/pengaturan-forum')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
                         <span class="pcoded-mtext">Forum</span>
@@ -454,6 +454,16 @@
                                 <span class="pcoded-mtext">Pengguna</span>
                             </a>
                         </li> 
+                        <li class="{{ request()->is('admin/forum/balasan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.balasan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Balasan</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/forum/tautan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.tautan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tautan</span>
+                            </a>
+                        </li>
                         <li class="{{ request()->is('admin/forum/pengaturan-forum') ? 'active' : '' }}">
                             <a href="{{ route('admin.forum.pengaturan-forum') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pengaturan</span>

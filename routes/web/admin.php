@@ -458,6 +458,14 @@ Route::namespace('Forum')->group(function () {
         ->name('forum.pengguna.update');
     Route::get('/admin/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
 
+    // Balasan
+    Route::get('/admin/forum/balasan', 'BalasanController@index')
+        ->name('forum.balasan');
+
+    // Tautan
+    Route::get('/admin/forum/tautan', 'TautanController@index')
+        ->name('forum.tautan');
+
     // Pengaturan
     Route::get('/admin/forum/pengaturan-forum', 'PengaturanController@index')
         ->name('forum.pengaturan-forum');

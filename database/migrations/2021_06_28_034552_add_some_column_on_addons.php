@@ -14,8 +14,8 @@ class AddSomeColumnOnAddons extends Migration
     public function up()
     {
         Schema::table('addons', function (Blueprint $table) {
-            $table->integer('cbt')->default(0);
-            $table->integer('pengumuman')->default(0);
+            $table->integer('cbt')->default(1);
+            $table->integer('pengumuman')->default(1);
         });
     }
 
