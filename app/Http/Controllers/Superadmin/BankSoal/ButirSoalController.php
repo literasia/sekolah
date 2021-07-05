@@ -30,8 +30,8 @@ class ButirSoalController extends Controller
             $butir_soal = new BankButirSoal;
             
             if (!empty($request->tingkat_id)) {
-                $tingkat_id = $request->tingkat_id;
-                $butir_soal->where('soal', function($query) use($tingkat_id){
+                // $tingkat_id = $request->tingkat_id;
+                $butir_soal = $butir_soal->whereHas('soal', function($query) use($tingkat_id){
                     $query->where('tingkat_id', $tingkat_id);
                 });
             }
