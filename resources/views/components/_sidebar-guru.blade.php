@@ -294,6 +294,11 @@
                                 <span class="pcoded-mtext">Kuis</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('guru/e-learning/nilai') ? 'active' : '' }}">
+                            <a href="{{ route('guru.e-learning.nilai') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Nilai</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

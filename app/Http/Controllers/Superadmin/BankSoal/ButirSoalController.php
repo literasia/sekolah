@@ -30,19 +30,16 @@ class ButirSoalController extends Controller
             $butir_soal = new BankButirSoal;
             
             if (!empty($request->tingkat_id)) {
-                $tingkat_id = $request->tingkat_id;
-                $butir_soal->where('soal', function($query) use($tingkat_id){
+                $butir_soal = $butir_soal->whereHas('soal', function($query) use($tingkat_id){
                     $query->where('tingkat_id', $tingkat_id);
                 });
             }
     
             if (!empty($request->soal_id)) {
-                $butir_soal->where('soal_id', $request->soal_id);
+                $butir_soal = $butir_soal->where('soal_id', $request->soal_id);
             }
-
-            $butir_soal = $butir_soal->get();
     
-            return DataTables::of($butir_soal)
+            return DataTables::of($butir_soal->get())
                 ->addColumn('action', function ($butir_soal) {
                     $button = '<button type="button" data-id="'.$butir_soal->id.'" class="preview btn btn-mini btn-warning shadow-sm"><i class="fa fa-eye"></i></button>';
                     $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$butir_soal->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
