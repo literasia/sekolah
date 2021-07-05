@@ -9,6 +9,7 @@ use App\Models\Superadmin\Addons;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Topik;
 use Yajra\DataTables\DataTables;
+use Validator;
 
 class TopikController extends Controller
 {
@@ -25,6 +26,7 @@ class TopikController extends Controller
                     return $button;
                 })
                 ->rawColumns(['action'])
+                ->addIndexColumn()
                 ->make(true);
         }
 
@@ -32,6 +34,77 @@ class TopikController extends Controller
         return view("admin.forum.topik")->with('addons', $addons)
                                         ->with('mySekolah', User::sekolah());
 
+    }
+
+    public function store(Request $request)
+    {
+        $rules = [
+            'judul' => 'required',
+        ];
+
+        $message = [
+            'judul.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if($validator->fails()){
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        Topik::create([
+            'judul' => $request->input('judul')
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Ditambahkan.',
+            ]);
+    }
+
+    public function edit($id){
+        $topik = Topik::find($id);
+
+        return response()
+            ->json([
+                'topik' => $topik,
+            ]);
+    }
+
+    public function update(Request $request) {
+        $rules = [
+            'judul' => 'required',
+        ];
+
+        $message = [
+            'judul.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        Topik::whereId($request->hidden_id)->update([
+            'judul' => $request->input('judul'),
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Updated.',
+            ]);
+    }
+
+    public function destroy($id){
+        $topik = Topik::find($id);
+        $topik->delete();
     }
 }
  
