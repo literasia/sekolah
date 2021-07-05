@@ -44,7 +44,10 @@
                                             <tr>
                                                 <td>{{ $siswa->nis }}</td>
                                                 <td>{{ $siswa->nama_lengkap }}</td>
-                                                <td>{{ $siswa->kelas->name }}</td>
+                                                <td>
+                                                    @if (!empty($siswa->kelas->name))
+                                                        {{ $siswa->kelas->name }}</td>
+                                                    @endif
                                                 <td>{{ $siswa->jk }}</td>
                                                 <td>{{ $siswa->alamat_tinggal }}</td>
                                                 <td>{{ $siswa->poin_sp}}</td>

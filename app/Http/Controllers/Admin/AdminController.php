@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Superadmin\Addons;
 
 class AdminController extends Controller
-{ // .
+{
     public function index() {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         

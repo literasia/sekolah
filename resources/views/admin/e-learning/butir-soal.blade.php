@@ -189,10 +189,10 @@
                         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
                         $('#preview-opsi-group').html('');
                         for (let index = 0; index < jawabans.length; index++) {
-                            let previewJawaban =    `<div class="form-check my-3">
-                                                        <input class="form-check-input" ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 'checked' : ''} type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                        <label class="form-check-label" for="flexRadioDefault2">${jawabans[index]}${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
-                                                            '<label for="" class="label label-sm label-success ml-3">Jawaban yang Benar</label>' : ''
+                            let previewJawaban =    `<div class="form-check my-3" >
+                                                        <input class="form-check-input" disabled ${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 'checked' : ''} type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" disabled for="flexRadioDefault2">${jawabans[index]}${data.kunci_jawaban.toUpperCase() == alphabet[index] ? 
+                                                            '<label for="" class="label label-sm label-success ml-3" >Jawaban yang Benar</label>' : ''
                                                         }</label>
                                                     </div>`;
                             $('#preview-opsi-group').append(previewJawaban);
@@ -227,6 +227,7 @@
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
+            counter = 1;
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
                 return false;
@@ -293,7 +294,8 @@
             });
         }
             
-        $('#add').on('click', function() {    
+        $('#add').on('click', function() {   
+            counter = 1; 
             $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
             $('#point').val(1);

@@ -250,10 +250,14 @@ Route::namespace('Superadmin')
                 Route::get('/superadmin/referensi/suku/hapus/{id}', 'SukuController@destroy');
 
                 // Mata Pelajaran
+                // Mata Pelajaran
                 Route::get('/superadmin/referensi/matapelajaran', 'MataPelajaranController@index')
-                    ->name('referensi.matapelajaran');
-                Route::post('/superadmin/referensi/matapelajaran', 'MataPelajaranController@write')
-                    ->name('referensi.matapelajaran.write');
+                     ->name('referensi.matapelajaran');
+                Route::post('/superadmin/referensi/matapelajaran', 'MataPelajaranController@store');
+                Route::get('/superadmin/referensi/matapelajaran/{id}', 'MataPelajaranController@edit');
+                Route::post('/superadmin/referensi/matapelajaran/update', 'MataPelajaranController@update')
+                     ->name('referensi.matapelajaran-update');
+                Route::get('/superadmin/referensi/matapelajaran/hapus/{id}', 'MataPelajaranController@destroy');
 
 
                 Route::get('/superadmin/referensi/tingkatpendidikan', 'TingkatPendidikanController@index')
@@ -301,6 +305,8 @@ Route::namespace('Superadmin')
             });
     });
 
+
+
 Route::namespace('Superadmin')
     ->name('superadmin.')
     ->prefix('superadmin')
@@ -310,7 +316,17 @@ Route::namespace('Superadmin')
 
         Route::resource('berita', 'Berita\BeritaController');
 
-        Route::resource('library', 'Library\TambahController');
+        Route::namespace('Library')->group(function(){
+            Route::get('library', 'TambahController@index')->name('library.index');
+            Route::post('library/store', 'TambahController@store')->name('library.store');
+            Route::get('library/show/{id}', 'TambahController@show')->name('library.show');
+            Route::get('library/delete/{id}', 'TambahController@destroy')->name('library.destroy');
+            Route::post('library/update', 'TambahController@update')->name('library.update');
+       
+        });
+
+        // Route::resource('library', 'Library\TambahController');
+      
         Route::namespace('Library')
             ->group(function () {
                 // Route::resource('library-tipe', 'KategoriController');

@@ -86,8 +86,8 @@
                                 <span class="pcoded-mtext">Kelas</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('admin/sekolah/jam') ? 'active' : '' }}">
-                            <a href="{{ route('admin.sekolah.jam') }}" class="waves-effect waves-dark">
+                        <li class="{{ request()->is('admin/sekolah/jam-pelajaran') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sekolah.jam-pelajaran') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Jam Pelajaran</span>
                             </a>
                         </li>
@@ -205,7 +205,7 @@
                 @endif
 
                 @if ($addons != null && $addons->e_learning)
-                <li class="@if (request()->is('admin/e-learning/materi') || request()->is('admin/e-learning/kuis') || request()->is('admin/e-learning/soal') || request()->is('admin/e-learning/butir-soal')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/e-learning/materi') || request()->is('admin/e-learning/kuis') || request()->is('admin/e-learning/soal') || request()->is('admin/e-learning/butir-soal') || request()->is('admin/e-learning/nilai')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-swatchbook"></i></span>
                         <span class="pcoded-mtext">E-Learning</span>
@@ -231,10 +231,16 @@
                                 <span class="pcoded-mtext">Kuis</span>
                             </a>
                         </li>
+                        <li class="{{ request()->is('admin/e-learning/nilai') ? 'active' : '' }}">
+                            <a href="{{ route('admin.e-learning.nilai') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Nilai</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @endif
 
+                @if ($addons != null && $addons->cbt)
                 <li class="@if (request()->is('admin/cbt/soal-ujian') || request()->is('admin/cbt/butir-soal-ujian')) || request()->is('admin/cbt/ujian')) || request()->is('admin/cbt/penilaian') || request()->is('admin/cbt/ranking') pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-desktop"></i></span>
@@ -268,6 +274,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif 
 
                 <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
@@ -393,6 +400,7 @@
                 </li>
                 @endif
 
+                @if ($addons != null && $addons->pengumuman) 
                 <li class="@if (request()->is('admin/pengumuman/pesan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-bell"></i></span>
@@ -406,6 +414,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif 
                 
                 @if ($addons != null && $addons->leaderboard)
                 <li class="@if (request()->is('admin/leaderboard/leaderboard') || request()->is('admin/leaderboard/aktifitas')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
@@ -424,7 +433,7 @@
                 @endif
 
                 @if ($addons != null && $addons->forum)
-                <li class="@if (request()->is('admin/forum/dashboard') || request()->is('admin/forum/topik') || request()->is('admin/forum/pengguna')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('admin/forum/dashboard') || request()->is('admin/forum/topik') || request()->is('admin/forum/pengguna')) || request()->is('admin/forum/balasan') || request()->is('admin/forum/tautan') || request()->is('admin/forum/pengaturan-forum')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0);" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="fa fa-comments"></i></span>
                         <span class="pcoded-mtext">Forum</span>
@@ -444,7 +453,22 @@
                             <a href="{{ route('admin.forum.pengguna') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pengguna</span>
                             </a>
-                        </li>                        
+                        </li> 
+                        <li class="{{ request()->is('admin/forum/balasan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.balasan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Balasan</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/forum/tautan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.tautan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Tautan</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('admin/forum/pengaturan-forum') ? 'active' : '' }}">
+                            <a href="{{ route('admin.forum.pengaturan-forum') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Pengaturan</span>
+                            </a>
+                        </li>                       
                     </ul>
                 </li>
                 @endif

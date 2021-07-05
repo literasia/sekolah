@@ -301,6 +301,8 @@
                         data.pelanggaran == 1 ? $('#pelanggaran').prop('checked', true) : $('#pelanggaran').prop('checked', false);
                         data.leaderboard == 1 ? $('#leaderboard').prop('checked', true) : $('#leaderboard').prop('checked', false);
                         data.forum == 1 ? $('#forum').prop('checked', true) : $('#forum').prop('checked', false);
+                        data.cbt == 1 ? $('#cbt').prop('checked', true) : $('#cbt').prop('checked', false);
+                        data.pengumuman == 1 ? $('#pengumuman').prop('checked', true) : $('#pengumuman').prop('checked', false);
                         $('#password-lama-group').css('display', 'block');
                         $('#password-baru-group').css('display', 'block');
                         $('#password-konfirmasi-group').css('display', 'block');

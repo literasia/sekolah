@@ -39,8 +39,11 @@ class ListSekolahController extends Controller
 
         $provinsis = Provinsi::all();
         $kabupaten = KabupatenKota::all();
+        $sekolah = Sekolah::all();
+$tahun_ajaran = $request->tahun_ajaran;
 
-        return view('superadmin.list-sekolah', ['provinsis' => $provinsis, 'kabupaten' => $kabupaten]);
+
+        return view('superadmin.list-sekolah',compact('sekolah', 'tahun_ajaran'), ['provinsis' => $provinsis, 'kabupaten' => $kabupaten, 'sekolahs' => $sekolah]);
     }
 
     public function store(Request $req) {
@@ -120,6 +123,8 @@ class ListSekolahController extends Controller
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
             'forum' => !empty($req->forum) ? 1 : 0,
             'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
+            'cbt' => !empty($req->cbt) ? 1 : 0,
+            'pengumuman' => !empty($req->pengumuman) ? 1 : 0,
         ]);
 
         return response()
@@ -167,6 +172,8 @@ class ListSekolahController extends Controller
                 'kalender' => $addons->kalender,
                 'import' => $addons->import,
                 'perpustakaan' => $addons->perpustakaan,
+                'cbt' => $addons->cbt,
+                'pengumuman' => $addons->pengumuman,
             ]);
     }
 
@@ -256,6 +263,8 @@ class ListSekolahController extends Controller
             'perpustakaan' => !empty($req->perpustakaan) ? 1 : 0,
             'forum' => !empty($req->forum) ? 1 : 0,
             'leaderboard' => !empty($req->leaderboard) ? 1 : 0,
+            'cbt' => !empty($req->cbt) ? 1 : 0,
+            'pengumuman' => !empty($req->pengumuman) ? 1 : 0,
         ]);
 
         return response()
@@ -284,64 +293,4 @@ class ListSekolahController extends Controller
                 'success' => '👍 '.$sekolah->name.' berhasil dihapus!',
             ]);
     }
-
-    public function generate(){
-        $list_sekolah = Sekolah::get();
-        
-        foreach ($list_sekolah as $item) {
-            // get Roles to attach user roles
-            $role = Role::where('name', 'admin')->first();
-
-            $user = User::create([
-                'role_id' => $role->id,
-                'name' => 'admin-'.$item->name, //admin-smkn2
-                'username' => 'admin-'.$item->id_sekolah, //admin-0941231 
-                'email' => $item->name.'@gmail.com', // smk2@gmail.com
-                'id_sekolah' => $item->id, // sekolah_id
-                'password' => Hash::make('belajarterus'), //admin-0941231 (admin-idsekolah)
-            ]);
-
-            $user_id = User::findOrFail($user->id);
-
-            // attach
-            $user_id->roles()->attach($role->id);
-
-            $addons = Addons::where('sekolah_id', $item->id);
-
-            $addons->update([
-                'user_id' => $user->id,
-            ]);
-        }
-
-        return redirect()->back();
-    }
-
-    public function generateSiswa(){
-        $sekolah = Sekolah::get();
-        
-        foreach ($sekolah as $data_sekolah) {
-            foreach ($siswa as $item) {
-                // get Roles to attach user roles
-                $role = Role::where('name', 'siswa')->first();
-
-                $user = User::create([
-                    'role_id' => $role->id,
-                    'siswa_id' => $item->id,
-                    'name' => $item->nama_lengkap, //admin-smkn2
-                    'username' => $item->nisn, 
-                    'nis' => $item->nis,//admin-0941231 
-                    'id_sekolah' => $data_sekolah->id, // sekolah_id
-                    'password' => Hash::make('belajarterus'), //admin-0941231 (admin-idsekolah)
-                ]);
-
-                $user_id = User::findOrFail($user->id);
-                // attach
-                $user_id->roles()->attach($role->id);
-            }
-        }
-
-        return redirect()->back();
-    }
-
-    
 }

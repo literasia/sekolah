@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-materi">
+                <form id="form-materi" method="POST" enctype="multipart/form-data">
                     @csrf @method("POST")
                     <div class="row">
                         <div class="col">
@@ -59,12 +59,28 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control" name="keterangan" id="keterangan" cols="90" rows="5" placeholder="Keterangan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control form-control-sm">
                                     <option value="">-- Pilih --</option>
                                     <option value="Draf">Draf</option>
                                     <option value="Terbitkan">Terbitkan</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="media">Media</label>
+                                <input type="file" name="media" id="media">
                             </div>
                         </div>
 

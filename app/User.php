@@ -13,6 +13,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Superadmin\Addons;
+use App\Models\Admin\Forum;
+use App\Models\Admin\Pengguna;
+
 
 class User extends Authenticatable
 {
@@ -88,4 +91,11 @@ class User extends Authenticatable
     public function jurusan(){
         return $this->hasMany(Jurusan::class);
     }
+    public function forum(){
+        return $this->hasMany(Forum::class);
+    }
+
+    public function pengguna(){
+        return $this->hashMany(Pengguna::class);
+    } 
 }

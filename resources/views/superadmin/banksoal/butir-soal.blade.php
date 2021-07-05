@@ -24,13 +24,13 @@
                     <form action="" method="GET">
                         <div class="row">
                             <div class="col-xl-4">
-                                <select name="kelas_id" id="pilih" class="form-control form-control-sm">
-                                    <option value="">-- Kelas --</option>
-                                    @foreach ($kelas as $item)
+                                <select name="tingkat_id" id="pilih" class="form-control form-control-sm">
+                                    <option value="">-- Tingkat Pendidikan --</option>
+                                    @foreach ($tingkat as $item)
                                         <option value="{{ $item->id }}"
-                                            @if ($item->id == $kelas_id)
+                                            @if ($item->id == $tingkat_id)
                                                 selected
-                                            @endif>{{ $item->tingkatanKelas->name }} - {{ $item->name }}</option>
+                                            @endif>{{ $item->tingkat }} - {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -61,7 +61,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
-                    @if ($soal_id != "" || $kelas_id != "")
+                    @if ($soal_id != "" || $tingkat_id != "")
                         <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     @endif
                     <div class="dt-responsive table-responsive mt-3">
@@ -224,9 +224,11 @@
         let alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
         
         $("#addButton").click(function () {
+            // alert(counter);
+            
             if(counter >= 6){
                 Swal.fire('Perhatian!', 'Hanya boleh 6 input form saja!', 'warning');
-                return false;
+                return false;   
             }   
         
             let newAnswerField =  `<div id="answer-form${counter}">
@@ -253,7 +255,7 @@
             $("#answer-form" + counter).remove();    
         });
         
-        if (`{{ $kelas_id }}` != "" || `{{ $soal_id }}` != "") {
+        if (`{{ $tingkat_id }}` != "" || `{{ $soal_id }}` != "") {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -262,7 +264,7 @@
                     type: "GET",
                     data: {
                         'soal_id' : `{{ $soal_id }}`,
-                        'kelas_id' : `{{ $kelas_id }}`,
+                        'tingkat_id' : `{{ $tingkat_id }}`,
                     }
                 },
                 columns: [
@@ -291,6 +293,7 @@
         }
             
         $('#add').on('click', function() {    
+            counter = 1;
             $('.modal-title').html('Tambah Butir Soal');
             $('.form-control').val('');
             $('#point').val(1);

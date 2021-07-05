@@ -174,10 +174,10 @@ Route::namespace('Sekolah')->group(function () {
     Route::get('/admin/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
 
     // Jam Pelajaran
-    Route::get('/admin/sekolah/jam', 'JamPelajaranController@index')
-        ->name('sekolah.jam');
-    Route::post('/admin/sekolah/jam', 'JamPelajaranController@write')
-        ->name('sekolah.jam.write');
+    Route::get('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@index')
+        ->name('sekolah.jam-pelajaran');
+    Route::post('/admin/sekolah/jam-pelajaran', 'JamPelajaranController@write')
+        ->name('sekolah.jam-pelajaran.write');
  });
 
 // Pelajaran
@@ -303,6 +303,10 @@ Route::namespace('ELearning')->group(function () {
         ->name('e-learning.butir-soal.update');
     Route::get('/admin/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')
         ->name('e-learning.butir-soal.delete');
+
+    // Nilai
+    Route::get('/admin/e-learning/nilai', 'NilaiController@index')
+        ->name('e-learning.nilai');
 });
 
 // CBT
@@ -453,6 +457,26 @@ Route::namespace('Forum')->group(function () {
     Route::post('/admin/forum/pengguna/update', 'PenggunaController@update')
         ->name('forum.pengguna.update');
     Route::get('/admin/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
+
+    // Balasan
+    Route::get('/admin/forum/balasan', 'BalasanController@index')
+        ->name('forum.balasan');
+
+    // Tautan
+    Route::get('/admin/forum/tautan', 'TautanController@index')
+        ->name('forum.tautan');
+
+    // Pengaturan
+    Route::get('/admin/forum/pengaturan-forum', 'PengaturanController@index')
+        ->name('forum.pengaturan-forum');
+    Route::post('/admin/forum/pengaturan-forum', 'PengaturanController@store')
+        ->name('forum.pengaturan-forum.store');
+    Route::get('/admin/forum/pengaturan-forum/{id}', 'PengaturanController@edit')
+        ->name('forum.pengaturan-forum.edit');
+    Route::post('/admin/forum/pengaturan-forum/update', 'PengaturanController@update')
+        ->name('forum.pengaturan-forum.update');
+    Route::get('/admin/forum/pengaturan-forum/hapus/{id}', 'PengaturanController@destroy')
+        ->name('forum.pengaturan-forum.delete');
 });
     
 

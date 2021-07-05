@@ -76,10 +76,13 @@ Route::namespace('API')
         Route::post('test-login/school', 'AuthController@testSchoolLogin');
 
         // elearning
-        Route::get('elearning/get-materi/{id}', 'MateriController@getMateri');
-        Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
+        Route::get('elearning/get-mapel/{user}', 'MateriController@getMapel');
+        Route::get('elearning/get-materi/{user}/{mata_pelajaran}', 'MateriController@getMateri');
+        Route::get('elearning/get-detail-materi/{materi}', 'MateriController@getDetailMateri');
+        // Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
         Route::get('elearning/get-kuis/{kuis}', 'KuisController@getKuis');
-        Route::get('elearning/jawaban-siswa/{kuis}', 'KuisController@getKuis');
+        Route::post('elearning/update-jawaban/{user}/{kuis}', 'KuisController@updateJawaban');
+        // Route::post('elearning/finish-attempt/{user}/{kuis}', 'KuisController@finishAttempt');
 
         // New Library
         Route::get('library/get-kategori', 'LibraryController@getKategori');
