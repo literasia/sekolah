@@ -140,7 +140,7 @@ class KuisController extends Controller
                                                     ]));
     }
 
-    public function finishAttempt(Request $request){
+    public function finishQuiz(Request $request){
         $kuis_id = $request->kuis_id;
         $siswa_id = $request->siswa_id;
         // data yang dikirim string, harus di decode menjadi json
