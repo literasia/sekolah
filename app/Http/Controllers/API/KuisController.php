@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa};
+use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa};
 use App\Models\{Guru, Siswa};
 use App\Utils\ApiResponse;
 use App\User;
@@ -143,6 +143,7 @@ class KuisController extends Controller
     public function finishAttempt(Request $request){
         $kuis_id = $request->kuis_id;
         $siswa_id = $request->siswa_id;
+        // data yang dikirim string, harus di decode menjadi json
         $jawaban = json_decode($request->jawaban);
 
         // get siswa
@@ -155,29 +156,57 @@ class KuisController extends Controller
         $butir_soal = ButirSoal::where('soal_id', $kuis->soal_id)->get();
 
 
+        // masukkan kedalam table jawaban_kuis_siswa
+        foreach ($butir_soal as $key => $item) {
+            $key = array_search($item->id, array_column($jawaban, 'butir_soal_id'));
+            if (is_numeric($key)) {
+                $jawaban_kuis_siswa = JawabanKuisSiswa::where('siswa_id', $siswa_id)
+                                                      ->where('kuis_id', $kuis_id)
+                                                      ->where('butir_soal_id', $item->id)
+                                                      ->first();
+                
+                $jawaban_kuis_siswa_data = [
+                    'siswa_id' => $siswa_id,
+                    'kuis_id' => $kuis_id,
+                    'butir_soal_id' => $item->id,
+                    'jawaban' => $item->jenis_soal == "multiple-choice" ? strtoupper($jawaban[$key]->answer) : $jawaban[$key]->answer,
+                ];
+
+                // jika data jawaban kuis siswa tersebut sudah ada di table nya maka cukup update saja
+                if ($jawaban_kuis_siswa == null) {
+                    JawabanKuisSiswa::create($jawaban_kuis_siswa_data);
+                }else{
+                    $jawaban_kuis_siswa->update($jawaban_kuis_siswa_data);
+                }                                         
+            }
+        }
+        
+        // check benar salah pada jawaban
         $jawaban_benar = 0;
         $jawaban_salah = 0;
 
-        foreach ($butir_soal as $item) {
-            $key = array_search($item->id, array_column($jawaban, 'butir_soal_id'));
-            if (is_numeric($key)) {
-                // check jawabannya jawaban.answer == butir soal ujian.kunci_jawaban
-                if ($jawaban[0]->answer == $item->kunci_jawaban) {
-                    $jawaban_benar += 1;
-                }else{
-                    $jawaban_salah += 1;
-                }
-            }
+        // ambil semua data jawaban kuis siswa dimana kuis yg sedang dikerjakan dan siswa yang mengerjakan
+        // dan yang pg saja
+        $jawaban_kuis_siswa = JawabanKuisSiswa::whereHas('butirSoal', function($query){
+            $query->where('jenis_soal', 'multiple-choice');
+        })->where('kuis_id', $kuis_id)->where('siswa_id', $siswa_id)->get();
+
+        foreach ($jawaban_kuis_siswa as $item) {
+            if ($item->jawaban == $item->butirSoal->kunci_jawaban) {
+                $jawaban_benar += 1;            
+            }else{
+                $jawaban_salah += 1;
+            }   
         }
 
         // hitung total nilai
-        $total_nilai = ($jawaban_benar / count($jawaban)) * 100;
+        $total_nilai = ($jawaban_benar / count($jawaban_kuis_siswa)) * 100;
         
         // ambil hasil ujian yang kuis id nya itu dan siswa nya itu
         $hasil_kuis = HasilKuis::where('siswa_id', $siswa_id)->where('kuis_id', $kuis_id)->first();
     
         // jika udah ada update
-        $data = [
+        $hasil_kuis_data = [
             'kuis_id' => $kuis_id,
             'siswa_id' => $siswa_id,
             'jumlah_benar' => $jawaban_benar,
@@ -185,12 +214,26 @@ class KuisController extends Controller
             'nilai' => $total_nilai,
         ];
 
+        // jika hasil kuis sudah ada maka hanya perlu update saja.
         if ($hasil_kuis == null) {
-            HasilKuis::create($data);
+            HasilKuis::create($hasil_kuis_data);
         }else{
-            $hasil_kuis->update($data);
+            $hasil_kuis->update($hasil_kuis_data);
         }
 
+        // update log kuis
+        $log_kuis = LogKuis::where('siswa_id', $siswa_id)->where('kuis_id', $kuis_id)->first();
+
+        if ($log_kuis == null) {
+            LogKuis::create([
+                'siswa_id' => $siswa_id,
+                'kuis_id' => $kuis_id,
+                'status' => 1,
+            ]);
+        }
+
+        // regenerate
+        $hasil_kuis = HasilKuis::where('siswa_id', $siswa_id)->where('kuis_id', $kuis_id)->first();
         return response()->json(ApiResponse::success($hasil_kuis));
     }
 }   
