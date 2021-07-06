@@ -120,10 +120,6 @@
                     url = "{{ route('admin.forum.tautan') }}";
                     text = "Data sukses ditambahkan";
                 }
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.forum.tautan-update') }}";
-                    text = "Data sukses diupdate";
-                }
             });
         });
     </script>
