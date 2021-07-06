@@ -491,6 +491,12 @@ Route::namespace('Leaderboard')->group(function () {
     Route::get('/admin/leaderboard/leaderboard/hapus/{id}', 'LeaderboardController@destroy');
 });
 
+// Sambutan
+Route::namespace('Sambutan')->group(function () {
+    Route::get('/admin/sambutan/sambutan', 'SambutanController@index')
+        ->name('sambutan.sambutan');
+});
+
 // Perpustakaan
 Route::namespace('Perpustakaan')->group(function () {
     Route::get('/admin/perpustakaan/peminjaman', 'PeminjamanController@index')
