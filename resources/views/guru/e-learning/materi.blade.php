@@ -31,6 +31,7 @@
                                     <th>Kelas</th>
                                     <th>Tanggal</th>
                                     <th>Jam</th>
+                                    <th>Media</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -176,6 +177,10 @@
                 name: 'jam_terbit'
             },
             {
+                data: 'media',
+                name: 'media'
+            },
+            {
                 data: 'status',
                 name: 'status'
             },
@@ -213,12 +218,18 @@
                 text = "Data sukses diupdate";
             }
 
+            var formData = new FormData($(this)[0]);
+
             $.ajax({
                 url: url,
                 method: 'POST',
                 dataType: 'JSON',
-                data: $(this).serialize(),
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
                 success: function (data) {
+                    console.log(data);
                     if (data.errors) {
                         data.errors.name ? $('#name').addClass('is-invalid') : $('#name').removeClass('is-invalid');
                         data.errors.mata_pelajaran_id ? $('#mata_pelajaran_id').addClass('is-invalid') : $('#mata_pelajaran_id').removeClass('is-invalid');
@@ -245,7 +256,7 @@
                         $('#order-table').DataTable().ajax.reload();
                         $('#modal-materi').modal('hide');
                     }
-                }
+                },            
             });
         });
 

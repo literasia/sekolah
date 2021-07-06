@@ -52,7 +52,7 @@
                                             <input type="text" name="jawaban[]" id="jawaban" class="form-control form-control-sm mb-3">
                                         </div>
                                         <div class="col-4">
-                                            <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block">
+                                            <input type="radio" name="kunci_jawaban" value="A" class="d-inline-block" required>
                                             <p class="ml-2 d-inline-block">Jawaban yang benar</p>
                                         </div>
                                     </div>
@@ -78,4 +78,3 @@
         </div>
     </div>
 </div>
-<!--  -->

@@ -22,7 +22,7 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="nama_sekolah">Sekolah:</label>
-                                <select name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm">
+                                <select name="sekolah_id" id="nama_sekolah" class="form-control form-control-sm">
                                     <option value="">-- Pilih Sekolah --</option>
                                     @foreach ($sekolahs as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -32,34 +32,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label for="sub_kategori_id">Sub Kategori:</label>
-                                <select name="sub_kategori_id" id="sub_kategori_id" class="form-control form-control-sm" required>
-                                    <option value="">-- Sub Kategori --</option>
-                           <div class="form-group">
-                               <label for="sekolah_id">Nama Sekolah:</label>
-                               <select name="sekolah_id" id="sekolah_id" class="form-control form-control-sm">
-                                   <option value="">-- Nama Sekolah --</option>
-                                   @foreach ($sekolahs as $sekolah)
-                                       <option value="{{ $sekolah->id }}">{{ $sekolah->name }}</option>
-                                   @endforeach
-                               </select>
-                           </div>
-                        </div>
-                        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label for="tingkat">Tingakt:</label>-->
-                        <!--        <select name="tingkat" id="tingkat" class="form-control form-control-sm">-->
-                        <!--            <option value="">-- Tingkat --</option>-->
-                        <!--            <option value="SD">SD</option>-->
-                        <!--            <option value="SMP">SMP</option>-->
-                        <!--            <option value="SMA">SMA</option>-->
-                        <!--            <option value="SMK">SMK</option>-->
-                        <!--            <option value="Umum">Umum</option>-->
-                        <!--        </select>-->
-                        <!--    </div>-->
-                        <!--</div>-->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="sub_kategori_id">Sub Kategori:</label>

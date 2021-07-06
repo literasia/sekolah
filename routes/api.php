@@ -76,21 +76,16 @@ Route::namespace('API')
         Route::post('test-login/school', 'AuthController@testSchoolLogin');
 
         // elearning
-        Route::get('elearning/get-materi/{id}', 'MateriController@getMateri');
-        Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
+        Route::get('elearning/get-mapel/{user}', 'MateriController@getMapel');
+        Route::get('elearning/get-materi/{user}/{mata_pelajaran}', 'MateriController@getMateri');
+        Route::get('elearning/get-detail-materi/{materi}', 'MateriController@getDetailMateri');
+        // Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
         Route::get('elearning/get-kuis/{kuis}', 'KuisController@getKuis');
-        Route::get('elearning/jawaban-siswa/{kuis}', 'KuisController@getKuis');
+        Route::post('elearning/finish-quiz', 'KuisController@finishQuiz');
 
         // New Library
         Route::get('library/get-kategori', 'LibraryController@getKategori');
         Route::get('library/get-sub-kategori/{kategori}', 'LibraryController@getSubKategori');
-        Route::get('library/get-tingkat', 'LibraryController@getTingkat');
-        Route::get('library/get-buku/{sub_kategori}/{tingkat}', 'LibraryController@getBuku');
-
-        Route::get('banksoal/get-soal/{id}', 'BankSoalController@getBankSoal');
-        Route::get('banksoal/get-butirsoal/{bank_soal}', 'BankSoalController@getButirSoal' );
-
-        Route::get('cbt/get-soal-ujian/{id}', 'CBTController@getSoalUjian');
-        Route::get('cbt/get-butir-soal-ujian/{cbt_soal}', 'CBTController@getButirSoal');
+        Route::get('library/get-buku/{sub_kategori}', 'LibraryController@getBuku');
 
     });

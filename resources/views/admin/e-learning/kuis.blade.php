@@ -552,7 +552,7 @@
                         $('#label-hide-quiz').text('Aktif');
                     } else {
                         $('#hide-quiz').prop("checked", false );
-                        $('#label-restart-quiz').text('Aktifkan');
+                        $('#label-hide-quiz').text('Aktifkan');
                     }
 
                     if (data.pengaturan.restart_quiz == 1 ) {
@@ -587,7 +587,7 @@
                         $('#label-statistic').text('Aktifkan');
                     }
                     
-                    if (data.pengaturan.take_quiz_only_on == 1) {
+                    if (data.pengaturan.take_quiz_only_once == 1) {
                         $('#take_quiz_only_once').prop('checked', true);
                         $('#label-once-quiz').text('Aktif');
                     } else {

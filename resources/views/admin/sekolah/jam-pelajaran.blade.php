@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.sekolah.jam') }}
+    {{ route('admin.sekolah.jam-pelajaran') }}
 @endsection
 
 {{-- main content --}}
@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label for="hari">Hari</label>
                                         <select name="hari" id="hari" class="form-control form-control-sm">
-                                            <option disabled="" value="">-- Hari --</option>
+                                            <option value="">-- Hari --</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>
@@ -41,22 +41,35 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="hari">Jam ke</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke">
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="d-block mb-3">Jam Pelajaran</label>
+                                    <input type='button' value='Tambah Jam Pelajaran' id='addButton' class="btn btn-primary btn-mini" disabled>
+                                    <input type='button' value='Hapus Jam Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini" disabled>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="jam_mulai">Jam Mulai</label>
-                                        <input id="jam_mulai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai" required readonly>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="hari">Jam Selesai</label>
-                                        <input type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai" required readonly>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="subject-wrapper">
+                                    <div class="row border rounded jam-pelajaran mt-3" id="subject-group">
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="jam_pelajaran">Jam ke</label>
+                                                <input id="jam_pelajaran" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
+                                            </div>
+                                        </div>
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="jam_mulai">Jam Mulai</label>
+                                                <input id="jam_mulai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai[]" required readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col px-0">
+                                            <div class="form-group p-3">
+                                                <label for="jam_selesai">Jam Selesai</label>
+                                                <input id="jam_selesai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai[]" required readonly>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +188,7 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
-    <script>
+     <script>
         $(document).ready(function () {
 
             $('.clockpicker').clockpicker({donetext: 'Done', autoclose: true});
@@ -199,7 +212,7 @@
 
             $('#form-jam-pelajaran').on('submit', function (event) {
                 event.preventDefault();
-                var url = "{{ route('admin.sekolah.jam.write') }}?req=write";
+                var url = "{{ route('admin.sekolah.jam-pelajaran.write') }}?req=write";
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -228,7 +241,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{ route('admin.sekolah.jam.write') }}?req=delete&id=" + id,
+                    url: "{{ route('admin.sekolah.jam-pelajaran.write') }}?req=delete&id=" + id,
                     cache: false,
                     method: "POST",
                     processData: false,

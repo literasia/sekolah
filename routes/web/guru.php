@@ -280,4 +280,7 @@ Route::namespace('ELearning')->group(function () {
     Route::get('/guru/e-learning/butir-soal/{id}', 'ButirSoalController@edit')->name('e-learning.butir-soal.edit');
     Route::post('/guru/e-learning/butir-soal/update', 'ButirSoalController@update')->name('e-learning.butir-soal.update');
     Route::get('/guru/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('e-learning.butir-soal.delete');
+
+    // Nilai
+    Route::get('/guru/e-learning/nilai', 'NilaiController@index')->name('e-learning.nilai');
 });
