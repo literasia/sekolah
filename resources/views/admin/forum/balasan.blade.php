@@ -26,9 +26,8 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Balasan</th>
+                                    <th>Komentar/Balasan</th>
                                     <th>Forum</th>
-                                    <th>Topik</th>
                                     <th>Penulis</th>
                                     <th>Dibuat Pada</th>
                                     <th>Action</th>
@@ -92,7 +91,43 @@
 <script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
-    $('document').ready(function() {
+    $(document).ready(function() {
+
+        $('#reply-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.forum.balasan') }}",
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'komentar',
+                        name: 'komentar'
+                    },
+                    {
+                        data: 'judul',
+                        name: 'judul'
+                    },
+                    {
+                        data: 'user_id',
+                        name: 'user_id'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
+
+                ],
+            });
+
         $('#reply-table').DataTable();
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Balasan');

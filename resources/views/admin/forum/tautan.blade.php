@@ -112,7 +112,15 @@
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable();
-            
+            $('#form-tautan').on('submit', function (event) {
+                event.preventDefault();
+                var url = '';
+                var text = "Data sukses ditambahkan";
+                if ($('#action').val() == 'add') {
+                    url = "{{ route('admin.forum.tautan') }}";
+                    text = "Data sukses ditambahkan";
+                }
+            });
         });
     </script>
 @endpush

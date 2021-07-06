@@ -13,13 +13,13 @@ class AlterJadwalPelajaranKelas extends Migration
      */ //
     public function up()
     {
-        DB::transaction(function(){
-            DB::table('jadwal_pelajarans')->truncate();
+        // DB::transaction(function(){
+            // DB::table('jadwal_pelajarans')->truncate();
             Schema::table('jadwal_pelajarans', function(Blueprint $table){
                 $table->unsignedBigInteger('kelas_id');
                 $table->dropColumn('kelas');
             });
-        });
+        // });
     }
 
     /**
