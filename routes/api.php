@@ -82,7 +82,7 @@ Route::namespace('API')
         // Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
         Route::get('elearning/get-kuis/{kuis}', 'KuisController@getKuis');
         Route::post('elearning/update-jawaban/{user}/{kuis}', 'KuisController@updateJawaban');
-        // Route::post('elearning/finish-attempt/{user}/{kuis}', 'KuisController@finishAttempt');
+        Route::post('elearning/finish-attempt', 'KuisController@finishAttempt');
 
         // New Library
         Route::get('library/get-kategori', 'LibraryController@getKategori');

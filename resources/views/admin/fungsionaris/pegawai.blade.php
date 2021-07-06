@@ -238,11 +238,16 @@
                 text = "Data sukses diupdate";
             }
 
+            var formData = new FormData($(this)[0]);
+            
             $.ajax({
                 url: url,
                 method: 'POST',
                 dataType: 'JSON',
-                data: $(this).serialize(),
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
                 success: function (data) {
                     var html = '';
                     // old password error message

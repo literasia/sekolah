@@ -285,9 +285,11 @@
                             $(`#jam_pelajaran_${counter}`).append(`<option value='${data.id}'>
                                 ${jam_mulai[0]} : ${jam_mulai[1]} - ${jam_selesai[0]} : ${jam_selesai[1]}</option>`);
                         });
+
                         counter++;
                     }
                 });
+
             });
 
             $("#removeButton").click(function () {

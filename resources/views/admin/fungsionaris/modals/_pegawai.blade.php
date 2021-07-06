@@ -197,7 +197,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="foto">Foto Pegawai</label>
-                                <input type="file" name="foto" id="foto" class="form-control form-control-sm">
+                                <input type="file" name="foto" id="foto" >
                             </div>
                         </div>
                     </div>
