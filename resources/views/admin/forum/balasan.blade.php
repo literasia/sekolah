@@ -17,26 +17,29 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="card-block">
-                    <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
-                    <div class="dt-responsive table-responsive mt-3">
-                       <table id="reply-table" class="table table-striped table-bordered nowrap shadow-sm">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Komentar/Balasan</th>
-                                    <th>Forum</th>
-                                    <th>Penulis</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
+                <div class="card-body">
+                    <div class="card-block">
+                        <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
+                        <div class="dt-responsive table-responsive mt-3">
+                           <table id="reply-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Balasan</th>
+                                        <th>Judul Forum</th>
+                                        <th>Penulis</th>
+                                        <th>Dibuat Pada (Tanggal)</th>
+                                        <th>Dibuat Pada (Jam)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,6 +81,13 @@
     .modal-dialog {
         margin-bottom: 6rem!important;
     }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
 </style>
 @endpush
 
@@ -117,6 +127,10 @@
                         name: 'user_id'
                     },
                     {
+                        data: 'user_id',
+                        name: 'user_id'
+                    },
+                    {
                         data: 'created_at',
                         name: 'created_at'
                     },
@@ -128,6 +142,11 @@
                 ],
             });
 
+        $('#dibuat_pada').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
         $('#reply-table').DataTable();
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Balasan');
@@ -138,7 +157,8 @@
             $('#forum_id').val('');
             $('#topik_id').val('');
             $('#penulis_id').val('');
-            $('#dibuat_pada').val('');
+            $('#dibuat_pada_tanggal').val('');
+            $('#dibuat_pada_jam').val('');
             $('#status').val('');
             $('#btn')
                 .removeClass('btn-info')
@@ -148,7 +168,7 @@
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-soal').modal('show');
+            $('#modal-reply').modal('show');
         });
     });
 </script>
