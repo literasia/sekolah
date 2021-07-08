@@ -11,4 +11,8 @@ class HasilKuis extends Model
     public function kuis(){
         return $this->belongsTo(Kuis::class);
     }
+
+    public function mataPelajaran(){
+        return $this->belongsTo(MataPelajaran::class);
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa, Kelas};
-use App\Models\{Guru, Siswa};
+use App\Models\{Guru, Siswa, MataPelajaran};
 use App\Models\Superadmin\Sekolah;
 use App\Utils\ApiResponse;
 use App\User;
@@ -181,6 +181,7 @@ class KuisController extends Controller
             'siswa_id' => $siswa_id,
             'jumlah_benar' => $jawaban_benar,
             'jumlah_salah' => $jawaban_salah,
+            'mata_pelajaran' => $kuis->soal->mata_pelajaran_id,
             'nilai' => $total_nilai,
         ];
 
@@ -214,26 +215,29 @@ class KuisController extends Controller
         $sekolah = Sekolah::where('id', $user->id_sekolah)->first();
 
         $daftar_nilai = [];
+        
+        // ambil data mata pelajaran yang idnya ada di hasil kuis
+        $mata_pelajaran = MataPelajaran::whereIn('id', function($query){
+            $query->select('mata_pelajaran_id')->from('hasil_kuis');
+        })->get();
+        
+        foreach ($mata_pelajaran as $data_mapel) {
+            $jumlah_nilai = 0;
 
-        $jumlah_nilai = 0;
-
-        // ambil nilai kuis yang semester sekarang dan tahun ajaran sekarang
-        $nilai = HasilKuis::where('siswa_id', $siswa->id)->get();
-
-        foreach ($nilai as $key => $item) {
-            $jumlah_nilai += $item->nilai;
+            // ambil nilai kuis yang semester sekarang dan sesuai mata pelajarannya
+            $nilai = HasilKuis::where('siswa_id', $siswa->id)->where('mata_pelajaran_id', $data_mapel->id)->get();
+            
+            foreach ($nilai as $data_nilai) {
+                $jumlah_nilai += $data_nilai->nilai;           
+            }
 
             array_push($daftar_nilai, [
-                'id' => $item->id,
-                'kuis_id' => $item->kuis_id,
-                'siswa_id' => $item->siswa_id,
-                'jumlah_salah' => $item->jumlah_salah,
-                'jumlah_benar' => $item->jumlah_benar,
-                'nilai' => $item->nilai,
-                'mata_pelajaran' => $item->kuis->soal->mataPelajaran->nama_pelajaran,
-            ]);
+                'id' => $data_nilai->id,
+                'mata_pelajaran' => $data_mapel->nama_pelajaran,
+                'nilai' => $jumlah_nilai / count($nilai),
+            ]); 
         }
-
+        
         // ambil nilai rata rata2nya 
         $nilai_rata_rata = $jumlah_nilai / count($daftar_nilai);
 
