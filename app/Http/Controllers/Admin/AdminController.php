@@ -36,7 +36,11 @@ class AdminController extends Controller
             $query->where('role_id', 4)->where('id_sekolah', auth()->user()->id_sekolah);
         })->count();
         
-        $orangtua = User::where('role_id', 3)->where('id_sekolah', auth()->user()->id_sekolah)->count();
+        $orangtua = Siswa::whereIn('id', function($query){
+            $query->select('id_siswa')->from('siswa_orang_tuas');
+        })->whereIn('id', function($query){
+            $query->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
+        })->count();
         
         return view('admin.index', [
         	'audiobook' => $audiobook,
