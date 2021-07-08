@@ -16,4 +16,8 @@ class Kuis extends Model
     public function guru(){
         return $this->belongsTo(Guru::class);
     }
+
+    public function hasilKuis(){
+        return $this->hasMany(HasilKuis::class);
+    }
 }

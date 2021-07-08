@@ -9,8 +9,9 @@ use App\Models\SiswaWali;
 use Illuminate\Support\Facades\{Hash, Auth};
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class SiswaImport implements ToModel, WithHeadingRow
+class SiswaImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
     * @param array $row
@@ -19,31 +20,40 @@ class SiswaImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $siswaId = Siswa::create([
-            'nama_lengkap' => $row['nama'],
-            'nis' => $row['nis'],
-            'nisn' => $row['nisn'],
-            'poin' => $row['poin'],
-            'kelas_id' => $row['kelas_id'],
-        ])->id;
+        $user = User::where('username', $row['username'])->first();
 
-        $user = User::create([
-            'role_id' => 3,
-            'siswa_id' => $siswaId,
-            'id_sekolah' => Auth::user()->id_sekolah,
-            'name' => $row['nama'],
-            'username' => $row['username'],
-            'nis' => $row['nis'],
-            'password' => Hash::make($row['password']),
-        ]);
+        if ($row['nama'] != null) {
+            $siswaId = Siswa::create([
+                'nama_lengkap' => $row['nama'],
+                'nis' => $row['nis'],
+                'nisn' => $row['nisn'],
+                'poin' => $row['poin'],
+                'kelas_id' => $row['kelas_id'],
+            ])->id;
 
-        $siswaWali = SiswaWali::create([
-            'id_siswa' => $siswaId,
-        ]);
+            $user = User::create([
+                'role_id' => 3,
+                'siswa_id' => $siswaId,
+                'id_sekolah' => Auth::user()->id_sekolah,
+                'name' => $row['nama'],
+                'username' => $row['username'],
+                'nis' => $row['nis'],
+                'password' => Hash::make($row['password']),
+            ]);
 
-        return $siswaOrtu = new SiswaOrangTua([
-            'id_siswa' => $siswaId,
-        ]);
+            $siswaWali = SiswaWali::create([
+                'id_siswa' => $siswaId,
+            ]);
 
+            SiswaOrangTua::create([
+                'id_siswa' => $siswaId,
+            ]);            
+        }   
+    }
+
+    public function  rules(): array {
+        return [
+            '*.username' => 'unique:users',
+        ];
     }
 }

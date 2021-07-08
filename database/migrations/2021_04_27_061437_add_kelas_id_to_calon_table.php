@@ -10,11 +10,10 @@ class AddKelasIdToCalonTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */ //
+     */
     public function up()
     {
         Schema::table('calon', function (Blueprint $table) {
-            //
             $table->bigInteger('kelas_id');
         });
     }

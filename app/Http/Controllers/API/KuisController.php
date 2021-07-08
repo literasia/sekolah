@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa};
-use App\Models\{Guru, Siswa};
+use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa, Kelas};
+use App\Models\{Guru, Siswa, MataPelajaran};
+use App\Models\Superadmin\Sekolah;
 use App\Utils\ApiResponse;
 use App\User;
 
@@ -109,42 +110,11 @@ class KuisController extends Controller
         ]);        
     }
 
-    public function updateJawaban(User $user, Kuis $kuis, Request $request){
-        // get siswa
-        $siswa = Siswa::findOrFail($user->siswa_id);
-
-        // ambil data jawaban siswa dimana kuisnya yang sedang dikerjakan
-        $jawaban_kuis = JawabanKuisSiswa::where('siswa_id', $siswa->id)
-                                   ->where('kuis_id', $kuis->id)
-                                   ->where('butir_soal_id', $request->butir_soal_id)->first();
-
-        $data = [
-            'siswa_id' => $siswa->id,
-            'kuis_id' => $kuis->id,
-            'butir_soal_id' => $request->butir_soal_id, 
-            'jawaban' => $request->jawaban != "" ? null : strtoupper($request->jawaban),
-        ];
-
-        // check apakah jawaban siswa tersebut sudah ada di table?
-        if ($jawaban_kuis == null) {
-            // jika belum create
-            JawabanKuisSiswa::create($data);
-        }else{
-            $jawaban_kuis->update($data);
-        }
-
-        return response()->json(ApiResponse::success(['siswa_id' => $siswa->id,
-                                                      'kuis_id' => $kuis->id,
-                                                      'butir_soal_id' => $request->butir_soal_id, 
-                                                      'jawaban' => strtoupper($request->jawaban),
-                                                    ]));
-    }
 
     public function finishQuiz(Request $request){
         $kuis_id = $request->kuis_id;
         $siswa_id = $request->siswa_id;
-        // data yang dikirim string, harus di decode menjadi json
-        $jawaban = json_decode($request->jawaban);
+        $jawaban = $request->jawaban;
 
         // get siswa
         $siswa = Siswa::findOrFail($siswa_id);
@@ -155,21 +125,21 @@ class KuisController extends Controller
         // ambil butir soal yang yang kuis id nya itu 
         $butir_soal = ButirSoal::where('soal_id', $kuis->soal_id)->get();
 
-
+        $butir_soal_ids = array_column($jawaban, 'butir_soal_id');
         // masukkan kedalam table jawaban_kuis_siswa
         foreach ($butir_soal as $key => $item) {
-            $key = array_search($item->id, array_column($jawaban, 'butir_soal_id'));
+            $key = array_search($item->id, $butir_soal_ids);
             if (is_numeric($key)) {
                 $jawaban_kuis_siswa = JawabanKuisSiswa::where('siswa_id', $siswa_id)
                                                       ->where('kuis_id', $kuis_id)
                                                       ->where('butir_soal_id', $item->id)
                                                       ->first();
-                
+                                                      
                 $jawaban_kuis_siswa_data = [
                     'siswa_id' => $siswa_id,
                     'kuis_id' => $kuis_id,
                     'butir_soal_id' => $item->id,
-                    'jawaban' => $item->jenis_soal == "multiple-choice" ? strtoupper($jawaban[$key]->answer) : $jawaban[$key]->answer,
+                    'jawaban' => ($item->jenis_soal == "multiple-choice" ? strtoupper($jawaban[$key]['answer']) : $jawaban[$key]['answer']) ?? "",
                 ];
 
                 // jika data jawaban kuis siswa tersebut sudah ada di table nya maka cukup update saja
@@ -211,6 +181,7 @@ class KuisController extends Controller
             'siswa_id' => $siswa_id,
             'jumlah_benar' => $jawaban_benar,
             'jumlah_salah' => $jawaban_salah,
+            'mata_pelajaran' => $kuis->soal->mata_pelajaran_id,
             'nilai' => $total_nilai,
         ];
 
@@ -235,5 +206,45 @@ class KuisController extends Controller
         // regenerate
         $hasil_kuis = HasilKuis::where('siswa_id', $siswa_id)->where('kuis_id', $kuis_id)->first();
         return response()->json(ApiResponse::success($hasil_kuis));
+    }
+
+    public function daftarNilai(User $user){
+        // get siswa
+        $siswa = Siswa::findOrFail($user->siswa_id);
+        $kelas = Kelas::findOrFail($siswa->kelas_id);
+        $sekolah = Sekolah::where('id', $user->id_sekolah)->first();
+
+        $daftar_nilai = [];
+        
+        // ambil data mata pelajaran yang idnya ada di hasil kuis
+        $mata_pelajaran = MataPelajaran::whereIn('id', function($query){
+            $query->select('mata_pelajaran_id')->from('hasil_kuis');
+        })->get();
+        
+        foreach ($mata_pelajaran as $data_mapel) {
+            $jumlah_nilai = 0;
+
+            // ambil nilai kuis yang semester sekarang dan sesuai mata pelajarannya
+            $nilai = HasilKuis::where('siswa_id', $siswa->id)->where('mata_pelajaran_id', $data_mapel->id)->get();
+            
+            foreach ($nilai as $data_nilai) {
+                $jumlah_nilai += $data_nilai->nilai;           
+            }
+
+            array_push($daftar_nilai, [
+                'id' => $data_nilai->id,
+                'mata_pelajaran' => $data_mapel->nama_pelajaran,
+                'nilai' => $jumlah_nilai / count($nilai),
+            ]); 
+        }
+        
+        // ambil nilai rata rata2nya 
+        $nilai_rata_rata = $jumlah_nilai / count($daftar_nilai);
+
+        return response()->json(ApiResponse::success(['kelas_id' => $kelas->id,
+                                                      'semester' => $sekolah->semester,
+                                                      'tahun_ajaran' => $sekolah->tahun_ajaran,
+                                                      'nilai_rata_rata' => $nilai_rata_rata,
+                                                      'daftar_nilai' => $daftar_nilai]));
     }
 }   

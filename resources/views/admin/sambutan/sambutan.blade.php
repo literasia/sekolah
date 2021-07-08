@@ -21,17 +21,19 @@
     <form id="sambutan-form" method="POST">
         <div class="row"> 
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <div class="card-block">
-                            <div class="col-12 text-center">
-                                <div class="form-group">
-                                    <h4 class="mb-4">Foto Kepala Sekolah</h4>
-                                    <img id="thumb_gallery" class="" src="" />
-                                    <div class="input-file">
-                                        <span class="btn-upload" target="#gallery1">Pilih Gambar</span>
-                                        <span class="file-selected"></span>
-                                        <input type="file" name="photo" id="gallery1" class="gallery"/>
+               <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                    <div class=" col-xl-12 card shadow mb-0 p-0">
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="col-12 text-center">
+                                    <div class="form-group">
+                                        <h4 class="mb-4">Foto Kepala Sekolah</h4>
+                                        <img id="thumb_gallery" class="" src="" />
+                                        <div class="input-file">
+                                            <span class="btn-upload" target="#gallery1">Pilih Gambar</span>
+                                            <span class="file-selected"></span>
+                                            <input type="file" name="photo" id="gallery1" class="gallery"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -40,26 +42,28 @@
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <div class="card-block">
-                            <h4>Sambutan</h4>
-                            <div class="form-group row">
-                                <input type="hidden" name="id" value="">
-                                <label for="title" class="col-sm-4 col-form-label">Judul</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Judul" value="">
+                <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                    <div class=" col-xl-12 card shadow mb-0 p-0">
+                        <div class="card-body">
+                            <div class="card-block">
+                                <h4>Sambutan</h4>
+                                <div class="form-group row">
+                                    <input type="hidden" name="id" value="">
+                                    <label for="title" class="col-sm-3 col-form-label">Judul</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="Judul" value="">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="content" class="col-sm-4 col-form-label">Isi</label>
-                                <div class="col-sm-8">
-                                    <textarea type="text" class="form-control" rows="10" id="content" name="content" placeholder="Isi"></textarea>
+                                <div class="form-group row">
+                                    <label for="content" class="col-sm-3 col-form-label">Isi Sambutan</label>
+                                    <div class="col-sm-9">
+                                        <textarea type="text" class="form-control" rows="10" id="content" name="content" placeholder="Isi"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 text-right">
-                                    <button type="submit" href="" id="btn-profil" class="btn btn-success">Simpan</button>  
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <button type="submit" href="" id="btn-profil" class="btn btn-success">Simpan</button>  
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,6 +87,14 @@
 
         .btn i {
             margin-right: 0px;
+        }
+
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
 
         #gallery1, #gallery2 {

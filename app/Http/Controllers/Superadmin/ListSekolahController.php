@@ -85,7 +85,7 @@ $tahun_ajaran = $request->tahun_ajaran;
             'jenjang'       => $data['jenjang'],
             'tahun_ajaran'  => $data['tahun_ajaran'],
             // 'logo'          => $data['logo']
-        ]);
+        ])->id;
     
         
         // Get Roles
