@@ -82,6 +82,7 @@ Route::namespace('API')
         // Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
         Route::get('elearning/get-kuis/{kuis}', 'KuisController@getKuis');
         Route::post('elearning/finish-quiz', 'KuisController@finishQuiz');
+        Route::get('elearning/get-daftar-nilai/{user}', 'KuisController@daftarNilai');
 
         // New Library
         Route::get('library/get-kategori', 'LibraryController@getKategori');
