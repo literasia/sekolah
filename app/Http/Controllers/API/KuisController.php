@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa};
+use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa, Kelas};
 use App\Models\{Guru, Siswa};
+use App\Models\Superadmin\Sekolah;
 use App\Utils\ApiResponse;
 use App\User;
 
@@ -204,5 +205,42 @@ class KuisController extends Controller
         // regenerate
         $hasil_kuis = HasilKuis::where('siswa_id', $siswa_id)->where('kuis_id', $kuis_id)->first();
         return response()->json(ApiResponse::success($hasil_kuis));
+    }
+
+    public function daftarNilai(User $user){
+        // get siswa
+        $siswa = Siswa::findOrFail($user->siswa_id);
+        $kelas = Kelas::findOrFail($siswa->kelas_id);
+        $sekolah = Sekolah::where('id', $user->id_sekolah)->first();
+
+        $daftar_nilai = [];
+
+        $jumlah_nilai = 0;
+
+        // ambil nilai kuis yang semester sekarang dan tahun ajaran sekarang
+        $nilai = HasilKuis::where('siswa_id', $siswa->id)->get();
+
+        foreach ($nilai as $key => $item) {
+            $jumlah_nilai += $item->nilai;
+
+            array_push($daftar_nilai, [
+                'id' => $item->id,
+                'kuis_id' => $item->kuis_id,
+                'siswa_id' => $item->siswa_id,
+                'jumlah_salah' => $item->jumlah_salah,
+                'jumlah_benar' => $item->jumlah_benar,
+                'nilai' => $item->nilai,
+                'mata_pelajaran' => $item->kuis->soal->mataPelajaran->nama_pelajaran,
+            ]);
+        }
+
+        // ambil nilai rata rata2nya 
+        $nilai_rata_rata = $jumlah_nilai / count($daftar_nilai);
+
+        return response()->json(ApiResponse::success(['kelas_id' => $kelas->id,
+                                                      'semester' => $sekolah->semester,
+                                                      'tahun_ajaran' => $sekolah->tahun_ajaran,
+                                                      'nilai_rata_rata' => $nilai_rata_rata,
+                                                      'daftar_nilai' => $daftar_nilai]));
     }
 }   
