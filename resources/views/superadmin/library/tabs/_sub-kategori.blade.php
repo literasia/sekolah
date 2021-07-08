@@ -118,7 +118,11 @@
                     @forelse ($subkategoris as $key => $subkategori)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td>{{$subkategori->kategori->name}}</td>
+                                <td>
+                                    @if(!empty($subkategori->kategori->name))
+                                    {{$subkategori->kategori->name}}</td>
+                                    @endif
+                                </td>
                                 <td>{{ $subkategori->title }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-info shadow-sm" id="edit-sub-kategori" data-id="{{ $subkategori->id }}"><i class="fa fa-pencil-alt"></i></button>

@@ -109,42 +109,11 @@ class KuisController extends Controller
         ]);        
     }
 
-    public function updateJawaban(User $user, Kuis $kuis, Request $request){
-        // get siswa
-        $siswa = Siswa::findOrFail($user->siswa_id);
-
-        // ambil data jawaban siswa dimana kuisnya yang sedang dikerjakan
-        $jawaban_kuis = JawabanKuisSiswa::where('siswa_id', $siswa->id)
-                                   ->where('kuis_id', $kuis->id)
-                                   ->where('butir_soal_id', $request->butir_soal_id)->first();
-
-        $data = [
-            'siswa_id' => $siswa->id,
-            'kuis_id' => $kuis->id,
-            'butir_soal_id' => $request->butir_soal_id, 
-            'jawaban' => $request->jawaban != "" ? null : strtoupper($request->jawaban),
-        ];
-
-        // check apakah jawaban siswa tersebut sudah ada di table?
-        if ($jawaban_kuis == null) {
-            // jika belum create
-            JawabanKuisSiswa::create($data);
-        }else{
-            $jawaban_kuis->update($data);
-        }
-
-        return response()->json(ApiResponse::success(['siswa_id' => $siswa->id,
-                                                      'kuis_id' => $kuis->id,
-                                                      'butir_soal_id' => $request->butir_soal_id, 
-                                                      'jawaban' => strtoupper($request->jawaban),
-                                                    ]));
-    }
 
     public function finishQuiz(Request $request){
         $kuis_id = $request->kuis_id;
         $siswa_id = $request->siswa_id;
-        // data yang dikirim string, harus di decode menjadi json
-        $jawaban = json_decode($request->jawaban);
+        $jawaban = $request->jawaban;
 
         // get siswa
         $siswa = Siswa::findOrFail($siswa_id);
@@ -155,21 +124,21 @@ class KuisController extends Controller
         // ambil butir soal yang yang kuis id nya itu 
         $butir_soal = ButirSoal::where('soal_id', $kuis->soal_id)->get();
 
-
+        $butir_soal_ids = array_column($jawaban, 'butir_soal_id');
         // masukkan kedalam table jawaban_kuis_siswa
         foreach ($butir_soal as $key => $item) {
-            $key = array_search($item->id, array_column($jawaban, 'butir_soal_id'));
+            $key = array_search($item->id, $butir_soal_ids);
             if (is_numeric($key)) {
                 $jawaban_kuis_siswa = JawabanKuisSiswa::where('siswa_id', $siswa_id)
                                                       ->where('kuis_id', $kuis_id)
                                                       ->where('butir_soal_id', $item->id)
                                                       ->first();
-                
+                                                      
                 $jawaban_kuis_siswa_data = [
                     'siswa_id' => $siswa_id,
                     'kuis_id' => $kuis_id,
                     'butir_soal_id' => $item->id,
-                    'jawaban' => $item->jenis_soal == "multiple-choice" ? strtoupper($jawaban[$key]->answer) : $jawaban[$key]->answer,
+                    'jawaban' => ($item->jenis_soal == "multiple-choice" ? strtoupper($jawaban[$key]['answer']) : $jawaban[$key]['answer']) ?? "",
                 ];
 
                 // jika data jawaban kuis siswa tersebut sudah ada di table nya maka cukup update saja
