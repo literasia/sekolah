@@ -61,7 +61,9 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
+                <form id="form-nilai">
                     <div class="dt-responsive table-responsive mt-3">
+                    @csrf
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>
@@ -70,11 +72,12 @@
                                     <th>Jumlah Salah</th>
                                     <th>Nilai Pilihan Ganda</th>
                                     <th>Nilai Essai</th>
+                                    <th>Nilai Total</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>Dina</td>
                                     <td class="text-center"><label class="badge badge-success py-2 px-3">45</label></td>
                                     <td class="text-center"><label class="badge badge-danger py-2 px-3">5</label></td>
@@ -84,10 +87,13 @@
                                         <input type="button" class="btn btn-success btn-mini" value="Simpan">
                                         <button class="btn btn-warning btn-mini">Cek Essai</button>
                                     </td>
-                                </tr>
+                                </tr> -->
+                                
                             </tbody>
                         </table>
                     </div>
+                    <!-- <input type="hidden" name="hidden_id" id="hidden_id"> -->
+                </form>
                 </div>
             </div>
         </div>
@@ -101,11 +107,11 @@
                 <h4>Konfirmasi</h4>
             </div>
             <div class="modal-body">
-                <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+                <h5 align="center" id="confirm">Simpan data?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
-                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" name="ok_button" id="ok_button" class="btn btn-success">Simpan</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Batal</button>
             </div>
         </div>
     </div>
@@ -153,6 +159,7 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script type="text/javascript">
     $('document').ready(function() {
+
         if(`{{ $kelas_id }}` != "" || `{{ $kuis_id }}` != ""){
             $('#order-table').DataTable({
                 processing: true,
@@ -167,15 +174,11 @@
                 },
                 columns: [
                     {
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
-                    {
                         data: 'siswa',
                         name: 'siswa'
                     },
                     {
-                        data: 'jumlah_benar'
+                        data: 'jumlah_benar',
                         name: 'jumlah_benar'
                     },
                     {
@@ -191,12 +194,39 @@
                         name: 'nilai_essai'
                     },
                     {
+                        data: 'nilai_total',
+                        name: 'nilai_total'
+                    },
+                    {
                         data: 'action',
                         name: 'action'
                     }
                 ]
             });
         }
+        var id;
+        $(document).on('click', '.edit', function () {
+             id = $(this).data('id');
+            //  var nilai_essai = ("input[name=nilai_essai]").val();
+            $.ajax({
+                    url: '/guru/e-learning/nilai/'+id,
+                    method : "POST",
+                    dataType: 'JSON',
+                    // data:{nilai_essai:nilai_essai},
+                    success: function(data){
+                        // console.log(data.nilai_essai)
+                        $('#nilai_essai').val(data.nilai_essai);
+                        $('#hidden_id').val(data.id);
+                        $('.edit').val('edit');
+                        if ($('#action').val() == 'edit') {
+                            url = "{{ route('guru.e-learning.nilai-update') }}";
+                            text = "Data sukses diupdate";
+                        }
+                    }
+                });
+        });
+          
+        
     });
 </script>
 @endpush

@@ -225,7 +225,7 @@ class LibraryController extends Controller
         return response()->json(ApiResponse::success(['sub_kategori' => $sub_kategori]));
     }
 
-    public function getBuku(SubKategori $sub_kategori, Tingkat $tingkat, Request $req){
+    public function getBuku(SubKategori $sub_kategori, Request $req){
         $data = $req->all();
         $userId = $req->query('user_id');
 
@@ -238,8 +238,7 @@ class LibraryController extends Controller
         }
 
 
-        $libraries = Library::where('tingkat_id', $tingkat->id)
-                          ->where('sub_kategori_id', $sub_kategori->id)
+        $libraries = Library::where('sub_kategori_id', $sub_kategori->id)
                           ->with(['penulis', 'subKategori']);
 
         // $libraries = Library::where(function ($query) use($sekolah_id){

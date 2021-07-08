@@ -11,4 +11,8 @@ class ButirSoal extends Model
     public function soal(){
         return $this->belongsTo(Soal::class);
     }
+
+    public function jawabanKuisSiswa(){
+        return $this->hasMany(JawabanKuisSiswa::class);
+    }
 }

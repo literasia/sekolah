@@ -283,4 +283,7 @@ Route::namespace('ELearning')->group(function () {
 
     // Nilai
     Route::get('/guru/e-learning/nilai', 'NilaiController@index')->name('e-learning.nilai');
+    Route::get('/guru/e-learning/nilai{id}', 'NilaiController@edit');
+    Route::post('/guru/e-learning/nilai/update', 'NilaiController@update')
+        ->name('e-learning.nilai-update');
 });
