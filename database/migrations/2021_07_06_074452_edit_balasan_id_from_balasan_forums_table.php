@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddKelasIdToCalonTable extends Migration
+class EditBalasanIdFromBalasanForumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddKelasIdToCalonTable extends Migration
      */
     public function up()
     {
-        Schema::table('calon', function (Blueprint $table) {
-            $table->bigInteger('kelas_id');
+        Schema::table('balasan_forums', function (Blueprint $table) {
+            $table->bigInteger('balasan_id')->nullable()->change();
+            $table->bigInteger('sekolah_id')->after('id');
+
         });
     }
 
@@ -25,7 +27,7 @@ class AddKelasIdToCalonTable extends Migration
      */
     public function down()
     {
-        Schema::table('calon', function (Blueprint $table) {
+        Schema::table('balasan_forums', function (Blueprint $table) {
             //
         });
     }

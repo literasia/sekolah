@@ -275,26 +275,7 @@
                     </ul>
                 </li>
                 @endif 
-
-                <li class="@if (request()->is('admin/banksoal/soal'))pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="fa fa-square-root-alt"></i></span>
-                        <span class="pcoded-mtext">Bank Soal</span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('admin/banksoal/soal') ? 'active' : '' }}">
-                            <a href="{{ route('admin.banksoal.soal') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Soal</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('admin/banksoal/butir-soal') ? 'active' : '' }}">
-                            <a href="{{ route('admin.banksoal.butir-soal') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Butir Soal</span>
-                            </a>
-                        </li>                        
-                    </ul>
-                </li>
-
+                
                 @if ($addons != null && $addons->daftar_nilai)
                 <li class="{{ request()->is('admin/daftar-nilai') ? 'active' : '' }}">
                      <a href="{{ route('admin.daftar-nilai') }}" class="waves-effect waves-dark">
@@ -488,6 +469,20 @@
                     </ul>
                 </li>
                 @endif
+
+                <li class="@if (request()->is('admin/sambutan/sambutan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                    <a href="javascript:void(0);" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                        <span class="pcoded-mtext">Sambutan</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->is('admin/sambutan/sambutan') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sambutan.sambutan') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Sambutan Kepala Sekolah</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 @if ($addons != null && $addons->perpustakaan)
                 <li class="@if (request()->is('admin/perpustakaan/peminjaman')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">

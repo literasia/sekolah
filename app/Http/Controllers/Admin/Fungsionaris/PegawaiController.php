@@ -112,7 +112,7 @@ class PegawaiController extends Controller
         $data = $request->all();
 
         // $request->foto = null;
-        // if ($request->file('foto')) {
+        if ($request->file('foto')) {
             $data['foto'] = $request->file('foto')->store('pegawais', 'public');
         // }
 
