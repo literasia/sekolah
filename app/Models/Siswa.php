@@ -7,6 +7,7 @@ use App\Models\Admin\{Kelas, DaftarNilai};
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Admin\HasilKuis;
 
 class Siswa extends Model
 {
@@ -51,5 +52,9 @@ class Siswa extends Model
 
     public function pelanggaranSiswa(){
         return $this->hasMany(Siswa::class);
+    }
+
+    public function hasilKuis(){
+        return $this->hasMany(HasilKuis::class);
     }
 }

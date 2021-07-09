@@ -228,6 +228,10 @@ class MateriController extends Controller
 
         $materi->delete();
 
+        if(Storage::disk('public')->exists($materi->media)){
+            Storage::disk('public')->delete($materi->media);
+        }
+
         return response()
         ->json([
             'success' => 'Data berhasil dihapus.',

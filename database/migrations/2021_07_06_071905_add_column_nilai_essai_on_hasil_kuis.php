@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSomeColumnOnAddons extends Migration
+class AddColumnNilaiEssaiOnHasilKuis extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddSomeColumnOnAddons extends Migration
      */
     public function up()
     {
-        Schema::table('addons', function (Blueprint $table) {
-            $table->integer('cbt')->default(1);
-            $table->integer('pengumuman')->default(1);
+        Schema::table('hasil_kuis', function (Blueprint $table) {
+            $table->integer('nilai_essai');
         });
     }
 
@@ -26,9 +25,8 @@ class AddSomeColumnOnAddons extends Migration
      */
     public function down()
     {
-        Schema::table('addons', function (Blueprint $table) {
-            $table->dropColumn('cbt');
-            $table->dropColumn('pengumuman');
+        Schema::table('hasil_kuis', function (Blueprint $table) {
+            $table->dropColumn('nilai_essai');
         });
     }
 }
