@@ -100,13 +100,13 @@ class PegawaiController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        $user_id = User::findOrFail($user->id);
+        // $user_id = User::findOrFail($user->id);
 
-        // get Roles to attach user roles
-        $role = Role::where('name', 'pegawai')->first();
+        // // get Roles to attach user roles
+        // $role = Role::where('name', 'pegawai')->first();
 
-        // attach
-        $user_id->roles()->attach($role->id);
+        // // attach
+        // $user_id->roles()->attach($role->id);
 
         // Add Photo to public
         $data = $request->all();
