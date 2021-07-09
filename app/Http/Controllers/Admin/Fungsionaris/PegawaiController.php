@@ -114,7 +114,7 @@ class PegawaiController extends Controller
         // $request->foto = null;
         if ($request->file('foto')) {
             $data['foto'] = $request->file('foto')->store('pegawais', 'public');
-        // }
+        }
 
         // Change Date Type
         $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
