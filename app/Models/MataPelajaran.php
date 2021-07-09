@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\DaftarNilai;
 use App\Models\Admin\Materi;
+use App\Models\Admin\HasilKuis;
 
 class MataPelajaran extends Model
 {
@@ -23,5 +24,9 @@ class MataPelajaran extends Model
 
     public function soal(){
         return $this->hasMany(Soal::class);
+    }
+
+    public function hasilKuis(){
+        return $this->hasMany(HasilKuis::class);
     }
 }

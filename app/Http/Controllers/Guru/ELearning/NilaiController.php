@@ -49,13 +49,12 @@ class NilaiController extends Controller
 
                 return DataTables::of($hasil_kuis)
                     ->addColumn('action', function ($hasil_kuis) {
-                        $button = '<button type="button" name="edit" data-id="'.$hasil_kuis->id.'" class="edit btn btn-success btn-mini">Simpan</button>';
-                        $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$hasil_kuis->id.'" class="preview btn-warning btn-mini">cek essai</button>';
+                        $button = '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$hasil_kuis->id.'" class="preview btn-warning btn-mini">cek essai</button>';
                         return $button;
                     })
                     ->editColumn('siswa', function($hasil_kuis){
-                        $input = '<input type="hidden" name="hidden_id" id="hidden_id">';
-                        return $hasil_kuis->siswa->nama_lengkap;
+                        $input = '<input type="hidden" value="'.$hasil_kuis->id.'" name="hidden_id[]" id="hidden_id">';
+                        return $input.' '.$hasil_kuis->siswa->nama_lengkap;
                     })
                     ->editColumn('jumlah_benar', function($hasil_kuis){
                         return $hasil_kuis->jumlah_benar;
@@ -78,7 +77,7 @@ class NilaiController extends Controller
                     })
                     
                     
-                    ->rawColumns(['action','nilai_essai',''])
+                    ->rawColumns(['action','nilai_essai','siswa'])
                     ->addIndexColumn()
                     ->make(true);
         }
@@ -126,6 +125,17 @@ class NilaiController extends Controller
             ->json([
                 'success'   => 'Data Updated.',
             ]);
+    }
+
+    public function store(Request $request){
+        $ids = $request->hidden_id;
+        $nilai_essai = $request->nilai_essai;
+        // data diatas berupa array.
+        // dd($ids);
+        // coba hidupkan dd nya diatas biar tau hasil dari input yang ada name array name="hidden_id[]" jadinya gimana
+
+        // buat perulangan dari ids tersebut pake for biasa
+        // update data nya di hasil ujian
     }
 
     

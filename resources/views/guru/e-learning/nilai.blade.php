@@ -61,9 +61,10 @@
         <div class="card shadow">
             <div class="card-body">
                 <div class="card-block">
-                <form id="form-nilai">
+                <form id="form-nilai" action="{{ route('guru.e-learning.nilai.store') }}" method="POST">
+                    @csrf @method('POST')
+                    <button type="submit" class="btn-success btn-mini">Simpan</button>
                     <div class="dt-responsive table-responsive mt-3">
-                    @csrf
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
                                 <tr>

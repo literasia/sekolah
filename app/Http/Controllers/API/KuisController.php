@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa};
-use App\Models\{Guru, Siswa};
+use App\Models\Admin\{Kuis, Soal, LogKuis, ButirSoal, HasilKuis, PengaturanKuis, JawabanKuisSiswa, Kelas};
+use App\Models\{Guru, Siswa, MataPelajaran};
+use App\Models\Superadmin\Sekolah;
 use App\Utils\ApiResponse;
 use App\User;
 
@@ -180,6 +181,7 @@ class KuisController extends Controller
             'siswa_id' => $siswa_id,
             'jumlah_benar' => $jawaban_benar,
             'jumlah_salah' => $jawaban_salah,
+            'mata_pelajaran' => $kuis->soal->mata_pelajaran_id,
             'nilai' => $total_nilai,
         ];
 
@@ -204,5 +206,48 @@ class KuisController extends Controller
         // regenerate
         $hasil_kuis = HasilKuis::where('siswa_id', $siswa_id)->where('kuis_id', $kuis_id)->first();
         return response()->json(ApiResponse::success($hasil_kuis));
+    }
+
+    public function daftarNilai(User $user){
+        // get siswa
+        $siswa = Siswa::findOrFail($user->siswa_id);
+        $kelas = Kelas::findOrFail($siswa->kelas_id);
+        $sekolah = Sekolah::where('id', $user->id_sekolah)->first();
+
+        $daftar_nilai = [];
+        
+        // ambil data mata pelajaran yang idnya ada di hasil kuis
+        $mata_pelajaran = MataPelajaran::whereIn('id', function($query){
+            $query->select('mata_pelajaran_id')->from('hasil_kuis');
+        })->get();
+        
+        foreach ($mata_pelajaran as $data_mapel) {
+            $jumlah_nilai = 0;
+
+            // ambil nilai kuis yang semester sekarang dan sesuai mata pelajarannya
+            $nilai = HasilKuis::where('siswa_id', $siswa->id)->where('mata_pelajaran_id', $data_mapel->id)->get();
+            
+            foreach ($nilai as $data_nilai) {
+                $jumlah_nilai += $data_nilai->nilai;           
+            }
+
+            array_push($daftar_nilai, [
+                'id' => $data_nilai->id,
+                'mata_pelajaran' => $data_mapel->nama_pelajaran,
+                'nilai' => $jumlah_nilai / count($nilai),
+            ]); 
+        }
+
+        $nilai_rata_rata = 0;
+
+        foreach ($daftar_nilai as $item) {
+            $nilai_rata_rata += $item['nilai'];
+        }
+
+        return response()->json(ApiResponse::success(['kelas_id' => $kelas->id,
+                                                      'semester' => $sekolah->semester,
+                                                      'tahun_ajaran' => $sekolah->tahun_ajaran,
+                                                      'nilai_rata_rata' => $nilai_rata_rata / count($daftar_nilai),
+                                                      'daftar_nilai' => $daftar_nilai]));
     }
 }   
