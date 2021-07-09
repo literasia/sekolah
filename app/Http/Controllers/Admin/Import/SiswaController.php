@@ -42,9 +42,27 @@ class SiswaController extends Controller
 		// Excel::import(new SiswaImport, public_path('/file_siswa/'.$nama_file));
 		$siswa = Excel::import(new SiswaImport, storage_path('/app/public/'.$data['file']));
 
-		// dd($siswa);
-		// notifikasi dengan session
-		Session::flash('sukses','Data Siswa Berhasil Diimport!');
+
+// 		// pakai ini
+// 		try {
+// 			Excel::import(new SiswaImport, storage_path('/app/public/'.$data['file']));
+// 			// dd($siswa);g
+// 			// notifikasi dengan session
+// 			Session::flash('success','Data Siswa Berhasil Diimport!');
+// 		}
+// 		catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+// 			$failures = $e->failures();
+// 			foreach ($failures as $failure) {
+// 				$row = $failure->row(); 
+// 				$attribute = $failure->attribute(); 
+// 				$errors = $failure->errors(); 
+// 				$values = $failure->values(); 
+// 			}
+
+// 			if ($errors[0] == "The username has already been taken.") {
+// 				Session::flash('username_error','Error Baris Excel : '.$row.' Kesamaan data pada username : '.$values['username']);			
+// 			}
+// 		}
 
 		// alihkan halaman kembali
 		return redirect()->route('admin.import.import-siswa')->with(CRUDResponse::successCreate("Data Siswa"));

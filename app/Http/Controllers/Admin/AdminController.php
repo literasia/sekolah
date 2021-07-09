@@ -37,7 +37,7 @@ class AdminController extends Controller
         })->count();
         
         $orangtua = Siswa::whereIn('id', function($query){
-             $query->select('id_siswa')->from('siswa_orang_tuas');
+            $query->select('id_siswa')->from('siswa_orang_tuas');
         })->whereIn('id', function($query){
             $query->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
         })->count();

@@ -237,14 +237,17 @@ class KuisController extends Controller
                 'nilai' => $jumlah_nilai / count($nilai),
             ]); 
         }
-        
-        // ambil nilai rata rata2nya 
-        $nilai_rata_rata = $jumlah_nilai / count($daftar_nilai);
+
+        $nilai_rata_rata = 0;
+
+        foreach ($daftar_nilai as $item) {
+            $nilai_rata_rata += $item['nilai'];
+        }
 
         return response()->json(ApiResponse::success(['kelas_id' => $kelas->id,
                                                       'semester' => $sekolah->semester,
                                                       'tahun_ajaran' => $sekolah->tahun_ajaran,
-                                                      'nilai_rata_rata' => $nilai_rata_rata,
+                                                      'nilai_rata_rata' => $nilai_rata_rata / count($daftar_nilai),
                                                       'daftar_nilai' => $daftar_nilai]));
     }
 }   
