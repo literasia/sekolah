@@ -131,6 +131,8 @@ class NilaiController extends Controller
         $ids = $request->hidden_id;
         $nilai_essai = $request->nilai_essai;
         // data diatas berupa array.
+        // dd($ids);
+        // coba hidupkan dd nya diatas biar tau hasil dari input yang ada name array name="hidden_id[]" jadinya gimana
 
         // buat perulangan dari ids tersebut pake for biasa
         // update data nya di hasil ujian
