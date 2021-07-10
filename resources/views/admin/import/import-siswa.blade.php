@@ -19,16 +19,15 @@
 {{-- main content --}}
 @section('content')
     @if(Session::has('username_error'))
-    <script type="text/javascript">
-        Swal.fire("Gagal!","{{ Session('username_error') }}", "error");
-    </script>
+        <script type="text/javascript">
+            Swal.fire("Gagal!","{{ Session('username_error') }}", "error");
+        </script>
+    @elseif(Session::has('success'))
+        <script type="text/javascript">
+            Swal.fire("Berhasil!","{{ Session('success') }}", "success");
+        </script>
     @endif
 
-    @if(Session::has('username_error'))
-    <script type="text/javascript">
-        Swal.fire("Berhasil!","{{ Session('success') }}", "success");
-    </script>
-    @endif
 
     <div class="row">
         <div class="col-xl-12">
