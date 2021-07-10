@@ -4,6 +4,7 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Guru;
+use App\Models\Admin\HasilKuis;
 
 class Kuis extends Model
 {

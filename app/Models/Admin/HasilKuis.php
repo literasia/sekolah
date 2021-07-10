@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Admin;
+use App\Models\Admin\Kuis;
+use App\Models\Siswa;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,5 +16,9 @@ class HasilKuis extends Model
 
     public function mataPelajaran(){
         return $this->belongsTo(MataPelajaran::class);
+    }
+
+    public function siswa(){
+        return $this->belongsTo(Siswa::class);
     }
 }

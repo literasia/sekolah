@@ -18,6 +18,17 @@
 
 {{-- main content --}}
 @section('content')
+    @if(Session::has('username_error'))
+        <script type="text/javascript">
+            Swal.fire("Gagal!","{{ Session('username_error') }}", "error");
+        </script>
+    @elseif(Session::has('success'))
+        <script type="text/javascript">
+            Swal.fire("Berhasil!","{{ Session('success') }}", "success");
+        </script>
+    @endif
+
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card glass-card d-flex justify-content-center align-items-center p-2">
