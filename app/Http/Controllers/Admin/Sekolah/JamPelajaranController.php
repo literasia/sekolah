@@ -34,7 +34,7 @@ class JamPelajaranController extends Controller
     {
 
         $jam_pelajarans = JamPelajaran::where([
-            'sekolah_id'=>auth()->user()->sekolah()->id,
+        'sekolah_id'=>auth()->user()->sekolah()->id,
             'hari'=>$request->hari
         ])->orderBy('jam_mulai')->get();
         
