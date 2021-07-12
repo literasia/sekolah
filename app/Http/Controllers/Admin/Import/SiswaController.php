@@ -39,7 +39,7 @@ class SiswaController extends Controller
 		// $file->move('file_siswa',$nama_file);
 
 
-		// kalau mau pake yang lama yang ini hidupkan, matikan kalau mau pake yang baru
+		// kalau mau pake yang lama yang ini hidupkan, matikan kalau mau pake yang barus
 		// $siswa = Excel::import(new SiswaImport, storage_path('/app/public/'.$data['file']));
 
 

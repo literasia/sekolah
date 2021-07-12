@@ -52,7 +52,8 @@ class MateriController extends Controller
                 })
                 ->addColumn('media', function ($data) {
                     if (!empty($data->media)) {
-                        $btnlink = '<a target="_blank" href="'.Storage::url('media_materi/wLVJVgmhOqwdzCFwLYrYjKpo2wAOchXTuMU9rwYJ.webp').'" class="badge badge-warning">Lihat Media</a>';
+                        $btnlink = '<a target="_blank" href="'.Storage::url($data->media).'" class="badge badge-warning">Lihat Media</a>';
+                        // $btnlink = '<a target="_blank" href="'.Storage::url('media_materi/'.$data->media).'" class="badge badge-warning">Lihat Media</a>';
                         return $btnlink;
                     }
 

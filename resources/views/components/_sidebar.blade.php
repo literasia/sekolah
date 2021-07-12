@@ -470,18 +470,13 @@
                 </li>
                 @endif
 
-                <li class="@if (request()->is('admin/sambutan/sambutan')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="javascript:void(0);" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                <li class="{{ request()->is('admin/sambutan') ? 'active' : '' }}">
+                    <a href="{{ route('admin.sambutan') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-home"></i>
+                        </span>
                         <span class="pcoded-mtext">Sambutan</span>
                     </a>
-                    <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('admin/sambutan/sambutan') ? 'active' : '' }}">
-                            <a href="{{ route('admin.sambutan.sambutan') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Sambutan Kepala Sekolah</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 @if ($addons != null && $addons->perpustakaan)
