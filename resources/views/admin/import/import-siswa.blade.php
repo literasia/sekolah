@@ -111,6 +111,7 @@
     <!-- Select 2 css -->
     <link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <style>
         .btn i {
             margin-right: 0px;

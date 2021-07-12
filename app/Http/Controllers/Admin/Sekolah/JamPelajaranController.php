@@ -12,7 +12,7 @@ use App\User;
 use App\Models\Superadmin\Addons;
 
 class JamPelajaranController extends Controller
-{ //
+{ 
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
         $kelas_id = $request->kelas_id;
@@ -43,22 +43,26 @@ class JamPelajaranController extends Controller
 
     public function write(Request $request) {
         if($request->req == 'write') {
+            
             $jam_ke_ids = $request->jam_ke;
             $jam_mulai_ids = $request->jam_mulai;
             $jam_selesai_ids = $request->jam_selesai;
-
+            
             for ($i=0; $i < count($jam_ke_ids); $i++) {
-                $obj = JamPelajaran::find($request->id);
+                $obj = JamPelajaran::find($jam_ke_ids[$i]);
+                
                 if(!$obj){
                     $obj = new JamPelajaran();
                 }
+                
                 $obj->sekolah_id = $request->user()->id_sekolah;
                 $obj->hari = $request->hari;
-                $obj->jam_ke = $request->jam_ke_ids[$i];
-                $obj->jam_mulai = $request->jam_mulai_ids[$i];
-                $obj->jam_selesai = $request->jam_selesai_ids[$i];
+                $obj->jam_ke = $jam_ke_ids[$i];
+                $obj->jam_mulai = $jam_mulai_ids[$i];
+                $obj->jam_selesai = $jam_selesai_ids[$i];
                 $obj->istirahat = $request->istirahat ?? false;
                 $obj->editor_id = $request->user()->id;
+                
                 $obj->save();
             }
             
