@@ -103,12 +103,10 @@ class NilaiController extends Controller
 
     public function update(Request $request){
         $data = $request->all();
+        $ids = $request->hidden_id;
+        $nilai_essai = $request->nilai_essai;
 
-        dd($data);
-        $rules = [
-            'nilai_essai'  => 'required',
-        ];
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($data);
 
         if ($validator->fails()) {
             return response()
@@ -117,9 +115,12 @@ class NilaiController extends Controller
                 ]);
         }
 
-        HasilKuis::whereId($request->hidden_id)->update([
-            'nilai_essai'  => $request->input('nilai_essai'),
-        ]);
+        for ($i=0;$i<count($ids) ; $i++){
+            // update data nya di hasil ujian
+                HasilKuis::whereId($ids[$i])->update([
+                    'nilai_essai'  => $nilai_essai[$i],
+                ]);
+        }
 
         return response()
             ->json([
@@ -131,12 +132,13 @@ class NilaiController extends Controller
         $ids = $request->hidden_id;
         $nilai_essai = $request->nilai_essai;
         // data diatas berupa array.
-        // dd($ids);
-        // coba hidupkan dd nya diatas biar tau hasil dari input yang ada name array name="hidden_id[]" jadinya gimana
-
         // buat perulangan dari ids tersebut pake for biasa
-        // update data nya di hasil ujian
+        for ($i=0;$i<count($ids) ; $i++){
+            // update data nya di hasil ujian
+                HasilKuis::whereId($ids[$i])->update([
+                    'nilai_essai'  => $nilai_essai[$i],
+                ]);
+        }
+        return redirect()->back()->withSuccess('Data ditambahkan.');
     }
-
-    
 }

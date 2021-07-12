@@ -18,7 +18,8 @@
 
 {{-- main content --}}
 @section('content')
-    <form id="sambutan-form" method="POST">
+    <form id="sambutan-form"  action="{{ route('admin.sambutan.sambutan.store') }}" method="POST">
+    @csrf @method('POST')
         <div class="row"> 
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                <div class="card glass-card d-flex justify-content-center align-items-center p-2">
@@ -32,7 +33,7 @@
                                         <div class="input-file">
                                             <span class="btn-upload" target="#gallery1">Pilih Gambar</span>
                                             <span class="file-selected"></span>
-                                            <input type="file" name="photo" id="gallery1" class="gallery"/>
+                                            <input type="file" name="foto" id="gallery1" class="gallery"/>
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +49,7 @@
                             <div class="card-block">
                                 <h4>Sambutan</h4>
                                 <div class="form-group row">
-                                    <input type="hidden" name="id" value="">
+                                    <input type="hidden" name="hidden_id" value="">
                                     <label for="title" class="col-sm-3 col-form-label">Judul</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="title" name="title" placeholder="Judul" value="">
@@ -62,7 +63,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 text-right">
-                                        <button type="submit" href="" id="btn-profil" class="btn btn-success">Simpan</button>  
+                                        <button type="submit" class="btn-success btn-mini">Simpan</button>
+                                        <!-- <button type="submit" href="" id="btn-profil" class="btn btn-success">Simpan</button>   -->
                                     </div>
                                 </div>
                             </div>

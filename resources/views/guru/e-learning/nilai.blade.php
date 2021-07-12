@@ -63,7 +63,9 @@
                 <div class="card-block">
                 <form id="form-nilai" action="{{ route('guru.e-learning.nilai.store') }}" method="POST">
                     @csrf @method('POST')
-                    <button type="submit" class="btn-success btn-mini">Simpan</button>
+                    @if ($kuis_id != "" || $kelas_id != "")
+                        <button type="submit" class="btn-success shadow-sm btn-sm btn-mini">Simpan</button>
+                    @endif
                     <div class="dt-responsive table-responsive mt-3">
                        <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead>
@@ -205,27 +207,6 @@
                 ]
             });
         }
-        var id;
-        $(document).on('click', '.edit', function () {
-             id = $(this).data('id');
-            //  var nilai_essai = ("input[name=nilai_essai]").val();
-            $.ajax({
-                    url: '/guru/e-learning/nilai/'+id,
-                    method : "POST",
-                    dataType: 'JSON',
-                    // data:{nilai_essai:nilai_essai},
-                    success: function(data){
-                        // console.log(data.nilai_essai)
-                        $('#nilai_essai').val(data.nilai_essai);
-                        $('#hidden_id').val(data.id);
-                        $('.edit').val('edit');
-                        if ($('#action').val() == 'edit') {
-                            url = "{{ route('guru.e-learning.nilai-update') }}";
-                            text = "Data sukses diupdate";
-                        }
-                    }
-                });
-        });
           
         
     });

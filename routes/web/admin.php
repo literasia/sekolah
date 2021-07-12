@@ -495,6 +495,8 @@ Route::namespace('Leaderboard')->group(function () {
 Route::namespace('Sambutan')->group(function () {
     Route::get('/admin/sambutan/sambutan', 'SambutanController@index')
         ->name('sambutan.sambutan');
+    Route::post('/admin/sambutan/sambutan', 'SambutanController@store')
+        ->name('sambutan.sambutan.store');
 });
 
 // Perpustakaan
