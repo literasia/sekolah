@@ -89,4 +89,10 @@ Route::namespace('API')
         Route::get('library/get-sub-kategori/{kategori}', 'LibraryController@getSubKategori');
         Route::get('library/get-buku/{sub_kategori}', 'LibraryController@getBuku');
 
+        // Forum
+        Route::get('get-topik-forum/{sekolah_id}', 'ForumsAPIController@getTopik');
+        Route::post('add-forum/{sekolah_id}/{topik_id}/{user_id}/{kelas_id}', 'ForumsAPIController@addForum');
+        Route::post('add-comment/{sekolah_id}/{forum_id}/{user_id}', 'ForumsAPIController@addComment');
+
+
     });

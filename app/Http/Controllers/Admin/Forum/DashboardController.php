@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $addons = Addons::where('user_id', auth()->user()->id)->first();
 
         if ($request->ajax()) {
-            $data = Forum::orderBy("id","desc")->get();
+            $data = Forum::where('sekolah_id', auth()->user()->id_sekolah)->orderBy("id","desc")->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

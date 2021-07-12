@@ -15,7 +15,6 @@ class TopikController extends Controller
 {
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-    
         if ($request->ajax()) {
             $data = Topik::orderBy("id","desc")->get();
             return DataTables::of($data)
@@ -24,6 +23,12 @@ class TopikController extends Controller
                     $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
                     $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
+                })
+                ->editColumn('judul', function ($data){
+                    return $data->judul;
+                })
+                ->editColumn('popularitas', function ($data){
+                    return $data->popularitas;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
@@ -56,7 +61,9 @@ class TopikController extends Controller
         }
 
         Topik::create([
-            'judul' => $request->input('judul')
+            'sekolah_id' => auth()->user()->id_sekolah,
+            'judul' => $request->input('judul'),
+            'popularitas' => '0',
         ]);
 
         return response()
