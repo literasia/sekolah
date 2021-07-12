@@ -45,8 +45,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label class="d-block mb-3">Jam Pelajaran</label>
-                                    <input type='button' value='Tambah Jam Pelajaran' id='addButton' class="btn btn-primary btn-mini" disabled>
-                                    <input type='button' value='Hapus Jam Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini" disabled>
+                                    <input type='button' value='Tambah Jam Pelajaran' id='addButton' class="btn btn-primary btn-mini">
+                                    <input type='button' value='Hapus Jam Pelajaran' id='removeButton' class="btn btn-outline-primary btn-mini">
                                 </div>
                             </div>
                             <div class="row">
@@ -54,8 +54,8 @@
                                     <div class="row border rounded jam-pelajaran mt-3" id="subject-group">
                                         <div class="col px-0">
                                             <div class="form-group p-3">
-                                                <label for="jam_pelajaran">Jam ke</label>
-                                                <input id="jam_pelajaran" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
+                                                <label for="jam_ke">Jam ke</label>
+                                                <input id="jam_ke" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
                                             </div>
                                         </div>
                                         <div class="col px-0">
@@ -74,8 +74,8 @@
                                 </div>
                             </div>
                             
-                              <br>
-                              <div class="row">
+                            <br>
+                            <div class="row">
                                 <div class="col">
                                     <input type="hidden" name="id" id="id">
                                     <button type="submit" class="btn btn-sm btn-success">Simpan</button>
@@ -190,8 +190,51 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
      <script>
         $(document).ready(function () {
-
             $('.clockpicker').clockpicker({donetext: 'Done', autoclose: true});
+
+            let counter = 1;
+            
+            $("#addButton").click(function () {                  
+
+                if(counter >= 15){
+                    Swal.fire('Perhatian!', 'Hanya boleh 15 jam pelajaran saja! Silahkan isi kembali nanti.', 'warning');
+                    return false;
+                } 
+                let newSubjectField =  `<div class="row border rounded jam-pelajaran mt-3" id="subject-group${counter}">
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="jam_ke">Jam ke</label>
+                                                    <input id="jam_ke" type="number" class="form-control form-control-sm" placeholder="Jam ke" name="jam_ke[]">
+                                                </div>
+                                            </div>
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="jam_mulai">Jam Mulai</label>
+                                                    <input id="jam_mulai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Mulai" name="jam_mulai[]" required readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col px-0">
+                                                <div class="form-group p-3">
+                                                    <label for="jam_selesai">Jam Selesai</label>
+                                                    <input id="jam_selesai" type="text" class="clockpicker form-control form-control-sm" placeholder="Jam Selesai" name="jam_selesai[]" required readonly>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                                        
+                $('#subject-wrapper').append(newSubjectField);
+    
+                counter++;
+
+            });
+
+            $("#removeButton").click(function () {
+                if(counter==1){
+                    Swal.fire('Perhatian!', 'Tidak ada yang dapat di hapus lagi', 'warning');
+                    return false;
+                }      
+                counter--;       
+                $("#subject-group" + counter).remove();    
+            });
 
             $.ajaxSetup({
                 headers: {

@@ -213,6 +213,7 @@ class KuisController extends Controller
         $siswa = Siswa::findOrFail($user->siswa_id);
         $kelas = Kelas::findOrFail($siswa->kelas_id);
         $sekolah = Sekolah::where('id', $user->id_sekolah)->first();
+        $banyak_siswa = Siswa::where('kelas_id', $kelas->id)->count();
 
         $daftar_nilai = [];
         
@@ -237,14 +238,20 @@ class KuisController extends Controller
                 'nilai' => $jumlah_nilai / count($nilai),
             ]); 
         }
-        
-        // ambil nilai rata rata2nya 
-        $nilai_rata_rata = $jumlah_nilai / count($daftar_nilai);
+
+        $nilai_rata_rata = 0;
+
+        foreach ($daftar_nilai as $item) {
+            $nilai_rata_rata += $item['nilai'];
+        }
+
+        $nr_sekolah = $nilai_rata_rata / $banyak_siswa;
 
         return response()->json(ApiResponse::success(['kelas_id' => $kelas->id,
                                                       'semester' => $sekolah->semester,
                                                       'tahun_ajaran' => $sekolah->tahun_ajaran,
-                                                      'nilai_rata_rata' => $nilai_rata_rata,
+                                                      'nilai_rata_rata' => $nilai_rata_rata / count($daftar_nilai),
+                                                      'nr_sekolah' => $nr_sekolah,
                                                       'daftar_nilai' => $daftar_nilai]));
     }
 }   

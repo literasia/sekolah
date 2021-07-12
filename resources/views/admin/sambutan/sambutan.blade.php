@@ -13,12 +13,13 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.sambutan.sambutan') }}
+    {{ route('admin.sambutan') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
-    <form id="sambutan-form" method="POST">
+    <form id="sambutan-form" action="{{ route('admin.sambutan.update') }}" method="POST" enctype="multipart/form-data">
+    @csrf @method('PUT')
         <div class="row"> 
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                <div class="card glass-card d-flex justify-content-center align-items-center p-2">
@@ -28,11 +29,11 @@
                                 <div class="col-12 text-center">
                                     <div class="form-group">
                                         <h4 class="mb-4">Foto Kepala Sekolah</h4>
-                                        <img id="thumb_gallery" class="" src="" />
+                                        <img id="thumb_gallery" class="" src=""/>
                                         <div class="input-file">
                                             <span class="btn-upload" target="#gallery1">Pilih Gambar</span>
                                             <span class="file-selected"></span>
-                                            <input type="file" name="photo" id="gallery1" class="gallery"/>
+                                            <input type="file" name="foto" id="gallery1" class="gallery"/>
                                         </div>
                                     </div>
                                 </div>
@@ -48,21 +49,22 @@
                             <div class="card-block">
                                 <h4>Sambutan</h4>
                                 <div class="form-group row">
-                                    <input type="hidden" name="id" value="">
-                                    <label for="title" class="col-sm-3 col-form-label">Judul</label>
+                                    <input type="hidden" name="hidden_id" value="{{ $sambutan_kepsek->id }}">
+                                    <label for="judul" class="col-sm-3 col-form-label">Judul</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="Judul" value="">
+                                        <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul" value="{{ $sambutan_kepsek->judul }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="content" class="col-sm-3 col-form-label">Isi Sambutan</label>
+                                    <label for="deskripsi" class="col-sm-3 col-form-label">Isi Sambutan</label>
                                     <div class="col-sm-9">
-                                        <textarea type="text" class="form-control" rows="10" id="content" name="content" placeholder="Isi"></textarea>
+                                        <textarea type="text" class="form-control" rows="10" id="deskripsi" name="deskripsi" placeholder="Isi">{{ $sambutan_kepsek->deskripsi }}</textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 text-right">
-                                        <button type="submit" href="" id="btn-profil" class="btn btn-success">Simpan</button>  
+                                        <button type="submit" class="btn-success btn-mini">Simpan</button>
+                                        <!-- <button type="submit" href="" id="btn-profil" class="btn btn-success">Simpan</button>   -->
                                     </div>
                                 </div>
                             </div>

@@ -93,6 +93,14 @@ Route::namespace('API')
         Route::get('get-topik-forum/{sekolah_id}', 'ForumsAPIController@getTopik');
         Route::post('add-forum/{sekolah_id}/{topik_id}/{user_id}/{kelas_id}', 'ForumsAPIController@addForum');
         Route::post('add-comment/{sekolah_id}/{forum_id}/{user_id}', 'ForumsAPIController@addComment');
+        
+        // Like Forum
+        Route::post('like-forum/{id}', 'ForumsAPIController@like');
+        
+        // Bookmark Forum
+        Route::post('bookmark-forum/{id}', 'ForumsAPIController@bookmark');
 
 
+        // sambutan
+        Route::get('get-sambutan-kepsek/{sekolah_id}', 'SambutanController@getSambutan');
     });
