@@ -13,7 +13,12 @@ class PenggunaForum extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
     public function kelas(){
         return $this->belongsTo(Kelas::class);
+    }
+
+    public function roleForum(){
+        return $this->belongsToMany(RoleForum::class);
     }
 }
