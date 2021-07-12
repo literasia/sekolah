@@ -94,5 +94,6 @@ Route::namespace('API')
         Route::post('add-forum/{sekolah_id}/{topik_id}/{user_id}/{kelas_id}', 'ForumsAPIController@addForum');
         Route::post('add-comment/{sekolah_id}/{forum_id}/{user_id}', 'ForumsAPIController@addComment');
 
-
+        // sambutan
+        Route::get('get-sambutan-kepsek/{sekolah_id}', 'SambutanController@getSambutan');
     });

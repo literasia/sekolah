@@ -493,10 +493,10 @@ Route::namespace('Leaderboard')->group(function () {
 
 // Sambutan
 Route::namespace('Sambutan')->group(function () {
-    Route::get('/admin/sambutan/sambutan', 'SambutanController@index')
-        ->name('sambutan.sambutan');
-    Route::post('/admin/sambutan/sambutan', 'SambutanController@store')
-        ->name('sambutan.sambutan.store');
+    Route::get('/admin/sambutan', 'SambutanController@index')
+        ->name('sambutan');
+    Route::put('/admin/sambutan', 'SambutanController@update')
+        ->name('sambutan.update');
 });
 
 // Perpustakaan

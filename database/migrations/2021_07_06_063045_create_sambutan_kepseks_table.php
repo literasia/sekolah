@@ -17,7 +17,7 @@ class CreateSambutanKepseksTable extends Migration
             $table->bigIncrements('id');
             $table->string('sekolah_id');
             $table->text('judul');
-            $table->text('foto');
+            $table->text('foto')->nullable();
             $table->longText('deskripsi');
             $table->timestamps();
         });

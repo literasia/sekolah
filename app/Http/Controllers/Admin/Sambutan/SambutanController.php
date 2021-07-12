@@ -18,49 +18,25 @@ class SambutanController extends Controller
 
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $sambutan_kepsek = SambutanKepsek::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $sambutan_kepsek = SambutanKepsek::where('sekolah_id', auth()->user()->id_sekolah)->first();
 
+        // jika data sambutan kepsek belum ada, maka tambahkan
+        if ($sambutan_kepsek == null) {
+            SambutanKepsek::create([
+                'sekolah_id' => auth()->user()->id_sekolah,
+                'judul' => 'judul sambutan...',
+                'foto' => null,
+                'deskripsi' => 'isi sambutan..'
+            ]);
+        }
+
+        // get data kembali
+        $sambutan_kepsek = SambutanKepsek::where('sekolah_id', auth()->user()->id_sekolah)->first();
         
         return view('admin.sambutan.sambutan')   
                                     ->with('addons', $addons)
                                     ->with('mySekolah', User::sekolah())
                                     ->with('sambutan_kepsek', $sambutan_kepsek);
-    }
-
-    public function store(Request $request){
-        $data = $request->all();
-        
-        $rules = [
-            'title' => 'required',
-            'content' => 'required',
-            'foto' => 'required',
-        ];
-
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => true,
-                'errors' => $validator->errors()
-            ]);
-        }
-
-        $data['sekolah_id'] = auth()->user()->id_sekolah;
-
-        $sekolah_id = $data['sekolah_id'];
-
-        if ($request->file('foto')) {
-            $data['foto'] = $request->file('foto')->store('sambutan_kepsek', 'public');
-        }
-
-        SambutanKepsek::create([
-            'judul' => $request->title,
-            'deskripsi' => $request->content,
-            'foto' => $data['foto'],
-            'sekolah_id' => $sekolah_id,
-        ]);
-
-        return redirect()->back()->withSuccess('Data ditambahkan.');
     }
 
     public function update(Request $request){
@@ -81,21 +57,17 @@ class SambutanController extends Controller
         }
 
         $sambutan_kepsek = SambutanKepsek::findOrFail($request->hidden_id);
-        $foto = $sambutan_kepsek->foto;
         $data['foto'] = $sambutan_kepsek->foto;
 
-        // if($request->file('foto')){
-        //     if(Storage::disk('public')->exists($sambutan_kepsek->foto)){
-        //         Storage::disk('public')->delete($sambutan_kepsek->foto);
-        //     }
-        //     $data['foto'] = $request->file('foto')->store('','public');
-        // }
+        if($request->file('foto')){
+            if(Storage::disk('public')->exists($sambutan_kepsek->foto)){
+                Storage::disk('public')->delete($sambutan_kepsek->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('sambutan','public');
+        }
 
-        $sambutan_kepsek->update($request->all());
+        $sambutan_kepsek->update($data);
 
-        return response()
-        ->json([
-            'success' => 'Data berhasil diubah.',
-        ]);
+        return redirect()->back();
     }
 }

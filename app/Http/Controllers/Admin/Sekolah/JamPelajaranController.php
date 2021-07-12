@@ -54,9 +54,9 @@ class JamPelajaranController extends Controller
                 }
                 $obj->sekolah_id = $request->user()->id_sekolah;
                 $obj->hari = $request->hari;
-                $obj->jam_ke = $request->jam_ke_ids[$i];
-                $obj->jam_mulai = $request->jam_mulai_ids[$i];
-                $obj->jam_selesai = $request->jam_selesai_ids[$i];
+                $obj->jam_ke = $jam_ke_ids[$i];
+                $obj->jam_mulai = $jam_mulai_ids[$i];
+                $obj->jam_selesai = $jam_selesai_ids[$i];
                 $obj->istirahat = $request->istirahat ?? false;
                 $obj->editor_id = $request->user()->id;
                 $obj->save();
