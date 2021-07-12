@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\{Forum, Topik, PenggunaForum, BalasanForum};
+use App\Models\{UserLikeForum, UserBookmarkForum};
 use Illuminate\Support\Facades\Validator;
 use App\Utils\ApiResponse;
 
@@ -116,5 +117,45 @@ class ForumsAPIController extends Controller
         ]);
 
         return response()->json(ApiResponse::success($balasan_forum, 'Success add data'));
+    }
+
+    public function like($id, Request $req) {
+        $data = $req->all();
+        $data['is_like'] = ($data['is_like'] == 'true');
+        $like = UserLikeForum::where([
+            ['user_id', $data['user_id']],
+            ['forum_id', $id]
+        ])->first();
+
+        if ($like && !$data['is_like']) {
+            $like->delete();
+        } else if (!$like && $data['is_like']) {
+            UserLikeForum::create([
+                'user_id' => $data['user_id'],
+                'forum_id' => $id
+            ]);
+        }
+
+        return response()->json(ApiResponse::success([]));
+    }
+
+    public function bookmark($id, Request $req) {
+        $data = $req->all();
+        $data['is_bookmark'] = ($data['is_bookmark'] == 'true');
+        $like = UserBookmarkForum::where([
+            ['user_id', $data['user_id']],
+            ['forum_id', $id]
+        ])->first();
+
+        if ($like && !$data['is_bookmark']) {
+            $like->delete();
+        } else if (!$like && $data['is_bookmark']) {
+            UserBookmarkForum::create([
+                'user_id' => $data['user_id'],
+                'forum_id' => $id
+            ]);
+        }
+
+        return response()->json(ApiResponse::success([]));
     }
 }
