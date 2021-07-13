@@ -100,7 +100,6 @@ Route::namespace('API')
         // Bookmark Forum
         Route::post('bookmark-forum/{id}', 'ForumsAPIController@bookmark');
 
-
         // sambutan
         Route::get('get-sambutan-kepsek/{sekolah_id}', 'SambutanController@getSambutan');
     });

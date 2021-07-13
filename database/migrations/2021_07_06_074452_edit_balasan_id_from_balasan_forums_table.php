@@ -28,7 +28,8 @@ class EditBalasanIdFromBalasanForumsTable extends Migration
     public function down()
     {
         Schema::table('balasan_forums', function (Blueprint $table) {
-            //
+            $table->dropColumn('balasan_id');
+            $table->dropColumn('sekolah_id');
         });
     }
 }
