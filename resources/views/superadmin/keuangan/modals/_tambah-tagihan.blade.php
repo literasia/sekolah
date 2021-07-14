@@ -14,6 +14,12 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label for="nama_sekolah">Nomor Tagihan</label>
+                                <input type="text" name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm" placeholder="Nomor Tagihan">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
                                 <label for="nama_sekolah">Nama Sekolah</label>
                                 <input type="text" name="nama_sekolah" id="nama_sekolah" class="form-control form-control-sm" placeholder="Nama Sekolah">
                             </div>
@@ -56,6 +62,20 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="tanggal">Tanggal</label>
+                                <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" placeholder="Tanggal" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control form-control-sm" id="keterangan" placeholder="Keterangan"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -78,6 +98,34 @@
                                     <option value="ya">Ya</option>
                                     <option value="tidak">Tidak</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nama_kepsek">Kepala Sekolah</label>
+                                <input type="text" name="nama_kepsek" id="nama_kepsek" class="form-control form-control-sm" placeholder="Nama Kepala Sekolah">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nip_kepsek">NIP Kepala Sekolah</label>
+                                <input type="text" name="nip_kepsek" id="nip_kepsek" class="form-control form-control-sm" placeholder="NIP Kepala Sekolah">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nama_bendahara">Bendahara</label>
+                                <input type="text" name="nama_bendahara" id="nama_bendahara" class="form-control form-control-sm" placeholder="Nama Bendahara">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nip_bendahara">NIP Bendahara</label>
+                                <input type="text" name="nip_bendahara" id="nip_bendahara" class="form-control form-control-sm" placeholder="NIP Bendahara">
                             </div>
                         </div>
                     </div>
