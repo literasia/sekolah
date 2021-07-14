@@ -28,8 +28,12 @@ Ini adalah halaman keuangan untuk superadmin
                         <table id="slider-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
+                                    <th>Nomor Tagihan</th>
                                     <th>Nama Sekolah</th>
                                     <th>Biaya</th>
+                                    <th>Metode Pembayaran</th>
+                                    <th>Keterangan</th>
+                                    <th>Tanggal</th>
                                     <th>PPN 10%</th>
                                     <th>PPH 1.5%</th>
                                     <th>Siplah 2.5%</th>
@@ -39,8 +43,12 @@ Ini adalah halaman keuangan untuk superadmin
                             </thead>
                             <tbody class="text-left">
                                 <tr>
+                                    <td></td>
                                     <td>SMK Negeri 2 Tebing Tinggi</td>
                                     <td>50000000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>5000000</td>
                                     <td>75000</td>
                                     <td></td>
