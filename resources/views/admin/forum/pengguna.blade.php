@@ -24,6 +24,7 @@
                 <div class=" col-xl-12 card shadow mb-0 p-0">
                     <div class="card-body">
                         <div class="card-block">
+                        <!-- <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button> -->
                             <div class="dt-responsive table-responsive mt-3">
                                 <table id="pengguna-table" class="table table-striped table-bordered nowrap shadow-sm">
                                     <thead class="text-left">
@@ -47,7 +48,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.forum.modals._mute')
+    @include('admin.forum.modals._role_forum')
 
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -159,6 +160,91 @@
                     .text('Batal');
                 $('#modal-mute').modal('show');
             });
+
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $.ajax({
+                    url: '/admin/forum/pengguna/'+id,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        // console.log(data);
+                        $('.modal-title').html('Edit Pengguna');
+                        $('#action').val('edit');
+                        $('#hidden_id').val(data.id);
+                        $('#role_id').val(data.role_forum_id);
+                        $('#btn')
+                            .removeClass('btn-success')
+                            .addClass('btn-info')
+                            .val('Update');
+                        $('#btn-cancel')
+                            .removeClass('btn-outline-success')
+                            .addClass('btn-outline-info')
+                            .text('Batal');
+                        $('#modal-pengguna').modal('show');
+                    }
+                });
+            });
+
+            $('#form-pengguna').on('submit', function (event) {
+                event.preventDefault();
+                var url = '';
+                var text = "Data sukses ditambahkan";
+                if ($('#action').val() == 'edit') {
+                    url = "{{ route('admin.forum.pengguna.update') }}";
+                    text = "Data sukses diupdate";
+                }
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if (data.errors) {
+                            data.errors.role_id ? $('#role_id').addClass('is-invalid') : $('#role_id').removeClass('is-invalid');
+                            toastr.error("data masih kosong");
+                        }
+
+                        if (data.success) {
+                            Swal.fire("Berhasil", text, "success");
+                            $('.form-control').removeClass('is-invalid');
+                            $('#form-pengguna')[0].reset();
+                            $('#action').val('add');
+                            $('#btn')
+                                .removeClass('btn-info')
+                                .addClass('btn-success')
+                                .val('Simpan');
+                            $('#btn-cancel')
+                                .removeClass('btn-outline-info')
+                                .addClass('btn-outline-success')
+                                .text('Batal');
+                            $('#pengguna-table').DataTable().ajax.reload();
+                            $('#modal-pengguna').modal('hide');
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+            });
+
+            var user_id;
+        $(document).on('click', '.delete', function () {
+            user_id = $(this).attr('id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: '/admin/forum/pengguna/hapus/'+ user_id,
+                beforeSend: function () {
+                    $('#ok_button').text('Menghapus...');
+                }, success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#pengguna-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
+        });
 
         });
     </script>
