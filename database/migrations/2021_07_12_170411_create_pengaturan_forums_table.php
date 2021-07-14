@@ -23,7 +23,7 @@ class CreatePengaturanForumsTable extends Migration
             $table->integer('permission_guest_account')->default(0);
             $table->integer('auto_embeded_link')->default(1);
             $table->integer('permission_reply_thread')->default(0);
-            $table->integer('amount_reply_thread')->enum('2','3','4','5','6');
+            $table->enum('amount_reply_thread', ['2','3','4','5','6']);
             $table->integer('permission_revisions')->default(1);
             $table->integer('permission_topic_favorit')->default(1);
             $table->integer('permission_search')->default(1);
@@ -32,7 +32,6 @@ class CreatePengaturanForumsTable extends Migration
             $table->integer('permission_super_moderator')->default(0);
             $table->integer('amount_page_topic');
             $table->integer('amount_page_reply');
-            $table->bigInteger('sekolah_id');
             $table->timestamps();
         });
     }

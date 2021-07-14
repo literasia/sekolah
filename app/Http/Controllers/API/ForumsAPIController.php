@@ -62,7 +62,7 @@ class ForumsAPIController extends Controller
             }
         }
 
-        $forum = Forum::where('sekolah_id', $sekolah_id)->get();
+        $forum = Forum::where('sekolah_id', $sekolah_id)->with('topik')->get();
 
         return response()->json(ApiResponse::success(['forum' => $forum, 'pengaturan_forum' => $pengaturan_forum]));        
     }
@@ -119,6 +119,7 @@ class ForumsAPIController extends Controller
         $pengguna_forums = [
             'user_id' => $user_id,
             'kelas_id' => $kelas_id,
+            'sekolah_id' => $sekolah_id
         ];
 
         $tp = ['total_postingan' => $total_postingan];
