@@ -434,7 +434,8 @@ Route::namespace('Forum')->group(function () {
     // Dashboard
     Route::get('/admin/forum/dashboard', 'DashboardController@index')
         ->name('forum.dashboard');
-    Route::post('/admin/forum/dashboard', 'DashboardController@store');
+    Route::post('/admin/forum/dashboard', 'DashboardController@store')
+        ->name('forum.dashboard.store');
     Route::get('/admin/forum/dashboard/{id}', 'DashboardController@edit');
     Route::post('/admin/forum/dashboard/update', 'DashboardController@update')
         ->name('forum.dashboard-update');
@@ -461,6 +462,13 @@ Route::namespace('Forum')->group(function () {
     // Balasan
     Route::get('/admin/forum/balasan', 'BalasanController@index')
         ->name('forum.balasan');
+    Route::get('admin/forum/balasan/edit/{id}', 'BalasanController@edit')
+        ->name('balasan.edit');
+    Route::post('admin/forum/balasan', 'BalasanController@store')
+        ->name('balasan.store');
+    Route::post('admin/forum/balasan/update', 'BalasanController@update')
+        ->name('balasan.update');
+    Route::get('admin/forum/balasan/delete/{id}', 'BalasanController@destroy');
 
     // Tautan
     Route::get('/admin/forum/tautan', 'TautanController@index')

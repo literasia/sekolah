@@ -19,7 +19,7 @@ class CreateForumsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('judul');
             $table->string('total_balasan');
-            $table->string('privasi');
+            $table->enum('privasi', ['publik', 'privasi']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('topik_id')->references('id')->on('topiks')->onDelete('cascade');
             $table->timestamps();
