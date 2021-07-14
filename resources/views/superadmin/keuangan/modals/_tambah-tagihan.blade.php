@@ -101,6 +101,34 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nama_kepsek">Kepala Sekolah</label>
+                                <input type="text" name="nama_kepsek" id="nama_kepsek" class="form-control form-control-sm" placeholder="Nama Kepala Sekolah">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nip_kepsek">NIP Kepala Sekolah</label>
+                                <input type="text" name="nip_kepsek" id="nip_kepsek" class="form-control form-control-sm" placeholder="NIP Kepala Sekolah">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nama_bendahara">Bendahara</label>
+                                <input type="text" name="nama_bendahara" id="nama_bendahara" class="form-control form-control-sm" placeholder="Nama Bendahara">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nip_bendahara">NIP Bendahara</label>
+                                <input type="text" name="nip_bendahara" id="nip_bendahara" class="form-control form-control-sm" placeholder="NIP Bendahara">
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" value="add">

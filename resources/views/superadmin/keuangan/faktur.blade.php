@@ -1,19 +1,19 @@
 @extends('layouts.superadmin')
 
 {{-- config 1 --}}
-@section('title', 'Keuangan | Tagihan')
-@section('title-2', 'Tagihan')
-@section('title-3', 'Tagihan')
+@section('title', 'Keuangan | Faktur')
+@section('title-2', 'Faktur Penjualan')
+@section('title-3', 'Faktur Penjualan')
 
 @section('describ')
-Ini adalah halaman tagihan untuk superadmin
+Ini adalah halaman faktur penjualan untuk superadmin
 @endsection
 
 @section('icon-l', 'fa fa-images')
 @section('icon-r', 'icon-home')
 
 @section('link')
-{{ route('superadmin.keuangan.tagihan') }}
+{{ route('superadmin.keuangan.faktur') }}
 @endsection
 
 {{-- main content --}}
@@ -25,7 +25,7 @@ Ini adalah halaman tagihan untuk superadmin
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                        <table id="tagihan-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <table id="faktur-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
                                     <th>Nomor Tagihan</th>
@@ -118,7 +118,7 @@ Ini adalah halaman tagihan untuk superadmin
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
-        $('#tagihan-table').DataTable();
+        $('#faktur-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Tagihan');
