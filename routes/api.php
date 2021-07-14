@@ -91,6 +91,7 @@ Route::namespace('API')
 
         // Forum
         Route::get('get-topik-forum/{sekolah_id}', 'ForumsAPIController@getTopik');
+        Route::get('get-forum/{sekolah_id}', 'ForumsAPIController@getForum');
         Route::post('add-forum/{sekolah_id}/{topik_id}/{user_id}/{kelas_id}', 'ForumsAPIController@addForum');
         Route::post('add-comment/{sekolah_id}/{forum_id}/{user_id}', 'ForumsAPIController@addComment');
         

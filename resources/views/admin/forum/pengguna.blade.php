@@ -48,7 +48,7 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.forum.modals._mute')
+    @include('admin.forum.modals._role_forum')
 
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -171,7 +171,7 @@
                         $('.modal-title').html('Edit Pengguna');
                         $('#action').val('edit');
                         $('#hidden_id').val(data.id);
-                        $('#role_id').val(data.role_id);
+                        $('#role_id').val(data.role_forum_id);
                         $('#btn')
                             .removeClass('btn-success')
                             .addClass('btn-info')

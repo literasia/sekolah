@@ -55,6 +55,7 @@ class PenggunaController extends Controller
             ->json([                
                 'id'   => $pengguna_forum->id,
                 'user_id' => $pengguna_forum->user->id,
+                'role_forum_id' => $pengguna_forum->roleForum->pluck('id')->first(),
             ]);
     }
 
