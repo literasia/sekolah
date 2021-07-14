@@ -166,8 +166,9 @@ Route::namespace('Superadmin')
         Route::namespace('Keuangan')
             ->group(function () {
             Route::get('/superadmin/keuangan/tagihan', 'TagihanController@index')->name('keuangan.tagihan');
+            Route::get('/superadmin/keuangan/laporan-tagihan', 'TagihanController@print')->name('keuangan.laporan-tagihan');
             Route::get('/superadmin/keuangan/faktur', 'FakturController@index')->name('keuangan.faktur');
-            Route::get('/superadmin/keuangan/laporan', 'LaporanController@index')->name('keuangan.laporan');
+            Route::get('/superadmin/keuangan/laporan-faktur', 'FakturController@print')->name('keuangan.laporan-faktur');
         });
 
         // generate list sekolah

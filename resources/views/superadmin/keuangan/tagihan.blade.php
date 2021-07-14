@@ -9,7 +9,7 @@
 Ini adalah halaman tagihan untuk superadmin
 @endsection
 
-@section('icon-l', 'fa fa-images')
+@section('icon-l', 'fa fa-book')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -58,8 +58,9 @@ Ini adalah halaman tagihan untuk superadmin
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button class="btn btn-info btn-sm"><i class="fa fa-pencil-alt"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        <a href="{{route('superadmin.keuangan.laporan-tagihan')}}" class="btn btn-warning btn-mini" target="_blank"><i class="fa fa-print"></i></a>
+                                        <button class="btn btn-info btn-mini"><i class="fa fa-pencil-alt"></i></button>
+                                        <button class="btn btn-danger btn-mini"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
