@@ -166,6 +166,7 @@ Route::namespace('Superadmin')
         Route::namespace('Keuangan')
             ->group(function () {
             Route::get('/superadmin/keuangan/tagihan', 'TagihanController@index')->name('keuangan.tagihan');
+            Route::get('/superadmin/keuangan/faktur', 'FakturController@index')->name('keuangan.faktur');
             Route::get('/superadmin/keuangan/laporan', 'LaporanController@index')->name('keuangan.laporan');
         });
 
