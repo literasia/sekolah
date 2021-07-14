@@ -60,6 +60,7 @@ class PenggunaController extends Controller
 
     public function update(Request $request){
         $data = $request->all();
+        
         $rules = [
             'role_id' => 'required',
         ];
@@ -74,26 +75,37 @@ class PenggunaController extends Controller
             ]);
         }
 
-        $id = $request->hidden_id;
-        
-        $pengguna_forum = PenggunaForum::findOrFail($id);
+        // $id = $request->hidden_id;
+        $pengguna_forum = PenggunaForum::findOrFail($request->hidden_id);
 
-        $role = RoleForum::where('id', $data['role_id'])->first();
+        // $role = RoleForum::where('id', $data['role_id'])->first();
+        $role_forum = RoleForum::findOrFail($request->role_id);
 
-
-        foreach($pengguna_forum->roleForum as $role){
-            $pengguna_forum->roleForum()->detach($role->id);
+        // detach from pivot
+        if ($pengguna_forum != null) {
+            $pengguna_forum->roleForum()->detach();   
         }
-        $pengguna_forum->roleForum()->attach($role->id);
-        return response()->json(['success' => 'Data berhasil diubah.']);
+
+        // foreach($pengguna_forum->roleForum as $role){
+        //     $pengguna_forum->roleForum()->detach($role->id);
+        // }
+        
+        // attach to pivot
+        $pengguna_forum->roleForum()->attach($role_forum->id);
+
+        // return response()->json(['success' => 'Data berhasil diubah.']);
+        return response()->json(['success' => true, 'message' => 'Data berhasil diubah.']);
     }
 
     public function destroy($id) {
         $pengguna_forum = PenggunaForum::findOrFail($id);
     
+        // detach from pivot
+        $pengguna_forum->roleForum()->detach();   
         $pengguna_forum->delete();
 
-        return response()->json(['success' => 'Data berhasil dihapus.']);
+        // return response()->json(['success' => 'Data berhasil dihapus.']);
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus.']);   
     }
 
 }

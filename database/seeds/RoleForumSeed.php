@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Admin\RoleForum;
 
 class RoleForumSeed extends Seeder
 {
@@ -12,21 +13,21 @@ class RoleForumSeed extends Seeder
     public function run()
     {
 
-        // Role::create([
-        //     'name' => 'keymaster',
-        // ]);
+        RoleForum::create([
+            'name' => 'keymaster',
+        ]);
 
-        // Role::create([
-        //     'name' => 'moderator',
-        // ]);
+        RoleForum::create([
+            'name' => 'moderator',
+        ]);
 
-        // Role::create([
-        //     'name' => 'peserta',
-        // ]);
+        RoleForum::create([
+            'name' => 'peserta',
+        ]);
 
-        // Role::create([
-        //     'name' => 'blokir_pengguna',
-        // ]);
+        RoleForum::create([
+            'name' => 'blokir_pengguna',
+        ]);
 
     }
 }

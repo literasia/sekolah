@@ -203,6 +203,7 @@
                             data.errors.role_id ? $('#role_id').addClass('is-invalid') : $('#role_id').removeClass('is-invalid');
                             toastr.error("data masih kosong");
                         }
+
                         if (data.success) {
                             Swal.fire("Berhasil", text, "success");
                             $('.form-control').removeClass('is-invalid');
