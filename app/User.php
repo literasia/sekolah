@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Superadmin\Addons;
 use App\Models\Admin\Forum;
 use App\Models\Admin\Pengguna;
+use App\Models\Admin\BalasanForum;
+
 
 
 class User extends Authenticatable
@@ -97,5 +99,9 @@ class User extends Authenticatable
 
     public function pengguna(){
         return $this->hashMany(Pengguna::class);
+    } 
+
+    public function balasanforum(){
+        return $this->hashMany(BalasanForum::class);
     } 
 }

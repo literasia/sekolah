@@ -11,6 +11,8 @@ use App\User;
 use App\Models\Superadmin\Addons;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Forum;
+use App\Models\Admin\Topik;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -41,7 +43,12 @@ class DashboardController extends Controller
                 ->make(true);
         }
 
-        return view('admin.forum.dashboard',['mySekolah' => User::sekolah(), 'addons' => $addons]);
+        // $user = $request->user;
+        $topiks = Topik::all();
+        $users = User::all();
+        $forums = Forum::all();
+
+        return view('admin.forum.dashboard',  ['mySekolah' => User::sekolah(), 'addons' => $addons,'topiks' => $topiks, 'users' => $users]);
     }
 
     /**
@@ -60,9 +67,41 @@ class DashboardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        //
-   }
+    public function store(Request $request){
+        $data = $request->all();
+
+        $rules = [
+            'judul' => 'required',
+            'topik_id' => 'required|max:100',
+            'total_balasan' => 'required|max:100',
+            'user_id' => 'required|max:100',
+            'privasi' => 'required|max:100',
+
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        Forum::create([
+            'judul' => $request->judul,
+            'topik_id' => $request->topik_id,
+            'total_balasan' => $request->total_balasan,
+            'user_id' => $request->user_id,
+            'privasi' => $request->privasi,
+        ]);
+    
+        return response()
+            ->json([
+                'success' => 'Data berhasil ditambah.',
+        ]);
+    }
 
     /**
      * Display the specified resource.
@@ -81,8 +120,18 @@ class DashboardController extends Controller
      * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit($id){
+        $forum = Forum::findOrFail($id);
+
+        return response()
+            ->json([
+                'id' => $forum->id,
+                'judul'   => $forum->judul,
+                'topik_id'   => $forum->topik_id,
+                'total_balasan'   => $forum->total_balasan,
+                'user_id'   => $forum->user_id,
+                'privasi' => $forum->privasi            
+            ]);
     }
 
     /**
@@ -92,9 +141,42 @@ class DashboardController extends Controller
      * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
-        //
-   }
+    public function update(Request $request){
+        $data = $request->all();
+        // dd($data);    
+        $rules = [
+            'judul' => 'required',
+            'topik_id' => 'required',
+            'total_balasan' => 'required',
+            'user_id' => 'required',
+            'privasi' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $forum = Forum::findOrFail($request->hidden_id);
+
+        $forum->update([
+            'judul' => $request->judul,
+            'topik_id' => $request->topik_id,
+            'total_balasan' => $request->total_balasan,
+            'user_id' => $request->user_id,
+            'privasi' => $request->privasi,
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data berhasil diubah.',
+        ]);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -102,7 +184,14 @@ class DashboardController extends Controller
      * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($id){
+        $forum = Forum::findOrFail($id);
+
+        $forum->delete();
+
+        return response()
+        ->json([
+            'success' => 'Data berhasil dihapus.',
+        ]);
     }
 }
