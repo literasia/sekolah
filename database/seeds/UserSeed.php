@@ -16,7 +16,7 @@ class UserSeed extends Seeder
     public function run()
     {
         // User::truncate();
-        DB::table('role_user')->truncate();
+        // DB::table('role_user')->truncate();
 
         $superadmin = Role::where('name', 'superadmin')->first();
         $admin = Role::where('name', 'admin')->first();

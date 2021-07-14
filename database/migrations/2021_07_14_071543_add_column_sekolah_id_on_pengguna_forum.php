@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditBalasanIdFromBalasanForumsTable extends Migration
+class AddColumnSekolahIdOnPenggunaForum extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class EditBalasanIdFromBalasanForumsTable extends Migration
      */
     public function up()
     {
-        Schema::table('balasan_forums', function (Blueprint $table) {
-            $table->bigInteger('balasan_id')->nullable()->change();
-            $table->bigInteger('sekolah_id')->after('id');
-
+        Schema::table('pengguna_forums', function (Blueprint $table) {
+            $table->bigInteger('sekolah_id')->nullable();
         });
     }
 
@@ -27,8 +25,7 @@ class EditBalasanIdFromBalasanForumsTable extends Migration
      */
     public function down()
     {
-        Schema::table('balasan_forums', function (Blueprint $table) {
-            $table->dropColumn('balasan_id');
+        Schema::table('pengguna_forums', function (Blueprint $table) {
             $table->dropColumn('sekolah_id');
         });
     }

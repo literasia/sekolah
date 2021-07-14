@@ -224,7 +224,7 @@
                 $('#subject-wrapper').append(newSubjectField);
     
                 counter++;
-
+                $('.clockpicker').clockpicker({donetext: 'Done', autoclose: true});
             });
 
             $("#removeButton").click(function () {
