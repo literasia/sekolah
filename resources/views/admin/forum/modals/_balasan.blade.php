@@ -16,7 +16,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="balasan">Isi Balasan</label>
-                                <textarea name="balasan" id="balasan" class="form-control form-control-sm" placeholder="Isi Balasan"></textarea>
+                                <textarea name="komentar" id="komentar" class="form-control form-control-sm" placeholder="Isi Balasan"></textarea>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,9 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="forum_id">Forum</label>
-                                <input type="text" name="forum_id" id="forum_id" class="form-control form-control-sm">
+                                <select name="forum_id" id="forum_id" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col">

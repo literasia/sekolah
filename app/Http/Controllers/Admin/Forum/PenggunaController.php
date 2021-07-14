@@ -4,17 +4,20 @@ namespace App\Http\Controllers\Admin\Forum;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\{User, Role};
 use App\Models\Superadmin\Addons;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use App\Models\Admin\Kelas;
 use App\Models\Admin\PenggunaForum;
+use App\Models\Admin\RoleForum;
+use Illuminate\Support\Facades\Validator;
 
 class PenggunaController extends Controller
 {
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
+        $role_forum = RoleForum::orderBy('id','asc')->get();
 
         if ($request->ajax()) {
             $data = PenggunaForum::orderBy("id","desc")->get();
@@ -39,7 +42,58 @@ class PenggunaController extends Controller
         }
 
 
-        return view("admin.forum.pengguna")->with('addons', $addons)
-                                        ->with('mySekolah', User::sekolah());
+        return view("admin.forum.pengguna")
+                            ->with('addons', $addons)
+                            ->with('role_forum', $role_forum)
+                            ->with('mySekolah', User::sekolah());
     }
+
+    public function edit($id){
+        $pengguna_forum = PenggunaForum::findOrFail($id);
+
+        return response()
+            ->json([                
+                'id'   => $pengguna_forum->id,
+                'user_id' => $pengguna_forum->user->id,
+            ]);
+    }
+
+    public function update(Request $request){
+        $data = $request->all();
+        $rules = [
+            'role_id' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        // Validation Rules 
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $id = $request->hidden_id;
+        
+        $pengguna_forum = PenggunaForum::findOrFail($id);
+
+        $role = RoleForum::where('id', $data['role_id'])->first();
+
+
+        foreach($pengguna_forum->roleForum as $role){
+            $pengguna_forum->roleForum()->detach($role->id);
+        }
+        $pengguna_forum->roleForum()->attach($role->id);
+        return response()->json(['success' => 'Data berhasil diubah.']);
+    }
+
+    public function destroy($id) {
+        $pengguna_forum = PenggunaForum::findOrFail($id);
+    
+        $pengguna_forum->delete();
+
+        return response()->json(['success' => 'Data berhasil dihapus.']);
+    }
+
 }
