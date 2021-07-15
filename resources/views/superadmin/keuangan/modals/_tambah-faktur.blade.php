@@ -84,7 +84,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="tanggal">Tanggal</label>
+                                <label for="tanggal">Tanggal Faktur</label>
                                 <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" readonly>
                             </div>
                         </div>

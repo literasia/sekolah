@@ -33,7 +33,7 @@ Ini adalah halaman tagihan untuk superadmin
                                     <th>Biaya</th>
                                     <th>Metode Pembayaran</th>
                                     <th>Keterangan</th>
-                                    <th>Tanggal</th>
+                                    <th>Tanggal Tagihan</th>
                                     <th>PPN 10%</th>
                                     <th>PPH 1.5%</th>
                                     <th>Siplah 2.5%</th>
@@ -120,7 +120,6 @@ Ini adalah halaman tagihan untuk superadmin
 <script>
     $(document).ready(function() {
         $('#tagihan-table').DataTable();
-        //
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Tagihan');

@@ -35,7 +35,7 @@ Ini adalah halaman faktur penjualan untuk superadmin
                                     <th>Keterangan</th>
                                     <th>Biaya</th>
                                     <th>Total Biaya</th>
-                                    <th>Tanggal</th>
+                                    <th>Tanggal Faktur</th>
                                     <th>Penerima</th>
                                     <th>NIP Penerima</th>
                                     <th>Actions</th>
@@ -116,7 +116,6 @@ Ini adalah halaman faktur penjualan untuk superadmin
 <script>
     $(document).ready(function() {
         $('#faktur-table').DataTable();
-        //
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Faktur');
