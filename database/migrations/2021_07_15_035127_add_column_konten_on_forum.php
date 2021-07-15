@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleForumsTable extends Migration
+class AddColumnKontenOnForum extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateRoleForumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_forums', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->enum('name', ['keymaster', 'moderator', 'peserta', 'blokir_pengguna']);
-            $table->timestamps();
+        Schema::table('forums', function (Blueprint $table) {
+            $table->longText('konten')->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class CreateRoleForumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_forums');
+        Schema::table('forums', function (Blueprint $table) {
+            $table->dropColumn('konten');
+        });
     }
 }
