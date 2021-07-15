@@ -78,6 +78,10 @@
 		  font-size: 1rem;
 		}
 
+		p, td, th {
+			font-size: .9rem;
+		}
+
 		.container {
 		  width: 100%;
 		  padding-right: 15px;
@@ -596,9 +600,9 @@
 			<div class="row" style="margin-top: 60px; border-top: 6px solid #d40089;">
 				<table class="table">
 					<tr>
-						<td class="col-4 text-center">info@literasia.co.id</td>
-						<td class="col-4 text-center">+62 813 7038 6448</td>
-						<td class="col-4 text-center">www.literasia.co.id</td>
+						<td class="col-4 text-center font-weight-bold">info@literasia.co.id</td>
+						<td class="col-4 text-center font-weight-bold">+62 813 7038 6448</td>
+						<td class="col-4 text-center font-weight-bold">www.literasia.co.id</td>
 					</tr>
 				</table>
 			</div>

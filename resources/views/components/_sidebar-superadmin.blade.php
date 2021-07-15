@@ -47,7 +47,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/faktur')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
+                <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/faktur') || request()->is('superadmin/keuangan/berita-acara')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="#" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-newspaper"></i>
@@ -63,6 +63,11 @@
                         <li class="{{ request()->is('superadmin/keuangan/faktur') ? 'active' : '' }}">
                             <a href="{{ route('superadmin.keuangan.faktur') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Faktur</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->is('superadmin/keuangan/berita-acara') ? 'active' : '' }}">
+                            <a href="{{ route('superadmin.keuangan.berita-acara') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Berita Acara</span>
                             </a>
                         </li>
                     </ul>

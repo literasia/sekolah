@@ -4,7 +4,7 @@
 	<title>Kwitansi Pembayaran</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-	<style type="text/css">
+	<style type="text/css" media="screen">
 		*,
 		*::before,
 		*::after {
@@ -86,33 +86,11 @@
 		  margin-left: auto;
 		}
 
-		@media (min-width: 576px) {
-		  .container, .container-sm {
-		    max-width: 540px;
-		  }
-		}
-
-		@media (min-width: 768px) {
-		  .container, .container-sm, .container-md {
-		    max-width: 720px;
-		  }
-		}
-
-		@media (min-width: 992px) {
-		  .container, .container-sm, .container-md, .container-lg {
-		    max-width: 960px;
-		  }
-		}
-
-		@media (min-width: 1200px) {
-		  .container, .container-sm, .container-md, .container-lg, .container-xl {
-		    max-width: 1140px;
-		  }
-		}
+		
 
 		.row {
 		  display: -ms-flexbox;
-		  display: flex;
+		  display: block;
 		  -ms-flex-wrap: wrap;
 		  flex-wrap: wrap;
 		  margin-right: -15px;
@@ -211,6 +189,28 @@
 
 		.table thead th {
 		  vertical-align: bottom;
+		}
+
+		.custom-table {
+		  width: 100%;
+		  margin-bottom: 1rem;
+		  color: #212529;
+		}
+
+		.custom-table th,
+		.custom-table td {
+		  padding: 0.75rem;
+		  vertical-align: top;
+		  border: 2px solid #000;
+		}
+
+		.custom-table thead th {
+		  vertical-align: bottom;
+		  border: 2px solid #000;
+		}
+
+		.custom-table tbody + tbody {
+		  border: 2px solid #000;
 		}
 
 		.bg-white {
@@ -509,63 +509,104 @@
 		  font-weight: 700 !important;
 		}
 
-		.border-0 {
-			border: none!important;
+		.text-right {
+			text-align: right!important;
 		}
-
 	</style>
 </head>
 <body class="bg-white">
 	<div class="container">
-		<div class="row mb-2">
-			<div class="col-12 text-center" style="border-bottom: 6px solid #e90096;">
-				<h3 class="font-weight-bold" style="color: #e90096;">PT. LITERASIA EDUTEKNO DIGITAL</h3>
+		<div class="row">
+			<div class="col-12 text-center" style="border-bottom: 6px solid #d40089;">
+				<h3 class="font-weight-bold" style="color: #d40089;">PT. LITERASIA EDUTEKNO DIGITAL</h3>
 				<h6 class="font-weight-bold">Web Developer - App Developer - IT Solution</h6>
 				<p>Jl. Karya Kasih Komp. Mitra Duta No. 8 Medan Johor, Sumatera Utara</p>
 			</div>
 		</div>
 
 		<div class="container">
-			<div class="row mt-1">
-				<div class="col-12 text-center p-4" style="border-bottom: 3px solid #000;">
-					<h4 class="font-weight-bold" style="text-decoration: underline;">KWITANSI</h4>
+			<div class="row">
+				<div class="col-12 text-center px-4 pt-4 pb-0">
+					<h4 class="font-weight-bold mb-3" style="text-decoration: underline;">BERITA ACARA SERAH TERIMA</h4>
 				</div>
 			</div>
 
-			<div class="row mt-3">
-				<div class="col-12" style="border-bottom: 3px solid #000;">
+			<div class="row">
+				<div class="col-12 p-4">
+					<p>Pada Hari ini : <span>y</span></p>
+					<p class="mb-1">Yang bertanda tangan di bawah ini :</p>
+					<p class="font-weight-bold mb-1">PIHAK PERTAMA</p>
 					<table>
 						<tr>
-							<td class="col-4 font-weight-bold pb-5 px-0">No</td>
-							<td class="col-1 pb-5 px-0 font-weight-bold">:</td>
-							<td class="col-7 pb-5 px-0 font-weight-bold"></td>
+							<td class="col-4 font-weight-bold pb-2 px-0">Nama</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0 font-weight-bold">Muslim Margolang</td>
 						</tr>
 						<tr>
-							<td class="col-4 font-weight-bold pb-5 px-0">Sudah Terima Dari</td>
-							<td class="col-1 pb-5 px-0 font-weight-bold">:</td>
-							<td class="col-7 pb-5 px-0"></td>
+							<td class="col-4 font-weight-bold pb-2 px-0">Jabatan</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0">Direktur Utama </td>
 						</tr>
 						<tr>
-							<td class="col-4 font-weight-bold pb-5 px-0">Uang Sejumlah</td>
-							<td class="col-1 pb-5 px-0 font-weight-bold">:</td>
-							<td class="col-7 pb-5 px-0"></td>
+							<td class="col-4 font-weight-bold pb-2 px-0">Alamat</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0">Jalan Karya Kasih Komplek Mitra Duta No.8 Medan</td>
+						</tr>
+
+						<tr>
+							<td class="col-6 pb-2 px-0"><p class="mt-3">Selanjutnya disebut sebagai Penyedia</p></td>
 						</tr>
 						<tr>
-							<td class="col-4 font-weight-bold pb-5 px-0">Untuk Pembayaran</td>
-							<td class="col-1 pb-5 px-0 font-weight-bold">:</td>
-							<td class="col-7 pb-5 px-0"></td>
+							<td class="col-6 pb-2 px-0"><p class="mb-1 font-weight-bold">PIHAK KEDUA</p></td>
+						</tr>
+
+						<tr>
+							<td class="col-4 font-weight-bold pb-2 px-0">Nama</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0 font-weight-bold"></td>
 						</tr>
 						<tr>
-							<td class="col-4 font-weight-bold pb-5 px-0">Jumlah Rp</td>
-							<td class="col-1 pb-5 px-0 font-weight-bold">:</td>
-							<td class="col-7 pb-5 px-0"></td>
+							<td class="col-4 font-weight-bold pb-2 px-0">Jabatan</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0"></td>
+						</tr>
+						<tr>
+							<td class="col-4 font-weight-bold pb-2 px-0">Sekolah</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0"></td>
+						</tr>
+						<tr>
+							<td class="col-4 font-weight-bold pb-2 px-0">Kab/Kota</td>
+							<td class="col-1 pb-2 px-0 font-weight-bold">:</td>
+							<td class="col-7 pb-2 px-0"></td>
 						</tr>
 					</table>
+					<p class="mt-3">Selanjutnya disebut sebagai Pemesan</p>
+					<p class="my-4">Selanjutnya Bedasarkan Surat Pemesanan Media Perpustakaan Digital Dan Media Pembelajaran Digital Pada Tanggal <span>y</span> 2021 PIHAK PERTAMA Menyerahkan Media Perpustakaan Digital Dan Media Pembelajaran Digital Tersebut Kepada PIHAK KEDUA Dengan Rincian Tersebut : </p>
+					<table class="custom-table">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Jenis</th>
+								<th>Deskripsi</th>
+								<th>Keterangan</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>No</td>
+								<td>Jenis</td>
+								<td>Deskripsi</td>
+								<td>Keterangan</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="mt-4">Barang Sebagaimana Disebut Diatas Telah Diterima Dalam Keadaan Baik Oleh PIHAK KEDUA , Demikian Berita Acara Serah Terima Ini Dibuat Dengan Sebenarnya Untuk Dapat Dipergunakan Sebagaimana Mestinya.</p>
 				</div>
 			</div>
 
 			<div class="row mt-3">
-				<div class="col-12">
+				<div class="col-12 text-right">
 					<p><!-- tempat -->, <span><!-- tanggal --> </span><span><!-- bulan --> </span>2021</p>
 				</div>
 			</div>
@@ -573,7 +614,7 @@
 			<div class="row">
 				<table class="table">
 					<tr>
-						<td class="col-4">Setuju Dibayar</td>
+						<td class="col-4">Penerima</td>
 						<td class="col-4"> </td>
 						<td class="col-4 text-center">Hormat kami,</td>
 					</tr>
@@ -583,37 +624,37 @@
 			<div class="row mt-3">
 				<table class="table">
 					<tr>
-						<td class="col-4">Kepala Sekolah</td>
-						<td class="col-4">Bendahara</td>
+						<td class="col-4"><!-- nama sekolah --></td>
+						<td class="col-4"> </td>
 						<td class="col-4 text-center">PT. Literasia EduTekno Digital</td>
 					</tr>
 					<tr>
-						<td class="col-4"><div class="pr-1" style=" margin-top: 3rem; border-bottom: 3px solid #000;"></div></td>
-						<td class="col-4"><div style=" margin-top: 3rem; border-bottom: 3px solid #000;"></div></td>
-						<td class="col-4"><div class="pl-1" style=" margin-top: 3rem; border-bottom: 3px solid #000;"></div></td>
+						<td class="col-4 pb-0"><div class="pr-1 pb-3" style=" margin-top: 3rem; border-bottom: 3px solid #000;"><!-- nama penerima --></div></td>
+						<td class="col-4"></td>
+						<td class="col-4 pb-0"><div class="pl-1 pb-3 text-center" style=" margin-top: 3rem; border-bottom: 3px solid #000;">Muslim Syah Margolang</div></td>
 					</tr>
 				</table>
 			</div>
 			
-			<div class="row mt-4">
+			<div class="row">
 				<table class="table">
 					<tr>
-						<td class="col-4">NIP</td>
-						<td class="col-4">NIP</td>
-						<td class="col-4 text-center">Direktur Utama</td>
+						<td class="col-4 pt-2">NIP</td>
+						<td class="col-4"> </td>
+						<td class="col-4 pt-2 text-center">Direktur Utama</td>
 					</tr>
 				</table>
 			</div>
 
-			<div class="row" style="border-top: 6px solid #e90096;">
+			<div class="row" style="margin-top: 60px; border-top: 6px solid #d40089;">
 				<table class="table">
 					<tr>
-						<td class="col-4">info@literasia.co.id</td>
-						<td class="col-4">+62 813 7038 6448</td>
-						<td class="col-4 text-center">www.literasia.co.id</td>
+						<td class="col-4 text-center font-weight-bold">info@literasia.co.id</td>
+						<td class="col-4 text-center font-weight-bold">+62 813 7038 6448</td>
+						<td class="col-4 text-center font-weight-bold">www.literasia.co.id</td>
 					</tr>
 				</table>
-			</div>
+			</div>			
 		</div>
 	</div>
 </body>

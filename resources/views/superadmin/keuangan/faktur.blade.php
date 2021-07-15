@@ -28,31 +28,27 @@ Ini adalah halaman faktur penjualan untuk superadmin
                         <table id="faktur-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
-                                    <th>Nomor Tagihan</th>
+                                    <th>Nomor Faktur</th>
+                                    <th>NPWP</th>
                                     <th>Nama Sekolah</th>
-                                    <th>Biaya</th>
-                                    <th>Metode Pembayaran</th>
+                                    <th>Jenis Pesanan</th>
                                     <th>Keterangan</th>
+                                    <th>Biaya</th>
+                                    <th>Total Biaya</th>
                                     <th>Tanggal</th>
-                                    <th>PPN 10%</th>
-                                    <th>PPH 1.5%</th>
-                                    <th>Siplah 2.5%</th>
-                                    <th>Total Penerimaan</th>
-                                    <th>Kepala Sekolah</th>
-                                    <th>Bendahara</th>
+                                    <th>Penerima</th>
+                                    <th>NIP Penerima</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
                                 <tr>
                                     <td></td>
-                                    <td>SMK Negeri 2 Tebing Tinggi</td>
-                                    <td>50000000</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>5000000</td>
-                                    <td>75000</td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -122,7 +118,7 @@ Ini adalah halaman faktur penjualan untuk superadmin
         $('#faktur-table').DataTable();
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Tagihan');
+            $('.modal-title').html('Tambah Faktur');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
