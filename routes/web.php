@@ -1,33 +1,37 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    return "Artisan success";
-});
+// Route::get('/migrate', function () {
+//     Artisan::call('migrate');
+//     return "Artisan success";
+// });
 
-Route::get('/migrate-fresh', function () {
-    Artisan::call('migrate:fresh');
-    return "Artisan success";
-});
+// Route::get('/migrate-fresh', function () {
+//     Artisan::call('migrate:fresh');
+//     return "Artisan success";
+// });
 
-Route::get('/db-seed', function () {
-    Artisan::call('db:seed');
-    return "Artisan success";
-});
+// Route::get('/db-seed', function () {
+//     Artisan::call('db:seed');
+//     return "Artisan success";
+// });
 
-Route::get('/dbal', function () {
-    shell_exec('composer require doctrine/dbal');
-    return "Composer success";
-});
+// Route::get('/dbal', function () {
+//     shell_exec('composer require doctrine/dbal');
+//     return "Composer success";
+// });
 
-Route::get('/composer-install', function () {
-    shell_exec('composer install');
-    return "Composer success";
-});
+// Route::get('/composer-install', function () {
+//     shell_exec('composer install');
+//     return "Composer success";
+// });
 
 Route::middleware('auth')->group(function(){
     Route::get('/superadmin/referensi/provinsi/getKabupatenKota', 'Superadmin\Referensi\ProvinsiController@getKabupatenKota')
