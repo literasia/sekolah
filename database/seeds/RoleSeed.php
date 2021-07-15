@@ -12,7 +12,8 @@ class RoleSeed extends Seeder
      */ //
     public function run()
     {
-        Role::truncate();
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Role::truncate();
 
         Role::create([
             'name' => 'superadmin',

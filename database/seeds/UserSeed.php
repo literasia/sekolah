@@ -15,6 +15,7 @@ class UserSeed extends Seeder
      */ //
     public function run()
     {
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         // User::truncate();
         // DB::table('role_user')->truncate();
 
