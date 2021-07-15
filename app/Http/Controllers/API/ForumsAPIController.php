@@ -35,7 +35,7 @@ class ForumsAPIController extends Controller
                 'permission_guest_account'=> 0,
                 'auto_embeded_link'=> 1,
                 'permission_reply_thread'=> 0,
-                'amount_reply_thread'=> 0,
+                'amount_reply_thread'=> 2,
                 'permission_revisions'=> 1,
                 'permission_topic_favorit'=> 1,
                 'permission_search'=> 1,
