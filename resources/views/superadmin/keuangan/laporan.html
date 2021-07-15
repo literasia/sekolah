@@ -4,7 +4,7 @@
 	<title>Kwitansi Pembayaran</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-	<style type="text/css" media="screen">
+	<style type="text/css">
 		*,
 		*::before,
 		*::after {
@@ -86,11 +86,33 @@
 		  margin-left: auto;
 		}
 
-		
+		@media (min-width: 576px) {
+		  .container, .container-sm {
+		    max-width: 540px;
+		  }
+		}
+
+		@media (min-width: 768px) {
+		  .container, .container-sm, .container-md {
+		    max-width: 720px;
+		  }
+		}
+
+		@media (min-width: 992px) {
+		  .container, .container-sm, .container-md, .container-lg {
+		    max-width: 960px;
+		  }
+		}
+
+		@media (min-width: 1200px) {
+		  .container, .container-sm, .container-md, .container-lg, .container-xl {
+		    max-width: 1140px;
+		  }
+		}
 
 		.row {
 		  display: -ms-flexbox;
-		  display: block;
+		  display: flex;
 		  -ms-flex-wrap: wrap;
 		  flex-wrap: wrap;
 		  margin-right: -15px;
@@ -487,27 +509,17 @@
 		  font-weight: 700 !important;
 		}
 
-		.justify-content-between {
-		  -ms-flex-pack: justify !important;
-		  justify-content: space-between !important;
+		.border-0 {
+			border: none!important;
 		}
 
-		.align-items-center {
-		  -ms-flex-align: center !important;
-		  align-items: center !important;
-		}
-
-		.d-flex {
-		  display: -ms-flexbox !important;
-		  display: flex !important;
-		}
 	</style>
 </head>
 <body class="bg-white">
 	<div class="container">
 		<div class="row mb-2">
-			<div class="col-12 text-center" style="border-bottom: 6px solid #d40089;">
-				<h3 class="font-weight-bold" style="color: #d40089;">PT. LITERASIA EDUTEKNO DIGITAL</h3>
+			<div class="col-12 text-center" style="border-bottom: 6px solid #e90096;">
+				<h3 class="font-weight-bold" style="color: #e90096;">PT. LITERASIA EDUTEKNO DIGITAL</h3>
 				<h6 class="font-weight-bold">Web Developer - App Developer - IT Solution</h6>
 				<p>Jl. Karya Kasih Komp. Mitra Duta No. 8 Medan Johor, Sumatera Utara</p>
 			</div>
@@ -593,11 +605,11 @@
 				</table>
 			</div>
 
-			<div class="row" style="margin-top: 60px; border-top: 6px solid #d40089;">
+			<div class="row" style="border-top: 6px solid #e90096;">
 				<table class="table">
 					<tr>
-						<td class="col-4 text-center">info@literasia.co.id</td>
-						<td class="col-4 text-center">+62 813 7038 6448</td>
+						<td class="col-4">info@literasia.co.id</td>
+						<td class="col-4">+62 813 7038 6448</td>
 						<td class="col-4 text-center">www.literasia.co.id</td>
 					</tr>
 				</table>

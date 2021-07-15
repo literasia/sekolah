@@ -103,6 +103,6 @@
 		</div>
 	</div>
 <script type="text/javascript" src="{{ asset('bower_components/jquery/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}'"></script>
+<script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
 </body>
 </html>
