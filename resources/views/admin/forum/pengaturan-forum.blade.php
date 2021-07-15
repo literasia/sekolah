@@ -15,8 +15,8 @@
 @endsection
 
 @section('content')
-<form id="form-pengaturan">
-	@csrf @method("POST")
+<form id="form-pengaturan"action="{{ route('admin.forum.pengaturan-forum.update') }}" method="POST" enctype="multipart/form-data">
+	@csrf @method('PUT')
 	<div class="row">
     	<div class="col-xl-12">
         	<div class="card glass-card d-flex justify-content-center align-items-center p-2">
@@ -31,16 +31,16 @@
 				                        	<h6 class="font-weight-bold">Peran Forum</h6>
                                             	<div class="form-check mb-2" action="/action_page.php">
 													<label class="form-check-label" for="peran_forum">
-                                                		<input class="form-check-input" type="checkbox" name="hide_peran_forum" id="peran_forum">
+                                                		<input class="form-check-input" type="checkbox" name="permission_acces_level" id="permission_acces_level" value ="1" {{  ($pengaturan_forum->permission_acces_level == 1 ? ' checked' : '') }}>
                                 							Secara otomatis memberikan pengunjung terdaftar sebagai peran forum Peserta
                                                 	</label>
 													<div class="mt-2 form-group">
-                                                    	<select name="show_peran" id="peran" class="form-control form-control-sm col-6">
+                                                    	<select name="peran" id="peran" class="form-control form-control-sm col-6">
                                                     	<option value="">-- Pilih --</option>
                                                     	<option value="keymaster">Keymaster</option>
                                                     	<option value="moderator">Moderator</option>
                                                     	<option value="peserta">Peserta</option>
-                                                    	<option value="blokir">Blokir Pengguna</option>
+                                                    	<option value="blokir_pengguna">Blokir Pengguna</option>
                                                     	</select>
                                                 	</div>
                                             	</div>
@@ -52,8 +52,8 @@
 				                        	<h6 class="font-weight-bold">Spam</h6>
                                         	<div class="form-check mb-2" action="/action_page.php">
 												<label class="form-check-label">
-													<input class="form-check-input mt-2" type="checkbox" name="nonaktif_spam" id="" checked> 
-                                                		Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1 form-control-sm form-control d-inline-block" type="number" name="batas_waktu" id="batas-waktu">  detik setelah memposting
+													<input class="form-check-input mt-2" type="checkbox" name="permission_posting_limit" id="permission_posting_limit" value ="1" {{  ($pengaturan_forum->permission_posting_limit == 1 ? ' checked' : '') }}> 
+                                                		Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1 form-control-sm form-control d-inline-block" type="number" name="	posting_limit_time" id="posting_limit_time">  detik setelah memposting
                                             	</label>
                                         	</div>
                                         	<small class="d-block mb-2">Gunakan ini untuk mencegah pengguna mengirim spam ke forum Anda.</small>
@@ -64,8 +64,8 @@
 				                        	<h6 class="font-weight-bold">Edit Forum</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
 												<label class="form-check-label">
-                                            		<input class="form-check-input mt-2" type="checkbox" name="edit_forum" id="" checked>
-                                                		Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1 form-control form-control-sm d-inline-block" type="number" name="batas_waktu" id="batas-waktu"> menit setelah memposting
+                                            		<input class="form-check-input mt-2" type="checkbox" name="permission_edit_content" id="permission_edit_content" value ="1" {{  ($pengaturan_forum->permission_edit_content == 1 ? ' checked' : '') }}>
+                                                		Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1 form-control form-control-sm d-inline-block" type="number" name="edit_limit_time" id="edit_limit_time"> menit setelah memposting
                                             	</label>
                                         	</div>
                                         	<small class="d-block mb-2">Jika dicentang, pengaturan ke "0 menit" memungkinkan pengeditan selamanya.</small>
@@ -75,8 +75,8 @@
 			                        	<div class="col-md-12">
 				                        	<h6 class="font-weight-bold">Anonymous</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php"> 
-                                            	<input class="form-check-input" type="checkbox" name="anonymous" id="">
-												<label class="form-check-label">       
+                                            	<input class="form-check-input" type="checkbox" name="permission_guest_account" id="permission_guest_account" value ="1" {{  ($pengaturan_forum->permission_guest_account == 1 ? ' checked' : '') }}>
+															<label class="form-check-label">       
                                                 	Izinkan pengguna tamu tanpa akun untuk membuat topik dan balasan
                                             	</label>
                                         	</div>
@@ -93,7 +93,7 @@
 			                        	<div class="col-md-12">
 				                        	<h6 class="font-weight-bold">Auto-embed links</h6>
                                             	<div class="form-group form-check mb-2" action="/action_page.php">
-                                                	<input class="form-check-input" type="checkbox" name="autoembed_links" id="" checked>
+                                                	<input class="form-check-input" type="checkbox" name="auto_embeded_link" id="auto_embeded_link" value ="1" {{  ($pengaturan_forum->auto_embeded_link == 1 ? ' checked' : '') }}>
 													<label class="form-check-label">     
                                                     	Sematkan media (YouTube, Twitter, Flickr, dll...) langsung ke topik dan balasan
                                                 	</label>
@@ -106,11 +106,11 @@
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
 												<div class="form-row">
 													<div class="col-auto mt-1">
-                                            			<input class="form-check-input" type="checkbox" name="reply" id="">
+                                            			<input class="form-check-input" type="checkbox" name="permission_reply_thread" id="permission_reply_thread" value ="1" {{  ($pengaturan_forum->permission_reply_thread == 1 ? ' checked' : '') }}>
 														<label class="form-check-label"> Aktifkan balasan berulir (bersarang) sedalam</label>
 													</div>
 													<div class="col-auto">
-														<select name="level" id="level" class="form-control-sm form-control d-inline-block">
+														<select name="amount_reply_thread" id="amount_reply_thread" class="form-control-sm form-control d-inline-block">
 															<option value="">--Pilih Level--</option>
                                                 			<option value="2">2 level</option>
                                                     		<option value="3">3 level</option>
@@ -128,7 +128,7 @@
 				                        	<h6 class="font-weight-bold">Revisions</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">
-                                                	<input class="form-check-input" type="checkbox" name="revisi" id="" checked>       
+                                                	<input class="form-check-input" type="checkbox" name="permission_revisions" id="permission_revisions" value ="1" {{  ($pengaturan_forum->permission_revisions == 1 ? ' checked' : '') }}>       
                                                 	<div>Izinkan revisi pada topik dan balas pesan</div> 
                                             	</label>
                                         	</div>
@@ -139,7 +139,7 @@
 				                        	<h6 class="font-weight-bold">Favorites</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">
-                                                	<input class="form-check-input" type="checkbox" name="favorites" id="" checked>       
+                                                	<input class="form-check-input" type="checkbox" name="permission_topic_favorit" id="permission_topic_favorit" value ="1" {{  ($pengaturan_forum->permission_topic_favorit == 1 ? ' checked' : '') }}>       
                                                 	<div>Izinkan pengguna untuk menandai topik sebagai favorit</div> 
                                             	</label>
                                         	</div>
@@ -183,7 +183,7 @@
 				                        	<h6 class="font-weight-bold">Search</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">
-                                                	<input class="form-check-input" type="checkbox" name="search" id="" checked>       
+                                                	<input class="form-check-input" type="checkbox" name="permission_search" id="permission_search" value ="1" {{  ($pengaturan_forum->permission_search == 1 ? ' checked' : '') }}>       
                                                 	<div>Izinkan pencarian di seluruh forum</div> 
                                             	</label>
                                         	</div>
@@ -194,7 +194,7 @@
 				                        	<h6 class="font-weight-bold">Post Formatting</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">
-                                                	<input class="form-check-input" type="checkbox" name="format_post" id="">       
+                                                	<input class="form-check-input" type="checkbox" name="permission_post_formating" id="permission_post_formating" value ="1" {{  ($pengaturan_forum->permission_post_formating == 1 ? ' checked' : '') }}>       
                                                 	<div>Tambahkan bilah alat dan tombol ke area teks untuk membantu pemformatan HTML</div> 
                                             	</label>
                                         	</div>
@@ -205,7 +205,7 @@
 				                        	<h6 class="font-weight-bold">Forum Moderators</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">
-                                                	<input class="form-check-input" type="checkbox" name="moderator_forum" id="">       
+                                                	<input class="form-check-input" type="checkbox" name="permission_forum_moderator" id="permission_forum_moderator" value ="1" {{  ($pengaturan_forum->permission_forum_moderator == 1 ? ' checked' : '') }}>       
                                                 	<div>Izinkan forum memiliki moderator khusus</div>
                                             	</label>
                                         	</div>
@@ -217,7 +217,7 @@
 				                        	<h6 class="font-weight-bold">Super Moderators</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">
-                                                	<input class="form-check-input" type="checkbox" name="super" id="">       
+                                                	<input class="form-check-input" type="checkbox" name="permission_super_moderator" id="permission_super_moderator" value ="1" {{  ($pengaturan_forum->permission_super_moderator == 1 ? ' checked' : '') }}>       
                                                 	<div>Izinkan Moderator dan Keymaster untuk mengedit pengguna</div>
                                             	</label>
                                         	</div>
@@ -235,7 +235,7 @@
 				                        	<h6 class="font-weight-bold">Topics</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">       
-                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="halaman_topik" id="batas-topik"> per halaman</div> 
+                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="amount_page_topic" id="amount_page_topic"> per halaman</div> 
                                             	</label>
                                         	</div>
 			                        	</div>
@@ -245,7 +245,7 @@
 				                        	<h6 class="font-weight-bold">Balasan</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">       
-                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="halaman_balasan" id="batas-balasan"> per halaman</div> 
+                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="amount_page_reply" id="amount_page_reply"> per halaman</div> 
                                             	</label>
                                         	</div>
 			                        	</div>
@@ -253,7 +253,8 @@
 								</div>
 						</div>
 						<div class="my-3" style="margin-left: 90%;">
-		        			<button class="btn-success btn btn-info btn-sm" style="">Simpan</button>
+							<input type="hidden" name="hidden_id" value="{{ $pengaturan_forum->id }}">
+		        			<button value="Simpan" class="btn-success btn btn-info btn-sm" style="">Simpan</button>
 		        		</div>
                 	</div>
             	</div>
@@ -348,55 +349,23 @@
 <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script>
     $('document').ready(function() {
-        $('#add').on('click', function() {
-            $('#form-kuis-ku')[0].reset();
-            $('.modal-title').html('Tambah Kuis');
-            $('.form-control').val('');
-            $('#action').val('add');
-			$('#peran_forum').prop('checked', true);
-        });
+      //   $('#add').on('click', function() {
+      //       $('#form-kuis-ku')[0].reset();
+      //       $('.modal-title').html('Tambah Kuis');
+      //       $('.form-control').val('');
+      //       $('#action').val('add');
+		// 	$('#peran_forum').prop('checked', true);
+      //   });
 
-        $("input[type='checkbox']").click(function() {
-            $('#peran_forum').change(function(){
-                if ($("#peran_forum").is(':checked')){
-                    $('#peran').hide();
-                } else {
-                    $('#peran').show();
-                }
-            });
-        });
-
-        $('#form-kuis-ku').on('submit', function (event) {
-            event.preventDefault();
-            var url = '';
-            var text = "Data sukses ditambahkan";
-
-            $.ajax({
-                url: url,
-                method: 'POST',
-                dataType: 'JSON',
-                data: $(this).serialize(),
-                success: function (data) {
-
-                    if (data.success) {
-                        Swal.fire("Berhasil", text, "success");
-                        $('.form-control').removeClass('is-invalid');
-                        $('#form-kuis-ku')[0].reset();
-                        $('#action').val('add');
-                        $('#btn')
-                            .removeClass('btn-info')
-                            .addClass('btn-success')
-                            .val('Simpan');
-                        $('#btn-cancel')
-                            .removeClass('btn-outline-info')
-                            .addClass('btn-outline-success')
-                            .val('Batal');
-                        $('#order-table').DataTable().ajax.reload();
-                        $('#modal-kuis').modal('hide');
-                    }
-                }
-            });
-        });
+      //   $("input[type='checkbox']").click(function() {
+      //       $('#peran_forum').change(function(){
+      //           if ($("#peran_forum").is(':checked')){
+      //               $('#peran').hide();
+      //           } else {
+      //               $('#peran').show();
+      //           }
+      //       });
+      //   });
 
     })
 </script>

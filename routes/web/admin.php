@@ -481,7 +481,7 @@ Route::namespace('Forum')->group(function () {
         ->name('forum.pengaturan-forum.store');
     Route::get('/admin/forum/pengaturan-forum/{id}', 'PengaturanController@edit')
         ->name('forum.pengaturan-forum.edit');
-    Route::post('/admin/forum/pengaturan-forum/update', 'PengaturanController@update')
+    Route::put('/admin/forum/pengaturan-forum/update', 'PengaturanController@update')
         ->name('forum.pengaturan-forum.update');
     Route::get('/admin/forum/pengaturan-forum/hapus/{id}', 'PengaturanController@destroy')
         ->name('forum.pengaturan-forum.delete');
