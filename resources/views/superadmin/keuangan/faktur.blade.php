@@ -9,7 +9,7 @@
 Ini adalah halaman faktur penjualan untuk superadmin
 @endsection
 
-@section('icon-l', 'fa fa-images')
+@section('icon-l', 'fa fa-book')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -58,8 +58,9 @@ Ini adalah halaman faktur penjualan untuk superadmin
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button class="btn btn-info btn-sm"><i class="fa fa-pencil-alt"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        <a href="{{route('superadmin.keuangan.laporan-faktur')}}" class="btn btn-warning btn-mini" target="_blank"><i class="fa fa-print"></i></a>
+                                        <button class="btn btn-info btn-mini"><i class="fa fa-pencil-alt"></i></button>
+                                        <button class="btn btn-danger btn-mini"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -89,7 +90,7 @@ Ini adalah halaman faktur penjualan untuk superadmin
 </div>
 
 {{-- Modal --}}
-@include('superadmin.keuangan.modals._tambah-tagihan')
+@include('superadmin.keuangan.modals._tambah-faktur')
 @endsection
 
 {{-- addons css --}}
@@ -130,26 +131,8 @@ Ini adalah halaman faktur penjualan untuk superadmin
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-tagihan').modal('show');
+            $('#modal-faktur').modal('show');
         });
     });
-</script>
-<script type="text/javascript">
-    function calculate() {
-        var biaya = document.getElementById('biaya').value;
-        var ppn = 1.1;
-        var pph = 1.015;
-        // ].var siplah = 1.025;
-
-        var ppn_result = parseFloat(biaya) / ppn;
-        if (!isNaN(ppn_result)) {
-           document.getElementById('ppn').value = ppn_result.toFixed(2);
-        }
-
-        var pph_result =  ppn_result / pph;
-         if (!isNaN(pph_result)) {
-           document.getElementById('pph').value = pph_result.toFixed(2);
-        }
-    }
 </script>
 @endpush
