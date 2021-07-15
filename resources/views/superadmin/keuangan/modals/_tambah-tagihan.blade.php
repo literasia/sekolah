@@ -14,8 +14,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="no_tagihan">Nomor Tagihan</label>
-                                <input type="text" name="no_tagihan" id="no_tagihan" class="form-control form-control-sm" placeholder="Nomor Tagihan">
+                                <label for="nomor_tagihan">Nomor Tagihan</label>
+                                <input type="text" name="nomor_tagihan" id="nomor_tagihan" class="form-control form-control-sm" placeholder="Nomor Tagihan">
                             </div>
                         </div>
                         <div class="col">

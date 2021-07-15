@@ -173,7 +173,7 @@ Route::namespace('Superadmin')
             Route::get('/superadmin/keuangan/laporan-berita-acara', 'BeritaAcaraController@print')->name('keuangan.laporan-berita-acara');
         });
 
-        // generate list sekolah
+        // generate list sekolah //
         // Route::get('/superadmin/list-sekolah/generate', 'ListSekolahController@generate')->name('list-sekolah.generate'); 
         Route::get('/superadmin/list-sekolah/generate-siswa', 'ListSekolahController@generateSiswa')->name('list-sekolah.generate-siswa'); 
 

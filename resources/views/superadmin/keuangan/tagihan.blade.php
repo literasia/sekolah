@@ -120,6 +120,7 @@ Ini adalah halaman tagihan untuk superadmin
 <script>
     $(document).ready(function() {
         $('#tagihan-table').DataTable();
+        //
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Tagihan');

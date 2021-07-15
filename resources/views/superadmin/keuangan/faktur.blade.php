@@ -116,6 +116,7 @@ Ini adalah halaman faktur penjualan untuk superadmin
 <script>
     $(document).ready(function() {
         $('#faktur-table').DataTable();
+        //
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Faktur');

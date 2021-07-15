@@ -122,6 +122,7 @@ Ini adalah halaman berita acara serah terima untuk superadmin
 <script>
     $(document).ready(function() {
         $('#berita-acara-table').DataTable();
+        //
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Berita Acara');

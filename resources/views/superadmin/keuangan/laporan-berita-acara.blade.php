@@ -584,7 +584,7 @@
 						</tr>
 					</table>
 					<p class="mt-3">Selanjutnya disebut sebagai Pemesan</p>
-					<p class="my-4">Selanjutnya Bedasarkan Surat Pemesanan Media Perpustakaan Digital Dan Media Pembelajaran Digital Pada Tanggal <span>y</span> 2021 PIHAK PERTAMA Menyerahkan Media Perpustakaan Digital Dan Media Pembelajaran Digital Tersebut Kepada PIHAK KEDUA Dengan Rincian Tersebut : </p>
+					<p class="my-4">Selanjutnya Bedasarkan Surat Pemesanan Media Perpustakaan Digital Dan Media Pembelajaran Digital Pada Tanggal <span></span> 2021 PIHAK PERTAMA Menyerahkan Media Perpustakaan Digital Dan Media Pembelajaran Digital Tersebut Kepada PIHAK KEDUA Dengan Rincian Tersebut : </p>
 					<table class="custom-table">
 						<thead>
 							<tr>

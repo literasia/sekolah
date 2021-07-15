@@ -99,7 +99,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nip">NIP</label>
-                                <input type="text" name="nip" id="nip" class="form-control form-control-sm" placeholder="NIP">
+                                <input type="text" name="nip" id="nip" class="form-control form-control-sm" placeholder="NIP Penerima">
                             </div>
                         </div>
                     </div>

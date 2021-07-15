@@ -90,8 +90,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="keteranagn">Keterangan</label>
-                                <textarea class="form-control form-control-sm" id="keteranagn" placeholder="Keterangan"></textarea>
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control form-control-sm" id="keterangan" placeholder="Keterangan"></textarea>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 
 class BeritaAcaraController extends Controller
-{
+{ //
     public function index(Request $request) { 
         return view('superadmin.keuangan.berita-acara');
     }
