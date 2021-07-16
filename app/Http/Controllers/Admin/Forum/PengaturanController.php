@@ -8,7 +8,7 @@ use DataTables;
 use App\User;
 use App\Models\Superadmin\Addons;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Admin\PengaturanForum;
+use App\Models\Admin\{PengaturanForum, PenggunaForum, RoleForum};
 use Illuminate\Support\Facades\Validator;
 
 class PengaturanController extends Controller
@@ -41,8 +41,7 @@ class PengaturanController extends Controller
         $data = $request->all();
         $id = $data['hidden_id'];
         $pengaturan_forum = PengaturanForum::findOrFail($id);
-        dd($data);
-
+        
         $rules=[
             'permission_acces_level' => 'required',
             'access_level' => 'required',
@@ -57,25 +56,41 @@ class PengaturanController extends Controller
         ];
 
         $validator = Validator::make($data, $rules);
+        
+        // cek jika akses level ditetapkan secara otomatis
+        if ($request->permission_access_level == 1) {
+             
+            $pengguna_forum = PenggunaForum::where('sekolah_id', auth()->user()->id_sekolah)->get();
+            $role_forum = RoleForum::where('name', $request->peran)->first();
+           
+            foreach($pengguna_forum as $item){
+                $pengguna_forum = PenggunaForum::findOrFail($item->id);
+                // detach pengguna forum
+                $pengguna_forum->roleForum()->detach();
+                // attach to pivot
+                $pengguna_forum->roleForum()->attach($role_forum->id);
+            }
+        }
+
 
         $pengaturan_forum->update([
-            'permission_acces_level' => $request->permission_acces_level,
+            'permission_access_level' => $request->permission_access_level != null ? 1 : 0,
             'access_level' => $request->peran,
-            'permission_posting_limit' => $request->permission_posting_limit,
-            'posting_limit_time' => $request->has('posting_limit_time'),
-            'permission_edit_content'=> $request->permission_edit_content,
-            'edit_limit_time'=> $request->has('edit_limit_time'),
-            'permission_guest_account' => $request->has('permission_guest_account'),
-            'auto_embeded_link'=> $request->auto_embeded_link,
-            'permission_reply_thread'=> $request->has('permission_reply_thread'),
-            'amount_reply_thread'=> $request->has('amount_reply_thread'),
-            'permission_revisions'=> $request->permission_revisions,
-            'permission_search'=> $request->permission_search,
-            'permission_post_formating'=> $request->has('permission_post_formating'),
-            'permission_forum_moderator'=> $request->has('permission_forum_moderator'),
-            'permission_super_moderator'=> $request->has ('permission_super_moderator'),
-            'amount_page_topic'=> $request->has('amount_page_topic'),
-            'amount_page_reply'=> $request->has('amount_page_reply'),
+            'permission_posting_limit' => $request->permission_posting_limit != null ? 1 : 0,
+            'posting_limit_time' => $request->posting_limit_time != null ? $request->posting_limit_time : 0,
+            'permission_edit_content'=> $request->permission_edit_content != null ? 1 : 0,
+            'edit_limit_time'=> $request->edit_limit_time != null ? $request->edit_limit_time : 0,
+            'permission_guest_account' => $request->permission_guest_account != null ? 1 : 0,
+            'auto_embeded_link'=> $request->auto_embeded_link != null ? 1 : 0,
+            'permission_reply_thread'=> $request->permission_reply_thread != null ? 1 : 0,
+            'amount_reply_thread'=> $request->amount_reply_thread != null ? $request->amount_reply_thread : 0,
+            'permission_revisions'=> $request->permission_revisions != null ? 1 : 0,
+            'permission_search'=> $request->permission_search != null ? 1 : 0,
+            'permission_post_formating'=> $request->permission_post_formating != null ? 1 : 0,
+            'permission_forum_moderator'=> $request->permission_forum_moderator != null ? 1 : 0,
+            'permission_super_moderator'=> $request->permission_super_moderator != null ? 1 : 0,
+            'amount_page_topic'=> $request->amount_page_topic != null ? $request->amount_page_topic : 1,
+            'amount_page_reply'=> $request->amount_page_reply != null ? $request->amount_page_reply : 1,
         ]);
 
         return redirect()->back();

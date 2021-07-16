@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-<form id="form-pengaturan"action="{{ route('admin.forum.pengaturan-forum.update') }}" method="POST" enctype="multipart/form-data">
+<form id="form-pengaturan" action="{{ route('admin.forum.pengaturan-forum.update') }}" method="POST" enctype="multipart/form-data">
 	@csrf @method('PUT')
 	<div class="row">
     	<div class="col-xl-12">
@@ -31,16 +31,16 @@
 				                        	<h6 class="font-weight-bold">Peran Forum</h6>
                                             	<div class="form-check mb-2" action="/action_page.php">
 													<label class="form-check-label" for="peran_forum">
-                                                		<input class="form-check-input" type="checkbox" name="permission_acces_level" id="permission_acces_level" value ="1" {{  ($pengaturan_forum->permission_acces_level == 1 ? ' checked' : '') }}>
+                                                		<input class="form-check-input" type="checkbox" name="permission_access_level" id="permission_access_level" value="1" {{  ($pengaturan_forum->permission_access_level == 1 ? ' checked' : '') }}>
                                 							Secara otomatis memberikan pengunjung terdaftar sebagai peran forum Peserta
                                                 	</label>
 													<div class="mt-2 form-group">
                                                     	<select name="peran" id="peran" class="form-control form-control-sm col-6">
                                                     	<option value="">-- Pilih --</option>
-                                                    	<option value="keymaster">Keymaster</option>
-                                                    	<option value="moderator">Moderator</option>
-                                                    	<option value="peserta">Peserta</option>
-                                                    	<option value="blokir_pengguna">Blokir Pengguna</option>
+                                                    	<option value="keymaster" @if ($pengaturan_forum->access_level == "keymaster") selected @endif>Keymaster</option>
+                                                    	<option value="moderator" @if ($pengaturan_forum->access_level == "moderator") selected @endif>Moderator</option>
+                                                    	<option value="peserta" @if ($pengaturan_forum->access_level == "peserta") selected @endif>Peserta</option>
+                                                    	<option value="blokir_pengguna" @if ($pengaturan_forum->access_level == "blokir_pengguna") selected @endif>Blokir Pengguna</option>
                                                     	</select>
                                                 	</div>
                                             	</div>
@@ -53,7 +53,7 @@
                                         	<div class="form-check mb-2" action="/action_page.php">
 												<label class="form-check-label">
 													<input class="form-check-input mt-2" type="checkbox" name="permission_posting_limit" id="permission_posting_limit" value ="1" {{  ($pengaturan_forum->permission_posting_limit == 1 ? ' checked' : '') }}> 
-                                                		Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1 form-control-sm form-control d-inline-block" type="number" name="	posting_limit_time" id="posting_limit_time">  detik setelah memposting
+                                                		Izinkan perlindungan <i>flooding</i> dengan membatasi pengguna selama <input class="col-1 form-control-sm form-control d-inline-block" type="number" value="{{ $pengaturan_forum->posting_limit_time }}" name="posting_limit_time" id="posting_limit_time">  detik setelah memposting
                                             	</label>
                                         	</div>
                                         	<small class="d-block mb-2">Gunakan ini untuk mencegah pengguna mengirim spam ke forum Anda.</small>
@@ -65,7 +65,7 @@
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
 												<label class="form-check-label">
                                             		<input class="form-check-input mt-2" type="checkbox" name="permission_edit_content" id="permission_edit_content" value ="1" {{  ($pengaturan_forum->permission_edit_content == 1 ? ' checked' : '') }}>
-                                                		Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1 form-control form-control-sm d-inline-block" type="number" name="edit_limit_time" id="edit_limit_time"> menit setelah memposting
+                                                		Izinkan pengguna untuk mengedit konten mereka selama <input class="col-1 form-control form-control-sm d-inline-block" type="number" name="edit_limit_time" value="{{ $pengaturan_forum->edit_limit_time }}" id="edit_limit_time"> menit setelah memposting
                                             	</label>
                                         	</div>
                                         	<small class="d-block mb-2">Jika dicentang, pengaturan ke "0 menit" memungkinkan pengeditan selamanya.</small>
@@ -112,11 +112,11 @@
 													<div class="col-auto">
 														<select name="amount_reply_thread" id="amount_reply_thread" class="form-control-sm form-control d-inline-block">
 															<option value="">--Pilih Level--</option>
-                                                			<option value="2">2 level</option>
-                                                    		<option value="3">3 level</option>
-                                                    		<option value="4">4 level</option>
-                                                    		<option value="5">5 level</option>
-															<option value="6">6 level</option>
+                                                			<option value="2" @if ($pengaturan_forum->amount_reply_thread == "2") selected @endif>2 level</option>
+                                                    		<option value="3" @if ($pengaturan_forum->amount_reply_thread == "3") selected @endif>3 level</option>
+                                                    		<option value="4" @if ($pengaturan_forum->amount_reply_thread == "4") selected @endif>4 level</option>
+                                                    		<option value="5" @if ($pengaturan_forum->amount_reply_thread == "5") selected @endif>5 level</option>
+															<option value="6" @if ($pengaturan_forum->amount_reply_thread == "6") selected @endif>6 level</option>
                                                 		</select>
 													</div>
 												</div>
@@ -235,7 +235,7 @@
 				                        	<h6 class="font-weight-bold">Topics</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">       
-                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="amount_page_topic" id="amount_page_topic"> per halaman</div> 
+                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" value="{{ $pengaturan_forum->amount_page_topic }}" type="number" name="amount_page_topic" id="amount_page_topic"> per halaman</div> 
                                             	</label>
                                         	</div>
 			                        	</div>
@@ -245,7 +245,7 @@
 				                        	<h6 class="font-weight-bold">Balasan</h6>
                                         	<div class="form-group form-check mb-2" action="/action_page.php">
                                             	<label class="form-check-label">       
-                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" type="number" name="amount_page_reply" id="amount_page_reply"> per halaman</div> 
+                                                	<div><input class="col-3 form-control form-control-sm d-inline-block" value="{{ $pengaturan_forum->amount_page_reply }}" type="number" name="amount_page_reply" id="amount_page_reply"> per halaman</div> 
                                             	</label>
                                         	</div>
 			                        	</div>
