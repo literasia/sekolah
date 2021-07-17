@@ -23,6 +23,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request) {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
+        $forum= Forum::where('sekolah_id', auth()->user()->id_sekolah)->get();
 
         if ($request->ajax()) {
             $data = Forum::orderBy("id","desc")->get();
@@ -73,7 +74,6 @@ class DashboardController extends Controller
         $rules = [
             'judul' => 'required',
             'topik_id' => 'required|max:100',
-            'total_balasan' => 'required|max:100',
             'user_id' => 'required|max:100',
             'privasi' => 'required|max:100',
 
@@ -90,9 +90,10 @@ class DashboardController extends Controller
         }
 
         Forum::create([
+            'sekolah_id' => auth()->user()->id_sekolah,
             'judul' => $request->judul,
             'topik_id' => $request->topik_id,
-            'total_balasan' => $request->total_balasan,
+            'total_balasan' => 0,
             'user_id' => $request->user_id,
             'privasi' => $request->privasi,
         ]);
@@ -128,7 +129,7 @@ class DashboardController extends Controller
                 'id' => $forum->id,
                 'judul'   => $forum->judul,
                 'topik_id'   => $forum->topik_id,
-                'total_balasan'   => $forum->total_balasan,
+                'total_balasan'   => 0,
                 'user_id'   => $forum->user_id,
                 'privasi' => $forum->privasi            
             ]);
@@ -147,7 +148,6 @@ class DashboardController extends Controller
         $rules = [
             'judul' => 'required',
             'topik_id' => 'required',
-            'total_balasan' => 'required',
             'user_id' => 'required',
             'privasi' => 'required',
         ];
@@ -167,7 +167,7 @@ class DashboardController extends Controller
         $forum->update([
             'judul' => $request->judul,
             'topik_id' => $request->topik_id,
-            'total_balasan' => $request->total_balasan,
+            'total_balasan' => 0,
             'user_id' => $request->user_id,
             'privasi' => $request->privasi,
         ]);

@@ -29,6 +29,7 @@
                                         <option value="SD">SD</option>
                                         <option value="SMP">SMP</option>
                                         <option value="SMA">SMA</option>
+                                        <option value="Umum">Umum</option>
                                     </select>
                                     <span id="form_result" class="text-danger"></span>
                                 </div>

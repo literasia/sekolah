@@ -79,14 +79,27 @@ Route::namespace('API')
         Route::get('elearning/get-mapel/{user}', 'MateriController@getMapel');
         Route::get('elearning/get-materi/{user}/{mata_pelajaran}', 'MateriController@getMateri');
         Route::get('elearning/get-detail-materi/{materi}', 'MateriController@getDetailMateri');
-        Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
+        // Route::get('elearning/get-jadwal-kuis/{id}', 'JadwalKuisController@getJadwalKuis');
         Route::get('elearning/get-kuis/{kuis}', 'KuisController@getKuis');
-        Route::get('elearning/jawaban-siswa/{kuis}', 'KuisController@getKuis');
+        Route::post('elearning/finish-quiz', 'KuisController@finishQuiz');
+        Route::get('elearning/get-daftar-nilai/{user}', 'KuisController@daftarNilai');
 
         // New Library
         Route::get('library/get-kategori', 'LibraryController@getKategori');
         Route::get('library/get-sub-kategori/{kategori}', 'LibraryController@getSubKategori');
-        Route::get('library/get-tingkat', 'LibraryController@getTingkat');
-        Route::get('library/get-buku/{sub_kategori}/{tingkat}', 'LibraryController@getBuku');
+        Route::get('library/get-buku/{sub_kategori}', 'LibraryController@getBuku');
 
+        // Forum
+        Route::get('get-topik-forum/{sekolah_id}', 'ForumsAPIController@getTopik');
+        Route::post('add-forum/{sekolah_id}/{topik_id}/{user_id}/{kelas_id}', 'ForumsAPIController@addForum');
+        Route::post('add-comment/{sekolah_id}/{forum_id}/{user_id}', 'ForumsAPIController@addComment');
+        
+        // Like Forum
+        Route::post('like-forum/{id}', 'ForumsAPIController@like');
+        
+        // Bookmark Forum
+        Route::post('bookmark-forum/{id}', 'ForumsAPIController@bookmark');
+
+        // sambutan
+        Route::get('get-sambutan-kepsek/{sekolah_id}', 'SambutanController@getSambutan');
     });

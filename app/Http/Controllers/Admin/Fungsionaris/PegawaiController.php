@@ -109,18 +109,20 @@ class PegawaiController extends Controller
         // $user_id->roles()->attach($role->id);
 
         // Add Photo to public
-        $request['foto'] = null;
+        $data = $request->all();
+
+        // $request->foto = null;
         if ($request->file('foto')) {
             $data['foto'] = $request->file('foto')->store('pegawais', 'public');
         }
 
         // Change Date Type
-        $request['tanggal_lahir'] = Carbon::parse($request['tanggal_lahir'])->format('Y-m-d');
-        $request['tanggal_mulai'] = Carbon::parse($request['tanggal_mulai'])->format('Y-m-d');
-        $request['user_id'] = $user->id;
+        $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
+        $data['tanggal_mulai'] = Carbon::parse($data['tanggal_mulai'])->format('Y-m-d');
+        $data['user_id'] = $user->id;
 
         // Create Pegawai
-        $pegawai = Pegawai::create($request->all());
+        $pegawai = Pegawai::create($data);
 
         // Create Accesses
         $access = Access::create([

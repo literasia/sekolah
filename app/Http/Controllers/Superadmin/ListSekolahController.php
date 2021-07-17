@@ -87,7 +87,6 @@ $tahun_ajaran = $request->tahun_ajaran;
             // 'logo'          => $data['logo']
         ]);
     
-        
         // Get Roles
         $adminRole = Role::where('name', 'admin')->first();
 

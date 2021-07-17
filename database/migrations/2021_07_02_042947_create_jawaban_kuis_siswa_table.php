@@ -13,7 +13,7 @@ class CreateJawabanKuisSiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('jawaban_kuis_siswa', function (Blueprint $table) {
+        Schema::create('jawaban_kuis_siswas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('kuis_id');

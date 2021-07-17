@@ -1,9 +1,9 @@
-<div class="modal fade modal-flex p-0" id="modal-soal" tabindex="-1" role="dialog">
+<div class="modal fade modal-flex p-0" id="modal-reply" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Topik
+                    Tambah Balasan
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -15,34 +15,38 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="judul_balasan">Judul Balasan</label>
-                                <input type="text" name="judul_balasan" id="judul_balasan" class="form-control form-control-sm">
+                                <label for="balasan">Isi Balasan</label>
+                                <textarea name="balasan" id="balasan" class="form-control form-control-sm" placeholder="Isi Balasan"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <textarea name="keterangan_balasan" id="keterangan_balasan" cols="10" rows="3" class="form-control form-control-sm" placeholder="Keterangan"></textarea>
+                                <label for="forum_id">Forum</label>
+                                <input type="text" name="forum_id" id="forum_id" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="penulis_id">Penulis</label>
+                                <select name="penulis_id" id="penulis_id" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <hr>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col">
                             <div class="form-group">
-                                <label for="status_id">Status</label>
-                                <select name="status_id" id="status_id" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                </select>
+                                <label for="dibuat_pada_tanggal">Dibuat pada (Tanggal)</label>
+                                <input type="text" name="dibuat_pada_tanggal" id="dibuat_pada_tanggal" class="form-control form-control-sm" readonly>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col">
                             <div class="form-group">
-                                <label for="topik_id">Topik</label>
-                                <select name="topik_id" id="topik_id" class="form-control form-control-sm">
-                                    <option value="">-- Pilih --</option>
-                                </select>
+                                <label for="dibuat_pada_jam">Dibuat pada (Jam)</label>
+                                <input type="text" name="dibuat_pada_jam" id="dibuat_pada_jam" class="form-control form-control-sm clockpicker" readonly>
                             </div>
                         </div>
                     </div>

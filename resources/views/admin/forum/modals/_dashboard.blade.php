@@ -16,11 +16,11 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="judul">Judul</label>
-                                <input type="text" name="judul" id="judul" class="form-control form-control-sm">
+                                <input type="text" name="judul" id="judul" class="form-control form-control-sm" required>
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <!-- <hr>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -28,12 +28,16 @@
                                 <input type="text" name="total_balasan" id="total_balasan" class="form-control form-control-sm">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="privasi">Privasi</label>
-                                <input type="text" name="privasi" id="privasi" class="form-control form-control-sm">
+                                <select name="privasi" id="privasi" class="form-control form-control-sm">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="private">Private</option>
+                                    <option value="public">Public</option>
+                                </select>
                             </div>
                         </div>
                     </div>

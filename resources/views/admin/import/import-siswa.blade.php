@@ -18,6 +18,17 @@
 
 {{-- main content --}}
 @section('content')
+    @if(Session::has('username_error'))
+        <script type="text/javascript">
+            Swal.fire("Gagal!","{{ Session('username_error') }}", "error");
+        </script>
+    @elseif(Session::has('success'))
+        <script type="text/javascript">
+            Swal.fire("Berhasil!","{{ Session('success') }}", "success");
+        </script>
+    @endif
+
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card glass-card d-flex justify-content-center align-items-center p-2">
@@ -100,6 +111,7 @@
     <!-- Select 2 css -->
     <link rel="stylesheet" href="{{ asset('bower_components/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <style>
         .btn i {
             margin-right: 0px;

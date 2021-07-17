@@ -4,6 +4,7 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Guru;
+use App\Models\Admin\HasilKuis;
 
 class Kuis extends Model
 {
@@ -15,5 +16,9 @@ class Kuis extends Model
 
     public function guru(){
         return $this->belongsTo(Guru::class);
+    }
+
+    public function hasilKuis(){
+        return $this->hasMany(HasilKuis::class);
     }
 }

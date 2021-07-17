@@ -348,24 +348,24 @@ Route::namespace('CBT')->group(function () {
         ->name('cbt.ranking');
 });
 
-// Bank Soal
-Route::namespace('BankSoal')->group(function () {
-    // Route::get('/admin/banksoal/soal', 'SoalController@index')
-    //     ->name('banksoal.soal');
-    //Soal
-    Route::get('/admin/banksoal/soal', 'SoalController@index')->name('banksoal.soal');
-    Route::post('/admin/banksoal/soal', 'SoalController@store')->name('banksoal.soal.store');
-    Route::get('/admin/banksoal/soal/{id}', 'SoalController@edit')->name('banksoal.soal.edit');
-    Route::post('/admin/banksoal/soal/update', 'SoalController@update')->name('banksoal.soal.update');
-    Route::get('/admin/banksoal/soal/hapus/{id}', 'SoalController@destroy')->name('banksoal.soal.delete');
+// // Bank Soal
+// Route::namespace('BankSoal')->group(function () {
+//     // Route::get('/admin/banksoal/soal', 'SoalController@index')
+//     //     ->name('banksoal.soal');
+//     //Soal
+//     Route::get('/admin/banksoal/soal', 'SoalController@index')->name('banksoal.soal');
+//     Route::post('/admin/banksoal/soal', 'SoalController@store')->name('banksoal.soal.store');
+//     Route::get('/admin/banksoal/soal/{id}', 'SoalController@edit')->name('banksoal.soal.edit');
+//     Route::post('/admin/banksoal/soal/update', 'SoalController@update')->name('banksoal.soal.update');
+//     Route::get('/admin/banksoal/soal/hapus/{id}', 'SoalController@destroy')->name('banksoal.soal.delete');
     
-    //Butir Soal
-    Route::get('/admin/banksoal/butir-soal', 'ButirSoalController@index')->name('banksoal.butir-soal');
-    Route::post('/admin/banksoal/butir-soal', 'ButirSoalController@store')->name('banksoal.butir-soal.store');
-    Route::get('/admin/banksoal/butir-soal/{id}', 'ButirSoalController@edit')->name('banksoal.butir-soal.edit');
-    Route::post('/admin/banksoal/butir-soal/update', 'ButirSoalController@update')->name('banksoal.butir-soal.update');
-    Route::get('/admin/banksoal/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('banksoal.butir-soal.delete');
-});
+//     //Butir Soal
+//     Route::get('/admin/banksoal/butir-soal', 'ButirSoalController@index')->name('banksoal.butir-soal');
+//     Route::post('/admin/banksoal/butir-soal', 'ButirSoalController@store')->name('banksoal.butir-soal.store');
+//     Route::get('/admin/banksoal/butir-soal/{id}', 'ButirSoalController@edit')->name('banksoal.butir-soal.edit');
+//     Route::post('/admin/banksoal/butir-soal/update', 'ButirSoalController@update')->name('banksoal.butir-soal.update');
+//     Route::get('/admin/banksoal/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('banksoal.butir-soal.delete');
+// });
 
 // Referensi
 Route::namespace('Referensi')->group(function () {
@@ -473,6 +473,13 @@ Route::namespace('Forum')->group(function () {
     // Tautan
     Route::get('/admin/forum/tautan', 'TautanController@index')
         ->name('forum.tautan');
+
+    // Pengaturan
+    Route::get('/admin/forum/pengaturan-forum', 'PengaturanController@index')
+        ->name('forum.pengaturan-forum');
+    Route::post('/admin/forum/pengaturan-forum/update', 'PengaturanController@update')
+        ->name('forum.pengaturan-forum.update');
+
 });
     
 
@@ -485,6 +492,14 @@ Route::namespace('Leaderboard')->group(function () {
     Route::post('/admin/leaderboard/leaderboard/update', 'LeaderboardController@update')
         ->name('leaderboard.leaderboard-update');
     Route::get('/admin/leaderboard/leaderboard/hapus/{id}', 'LeaderboardController@destroy');
+});
+
+// Sambutan
+Route::namespace('Sambutan')->group(function () {
+    Route::get('/admin/sambutan', 'SambutanController@index')
+        ->name('sambutan');
+    Route::put('/admin/sambutan', 'SambutanController@update')
+        ->name('sambutan.update');
 });
 
 // Perpustakaan

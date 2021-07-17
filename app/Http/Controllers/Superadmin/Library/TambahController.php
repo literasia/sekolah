@@ -33,7 +33,7 @@ class TambahController extends Controller
         if ($request->ajax()) {
             // datatable error
             // $data = Library::with(['penerbit', 'penulis'])->orderBy('name')->get();
-            $data = Library::limit(10)->latest()->get();
+            $data = Library::latest()->get();
             foreach ($data as $d) {
                 $penulis = Penulis::find($d['penulis_id']);
                 $penerbit = Penerbit::find($d['penerbit_id']);
