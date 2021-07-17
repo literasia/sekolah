@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li class="@if (request()->is('superadmin/library') || request()->is('superadmin/library/setting')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="#" class="waves-effect waves-dark">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="icon-book-open"></i>
                         </span>
@@ -48,7 +48,7 @@
                     </ul>
                 </li>
                 <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/faktur') || request()->is('superadmin/keuangan/berita-acara')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="#" class="waves-effect waves-dark">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-newspaper"></i>
                         </span>
@@ -74,7 +74,7 @@
                 </li>
                
                 <li class="@if (request()->is('superadmin/referensi/jenis-kelamin') || request()->is('superadmin/referensi/agama') || request()->is('superadmin/referensi/status-nikah') || request()->is('superadmin/referensi/provinsi') || request()->is('superadmin/referensi/kabupaten-kota') || request()->is('superadmin/referensi/kecamatan') || request()->is('superadmin/referensi/suku')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="#" class="waves-effect waves-dark">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-list-alt"></i>
                         </span>
@@ -130,7 +130,7 @@
                 </li>
                 
                 <li class="@if (request()->is('superadmin/kategori-berita') || request()->is('superadmin/berita/berita')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="#" class="waves-effect waves-dark">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-newspaper"></i>
                         </span>

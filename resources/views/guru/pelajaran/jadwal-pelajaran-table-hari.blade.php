@@ -16,8 +16,12 @@
           <tbody id="{{$hari}}">
             @foreach($data as $key => $obj)
                 <tr>
-                     <td>{{$obj->jam_ke}}</td>
-                     <td>{{ substr($obj->jam_mulai, 0, 5) }} - {{ substr($obj->jam_selesai, 0, 5) }}</td>
+                    <td>
+                      @if(!empty($obj->jamPelajaran->jam_ke))
+                        {{$obj->jamPelajaran->jam_ke}}
+                      @endif
+                    </td>
+                    <td>{{$obj->mataPelajaran->nama_pelajaran ?? ''}}</td>
                 </tr>
             @endforeach
             </tbody>

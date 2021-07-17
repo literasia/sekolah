@@ -54,10 +54,10 @@ Route::namespace('Sekolah')->group(function () {
     Route::get('/guru/sekolah/kelas/hapus/{id}', 'KelasController@destroy');
 
      // Jam Pelajaran
-     Route::get('/guru/sekolah/jam', 'JamPelajaranController@index')
-         ->name('sekolah.jam');
-     Route::post('/guru/sekolah/jam', 'JamPelajaranController@write')
-         ->name('sekolah.jam.write');
+     Route::get('/guru/sekolah/jam-pelajaran', 'JamPelajaranController@index')
+         ->name('sekolah.jam-pelajaran');
+     Route::post('/guru/sekolah/jam-pelajaran', 'JamPelajaranController@write')
+         ->name('sekolah.jam-pelajaran.write');
 });
 
 // Pelajaran
@@ -80,9 +80,11 @@ Route::namespace('PesertaDidik')
     ->prefix('peserta-didik')
     ->name('pesertadidik.')
     ->group(function () {
-        // Route::get('/admin/peserta-didik/siswa', 'SiswaController@index')
+        // Route::get('/guru/peserta-didik/siswa', 'SiswaController@index')
         //     ->name('pesertadidik.siswa');
-        Route::resource('siswa', 'SiswaController');
+        // Route::resource('siswa', 'SiswaController');
+        Route::get('siswa', 'SiswaController@index')
+            ->name('siswa');
         Route::get('alumni', 'AlumniController@index')
             ->name('alumni');
         Route::get('pindah-kelas', 'PindahKelasController@index')
@@ -112,14 +114,21 @@ Route::namespace('Absensi')->group(function () {
 });
 
 // Daftar Nilai
+Route::resource('daftar-nilai', 'DaftarNilai\DaftarNilaiController');
 Route::namespace('DaftarNilai')->group(function () {
     Route::get('/guru/daftar-nilai', 'DaftarNilaiController@index')
         ->name('daftar-nilai');
+    Route::post('/guru/daftar-nilai', 'DaftarNilaiController@store')
+        ->name('daftar-nilai.store');
+    Route::put('/guru/daftar-nilai', 'DaftarNilaiController@update')
+        ->name('daftar-nilai.update');
+    Route::delete('/guru/daftar-nilai', 'DaftarNilaiController@destroy')
+        ->name('daftar-nilai.destroy');
 });
 
 // E-Rapor
 Route::namespace('ERapor')->group(function () {
-    Route::get('/admin/e-rapor/kenaikan-kelas', 'KenaikanKelasController@index')
+    Route::get('/guru/e-rapor/kenaikan-kelas', 'KenaikanKelasController@index')
         ->name('e-rapor.kenaikan-kelas');
 });
 
@@ -132,32 +141,6 @@ Route::namespace('Pelanggaran')->group(function () {
     Route::post('/guru/pelanggaran/siswa/update', 'SiswaController@update')
         ->name('pelanggaran.siswa-update');
     Route::get('/guru/pelanggaran/siswa/hapus/{id}', 'SiswaController@destroy');
-
-    Route::get('/guru/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@index')
-        ->name('pelanggaran.kategori-pelanggaran');
-    Route::post('/guru/pelanggaran/kategori-pelanggaran', 'KategoriPelanggaranController@store');
-    Route::get('/guru/pelanggaran/kategori-pelanggaran/{id}', 'KategoriPelanggaranController@edit');
-    Route::post('/guru/pelanggaran/kategori-pelanggaran/update', 'KategoriPelanggaranController@update')
-        ->name('pelanggaran.kategori-pelanggaran-update');
-    Route::get('/guru/pelanggaran/kategori-pelanggaran/hapus/{id}', 'KategoriPelanggaranController@destroy');
-
-    Route::get('/guru/pelanggaran/sanksi', 'SanksiController@index')
-        ->name('pelanggaran.sanksi');
-    Route::post('/guru/pelanggaran/sanksi', 'SanksiController@store');
-    Route::get('/guru/pelanggaran/sanksi/{id}', 'SanksiController@edit');
-    Route::post('/guru/pelanggaran/sanksi/update', 'SanksiController@update')
-        ->name('pelanggaran.sanksi-update');
-    Route::get('/guru/pelanggaran/sanksi/hapus/{id}', 'SanksiController@destroy');
-
-
-
-    Route::get('/guru/pelanggaran/surat-peringatan', 'SuratPeringatanController@index')
-        ->name('pelanggaran.surat-peringatan');
-    Route::post('/guru/pelanggaran/surat-peringatan', 'SuratPeringatanController@store');
-    Route::get('/guru/pelanggaran/surat-peringatan/{id}', 'SuratPeringatanController@edit');
-    Route::post('/guru/pelanggaran/surat-peringatan/update', 'SuratPeringatanController@update')
-        ->name('pelanggaran.surat-peringatan-update');
-    Route::get('/guru/pelanggaran/surat-peringatan/hapus/{id}', 'SuratPeringatanController@destroy');
 });
 
 // Referensi
@@ -287,4 +270,49 @@ Route::namespace('ELearning')->group(function () {
     Route::get('/guru/e-learning/nilai{id}', 'NilaiController@edit');
     Route::post('/guru/e-learning/nilai/update', 'NilaiController@update')
         ->name('e-learning.nilai-update');
+});
+
+// Forum
+Route::namespace('Forum')->group(function () {
+    // Dashboard
+    Route::get('/guru/forum/dashboard', 'DashboardController@index')
+        ->name('forum.dashboard');
+    Route::post('/guru/forum/dashboard', 'DashboardController@store')
+        ->name('forum.dashboard.store');
+    Route::get('/guru/forum/dashboard/{id}', 'DashboardController@edit');
+    Route::post('/guru/forum/dashboard/update', 'DashboardController@update')
+        ->name('forum.dashboard-update');
+    Route::get('/guru/forum/dashboard/hapus/{id}', 'DashboardController@destroy');
+    
+    // Pengguna
+    Route::get('/guru/forum/pengguna', 'PenggunaController@index')
+        ->name('forum.pengguna');
+    Route::post('/guru/forum/pengguna', 'PenggunaController@store');
+    Route::get('/guru/forum/pengguna/{id}', 'PenggunaController@edit');
+    Route::post('/guru/forum/pengguna/update', 'PenggunaController@update')
+        ->name('forum.pengguna.update');
+    Route::get('/guru/forum/pengguna/hapus/{id}', 'PenggunaController@destroy');
+
+    // Balasan
+    Route::get('/guru/forum/balasan', 'BalasanController@index')
+        ->name('forum.balasan');
+    Route::get('guru/forum/balasan/edit/{id}', 'BalasanController@edit')
+        ->name('balasan.edit');
+    Route::post('guru/forum/balasan', 'BalasanController@store')
+        ->name('balasan.store');
+    Route::post('guru/forum/balasan/update', 'BalasanController@update')
+        ->name('balasan.update');
+    Route::get('guru/forum/balasan/delete/{id}', 'BalasanController@destroy');
+
+    // Pengaturan
+    Route::get('/guru/forum/pengaturan-forum', 'PengaturanController@index')
+        ->name('forum.pengaturan-forum');
+    Route::post('/guru/forum/pengaturan-forum', 'PengaturanController@store')
+        ->name('forum.pengaturan-forum.store');
+    Route::get('/guru/forum/pengaturan-forum/{id}', 'PengaturanController@edit')
+        ->name('forum.pengaturan-forum.edit');
+    Route::post('/guru/forum/pengaturan-forum/update', 'PengaturanController@update')
+        ->name('forum.pengaturan-forum.update');
+    Route::get('/guru/forum/pengaturan-forum/hapus/{id}', 'PengaturanController@destroy')
+        ->name('forum.pengaturan-forum.delete');
 });

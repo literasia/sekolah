@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.guru')
 
 {{-- config 1 --}}
 @section('title', 'Pelanggaran | Pelanggaran Siswa')
@@ -6,14 +6,14 @@
 @section('title-3', 'Pelanggaran Siswa')
 
 @section('describ')
-    Ini adalah halaman pelanggaran siswa untuk admin
+    Ini adalah halaman pelanggaran siswa untuk guru
 @endsection
 
 @section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pelanggaran.siswa') }}
+    {{ route('guru.pelanggaran.siswa') }}
 @endsection
 
 {{-- main content --}}
@@ -71,7 +71,7 @@
     </div>
 </div>
     {{-- Modal --}}
-    @include('admin.pelanggaran.modals._siswa')
+    @include('guru.pelanggaran.modals._siswa')
 @endsection
 
 {{-- addons css --}}
@@ -146,7 +146,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.pelanggaran.siswa') }}",
+                    url: "{{ route('guru.pelanggaran.siswa') }}",
                 },
                 columns: [
                 {
@@ -203,11 +203,11 @@
                 event.preventDefault();
                 var url = '';
                 if ($('#action').val() == 'add') {
-                    url = "{{ route('admin.pelanggaran.siswa') }}";
+                    url = "{{ route('guru.pelanggaran.siswa') }}";
                     text = "Data sukses ditambahkan";
                 }
                 if ($('#action').val() == 'edit') {
-                    url = "{{ route('admin.pelanggaran.siswa-update') }}";
+                    url = "{{ route('guru.pelanggaran.siswa-update') }}";
                     text = "Data sukses diupdate";
                 }
                 $.ajax({
@@ -245,7 +245,7 @@
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $.ajax({
-                    url: '/admin/pelanggaran/siswa/'+id,
+                    url: '/guru/pelanggaran/siswa/'+id,
                     dataType: 'JSON',
                     success: function (data) {
                         $('#action').val('edit');
@@ -279,7 +279,7 @@
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: '/admin/pelanggaran/siswa/hapus/'+user_id,
+                    url: '/guru/pelanggaran/siswa/hapus/'+user_id,
                     beforeSend: function () {
                         $('#ok_button').text('Menghapus...');
                     }, success: function (data) {

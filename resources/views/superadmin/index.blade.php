@@ -13,15 +13,14 @@
 @endsection
 
 @section('content')
-<div class="row">
-    {{-- sale revenue card start --}}
+<div class="row match-height">
     <div class="col-md-12 col-xl-8">
         <div class="card sale-card">
             <div class="card-header">
                 <h5>Grafik</h5>
             </div>
             <div class="card-block">
-                <div id="sales-analytics" class="chart-shadow" style="height:380px"></div>
+                <div id="sales-analytics" class="chart-shadow" style="height:300px"></div>
             </div>
         </div>
     </div>
@@ -364,6 +363,13 @@
             box-shadow: -5px -5px 12px -2px rgb(0 0 0 / 30%);
             -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
-            z-index: 1002
+            z-index: 1002;
+        }
+        .match-height>[class*=col]{
+            display:flex;flex-flow:column;
+        }
+        .match-height>[class*=col]>.card{
+            flex:1 1 auto;
+        }
     </style>
 @endpush

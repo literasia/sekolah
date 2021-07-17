@@ -4,16 +4,28 @@ namespace App\Http\Controllers\Guru;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Models\Superadmin\{Sekolah, Provinsi, KabupatenKota, Library};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Superadmin\{Sekolah, Provinsi, KabupatenKota};
 use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
 {
     public function index() {
-    	// dd(auth()->user()->pegawai->access->kalender);
-        return view('guru.index');
+        $audiobook = Library::whereNotNull('link_audio')->count();
+        $videobook = Library::whereNotNull('link_video')->count();
+        $ebook = Library::whereNotNull('link_ebook')->count();
+        $kabupaten = KabupatenKota::count();
+        $sekolah = Sekolah::where('id_sekolah')->count();
+
+        return view('guru.index', [
+            'audiobook' => $audiobook,
+            'videobook' => $videobook,
+            'ebook' => $ebook,
+            'kabupaten' => $kabupaten,
+            'sekolah' => $sekolah
+        ]);
+
     }
 
     public function show(Request $request)

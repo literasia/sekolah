@@ -1,25 +1,25 @@
 @extends('layouts.guru')
 
 {{-- config 1 --}}
-@section('title', 'Sekolah | Jurusan')
-@section('title-2', 'Jurusan')
-@section('title-3', 'Jurusan')
+@section('title', 'Pelajaran | Mata Pelajaran')
+@section('title-2', 'Mata Pelajaran')
+@section('title-3', 'Mata Pelajaran')
 
 @section('describ')
-    Ini adalah halaman jurusan untuk guru
+    Ini adalah halaman mata pelajaran untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('guru.sekolah.jurusan') }}
+    {{ route('guru.pelajaran.mata-pelajaran') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card glass-card d-flex justify-content-center align-items-center p-2">
                 <div class=" col-xl-12 card shadow mb-0 p-0">
                     <div class="card-body">
@@ -28,9 +28,10 @@
                                 <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode</th>
-                                            <th>Jurusan</th>
+                                            <th>No.</th>
+                                            <th>Nama Pelajaran</th>
+                                            <th>Guru</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
@@ -40,23 +41,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirmModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Konfirmasi</h4>
-                </div>
-                <div class="modal-body">
-                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
@@ -89,30 +73,38 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable({
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var table = $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: {
-                    url: "{{ route('guru.sekolah.jurusan') }}",
-                },
+                ajax: "{{ route('guru.pelajaran.mata-pelajaran') }}?req=table",
                 columns: [
                 {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'kode',
-                    name: 'kode'
+                    data: 'nama_pelajaran',
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'nama_guru',
+                    name: 'nama_guru'
+                },
+                {
+                    data: 'aktif',
+                    render: (data) =>  data == 1 ? `<label class="badge badge-success">Aktif</label>` : `<label class="badge badge-danger">Nonaktif</label>`
                 }
                 ]
             });
-
         });
     </script>
 @endpush

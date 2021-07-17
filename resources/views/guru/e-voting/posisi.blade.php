@@ -1,25 +1,25 @@
 @extends('layouts.guru')
 
 {{-- config 1 --}}
-@section('title', 'Sekolah | Jurusan')
-@section('title-2', 'Jurusan')
-@section('title-3', 'Jurusan')
+@section('title', 'E-Voting | Posisi')
+@section('title-2', 'Posisi')
+@section('title-3', 'Posisi')
 
 @section('describ')
-    Ini adalah halaman jurusan untuk guru
+    Ini adalah halaman posisi untuk guru
 @endsection
 
-@section('icon-l', 'fa fa-list-alt')
+@section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('guru.sekolah.jurusan') }}
+    {{ route('guru.e-voting.posisi') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
             <div class="card glass-card d-flex justify-content-center align-items-center p-2">
                 <div class=" col-xl-12 card shadow mb-0 p-0">
                     <div class="card-body">
@@ -28,9 +28,8 @@
                                 <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode</th>
-                                            <th>Jurusan</th>
+                                            <th>No.</th>
+                                            <th>Nama Posisi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
@@ -40,23 +39,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirmModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Konfirmasi</h4>
-                </div>
-                <div class="modal-body">
-                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
@@ -89,13 +71,14 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('guru.sekolah.jurusan') }}",
+                    url: "{{ route('guru.e-voting.posisi') }}",
                 },
                 columns: [
                 {
@@ -103,16 +86,11 @@
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'kode',
-                    name: 'kode'
-                },
-                {
                     data: 'name',
                     name: 'name'
                 }
                 ]
             });
-
         });
     </script>
 @endpush

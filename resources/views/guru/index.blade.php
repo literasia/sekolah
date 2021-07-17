@@ -13,99 +13,93 @@
 @endsection
 
 @section('content')
-<div class="row" >
-    {{-- sale revenue card start --}}
+<div class="row match-height">
     <div class="col-md-12 col-xl-8" >
-        <div class="card  text-white bg-dark mb-3 sale-card text-center">
-            <div class="card-header" >
-            <head>
-<style>
-div.ex1 {
-  background-color: dark;
-  width: 650px;
-  height: 350px;
-  overflow: auto;
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card sale-card shadow mb-0 p-0">
+                <div class="card-header px-4 pt-4 pb-3" >
+                    <h3 class="text-left">Pengumuman</h3>
+                </div>
+                <div class="card-body px-1 pb-4 pt-0">
+                    <div class="announcement-card px-3 pb-3 pt-0">
+                        <div class="message-panel p-3">
+                            <div class="mb-1 d-flex justify-content-between align-items-center">
+                                <h5 style="color: #2cb1b1ad; font-weight: 600;">Penerimaan guru Baru</h5>
+                                <small class="text-muted" style="color: #8e8e8ec7;font-weight: 600;">14 Juni 2021</small>
+                            </div>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
+                        </div>
 
-}
-</style>
-</head>
-<body>
-<h2 class="text-left">Pengumuman</h2>
-            </div>
-            <div class="card-block text-left">
-            <div class="ex1">
-                <h5>14 Juni 2021 | Penerimaan guru Baru</h5>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
-                <a>&nbsp</a>
+                        <div class="message-panel p-3">
+                            <div class="mb-1 d-flex justify-content-between align-items-center">
+                                <h5 style="color: #2cb1b1ad; font-weight: 600;">Masuk Sekolah</h5>
+                                <small class="text-muted" style="color: #8e8e8ec7;font-weight: 600;">23 Juni 2021</small>
+                            </div>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
+                        </div>
 
-                <h5>23 Juni 2021 | Masuk Sekolah</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                        <div class="message-panel p-3">
+                            <div class="mb-1 d-flex justify-content-between align-items-center">
+                                <h5 style="color: #2cb1b1ad; font-weight: 600;">Libur Nasional</h5>
+                                <small class="text-muted" style="color: #8e8e8ec7;font-weight: 600;">19 Agustus 2021</small>
+                            </div>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
+                        </div>
 
-                <h5>19 Agustus 2021 | Libur Nasional</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
-
-                <h5>20 September 2021 | Ujian Akhir Sekolah</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
-
-                <h5>20 Oktober 2021 | Kenaikan Kelas</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
-
-                <h5>16 Desember 2021 | Libur Nasional</h5>
-                <p>Dolorem rem quae adipisci enim sed tempore suscipit vero quibusdam nam fugit numquam, perspiciatis autem magni dolor! Illum eos architecto sequi expedita commodi ea voluptatem quam, aperiam sit ducimus reprehenderit.</p>
-                <a>&nbsp</a>
+                        <div class="message-panel p-3">
+                            <div class="mb-1 d-flex justify-content-between align-items-center">
+                                <h5 style="color: #2cb1b1ad; font-weight: 600;">Ujian Akhir Sekolah</h5>
+                                <small class="text-muted" style="color: #8e8e8ec7;font-weight: 600;">20 September 2021</small>
+                            </div>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor quis excepturi adipisci voluptas incidunt pariatur repudiandae, provident nisi facere et voluptatibus voluptatem odit reprehenderit quam ipsum vitae deleniti amet!</p>
+                        </div>
+                    </div>                    
+                </div>
             </div>
         </div>
     </div>
-</div>
-</body>
+
     <div class="col-md-12 col-xl-4">
         <div class="card comp-card">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="m-b-25">E-Book</h6>
-                        <h3 class="f-w-700 text-c-blue">{{ rand(10, 100) }}</h3>
-                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
+                        <h3 class="f-w-700 text-c-blue">{{ $ebook }}</h3>
                     </div>
-                <div class="col-auto">
-                    <i class="fas fa-book-open bg-c-blue"></i>
+                    <div class="col-auto">
+                        <i class="fas fa-book-open bg-c-blue"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="card comp-card">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="m-b-25">Audio Book</h6>
-                        <h3 class="f-w-700 text-c-green">{{ rand(10, 100) }}</h3>
-                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
+                        <h3 class="f-w-700 text-c-green">{{ $audiobook }}</h3>
                     </div>
-                <div class="col-auto">
-                    <i class="fas fa-file-audio bg-c-green"></i>
+                    <div class="col-auto">
+                        <i class="fas fa-file-audio bg-c-green"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="card comp-card">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
                         <h6 class="m-b-25">Video Book</h6>
-                        <h3 class="f-w-700 text-c-yellow">{{ rand(10, 100) }}</h3>
-                        <p class="m-b-0">May 23 - June 01 ({{ date('Y') }})</p>
+                        <h3 class="f-w-700 text-c-yellow">{{ $videobook }}</h3>
                     </div>
-                <div class="col-auto">
-                    <i class="fas fa-file-video bg-c-yellow"></i>
+                    <div class="col-auto">
+                        <i class="fas fa-file-video bg-c-yellow"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     {{-- testimonial and top selling start --}}
     <div class="col-md-12">
@@ -185,6 +179,35 @@ div.ex1 {
     </div>
 </div>
 @endsection
+
+@push('css')
+    <style>
+        .match-height>[class*=col]{
+            display:flex;flex-flow:column;
+        }
+        .match-height>[class*=col]>.card{
+            flex:1 1 auto;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
+        .announcement-card {
+            max-height: 300px;
+            overflow: auto;
+        }
+        .message-panel {
+            background-color: #bfd9ff6b;
+            border-radius: .8rem;
+            margin-bottom: 1.5rem;
+            color: #676767;
+            box-shadow: 0 8px 17px -5px rgb(31 38 135 / 22%);
+        }
+    </style>
+@endpush
 
 @push('js')
     <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>
