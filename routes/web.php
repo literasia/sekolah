@@ -1,33 +1,37 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    return "Artisan success";
-});
+// Route::get('/migrate', function () {
+//     Artisan::call('migrate');
+//     return "Artisan success";
+// });
 
-Route::get('/migrate-fresh', function () {
-    Artisan::call('migrate:fresh');
-    return "Artisan success";
-});
+// Route::get('/migrate-fresh', function () {
+//     Artisan::call('migrate:fresh');
+//     return "Artisan success";
+// });
 
-Route::get('/db-seed', function () {
-    Artisan::call('db:seed');
-    return "Artisan success";
-});
+// Route::get('/db-seed', function () {
+//     Artisan::call('db:seed');
+//     return "Artisan success";
+// });
 
-Route::get('/dbal', function () {
-    shell_exec('composer require doctrine/dbal');
-    return "Composer success";
-});
+// Route::get('/dbal', function () {
+//     shell_exec('composer require doctrine/dbal');
+//     return "Composer success";
+// });
 
-Route::get('/composer-install', function () {
-    shell_exec('composer install');
-    return "Composer success";
-});
+// Route::get('/composer-install', function () {
+//     shell_exec('composer install');
+//     return "Composer success";
+// });
 
 Route::middleware('auth')->group(function(){
     Route::get('/superadmin/referensi/provinsi/getKabupatenKota', 'Superadmin\Referensi\ProvinsiController@getKabupatenKota')
@@ -167,10 +171,14 @@ Route::namespace('Superadmin')
         Route::namespace('Keuangan')
             ->group(function () {
             Route::get('/superadmin/keuangan/tagihan', 'TagihanController@index')->name('keuangan.tagihan');
-            Route::get('/superadmin/keuangan/laporan', 'LaporanController@index')->name('keuangan.laporan');
+            Route::get('/superadmin/keuangan/laporan-tagihan', 'TagihanController@print')->name('keuangan.laporan-tagihan');
+            Route::get('/superadmin/keuangan/faktur', 'FakturController@index')->name('keuangan.faktur');
+            Route::get('/superadmin/keuangan/laporan-faktur', 'FakturController@print')->name('keuangan.laporan-faktur');
+            Route::get('/superadmin/keuangan/berita-acara', 'BeritaAcaraController@index')->name('keuangan.berita-acara');
+            Route::get('/superadmin/keuangan/laporan-berita-acara', 'BeritaAcaraController@print')->name('keuangan.laporan-berita-acara');
         });
 
-        // generate list sekolah
+        // generate list sekolah //
         // Route::get('/superadmin/list-sekolah/generate', 'ListSekolahController@generate')->name('list-sekolah.generate'); 
         Route::get('/superadmin/list-sekolah/generate-siswa', 'ListSekolahController@generateSiswa')->name('list-sekolah.generate-siswa'); 
 

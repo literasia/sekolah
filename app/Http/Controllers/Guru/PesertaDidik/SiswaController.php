@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Guru\PesertaDidik;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\{Guru, Siswa};
-use App\Models\Admin\{SuratPeringatan, Kelas};
+use App\Models\{Siswa, SiswaOrangTua, Guru, SiswaWali, TingkatanKelas};
+use App\Models\Admin\Kelas;
+use App\Models\Admin\SuratPeringatan;
+use App\Models\Superadmin\Provinsi;
 use App\User;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class SiswaController extends Controller

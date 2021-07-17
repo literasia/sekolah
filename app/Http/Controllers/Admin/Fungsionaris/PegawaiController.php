@@ -208,6 +208,8 @@ class PegawaiController extends Controller
         $currFoto = $pegawai->foto;
         $data['foto'] = $pegawai->foto;
         $data['name'] = $data['name'];
+        $data['tanggal_lahir'] = Carbon::parse($data['tanggal_lahir'])->format('Y-m-d');
+        $data['tanggal_mulai'] = Carbon::parse($data['tanggal_mulai'])->format('Y-m-d');
 
         // Request new photo
         if ($request->file('foto')) {
@@ -236,7 +238,7 @@ class PegawaiController extends Controller
             }
         }
 
-        $pegawai->update($request->all());   
+        $pegawai->update($data);   
 
         // Respons Data
         return response()->json(['success' => 'Data berhasil diubah.']);

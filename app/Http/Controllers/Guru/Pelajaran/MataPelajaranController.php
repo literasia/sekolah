@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\Guru;
+use Yajra\DataTables\DataTables;
+
 class MataPelajaranController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class MataPelajaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             // get data guru
@@ -21,14 +23,11 @@ class MataPelajaranController extends Controller
             // get mata pelajaran yang dibawa oleh guru
             $mata_pelajaran = MataPelajaran::where('guru_id', $guru->id)->get();
           
-            return DataTables::of($data)
+            return DataTables::of($mata_pelajaran)
                                 ->addIndexColumn()
                                 ->make(true);
         }
 
-        
-     
-        
-    }
-
+        return view('guru.pelajaran.mata-pelajaran');
+    }    
 }

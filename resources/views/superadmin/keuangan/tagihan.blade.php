@@ -1,15 +1,15 @@
 @extends('layouts.superadmin')
 
 {{-- config 1 --}}
-@section('title', 'Keuangan')
-@section('title-2', 'Keuangan')
-@section('title-3', 'Keuangan')
+@section('title', 'Keuangan | Tagihan')
+@section('title-2', 'Tagihan')
+@section('title-3', 'Tagihan')
 
 @section('describ')
-Ini adalah halaman keuangan untuk superadmin
+Ini adalah halaman tagihan untuk superadmin
 @endsection
 
-@section('icon-l', 'fa fa-images')
+@section('icon-l', 'fa fa-book')
 @section('icon-r', 'icon-home')
 
 @section('link')
@@ -25,29 +25,42 @@ Ini adalah halaman keuangan untuk superadmin
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                        <table id="slider-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <table id="tagihan-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
+                                    <th>Nomor Tagihan</th>
                                     <th>Nama Sekolah</th>
                                     <th>Biaya</th>
+                                    <th>Metode Pembayaran</th>
+                                    <th>Keterangan</th>
+                                    <th>Tanggal Tagihan</th>
                                     <th>PPN 10%</th>
                                     <th>PPH 1.5%</th>
                                     <th>Siplah 2.5%</th>
                                     <th>Total Penerimaan</th>
+                                    <th>Kepala Sekolah</th>
+                                    <th>Bendahara</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
                                 <tr>
+                                    <td></td>
                                     <td>SMK Negeri 2 Tebing Tinggi</td>
                                     <td>50000000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>5000000</td>
                                     <td>75000</td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
-                                        <button class="btn btn-info btn-sm"><i class="fa fa-pencil-alt"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        <a href="{{route('superadmin.keuangan.laporan-tagihan')}}" class="btn btn-warning btn-mini" target="_blank"><i class="fa fa-print"></i></a>
+                                        <button class="btn btn-info btn-mini"><i class="fa fa-pencil-alt"></i></button>
+                                        <button class="btn btn-danger btn-mini"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -106,7 +119,7 @@ Ini adalah halaman keuangan untuk superadmin
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
-        $('#slider-table').DataTable();
+        $('#tagihan-table').DataTable();
 
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Tagihan');

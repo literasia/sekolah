@@ -6,14 +6,14 @@
 @section('title-3', 'Siswa')
 
 @section('describ')
-    Ini adalah halaman siswa untuk admin
+    Ini adalah halaman siswa untuk guru
 @endsection
 
 @section('icon-l', 'icon-people')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pesertadidik.siswa.index') }}
+    {{ route('guru.pesertadidik.siswa') }}
 @endsection
 
 {{-- main content --}}
@@ -40,7 +40,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
-                                       
+                                   
                                     </tbody>
                                 </table>
                             </div>

@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers\Guru\Kalender;
 
+use App\Models\Admin\Kalender;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 
 class KalenderAkademikController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('guru.kalender.kalender-akademik', ['mySekolah' => User::sekolah()]);
+        $datas = [];
+        $data = Kalender::where('sekolah_id', auth()->user()->id_sekolah)->orderBy('created_at')->get();
+        foreach ($data as $d) {
+            $datas[] = (object) array('id' => $d->id, 'title' => $d->title, 'start' => $d->start_date . ' ' . $d->start_clock, 'end' => $d->end_date . ' ' . $d->end_clock, 'className' => $d->prioritas);
+        }
+
+        $events = json_encode($datas);
+
+        return view('guru.kalender.kalender-akademik', ['mySekolah' => User::sekolah(), compact('events')]);
     }
 
     /**

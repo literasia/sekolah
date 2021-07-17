@@ -19,13 +19,16 @@
 {{-- main content --}}
 @section('content')
     <div class="row">
-        <div class="col-xl-12">
-            <div class="card shadow-sm">
+    <div class="col-xl-12">
+        <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+            <div class=" col-xl-12 card shadow mb-0 p-0">
                 <div class="card-body">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-xl-12 col-md-12">
-                                <div id="calendar"></div>
+                            <div class="col-xl-12 col-md-12 col-sm-12">
+                                <div id="calendar">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -33,122 +36,78 @@
             </div>
         </div>
     </div>
+</div>
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Konfirmasi</h4>
+            </div>
+            <div class="modal-body">
+                <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+
 
 {{-- addons css --}}
 @push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.print.css') }}" media='print'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages.css') }}">
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" /> --}}
-    <style>
-        .btn i {
-            margin-right: 0px;
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-clockpicker.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/sweetalert/css/sweetalert.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fullcalendar/css/fullcalendar.print.css') }}" media='print'>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages.css') }}">
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" /> --}}
+<style>
+    .btn i {
+        margin-right: 0px;
+    }
+    .glass-card {
+        background: rgba( 255, 255, 255, 0.40 );
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+        backdrop-filter: blur( 17.5px );
+        -webkit-backdrop-filter: blur( 17.5px );
+        border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
 @endpush
 
 {{-- addons js --}}
 @push('js')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script> --}}
-    <script type="text/javascript" src="{{ asset('bower_components/moment/js/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/fullcalendar/js/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/pages/full-calender/calendar.js') }}"></script>
-    <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
-    {{-- <script src="https://sekolah.schlrr.com/assets/js/js/fullcalendar.min.js"></script> --}}
-    {{-- <script src="{{ asset('assets/js/vertical/vertical-layout.min.js') }}"></script> --}}
-    <script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
-@endpush
-
-<script>
-    var calendar = $('#calendar').fullCalendar({
-        editable: true,
-        // events: SITEURL + "/fullcalender",
-        displayEventTime: false,
-        editable: true,
-        eventRender: function (event, element, view) {
-            if (event.allDay === 'true') {
-                    event.allDay = true;
-            } else {
-                    event.allDay = false;
-            }
-        },
-        selectable: true,
-        selectHelper: true,
-        select: function (start, end, allDay) {
-            var title = prompt('Event Title:');
-            if (title) {
-                var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-                var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                $.ajax({
-                    // url: SITEURL + "/fullcalenderAjax",
-                    data: {
-                        title: title,
-                        start: start,
-                        end: end,
-                        type: 'add'
-                    },
-                    type: "POST",
-                    success: function (data) {
-                        displayMessage("Event Created Successfully");
-
-                        calendar.fullCalendar('renderEvent',
-                            {
-                                id: data.id,
-                                title: title,
-                                start: start,
-                                end: end,
-                                allDay: allDay
-                            },true);
-
-                        calendar.fullCalendar('unselect');
-                    }
-                });
-            }
-        },
-        eventDrop: function (event, delta) {
-            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-
-            $.ajax({
-                // url: SITEURL + '/fullcalenderAjax',
-                data: {
-                    title: event.title,
-                    start: start,
-                    end: end,
-                    id: event.id,
-                    type: 'update'
-                },
-                type: "POST",
-                success: function (response) {
-                    displayMessage("Event Updated Successfully");
-                }
-            });
-        },
-        eventClick: function (event) {
-            var deleteMsg = confirm("Do you really want to delete?");
-            if (deleteMsg) {
-                $.ajax({
-                    type: "POST",
-                    // url: SITEURL + '/fullcalenderAjax',
-                    data: {
-                            id: event.id,
-                            type: 'delete'
-                    },
-                    success: function (response) {
-                        calendar.fullCalendar('removeEvents', event.id);
-                        displayMessage("Event Deleted Successfully");
-                    }
-                });
-            }
-        }
-
+<script type="text/javascript" src="{{ asset('bower_components/moment/js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/fullcalendar/js/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-clockpicker.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listMonth'
+            },
+            navLinks: true, // can click day/week names to navigate views
+            businessHours: true, // display business hours
+            editable: false,
+            droppable: false,
+            selectable: false,
+            // displayEventTime: true,
+            
+        });    
     });
-    // $('#calendar').fullCalendar();
-
-function displayMessage(message) {
-    toastr.success(message, 'Event');
-}
 </script>
+@endpush

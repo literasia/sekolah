@@ -2,84 +2,183 @@
 
 namespace App\Http\Controllers\Guru\EVoting;
 
+use App\User;
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Models\Admin\Pemilihan;
+use App\Models\Admin\Calon;
+use App\Models\Admin\Posisi;
+use App\Models\Admin\Kelas;
+use App\Models\Siswa;
+use App\Utils\CRUDResponse;
+use App\Models\Superadmin\Addons;
 
 class PemilihanController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+{ //
+    public function index(Request $request) {
+        $data_pemilihan = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $ck = Calon::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $kelas = Kelas::where('kelas.user_id',auth()->user()->id)->get();
+      
+        // dd($ck);
+        // dd(auth()->user()->id_sekolah);
+        $ps = Posisi::all();
+        return view('guru.e-voting.pemilihan', [
+            'ck' => $ck,
+            'ps' => $ps,
+            'kelas' => $kelas,
+            'data_pemilihan' => $data_pemilihan,
+            'mySekolah' => User::sekolah()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function getKelas(Request $request, $id)
     {
-        //
+        if($request->req == "all"){
+            $siswa = Calon::where('sekolah_id',auth()->user()->id_sekolah)->get();
+        }else{
+            $siswa = Calon::where('kelas_id', $id)->get();
+        }
+       
+
+        return response($siswa);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $data = $request->all();
+        // validasi
+        $rules = [
+            'nama_calon'  => 'required|max:50',
+        ];
+
+        $message = [
+            'nama_calon.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($data, $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+        
+        $sekolah_id = auth()->user()->id_sekolah;
+
+     
+        // exit;
+
+        $tglMulai = explode("-", $data['tanggal_mulai']);
+        $tglSelesai = explode("-", $data['tanggal_selesai']);
+        $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
+        $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
+
+        if($data['posisi'] == 'Ketua Osis'){
+            $pemilihan= Pemilihan::create([
+                'posisi'        => $data['posisi'],
+                'sekolah_id'    => $sekolah_id,
+                'start_date'    => $newTglMulai,
+                'end_date'      => $newTglSelesai,
+            ]);
+        }else{
+            $pemilihan= Pemilihan::create([
+                'posisi'        => $data['posisi'],
+                'sekolah_id'    => $sekolah_id,
+                'start_date'    => $newTglMulai,
+                'end_date'      => $newTglSelesai,
+                'kelas_id'      => $data['kelas']
+            ]);
+        }
+        
+
+        foreach ($request->input('nama_calon') as $nama_calon) {
+            $pemilihan->calons()->attach($nama_calon);
+        }
+
+        return response()
+            ->json([
+                'success' => 'Data Added.',
+            ]);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function edit($id) {
+        $data = Pemilihan::find($id);
+        $nama_calon = [];
+        $nama_calon = Pemilihan::find($id)->calons;
+        return response()
+            ->json([
+                'name'          => $nama_calon,
+                'pemilihan_id'  => $data->id,
+                'posisi'        => $data->posisi,
+                'sekolah_id'    => $data->sekolah_id,
+                'start_date'    => $data->start_date,
+                'end_date'      => $data->end_date
+            ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function update(Request $request) {
+        $data = $request->all();
+        // validasi
+        $rules = [
+            'nama_calon'  => 'required|max:50',
+        ];
+
+        $message = [
+            'nama_calon.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $sekolah_id = auth()->user()->id_sekolah;
+
+        $tglMulai = explode("-", $data['tanggal_mulai']);
+        $tglSelesai = explode("-", $data['tanggal_selesai']);
+        $newTglMulai = $tglMulai[2] . "-" . $tglMulai[1] . "-" . $tglMulai[0];
+        $newTglSelesai = $tglSelesai[2] . "-" . $tglSelesai[1] . "-" . $tglSelesai[0];
+
+        $status = Pemilihan::whereId($request->input('hidden_id'))->update([
+            'posisi'        => $data['posisi'],
+            'sekolah_id'    => $sekolah_id,
+            'start_date'    => $newTglMulai,
+            'end_date'      => $newTglSelesai
+        ]);
+
+        $pemilihan = Pemilihan::whereId($request->input('hidden_id'))->first();
+        // dd($pemilihan);
+
+        $pemilihan->calons()->detach();
+
+        foreach ($request->input('nama_calon') as $nama_calon) {
+            $pemilihan->calons()->attach($nama_calon);
+        }
+
+        return response()
+            ->json([
+                'success' => 'Data Updated.',
+            ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function destroy($id) {
+        $pemilihan = Pemilihan::find($id);
+        // dd($pemilihan);
+        $pemilihan->calons()->detach();
+        $pemilihan->delete();
+        return response()
+            ->json([
+                'danger' => 'Data Deleted.',
+            ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
