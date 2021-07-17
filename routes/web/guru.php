@@ -1,8 +1,7 @@
 <?php
 
 
-Route::get('/guru', 'GuruController@index')
-->name('index');
+Route::get('/guru', 'GuruController@index')->name('index');
 Route::get("/guru/profile", "GuruController@show")->name("show");
 Route::post("/guru/profile/update", "GuruController@update")->name("profile.update");
 
@@ -61,38 +60,27 @@ Route::namespace('Sekolah')->group(function () {
 });
 
 // Pelajaran
-Route::namespace('Pelajaran')->group(function () {
+Route::namespace('Pelajaran')->prefix('/pelajaran')->name('pelajaran.')->group(function () {
     // Pelajaran
-    Route::get('/guru/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
-        ->name('pelajaran.mata-pelajaran');
-    Route::post('/guru/pelajaran/mata-pelajaran', 'MataPelajaranController@write')
-        ->name('pelajaran.mata-pelajaran.write');
-
+    Route::get('mata-pelajaran', 'MataPelajaranController@index')->name('mata-pelajaran');
     // Jadwal Pelajaran
-    Route::get('/guru/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
-        ->name('pelajaran.jadwal-pelajaran');
-    Route::post('/guru/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
-        ->name('pelajaran.jadwal-pelajaran.write');
+    Route::get('/guru/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')->name('jadwal-pelajaran');
 });
 
 // Peserta Didik
-Route::namespace('PesertaDidik')
-    ->prefix('peserta-didik')
-    ->name('pesertadidik.')
-    ->group(function () {
-        // Route::get('/admin/peserta-didik/siswa', 'SiswaController@index')
-        //     ->name('pesertadidik.siswa');
-        Route::resource('siswa', 'SiswaController');
-        Route::get('alumni', 'AlumniController@index')
-            ->name('alumni');
-        Route::get('pindah-kelas', 'PindahKelasController@index')
-            ->name('pindah-kelas');
-        Route::get('tidak-naik-kelas', 'TidakNaikKelasController@index')
-            ->name('tidak-naik-kelas');
-        Route::get('pengaturan-siswa-per-kelas', 'PengaturanSiswaPerKelasController@index')
-            ->name('pengaturan-siswa-per-kelas');
-        Route::get('siswa-pindahan', 'SiswaPindahanController@index')
-            ->name('siswa-pindahan');
+Route::namespace('PesertaDidik')->prefix('/peserta-didik')->name('pesertadidik.')->group(function () {
+        Route::get('siswa', 'SiswaController@index')->name('siswa');
+
+        // Route::get('alumni', 'AlumniController@index')
+        //     ->name('alumni');
+        // Route::get('pindah-kelas', 'PindahKelasController@index')
+        //     ->name('pindah-kelas');
+        // Route::get('tidak-naik-kelas', 'TidakNaikKelasController@index')
+        //     ->name('tidak-naik-kelas');
+        // Route::get('pengaturan-siswa-per-kelas', 'PengaturanSiswaPerKelasController@index')
+        //     ->name('pengaturan-siswa-per-kelas');
+        // Route::get('siswa-pindahan', 'SiswaPindahanController@index')
+        //     ->name('siswa-pindahan');
 });
 
 // Absensi

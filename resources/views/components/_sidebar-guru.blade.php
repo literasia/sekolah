@@ -92,11 +92,11 @@
                     </a>
                     <ul class="pcoded-submenu">
                         <li class="{{ request()->is('guru/peserta-didik/siswa') ? 'active' : '' }}">
-                            <a href="{{ route('guru.pesertadidik.siswa.index') }}" class="waves-effect waves-dark">
+                            <a href="{{ route('guru.pesertadidik.siswa') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Siswa</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('guru/peserta-didik/alumni') ? 'active' : '' }}">
+                        {{-- <li class="{{ request()->is('guru/peserta-didik/alumni') ? 'active' : '' }}">
                             <a href="{{ route('guru.pesertadidik.alumni') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Alumni</span>
                             </a>
@@ -120,7 +120,7 @@
                             <a href="{{ route('guru.pesertadidik.pengaturan-siswa-per-kelas') }}" class="waves-effect waves-dark">
                                 <span class="pcoded-mtext">Pengaturan Siswa Per Kelas</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 @endif
