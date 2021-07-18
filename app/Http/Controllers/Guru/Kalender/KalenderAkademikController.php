@@ -19,72 +19,89 @@ class KalenderAkademikController extends Controller
 
         $events = json_encode($datas);
 
-        return view('guru.kalender.kalender-akademik', ['mySekolah' => User::sekolah(), compact('events')]);
+        return view('guru.kalender.kalender-akademik', ['mySekolah' => User::sekolah()], compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        if ($request->prioritas == "Sangat Penting") {
+            $prioritas = "bg-danger";
+        } else if ($request->prioritas == "Penting") {
+            $prioritas = "bg-warning";
+        } else if ($request->prioritas == "Wajib Datang") {
+            $prioritas = "bg-primary";
+        } else if ($request->prioritas == "Diharapkan Datang") {
+            $prioritas = "bg-info";
+        } else {
+            $prioritas = "bg-success";
+        }
+
+        Kalender::create([
+            'sekolah_id' => auth()->user()->id_sekolah,
+            'title'        => $request->title,
+            'start_date'    => $request->start_date,
+            'end_date'    => $request->end_date,
+            'start_clock'      => $request->start_clock,
+            'end_clock' => $request->end_clock,
+            'prioritas' => $prioritas,
+        ]);
+        
+        return response()
+            ->json([
+                'success' => 'Data Added.',
+            ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $check = Kalender::select('prioritas')->whereId($id)->get();
+
+
+        if ($request->prioritas == "Sangat Penting") {
+            $prioritas = "bg-danger";
+        } else if ($request->prioritas == "Penting") {
+            $prioritas = "bg-warning";
+        } else if ($request->prioritas == "Wajib Datang") {
+            $prioritas = "bg-primary";
+        } else if ($request->prioritas == "Diharapkan Datang") {
+            $prioritas = "bg-info";
+        } else if ($request->prioritas == "Tidak Diwajibkan Datang") {
+            $prioritas = "bg-success";
+        } else {
+            $prioritas = $check[0]->prioritas;
+        }
+        $update = Kalender::whereId($id)->update([
+            'title'        => $request->title,
+            'start_date'    => $request->start_date,
+            'end_date'    => $request->end_date,
+            'start_clock'      => $request->start_clock,
+            'end_clock' => $request->end_clock,
+            'prioritas' => $prioritas,
+        ]);
+
+        if ($update) {
+            return response()
+                ->json([
+                    'success' => 'Data Updated.',
+                ]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        $delete = Kalender::find($id)->delete();
+
+        if ($delete) {
+            return response()
+                ->json([
+                    'success' => 'Data Deleted.',
+                ]);
+        }
     }
 }

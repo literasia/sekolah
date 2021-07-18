@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Guru\Pengumuman;
 
 use App\Http\Controllers\Controller;
+use App\Models\Superadmin\Addons;
 use Illuminate\Http\Request;
 use App\Models\Admin\Pesan;
+use Yajra\DataTables\DataTables;
 use App\Models\Guru;
 use App\User;
+use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PesanController extends Controller
 {
@@ -18,32 +22,15 @@ class PesanController extends Controller
      */
     public function index(Request $request)
     {
-        $pesan = Pesan::where('user_id', Auth::id())->get();
+        $pesan = Pesan::where('user_id', auth()->user()->id)->get();
 
-        if ($request->ajax())
-        {
-            $guru = Guru::where('user_id', auth()->user()->id)->first();
-
+        // dd($pesan);
+        if ($request->ajax()) {
             return DataTables::of($pesan)
                 ->addColumn('action', function ($pesan) {
-                    $button = '<button type="button" data-id="'.$pesan->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" data-id="'.$pesan->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+                    $button = '<button type="button" id="' . $pesan->id . '" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="' . $pesan->id . '" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
                     return $button;
-                })
-                ->addColumn('judul', function($pesan){
-                    return $pesan->judul;
-                })
-                ->addColumn('message_time', function($pesan){
-                    return $pesan->end_date;
-                })
-                ->addColumn('tanggal_upload', function($pesan){
-                    return $pesan->created_at;
-                })
-                ->addColumn('tampil_pada', function($pesan){
-                    return $pesan->start_date;
-                })
-                ->addColumn('status', function($pesan){
-                    return $pesan->status;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
@@ -52,132 +39,137 @@ class PesanController extends Controller
         return view('guru.pengumuman.pesan', ['pesan' => $pesan, 'mySekolah' => User::sekolah()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $guru = Guru::where('user_id', auth()->user()->id)->first();
-
+        // / validasi
         $rules = [
-            'judul' => 'required',
-        ];   
+            'judul'  => 'required|max:100',
+            'message' => 'required',
+        ];
 
-        $validator = Validator::make($data, $rules);
+        $message = [
+            'judul.required' => 'Kolom ini tidak boleh kosong',
+            'message.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $notifikasi = "";
+        if ($request->input('notifikasi') == 'Yes') {
+            $notifikasi = 'Yes';
+        } else {
+            $notifikasi = 'No';
+        }
+
+        $dashboard = "";
+        if ($request->input('dashboard') == 'Yes') {
+            $dashboard = 'Yes';
+        } else {
+            $dashboard = 'No';
+        }
+
+        $start = "";
+        if ($request->input('message_time') == 'Permanen') {
+            $start = date("Y-m-d");
+        } else {
+            $start = $request->input('start_date');
+        }
+
+        $validator = Validator::make($request->all(), $rules, $message);
 
         if ($validator->fails()) {
-            return response()->json([
-                'error' => true,
-                'errors' => $validator->errors()
-            ]);
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
         }
 
         Pesan::create([
-            'judul' => $request->judul,
-            'status' => $request->status,
-            'guru_id' => $guru->id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+            'judul' => $request->input('judul'),
+            'notifikasi' => $notifikasi,
+            'dashboard' => $dashboard,
+            'message_time' => $request->input('message_time'),
+            'start_date' => $start,
+            'end_date' => $request->input('end_date'),
+            'message' => $request->input('message'),
+            'status' => 'Aktif',
+            'user_id' => Auth::id()
         ]);
-    
+
         return response()
-            ->json([
-                'success' => 'Data berhasil ditambah.',
+        ->json([
+            'success' => 'Data Added.',
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $pesan = Pesan::findOrFail($id);
 
         return response()
-            ->json([                
-                'id'   => $pesan->id,
-                'judul' => $pesan->judul,
-                'status' => $pesan->status,
-                'guru_id' => $pesan->user_id,
-                'start_date' => $pesan->start_date,
-                'end_date' => $pesan->end_date,
+            ->json([
+                'kelas' => $kelas,
             ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request)
     {
-        $data = $request->all();
-
+        // validasi
         $rules = [
-            'judul' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'judul'  => 'required|max:100',
+            'message' => 'required',
         ];
 
-        $validator = Validator::make($data, $rules);
+        $message = [
+            'judul.required' => 'Kolom ini tidak boleh kosong',
+            'message.required' => 'Kolom ini tidak boleh kosong',
+        ];
 
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => true,
-                'errors' => $validator->errors()
-            ]);
+        $notifikasi = "";
+        if ($req->input('notifikasi') == 'Yes') {
+            $notifikasi = 'Yes';
+        } else {
+            $notifikasi = 'No';
         }
 
-        $pesan = Pesan::findOrFail($request->hidden_id);
+        $dashboard = "";
+        if ($req->input('dashboard') == 'Yes') {
+            $dashboard = 'Yes';
+        } else {
+            $dashboard = 'No';
+        }
 
-        $soal->update([
-            'judul' => $request->judul,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+        $start = "";
+        if ($req->input('message_time') == 'Permanen') {
+            $start = date("Y-m-d");
+        } else {
+            $start = $req->input('start_date');
+        }
+
+        $validator = Validator::make($req->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+        $update = Pesan::where('id', $req->hidden_id)->update([
+            'judul' => $req->input('judul'),
+            'notifikasi' => $notifikasi,
+            'dashboard' => $dashboard,
+            'message_time' => $req->input('message_time'),
+            'start_date' => $start,
+            'end_date' => $req->input('end_date'),
+            'message' => $req->input('message'),
+            'status' => 'Aktif',
         ]);
 
         return response()
             ->json([
-                'success' => 'Data berhasil diubah.',
-        ]);
+                'success' => 'Data Updated.',
+            ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $pesan = Pesan::findOrFail($id);

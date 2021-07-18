@@ -17,10 +17,14 @@ Route::namespace('Pengumuman')->group(function () {
 });
 
 // Kalender
-Route::namespace('Kalender')
-    ->group(function () {
-        Route::get('/guru/kalender/kalender-akademik', 'KalenderAkademikController@index')
+Route::namespace('Kalender')->group(function () {
+    Route::get('/guru/kalender/kalender-akademik', 'KalenderAkademikController@index')
         ->name('kalender.kalender-akademik');
+    Route::post('/guru/kalender/tambah', 'KalenderAkademikController@store')
+        ->name('kalender.tambah-event');
+    Route::post('/guru/kalender/update/{id}', 'KalenderAkademikController@update')
+        ->name('kalender.edit-event');
+    Route::get('/guru/kalender/hapus/{id}', 'KalenderAkademikController@destroy');
 });
 
 Route::namespace('Fungsionaris')

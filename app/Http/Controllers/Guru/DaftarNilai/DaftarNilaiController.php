@@ -10,6 +10,7 @@ use App\Models\Admin\DaftarNilai;
 use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\TingkatanKelas;
+use App\Models\Guru;
 use App\Http\Controllers\Controller;
 use App\Utils\CRUDResponse;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,11 @@ class DaftarNilaiController extends Controller
         $jumlah_data = 1;
         $data_siswa = [];
         $data_pelajaran = NULL;
-        $kelas = Kelas::where('user_id', auth()->id())->get();
+        $guru = Guru::where('user_id', auth()->user()->id)->first();
+        $pegawai_id = $guru['pegawai_id'];
+        // dd($guru);
+        $kelas = Kelas::where('pegawai_id', $pegawai_id)->get();
+        // dd($kelas);
         // $semester = Semester::where('user_id', auth()->user()->id)->get();
 
         $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')

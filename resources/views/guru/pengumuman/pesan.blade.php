@@ -92,7 +92,7 @@
 </div>
 
 {{-- Modal --}}
-@include('admin.pengumuman.modals._pesan')
+@include('guru.pengumuman.modals._pesan')
 {{-- @include('components.modals._confirm-delete-modal') --}}
 @endsection
 
@@ -127,12 +127,11 @@
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
-        $('#order-table').DataTable();
         $('#order-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.pengumuman.pesan') }}",
+                url: "{{ route('guru.pengumuman.pesan') }}",
             },
             columns: [{
                     data: 'DT_RowIndex',
@@ -182,8 +181,8 @@
             $('#end_date').val('');
             $('#action').val('add');
             $('#btn')
-                .removeClass('btn-info')
-                .addClass('btn-success')
+                .removeClass('btn-success')
+                .addClass('btn-info')
                 .html('Simpan');
             $('#modal-pesan').modal('show');
         });
@@ -200,105 +199,105 @@
 
 
 
-    //     $('#form-pesan').on('submit', function(event) {
-    //         event.preventDefault();
-    //         var url = '';
-    //         var atribut = $(this).attr("action");
-    //         var text = "Data sukses ditambahkan";
-    //         console.log(atribut)
-    //         if ($('#button').hasClass('add')) {
-    //             url = "{{ route('admin.pengumuman.pesan') }}";
-    //             text = "Data sukses ditambahkan";
-    //         }
+        $('#form-pesan').on('submit', function(event) {
+            event.preventDefault();
+            var url = '';
+            var atribut = $(this).attr("action");
+            var text = "Data sukses ditambahkan";
+            console.log(atribut)
+            if ($('#button').hasClass('add')) {
+                url = "{{ route('guru.pengumuman.pesan') }}";
+                text = "Data sukses ditambahkan";
+            }
 
-    //         if ($('#button').hasClass('edit')) {
-    //             url = "{{ route('admin.pengumuman.pesan-update') }}";
-    //             text = "Data sukses diupdate";
-    //         }
-    //         console.log($(this).serialize());
-    //         $.ajax({
-    //             url: url,
-    //             method: 'POST',
-    //             dataType: 'JSON',
-    //             data: $(this).serialize(),
-    //             success: function(data) {
-    //                 var html = '';
-    //                 if (data.errors) {
-    //                     // for (var count = 0; count <= data.errors.length; cou nt++) {
-    //                     html = data.errors[0];
-    //                     // }
-    //                     $('#judul').addClass('is-invalid');
-    //                     $('#message').addClass('is-invalid');
-    //                     toastr.error(html);
-    //                 }
+            if ($('#button').hasClass('edit')) {
+                url = "{{ route('guru.pengumuman.pesan-update') }}";
+                text = "Data sukses diupdate";
+            }
+            console.log($(this).serialize());
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'JSON',
+                data: $(this).serialize(),
+                success: function(data) {
+                    var html = '';
+                    if (data.errors) {
+                        // for (var count = 0; count <= data.errors.length; cou nt++) {
+                        html = data.errors[0];
+                        // }
+                        $('#judul').addClass('is-invalid');
+                        $('#message').addClass('is-invalid');
+                        toastr.error(html);
+                    }
 
-    //                 if (data.success) {
-    //                     Swal.fire("Berhasil", text, "success");
-    //                     $('#judul').removeClass('is-invalid');
-    //                     $('#message').removeClass('is-invalid');
-    //                     $('#modal-pesan').modal('hide');
-    //                     $('#form-pesan')[0].reset();
-    //                     $('#form-pesan form').attr('action', 'edit');
-    //                     $('#btn')
-    //                         .removeClass('btn-info')
-    //                         .addClass('btn-success')
-    //                         .val('Simpan');
-    //                     $('#order-table').DataTable().ajax.reload();
-    //                 }
-    //                 $('#form_result').html(html);
-    //             }
-    //         });
-    //     });
+                    if (data.success) {
+                        Swal.fire("Berhasil", text, "success");
+                        $('#judul').removeClass('is-invalid');
+                        $('#message').removeClass('is-invalid');
+                        $('#modal-pesan').modal('hide');
+                        $('#form-pesan')[0].reset();
+                        $('#form-pesan form').attr('action', 'edit');
+                        $('#btn')
+                            .removeClass('btn-info')
+                            .addClass('btn-success')
+                            .val('Simpan');
+                        $('#order-table').DataTable().ajax.reload();
+                    }
+                    $('#form_result').html(html);
+                }
+            });
+        });
 
 
 
-    //     $(document).on('click', '.edit', function() {
-    //         var id = $(this).attr('id');
+        $(document).on('click', '.edit', function() {
+            var id = $(this).attr('id');
 
-    //         $.ajax({
-    //             url: '/admin/pengumuman/pesan/' + id,
-    //             dataType: 'JSON',
-    //             success: function(data) {
-    //                 $('.modal-title').html('Edit Pesan');
-    //                 $('#form-pesan form').attr('action', 'edit');
-    //                 $('#judul').val(data.kelas.judul);
-    //                 $('#message').val(data.kelas.message);
-    //                 $('#start_date').val(data.kelas.start_date);
-    //                 $('#end_date').val(data.kelas.end_date);
-    //                 $('#hidden_id').val(data.kelas.id);
-    //                 $('#action').val('edit');
-    //                 $('#btn')
-    //                     .removeClass('btn-success')
-    //                     .addClass('btn-info')
-    //                     .html('Update');
-    //                 $('#modal-pesan').modal('show');
-    //             }
+            $.ajax({
+                url: '/guru/pengumuman/pesan/'+id,
+                dataType: 'JSON',
+                success: function(data) {
+                    $('.modal-title').html('Edit Pesan');
+                    $('#form-pesan form').attr('action', 'edit');
+                    $('#judul').val(data.kelas.judul);
+                    $('#message').val(data.kelas.message);
+                    $('#start_date').val(data.kelas.start_date);
+                    $('#end_date').val(data.kelas.end_date);
+                    $('#hidden_id').val(data.kelas.id);
+                    $('#action').val('edit');
+                    $('#btn')
+                        .removeClass('btn-success')
+                        .addClass('btn-info')
+                        .html('Update');
+                    $('#modal-pesan').modal('show');
+                }
 
-    //         });
-    //     });
+            });
+        });
 
-    //     var user_id;
-    //     $(document).on('click', '.delete', function() {
-    //         user_id = $(this).attr('id');
-    //         $('#ok_button').text('Hapus');
-    //         $('#confirmModal').modal('show');
-    //     });
+        var id;
+        $(document).on('click', '.delete', function() {
+            id = $(this).attr('id');
+            $('#ok_button').text('Hapus');
+            $('#confirmModal').modal('show');
+        });
 
-    //     $('#ok_button').click(function() {
-    //         $.ajax({
-    //             url: '/admin/pengumuman/pesan/hapus/' + user_id,
-    //             beforeSend: function() {
-    //                 $('#ok_button').text('Menghapus...');
-    //             },
-    //             success: function(data) {
-    //                 setTimeout(function() {
-    //                     $('#confirmModal').modal('hide');
-    //                     $('#order-table').DataTable().ajax.reload();
-    //                     Swal.fire("Berhasil", "Data dihapus!", "success");
-    //                 }, 1000);
-    //             }
-    //         });
-    //     });
+        $('#ok_button').click(function() {
+            $.ajax({
+                url: '/guru/pengumuman/pesan/hapus/'+id,
+                beforeSend: function() {
+                    $('#ok_button').text('Menghapus...');
+                },
+                success: function(data) {
+                    setTimeout(function() {
+                        $('#confirmModal').modal('hide');
+                        $('#order-table').DataTable().ajax.reload();
+                        Swal.fire("Berhasil", "Data dihapus!", "success");
+                    }, 1000);
+                }
+            });
+        });
     });
 </script>
 @endpush
