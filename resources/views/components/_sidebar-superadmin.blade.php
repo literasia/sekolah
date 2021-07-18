@@ -47,32 +47,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@if (request()->is('superadmin/keuangan/tagihan') || request()->is('superadmin/keuangan/faktur') || request()->is('superadmin/keuangan/berita-acara')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
-                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                <li class="{{ request()->is('superadmin/keuangan') ? 'active' : '' }}">
+                    <a href="{{ route('superadmin.keuangan.keuangan') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-newspaper"></i>
+                            <i class="fa fa-dollar-sign"></i>
                         </span>
                         <span class="pcoded-mtext">Keuangan</span>
                     </a>
-                    <ul class="pcoded-submenu">
-                        <li class="{{ request()->is('superadmin/keuangan/tagihan') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.keuangan.tagihan') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Tagihan</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('superadmin/keuangan/faktur') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.keuangan.faktur') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Faktur</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->is('superadmin/keuangan/berita-acara') ? 'active' : '' }}">
-                            <a href="{{ route('superadmin.keuangan.berita-acara') }}" class="waves-effect waves-dark">
-                                <span class="pcoded-mtext">Berita Acara</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-               
                 <li class="@if (request()->is('superadmin/referensi/jenis-kelamin') || request()->is('superadmin/referensi/agama') || request()->is('superadmin/referensi/status-nikah') || request()->is('superadmin/referensi/provinsi') || request()->is('superadmin/referensi/kabupaten-kota') || request()->is('superadmin/referensi/kecamatan') || request()->is('superadmin/referensi/suku')) pcoded-hasmenu active pcoded-trigger @else pcoded-hasmenu @endif">
                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon">

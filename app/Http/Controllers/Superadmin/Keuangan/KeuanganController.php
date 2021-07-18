@@ -7,10 +7,10 @@ use App\Models\Superadmin\{KabupatenKota, Sekolah};
 use Illuminate\Http\Request;
 use PDF;
 
-class TagihanController extends Controller
+class KeuanganController extends Controller
 {
     public function index(Request $request) { 
-        return view('superadmin.keuangan.tagihan');
+        return view('superadmin.keuangan.keuangan');
     }
 
     public function print() {

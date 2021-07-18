@@ -1,19 +1,19 @@
 @extends('layouts.superadmin')
 
 {{-- config 1 --}}
-@section('title', 'Keuangan | Tagihan')
-@section('title-2', 'Tagihan')
-@section('title-3', 'Tagihan')
+@section('title', 'Keuangan | Keuangan')
+@section('title-2', 'Keuangan')
+@section('title-3', 'Keuangan')
 
 @section('describ')
-Ini adalah halaman tagihan untuk superadmin
+Ini adalah halaman keuangan untuk superadmin
 @endsection
 
 @section('icon-l', 'fa fa-book')
 @section('icon-r', 'icon-home')
 
 @section('link')
-{{ route('superadmin.keuangan.tagihan') }}
+{{ route('superadmin.keuangan.keuangan') }}
 @endsection
 
 {{-- main content --}}
@@ -25,40 +25,72 @@ Ini adalah halaman tagihan untuk superadmin
                 <div class="card-block">
                     <button id="add" class="btn btn-outline-primary shadow-sm"><i class="fa fa-plus"></i></button>
                     <div class="dt-responsive table-responsive mt-3">
-                        <table id="tagihan-table" class="table table-striped table-bordered nowrap shadow-sm">
+                        <table id="keuangan-table" class="table table-striped table-bordered nowrap shadow-sm">
                             <thead class="text-left">
                                 <tr>
                                     <th>Nomor Tagihan</th>
+                                    <th>Nomor Faktur</th>
+                                    <th>Jenis Pesanan</th>
+                                    <th>Deskripsi Barang</th>
+                                    <th>NPWP</th>
                                     <th>Nama Sekolah</th>
                                     <th>Biaya</th>
                                     <th>Metode Pembayaran</th>
-                                    <th>Keterangan</th>
-                                    <th>Tanggal Tagihan</th>
                                     <th>PPN 10%</th>
                                     <th>PPH 1.5%</th>
                                     <th>Siplah 2.5%</th>
-                                    <th>Total Penerimaan</th>
+                                    <th>Biaya</th>
+                                    <th>Total Biaya</th>
                                     <th>Kepala Sekolah</th>
                                     <th>Bendahara</th>
+                                    <th>Penerima</th>
+                                    <th>Nama Pemesan</th>
+                                    <th>Jabatan</th>
+                                    <th>Hari</th>
+                                    <th>Tanggal Berita Acara</th>
+                                    <th>Tanggal Surat Pesanan</th>
+                                    <th>Tanggal Tagihan</th>
+                                    <th>Tanggal Faktur</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
                                 <tr>
                                     <td></td>
-                                    <td>SMK Negeri 2 Tebing Tinggi</td>
-                                    <td>50000000</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>5000000</td>
-                                    <td>75000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a href="{{route('superadmin.keuangan.laporan-tagihan')}}" class="btn btn-warning btn-mini" target="_blank"><i class="fa fa-print"></i></a>
+                                        <div class="dropdown no-arrow d-inline-block">
+                                            <a class="dropdown-toggle btn btn-warning btn-mini" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-print"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-tagihan')}}" target="_blank">Cetak Tagihan</a>
+                                                <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-faktur')}}" target="_blank">Cetak Faktur Penjualan</a>
+                                                <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-berita-acara')}}" target="_blank">Cetak Berita Acara</a>
+                                            </div>
+                                        </div>
                                         <button class="btn btn-info btn-mini"><i class="fa fa-pencil-alt"></i></button>
                                         <button class="btn btn-danger btn-mini"><i class="fa fa-trash"></i></button>
                                     </td>
@@ -90,7 +122,7 @@ Ini adalah halaman tagihan untuk superadmin
 </div>
 
 {{-- Modal --}}
-@include('superadmin.keuangan.modals._tambah-tagihan')
+@include('superadmin.keuangan.modals._tambah-keuangan')
 @endsection
 
 {{-- addons css --}}
@@ -99,13 +131,21 @@ Ini adalah halaman tagihan untuk superadmin
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
 <style>
+    .dropdown.no-arrow .dropdown-toggle::after {
+        display: none;
+    }
+    .dropdown-menu-right {
+        left: 0!important;
+        right: auto!important;
+    }
+
     .btn i {
-        margin-right: 0px;
+        margin-right: 0px!important;
     }
 
     .select2-container {
         width: 100% !important;
-        padding: 0;
+        padding: 0!important;
     }
 </style>
 @endpush
@@ -119,10 +159,10 @@ Ini adalah halaman tagihan untuk superadmin
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
-        $('#tagihan-table').DataTable();
+        $('#keuangan-table').DataTable();
 
         $('#add').on('click', function() {
-            $('.modal-title').html('Tambah Tagihan');
+            $('.modal-title').html('Tambah Data Keuangan');
             $('#btn')
                 .removeClass('btn-info')
                 .addClass('btn-success')
@@ -131,7 +171,7 @@ Ini adalah halaman tagihan untuk superadmin
                 .removeClass('btn-outline-info')
                 .addClass('btn-outline-success')
                 .val('Batal');
-            $('#modal-tagihan').modal('show');
+            $('#modal-keuangan').modal('show');
         });
     });
 </script>

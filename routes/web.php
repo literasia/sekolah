@@ -169,11 +169,11 @@ Route::namespace('Superadmin')
         // Keuangan
         Route::namespace('Keuangan')
             ->group(function () {
-            Route::get('/superadmin/keuangan/tagihan', 'TagihanController@index')->name('keuangan.tagihan');
-            Route::get('/superadmin/keuangan/laporan-tagihan', 'TagihanController@print')->name('keuangan.laporan-tagihan');
-            Route::get('/superadmin/keuangan/faktur', 'FakturController@index')->name('keuangan.faktur');
+            Route::get('/superadmin/keuangan', 'KeuanganController@index')->name('keuangan.keuangan');
+            Route::get('/superadmin/keuangan/laporan-tagihan', 'KeuanganController@print')->name('keuangan.laporan-tagihan');
+            // Route::get('/superadmin/keuangan/faktur', 'FakturController@index')->name('keuangan.faktur');
             Route::get('/superadmin/keuangan/laporan-faktur', 'FakturController@print')->name('keuangan.laporan-faktur');
-            Route::get('/superadmin/keuangan/berita-acara', 'BeritaAcaraController@index')->name('keuangan.berita-acara');
+            // Route::get('/superadmin/keuangan/berita-acara', 'BeritaAcaraController@index')->name('keuangan.berita-acara');
             Route::get('/superadmin/keuangan/laporan-berita-acara', 'BeritaAcaraController@print')->name('keuangan.laporan-berita-acara');
         });
 
