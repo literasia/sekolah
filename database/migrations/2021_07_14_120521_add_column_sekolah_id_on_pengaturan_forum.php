@@ -26,7 +26,7 @@ class AddColumnSekolahIdOnPengaturanForum extends Migration
      */
     public function down()
     {
-        Schema::table('ujians', function (Blueprint $table) {
+        Schema::table('pengaturan_forums', function (Blueprint $table) {
             $table->dropColumn('sekolah_id');
             $table->dropForeign(['sekolah_id']);
         });
