@@ -128,42 +128,42 @@
 <script>
     $(document).ready(function() {
         $('#order-table').DataTable();
-        // $('#order-table').DataTable({
-        //     processing: true,
-        //     serverSide: true,
-        //     ajax: {
-        //         url: "{{ route('admin.pengumuman.pesan') }}",
-        //     },
-        //     columns: [{
-        //             data: 'DT_RowIndex',
-        //             name: 'DT_RowIndex'
-        //         },
-        //         {
-        //             data: 'judul',
-        //             name: 'judul'
-        //         },
-        //         {
-        //             data: 'message_time',
-        //             name: 'message_time'
-        //         },
-        //         {
-        //             data: 'created_at',
-        //             name: 'created_at'
-        //         },
-        //         {
-        //             data: 'start_date',
-        //             name: 'start_date'
-        //         },
-        //         {
-        //             data: 'status',
-        //             name: 'status'
-        //         },
-        //         {
-        //             data: 'action',
-        //             name: 'action'
-        //         }
-        //     ]
-        // });
+        $('#order-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.pengumuman.pesan') }}",
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'judul',
+                    name: 'judul'
+                },
+                {
+                    data: 'message_time',
+                    name: 'message_time'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ]
+        });
         $('input:radio[name="message_time"]').change(function() {
             if ($(this).is(':checked') && $(this).val() == 'Using Time') {
                 $("#start_date").removeAttr('disabled', '');

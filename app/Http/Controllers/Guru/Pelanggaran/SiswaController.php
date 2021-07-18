@@ -32,6 +32,27 @@ class SiswaController extends Controller
                 ->addColumn('nama_siswa', function($data){
                     return $data->siswa->nama_lengkap;
                 })
+                ->addColumn('tanggal_pelanggaran', function($data){
+                    return $data->tanggal_pelanggaran;
+                })
+                ->addColumn('pelanggaran', function($data){
+                    return $data->pelanggaran;
+                })
+                ->addColumn('poin', function($data){
+                    return $data->poin;
+                })
+                ->addColumn('sebab', function($data){
+                    return $data->sebab;
+                })
+                ->addColumn('sanksi', function($data){
+                    return $data->sanksi;
+                })
+                ->addColumn('penanganan', function($data){
+                    return $data->penanganan;
+                })
+                ->addColumn('keterangan', function($data){
+                    return $data->keterangan;
+                })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
@@ -43,6 +64,7 @@ class SiswaController extends Controller
                             ->where('id_sekolah', auth()->user()->id_sekolah)
                             ->get('siswas.*');
         // dd($namaSiswa);
+        // $namaSiswa = Siswa::all();
         return view('guru.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
