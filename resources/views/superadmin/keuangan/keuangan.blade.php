@@ -161,6 +161,21 @@ Ini adalah halaman keuangan untuk superadmin
     $(document).ready(function() {
         $('#keuangan-table').DataTable();
 
+        $('#tanggal_tagihan').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('#tanggal_faktur').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('#tanggal_berita_acara').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
         $('#add').on('click', function() {
             $('.modal-title').html('Tambah Data Keuangan');
             $('#btn')

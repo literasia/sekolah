@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Superadmin\********;
+namespace App\Http\Controllers\Superadmin\BeritaAcara
 
 use App\Http\Controllers\Controller;
-use App\Models\Superadmin\{********, ********};
+use App\Models\Superadmin\{Kabupaten, Sekolah};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 
 class ******** extends Controller
-{ //
+{ 
     public function index(Request $request) { 
-        return view('********.********.********-********');
+        return view('superadmin.keuangan.berita-acara');
     }
 
     public function print() {
      
-        $pdf = PDF::loadview('********.********.********-********-********');
+        $pdf = PDF::loadview('superadmin.keuangan.laporan-berita-acara');
         return $pdf->stream();
     }
 }
