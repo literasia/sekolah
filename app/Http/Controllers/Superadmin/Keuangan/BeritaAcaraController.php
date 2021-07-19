@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Superadmin\BeritaAcara
+namespace App\Http\Controllers\Superadmin\Keuangan
 
 use App\Http\Controllers\Controller;
 use App\Models\Superadmin\{Kabupaten, Sekolah};
@@ -14,7 +14,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
-class ******** extends Controller
+class BeritaAcaraController extends Controller
 { 
     public function index(Request $request) { 
         return view('superadmin.keuangan.berita-acara');
