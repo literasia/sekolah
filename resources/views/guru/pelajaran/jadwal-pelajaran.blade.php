@@ -6,7 +6,7 @@
 @section('title-3', 'Jadwal Pelajaran')
 
 @section('describ')
-    Ini adalah halaman jadwal pelajaran untuk guru
+    Ini adalah halaman Jadwal Pelajaran untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')

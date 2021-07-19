@@ -6,7 +6,7 @@
 @section('title-3', 'Absesnsi Siswa')
 
 @section('describ')
-    Ini adalah halaman absensi siswa per kelas untuk guru
+    Ini adalah halaman Absensi Siswa untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-clipboard-list')

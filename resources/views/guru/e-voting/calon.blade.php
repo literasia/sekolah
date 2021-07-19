@@ -6,7 +6,7 @@
 @section('title-3', 'Calon')
 
 @section('describ')
-    Ini adalah halaman calon untuk guru
+    Ini adalah halaman Calon Kandidat untuk guru
 @endsection
 
 @section('icon-l', 'icon-people')

@@ -6,7 +6,7 @@
 @section('title-3', 'Kalender Akademik')
 
 @section('describ')
-    Ini adalah halaman kalender akademik untuk guru
+    Ini adalah halaman Kalender Akademik untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-calendar')

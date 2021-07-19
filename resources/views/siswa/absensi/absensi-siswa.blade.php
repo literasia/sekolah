@@ -1,19 +1,19 @@
-@extends('layouts.guru')
+@extends('layouts.siswa')
 
 {{-- config 1 --}}
-@section('title', 'Sekolah | Jurusan')
-@section('title-2', 'Jurusan')
-@section('title-3', 'Jurusan')
+@section('title', 'Absensi | Absensi Siswa')
+@section('title-2', 'Absensi Siswa')
+@section('title-3', 'Absensi Siswa')
 
 @section('describ')
-    Ini adalah halaman Jurusan untuk guru
+    Ini adalah halaman Absensi untuk siswa
 @endsection
 
-@section('icon-l', 'fa fa-list-alt')
+@section('icon-l', 'fa fa-clipboard-list')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('guru.sekolah.jurusan') }}
+    {{ route('siswa.absensi.absensi-siswa') }}
 @endsection
 
 {{-- main content --}}
@@ -28,35 +28,22 @@
                                 <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode</th>
-                                            <th>Jurusan</th>
+                                            <th>Tanggal</th>
+                                            <th>Kelas</th>
+                                            <th>H</th>
+                                            <th>A</th>
+                                            <th>S</th>
+                                            <th>I</th>
+                                            <th>Lainnya</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
-
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirmModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Konfirmasi</h4>
-                </div>
-                <div class="modal-body">
-                    <h5 align="center" id="confirm">Apakah anda yakin ingin menghapus data ini?</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-outline-danger">Hapus</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
@@ -68,11 +55,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
-    <style>
-        .btn i {
-            margin-right: 0px;
-        }
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
+    <style type="text/css">
         .glass-card {
             background: rgba( 255, 255, 255, 0.40 );
             box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
@@ -89,30 +73,11 @@
     <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#order-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('guru.sekolah.jurusan') }}",
-                },
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'kode',
-                    name: 'kode'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                }
-                ]
-            });
-
+            $('#order-table').DataTable();
         });
     </script>
 @endpush

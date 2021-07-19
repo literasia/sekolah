@@ -6,7 +6,7 @@
 @section('title-3', 'Rekap Siswa')
 
 @section('describ')
-    Ini adalah halaman rekap siswa untuk guru
+    Ini adalah halaman Rekap Siswa untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-clipboard-check')

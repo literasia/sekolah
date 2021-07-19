@@ -6,7 +6,7 @@
 @section('title-3', 'Mata Pelajaran')
 
 @section('describ')
-    Ini adalah halaman mata pelajaran untuk guru
+    Ini adalah halaman Mata Pelajaran untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')

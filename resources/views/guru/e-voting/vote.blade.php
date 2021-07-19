@@ -6,7 +6,7 @@
 @section('title-3', 'Vote')
 
 @section('describ')
-    Ini adalah halaman vote untuk guru
+    Ini adalah halaman Hasil Vote untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-poll-h')

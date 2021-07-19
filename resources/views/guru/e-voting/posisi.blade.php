@@ -6,7 +6,7 @@
 @section('title-3', 'Posisi')
 
 @section('describ')
-    Ini adalah halaman posisi untuk guru
+    Ini adalah halaman Posisi untuk guru
 @endsection
 
 @section('icon-l', 'icon-people')

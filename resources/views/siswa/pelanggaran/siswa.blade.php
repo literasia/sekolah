@@ -6,38 +6,43 @@
 @section('title-3', 'Pelanggaran Siswa')
 
 @section('describ')
-    Ini adalah halaman pelanggaran untuk siswa
+    Ini adalah halaman Pelanggaran untuk siswa
 @endsection
 
 @section('icon-l', 'fa fa-exclamation-triangle')
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pesertadidik.siswa-pindahan') }}
+    {{ route('siswa.pelanggaran.siswa') }}
 @endsection
 
 {{-- main content --}}
 @section('content')
     <div class="row">
         <div class="col-xl-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th width= 2%>No</th>
-                                        <th width= 34%>Pelanggaran</th>
-                                        <th width= 15%>Tanggal</th>
-                                        <th width= 15%>Point</th>
-                                        <th width= 34%>Sanksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                    
-                                </tbody>
-                            </table>
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Tanggal</th>
+                                            <th>Pelanggaran</th>
+                                            <th>Poin</th>
+                                            <th>Sebab</th>
+                                            <th>Sanksi</th>
+                                            <th>Penanganan</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,7 +51,6 @@
     </div>
 
     {{-- Modal --}}
-    @include('admin.pelanggaran.modals._siswa')
 @endsection
 
 {{-- addons css --}}
@@ -58,6 +62,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush
@@ -72,15 +83,6 @@
     <script>
         $(document).ready(function () {
             $('#order-table').DataTable();
-
-            $('#add').on('click', function () {
-                $('#modal-siswa').modal('show');
-            });
-
-            $('#tanggal_pelanggaran').dateDropper({
-                theme: 'leaf',
-                format: 'd-m-Y'
-            });
         });
     </script>
 @endpush

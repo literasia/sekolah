@@ -6,7 +6,7 @@
 @section('title-3', 'Pesan')
 
 @section('describ')
-    Ini adalah halaman pesan untuk guru
+    Ini adalah halaman Pesan untuk guru
 @endsection
 
 @section('icon-l', 'icon-bell')

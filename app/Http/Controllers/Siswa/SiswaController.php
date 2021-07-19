@@ -1,17 +1,31 @@
 <?php
 
 namespace App\Http\Controllers\Siswa;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Superadmin\{Sekolah, Provinsi, KabupatenKota};
+use App\Models\Superadmin\{Sekolah, Provinsi, KabupatenKota, Library};
 use Illuminate\Support\Facades\Hash;
+
 class SiswaController extends Controller
 {
     public function index() {
-        return view('siswa.index');
+        $audiobook = Library::whereNotNull('link_audio')->count();
+        $videobook = Library::whereNotNull('link_video')->count();
+        $ebook = Library::whereNotNull('link_ebook')->count();
+        $kabupaten = KabupatenKota::count();
+        $sekolah = Sekolah::where('id_sekolah')->count();
+
+        return view('siswa.index', [
+            'audiobook' => $audiobook,
+            'videobook' => $videobook,
+            'ebook' => $ebook,
+            'kabupaten' => $kabupaten,
+            'sekolah' => $sekolah
+        ]);
+
     }
 
     public function show(Request $request)

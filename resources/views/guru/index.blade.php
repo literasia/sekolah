@@ -4,7 +4,7 @@
 @section('title-2', 'Dashboard')
 @section('title-3', 'Dashboard')
 @section('describ')
-    Ini adalah halaman dashboard awal untuk guru
+    Ini adalah halaman Dashboard untuk guru
 @endsection
 @section('icon-l', 'icon-home')
 @section('icon-r', 'icon-home')
