@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function(){
 
 Route::namespace('Guru')
     ->name('guru.')
+    ->prefix('/guru')
     ->middleware(['auth', 'auth.guru'])
     ->group(__DIR__.'/web/guru.php');
 

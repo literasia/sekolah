@@ -29,6 +29,7 @@
                                 <table id="siswa-table" class="table table-striped table-bordered border nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
+                                            <th>#</th>
                                             <th>NIS</th>
                                             <th>Nama Lengkap</th>
                                             <th>Kelas</th>
@@ -39,28 +40,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
-                                        @forelse($siswas as $siswa)
-                                            <tr>
-                                                <td>{{ $siswa->nis }}</td>
-                                                <td>{{ $siswa->nama_lengkap }}</td>
-                                                <td>
-                                                    @if (!empty($siswa->kelas->name))
-                                                        {{ $siswa->kelas->name }}</td>
-                                                    @endif
-                                                <td>{{ $siswa->jk }}</td>
-                                                <td>{{ $siswa->alamat_tinggal }}</td>
-                                                <td>{{ $siswa->poin_sp}}</td>
-                                                <td>
-                                                    @if ($siswa->foto)
-                                                        <a target="_blank" href="{{ Storage::url($siswa->foto) }}"><label class="badge badge-warning">Lihat</label></a>
-                                                    @else
-                                                        -
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr><td colspan="8" class="text-center">Tidak ada data</td></tr>
-                                        @endforelse
+                                   
                                     </tbody>
                                 </table>
                             </div>
@@ -104,9 +84,28 @@
     <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/pages/file-upload/dropzone-amd-module.min.js') }}"></script>
     <script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
+    <!--
+    <script src="{{ asset('bower_components/switchery/js/switchery.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/advance-elements/swithces.js') }}"></script>
+    -->
     <script>
         $(document).ready(function () {
-            $('#siswa-table').DataTable();
+            //read
+            let table = $('#siswa-table').DataTable({
+                processing:true,
+                serverSide: true,
+                ajax: "{{ route('guru.pesertadidik.siswa') }}",
+                columns:[
+                    {data: 'DT_RowIndex'},
+                    {data: 'nis'},
+                    {data: 'nama_lengkap'},
+                    {data: 'kelas'},
+                    {data: 'jk'},
+                    {data: 'alamat_tinggal'},
+                    {data: 'poin'},
+                    {data: 'foto'},
+                ]
+            });
         });
     </script>
 @endpush

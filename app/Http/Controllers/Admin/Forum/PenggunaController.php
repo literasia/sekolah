@@ -20,7 +20,7 @@ class PenggunaController extends Controller
         $role_forum = RoleForum::orderBy('id','asc')->get();
 
         if ($request->ajax()) {
-            $data = PenggunaForum::orderBy("id","desc")->get();
+            $data = PenggunaForum::where('sekolah_id', auth()->user()->id_sekolah)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

@@ -28,10 +28,8 @@
                                 <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
                                     <thead class="text-left">
                                         <tr>
-                                            <th>No.</th>
+                                            <th width="10%">#</th>
                                             <th>Nama Pelajaran</th>
-                                            <th>Guru</th>
-                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
@@ -76,33 +74,14 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var table = $('#order-table').DataTable({
-                processing: true,
+            //read
+            let table = $('#order-table').DataTable({
+                processing:true,
                 serverSide: true,
-                ajax: "{{ route('guru.pelajaran.mata-pelajaran') }}?req=table",
-                columns: [
-                {
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    data: 'nama_pelajaran',
-                },
-                {
-                    data: 'nama_guru',
-                    name: 'nama_guru'
-                },
-                {
-                    data: 'aktif',
-                    render: (data) =>  data == 1 ? `<label class="badge badge-success">Aktif</label>` : `<label class="badge badge-danger">Nonaktif</label>`
-                }
+                ajax: "{{ route('guru.pelajaran.mata-pelajaran') }}",
+                columns:[
+                    {data: 'DT_RowIndex'},
+                    {data: 'nama_pelajaran'},
                 ]
             });
         });

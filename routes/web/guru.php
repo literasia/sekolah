@@ -1,8 +1,7 @@
 <?php
 
 
-Route::get('/guru', 'GuruController@index')
-->name('index');
+Route::get('/', 'GuruController@index')->name('index');
 Route::get("/guru/profile", "GuruController@show")->name("show");
 Route::post("/guru/profile/update", "GuruController@update")->name("profile.update");
 
@@ -18,10 +17,14 @@ Route::namespace('Pengumuman')->group(function () {
 });
 
 // Kalender
-Route::namespace('Kalender')
-    ->group(function () {
-        Route::get('/guru/kalender/kalender-akademik', 'KalenderAkademikController@index')
+Route::namespace('Kalender')->group(function () {
+    Route::get('/guru/kalender/kalender-akademik', 'KalenderAkademikController@index')
         ->name('kalender.kalender-akademik');
+    Route::post('/guru/kalender/tambah', 'KalenderAkademikController@store')
+        ->name('kalender.tambah-event');
+    Route::post('/guru/kalender/update/{id}', 'KalenderAkademikController@update')
+        ->name('kalender.edit-event');
+    Route::get('/guru/kalender/hapus/{id}', 'KalenderAkademikController@destroy');
 });
 
 Route::namespace('Fungsionaris')
@@ -61,56 +64,37 @@ Route::namespace('Sekolah')->group(function () {
 });
 
 // Pelajaran
-Route::namespace('Pelajaran')->group(function () {
+Route::namespace('Pelajaran')->prefix('/pelajaran')->name('pelajaran.')->group(function () {
     // Pelajaran
-    Route::get('/guru/pelajaran/mata-pelajaran', 'MataPelajaranController@index')
-        ->name('pelajaran.mata-pelajaran');
-    Route::post('/guru/pelajaran/mata-pelajaran', 'MataPelajaranController@write')
-        ->name('pelajaran.mata-pelajaran.write');
-
+    Route::get('mata-pelajaran', 'MataPelajaranController@index')->name('mata-pelajaran');
     // Jadwal Pelajaran
-    Route::get('/guru/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')
-        ->name('pelajaran.jadwal-pelajaran');
-    Route::post('/guru/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@write')
-        ->name('pelajaran.jadwal-pelajaran.write');
+    Route::get('/guru/pelajaran/jadwal-pelajaran', 'JadwalPelajaranController@index')->name('jadwal-pelajaran');
 });
 
 // Peserta Didik
-Route::namespace('PesertaDidik')
-    ->prefix('peserta-didik')
-    ->name('pesertadidik.')
-    ->group(function () {
-        // Route::get('/guru/peserta-didik/siswa', 'SiswaController@index')
-        //     ->name('pesertadidik.siswa');
-        // Route::resource('siswa', 'SiswaController');
-        Route::get('siswa', 'SiswaController@index')
-            ->name('siswa');
-        Route::get('alumni', 'AlumniController@index')
-            ->name('alumni');
-        Route::get('pindah-kelas', 'PindahKelasController@index')
-            ->name('pindah-kelas');
-        Route::get('tidak-naik-kelas', 'TidakNaikKelasController@index')
-            ->name('tidak-naik-kelas');
-        Route::get('pengaturan-siswa-per-kelas', 'PengaturanSiswaPerKelasController@index')
-            ->name('pengaturan-siswa-per-kelas');
-        Route::get('siswa-pindahan', 'SiswaPindahanController@index')
-            ->name('siswa-pindahan');
+Route::namespace('PesertaDidik')->prefix('/peserta-didik')->name('pesertadidik.')->group(function () {
+        Route::get('siswa', 'SiswaController@index')->name('siswa');
+
+        // Route::get('alumni', 'AlumniController@index')
+        //     ->name('alumni');
+        // Route::get('pindah-kelas', 'PindahKelasController@index')
+        //     ->name('pindah-kelas');
+        // Route::get('tidak-naik-kelas', 'TidakNaikKelasController@index')
+        //     ->name('tidak-naik-kelas');
+        // Route::get('pengaturan-siswa-per-kelas', 'PengaturanSiswaPerKelasController@index')
+        //     ->name('pengaturan-siswa-per-kelas');
+        // Route::get('siswa-pindahan', 'SiswaPindahanController@index')
+        //     ->name('siswa-pindahan');
 });
 
 // Absensi
-Route::namespace('Absensi')->group(function () {
-    // Route::get('/guru/absensi/siswa', 'SiswaController@index')
-    //     ->name('absensi.siswa');
-    // Route::post('/guru/absensi/siswa', 'SiswaController@write')
-    //     ->name('absensi.siswa.write');
-    // Route::get('/guru/absensi/rekap-siswa', 'RekapSiswaController@index')
-    //     ->name('absensi.rekap-siswa');
-    Route::get('/guru/absensi/siswaguru', 'SiswaGuruController@index')
-    ->name('absensi.siswa');
-    Route::post('/guru/absensi/siswa', 'SiswaGuruController@write')
-        ->name('absensi.siswa.write');
-    Route::get('/guru/absensi/rekap-siswaguru', 'RekapSiswaGuruController@index')
-        ->name('absensi.rekap-siswa');
+
+Route::namespace('Absensi')->prefix('/absensi')->name('absensi.')->group(function () {
+    Route::get('siswa', 'SiswaGuruController@index')->name('siswa');
+    Route::post('approve', 'SiswaGuruController@approve')->name('siswa.approve');
+    Route::post('approve-all', 'SiswaGuruController@approveAll')->name('siswa.approve-all');
+
+    Route::get('rekap-siswa', 'RekapSiswaGuruController@index')->name('rekap-siswa');
 });
 
 // Daftar Nilai
@@ -237,38 +221,38 @@ Route::namespace('EVoting')->group(function () {
 // E-learning
 Route::namespace('ELearning')->group(function () {
     // Materi
-    Route::get('/guru/e-learning/materi', 'MateriController@index')->name('e-learning.materi');
-    Route::post('/guru/e-learning/materi', 'MateriController@store')->name('e-learning.materi.store');
-    Route::get('/guru/e-learning/materi/{id}', 'MateriController@edit')->name('e-learning.materi.edit');
-    Route::post('/guru/e-learning/materi/update', 'MateriController@update')->name('e-learning.materi.update');
-    Route::get('/guru/e-learning/materi/hapus/{id}', 'MateriController@destroy')->name('e-learning.materi.delete');
+    Route::get('e-learning/materi', 'MateriController@index')->name('e-learning.materi');
+    Route::post('e-learning/materi', 'MateriController@store')->name('e-learning.materi.store');
+    Route::get('e-learning/materi/{id}', 'MateriController@edit')->name('e-learning.materi.edit');
+    Route::post('e-learning/materi/update', 'MateriController@update')->name('e-learning.materi.update');
+    Route::get('e-learning/materi/hapus/{id}', 'MateriController@destroy')->name('e-learning.materi.delete');
 
     // Kuis
-    Route::get('/guru/e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
-    Route::post('/guru/e-learning/kuis', 'KuisController@store')->name('e-learning.kuis.store');
-    Route::get('/guru/e-learning/kuis/{id}', 'KuisController@edit')->name('e-learning.kuis.edit');
-    Route::post('/guru/e-learning/kuis/update', 'KuisController@update')->name('e-learning.kuis.update');
-    Route::get('/guru/e-learning/kuis/hapus/{id}', 'KuisController@destroy')->name('e-learning.kuis.delete');
+    Route::get('e-learning/kuis', 'KuisController@index')->name('e-learning.kuis');
+    Route::post('e-learning/kuis', 'KuisController@store')->name('e-learning.kuis.store');
+    Route::get('e-learning/kuis/{id}', 'KuisController@edit')->name('e-learning.kuis.edit');
+    Route::post('e-learning/kuis/update', 'KuisController@update')->name('e-learning.kuis.update');
+    Route::get('e-learning/kuis/hapus/{id}', 'KuisController@destroy')->name('e-learning.kuis.delete');
 
     // Soal
-    Route::get('/guru/e-learning/soal', 'SoalController@index')->name('e-learning.soal');
-    Route::post('/guru/e-learning/soal', 'SoalController@store')->name('e-learning.soal.store');
-    Route::get('/guru/e-learning/soal/{id}', 'SoalController@edit')->name('e-learning.soal.edit');
-    Route::post('/guru/e-learning/soal/update', 'SoalController@update')->name('e-learning.soal.update');
-    Route::get('/guru/e-learning/soal/hapus/{id}', 'SoalController@destroy')->name('e-learning.soal.delete');
+    Route::get('e-learning/soal', 'SoalController@index')->name('e-learning.soal');
+    Route::post('e-learning/soal', 'SoalController@store')->name('e-learning.soal.store');
+    Route::get('e-learning/soal/{id}', 'SoalController@edit')->name('e-learning.soal.edit');
+    Route::post('e-learning/soal/update', 'SoalController@update')->name('e-learning.soal.update');
+    Route::get('e-learning/soal/hapus/{id}', 'SoalController@destroy')->name('e-learning.soal.delete');
 
     // Butir Soal
-    Route::get('/guru/e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
-    Route::post('/guru/e-learning/butir-soal', 'ButirSoalController@store')->name('e-learning.butir-soal.store');
-    Route::get('/guru/e-learning/butir-soal/{id}', 'ButirSoalController@edit')->name('e-learning.butir-soal.edit');
-    Route::post('/guru/e-learning/butir-soal/update', 'ButirSoalController@update')->name('e-learning.butir-soal.update');
-    Route::get('/guru/e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('e-learning.butir-soal.delete');
+    Route::get('e-learning/butir-soal', 'ButirSoalController@index')->name('e-learning.butir-soal');
+    Route::post('e-learning/butir-soal', 'ButirSoalController@store')->name('e-learning.butir-soal.store');
+    Route::get('e-learning/butir-soal/{id}', 'ButirSoalController@edit')->name('e-learning.butir-soal.edit');
+    Route::post('e-learning/butir-soal/update', 'ButirSoalController@update')->name('e-learning.butir-soal.update');
+    Route::get('e-learning/butir-soal/hapus/{id}', 'ButirSoalController@destroy')->name('e-learning.butir-soal.delete');
 
     // Nilai
-    Route::get('/guru/e-learning/nilai', 'NilaiController@index')->name('e-learning.nilai');
-    Route::post('/guru/e-learning/nilai', 'NilaiController@store')->name('e-learning.nilai.store');
-    Route::get('/guru/e-learning/nilai{id}', 'NilaiController@edit');
-    Route::post('/guru/e-learning/nilai/update', 'NilaiController@update')
+    Route::get('e-learning/nilai', 'NilaiController@index')->name('e-learning.nilai');
+    Route::post('e-learning/nilai', 'NilaiController@store')->name('e-learning.nilai.store');
+    Route::get('e-learning/nilai{id}', 'NilaiController@edit');
+    Route::post('e-learning/nilai/update', 'NilaiController@update')
         ->name('e-learning.nilai-update');
 });
 

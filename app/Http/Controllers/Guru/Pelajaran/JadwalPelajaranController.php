@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\{JadwalPelajaran, JamPelajaran, MataPelajaran, TingkatanKelas, Semester};
 use App\Models\Admin\Kelas;
 use App\User;
+use App\Models\Guru;
 use App\Models\Superadmin\Sekolah;
 
 class JadwalPelajaranController extends Controller
@@ -34,13 +35,12 @@ class JadwalPelajaranController extends Controller
             return response()->json($obj);
         }
 
-        $kelas = Kelas::where('user_id', $request->user()->id)->get();
-        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
-                                    ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
-                                    ->where('sekolah_id', $request->user()->id_sekolah)
-                                    ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
+        // get data guru
+        $guru = Guru::where('user_id', auth()->user()->id)->first();
 
-        return view('guru.pelajaran.jadwal-pelajaran', compact('kelas_id', 'sekolah', 'semester', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'), ['mySekolah' => User::sekolah()]);
+        $kelas = Kelas::where('pegawai_id', $guru->pegawai->id)->get();
+
+        return view('guru.pelajaran.jadwal-pelajaran', compact('kelas_id', 'sekolah', 'semester', 'kelas', 'tahun_ajaran', 'data'), ['mySekolah' => User::sekolah()]);
     }
 
     /**
