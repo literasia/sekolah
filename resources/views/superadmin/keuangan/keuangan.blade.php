@@ -30,10 +30,15 @@ Ini adalah halaman keuangan untuk superadmin
                                 <tr>
                                     <th>Nomor Tagihan</th>
                                     <th>Nomor Faktur</th>
+                                    <th>Nomor Pesanan</th>
+                                    <th>Perihal</th>
                                     <th>Jenis Pesanan</th>
                                     <th>Deskripsi Barang</th>
                                     <th>NPWP</th>
                                     <th>Nama Sekolah</th>
+                                    <th>Alamat</th>
+                                    <th>E-Mail</th>
+                                    <th>No. Telp</th>
                                     <th>Biaya</th>
                                     <th>Metode Pembayaran</th>
                                     <th>PPN 10%</th>
@@ -51,11 +56,18 @@ Ini adalah halaman keuangan untuk superadmin
                                     <th>Tanggal Surat Pesanan</th>
                                     <th>Tanggal Tagihan</th>
                                     <th>Tanggal Faktur</th>
+                                    <th>Tanggal Pesanan</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left">
                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -89,6 +101,7 @@ Ini adalah halaman keuangan untuk superadmin
                                                 <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-tagihan')}}" target="_blank">Cetak Tagihan</a>
                                                 <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-faktur')}}" target="_blank">Cetak Faktur Penjualan</a>
                                                 <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-berita-acara')}}" target="_blank">Cetak Berita Acara</a>
+                                                <a class="dropdown-item" href="{{route('superadmin.keuangan.laporan-pesanan')}}" target="_blank">Cetak Pesanan</a>
                                             </div>
                                         </div>
                                         <button class="btn btn-info btn-mini"><i class="fa fa-pencil-alt"></i></button>
@@ -130,6 +143,7 @@ Ini adalah halaman keuangan untuk superadmin
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/data-table/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/datedropper/css/datedropper.min.css') }}" />
 <style>
     .dropdown.no-arrow .dropdown-toggle::after {
         display: none;
@@ -156,6 +170,7 @@ Ini adalah halaman keuangan untuk superadmin
 <script src="{{ asset('bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('bower_components/datedropper/js/datedropper.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script> 
 <script>
     $(document).ready(function() {
@@ -172,6 +187,11 @@ Ini adalah halaman keuangan untuk superadmin
         });
 
         $('#tanggal_berita_acara').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y'
+        });
+
+        $('#tanggal_pesanan').dateDropper({
             theme: 'leaf',
             format: 'd-m-Y'
         });

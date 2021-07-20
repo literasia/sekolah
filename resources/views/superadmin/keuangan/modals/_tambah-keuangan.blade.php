@@ -284,6 +284,55 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card bg-light">
+                        <div class="card-header pb-0">
+                            <h4 class="font-weight-bold text-info">Pesanan</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="no_pesanan">Nomor Pesanan</label>
+                                        <input type="text" name="no_pesanan" id="no_pesanan" class="form-control form-control-sm" placeholder="Nomor Pesanan">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="perihal">Perihal</label>
+                                        <input type="text" name="perihal" id="perihal" class="form-control form-control-sm" placeholder="Perihal">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="alamat">Alamat</label>
+                                        <textarea class="form-control form-control-sm" id="alamat" placeholder="Alamat"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="email">E-Mail</label>
+                                        <input type="text" name="email" id="email" class="form-control form-control-sm" placeholder="E-Mail">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="no_telp">Telp./HP</label>
+                                        <input type="text" name="no_telp" id="no_telp" class="form-control form-control-sm" placeholder="Telp./HP">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="tanggal_pesanan">Tanggal Pesanan</label>
+                                        <input type="text" name="tanggal_pesanan" id="tanggal_pesanan" class="form-control form-control-sm" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <input type="hidden" id="action" value="add">
