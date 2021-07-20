@@ -82,7 +82,11 @@ class ForumsAPIController extends Controller
             $is_like_forum = UserLikeForum::where('user_id', $user->id)->where('forum_id', $item->id)->first();
             // number of forums read
             $amount_of_read_forum = UserReadForum::where('forum_id', $item->id)->count();
-
+            
+            setlocale(LC_TIME, 'id_ID');
+            \Carbon\Carbon::setLocale('id');
+            
+            
             // push to forum array
             array_push($forum, [
                 "id" => $item->id,
@@ -94,6 +98,8 @@ class ForumsAPIController extends Controller
                 "privasi" => $item->privasi,
                 "konten" => $item->konten,
                 "created_by" => $item->user->name,
+                "created_at" => \Carbon\Carbon::parse($item->created_at)->isoFormat('dddd, D MMMM Y'),
+                "updated_at" => \Carbon\Carbon::parse($item->updated_at)->isoFormat('dddd, D MMMM Y'),
                 "topik" => [
                     "id" => $item->topik->id,
                     "judul" => $item->topik->judul,
@@ -173,7 +179,7 @@ class ForumsAPIController extends Controller
     }
 
     public function getComment(Forum $forum, Request $request){
-        $comments = BalasanForum::where('forum_id', $forum->id)->paginate(30);
+        $comments = BalasanForum::where('forum_id', $forum->id)->with('user')->paginate(30);
 
         return response()->json(ApiResponse::success(['comments' => $comments]));
     }
