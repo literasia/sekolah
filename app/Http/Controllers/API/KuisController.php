@@ -122,6 +122,9 @@ class KuisController extends Controller
         // get kuis
         $kuis = Kuis::findOrFail($kuis_id);
 
+        // get sekolah
+        $sekolah = Sekolah::findOrFail($kuis->sekolah_id);
+
         // ambil butir soal yang yang kuis id nya itu 
         $butir_soal = ButirSoal::where('soal_id', $kuis->soal_id)->get();
 
@@ -183,6 +186,8 @@ class KuisController extends Controller
             'jumlah_salah' => $jawaban_salah,
             'mata_pelajaran' => $kuis->soal->mata_pelajaran_id,
             'nilai' => $total_nilai,
+            'semester' => $sekolah->semester,
+            'tahun_ajaran' => $sekolah->tahun_ajaran
         ];
 
         // jika hasil kuis sudah ada maka hanya perlu update saja.
