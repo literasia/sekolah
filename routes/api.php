@@ -89,16 +89,20 @@ Route::namespace('API')
         Route::get('library/get-sub-kategori/{kategori}', 'LibraryController@getSubKategori');
         Route::get('library/get-buku/{sub_kategori}', 'LibraryController@getBuku');
 
-        // Forum
+        // Forum - Topik
         Route::get('get-topik-forum/{sekolah_id}', 'ForumsAPIController@getTopik');
-        Route::get('get-forum/{sekolah_id}', 'ForumsAPIController@getForum');
+
+        // Forum - Content
+        Route::get('get-forum/{sekolah_id}/{user}', 'ForumsAPIController@getForum');
         Route::post('add-forum/{sekolah_id}/{topik_id}/{user_id}/{kelas_id}', 'ForumsAPIController@addForum');
+        
+        // Forum Comment
+        Route::get('get-comment/{forum}', 'ForumsAPIController@getComment');
         Route::post('add-comment/{sekolah_id}/{forum_id}/{user_id}', 'ForumsAPIController@addComment');
         
-        // Like Forum
+        // Forum User
+        Route::get('read-forum/{user}/{forum}', 'ForumsAPIController@updateReadForum');
         Route::post('like-forum/{id}', 'ForumsAPIController@like');
-        
-        // Bookmark Forum
         Route::post('bookmark-forum/{id}', 'ForumsAPIController@bookmark');
 
         // sambutan

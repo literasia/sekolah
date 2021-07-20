@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\{Forum, Topik, PenggunaForum, BalasanForum, PengaturanForum, RoleForum};
+use App\Models\Admin\{Forum, Topik, PenggunaForum, BalasanForum, PengaturanForum, RoleForum, UserReadForum};
 use App\Models\{UserLikeForum, UserBookmarkForum};
+use App\User;
 use Illuminate\Support\Facades\Validator;
 use App\Utils\ApiResponse;
 
@@ -21,7 +22,7 @@ class ForumsAPIController extends Controller
         return response()->json(ApiResponse::success($topik, 'Success get data'));
     }
 
-    public function getForum($sekolah_id){
+    public function getForum($sekolah_id, User $user){
         $pengaturan_forum = PengaturanForum::where('sekolah_id', $sekolah_id)->first();
 
         if ($pengaturan_forum == null) {
@@ -33,7 +34,7 @@ class ForumsAPIController extends Controller
                 'permission_edit_content'=> 1,
                 'edit_limit_time'=> 0,
                 'permission_guest_account'=> 0,
-                'auto_embeded_link'=> 1,
+                'auto_embeded_link'=>  1,
                 'permission_reply_thread'=> 0,
                 'amount_reply_thread'=> 2,
                 'permission_revisions'=> 1,
@@ -47,6 +48,15 @@ class ForumsAPIController extends Controller
                 'access_level' => null,
             ]);
         }
+
+        $pengguna_forum = PenggunaForum::where('user_id', $user->id)->first();
+        $role_forum = RoleForum::where('name', 'peserta')->first();
+        
+        if($pengguna_forum != null){
+            $pengguna_forum->roleForum()->detach();
+        }
+
+        $pengguna_forum->roleForum()->attach($role_forum->id);
 
         // cek jika akses level ditetapkan secara otomatis
         if ($pengaturan_forum->permission_access_level) {
@@ -62,15 +72,48 @@ class ForumsAPIController extends Controller
             }
         }
 
-        $forum = Forum::where('sekolah_id', $sekolah_id)->with('topik')->get();
+        $data_forum = Forum::where('sekolah_id', $sekolah_id)->with('topik')->with('user')->get();
+        $forum = [];
 
-        return response()->json(ApiResponse::success(['forum' => $forum, 'pengaturan_forum' => $pengaturan_forum]));        
+        foreach ($data_forum as $item) {
+            // get bookmark forum of user
+            $is_bookmark_forum = UserBookmarkForum::where('user_id', $user->id)->where('forum_id', $item->id)->first();
+            // get like forum of user
+            $is_like_forum = UserLikeForum::where('user_id', $user->id)->where('forum_id', $item->id)->first();
+            // number of forums read
+            $amount_of_read_forum = UserReadForum::where('forum_id', $item->id)->count();
+
+            // push to forum array
+            array_push($forum, [
+                "id" => $item->id,
+                "sekolah_id" => $item->sekolah_id,
+                "topik_id" => $item->topik_id,
+                "user_id" => $item->user_id,
+                "judul" => $item->judul,
+                "total_balasan" => $item->total_balasan,
+                "privasi" => $item->privasi,
+                "konten" => $item->konten,
+                "created_by" => $item->user->name,
+                "topik" => [
+                    "id" => $item->topik->id,
+                    "judul" => $item->topik->judul,
+                    "popularitas" => $item->topik->popularitas
+                ],
+                "amount_of_read_forum" => $amount_of_read_forum,
+                "is_like_forum" => $is_like_forum != null ? 1 : 0,
+                "is_bookmark_forum" => $is_bookmark_forum != null ? 1 : 0,
+            ]);
+        }
+
+        return response()->json(ApiResponse::success(['forum' => $forum, 
+                                                      'pengaturan_forum' => $pengaturan_forum,
+                                                    ]));        
     }
 
     public function addForum(Request $request, $sekolah_id, $topik_id, $user_id, $kelas_id){
         $rules = [
             'judul'  => 'required|max:255',
-        ];
+        ];  
 
         $message = [
             'judul.required' => 'This column judul cannot be empty',
@@ -127,6 +170,12 @@ class ForumsAPIController extends Controller
         PenggunaForum::updateOrCreate($pengguna_forums, $tp);
 
         return response()->json(ApiResponse::success($forum, 'Success add data'));
+    }
+
+    public function getComment(Forum $forum, Request $request){
+        $comments = BalasanForum::where('forum_id', $forum->id)->paginate(30);
+
+        return response()->json(ApiResponse::success(['comments' => $comments]));
     }
 
     public function addComment(Request $request, $sekolah_id, $forum_id, $user_id){
@@ -204,5 +253,19 @@ class ForumsAPIController extends Controller
         }
 
         return response()->json(ApiResponse::success([]));
+    }
+
+    public function updateReadForum(User $user, Forum $forum, Request $request){
+        $user_read_forum = UserReadForum::where('user_id', $user->id)->first();
+
+        // jika data belum ada maka tambahkan
+        if($user_read_forum == null){
+            $user_read_forum = UserReadForum::create([
+                'user_id' => $user->id,
+                'forum_id' => $forum->id,
+            ]);
+        }
+
+        return response()->json(ApiResponse::success(['user_read_forum' => $user_read_forum]));
     }
 }
