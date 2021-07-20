@@ -11,7 +11,7 @@ use App\Models\{MataPelajaran, JadwalPelajaran, Siswa};
 
 class MateriController extends Controller
 {
-    public function getMapel(User $user){
+    public function getMapel(User $user, $day){
         // init time zone
         date_default_timezone_set("Asia/Bangkok");
         
@@ -22,7 +22,7 @@ class MateriController extends Controller
 
         // check jadwal pelajaran this day
         // get day this day
-        $day = date('l'); // ex : Monday
+        // $day = date('l'); // ex : Monday
         $jadwal_pelajaran = new JadwalPelajaran;
         $getHari = $jadwal_pelajaran->getHari($day); // transform eng day to indo
 
@@ -59,7 +59,8 @@ class MateriController extends Controller
                 'id' => $item->id,
                 'type' => 'materi',
                 'judul' => $item->judul,
-                'keterangan' => 'lorem ipsum set amet dolor..',
+                'isi' => $item->materi,
+                'keterangan' => $item->keterangan,
                 'created_at' => $item->created_at,
             ]);
         }
@@ -70,7 +71,8 @@ class MateriController extends Controller
                 'id' => $item->id,
                 'type' => 'kuis',
                 'judul' => $item->soal->judul,
-                'keterangan' => 'lorem ipsum set amet dolor..',
+                'isi' => '-',
+                'keterangan' => $item->keterangan,
                 'created_at' => $item->created_at,
             ]);
         }
