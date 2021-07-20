@@ -17,10 +17,12 @@ class MateriController extends Controller
     public function index(Request $request)
     {
         $addons = Addons::where('user_id', auth()->user()->id)->first();
-        $mata_pelajaran = MataPelajaran::where('sekolah_id', auth()->user()->id_sekolah)->get();
-        $kelas = Kelas::whereHas('user', function($query) {
-            $query->where('id_sekolah', auth()->user()->id_sekolah);
-        })->get();
+        // get data guru
+        $guru = Guru::where('user_id', auth()->user()->id)->first();
+        // get mata pelajaran yang dibawa oleh guru
+        $mata_pelajaran = MataPelajaran::where('guru_id', $guru->id)->get();
+        
+        $kelas = Kelas::where('pegawai_id', $guru->pegawai->id)->get();
 
         if ($request->ajax())
         {

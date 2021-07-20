@@ -6,7 +6,7 @@
 @section('title-3', 'Jurusan')
 
 @section('describ')
-    Ini adalah halaman jurusan untuk guru
+    Ini adalah halaman Jurusan untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')
@@ -19,23 +19,25 @@
 {{-- main content --}}
 @section('content')
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Kode</th>
-                                        <th>Jurusan</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
+        <div class="col-xl-12">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kode</th>
+                                            <th>Jurusan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,6 +73,13 @@
         .btn i {
             margin-right: 0px;
         }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
     </style>
 @endpush
 
@@ -104,93 +113,6 @@
                 ]
             });
 
-            $('#form-jurusan').on('submit', function (event) {
-                event.preventDefault();
-                var url = '';
-
-                if ($('#action').val() == 'add') {
-                    url = "{{ route('guru.sekolah.jurusan') }}";
-                    text = "Data sukses ditambahkan";
-                }
-
-                if ($('#action').val() == 'edit') {
-                    url = "{{ route('guru.sekolah.jurusan-update') }}";
-                    text = "Data sukses diupdate";
-                }
-
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'JSON',
-                    data: $(this).serialize(),
-                    success: function (data) {
-                        var html = '';
-                        if (data.errors) {
-                            // for (var count = 0; count <= data.errors.length; count++) {
-                            html = data.errors[0];
-                            // }
-                            $('#kode').addClass('is-invalid');
-                            $('#name').addClass('is-invalid');
-                            toastr.error(html);
-                        }
-
-                        if (data.success) {
-                            toastr.success('Data sukses ditambahkan');
-                            $('#kode').removeClass('is-invalid');
-                            $('#name').removeClass('is-invalid');
-                            $('#form-jurusan')[0].reset();
-                            $('#action').val('add');
-                            $('#btn')
-                                .removeClass('btn-outline-info')
-                                .addClass('btn-outline-success')
-                                .val('Simpan');
-                            $('#order-table').DataTable().ajax.reload();
-                        }
-                        $('#form_result').html(html);
-                    }
-                });
-            });
-
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('id');
-                $.ajax({
-                    url: '/guru/sekolah/jurusan/'+id,
-                    dataType: 'JSON',
-                    success: function (data) {
-                        console.log(data.jurusan);
-                        $('#kode').val(data.jurusan.kode);
-                        $('#name').val(data.jurusan.name);
-                        $('#hidden_id').val(data.jurusan.id);
-                        $('#action').val('edit');
-                        $('#btn')
-                            .removeClass('btn-outline-success')
-                            .addClass('btn-outline-info')
-                            .val('Update');
-                    }
-                });
-            });
-
-            var user_id;
-            $(document).on('click', '.delete', function () {
-                user_id = $(this).attr('id');
-                $('#ok_button').text('Hapus');
-                $('#confirmModal').modal('show');
-            });
-
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: '/guru/sekolah/jurusan/hapus/'+user_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('Menghapus...');
-                    }, success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#order-table').DataTable().ajax.reload();
-                            toastr.success('Data berhasil dihapus');
-                        }, 1000);
-                    }
-                });
-            });
         });
     </script>
 @endpush

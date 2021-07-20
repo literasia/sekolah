@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Guru\Absensi;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Kelas;
 use Illuminate\Http\Request;
-use App\Models\Siswa;
+use App\Models\{Guru, Siswa};
 use App\Models\TingkatanKelas;
 
 class RekapSiswaGuruController extends Controller
@@ -24,7 +24,10 @@ class RekapSiswaGuruController extends Controller
             //return response()->json($data);
         }
 
-        $kelas = Kelas::all();
+        // get data guru
+        $guru = Guru::where('user_id', auth()->user()->id)->first();
+
+        $kelas = Kelas::where('pegawai_id', $guru->pegawai->id)->get();
 
         return view('guru.absensi.rekap-siswa', compact('data', 'kelas'));
     }

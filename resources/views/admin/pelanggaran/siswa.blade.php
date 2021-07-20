@@ -13,7 +13,7 @@
 @section('icon-r', 'icon-home')
 
 @section('link')
-    {{ route('admin.pesertadidik.siswa-pindahan') }}
+    {{ route('admin.pelanggaran.siswa') }}
 @endsection
 
 {{-- main content --}}

@@ -13,15 +13,14 @@
 @endsection
 
 @section('content')
-<div class="row">
-    {{-- sale revenue card start --}}
+<div class="row match-height">
     <div class="col-md-12 col-xl-8">
         <div class="card sale-card">
             <div class="card-header">
                 <h5>Grafik</h5>
             </div>
             <div class="card-block">
-                <div id="sales-analytics" class="chart-shadow" style="height:380px"></div>
+                <div id="sales-analytics" class="chart-shadow" style="height:300px"></div>
             </div>
         </div>
     </div>
@@ -172,12 +171,18 @@
         </div>
     </div> --}}
 </div>
-
-<div class="row">
-
-</div>
-
 @endsection
+
+@push('css')
+    <style>
+        .match-height>[class*=col]{
+            display:flex;flex-flow:column;
+        }
+        .match-height>[class*=col]>.card{
+            flex:1 1 auto;
+        }
+    </style>
+@endpush
 
 @push('js')
     <script type="text/javascript" src="{{ asset('assets/pages/dashboard/custom-dashboard.min.js') }}"></script>

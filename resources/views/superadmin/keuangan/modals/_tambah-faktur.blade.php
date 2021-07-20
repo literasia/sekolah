@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    Tambah Slider
+                    Tambah Faktur
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="jenis">Jenis</label>
+                                <label for="jenis">Jenis Pesanan</label>
                                 <input type="text" class="form-control form-control-sm" id="jenis" placeholder="Jenis">
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="tanggal">Tanggal</label>
+                                <label for="tanggal">Tanggal Faktur</label>
                                 <input type="text" name="tanggal" id="tanggal" class="form-control form-control-sm" readonly>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nip">NIP</label>
-                                <input type="text" name="nip" id="nip" class="form-control form-control-sm" placeholder="NIP">
+                                <input type="text" name="nip" id="nip" class="form-control form-control-sm" placeholder="NIP Penerima">
                             </div>
                         </div>
                     </div>

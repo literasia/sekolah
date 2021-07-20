@@ -4,32 +4,44 @@ namespace App\Http\Controllers\Siswa\Pelajaran;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\JadwalPelajaran;
-use App\Models\MataPelajaran;
-use App\Models\TingkatanKelas;
+use App\Models\{JadwalPelajaran, JamPelajaran, MataPelajaran, TingkatanKelas, Semester};
+use App\Models\Admin\Kelas;
+use App\User;
+use App\Models\Superadmin\Sekolah;
 
 class JadwalPelajaranSiswaController extends Controller
 {
 
     public function index(Request $request) {
-        $user = (object)[
-            'kelas' => $request->user()->kelas ?? 1,
-            'semester' => $request->user()->semester ?? 'ganjil',
-            'tahun_ajaran' => '2019/2020'
-        ];        
+        $data = null;
+        $sekolah = Sekolah::findOrFail(auth()->user()->id_sekolah);
         
-        $data = JadwalPelajaran::with('mataPelajaran')
-                                ->where('tahun_ajaran', $user->tahun_ajaran)
-                                ->where('kelas_id', $user->kelas)
-                                ->where('semester', $user->semester)
-                                ->orderBy('jam_pelajaran')
-                                ->get();
+        $tahun_ajaran = $request->tahun_ajaran;
+        $kelas_id = $request->kelas_id;
+        $semester = $request->semester;
 
-        $data = $data->groupBy('hari');
+        if($request->req == 'table') {
+            $data = JadwalPelajaran::with('mataPelajaran')
+                                   ->where('tahun_ajaran', $tahun_ajaran)
+                                   ->where('kelas_id', $kelas_id)
+                                   ->where('semester', $semester)
+                                   ->orderBy('jam_pelajaran')
+                                   ->get();
 
-        $tahun_ajaran = ['2019/2020', '2020/2021'];
-        $kelas = TingkatanKelas::all();        
-        
-        return view('siswa.pelajaran.jadwal-pelajaran', compact('kelas', 'tahun_ajaran', 'data', 'user'));
+            $data = $data->groupBy('hari');
+
+        }elseif($request->req == 'single') {
+            $obj = JadwalPelajaran::findOrFail($request->id);
+            return response()->json($obj);
+        }
+
+        $kelas = Kelas::where('user_id', $request->user()->id)->get();
+        $pelajaran = MataPelajaran::join('gurus', 'gurus.id', 'guru_id')
+                                    ->join('pegawais', 'pegawais.id', 'gurus.pegawai_id')
+                                    ->where('sekolah_id', $request->user()->id_sekolah)
+                                    ->selectRaw('mata_pelajarans.id, concat(nama_pelajaran, " | ", name) as name')->get();
+
+        return view('siswa.pelajaran.jadwal-pelajaran', compact('kelas_id', 'sekolah', 'semester', 'kelas', 'tahun_ajaran', 'data', 'pelajaran'));
     }
+    
 }

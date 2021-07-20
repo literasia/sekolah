@@ -40,7 +40,7 @@
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon-bell"></i>
-                            <span class="badge bg-c-red">5</span>
+                            <span class="badge bg-c-red">0</span>
                         </div>
                         <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>

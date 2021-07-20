@@ -11,7 +11,6 @@
             <tr>
               <th>Les</th>
               <th>Jadwal</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody id="{{$hari}}">
@@ -19,11 +18,6 @@
                 <tr>
                      <td>{{$obj->jam_ke}}</td>
                      <td>{{ substr($obj->jam_mulai, 0, 5) }} - {{ substr($obj->jam_selesai, 0, 5) }}</td>
-                     <td>
-                        <button data-id="{{$obj->id}}" type="button" class="btn btn-delete btn-mini btn-danger shadow-sm" data-toggle="modal" data-target="#confirmDeleteModal">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                     </td>
                 </tr>
             @endforeach
             </tbody>

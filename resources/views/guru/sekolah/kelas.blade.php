@@ -6,7 +6,7 @@
 @section('title-3', 'Kelas')
 
 @section('describ')
-    Ini adalah halaman kelas untuk guru
+    Ini adalah halaman Kelas untuk guru
 @endsection
 
 @section('icon-l', 'fa fa-list-alt')
@@ -19,40 +19,42 @@
 {{-- main content --}}
 @section('content')
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
-                                <thead class="text-left">
-                                    <tr>
-                                        <th>Kelas</th>
-                                        <th>Wali Kelas</th>
-                                        <th>Kapasitas</th>
-                                        <th>Jurusan</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-left">
-                                    {{-- @forelse($data ?? '' as $kelas)
+        <div class="col-xl-12">
+            <div class="card glass-card d-flex justify-content-center align-items-center p-2">
+                <div class=" col-xl-12 card shadow mb-0 p-0">
+                    <div class="card-body">
+                        <div class="card-block">
+                            <div class="dt-responsive table-responsive">
+                                <table id="order-table" class="table table-striped table-bordered nowrap shadow-sm">
+                                    <thead class="text-left">
                                         <tr>
-                                            <td>{{ $kelas->name }}</td>
-                                            <td>{{ $kelas->wali_kelas }}</td>
-                                            <td>{{ $kelas->kapasitas }}</td>
-                                            <td>{{ $kelas->jurusan }}</td>
-                                            <td>{{ $kelas->keterangan }}</td>
-                                            <td>
-                                                <button type="button" data-id="{{$kelas->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
-                                                &nbsp;&nbsp;
-                                                <button type="button" data-id="{{$kelas->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
-                                            </td>
+                                            <th>Kelas</th>
+                                            <th>Wali Kelas</th>
+                                            <th>Kapasitas</th>
+                                            <th>Jurusan</th>
+                                            <th>Keterangan</th>
                                         </tr>
-                                    @empty
-                                        <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
-                                    @endforelse --}}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody class="text-left">
+                                       {{-- @forelse($data ?? '' as $kelas)
+                                            <tr>
+                                                <td>{{ $kelas->name }}</td>
+                                                <td>{{ $kelas->wali_kelas }}</td>
+                                                <td>{{ $kelas->kapasitas }}</td>
+                                                <td>{{ $kelas->jurusan }}</td>
+                                                <td>{{ $kelas->keterangan }}</td>
+                                                <td>
+                                                    <button type="button" data-id="{{$kelas->id}}" class="edit btn btn-mini btn-info shadow-sm">Edit</button>
+                                                    &nbsp;&nbsp;
+                                                    <button type="button" data-id="{{$kelas->id}}" class="delete btn btn-mini btn-danger shadow-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr><td colspan="5" class="text-center">Tidak ada data</td></tr>
+                                        @endforelse --}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,6 +89,13 @@
     <style>
         .btn i {
             margin-right: 0px;
+        }
+        .glass-card {
+            background: rgba( 255, 255, 255, 0.40 );
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 22%);
+            backdrop-filter: blur( 17.5px );
+            -webkit-backdrop-filter: blur( 17.5px );
+            border-radius: 10px;border: 1px solid rgba( 255, 255, 255, 0.18 );
         }
     </style>
 @endpush

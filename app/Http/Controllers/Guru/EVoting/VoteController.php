@@ -2,84 +2,59 @@
 
 namespace App\Http\Controllers\Guru\EVoting;
 
+use Validator;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use App\Models\Admin\Pemilihan;
+use App\Models\Admin\Voting;
 
 class VoteController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+{ //
+    public function index(Request $request) {
+        $names = Pemilihan::orderBy('start_date')->where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $pemilihans = Pemilihan::orderBy('id')->where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $counts = collect();
+        // dd($names[0]->votes);
+
+        foreach($names as $nc){
+            foreach ($nc->calons as $calon){
+                $hasil = Voting::where(['pemilihan_id'=>$nc->id, 'calon_id' => $calon->id])->count();
+                $counts->push($hasil);
+            }
+        }
+        // exit;
+        return view('guru.e-voting.vote', ['names' => $names, 'pemilihans' =>$pemilihans, 'counts'=>$counts,'mySekolah' => User::sekolah()]);
+    } 
+     
+    public function store(Request $request) {
+        // validasi
+        $rules = [
+            'calon_id'  => 'required|max:50',
+        ];
+
+        $message = [
+            'calon_id.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Voting::make($request->all(), $rules, $message);
+        dd($request->all());
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $status = Voting::create([
+            'calon_id'  => $request->input('calon_id'),
+            'id_user'  => auth()->user()->id
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Added.',
+            ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -2,84 +2,114 @@
 
 namespace App\Http\Controllers\Guru\EVoting;
 
-use App\Http\Controllers\Controller;
+use App\User;
+use Validator;
+use App\Models\Siswa;
+use App\Models\Admin\Calon;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class CalonController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+{ 
+    public function index(Request $request) {
+        $addons = Addons::where('user_id', auth()->user()->id)->first();
+        // $namaSiswa = Siswa::join('users', 'users.name', 'siswas.nama_lengkap')->where('id_sekolah', auth()->user()->id_sekolah)->get();
+        $namaSiswa = Siswa::whereIn('id', function($query){
+                            $query->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
+                        })->get();
+        // dd($namaSiswa);
+        if ($request->ajax()) {
+            $data = Calon::where('sekolah_id', auth()->user()->id_sekolah)->get();
+            // dd($data);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+
+        return view('guru.e-voting.calon', ['namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function store(Request $request) {
+        $data = $request->all();
+
+        $idSekolah = auth()->user()->id_sekolah;
+        // dd($idSekolah);exit();
+
+        // validasi
+        $rules = [
+            'nama_calon'  => 'required|max:50',
+        ];
+
+        $message = [
+            'nama_calon.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $status = Calon::create([
+            'name'  => $request->input('nama_calon'),
+            'sekolah_id' => $idSekolah,
+            'kelas_id' => $request->input('kelas_id')
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Added.',
+            ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function edit($id) {
+        $calon_id = Calon::find($id);
+
+        return response()
+            ->json([
+                'calon_id'  => $calon_id
+            ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function update(Request $request) {
+        $idSekolah = auth()->user()->id_sekolah;
+        // validasi
+        $rules = [
+            'calon_id'  => 'required|max:50',
+        ];
+
+        $message = [
+            'calon_id.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $status = Calon::whereId($request->input('hidden_id'))->update([
+            'name'  => $request->input('nama_calon'),
+            'sekolah_id' => $idSekolah,
+        ]);
+
+        return response()
+            ->json([
+                'success' => 'Data Updated.',
+            ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function destroy($id) {
+        $tingkat = Calon::find($id);
+        $tingkat->delete();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -2,84 +2,170 @@
 
 namespace App\Http\Controllers\Guru\Pelanggaran;
 
+use Validator;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Models\Admin\PelanggaranSiswa;
+use App\Models\Siswa;
+use App\Models\Admin\Pelanggaran;
+use App\Models\Admin\Sanksi;
 
 class SiswaController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+{ 
+    public function index(Request $request) {
+
+        if ($request->ajax()) {
+            $data = PelanggaranSiswa::whereHas('siswa', function($siswa){
+                $siswa->whereIn('id', function($user){
+                    $user->select('siswa_id')->from('users')->where('id_sekolah', auth()->user()->id_sekolah);
+                });
+            })->get();
+            
+            return DataTables::of($data)
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" id="'.$data->id.'" class="edit btn btn-mini btn-info shadow-sm"><i class="fa fa-pencil-alt"></i></button>';
+                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" id="'.$data->id.'" class="delete btn btn-mini btn-danger shadow-sm"><i class="fa fa-trash"></i></button>';
+                    return $button;
+                })
+                ->addColumn('nama_siswa', function($data){
+                    return $data->siswa->nama_lengkap;
+                })
+                ->addColumn('tanggal_pelanggaran', function($data){
+                    return $data->tanggal_pelanggaran;
+                })
+                ->addColumn('pelanggaran', function($data){
+                    return $data->pelanggaran;
+                })
+                ->addColumn('poin', function($data){
+                    return $data->poin;
+                })
+                ->addColumn('sebab', function($data){
+                    return $data->sebab;
+                })
+                ->addColumn('sanksi', function($data){
+                    return $data->sanksi;
+                })
+                ->addColumn('penanganan', function($data){
+                    return $data->penanganan;
+                })
+                ->addColumn('keterangan', function($data){
+                    return $data->keterangan;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+        $kategori = Pelanggaran::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $sanksi = Sanksi::where('sekolah_id', auth()->user()->id_sekolah)->get();
+        $namaSiswa = Siswa::join('users', 'users.siswa_id', 'siswas.id')
+                            ->where('id_sekolah', auth()->user()->id_sekolah)
+                            ->get('siswas.*');
+        // dd($namaSiswa);
+        // $namaSiswa = Siswa::all();
+        return view('guru.pelanggaran.siswa', ['kategori' => $kategori, 'sanksi' => $sanksi, 'namaSiswa' => $namaSiswa, 'mySekolah' => User::sekolah()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function store(Request $request) {
+        // validasi
+        $rules = [
+            'siswa_id'  => 'required|max:50',
+        ];
+
+        $message = [
+            'siswa_id.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+        $siswa = Siswa::find($request->siswa_id);
+        $siswa->poin += $request->poin;
+        $siswa->save();
+
+        $status = PelanggaranSiswa::create([
+            'siswa_id' => $request->siswa_id,
+            'nama_siswa' => $siswa->nama_lengkap,
+            'tanggal_pelanggaran' => $request->tanggal_pelanggaran,
+            'pelanggaran' => $request->pelanggaran,
+            'poin' => $request->poin,
+            'sebab' => $request->sebab,
+            'sanksi' => $request->sanksi,
+            'penanganan' => $request->penanganan,
+            'keterangan' => $request->keterangan
+        ]);
+
+
+        return response()
+            ->json([
+                'success' => 'Data Added.',
+            ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function edit($id) {
+        $pelanggaran_siswa = PelanggaranSiswa::findOrFail($id);
+        return response()
+            ->json([
+                'id' => $pelanggaran_siswa->id,
+                'siswa_id'  => $pelanggaran_siswa->siswa_id,
+                'nama_siswa'  => $pelanggaran_siswa->nama_siswa,
+                'tanggal_pelanggaran'  => $pelanggaran_siswa->tanggal_pelanggaran,
+                'pelanggaran'  => $pelanggaran_siswa->pelanggaran,
+                'poin'  => $pelanggaran_siswa->poin,
+                'sebab'  => $pelanggaran_siswa->sebab,
+                'sanksi'  => $pelanggaran_siswa->sanksi,
+                'penanganan'  => $pelanggaran_siswa->penanganan,
+                'keterangan'  => $pelanggaran_siswa->keterangan
+            ]);
+        }
+
+    public function update(Request $request) {
+        // validasi
+        $rules = [
+            'siswa_id'  => 'required|max:50',
+        ];
+
+        $message = [
+            'siswa_id.required' => 'Kolom ini tidak boleh kosong',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return response()
+                ->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+        }
+
+        $siswa = Siswa::find($request->siswa_id);
+        $siswa->poin -= $request->poin_lama;
+        $siswa->poin += $request->poin;
+
+        $siswa->save();
+
+        $pelanggaran_siswa = PelanggaranSiswa::findOrFail($request->hidden_id);
+        $pelanggaran_siswa->update($request->all());
+
+        return response()
+            ->json([
+                'success' => 'Data Updated.',
+            ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function destroy($id) {
+        $pelanggaran = PelanggaranSiswa::find($id);
+        $siswa = Siswa::whereId($pelanggaran->siswa_id)->first();
+        $siswa->poin -= $pelanggaran->poin;
+        $siswa->save();
+        $pelanggaran->delete();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
